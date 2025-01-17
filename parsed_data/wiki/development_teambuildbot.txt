@@ -1,0 +1,59 @@
+Title: Development Team/Buildbot
+URL: https://wiki.sugarlabs.org/go/Development_Team/Buildbot
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Contents
+1
+Builds
+2
+Status
+3
+Master
+4
+Slaves
+5
+Contribute
+Builds
+We are running periodic builds of Sugar using the
+buildbot
+automation system. Full builds, which starts every time from a clean source and
+installation tree, are run every 12 hours. Quick builds, which are built
+incrementally from the last build source and installation tree, are run every 2
+hours. The status of the builds is available through a web interface and failures
+are notified to the development mailing list.
+Status
+Waterfall Display
+It gives you a time-oriented summary of recent buildbot activity, by showing a time-based chart of events. It provides detailed information about all steps of all recent builds, and provides hyperlinks to look at individual build logs. By simply reloading this page on a regular basis, you will see a complete description of everything the buildbot is currently working on.
+Recent Builds
+It shows the last 20 builds performed by the buildbot, one line each. Each line is a link to detailed information about that build.
+Latest Build
+It shows the status of the latest build for each builder and allows to force or interrupt builds.
+Master
+The latest build master configuration is hosted in a
+sugar-buildbot
+git repository. The service is currently hosted on sugarlabs2.xen.prgmr.com and is administered by
+Marco Pesenti Gritti
+.
+Slaves
+See
+Infrastructure Team/Resources#Build_Bots
+.
+Contribute
+You can contribute to the build and testing infrastructure by offering to host
+a slave on Linux distributions which are currently not covered. It's relatively
+easy to set one up.
+Setup a dedicated user account for the slave, usually named buildbot.
+Make a sugar-jhbuild on it, check that the build succeeds.
+Install buildbot, preferably version 0.7.7.
+Setup the slave. Name it by the distribution it's running on, including the architecture (ex. fedora9-x86_64).
+buildbot create-slave slave sugarlabs2.xen.prgmr.com:9989 SLAVENAME PASSWORD
+cd slave
+mv Makefile.sample Makefile
+Run the slave:
+make start
+Get in contact with master administrator to setup the builders.

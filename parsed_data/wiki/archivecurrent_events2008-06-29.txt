@@ -1,0 +1,115 @@
+Title: Archive/Current Events/2008-06-29
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2008-06-29
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Community jams and meetups
+3
+Tech Talk
+4
+Sugar Labs
+Sugar Digest
+1. Latest Sucrose: The new
+Sucrose
+0.81.3 Development Release is now available. The release has some new features, including: Manual reordering of the Home view icons; a freeform layout of the Home view icons; improved feedback on activity startup; support for custom certificates in Browse; alt+tab activity switching; etc. We are now in feature freeze, so the short-term focus will be on testing, bug triaging and fixes. The community has done a great job in that we achieved practically all the features that we had targeted. Thanks to everyone that made this possible and special kudos to the Sugar release team.
+Detailed release notes can be found in the wiki (Please see
+0.82/0.81.3 Notes
+); a sugar-jhbuild branch for the release can be found here (
+http://dev.laptop.org/git?p=sugar-jhbuild;a=shortlog;h=sucrose-0.81.3
+).
+With the release of 0.81.3 we will be in feature freeze (
+Development Team/Release#Feature_freeze
+): this affects all of the modules included in the release. To request an exception, which will be exceptional, please send mail to sugar at laptop.org, copying release-team at sugarlabs.org; please include the patches you would like to land. For string changes please also copy localization at lists.laptop.org.
+2. Making the installation of Activities easier: Dave Farning is working on a web interface to managing activities based upon Mozilla's AMO codebase (addons.mozilla.org). He has successfully used AMO on a local server to install activities on an XO-1 laptop and to install Sugar on a conventional laptop. He has started submitting a series of patches upstream to Mozilla.org with the goal that SugarLabs will be able to use the AMO codebase as maintained by Moxilla. A few areas that require work: (a) Look and feel – applying the sugarlabs stylesheets; (b) Applications – currently, AMO hardcodes application data rather than handled dynamically; (c)  Addontypes – AMO can handle several addontypes such as extension, plugins, and and dictionaries, but they are not yet handled dynamically. By modularizing how AMO handles applications and add-on types, we should be able to drop in Sugar application  and and addontype code.
+The work flow for a developer would be:
+Activity authors register their activity with AMO;
+author uploads latest release into sandbox;
+reviewer verifies new upload works correctly and publishes the upload.
+From the user perspective, Activities would then be browseable and downloadable in a manner similar to any Firefox plugin, with very fast, secure, and scalable updates.
+Dave is looking for help (the code is being put in
+https://www.develer.com/gitweb/pub?p=users/dfarning/w.s.o.git;a=summary
+).
+In parallel, there has also been a discussion on the Sugar list regarding development of an activity for updating Sugar and Sugar Activities.
+3. courses.sugarlabs.org: David Van Assche is setting up a Moodle installation at
+http://courses.sugarlabs.org
+to complement activities.sugarlabs.org.  It will house stable versions of activities, together with lesson plans, relevant reading materials, and related activities. The OLE Nepal team, with help from Bernie Innocenti, who is in Kathmandu for the summer, will be fleshing out the site. Please contribute.
+4. Usability testing: Carlos Mauro Cárdenas Fernández has begun a pilot usability test of Sugar on the Intel Classmate PC (Please see
+http://wiki.laptop.org/go/Projects/TestUsabilityOLPC
+for some details of his plans and initial findings).
+Community jams and meetups
+5. Porto Alegre, Brazil: Juliano Bittencourt from Laboratório de Estudos Cognitivos reports that a GameJam was held at FISL 9.0, the largest Latin America free software conference. A short video made during the event is available on YouTube (Please see
+http://www.youtube.com/watch?v=oWKBdeZUtq0
+). A team from the Argentian PyGame group was the winner: a game called Falabranaman.
+Tech Talk
+6. Infrastructure: Marco Pesenti Gritti has started a page on the wiki about infrastructure (
+Infrastructure Team/Roadmap
+) and is seeking your feedback.
+7. Journal: Tomeu Vizoso reports that a new version of the Journal activity has been released, with many translation updates and some visual fixes (Download it from
+http://dev.laptop.org/pub/sugar/sources/journal-activity/journal-activity-92.tar.bz2
+). New features include:
+Add indications for empty Journal and empty search results (Eben Eliason)
+Translation update for Italian (Carlo Falciola)
+Fix appearance of "no preview" (Eben Eliason)
+Translation update for Khmer (Rit Lim)
+Translation update for Haitian Creole (Diksyone Ayisyen)
+Translation update for German (Markus Schlager)
+Translation update for Marathi (Rupali Sarode)
+Translation update for French (Samy Boutayeb)
+Adapt object chooser to new designs. Some refactoring was needed (Tomeu)
+Adapt UI to right-to-left scripts (Khaled Hosny)
+8. Datastore: Tomeu also reports that a new version of the datastore has been released (
+http://dev.laptop.org/pub/sugar/sources/sugar-datastore/sugar-datastore-0.8.2.tar.bz2
+). New features include a metadata copy outside the index.
+9. USB key boot: The CD-image of the recent XO-LiveCD (Version 080607) contains a script to copy the data on a USB key and make it bootable:
+mount the CD (or ISO-image) on a computer running Linux;
+open a console (shell) and go into the directory tools/;
+insert a usb memory device and
+run the command ./make_usbstick.sh -d <block-device> -m <cd-mount-point>
+Hint: ./make_usbstick.sh -h provides more detailed documentation. Please contact Wolfgang Rohrmoser if you have any questions (WolfgangRohrmoser at web.de).
+10. Char 41: Morgan Collett has released Chat 41 (Please see
+http://dev.laptop.org/pub/sugar/sources/chat-activity/Chat-41.tar.bz2
+and
+http://dev.laptop.org/~morgan/bundles/Chat-41.xo
+). New features include:
+Updated translations: mr, de, ht, km, es, it;
+#6036: Add separator after old chat history;
+#6298: Implement 1-1 private chat with non Sugar Jabber clients.
+Morgan also updated the Presence Service with the changes required for non-Sugar Jabber clients to chat with OLPC XO-1 laptops.
+11. Fedora 9: Daniel Drake reports that the following packages may make the Fedora-9 build experience a little more bearable:
+a NetworkManager that can actually connect to networks (
+http://dev.laptop.org/~dsd/NetworkManager-0.6.5-0.11.svn3246.olpc3.i386.rpm
+);
+fixed keyboard – arrow keys, Alt-Gr and other functionality (
+http://dev.laptop.org/~dsd/xorg-x11-server-Xorg-1.4.99.901-29.20080415.fc9.i386.rpm
+)
+12. Alt-Tab: Benjamin Berg submitted a number of patches to update Alt-Tab behavior for switching between activities.
+13. Measure activity: Arjun Sarwal has been working upon 'Sound' and 'Sensor' contexts within Measure and also, adding a textbox at the bottom that mentions details about the signal/sound input (Please view a screenshot at
+). Arjun has also been working on a new re-organized wiki page for Measure (Please see
+http://wiki.laptop.org/go/Measure/New_temp
+). Suggestions and contributions are very welcome.
+14. Home view: Tomeu Visozo has implemented a Home view user interface that allows the user to "drag and drop" activities to desired locations on the screen (freeform) rather than restricting them to the circle. Other activities move nicely out of the way if you try to drop one on top of another.
+15. Patches: Marco Pesenti Gritti reviewed patches and more patches. He also packaged xulrunner 1.9 final and adapted the Browse activity to it. Finally he coordinated the Sugar 0.81.3 release and made big progresses on a Fedora 9 based Sugar liveCD. (Note that xulrunner 1.9 final is the version used in Firefox 3, which provides much better memory use than previous versions.)
+﻿16. Sugar Almanac: ﻿Faisal Anwar of Media Modifications has made progress on an online "Sugar Almanac" of best practices and working code snippets (Please see
+http://wiki.laptop.org/go/Sugar.activity.activity
+).
+17. Etoys: ﻿Bert Freudenberg reports a new etoys release (Please see
+http://dev.laptop.org/pub/sugar/sources/etoys/etoys-3.0.2029.tar.gz
+and
+http://dev.laptop.org/pub/sugar/sources/etoys-activity/etoys-activity-83.tar.gz
+; the bundled versions cab be found at
+http://etoys.laptop.org/rpms/etoys-3.0.2007-1.noarch.rpm
+and
+http://etoys.laptop.org/rpms/Etoys-83.xo
+). Improvements include: Pango fixes (tested with Nepalese), new DBus bindings, updated QuickGuides, a few more strings made translatable.
+18. Statistics: ohloh also has some statistics on the Sugar software:
+http://www.ohloh.net/projects/9605/analyses/latest
+http://www.ohloh.net/projects/11601/analyses/latest
+http://www.ohloh.net/projects/sugar-presence-service/analyses/latest
+http://www.ohloh.net/projects/11526/analyses/latest
+http://www.ohloh.net/projects/11636/analyses/latest
+Sugar Labs
+19. Self-organizing map (SOM): Gary Martin has generated another SOM from the past week of discussion on the IAEP mailing list (Please see
+Image:2008-June-14-20-som.jpg
+). The list was relatively quite this week, considering all of the progress, so the map is not very informative – the data being sparse.

@@ -1,0 +1,113 @@
+Title: Human Interface Guidelines/The Sugar Interface/Icons/lang-ko
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/The_Sugar_Interface/Icons/lang-ko#Strokes_.26_Fills
+--------------------------------------------------------------------------------
+번역근원
+HIG-Icons
+원문
+english
+|
+español
+|
+한국어
++/-
+차이
+←
+레이아웃 가이드라인
+아이콘
+컬러
+→
+Contents
+1
+아이콘
+1.1
+아이콘 카테고리
+1.1.1
+XO
+1.1.2
+활동 아이콘
+1.1.3
+오브젝트 아이콘
+1.1.4
+액션 아이콘
+1.2
+능동 대 피동 아이콘
+1.2.1
+능동
+1.2.2
+피동
+1.3
+아이콘 디자인 가이드라인
+1.3.1
+아이콘 포멧
+1.3.2
+아이콘 사이즈
+1.3.3
+스트로크 & 채우기
+아이콘
+아이콘 카테고리
+XO
+File:Xo s.png
+사람을 나타내는 아이콘은 특별한 위치에 있는데, 메쉬 이웃 상의 아이들과 노트북을 나타내며, 나아가 모든 아이들의 손에 노트북을 쥐어주려는 OLPC 프로젝트의 목표를 표명합니다.
+The icons which represent People have special status on the laptops. Referred to generally as the XOs, they represent the children and their laptops on the mesh Neighborhood, and furthermore represent the OLPC project and its goals to place a laptop in the hands of every child.
+활동 아이콘
+오브젝트 아이콘
+File:Clipping.png
+액션 아이콘
+능동 대 피동 아이콘
+인터페이스의 일부 요소가 비활성인 상태에서도 많은 인스턴스가 야기될 수 있습니다. 슈가는 부재와 비활동 개념을 나타내는 일관적인 시각 스타일을 정의합니다. 비활성 요소는 현재 클릭(선택)할 수 없는 버튼들 또는 일시적으로 꺼져있는 컨트롤입니다. 부재중인 요소는 실제로 그 순간에 참석하지 않은 사람들이나 사물을 나타냅니다; 예를 들면, 완료되지 않은 다운로드, 특정 활동에 아직 참여하지 않은 초대되지 않은 친구 등입니다.
+Many instances may arise in which some elements of the interface are inactive. Sugar specifies a consistent visual style to represent the concepts of absence and inactivity. Inactive elements are buttons that are not currently actionable, or controls that are temporarily disabled. Absent elements are object icons that represent people or things which aren't actually present at the moment; for instance, an incomplete download, or an invited friend who hasn't yet joined the activity.
+일반적으로, 인터페이스는 그러한 비활동을 회색 이미지로 나타냅니다. 그러나, 이 노트북은 흑백 모드로도 작동되므로, 이러한 컬러 구별은 어떤 경우에도 "사용되지 말아야" 합니다. 대신, 슈가는 비활성 오브젝트나 버튼을 흰색 가장자리 스트로크로 처리하고, 속을 비우는 벡터 그래픽의 이점을 취하고 있습니다.
+Generally, interfaces represent such inactivity through grayed out imagery. Of course, since the laptop also operates in grayscale mode, such a color distinction
+must not
+be used under any circumstances. Instead, Sugar will take advantage of the vector graphics used for rendering objects and buttons by rendering inactive ones as a white outlined stroke, with no fill color.
+능동
+피동
+아이콘 디자인 가이드라인
+아이콘 포멧
+슈가에서 사용되는 모든 아이콘은
+SVG 포맷
+을 따라야 합니다.
+All icons designed for use in Sugar must be provided in
+SVG format
+. Since all icons exist as vectors, dynamic scaling and coloring of the icons occurs without any degradation. This allows variably sized representations of particular icons to exist depending on context in the interface. Additionally, this provides support for dynamic coloring of activity and object icons based upon a child's chosen XO colors.
+아이콘 사이즈
+File:Standard icon size.png
+105px
+아이콘은 표준 사이즈로 제작 및 저장되어야 하지만, 인터페이스 내에서 실제 사이즈와 외관은 동적으로 변화할 수 있습니다.
+Icons should be developed and saved at Standard (S) size, though their actual size and appearance in the interface may change dynamically. When developed at standard size, icons should fit loosely within the 3 x 3 icon-safe subcell of a standard 75px grid cell, as specified in the
+layout section
+.
+인터페이스가 귀하의 아이콘 크기를 조절하더라도, 스트로크가 반드시 아이콘의 전체 사이즈를 비율적으로 조절하지는 않는다는 점에 유의하십시오.
+Notice that when the interface scales your icons, strokes do not necessarily scale proportionally to the overall icon size. This ensures that the stroke weight remains visible enough at all sizes to convey its weight and color, but it may also limit the granularity with which you use strokes, which could begin to blend together at smaller sizes. The following chart relates the various icon sizes to their corresponding scale factors and stroke weights. We strongly suggest that you try rendering your icons at XS, S, and M sizes in order to tweak their appearance for optimal legibility.
+Tabla 아이콘 사이즈 비교 표
+Icon Size Comparison Chart
+아이콘 크기
+Icon Size
+"스케일링 펙터
+Scaling Factor
+"스트로크 무게
+Stroke Weight
+XS
+0.5
+2.25pt
+S
+1.0
+3.5pt
+M
+1.5
+4.0pt
+L
+2.0
+4.5pt
+XL
+3.0
+6.0pt
+스트로크 & 채우기
+모든 아이콘은 두 가지 색깔로 처리됩니다: 스트로크와 필. 실제 스트로크와 아이콘을 채우는 칼러는 아이에 의해 결정되는데, 아이들이 그들의 노트북을 위해 선택한 색깔들에 맞춰 아이콘들의 색깔이 결정되기 때문입니다. 마찬가지로, 귀하가 귀하의 아이콘들을 저장하기 위해 선택한 색깔들은 임의적입니다. 그러나, 귀하의 스트로크가 렌더링될 대 색깔을 동적으로 취하므로, 똑 같은 색깔을 사용하는 모든 채우기에 주의하십시오.
+All icons render in two colors: stroke and fill. The actual stroke and fill colors that an icon renders in are determined by the children, since they correspond to the colors they have chosen for their XOs. As such, the colors in which you choose to save your icon are arbitrary. However, note that any fills that have the same color as your strokes will dynamically take on their color when rendered.
+All strokes within an "S" activity icon must have a line weight of 3.5pt. All icons should have a primary fill which represents its overall shape. In addition, any number of supplemental strokes and fills may be used; not all strokes within an icon must have fills, and not all fills must have strokes.
+←
+레이아웃 가이드라인
+아이콘
+컬러
+→

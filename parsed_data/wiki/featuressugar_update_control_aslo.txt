@@ -1,0 +1,103 @@
+Title: Features/Sugar Update Control ASLO
+URL: https://wiki.sugarlabs.org/go/Features/Sugar_Update_Control_ASLO
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Source
+5
+Detailed Description
+6
+Benefit to Sugar
+7
+Scope
+7.1
+Implementation
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+Modify the existing Sugar Update Control to pull from activities.sugarlabs.org
+Owner
+Name:
+David Farning
+Email: <dfarning@sugarlabs.org>
+Current status
+Targeted release: .86
+Last updated: 15 August 2009
+Percentage of completion: 100%
+Source
+http://git.sugarlabs.org/projects/update
+Detailed Description
+Update enables users to update their installed activities from the Activities Library at activities.sugarlabs.org.  Activities.sugarlabs.org is based on the well-established addons.mozilla.org.
+Using ASLO the client can request information about updates by sending a URL of the form,
+http://activities.sugarlabs.org/services/update-aslo.php?id=org.laptop.WebActivity&appVersion=0.82
+ASLO responds by returning an XML of the form,
+<?xml version="1.0" encoding="UTF-8"?>
+ <RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#"><RDF:Description about="urn:mozilla:extension:org.laptop.WebActivity">
+    <em:updates>
+        <RDF:Seq>
+            <RDF:li resource="urn:mozilla:extension:org.laptop.WebActivity:102"/>
+        </RDF:Seq>
+    </em:updates>
+ </RDF:Description>
+
+ <RDF:Description about="urn:mozilla:extension:org.laptop.WebActivity:102">
+    <em:version>102</em:version>
+    <em:targetApplication>
+        <RDF:Description>
+            <em:id>{3ca105e0-2280-4897-99a0-c277d1b733d2}</em:id>
+            <em:minVersion>0.82</em:minVersion>
+            <em:maxVersion>0.82</em:maxVersion>
+            <em:updateLink>http://activities.sugarlabs.org/downloads/file/26063/browse-102.xo</em:updateLink>
+            <em:updateInfoURL>http://activities.sugarlabs.org/versions/updateInfo/29040/%APP_LOCALE%/</em:updateInfoURL>
+            <em:updateHash>sha256:d06c16a1c106dbd1a706f322d75a143d0b4e32815c22f3d95589de83e5480365</em:updateHash>
+        </RDF:Description>
+    </em:targetApplication>
+ </RDF:Description></RDF:RDF>
+Benefit to Sugar
+1. This benefits Sugar by moving the entire activities infrastructure to activities.sugarlabs.org rather than being spread across a wiki and aslo.
+2. It reduces activity developer work load by using the established activites.sugarlabs.org upload process to update activities.
+3. It reduces and isolates infrastructure load between wiki, activities.sl.o, and download system.
+a. ASLO provides all necessary update information in a single network transaction.
+b. ASLO is backed by memcache, so standard update pings are very cheap.
+c. ASLO can be configured to store and serve downloads from download-farm to ease scaling issues.
+Scope
+Technically the scope is limited.  Most of the changes are inside the control panel extension or in ASLO.
+There will not be external api changes.
+Over the last several months, ASLO has been improving and proving it's reliability.  Many activities are being served via ASLO as their information is marked deprecated on wiki.laptop.org.  Shifting update to point to ASLO will require clear communication to end users and developers.
+Implementation
+Updater component for control panel
+How To Test
+Features/Sugar Update Control ASLO/Testing
+Click on My Settings -> Software update.
+Visually verify the "From Version XXX to XXX" is correct for your system by checking what is available on ASLO.
+User Experience
+The user will be able to check if there are any activity updates that can be fetched and installed.
+Dependencies
+None
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+None
+Release Notes
+As of Sugar 0.86, the only backend is activities.sugarlabs.org. Specifying other servers and update formats are out of scope of this specific feature.
+Comments and Discussion
+See
+discussion tab for this feature

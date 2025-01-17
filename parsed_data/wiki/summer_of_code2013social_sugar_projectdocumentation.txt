@@ -1,0 +1,175 @@
+Title: Summer of Code/2013/Social Sugar project/Documentation
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2013/Social_Sugar_project/Documentation
+--------------------------------------------------------------------------------
+Contents
+1
+Social Sugar
+1.1
+Mini Profiles
+1.1.1
+Detailed Description
+1.1.2
+Changes to Sugar
+1.1.2.1
+BuddyModel
+1.1.2.2
+WebServices Account Interface
+1.1.3
+New Classes
+1.1.3.1
+WebServicePost
+1.1.4
+UI additions
+1.1.4.1
+Small Cloud Icon
+1.1.4.2
+Large Cloud Icon
+1.1.4.3
+Technical details for the cloud content implementation
+1.1.5
+Sugar-GMoksaya
+1.1.5.1
+Details
+1.1.5.2
+Videos
+1.1.6
+Code
+1.1.7
+Testing
+1.1.7.1
+Directory Structure
+Social Sugar
+Social Sugar
+project involves development of GUI components that can help bring user's social interactions on external platforms into Sugar.
+The first component we've are working on are the
+mini profiles
+.
+Mini Profiles
+Mini Profiles extend
+Web Service
+code adding minimal changes to the existing models to support social features such as fetching latest posts from multiple webservices and displaying it in Group View.
+Detailed Description
+For identification of a user on a webservice such as Project Sharing Website, or Fedora pastebin, a unique id will be used. The API of the webservice should allow posting/fetching resources related to the user via this UID (and if required authentication credentials such as API token).
+Changes to Sugar
+BuddyModel
+Each Buddy used to have properties like nick, color and current activity
+We add another property
+social_ids
+to the
+BaseBuddyModel
+which are populated initially from all webservice accounts.
+social_ids is a dictionary of `service name`: `public id` pairs. E.g.
+{'gmoksaya': 'a454', 'gpaste': 'adsfq524325'}
+As are other properties like color, serialized social_ids are broadcasted to other online Sugar users via Telepathy.
+WebServices Account Interface
+Two new methods:
+get_public_id()
+and
+get_latest_post()
+are added to Account class. (webservice.account.Account)
+get_public_id
+returns the public id associated with that account.
+It is used to populate social_ids property initially
+Public ids are used to fetch posts from the external webservice, e.g. latest project uploaded on Project Sharing Website. (This is implemented in the service specific extension.)
+get_latest_post
+returns the latest post on the service.
+New Classes
+WebServicePost
+This is an abstract class for WebService posts returned by
+get_latest_post
+Has unimplemented methods for title, message, image and hyperlink.
+UI additions
+All additions are in Group view. (F2)
+Small Cloud Icon
+A small cloud shaped icon is displayed over your friend when you both have a social sugar extension installed.
+This icon can be clicked to view latest posts from web service account of your friend.
+Large Cloud Icon
+On clicking the small cloud icon, it expands to a larger cloud
+This Icon acts as a placeholder for the latest post from webservice.
+The cloud has a speech bubble like pointer to the buddy.
+The content on this icon:
+is provided by fetching latest posts from all the webservice accounts of my friend.
+is rotated after a fixed time to make the interface interactive and responsive.
+can be paused using the pause icon for kids who can take longer to read a message.
+can have a small icon (of the service) and upto 180 characters of text.
+Large cloud is closed by clicking on the cross (x) button which automatically suspends auto fetching/rotating of the latest posts.
+Technical details for the cloud content implementation
+SmallCloudIcon inherits
+sugar3.graphics.icon.CanvasIcon
+which gives it the color matching that of the buddy.
+CloudContent is placed on top of the LargeCloudIcon using Gtk.Overlay
+LargeCloudIcon inherits
+sugar3.graphics.icon.EventIcon
+The button-release-event is bound to SmallCloudIcon, whose callback draws the Gtk.Overlay containing LargeCloudIcon and CloudContent.
+Cloud content consists of a VBox of service icon, a label and HBox containing close and pause icons.
+Sugar-GMoksaya
+Sugar-GMoksaya is a webservice extension which allows us to post journal projects to Moksaya, the Project Sharing Website. Addition of Mini Profile code allows us to view latest projects from our friends in Group View.
+Details
+Moksaya needs username and api key for any request. Also, we need public id of the moksaya user to fetch latest projects.
+We ask for username and password from the user in Settings > WebService.
+These are used to fetch the api key and public id.
+api key, username and public id are stored in GConf for future use. Passwords are not stored.
+Sharing is same as in webservice extension, from Journal > Copy to > GMoksaya
+If Gmoksaya account is also configured in your friends' Sugar, then they will send you their public ids.
+Our extension fetches latest post from friends account and keeps it in memory.
+If the cloud is expanded, the latest post is displayed followed by
+get_latest_post()
+calls to other services and looping back to this service.
+Powered by
+GMoksaya
+and
+gRESTful
+Videos
+Setup and sharing journal projects
+View latest projects in Group View
+Code
+social-sugar branch on:
+Sugar
+Sugar Toolkit GTK 3
+Sugar Artwork
+master branch on:
+Sugar GMoksaya
+(Requires
+moksaya
+setup on local machine, social-sugar branch will use Rahul's deployed server making it easy to set up)
+Testing
+You can test the current implementation by following these steps:
+Set up your
+Sugar development environment
+Clone the social-sugar branch from following repositories replacing the appropriate modules in your sugar-build code:
+Sugar
+Sugar Toolkit GTK 3
+Sugar Artwork
+Clone the contents of
+mock-service
+repository inside
+~/.sugar/default
+. You'll end up with the
+directory structure
+as shown below.
+Build Sugar and add Akshit Khurana (or other people running the service) as a friend from the neighbourhood view(F1). You can use the search to find people.
+Checkout the Friend view(F2).
+Click on the small cloud icon over the buddy icon, to view my latest mock-post!
+You should see something like: "Designed from the ground up especially for children, Sugar offers an alternative to traditional "office-desktop" software. Id: 458" in a giant speech bubble like cloud.
+Congratulations! You've got mock service running on Mini Profiles.
+Directory Structure
+~/.sugar/default/extensions/webservice/
+├── __init__.py
+└── mock-service
+    ├── __init__.py
+    ├── account.py
+    ├── mock-service
+    │   ├── __init__.py
+    │   └── mock-service.py
+    └── icons
+        └── mock-service.svg
+
+~/.sugar/default/extensions/cpsection/
+├── __init__.py
+└── webaccount
+    ├── __init__.py
+    └── services
+        ├── __init__.py
+        └── mock-service
+            ├── __init__.py
+            └── service.py

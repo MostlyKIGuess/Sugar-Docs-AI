@@ -1,0 +1,166 @@
+Title: Activities/Help/Contribute
+URL: https://wiki.sugarlabs.org/go/Activities/Help/Contribute
+--------------------------------------------------------------------------------
+This page aims to inform anyone interested in contributing to Sugar documentation.
+This page acts as a "Landing page" for those who have read "How to edit Help and contribute" in XO Help, and to encourage others to test it.
+Any updates to the technical contents of that page will be announced here. Please see
+#Known issues
+.
+Contents
+1
+History
+2
+Localization, other tools
+3
+Contact
+4
+TODO
+5
+XO Help Contents
+5.1
+Mallard
+5.2
+Wish list for new documentation
+5.3
+Sugar features page
+5.4
+New to Sugar pages
+6
+Collaboration
+7
+How to get freshest Help sources
+8
+Further reading
+9
+Known issues
+9.1
+Not fully documented
+9.2
+Reconfigure Help to show View source
+History
+Based on IAEP community edits made in 2012,
+http://wiki.laptop.org/go/Help_Activity_refresh
+, a new Help 16 Activity was created.
+Previous recent history is here:
+http://wiki.laptop.org/go/Help_Activity_refresh/0.98
+Localization, other tools
+Primary reference
+http://translate.sugarlabs.org/
+.
+Contact
+Anybody interested in contributing can send a mail to sugar-devel mailing list
+http://lists.sugarlabs.org/listinfo/sugar-devel
+or to gonzalo at laptop dot org
+Users actively involved, who are prepared to review the work of contributors:
+User:Quozl
+Please add your name ...
+TODO
+This is a list of topics we need improve in the help content (--
+Godiard
+(
+talk
+) 11:24, 14 January 2014 (EST) Jan 14, 2014)
+Browse activity: need add a section about collaboration, explaining how works (sharing favorite pages)
+Collaboration page: need show how invite to a friend works.
+XO Help Contents
+Mallard
+How does this effort support Mallard? Please see also
+Documentation_Team/Notes/1.0
+Pages written in reStructuredText can generally be read in Yelp, with a few errors.
+Wish list for new documentation
+Compare with the old content, and check if something is missing
+http://dev.laptop.org/~gonzalo/old_help/XO_Introduction.html
+Keyboard
+shortcuts
+- not yet well covered.
+Please add any item you see missing.
+Please add your ideas
+This version of Help allows us to have an open mind about how Help documentation evolves, depending on the content provided by contributors.
+What ideas can be added to improve XO Help?
+Sugar features page
+An experimental page was produced quickly before Help 17 was published.
+The current content is View source and Say selected text. This section is hoped to expand.
+Please add undocumented features.
+New to Sugar pages
+Entry level contributions are particularly welcome.
+There is the possibility of modifying some pages, so that towards the top of page one finds "entry level" links to compact topics like :
+navigation
+function keys
+frame
+add features and tools, which are needed for competent use of Sugar.
+Please add your ideas
+Collaboration
+It would be good to find a model for collaboration. It might be possible within the Sugarlabs system to upload a
+help_page.rst
+for multiple editors.
+Any suggestions welcome for a repository for "Documentation - work in progress".
+The paragraph
+Documentation Team/Notes/1.0#Activity documentation template
+demonstrates a model for collaboration. Here the wiki page for Portfolio,
+Activities/Portfolio
+, was edited into the preferred format, and then lifted straight into "the documentation project".
+Where wiki pages are suitable for transfer to Help they could be highlighted here.
+How to get freshest Help sources
+To see work in progress since the previous XO Help, this command:
+git clone
+https://github.com/godiard/help-activity.git
+you will get the Help Activity _with_ the sources included.
+You can install it in your development environment doing:
+cd help-activity
+./setup.py dev
+(if you have the activity already installed, uninstall it first)
+Now you can modify any .rst file in source directory or the images in the images directory,
+and to create the html files, you only need do:
+make html
+In Sugar
+You don’t need to restart the activity to see the changes, can do click
+with the secondary button, and select reload.
+In any other Linux environment
+The output directory
+html/
+, and is opened by opening
+html/index.html
+in a browser, so it is easy to see the changes as you work.
+Further reading
+Quick reStructuredText,
+http://docutils.sourceforge.net/docs/user/rst/quickref.html
+, is a cheat-sheet for reStructuredText.
+"reStructuredText Directives"
+http://docutils.sourceforge.net/docs/ref/rst/directives.html
+by David Goodger, March 2013.
+Sphinx reStructuredText Primer,
+http://sphinx-doc.org/rest.html
+, a brief introduction to reStructuredText concepts and syntax.
+Sphinx home page,
+http://sphinx-doc.org/index.html
+.
+Another tutorial,
+http://matplotlib.org/sampledoc/
+.
+Known issues
+Not fully documented
+a. If work you have done seems to have corrupted Help,
+b. or in the event you wish to make changes to the index, over and above, adding a new line to the bottom a table of contents as described in the tutorials,
+you may delete all the output files, that is,
+~/help-activity/html/
+and
+~/help-activity/doctrees/
+. They will be regenerated by
+make html
+.
+Reconfigure Help to show View source
+In Sugar as we already have a View source button in the Frame.
+If you are working with the Help software in a browser, you can add a
+View source
+button, which will appear in the navigation panel. You need to alter three lines in
+~/help-activity/source/conf.py
+. Each of the entries listed below comprise a comment line, starting with a "#" followed by the code line. Find each pair of lines in
+conf.py
+and change the value in the code line like this.
+# Custom sidebar templates, maps document names to template names. ## Edit: Sugar default is without 'sourcelink.html'
+html_sidebars = {'**':['localtoc.html', 'sourcelink.html']}
+# If true, links to the reST sources are added to the pages. ##Edit: Sugar default is False
+html_show_sourcelink = True
+# Do not copy .rst files ##Edit: Sugar default is False
+html_copy_source = True
+A disadvantage of doing this is that extra folders are created, which might be confusing at first, and the duplication of files can make it difficult to correct certain mistakes. The command ``make html`` also takes longer to run. It is recommend not to make these changes before you are confident navigating the source and HTML folders.

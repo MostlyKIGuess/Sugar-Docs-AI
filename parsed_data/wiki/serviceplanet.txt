@@ -1,0 +1,50 @@
+Title: Service/planet
+URL: https://wiki.sugarlabs.org/go/Service/planet
+--------------------------------------------------------------------------------
+Contents
+1
+Hostnames
+2
+Hosted on
+3
+Administrative contact
+4
+Sysadmins
+5
+Notes
+6
+Upgrade notes
+7
+See Also
+Hostnames
+http://planet.sugarlabs.org/
+feed validator
+Hosted on
+Machine/sunjammer
+Administrative contact
+planetmaster AT sugarlabs DOT org
+To publish your blog on the planet, please go to
+Sysadmin/Planet_syndication_request
+.
+Sysadmins
+For non-emergency calls, preferably send email to the administrative contact.
+Sebastian Codas
+Notes
+The planet configuration data is stored in a git repository with automatic checkouts on pulls. See
+Sysadmin/Autocheckout repositories
+for more details.
+To edit planet data:
+git clone planet.sugarlabs.org:/srv/www-sugarlabs/planet
+...edit...
+git commit -m "what i changed" <file1> <file2>...
+To test a configuration change without waiting for the cronjob:
+cd /srv/www-sugarlabs/planet
+# write your changes to config2.ini
+sudo -u planet planet config2.ini
+Upgrade notes
+We're using the Ubuntu package of Planet Venus, which is very old. Switching to git would be easy, but the advantage isn't clear.
+See Also
+Sysadmin/Planet_syndication_request
+(for users)
+Sysadmin/Autocheckout repositories
+(for sysadmins)

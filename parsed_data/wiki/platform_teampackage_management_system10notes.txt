@@ -1,0 +1,156 @@
+Title: Platform Team/Package Management System/1.0/Notes
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Sweets/1.0/Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Retrospection
+2
+The pillars
+2.1
+Learning by doing
+2.2
+To not reinvent the wheels
+2.3
+Infrastructure does matter
+3
+What is Sweets
+4
+In this release
+5
+Getting the release
+6
+Try the release
+7
+Further reading
+8
+Looking forward
+9
+Feedback
+10
+Credits
+Retrospection
+Two years ago, Michael Stone
+rolled
+the first try to get the folks at Sugar Labs excited about Zero Install software. Several people from both communities showed their interest, e.g., Bernie Innocenti, Thomas Leonard, Rene Lopez, and Anders F Björklund. As a result, a meeting occurred on the #sugar-meeting IRC channel. That meeting was organized by Michael Stone to exchange knowledge and to learn whether Zero Install might be a good fit for use in Sugar activity installation. Thomas Leonard wrote a
+summary
+and Michael Stone
+forwarded
+it to the sugar-devel mailing list.
+The idea of using Zero Install in the Sugar ecosystem passed several mutations and, eventually, it seems that the core ideas have settled down and are ready to be presented widely in the community.
+Announcement:
+sugar-devel, 02 October 2011
+.
+zero-install-devel, 02 October 2011
+.
+The pillars
+Learning by doing
+The preeminent core idea behind Sugar is learning by doing. Thus, it is critical to Sugar to have the tools that support the doing metaphor well, doing not only within regular activities and project teams, but also by individuals who tweak the software in the process of learning. And not the least of options is sharing the results of doer/learner experiments. Sweets is intended to make these aspects less annoying being based on the
+Zero Install
+system.
+To not reinvent the wheels
+It will be useful to let people in the Sugar community to concentrate only on software they are developing, and to reuse existing efforts of GNU/Linux distributions as underlying dependencies for developing software. The
+PackageKit
+project provides this possibility.
+Infrastructure does matter
+The core difference of the final Sweets approach with previous evolutions is the idea that a successful model should cover the full life cycle of software, from developing by creators to using by the community. Another project, the
+Open Build System
+, was chosen for that.
+What is Sweets
+So, Sweets is a
+Package Management System
+entirely based on
+Zero Install
+, a decentralized, cross-distribution, software installation system. It might be treated as a tools and infrastructure wrapper around Zero Install. Sweets is intended to distribute various software projects created in the Sugar ecosystem, such as libraries, sugar itself, and sugar activities.
+This new distribution method is initiated assuming that:
+The method to share software projects should be as convenient as possible.
+It is important to stimulate users into becoming doers, to modify existing activities, and to share the results of their experiments with other people, i.e., a distribution method should handle different variants of the same project.
+This distribution method is not intended to be the only one, but is targeted more towards direct distribution—from software creators to software users.
+The purpose is to create a new distribution method instead of reusing:
+.xo bundles
+Work smoothly only for pure python activities, and only if all (and the same) dependencies are installed on all systems. They stop working smoothly if activities use non-standard dependencies or contain binaries.
+But, are not effective in supporting the use of multiple versions of software, e.g., the results of experiments (the work) of different doers, simultaneously. Users must manually handle the variety of activity versions, e.g., sort out all the local bundles or directories in
+~/Activities
+.
+native packages
+Not the shortest way to connect developers with users.
+In most cases, they don't support multiple versions of the same project.
+They don't work at all for sharing results of experiments.
+At the same time, existing distribution methods are reused in Sweets:
+.xo bundles
+is a subset of the Sweets workflow, from usage point of view
+It is possible to bundle an entire directory as a sweet project to use it as a regular .xo file.
+native packages
+Sweets is not intended to create one more GNU/Linux distribution. It distributes only projects that people create within the Sugar community; all other software, i.e., dependencies, will be reused from native packages.
+For cases like Sugar deployments, using the more centralized, regular repositories (third party or official GNU/Linux distributions with native packages) makes more sense. These native packages of Sugar software will be included in Sweets, as well. When people start using Sweets on top of these Sugar distributions, they will have the chance to choose between natively packaged Sugar components and components that came directly from software creators.
+It is possible, when there is a need, to automatically package sweets into native packages. See
+Sweets Distribution
+, for example.
+See the
+Glossary
+to learn more.
+In this release
+This is the initial release and has missed some critical points for Sugar, e.g., a GUI to launch activities using Sweets. The major purpose for this release is exposing the fact that basic ideas and core implementations are mature enough to make Sweets useful in some
+workflows
+and to involve more people in Sweets and Sweets related project testing and development, e.g., a la Ubuntu AppCenter for Sugar.
+Getting the release
+The details instructions can be found in
+Sweets Usage
+guide.
+First, install the PackageKit package with the packages for integration with the Desktop Environment you are using, e.g.,
+gnome-packagekit
+for Gnome. It is important to install the exact integration package required to have an authentication agent that depends on the particular Desktop Environment. After installation, it might be required to relogin from the Desktop Environment session.
+Download and run Sweets installer:
+wget
+http://download.sugarlabs.org/sweets/sweets/installer.sh
+sh installer.sh
+Relogin from the Desktop Environment session to take into account the new PATH environment variable value that the installer will set.
+Try the release
+There are Sugar Shell sweets as an example of how to use Sweets in practice. See
+Sweets Usage
+guide for instructions.
+Further reading
+Sweets
+home page.
+Sweets Usage
+- A guide to know how to launch software using Sweets.
+Sweets Packaging
+- A guide to know how to make your software accessible via Sweets.
+Infrastructure Map
+- An overview of the Sweets software world.
+Looking forward
+The next minor,
+1.1
+, release should:
+provide
+Activity Library
+activities via Zero Install,
+support search among remote sweets on the client side,
+provide an initial GUI for browsing local and remote sweets.
+Feedback
+Submit
+your bug report or feature request.
+Subscribe to the
+sugar-devel
+mailing list and email with the subject prefixed with
+[SWEETS]
+.
+Ask your question on IRC channels,
+#sugar
+(not logged) or
+#sugar-newbies
+(logged).
+Credits
+People who pointed Zero Install out and made an initial push, Michael Stone.
+Zero Install development team to take care about reviewing the code that was introduced by Sugar workflow needs.
+People who pointed Open Build System out, Jigish Gohil and David Van Assche.
+People who initially tested Sweets and replied with useful feedback, Michael Stone, Rafael Ortiz, Sebastian Silva, Bernie Innocenti.
+The
+Infrastructure Team
+for their help with setting up services required for Sweets infra.
+The
+Wiki Team
+for continuous polishing of
+Sweets
+wiki pages.
+Activity Central
+for supporting the work on the 1.0 release final phase.

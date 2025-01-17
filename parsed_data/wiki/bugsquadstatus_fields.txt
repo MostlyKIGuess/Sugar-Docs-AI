@@ -1,0 +1,108 @@
+Title: BugSquad/Status Fields
+URL: https://wiki.sugarlabs.org/go/BugSquad/Status_Fields#Severity_.28Default.3DUnspecified.29
+--------------------------------------------------------------------------------
+Contents
+1
+Bug Status (Default=Unconfirmed)
+2
+Resolutions
+3
+Severity (Default=Unspecified)
+4
+Priority (Maintainers field, Default=Unspecified by Maintainer)
+5
+Type (Default=Defect)
+6
+Sugar Version (Default=Unspecified)
+7
+Component Target Milestone (Maintainers Field)
+8
+Sugar Target Milestone (Release Team)
+9
+Distribution/OS
+Bug Status (Default=Unconfirmed)
+The status field indicates the general status of a bug. What state we are in the life cycle of a bug?
+UNCONFIRMED
+This bug has recently been added to the database. Nobody has validated that this bug is true. Users who have obtained permissions from the BugSquad may confirm this bug, changing its state to NEW. It may also be directly resolved and marked RESOLVED, or more information may be necessary, moving it to NEEDINFO.
+NEW
+This bug has recently been added to the assignee's list of bugs and must be processed. Bugs in this state may be accepted and become ASSIGNED, passed on to someone else and remain NEW, or resolved and marked RESOLVED.
+ASSIGNED
+This bug is not yet resolved, but is assigned to the proper person. From here bugs can be given to another person and become NEW, or resolved and become RESOLVED.
+NEEDINFO
+More information from the reporter is needed to proceed further in fixing this bug. This should not be used when someone needs more information from a developer- a NEW or ASSIGNED bug implicitly needs more information from the developer.
+RESOLVED
+The bug has been resolved in some way. The resolution field should contain a secondary status describing the way in which it was resolved. See the Resolutions section for more details.
+Resolutions
+Once a bug is RESOLVED, the 'resolution' field indicates in what way the bug was resolved.
+FIXED
+A fix for this bug is checked into the tree and tested.
+WONTFIX
+The problem described is a bug which will never be fixed.
+NOTABUG
+The problem described is not actually a bug, but a design choice of some sort.
+NOTSUGAR
+The bug is either not in a module that is part of Sugar, or is caused by something outside of Sugar that cannot be worked around or otherwise resolved by the Sugar platform.
+INCOMPLETE
+The bug lacks sufficient information to be fixed, and unlike NEEDINFO, no answer is possible or expected.
+INVALID
+This bug is in some way not valid- usually used when INCOMPLETE or NOTABUG just don't quite fit.
+OBSOLETE
+This bug is in an old (obsolete) or unmaintained version.
+DUPLICATE
+This bug is filed already in the data base.
+Severity (Default=Unspecified)
+This field describes the impact of a bug on a user.
+Blocker
+Blocks development and/or testing work
+Critical
+Crashes, causes loss of data, or is a severe memory leak
+Major
+Major loss of functionality - menu item broken, data output extremely incorrect, or otherwise difficult/useless to use
+Unspecified
+Minor
+minor loss of function, or other problem where easy workaround is present.
+Trivial
+Cosmetic problem like misspelled words or misaligned text.
+Priority (Maintainers field, Default=Unspecified by Maintainer)
+This field describes the importance and order in which a bug should be fixed. This field is
+utilized by hackers
+to prioritize their work to be done. While each term has a description, it is important to note that priority is highly subjective, and bugs can move up or down the priority scale based on subjective questions like 'would we be embarrassed to release the software with this bug.'
+Immediate
+This bug blocks development or testing work and should be fixed ASAP, or is a security issue in a released version of the software.
+Urgent
+This bug blocks usability of a large portion of the product, and really should be fixed before the next planned release.
+High
+Seriously broken, but not as high impact. Should be fixed before next major release. Frequently includes cosmetic bugs of particularly high visibility, regressions from functionality provided in previous releases, and more minor bugs that are frequently reported.
+Normal
+Either a fairly straightforward workaround exists or the functionality is not very important and/or not frequently used.
+Low
+Just not all that important. Rarely used in Sugar.
+Unspecified by Maintainer
+This is a field for the maintainer only.
+Type (Default=Defect)
+Defect
+A non working part of the software.
+Task
+A task that needs to be fulfilled by a specific person (i.e. create an icon).
+Enhancement
+Request for a new feature or functionality.
+Sugar Version (Default=Unspecified)
+This field describes the version of Sugar that a bug has most recently been found in. This field is used by the Sugar release team and other 
+interested parties to find all bugs in a specific version of Sugar, no matter what program the bug is in. For example, one query can find all Sugar 0.82 bugs, whether they are in sugar-toolkit 0.82.1, browse 100, or sugar-artwork 0.82.
+Don't set update field if you haven't verified that the bug exists in the version you're setting it to. Don't update this field without 
+updating the product version field - that is still useful for maintainers.
+Unspecified
+This bug is in a module that is not in Sugar, or in an unspecified version of Sugar.
+Git as of bug date
+In the recent version from git
+0.83.x
+Unstable release
+0.82.x
+Stable release
+Component Target Milestone (Maintainers Field)
+This field describes the version of the product that developers or the maintainers believe they should fix the bug by. This field is not meant for use by general users, the BugSquad, or the release team. It is reserved for developers and maintainers of the given module.
+Sugar Target Milestone (Release Team)
+This field describes the version of Sugar that a bug should be fixed in. This is not a 'it would be nice' field, it is a 'Sugar releases may need to be delayed for this issue' field. It is intended for use by senior-ish bug triagers and the release team. We allow others to nominate 'showstopper' bugs by setting this field, but bugsquadders and release team members review such bugs and unmark ones where the change is not warranted.
+Default: Unspecified by Release Team
+Distribution/OS
+This field lists the Sugar distribution (operating system) the bug was found on. Fields: Debian, Ubuntu, Fedora, OLPC, Gentoo...

@@ -1,0 +1,142 @@
+Title: Summer of Code/2014/curiousguy13/Bulletin Board
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2014/curiousguy13/Bulletin_Board
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+What is your name?
+My name is Kunal Arora and I am a 2nd year undergraduate at Netaji Subhas Institute Of Technology,New Delhi.
+What is your email address?
+My E-mail address is kunalarora.135@gmail.com
+What is your Sugar Labs wiki username?
+Curiousguy13
+What is your IRC nickname on irc.freenode.net?
+curiousguy13
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My first language is Hindi but I am pretty comfortable with English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I am located in New Delhi,India. I tend to work from afternoon to midnight IST ie 17:30 to 5:30 UTC but it can be adjusted if required.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other
+demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I started diving into the FOSS community since January ,2014. I started my open source journey with Mozilla.
+I have contributed and am still involved with mozmill which is an automated testing tool for firefox.
+Here is a link to my mozilla bugzilla ID:
+https://bugzilla.mozilla.org/user_profile?user_id=494874
+Although , i haven't made much contribution but I have worked on a few bugs and some of my patches are still under review.
+Also, i have recently contributed to the BinPy repository.
+https://github.com/curiousguy13/BinPy
+But , more than that most of the softwares I use are open-source becuase I believe that software should be
+open-source and communities should work together to improve the softwares and move towards a better future.
+About your project
+What is the name of your project?
+Bulletin-Board
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+My project would be a Bulletin-Board. As the name suggests, it would allow children to share resources and tools with each other.
+It would make learning more interactive and social. 
+The Bulletin Board would consist of two tools:
+A chat overlay - It would be a spatially contextual chatting interface .It would be implemented as transparent layer over an activity where one could place annotation style chat bubbles that may be placed anywhere on the screen.This would enable discussions on specific areas in an activity and in one instance a teacher could check a child's work and place these annotations on places which need improvement.
+A persistent shareable clipboard- It would be a separate space where people working together on same projects could collaborate by sharing resources. Each activity will have it's own clipboard where participants may share supporting material that other participants in the activity may view (or keep it for themselves).There will be different views in the clipboard. For Example, the Home view would contain content that would not be shared with anyone else whereas the friends view would contain content that would be shared only with the friends.
+These tools will be implemented using python and gtk3+.
+The Bulletin Board is also described in the sugarlabs wiki at:
+http://wiki.sugarlabs.org/go/Human_Interface_Guidelines/The_Laptop_Experience/Bulletin_Boards
+Implementation:
+1) Chat Overlay: The chat overlay will be a peer to peer implementation using telepathy-python module. The chat overlay will only be used to transfer text or images , so it's functionality will be similar to the already existing chat activity. The code from chat activity can be reused to some extent in the chat overlay. The chat activity code will have to be modified to fit with the design and UI of chat overlay which will be implemented in gtk3+.
+2) A persistent shareable clipboard: The clipboard will be different than the chat overlay as in the sharable clipboard , we will be able to share all objects i.e text files, music files, pdf files ,images and even complete activities. Basically any object that could be stored in journal will be shareable using using the clipboard. It will also be a peer to peer implementation using telepathy-python. In this, the code used for storing objects in journal can be modified and reused.
+Design and UI:
+The picture displays the chat overlay layer over a drawing activity as the Bulletin board option is selected in the top frame.
+All the above mentioned details regarding the functionality will be discussed thoroughly with the sugar-labs community during the 
+community bonding period and might undergo many modifications.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Week/Days
+Work to be done
+21 April-19 May (Community Bonding Period)
+Understand the existing sugar and sugar-toolkit code and discuss the design and implementation options with mentors and sugar community
+19 May-26 May (Week 1)
+Start coding the UI for chat overlay
+26 May-2 June (Week 2)
+Work on the sharing functionality of chat overlay and improve UI
+2 June-9 June (Week 3)
+Work on the sharing functionality of chat overlay and improve UI
+9 June- 16 June (Week 4)
+Buffer Week
+16 June-23 June (Week 5)
+Start coding the UI for persistent clipboard
+23 June-30 June (Week 6)
+Mid-term Evaluation Week
+(Buffer week, complete remaining work)
+30 June-7 July (Week 7)
+Work on the functionality of persistent clipboard.
+7 July-14 July (Week 8)
+Work on the functionality of persistent clipboard and improve UI.
+14 July-21 July (Week 9)
+Work on the functionality of persistent clipboard and improve UI.
+21 July-28 July (Week 10)
+Buffer Week
+28 July-4 August (Week 11)
+Buffer Week
+4 August-11 August (Week 12)
+Brushing up the code , adding tests and documentation , removing bugs.
+11 August-18 August (Week 13)
+Evaluation Week
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+Although I haven't worked on as big a project as sugarlabs but I have been involved in many projects that are listed below:
+I implemented a paddle ball game using graphics library in C++ when I was in 11th class:
+Link:
+https://github.com/curiousguy13/paddle-ball
+A project on tourism using C++ when I was in 12th class:
+Link:
+https://github.com/curiousguy13/travel
+I am good with algorithms and data structures and I like to do algorithmic puzzles on projecteuler which can be found here:
+Link:
+https://github.com/curiousguy13/project_euler
+I successfully completed CS50x (on edx.org) last year in which I made a finance website using HTML/CSS ,PHP, javascript and MySQL.I cannot share it's code though due to the Honour code.
+Link:
+https://s3.amazonaws.com/verify.edx.org/downloads/1c2174e5034f446fb0f3e0439dfb8c1a/Certificate.pdf
+I also made a BMI calculator android app in Java as a final project of CS50x which can be found here:
+Link:
+https://github.com/curiousguy13/calc
+I also successfully completed 6.001x of MIT (from edx.org) last year with 96% and created a web parser to monitor newsfeed over the internet as one of the  problem sets.I cannot share it's code though due to the Honor Code that was promised by me.
+Link:
+https://s3.amazonaws.com/verify.edx.org/downloads/eba70bcc05ac483da493a0dde7ef9bcf/Certificate.pdf
+I am really enthusiastic about being a part of such a great project and am ready to devote 50+ hours per week this summer as this will be the only big project that I will be involved with.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Walter Bender
+: Learning to collaborate is an important skill not often taught in school.
+Sugar has a collaboration model, but it is restricted to individual activities.
+Real collaboration is on a project level: adding the bulletin board feature will enable groups of learners 
+to work together on a project, a major advancement and within keeping with the Sugar pedagogical model.
+Kunal Arora
+: My project is Bulletin-Board which consists of a persistant clipboard and a chat overlay onto any shared activity. It will make learning with sugar activities more interactive and social. Using this tool, people working on same projects will be able to collaborate and share multiple resources and tools which will not only increase the productivity but will also make working more interactive and fun. And as a japanese proverb says:
+None of us is smarter than all of us.
+The Bulletin Board is a missing piece of our collaboration proposal. Would be good have this finally implemented.--
+Godiard
+(
+talk
+) 17:23, 18 March 2014 (EDT)
+What will you do if you get stuck on your project and your mentor isn't around?
+I will first search around on the web for same or similar issues , if unsuccessful, I will ask on the IRC and if still unsuccessful, I will ask on the mailing list for some help. I will also try to critically analyze the problem and try to solve it myself until the problem is solved or i can figure out a workaround, if that still fails , I will work on a different part of the project until I figure out the solution.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I will keep the community informed about the project using my blog (
+http://kunalarora135.blogspot.in/
+) and weekly updates regarding my project on the mailing list.
+Miscellaneous
+We want to make sure that you can set up a development environment before the summer starts. Please do one of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug.
+https://git.sugarlabs.org/calculate/mainline/merge_requests/18
+https://git.sugarlabs.org/calculate/mainline/merge_requests/19
+It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Describe a great learning experience you had as a child.
+When I was in high school I used to convert my books to audiobooks and listen to them in my free time in order to utilize time more efficiently.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+I chose sugar-labs as my mentoring organisation for this summer as I really appreciate the work being done by sugar-labs and I want to be a part of this great cause and at the same time it will provide me an opportunity to increase my knowledge and skill  by working with very experienced and skilled developers .
+Other Engagements this summer
+I have my College End-Semester Exams from 12th May ,2014 to 24th May,2014, so I will be busy during that period but I will cover for that lost time by working in the cummunity bonding period and working harder after my exams are over.

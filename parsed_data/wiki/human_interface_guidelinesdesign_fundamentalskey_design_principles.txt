@@ -1,0 +1,123 @@
+Title: Human Interface Guidelines/Design Fundamentals/Key Design Principles
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/Design_Fundamentals/Key_Design_Principles
+--------------------------------------------------------------------------------
+english
+|
+español
+|
+한국어
+HowTo
+[ID# 85543]
++/-
+←
+Know Your Audience
+Key Design Principles
+The Laptop Experience
+→
+Contents
+1
+Key Design Principles
+1.1
+Performance
+1.2
+Usability
+1.3
+Simplicity
+1.4
+Reliability
+1.5
+Security
+1.6
+Adaptability
+1.7
+Recoverability
+1.8
+Interoperability
+1.9
+Mobility
+1.10
+Transparency
+1.11
+Accessibility
+Key Design Principles
+Low floor, no ceiling:
+this mantra should guide your development efforts for OLPC.  All activities and interfaces should be designed in such a way as to be simple and intuitive to users of all age groups, nationalities, and levels of computer experience.  At the same time, we don't wish to impose unnecessary limitations on the software either.  Instead, we hope to create a platform suitable for all kinds of creative expression which provides a low floor to the inexperienced, but doesn't impose a ceiling upon those who are.  This is a worthy goal, but will require a genuine effort on the part of developers, who must take many aspects of design into account.  The following list, while certainly not comprehensive, provides a starting point for such considerations.
+Performance
+The OLPC laptop bucks the trend of "more, faster, fatter"; we aim to provide a computer tailored to the needs of children in the context of their learning, not to the needs of frantic video games or office applications. We are, however, working within constraints of component cost, robustness, and power consumption. To satisfy these constraints, we have opted for NAND flash rather than a hard disk and a modest 256MB of memory (Please see
+hardware specifications
+). Thus, developers must make every effort to write efficient code while minimizing memory usage.
+Since there is no swap space on the laptop, only a limited number of activities can run concurrently; the Sugar UI exposes these details directly to the children. The
+Home
+screen features an activity ring that contains icons representing each instance of an open
+activity
+. The size of the ring segment that a given activity occupies represents its overall memory usage; when the ring fills up, no additional activities may be launched until some resources have been freed. Take these limitations into account as you develop activities, since they will have a greater impact on the performance of your software on the laptop than on other platforms.
+Usability
+OLPC places an emphasis on
+discoverability
+and usability due to our
+target audience
+. Usability has everything to do with the actual behavior of the activities, the layout of the buttons and tools, and the feedback that the interface provides to the children when they interact with it.  Ultimately, the design decisions that make your activities usable will depend greatly on the type of activity you are developing, and it will be up to you to consider carefully the kinds of interactions that the children will expect when presented with it. As a general rule, if the interface provided does what the child expects it to, you are off to a good start.  However, since it is quite difficult to know what they will expect—and in practice not all children will expect the same things—there is no substitute for user testing.
+Simplicity
+We designed the entire laptop interface with a goal of simplicity. It can be tempting—and also quite easy—to add an overabundance of features to software: the abundance of MIPS and memory often exacerbate the software-bloat phenomenon. The laptop hardware "limitations" lead toward a more concise direction and aid in designing for simplicity.
+Keep in mind that simple doesn't necessarily mean limited. OLPC hopes to demonstrate to the world that simple—even minimal—controls can have great expressive power. Avoid bloated interfaces that do too much, and limit the controls to those immediately relevant to the task at hand. Rather than creating a "Swiss Army knife" of an activity, think of the laptop itself as the knife, and instead develop a particular tool for that knife that does one thing, and does it very well.  When all the activities on the laptop embrace this idea, the true power of the laptop will emerge.
+Reliability
+Of course we want to avoid instances where things go wrong; this should be a goal for every piece of software. We are committed to ensuring that the UI framework prevents activities from causing system crashes. Developers should consider a "fail-soft" approach to their designs, such as incorporating a suitable behavior for the spontaneous termination of an activity.
+Security
+Security is detailed elsewhere in this wiki (See
+OLPC:Bitfrost
+). Our goal is to protect against five categories of "bad things" software can do:
+damaging the laptop;
+compromising privacy;
+damaging the children's data;
+doing bad things to other people; and
+impersonating the child.
+It is important to include anti-theft measures and common mechanisms for objectionable-content filtering.
+From the perspective of the user interface, it is important that these goals be achieved without the use of menus, pop-up boxes, passwords, etc., as these approaches are meaningless to most people.
+Adaptability
+Several use conditions should be taken into consideration in designing activities: the laptop has both a grayscale (sunlight) mode and a color (backlight) mode; the mesh—while always available—may or may not be connected to the Internet at the time the activity is active; the laptop may be configured in either laptop mode (keyboard and touchpad exposed) or
+handheld mode
+(game controller, camera, microphone and speakers only). Signal strengths, and therefore bandwidth, may fluctuate, and at times activity partipants may even drop off temporarily. Activities should handle all of these cases with care. E.g., temporary loss of connectivity should be handled silently, and reconnection of an individual to an activity they were previously participating in should happen with no noticeable side-effects as outlined in the guidelines for
+activity robustness
+.
+Recoverability
+Recoverability is fundamental to encouraging exploration.  With creative exploration among OLPC's main goals, it therefore becomes an issue of high importance on the laptops.  When children know they have a fallback plan—a way back to the current state of things—they will much more frequently go beyond their comfortable boundaries and experiment with new tools and new creative means of expression.
+The
+journal
+provides a partial notion of recoverability, since its auto-journaling amounts to maintaining an automatic incremental backup. The ability, for children, to choose to "keep" anything they're working on in its current state furthers this idea.
+However, the primary and essential means of recoverability remains the ability to undo one's actions.  Of course, the notion of undo/redo becomes complicated in the realm of collaborative editing, which imposes a limitation on the extent to which undos are possible, since collisions could often occur between the things one child wants to undo and the things another child has already changed since those were done.  Nonetheless, we are dedicated to providing this functionality to every extent possible, and
+activities
+should strive to support this to the best of our ability.
+(Future revisions of the
+keyboard
+may even have an undo/redo key to further strengthen this idea.)
+Interoperability
+Mobility
+Of course, as with all portable computers, a general notion of mobility is intrinsic to the laptops.  However, in the hands of children, this mobility rises to a new level, since we can expect that they will carry them not only to and from school, but on a hike, onto the playground, or to any number of other locations where they can learn and experience the world.  Their physical form has been designed with ruggedness in mind.  The important thing to consider is the effect such mobility can, and should, have on the activities themselves.  The lens of the built-in camera looks a lot different when it's treated not as a simple webcam, but as a way to capture the world around them, both indoors and out.
+Transparency
+OLPC also hopes to encourage the children using the laptops to explore the technology under the surface.  Towards this end, a
+view source
+key has been added to the laptop keyboards, providing them with instant access to the code that enables the activities that they use from day to day.  This key will allow those interested to peel away layers of abstraction, digging deeper into the codebase as they learn.
+To enable such layered exploration, OLPC has written much of what can be in
+Python
+, a scripting language, to enable children to view the source code.  This means, aside from general good practice, code should be both readable and well commented.  The
+PEP 8
+style guidelines for Python provide an excellent resource, and OLPC recommends that developers follow the practices laid out therein unless a compelling reason exists not to do so.
+Accessibility
+There are lots of things to think about that relate to accessibility in a set of human interface guidelines.  We've just started hashing out general accessibility issues at the
+OLPC:Accessibility
+page.
+Broadly speaking, the user interface of the GUI shell and of activities must address the following accessibility issues:
+Using the interface only from the keyboard (without a mouse or trackpad)
+Using the interface without requiring the ability to distinguish color (a significant portion of the population has some level of color blindness)
+Providing an enlarged print/icon option for folks whose vision is less than 20/20 (but who still can see things that are somewhat enlarged - e.g. 18 point fonts)
+Using the keyboard without needing to press more than one key at a time (all modifiers must work with AccessX functionality)
+Supporting programmatic access to the GUI (which for us will mean supporting
+ATK
+in Sugar and all activites)
+Either shipping with some number of assistive technology applications (is a screen reader an "activity"?), or making them easy to download
+Providing some way for a user to discover accessibility support and enable what they need (Windows XP & Vista offer an "accessibility wizard" for this purpose; we don't have good upstream technology from GNOME we can take for this unfortunately; the Ubuntu accessibility folks are perhaps furthest along in thinking about this)
+←
+Know Your Audience
+Key Design Principles
+The Laptop Experience
+→

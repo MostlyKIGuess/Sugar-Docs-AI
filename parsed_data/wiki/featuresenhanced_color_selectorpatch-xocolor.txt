@@ -1,0 +1,107 @@
+Title: Features/Enhanced color selector/Patch-xocolor
+URL: https://wiki.sugarlabs.org/go/Features/Enhanced_color_selector/Patch-xocolor
+--------------------------------------------------------------------------------
+diff --git a/src/sugar/graphics/xocolor.py b/src/sugar/graphics/xocolor.py
+index 75b5400..57b5712 100644
+--- a/src/sugar/graphics/xocolor.py
++++ b/src/sugar/graphics/xocolor.py
+@@ -221,10 +221,12 @@ def _parse_string(color_string):
+     else:
+         return None
+ 
+-
+ def is_valid(color_string):
+     return (_parse_string(color_string) != None)
+ 
++def get_random_color():
++    color_index = int(random.random() * (len(colors) - 1))
++    return "%s,%s" % (colors[color_index][0], colors[color_index][1])
+ 
+ class XoColor:
+ 
+@@ -232,8 +234,9 @@ class XoColor:
+         if color_string == None:
+             randomize = True
+         elif not is_valid(color_string):
+-            logging.debug('Color string is not valid: %s, '
+-                          'fallback to default', color_string)
++            logging.error(
++                'Color string is not valid: %s; fallback to default', 
++                color_string)
+             client = gconf.client_get_default()
+             color_string = client.get_string('/desktop/sugar/user/color')
+             randomize = False
+@@ -241,11 +244,9 @@ class XoColor:
+             randomize = False
+ 
+         if randomize:
+-            [self.strole, self.fill] = self.get_random_color()
+-        else:
+-            [self.stroke, self.fill] = _parse_string(color_string)
+-        # save an index to our color in the list
+-        self.n = self.find_index()
++            color_string =  get_random_color()
++        [self.stroke, self.fill] = _parse_string(color_string)
++        self._current_color_index = self._find_index()
+ 
+     def __cmp__(self, other):
+         if isinstance(other, XoColor):
+@@ -261,40 +262,32 @@ class XoColor:
+ 
+     def set_color(self, color_string):
+         if color_string == None or not is_valid(color_string):
+-            logging.debug('Color string is not valid: %s, '
+-                          'fallback to default', color_string)
+-        [self.stroke,self.fill] = _parse_string(color_string)
+-        self.n = self.find_index()
+-
+-    def get_random_color(self):
+-        my_n = int(random.random() * (len(colors) - 1))
+-        [my_stroke, my_fill] = colors[my_n]
+-        return "%s,%s" % (my_stroke, my_fill)
++            logging.error(
++                'Color string is not valid: %s; fallback to default', 
++                color_string)
++        else:
++            [self.stroke, self.fill] = _parse_string(color_string)
++        self._current_color_index = self._find_index()
+ 
+     def get_next_color(self):
+-        my_n = self.n
+-        my_n += 1
+-        if my_n == len(colors):
+-            my_n = 0
+-        [my_stroke, my_fill] = colors[my_n]
+-        return "%s,%s" % (my_stroke, my_fill)
++        next_index = self._current_color_index + 1
++        if next_index == len(colors):
++            next_index = 0
++        return "%s,%s" % (colors[next_index][0], colors[next_index][1])
+ 
+     def get_prev_color(self):
+-        my_n = self.n
+-        my_n -= 1
+-        if my_n < 0:
+-            my_n = len(colors)-1
+-        [my_stroke, my_fill] = colors[my_n]
+-        return "%s,%s" % (my_stroke, my_fill)
++        prev_index = self._current_color_index - 1
++        if prev_index < 0:
++            prev_index = len(colors)-1
++        return "%s,%s" % (colors[prev_index][0], colors[prev_index][1])
+ 
+     def to_string(self):
+         return '%s,%s' % (self.stroke, self.fill)
+ 
+-    def find_index(self):
+-        for c in range(0,len(colors)):
+-            if colors[c] == [self.stroke, self.fill]:
+-                return c
+-        # if the color is not found, then return 0
++    def _find_index(self):
++        for color in range(0,len(colors)):
++            if colors[color] == [self.stroke, self.fill]:
++                return color
+         return 0
+ 
+ if __name__ == "__main__":

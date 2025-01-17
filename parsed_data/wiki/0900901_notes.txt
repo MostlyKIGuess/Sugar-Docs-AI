@@ -1,0 +1,98 @@
+Title: 0.90/0.90.1 Notes
+URL: https://wiki.sugarlabs.org/go/0.90/0.90.1_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.90.1 Release Notes
+1.1
+Announcement
+1.2
+Compatibility
+1.3
+Update to this version
+1.4
+Glucose (base) modules
+1.4.1
+Updated
+1.4.2
+Not Updated
+1.5
+Glucose news
+1.5.1
+sugar
+1.5.2
+sugar-toolkit
+1.5.3
+Etoys
+1.6
+Fructose (base activity) modules
+1.7
+Fructose news
+1.7.1
+Browse
+1.8
+What is new for packagers
+Sucrose 0.90.1 Release Notes
+Announcement
+This is our first bugfix release in the
+0.90 development cycle
+!
+Thanks everyone for your great contributions!
+Compatibility
+There are no known compatibility issues, as of today.
+Update to this version
+Please use the instructions for your distribution (SoaS, Fedora, Ubuntu, Debian etc) of choice to upgrade to this release. Note that it may take a while until the release is packaged for each distribution. Please stay tuned for distribution specific announcements and watch out for updates at
+Get Sugar
+.
+Glucose
+(base) modules
+Updated
+sugar 0.90.3
+sugar-toolkit 0.90.2
+etoys 4.1.2390
+Not Updated
+sugar-datastore 0.90.0
+sugar-toolkit 0.90.0
+sugar-presence-service 0.90.1
+sugar-artwork 0.90.0
+hulahop 0.7.1
+Glucose news
+sugar
+Make sure the buddy palette is disposed after popdown
+#1742
+(Tomeu Vizoso)
+sugar-toolkit
+Add 'cache-palette' property to Invoker
+#1742
+(Tomeu Vizoso)
+Etoys
+updated translations: de, ta, es, kn
+use composition input for bn, gu, hi, kn, ml, mr, ta, te, sa
+fix error when switching to Vietnamese
+use pulseaudio driver if available
+fix soundReverb
+correct problem stopping sounds
+Fructose
+(base activity) modules
+Pippy 37
+Browse 117
+Calculate 32
+Etoys 116
+Chat 67
+TurtleArt 98
+Browse 119
+Fructose news
+Browse
+generate preview image for downloaded images
+#1106
+(Gonzalo Odiard)
+Fix history on resume. The code is a bit hacky because of xulrunner limitations. I plan to make this code nicer when we move to webkit. (Lucian Branescu Mihaila)
+Simon Schampijer's patch to fix autocomplete functionality for the address. (Lucian Branescu Mihaila)
+fix
+#8857
+- Browse fails to download some files with non-ascii characters (Gonzalo Odiard)
+What is new for packagers
+New API has been added to telepathy-gabble and telepathy-salut to support the work on the collaboration framework, which results in needing 0.9.16 for tp-gabble and 0.3.13 for tp-salut.
+One of the goals of the collaboration refactoring was dropping functionality in sugar that has been implemented in
+telepathy-mission-control
+, so Sugar now depends on tp-mission-control 5.4.3.

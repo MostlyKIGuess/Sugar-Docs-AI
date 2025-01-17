@@ -1,0 +1,75 @@
+Title: Development Team/Memory/Leak testing
+URL: https://wiki.sugarlabs.org/go/Development_Team/Memory/Leak_testing
+--------------------------------------------------------------------------------
+These are instructions on how to test for memory leaks in Sugar.
+Contents
+1
+Install guppy
+2
+Starting a heapy session
+3
+Running a test
+4
+Reading the results
+5
+Test variants
+5.1
+Repeated leak testing
+5.2
+Without collaboration
+Install guppy
+If you don't already have guppy on the XO (or other computer running sugar) you want to test, you'll have to download and install it. In Terminal, as root:
+wget http://dev.laptop.org/~tomeu/guppy-0.1.9-1.i386.rpm
+rpm -i guppy-0.1.9-1.i386.rpm
+Edit
+/usr/bin/sugar-shell
+with
+nano /usr/bin/sugar-shell
+(or whatever your favorite text editor is) and add a line that reads
+import guppy.heapy.RM
+Then restart Sugar (ctrl-alt-erase).
+Starting a heapy session
+ssh into the XO (or othe rcomputer running sugar) from another computer. We'll call this the Monitor Computer, and it should be separate from the XOs or cumputers you are testing. When we observe Sugar, it is best not use it for anything else than to execute the test case. From your Monitor computer, in the shell you're ssh'd into your XO with:
+su - olpc
+python -c "from guppy import hpy;hpy().monitor()"
+sc 1
+int
+Running a test
+From your monitor computer:
+hp.setref()
+Then, on your XO (or computer with sugar), do whatever action you're testing memory leaks for. (For instance, start and then close an Activity.)
+Go back to your monitor computer and type:
+hp.heap()
+Reading the results
+You'll see a table that looks like this:
+>>> hp.heap()
+Partition of a set of 1019 objects. Total size = 89364 bytes.
+Index  Count   %     Size   % Cumulative  % Kind (class / dict of class)
+    0     25   2    13000  15     13000  15 dict of sugar.graphics.animator.Animator
+    1     12   1     6240   7     19240  22 dict of sugar.graphics.icon._IconBuffer
+    2    156  15     5616   6     24856  28 types.MethodType
+    3      3   0     5016   6     29872  33 dict of sugar.graphics.palette.Palette
+    4     82   8     4668   5     34540  39 str
+    5    106  10     4192   5     38732  43 tuple
+    6      8   1     4160   5     42892  48 dict of sugar.graphics.palette.MouseSpeedDetector
+    7     55   5     3776   4     46668  52 list
+    8      2   0     3344   4     50012  56 dict of view.BuddyMenu.BuddyMenu
+    9      2   0     3344   4     53356  60 dict of view.palettes.CurrentActivityPalette
+<80 more rows. Type e.g. '_.more' to view.>
+hp.heap()
+prints a summary of the contents of the python heap, which is where python places objects we ask it to create. The most interesting part is this line:
+Partition of a set of 1019 objects. Total size = 89364 bytes.
+This would mean that, since the last time we called hp.setref(), 219 new objects have been placed on the heap and they take up 18212 bytes in total. This doesn't necessarily mean we are leaking all these 219 objects, though - but if you repeat this procedure several times...
+hp.setref()
+do the action you're testing in Sugar*
+hp.heap()
+and you see the amount of bytes growing steadily, we may have a bug. Look at anything that is over 10kb or so.
+Test variants
+Repeated leak testing
+A more definite test for leaks is the following:
+hp.setref()
+do the action you're testing in Sugar 9 times*
+hp.heap()
+...and then look for new objects in quantities that are multiple of 9. Those will probably be leaks.
+Without collaboration
+If you run a test multiple times and get results with a lot of variance, it may be due to collaboration activity (especially if you're in a radio-noisy environment). You can solve this by disabling radio (in the Sugar Control Panel) and using an usb-to-ethernet dongle to give the XO or computer a wired connection to ssh into.

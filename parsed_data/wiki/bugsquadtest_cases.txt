@@ -1,0 +1,20 @@
+Title: BugSquad/Test Cases
+URL: https://wiki.sugarlabs.org/go/BugSquad/Test_Cases
+--------------------------------------------------------------------------------
+To land new versions of glucose and new activities in the Sugar builds we need to:
+Provide test cases for each new feature or bug fix. See the
+Features/Feature Template
+and
+Features/Feature Template/Testing
+.
+Find testers to execute the test cases. Post an announcement on
+mailto:sugar-devel@sugarlabs.org
+providing a link to the Feature and Feature testing page.
+A way to handle it in a distributed way and ensure it's done consistently is:
+Ensure that every fix or new
+feature
+is associated with a trac ticket and that the git log for each of the related commits contain a reference to the bug.
+Before closing the ticket make sure that it contains a comment with the test case (mark it by inserting a keyword in the text so that it can be extracted automatically.
+When releasing a module, use a script to automatically generate the NEWS from the ticket references in the git log and the test cases (git log -> ticket -> test case). Put both in the release announcement.
+Decide which modules to land together. Get the test cases from the release announcement and create a page in the wiki. Ask volunteers to execute them and report the problems they find.
+Negotiate with the release manager on the base of the testing data

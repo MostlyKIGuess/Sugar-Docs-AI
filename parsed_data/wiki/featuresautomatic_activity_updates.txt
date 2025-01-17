@@ -1,0 +1,88 @@
+Title: Features/Automatic activity updates
+URL: https://wiki.sugarlabs.org/go/Features/Automatic_activity_updates
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope and implementation
+7
+How To Test
+8
+User Experience
+9
+Release Notes
+10
+Comments and Discussion
+Summary
+Provide an optional mechanism for automatically and transparently (i.e. in the background) updating activities from a central server.
+Owner
+Daniel Drake
+Current status
+Targeted release: (SUGAR_VERSION)
+Last updated: (DATE)
+Percentage of completion: XX%
+Detailed Description
+This proposal is based around the needs of the OLPC project in Nicaragua, but reflects a common need (current or future) of other OLPC implementations as well.
+The problem:
+Software updates. Previously, the local foundation visited every school at the end of the academic year and reflashed all the laptops, to provide them with a software update. Now the program has expanded to over 20,000 laptops, that is no longer practical nor affordable.
+However, there is still an obvious desire to be able to push software updates to the user base. For the operating system, olpc-update is working well enough: the local team has the infrastructure set up to push OS updates through the school server, and the laptops safely update with no user intervention required. But once the XO reboots into a drastically updated OS version, activities often fail to run due to non-backwards-compatible changes at the system level.
+Sugar can be instructed to pop up a "you should update your activities" message, offering three buttons, one of which executes the software update section of the control panel, but this has several problems:
+This message comes up whether or not connectivity is available, but connectivity is definitely required for the process to complete.
+In my experience, this message provokes a random response from the user. We're dealing with young children, and this message is somewhat unexpected anyway (the OS update was automatic and transparent).
+Relying on 20,000 children to all perform this step (only when connectivity is available), which is not even something that occurs very naturally for them, is not something that would bring good results.
+If the activity update process fails (e.g. no connectivity), the message doesn't come back again. But activity updating is something absolutely necessary at this point, so it should not give up so easily.
+It's something that simply should be automatic.
+The proposed solution is to remove this message and adds an automatic software update feature that runs in the background. This would be off by default, but could be enabled by deployers of Sugar via system configuration.
+The activity updater would run periodically, by default once per week. However, after a system upgrade, an "activity upgrade urgent" flag would be set, resulting in Sugar trying to update its activities every time connectivity becomes available until an update completes successfully.
+The existing activity updater in the control panel will still remain for if/when the user wants to perform a foreground update on-demand.
+It is assumed that the user has good connectivity to the activity server. This means that either a good internet connection is generally available, or that the activities are hosted on a local school server. (I envision the latter case to be more useful and common for deployments.)
+The activities.sugarlabs.org XML interface used by the existing software update control panel section will remain supported, and support for the OLPC activity microformat will also be added. (I envision the latter case to be more useful and common for deployments.)
+Benefit to Sugar
+The long-term problem of Sugar deployers not being able to push automatic system updates that break activity compatibility would be fixed. The Zamora Teran Foundation in Nicaragua will be able to push new software to their users in future.
+Other functionalities also become available. For example, currently there is no hands-off way for a Sugar deployer to push a new activity to the existing install-base. But, as this activity update would run automatically once per week, this now becomes easy.
+Sugar will gain support for the
+OLPC activity update microformat
+which is widely used in the field.
+The "you should update your activities" message, which has been seen as a source of user confusion, will go away.
+Scope and implementation
+Upon establishing a network connection, or upon starting with a network connection already established, where the activity updater has been enabled in the configuration, Sugar will examine whether it needs to launch an automatic activity update if the activity-update-urgent flag is set.
+To handle periodic updates (when system upgrades have not happened), 10 minutes after launch, Sugar will check if sufficient time has passed since the last successful update. If a configured threshold has been met, an activity update will be run. This check will then be repeated at 60 minute intervals.
+The activity-update-urgent flag is set based on the presence of the file
+~/.sugar-update
+.
+When an update successfully completes, the update time is recorded in the gconf key
+/desktop/sugar/update/last_activity_update
+. The amount of time that passes before an automatic activity update is executed is defined by the gconf key
+/desktop/sugar/update/auto_update_frequency
+, units in days, default 0 (which means no periodic update).
+The gconf key
+/desktop/sugar/update/backend
+will specify which update mechanism to use (ASLO or microformat), and the
+/desktop/sugar/update/microformat_update_url
+gconf key will specify the base server URI to use for the microformat update backend.
+The idea is that the deployer sets the appropriate gconf keys according to his preferences and infrastructure.
+The core of the activity update code (src/extensions/cpsection/update/model.py and the backends) will be moved into src/jarabe/model/update, where it will be shared between the activity update control panel, and the automatic background update.
+The background update will be run in the main sugar-shell process. A previous design considered making this a separate service, but upon investigation, the in-process bundle registry is a key part of the whole process, and keeping things in process reduces scope/complexity of this feature substantially.
+The one significant change needed is that bundleregistry must offer asynchronous activity installation to avoid horrible UI hangs while background updates are going on. This will be done by bundleregistry doing its install/upgrade work in a separate thread. GIL contention is not a concern because pygobject is good at dropping the GIL (i.e. it's never held on idle) and the installation thread is IO-bound so is not expected to contend the GIL much either. Beyond threading, the only other added complexity is that the bundle registry must now be protected by a lock, as the installation thread needs to use it very briefly before starting any update.
+When the user opens the "Software Update" section of the control panel, the control panel code will attempt to start listening to any ongoing update session. This means that if the user opens the control panel while an automatic update is happening in the background, that update effectively gets moved to the foreground, and the user can keep an eye on what is happening. If the control panel is opened while no update is active, the user will be able to launch a manually-invoked update in the way that the existing activity updater operates.
+The implementation will also bring in some cleanups to Bundle handling including a fix to #3707.
+How To Test
+Features/Automatic activity updates/Testing
+User Experience
+If this feature is noticeable by its target audience, how will their experiences change as a result?  Describe what they will see or notice.
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+See
+discussion tab for this feature

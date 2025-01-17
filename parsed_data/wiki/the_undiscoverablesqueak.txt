@@ -1,0 +1,113 @@
+Title: The Undiscoverable/Squeak
+URL: https://wiki.sugarlabs.org/go/The_Undiscoverable/Squeak
+--------------------------------------------------------------------------------
+Squeak is the version of Smalltalk used to build
+Etoys
+, which has its own
+page here in The Undiscoverable
+. While programming in Etoys is fully graphical (like Turtle Art, but much less discoverable), Squeak requires navigating a complex Integrated Development Environment and programming in text. There is a lot of tutorial material for Squeak, but much of the best material is in dead-tree textbooks. This page will give hints, plus links to free on-line resources.
+Squeak is available in many Linux distributions. Install as usual, and invoke as usual. If there is only one Squeak image on your computer, it will open. If there is more than one, including Etoys, you will be given a choice of images to open. You will find it useful to save images containing your work. Name them so that you can remember which is which.
+Contents
+1
+Welcome
+2
+Mousing
+3
+The Workspace Windows
+4
+World
+5
+Windows
+6
+Pinning
+7
+The World menus
+8
+The Object Halo
+9
+The System Browser
+10
+Smalltalk Language
+11
+Creating an Object
+12
+Tutorials
+Welcome
+Install and open Squeak. You will see a welcome screen, something like this. Workspaces are areas in which you can type text for display, as here, and also areas in which you can enter code to execute, as we will see below. The top bar of a Workspace window has icons for controlling its behavior plus a name
+At the left, an x for closing the Workspace and discarding its contents.
+Next, a menu icon giving access to further controls
+The name Workspace, which does nothing
+An icon of two squares for maximizing the Workspace window and restoring it to its previous size
+A circle icon for minimizing the window to a placeholder on the desktop. Clicking this icon again restores the window.
+At the bottom and right may be scroll bars. Their display is controlled by Preference settings. At the sides and bottom are bars for dragging the window. Dragging a corner of the window resizes it.
+Mousing
+We assume that the reader knows the most common mouse actions, at least left-click, right-click, click and drag to move objects or make selections, double-click, and the possibility of holding down a key while clicking (shift-click, control-click, command-click on Macs). Others, such as middle-click, triple-click, and mouse chords, require a bit of explanation. Click without modification means left-click in the rest of this document.
+Triple-click is used in many text editors and word processors for selecting larger text units than double-clicking, which usually selects a word. Triple-clicking selects a line or a paragraph in such software. It is not used in Squeak.
+Alan Kay's team at Xerox PARC (Palo Alto Research Center) designed Smalltalk to use a three-button mouse as shown here.
+Apple decided that three buttons was too confusing, and provided only one button (Boo, hiss!) on the Macintosh, so that you have to use confusing key-mouse combinations in Squeak on the Mac. A three-button mouse is discoverable. You point at things, and click different buttons, and different things happen. Arbitrary combinations, whether mouse chords or mouse-key combinations, are not in general discoverable without at least the hint that they are possible. But there are too many possibilities for most learners to explore systematically.
+Some mice do have three buttons. On many wheel mice, you can depress the wheel as the middle button. On a two-button mouse, or a trackball, without a middle button, you might be able to click both the left and right buttons simultaneously ("chording") to get the middle button effects. This can also work using the two mouse buttons under a touchpad. Chording works on Linux, and can be programmed in some mouse drivers for particular devices on other platforms.
+If you don't have a middle mouse button, and chording doesn't do it, then control-clicking should work.
+You can left-click on the title bar of a partly hidden window and drag it to where you can read its contents. Both Workspaces in the image below describe changes in the current Squeak image that do not concern us here. You can click the x at the top left corner to close each one.
+You can scroll the remaining window with the mouse to view its contents, or click and drag any corner to resize it. This is different from other GUIs, where the edges of a window may be draggable, as in Linux, or only one corner, as in Mac OS.
+The Workspace Windows
+Let's try the three buttons in any of the three Workspace windows in the initial view.
+Left-clicking puts a cursor in the text. Try it. Clicking again in the same spot selects the surrounding word, and clicking yet again anywhere in the same word deselects the word and puts the cursor under the mouse. You can click and drag to select any contiguous portion of the text, and you can use keyboard combinations such as shift-cursor or control-cursor, or both: shift-control-cursor to extend or retract the current selection by words or lines, or to move around. Try them. It is not difficult to discover what these combinations do. You might even be familiar with them from text editors or word processors. Shift-clicking also extends the selection. It is much easier to understand how that works by trying it than by reading an explanation, so I won't give one.
+Right-clicking in a window, indeed on any object, brings up a set of icons in a rectangle, as shown above, with a title at the bottom of the array. This array of icons is known as an
+object halo
+, or halo for short. Every graphical object in Squeak or Etoys has one. A single right click in a Workspace window brings up a halo with the title Workspace. A second right click shifts to a smaller halo with the title PluggableText. A third shifts to a larger halo labeled Text, with a different set of icons.
+Middle-clicking in a Workspace window brings up an untitled text menu with editing commands to choose fonts, cut, copy, and paste, print, and so on, plus options for executing code and saving the contents of the window.
+World
+Clicking on the desktop background outside the Workspace windows has different effects. Right-clicking brings up the world halo, as shown in this image.
+Left-clicking and middle-clicking bring up two different world menus, both currently full of mysteries for us. A very determined learner can discover what many of the options on these menus do, but most people will prefer to get hints at least, and in some cases real explanations.
+Windows
+The main window has a tab labelled Squeak at the left, and another labeled Tools at the right. Clicking the tab expands it to a tool palette, and clicking the tab again puts it away.
+If you click on the Tools tab, and point at any of the icons in the Tools palette and don't click, a help balloon opens with a description of what the icon is for. You can click and drag any of the icons onto the desktop to open a new window.
+Drag a System Browser window into the workspace.
+There are several icons on the title bar at the top of a Workspace or System Browser window that we will also see on other windows.  One of the icons is for a menu, and the others are to close the window, expand it to full screen or shrink it to its previous size, or collapse the window to a tab from which you can open it again.
+Pinning
+Left-click in the background of your Squeak window to get the World menu shown above. We will explore some of the options on it below. Right now, look at the pushpin icon in the top right corner. You can click on it to keep the World menu open on your desktop. The pushpin icon disappears, leaving a blank are. You do not have to click the same area in order to dismiss the World menu. Click the x icon on the top left instead.
+The same applies to some other menus within Squeak.
+To exit from Squeak, click the close icon in the border or on the toolbar, depending on the UI you are using, or else click Quit on the World menu.
+The World menus
+All of Squeak is accessible to the user with a few mouse clicks. The problem is first to determine which mouse clicks, and second to determine what has been made available to you. There is a lot of it.
+When you click outside the Workspace windows, you get a different halo, labeled world, and two different world menus.
+The Object Halo
+The
+Halo
+has its own page, which introduces the set of tools provided by the halo, including
+Object Viewers
+.
+The System Browser
+If you open the Tools tab and drag a System Browser onto the Desktop, you will get a display similar to this. If you select Kernel-Numbers in the leftmost pane, and then Fraction in the next pane over, you should see almost exactly this.
+The System Browser window has the same top toolbar and outer frame around the other three sides as a Workspace window, but is divided into several panes. The four panes on top allow users to explore the Smalltalk Object hierarchy. The panes are called, from left to right,
+System Category pane
+Class pane
+Class category pane
+Method pane
+Next may come an optional Annotation pane, which can be turned on or off in the Preferences, and is omitted here.
+Below those are a text pane for various purposes, with a row of buttons at the top These buttons open other windows for various purposes. At the bottom is a comment pane where the programmer can explain the purpose of the Object type being viewed and how it is to be used.
+Smalltalk Language
+Smalltalk is an extremely powerful, expressive, modular language with a number of other virtues. All of a Smalltalk system is written in Smalltalk, including a compiler that turns Smalltalk program text into platform-independent bytecodes. At runtime, a Smalltalk image runs on top of a highly portable Virtual Machine that provides system facilities and the lowest-level object functions, including a bytecode interpreter that runs all of the higher-level code.
+The VM also exists inside Smalltalk as a model written in a subset of Smalltalk, allowing Smalltalk to run on a modified VM inside the current Smalltalk in order to debug the new VM. A satisfactory new VM is then translated to a highly portable subet of C, which can be compiled for all supported platforms in short order. The new compiled VMs are then packaged with the new Smalltalk (or Squeak or Etoys) image, including the Smalltalk model of the new VM, for distribution.
+Everything in Smalltalk is an object. All Smalltalk programming consists of defining object classes and sending messages to objects, where the messages can refer to other objects. Every object is a member of a class that defines its structure in terms of internal data objects and methods of interpreting messages sent to the object
+Open the Tools palette and drag a new Workspace into the world. Type 3+4 in the window, and make sure to leave the cursor on that line. Middle-click and select print it from the menu.
+Smalltalk evaluates the expression and displays the value in the Workspace, thus.
+The number 3 is an object, a member of a numeric class of small integers. We send it the message + 4, invoking the method for + on that kind of integer with the argument 4, referring to a different object. We get back the object 7, and the interpreter invokes a method for printing that result in our Workspace.
+A brief introduction to the subset of Smalltalk used in these pages is on the
+Smalltalk
+page. There are several good textbooks on Smalltalk.
+Creating an Object
+The mechanics of object creation using a
+System Browser
+with a bit of Smalltalk programming are on a separate page.
+Tutorials
+At this point, if you have gone through the material above plus the pages linked to, you know enough to follow many of the available introductory
+Squeak tutorials
+.
+For those who wish to dive deeper into Smalltalk, there are a number of free digital books available at
+Stef's Free Online Smalltalk Books
+This article is a
+stub
+. You can help Sugar Labs by
+expanding it
+.

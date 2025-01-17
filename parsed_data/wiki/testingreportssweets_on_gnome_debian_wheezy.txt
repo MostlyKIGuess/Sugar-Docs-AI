@@ -1,0 +1,244 @@
+Title: Testing/Reports/Sweets on GNOME Debian Wheezy
+URL: https://wiki.sugarlabs.org/go/Testing/Reports/Sweets_on_GNOME_Debian_Wheezy
+--------------------------------------------------------------------------------
+These tests were carried out on an HP-dx5150 desktop PC. Operating system from: Debian-Installer netinst debian-wheezy-DI-a1-amd64-netinst.iso. 
+On first rebooting the system, reports that. hardware does not fully support gnome 3, using fallback.
+Platform Team/Guide/Sugar via Sweets
+provides the instructions followed.
+sudo apt-get update && sudo apt-get dist-upgrade
+sudo apt-get install gnome-packagekit
+wget
+http://download.sugarlabs.org/sweets/sweets/installer.sh
+sh installer.sh
+Launch the first sweet.
+inky@debian-gnome:~$ sweets dextrose/sugar:emulator
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-artwork/sugar-artwork-0.88.1-r2-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-base/sugar-base-0.88.0-r4-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-toolkit/sugar-toolkit-0.88.1-r2-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-presence-service/sugar-presence-service-0.88.0-r3-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar/sugar-0.88.1-r17-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-datastore/sugar-datastore-0.88.0-r2-src.tar.gz
+-- Solve dextrose/sugar-base for building                                       
+-- Solve dextrose/sugar-toolkit for building     
+-- Solve dextrose/sugar-presence-service for building
+-- Solve dextrose/sugar-datastore for building        
+-- Solve dextrose/sugar-artwork for building   
+-- Solve dextrose/sugar for building         
+-- Install python-gtk2-dev python-xklavier libxt-dev libxss1 xdg-user-dirs-gtk libxv-dev python-wnck python-gobject-dev libxfont-dev libxres-dev libxfixes-dev libdrm-dev python-dev libxcomposite-dev libxss-dev gcc intltool hal libice-dev python-cjson python-decorator libxdamage-dev libxmu-dev libcairo2-dev libxpm-dev libxdmcp-dev libxxf86dga-dev libgconf2-dev libx11-dev libasound2-dev python-rsvg libxext-dev gnome-common python-telepathy libxau-dev libsm-dev libfontenc-dev python-simplejson libxft-dev libxcursor-dev libfs-dev libtool libxi-dev python-dateutil libdmx-dev python-hippocanvas libxtst-dev libgtk2.0-dev libdmx1 libxxf86vm-dev libxp-dev icon-slicer icon-naming-utils libxinerama-dev libxp6 libxkbfile-dev libxrender-dev libxvmc-dev libxrandr-dev python-gtksourceview2 make pkg-config
+-- Build dextrose/sugar-base (0.88.0)                                           
+-- Build dextrose/sugar-toolkit (0.88.1)
+-- Build dextrose/sugar-presence-service (0.88.0)
+-- Build dextrose/sugar-datastore (0.88.0)        
+-- Build dextrose/sugar-artwork (0.88.1)   
+-- Build dextrose/sugar (0.88.1)         
+[dix] ...
+/home/inky/.cache/0install.net/implementations/sha1new=a7b57623334cb6b79e1ff7c4d7f2b6009e2eafe6/.sweets/local/bin/sugar: 51: /home/inky/.cache/0install.net/implementations/sha1new=a7b57623334cb6b79e1ff7c4d7f2b6009e2eafe6/.sweets/local/bin/sugar: [[: not found
+/home/inky/.cache/0install.net/implementations/sha1new=a7b57623334cb6b79e1ff7c4d7f2b6009e2eafe6/.sweets/local/bin/sugar: 109: /home/inky/.cache/0install.net/implementations/sha1new=a7b57623334cb6b79e1ff7c4d7f2b6009e2eafe6/.sweets/local/bin/sugar: [[: not found
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+E: [pulseaudio] pid.c: Daemon already running.
+E: [pulseaudio] main.c: pa_pid_file_create() failed.
+The XKEYBOARD keymap compiler (xkbcomp) reports:
+> Warning:          Compat map for group 2 redefined
+>                   Using new definition
+...
+Errors from xkbcomp are not fatal to the X server
+...
+This opened a sugar window - change name and avatar colour ok. 
+There are no neighborhood avatars in F1 view, no activities in F3.
+"About my Computer"
+Sugar: 0.88.1.
+Software updates, no progress possible.
+Restart the machine.
+inky@debian-gnome:~$ sweets dextrose/sugar:emulator = 0.94
+-- Download
+http://download.sugarlabs.org/sweets/sdk/telepathy-mission-control/telepathy-mission-control-5.7.1-r9-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-datastore/sugar-datastore-0.94.0-r1-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar/sugar-0.94.1-r19-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-toolkit/sugar-toolkit-0.94.0-r3-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-base/sugar-base-0.94.0-r5-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-artwork/sugar-artwork-0.94.0-r1-src.tar.gz
+-- Solve dextrose/sugar-base for building                                       
+-- Solve dextrose/sugar-toolkit for building     
+-- Solve dextrose/sugar-datastore for building   
+-- Solve dextrose/sugar-artwork for building     
+-- Solve sdk/telepathy-mission-control for building
+-- Solve dextrose/sugar for building                
+-- Install libdbus-glib-1-dev libtelepathy-glib-dev xsltproc
+-- Build dextrose/sugar-base (0.94.0)                        
+-- Build dextrose/sugar-toolkit (0.94.0)
+-- Build dextrose/sugar-datastore (0.94.0)
+-- Build dextrose/sugar-artwork (0.94.0)   
+-- Build sdk/telepathy-mission-control (5.7.1)
+-- Build dextrose/sugar (0.94.1)               
+[dix] ...
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+The XKEYBOARD keymap compiler (xkbcomp) reports:
+> Warning:          Compat map for group 2 redefined
+>                   Using new definition
+...
+Errors from xkbcomp are not fatal to the X server
+...
+F1 view good, no activities in F3 view. All views, function keys and frame work correctly. 
+Software updates offers to install 38 updates, select all, install selected.
+"About my computer":
+Build: 	Debian GNU/Linux testing (wheezy)
+Sugar:	0.94.1
+Firmware:1.13
+Activities tested:
+Physics: ImportError: No module named pygame
+Terminal: ImportError: No module named vte
+TurtleArt: ImportError: No module named pygst
+Speak: ImportError: No module named gst
+Moon: starts ok
+Surf: ImportError: No module named webkit
+Browse: ImportError: No module named hulahop
+Try the -S option.
+inky@debian-gnome:~$ sweets -S dextrose/sugar:emulator = 0.94
+-- Download
+http://download.sugarlabs.org/sweets/sdk/hulahop/hulahop-0.8.2-r7-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/sdk/pyxpcom/pyxpcom-1.9.2-r15-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/sdk/etoys/etoys-4.1.2390-r6-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/sdk/xulrunner/xulrunner-1.9.2.20pre.en-US.linux-x86_64.sdk.tar.bz2
+-- Download
+http://download.sugarlabs.org/sweets/sdk/xulrunner/aux-files.tar.gz
+-- Solve sdk/pyxpcom for building                                               
+-- Solve sdk/hulahop for building                 
+-- Solve sdk/etoys for building    
+-- Install python-lxml zip python-gst0.10 python-csound python-pygame subversion python-xlib python-vte python-elements python-webkit squeak-vm libidl-dev
+-- Build sdk/pyxpcom (1.9.2)                                                    
+-- Build sdk/hulahop (0.8.2)         
+-- Build sdk/etoys (4.1.2390)        
+[dix] ...
+The XKEYBOARD keymap compiler (xkbcomp) reports:
+> Warning:          Compat map for group 2 redefined
+>                   Using new definition
+...
+Errors from xkbcomp are not fatal to the X server
+...
+This started a 101MB download.
+All views, function keys and frame work correctly.
+Surf: ImportError: cannot import name AddressEntry
+Browse: works
+TurtleArt: works
+Arithmatic: works
+Pippy: works
+Spirolaterals: works
+Physics: works, but it is v.8,
+Maze: Reports, failed to start, No Log entry
+Write: ImportError: No module named abiword
+Older versions are here, eg, Physics v.8 Speak v.20, Log v.23, Terminal v.35, Spirolateral v.14
+Try the sweet, sdk/sugar
+inky@debian-gnome:~$ sweets sdk/sugar:emulator
+-- Download
+http://download.sugarlabs.org/sweets/sdk/sugar/sugar-0.94.1-r95-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/sdk/sugar-artwork/sugar-artwork-0.94.0-r13-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/sdk/sugar-toolkit/sugar-toolkit-0.94.0-r37-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/sdk/sugar-datastore/sugar-datastore-0.94.0-r17-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/sdk/sugar-base/sugar-base-0.94.0-r31-src.tar.gz
+-- Solve sdk/sugar-artwork for building                                         
+-- Solve sdk/sugar-base for building             
+-- Solve sdk/sugar-toolkit for building          
+-- Solve sdk/sugar-datastore for building        
+-- Solve sdk/sugar for building                  
+-- Build sdk/sugar-artwork (0.94.0)              
+-- Build sdk/sugar-base (0.94.0)     
+-- Build sdk/sugar-toolkit (0.94.0)  
+-- Build sdk/sugar-datastore (0.94.0)
+-- Build sdk/sugar (0.94.1)           
+[dix] ...
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+The XKEYBOARD keymap compiler (xkbcomp) reports:
+> Warning:          Compat map for group 2 redefined
+>                   Using new definition
+...
+Errors from xkbcomp are not fatal to the X server
+...
+All views, function keys and frame work correctly. Software update, large download
+Browse: No module hulahop
+Surf: ImportError: cannot import name AddressEntry
+Chat: is not seen in F3 or ~/Activities
+Labyrinth: works
+Maze: works
+Physics: runs is now v.10
+Try a different version.
+inky@debian-gnome:~$ sweets sdk/sugar:emulator = 0.88
+-- Download
+http://download.sugarlabs.org/sweets/sdk/sugar-datastore/sugar-datastore-0.88.0-r19-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/sdk/sugar-base/sugar-base-0.88.0-r29-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/sdk/sugar-artwork/sugar-artwork-0.88.1-r13-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/sdk/sugar/sugar-0.88.1-r86-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/sdk/sugar-presence-service/sugar-presence-service-0.88.1-r10-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/sdk/sugar-toolkit/sugar-toolkit-0.88.2-r29-src.tar.gz
+-- Solve sdk/sugar-artwork for building                                         
+-- Solve sdk/sugar-base for building             
+-- Solve sdk/sugar-toolkit for building          
+-- Solve sdk/sugar-datastore for building        
+-- Solve sdk/sugar-presence-service for building 
+-- Solve sdk/sugar for building                  
+-- Build sdk/sugar-artwork (0.88.1)              
+-- Build sdk/sugar-base (0.88.0)     
+-- Build sdk/sugar-toolkit (0.88.2)  
+-- Build sdk/sugar-datastore (0.88.0)
+-- Build sdk/sugar-presence-service (0.88.1)
+-- Build sdk/sugar (0.88.1)                  
+[dix] ...
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+The XKEYBOARD keymap compiler (xkbcomp) reports:
+> Warning:          Compat map for group 2 redefined
+>                   Using new definition
+...
+Errors from xkbcomp are not fatal to the X server
+...
+Surf: works and is able to download Chat from ASLO
+Chat: runs, puts ballon in F1 view, but no neighborhood avatars seen in F1.
+Implode: works
+Spirolaterals: works
+Finally with the -S option.
+inky@debian-gnome:~$ sweets -S sdk/sugar:emulator
+[dix] ...
+The XKEYBOARD keymap compiler (xkbcomp) reports:
+> Warning:          Compat map for group 2 redefined
+>                   Using new definition
+...
+Errors from xkbcomp are not fatal to the X server
+...
+All views, function keys and frame work correctly.
+Surf: ImportError: cannot import name AddressEntry
+Browse: works
+TurtleArt: works
+Maze: works
+Chat: works and balloon appears in F1.
+Paint: works
+Read: ImportError: No module named evince
+Write: ImportError: No module named abiword
+The method used above installed sweets progressively, as this is the method the author has always previouly used. In this
+gnome
+environment it seems likely that if the first
+sweet
+launched had been
+sweets -S sdk/sugar:emulator
+it would have been successful.
+End of sweets installation report.

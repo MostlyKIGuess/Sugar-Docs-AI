@@ -1,0 +1,364 @@
+Title: Activities/Turtle Art/Programmable Brick
+URL: https://wiki.sugarlabs.org/go/Activities/Turtle_Art/Programmable_Brick
+--------------------------------------------------------------------------------
+Contents
+1
+Programmable Brick
+1.1
+Version 44 to 103
+1.2
+Version 104 onwards
+1.2.1
+loading sample code
+1.2.2
+loading code from the Journal
+1.3
+Sample code
+1.3.1
+Device I/O
+1.4
+Understanding the structure of the Turtle Art program
+1.4.1
+Python function block
+1.4.2
+Python code block
+Programmable Brick
+The following feature—a block
+that can be programmed by the Pippy activity—is available in versions 44+ of Turtle Art.
+Version 44 to 103
+A copy of the tamyblock.py module is stored in the Journal when you first launch Turtle Art. All the sample modules are in this one file but all except one are commented out with #
+You can edit the tamyblock.py module in Pippy. Then load the Python code into the Python block using the Pippy button on the Project toolbar.
+You can only have one type of Python block in your Turtle Art program.
+Another way to load the Python block, is to click the Python code block
+found on the the Extras palette.
+Version 104 onwards
+There are two ways to create Python blocks: by loading sample code provided with Turtle Art or by loading Python code the your Journal.
+loading sample code
+A number of individual sample programs are provided. Clicking on the Load Python Block button on the Load/Save Toolbar
+will invoke a file-selector dialog. Select the sample that you want and it will be both copied to the Journal and loaded into a Python block.
+loading code from the Journal
+Clicking on a Python block
+that has been dragged onto the canvas from the Extras palette will invoke an object-selector dialog.
+Select the Python code that that you want and that code will be loaded into the selected block.
+You can't run a Python block by clicking on it, as that opens the object selector; instead attach the block to another one and click elsewhere on the stack you have created.
+Which ever way you create them, multiple Python blocks can have different code loaded in them.
+Sample code
+def myblock(tw, line_length):
+    ''' Draw a dotted line of length line_length. '''
+    try:  # make sure line_length is a number
+        line_length = float(line_length)
+    except ValueError:
+        return
+    if tw.canvas.pendown:
+        dist = 0
+        while dist + tw.canvas.pensize < line_length:  # repeat drawing dots
+            tw.canvas.setpen(True)
+            tw.canvas.forward(1)
+            tw.canvas.setpen(False)
+            tw.canvas.forward((tw.canvas.pensize * 2) - 1)
+            dist += (tw.canvas.pensize * 2)
+        # make sure we have moved exactly line_length
+        tw.canvas.forward(line_length - dist)
+        tw.canvas.setpen(True)
+    else:
+        tw.canvas.forward(line_length)
+    return
+You can pass a list of up to three arguments to tamyblock.py as in the example below that converts the input to an rgb value.
+def myblock(tw, rgb_array):
+    ''' Set rgb color from values '''
+    tw.canvas.fgrgb = [(int(rgb_array[0]) % 256),
+                       (int(rgb_array[1]) % 256),
+                       (int(rgb_array[2]) % 256)]
+def myblock(tw, x):
+   ###########################################################################
+   #
+   # Push an uppercase version of a string onto the heap.
+   # Use a 'pop' block to use the new string.
+   #
+   ###########################################################################
+   if type(x) != str:
+       X = str(x).upper()
+   else:
+       X = x.upper()
+   tw.lc.heap.append(X)
+   return
+def myblock(tw, x):
+   ###########################################################################
+   #
+   # Push hours, minutes, seconds onto the FILO.
+   # Use three 'pop' blocks to retrieve these values.
+   # Note: because we use a FILO (first in, last out heap),
+   # the first value you will pop will be seconds.
+   #
+   ###########################################################################
+   tw.lc.heap.append(localtime().tm_hour)
+   tw.lc.heap.append(localtime().tm_min)
+   tw.lc.heap.append(localtime().tm_sec)
+   return
+def myblock(tw, x):
+   ###########################################################################
+   #
+   # Add a third dimension (gray) to the color model.
+   #
+   ###########################################################################
+   val = 0.3 * tw.rgb[0] + 0.6 * tw.rgb[1] + 0.1 * tw.rgb[2]
+   if x != 100:
+       x = int(x)%100
+   r = int((val*(100-x) + tw.rgb[0]*x)/100)
+   g = int((val*(100-x) + tw.rgb[1]*x)/100)
+   b = int((val*(100-x) + tw.rgb[2]*x)/100)
+   # reallocate current color
+   rgb = "#%02x%02x%02x" % (r,g,b)
+   tw.fgcolor = tw.canvas.cm.alloc_color(rgb)
+   return
+def myblock(tw, x):
+   ###########################################################################
+   #
+   # Save an image named x to the Sugar Journal.
+   #
+   ###########################################################################
+   tw.save_as_image(str(x))
+   return
+def myblock(tw, x):
+###########################################################################
+   #
+   # Push mouse event to stack
+   #
+   ###########################################################################
+   if tw.mouse_flag == 1:
+       # push y first so x will be popped first
+       tw.lc.heap.append((tw.canvas.height / 2) - tw.mouse_y)
+       tw.lc.heap.append(tw.mouse_x - (tw.canvas.width / 2))
+       tw.lc.heap.append(1) # mouse event
+       tw.mouse_flag = 0
+   else:
+       tw.lc.heap.append(0) # no mouse event
+Device I/O
+This Python block returns with the brightness sensor value in the heap.
+A range of parameters can be measured, for example, substitute any of
+the path strings in the table for the 'device' in the program below.
+device
+path
+notes
+battery current
+/sys/devices/platform/olpc-battery.0/power_supply/olpc-battery/current_now
+OLPC XO
+battery voltage
+/sys/devices/platform/olpc-battery.0/power_supply/olpc-battery/voltage_now
+OLPC XO
+screen brightness
+/sys/devices/platform/dcon/backlight/dcon-bl/actual_brightness
+OLPC XO
+accelerometer
+/sys/devices/platform/lis3lv02d/position
+OLPC XO 1.75, 3.0
+light sensor
+/sys/devices/platform/olpc-ols.0/level
+OLPC XO 1.75, 3.0
+screen mode
+/sys/devices/platform/dcon/monochrome
+OLPC XO 1.75, 3.0
+charging
+/sys/devices/platform/olpc-battery.0/power_supply/olpc-ac/online
+OLPC XO
+clock date
+/sys/devices/platform/pxa2xx-i2c.1/i2c-1/1-0068/rtc/rtc0/date
+OLPC XO 1.75
+clock time
+/sys/devices/platform/pxa2xx-i2c.1/i2c-1/1-0068/rtc/rtc0/time
+OLPC XO 1.75
+cpu temperature
+/sys/devices/platform/via_cputemp.0/temp1_input
+OLPC XO 1.5
+def myblock(tw, x):  # ignores second argument
+   import os
+  
+   # The light sensor is only available on the XO 1.75
+   device = '/sys/devices/platform/olpc-ols.0/level'
+   
+   if os.path.exists(device):
+       fh = open(device)
+       string = fh.read()
+       fh.close()
+       tw.lc.heap.append(float(string))  # append as float value to heap
+   else:
+       tw.lc.heap.append(-1)
+Look in /sys/devices on your computer to find other devices you may be able to access.
+You can also read events in /dev/input . Use the od (octal dump) command to inspect these events, eg
+sudo od /dev/input/event0
+You can access the following events on the X0-1.75, (some on X0-1.0 -1.5)
+accelerometer: /dev/input/event0 ???
+power button: /dev/input/event1
+lid switch: /dev/input/event2
+ebook: /dev/input/event3 (XO-1.75) event4 (XO-1.0 - 1.5)
+headphone jack: /dev/input/event7
+microphone jack: /dev/input/event8
+rotate, cursor, and game pad keys: /dev/input/event10 (XO-1.75) event6 (XO-1.0 - 1.5)
+mouse : /dev/input/mice
+For example, the code below waits till the ebook switch state changes and pushes the status to the heap
+def myblock(tw, x):  # ignores second argument
+  
+  import os
+  devicestr='/dev/input/event3'              #the ebook switch
+  cmd='sudo chmod 777 {!s}'.format(devicestr)
+  os.system(cmd)                             #caution! changing system file permissions
+  fd = open(devicestr, 'rb')
+  for x in range(12):
+     fd.read(1)                              #does not return till the switch state changes
+  tw.lc.heap.append( ord(fd.read(1)))        #push ebook switch state to heap
+  fd.close
+Understanding the structure of the Turtle Art program
+Turtle Art offers two blocks for adding Python code,
+the Python function block
+adds a single line of code,
+the Python code block
+supports multi-line code.
+Python function block
+The Python function block is processed through tajail.py. For security reasons, it cannot access Turtle Art objects. It can it only access the Python language and the time and math libraries as the following extract from tajail.py shows.
+from time import *
+from math import *
+For more information on allowable syntax for this block:
+Python language, see
+http://docs.python.org/tutorial/
+math library, see
+http://docs.python.org/library/math.html
+time library, see
+http://docs.python.org/library/time.html
+Numpy library, see numpy.scipy.org/
+(Not supported as of v104)
+Python code block
+Turtle Art is created in object oriented Python code. This is based around the definition of classes and the creation of object(s) which are instance(s) of that class. These objects then have properties and methods which are defined by their class.
+See
+http://docs.python.org/tutorial/classes.html
+for a description of classes in Python.
+See the file TurtleArtActivity.py. This is where it starts. When an instance of TurtleArtActivity is created, setup_canvas() creates an instance of TurtleArtWindow: self.tw This instance of TurtleArtWindow creates an instance of  LogoCode: self.tw.lc and an instance of TurtleGraphics: self.tw.canvas
+tamyblock.py gets passed a LogoCode instance, lc, and everything is relative to that instance.  tw is passed to lc and set as an instance data object at init. This allows referral back to tw when needed. Consequently, Class TurtleArtWindow is accessed through lc.tw. and Class TurtleGraphics is accessed through lc.tw.canvas
+Class
+Defined in
+Instance
+Created in
+TurtleArtActivity
+TurtleArtActivity.py
+inherits from sugar.activity
+TurtleArtWindow
+tawindow.py
+tw
+TurtleArtActivity.py
+LogoCode
+talogo.py
+lc
+tawindow.py
+TurtleGraphics
+tacanvas.py
+canvas
+tawindow.py
+Turtles, Turtle
+taturtle.py
+turtles
+tawindow.py, tacanvas.py
+Blocks, Block
+tablock.py
+block_list
+tawindow.py
+Class TurtleArtWindow – useful properties and methods (from within tamyblock.py, lc.tw is the class instance)
+Methods and data attributes
+Example
+Notes
+set_fullscreen(self)
+lc.tw.set_fullscreen()
+Hides the Sugar toolbar
+set_cartesian(self, flag)
+lc.tw.set_cartesian(True)
+True will make the overlay visible; False will make it invisible
+set_polar(self, flag)
+lc.tw.set_polar(True)
+True will make the overlay visible; False will make it invisible
+hideshow_button(self, flag)
+lc.tw.hideshow_button()
+Toggles visibility of blocks and palettes
+self.active_turtle
+lc.tw.active_turtle
+The active turtle instance
+Class TurtleGraphics – useful properties and methods (from within tamyblock.py, lc.tw.canvas is the class instance)
+Methods and data attributes
+Example
+Notes
+clearscreen(self)
+lc.tw.canvas.clearscreen()
+Clears the screen and resets all turtle and pen attributes to default values
+setpen(self, flag)
+lc.tw.canvas.setpen(True)
+True will set the pen "down", enabling drawing; False will set the pen "up"
+forward(self, n)
+lc.tw.canvas.forward(100)
+Move the turtle forward 100 units
+arc(self, a, r)
+lc.tw.canvas.arc(120, 50)
+Move the turtle along an arc of 120 degrees (clockwise) and radius of 50 units
+setheading(self, a)
+lc.tw.canvas.setheading(180)
+Set the turtle heading to 180 (towards the bottom of the screen)
+self.heading
+lc.tw.canvas.heading
+The current heading
+setpensize(self, n)
+lc.tw.canvas.setpensize(25)
+Set the turtle pensize to 25 units
+self.pensize
+lc.tw.canvas.pensize
+The current pensize
+setcolor(self, c)
+lc.tw.canvas.color(70)
+Set the pen color to 70 (blue)
+self.color
+lc.tw.canvas.color
+The current pen color
+setshade(self, s)
+lc.tw.canvas.shade(50)
+Set the pen shade to 50
+self.shade
+lc.tw.canvas.shade
+The current pen shade
+fillscreen(self, c, s)
+lc.tw.canvas.fillscreen(70, 90)
+Fill the screen with color 70, shade 90 (light blue)
+setxy(self, x, y)
+lc.tw.canvas.setxy(100,100)
+Move the turtle to position (100, 100)
+self.xcor
+lc.tw.canvas.xcor
+The current x coordinate of the turtle (scaled to current units)
+self.ycor
+lc.tw.canvas.ycor
+The current y coordinate of the turtle (scaled to current units)
+self.set_turtle(name)
+lc.tw.canvas.set_turtle(1)
+Set the current turtle to turtle '1'
+Other useful Python functions
+Module
+Methods and data attributes
+Example
+Notes
+from math import pow
+pow(2,3)
+returns 2 to the 3rd power (8)
+See
+http://docs.python.org/library/math.html
+from math import sin, pi
+sin(45*pi/180)
+returns sin of 45 (0.707)
+See
+http://docs.python.org/library/math.html
+from time import localtime
+localtime().tm_hour
+returns the current hour
+See
+http://docs.python.org/library/time.html
+lc.heap.append(data)
+add data to the FILO
+See
+http://docs.python.org/tutorial/datastructures.html
+data = lc.heap.pop(-1)
+pop data off of the FILO
+See
+http://docs.python.org/tutorial/datastructures.html

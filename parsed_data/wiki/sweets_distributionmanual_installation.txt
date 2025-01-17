@@ -1,0 +1,114 @@
+Title: Sweets Distribution/Manual Installation
+URL: https://wiki.sugarlabs.org/go/Sweets_Distribution/Manual_Installation
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+see
+Sweets Distribution
+These are instruction how to setup Sweets Distribution repository manually. For more users friendly way, use
+sweets-distribution
+utility.
+Releases
+http://old-releases.ubuntu.com/releases/
+General
+In addition to chosen Sweets Distribution
+repository
+, another, common, repository needs to be added to the system:
+http://download.sugarlabs.org/packages/SweetsDistribution/
+Ubuntu and its derivates
+Add a software source, import the key, update the package list, and install the package
+sweets-distribution
+.  Choose one of the following
+compound commands
+, and
+copy and paste
+it into a terminal:
+(Sugar 0.94 with) Ubuntu-12.10  ==> then go to:
+Sweets Distribution Installation
+(NOTE BELOW)
+UV=12.10
+ SD=
+http://download.sugarlabs.org/packages/SweetsDistribution
+:
+ sudo apt-add-repository "deb $SD/Ubuntu-$UV/ ./" && \
+ wget -qO- $SD/Ubuntu-$UV/Release.key | sudo apt-key add - && \
+ sudo apt-get update && \
+ sudo apt-get install sweets-distribution
+Sugar 0.94 with Ubuntu-12.04 LTS
+Tutorial of 12.04LTS installaton
+SV=0.94
+ UV=12.04
+ SD=
+http://download.sugarlabs.org/packages/SweetsDistribution
+:
+ sudo apt-add-repository "deb $SD/$SV/Ubuntu-$UV/ ./" && \
+ wget -qO- $SD/$SV/Ubuntu-$UV/Release.key | sudo apt-key add - && \
+ sudo apt-get update && \
+ sudo apt-get install sweets-distribution -f
+(Sweets-Read not installable thus -f option)--
+Satellit
+10:53, 30 April 2012 (EDT)
+Sugar 0.94 with Ubuntu-11.10, Trisquel 5.5, or Linux Mint 12:
+SV=0.94
+ UV=11.10
+ SD=
+http://download.sugarlabs.org/packages/SweetsDistribution
+:
+ sudo apt-add-repository "deb $SD/$SV/Ubuntu-$UV/ ./" && \
+ wget -qO- $SD/$SV/Ubuntu-$UV/Release.key | sudo apt-key add - && \
+ sudo apt-get update && \
+ sudo apt-get install sweets-distribution
+Sugar 0.94 with Ubuntu-11.04, Trisquel-5.0, or Linux Mint 11:
+SV=0.94
+ UV=11.04
+ SD=
+http://download.sugarlabs.org/packages/SweetsDistribution
+:
+ sudo apt-add-repository "deb $SD/$SV/Ubuntu-$UV/ ./" && \
+ wget -qO- $SD/$SV/Ubuntu-$UV/Release.key | sudo apt-key add - && \
+ sudo apt-get update && \
+ sudo apt-get install sweets-distribution
+Sugar 0.94 with Ubuntu-10.04.4 or Trisquel-4.1
+SV=0.94
+ UV=10.04
+ SD=
+http://download.sugarlabs.org/packages/SweetsDistribution
+:
+ sudo apt-add-repository "deb $SD/$SV/Ubuntu-$UV/ ./" && \
+ wget -qO- $SD/$SV/Ubuntu-$UV/Release.key | sudo apt-key add - && \
+ sudo apt-get update && \
+ sudo apt-get install sweets-distribution
+Sugar 0.88 with Ubuntu-10.10 or Trisquel-4.5:
+SV=0.88
+ UV=10.10
+ SD=
+http://download.sugarlabs.org/packages/SweetsDistribution
+:
+ sudo apt-add-repository "deb $SD/$SV/Ubuntu-$UV/ ./" && \
+ wget -qO- $SD/$SV/Ubuntu-$UV/Release.key | sudo apt-key add - && \
+ sudo apt-get update && \
+ sudo apt-get install sweets-distribution
+Sugar 0.88 with Ubuntu-10.04 or Trisquel-4.1:
+SV=0.88
+ UV=10.04
+ SD=
+http://download.sugarlabs.org/packages/SweetsDistribution
+:
+ sudo apt-add-repository "deb $SD/$SV/Ubuntu-$UV/ ./" && \
+ wget -qO- $SD/$SV/Ubuntu-$UV/Release.key | sudo apt-key add - && \
+ sudo apt-get update && \
+ sudo apt-get install sweets-distribution
+NOTE:
+You might have to edit your sources and remove the "Sugar version" information so that you can attempt to install 'sweets-distribution'. 
+The last command failed when I tried though. I tried 'sudo apt-get install sweets' 
+Which completed successfully but still 'sweets-distribution status' does not work properly.
+Xinerama
+10:13, 14 April 2013 (EDT)
+Or check
+the downloads directory
+for other combinations.
+http://download.sugarlabs.org/packages/SweetsDistribution:/Factory/Ubuntu-12.04/

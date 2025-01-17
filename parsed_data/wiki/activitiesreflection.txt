@@ -1,0 +1,86 @@
+Title: Activities/Reflection
+URL: https://wiki.sugarlabs.org/go/Activities/Reflection#The_backstory
+--------------------------------------------------------------------------------
+Contents
+1
+Reflection
+1.1
+How to play Reflection
+1.1.1
+The Toolbars
+1.2
+Programming challenges
+1.3
+Where to get Reflection
+1.4
+The backstory
+Reflection
+Reflection is a symmetry game. The goal is to create a reflective symmetry.
+How to play Reflection
+Click on the dots to change the colors until you have a reflective symmetry across a line of reflection.
+Did you know
+that dot colors come from your XO colors?
+Did you know
+that you can share Reflection and play with up to three others?
+Each time you play a new game, a randomly generated pattern is created.
+You can also play with vertical symmetry
+You can also play with bilateral symmetry
+The Toolbars
+from left to right
+the Activity toolbar Button (shown in the open position)
+the New-horizontal-game Button (start a new game to create a horizontal reflective symmetry)
+the New-vertical-game Button (start a new game to create a vertical reflective symmetry)
+the New-bilateral-game Button (start a new game to create a vertical reflective symmetry)
+an area for messages
+the Robot Button (the robot will help you make your pattern)
+the Stop Button
+Programming challenges
+Could you modify Reflections so that it supports rotational symmetry?
+Could you modify Reflections so that it supports glide symmetry?
+Where to get Reflection
+The Reflection activity is available for download from the
+Sugar Activity Library
+:
+Reflection
+The source code is available on
+the Sugar Labs Gitorious server
+.
+The backstory
+Reflections was written by Walter Bender and Reuben Caron as an example of how to migrate a simple Flash activity to Sugar.
+Refexion.swf is part of a bundle of Flash games Reuben encountered at a deployment in Central America. The game is simply a grid of squares that change color when clicked (See the figure below).
+The closest activity we could think of that had something similar (a grid of clickable elements) was
+Activities/Turtle in a Pond
+.
+We created Reflection in a few short steps:
+made a
+clone
+of the Turtle in a Pond activity
+made a
+git repository
+for the new project
+changed the
+activity.info
+file to reflect the name of our new activity
+created the
+activity icon
+changed the name of TurtlePondActivity.py to ReflectionActivity.py
+changed the
+name of the Class
+defined in ReflectionActivity.py to
+class ReflectionActivity(activity.Activity)
+removed the buttons we didn't need
+edited game.py:
+we made the dots cycle through four colors rather than just two when clicked
+we removed the turtle and all code associated with moving it
+we added a line of symmetry
+we rewrote the rules for detecting end of game
+All of this was done in less than two hours.
+We then created an
+XO bundle
+, uploaded it to activities.sugarlabs.org and created this page in the wiki, about one hour of work.
+For Version 2, we added
+saving game state to the Journal
+, added a few more game options, and collaborative play (by grabbing the collaboration code from
+Activities/Paths
+), an additional two hours of work.
+For Version 3, we added a robot help function and better feedback for when you complete the pattern.

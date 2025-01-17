@@ -1,0 +1,115 @@
+Title: Features/Journal Entry Sharing
+URL: https://wiki.sugarlabs.org/go/Features/Journal_Entry_Sharing
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Sharing/Backup Journal entries using a storage device
+4.2
+Convert Journal entries that have been saved to a storage device in 0.82
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+8.1
+Journal Entry storage / sharing via USB stick doesn't work
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+Sharing/Backup Journal entries using a mass storage device
+Owner
+Name:
+Simon Schampijer
+Current status
+Targeted release: 0.92
+Last updated: 07.03.11
+Percentage of completion: 100% (landed in 0.92)
+Detailed Description
+A Journal entry contains metadata (e.g. description, title, tags, color) and optionally a preview. Furthermore an entry contains a data file in most of the cases. For example a .odt file in Write. Another example is an entry of a Memorize Game that has no file associated with it, only the metadata and a preview (there is no state saved).
+In 0.82 when you copied a Journal entry to a storage device (e.g. USB) the files where stored in the root directory of the device and the metadata and preview was stored in a hidden folder called .olpc.store. You could then go to another machine and copy those entries over or use the stick as backup and copy back the entries to your Journal later. The entries on the device did have the color of the creator of the entries. Other files on the stick were shown in black and white.
+The datastore has changed significantly from 0.82 to 0.84 and therefore the old entries are not handled by the new datastore. Furthermore the copying to a storage device using the 0.84 datastore did only copy the data file over and the metadata and preview were omitted.
+The implementation will be described below:
+Sharing/Backup Journal entries using a storage device
+The new code will store the metadata and preview in a hidden folder like in 0.82. The folder will be named
+.Sugar_metadata
+. There will be two files per entry, one for the metadata named
+filename
+.metadata and one for the preview (if exists) named
+filename
+.preview. The data files will be stored in the root folder of the device. User experience: When the user views the content of a mass storage device Journal entries that have been copied to the device will be shown in the color of the creator (same behavior as with 0.82).
+Note: In 0.84 entries that do not contain a data file can not be copied to a storage device anymore (this was possible in 0.82), an alert is displayed to the learner in those cases. This change has been independent of these patches.
+The code is written defensive. If the metadata/preview is corrupted or has been removed it will be skipped, so the deletion of a data file on the device is handled gracefully.
+The learner has now the options to: backup the Journal entry to a storage device and copy it back to his own Journal later, share his entry with another learner over a storage device and use the file on a non Sugar machine (showing a picture to your friend on his computer).
+Convert Journal entries that have been saved to a storage device in 0.82
+This code will convert the old Journal entries to the new scheme described above. When a device containing a folder
+.olpc.store
+is plugged into the machine the conversion will happen automatically in the background. Files that have the metadata converted already from a previous run will be omitted from the conversion. The
+.olpc.store
+won't be removed after completion to be able to restore if anything goes wrong during conversion.
+Note: Entries that do not contain a data file can not be copied to a storage device anymore in 0.84 (this was possible in 0.82), for code simplification we do not restore those entries from 0.82.
+The conversion code is written defensive. If an entry can not be converted it will be skipped, if the database is broken the conversion is skipped etc. So the deletion of a data file on the device or any corruption to the
+.olpc.store
+should not cause a crash to Sugar.
+Benefit to Sugar
+A functionality which was present in 0.82 will be restored. You are able to share Journal entries with another learner using a USB drive or SD card. You can use this feature to backup Journal entries to a USB drive or SD card. Furthermore you will be able to read entries that have been saved in 0.82 to a USB drive.
+Scope
+This Feature affects only the Sugar module.
+UI Design
+The view of a storage device containing Journal entries of two different users.
+How To Test
+Journal Entry storage / sharing via USB stick doesn't work
+- drag a Journal item (that contains a file like Paint) to the external device
+---> show the content of the external device
+- rename the entry on the external device
+---> the metadata and preview file should change accordingly
+- check the contents on the removable device on another machine (hidden files enabled)
+---> there should be the file itself (in the root folder) and a file [filename].metadata and a file [filename].preview are in the .Sugar_metadata folder
+- insert the device again and copy the entry to your Journal (drag on the Journal icon)
+---> make sure that this works, that the entry is "resumable" and that there is a preview
+User Experience
+Martin wants to give a picture he has been drawing to Simon. He plugs in his USB drive and copies the Journal entry on the drive. Simon plugs in Martin's drive in his laptop. The entry will be shown with Martin's XO color on the drive. Simon copies Martin's entry into his Journal.
+Dependencies
+No new dependencies.
+Contingency Plan
+Not including.
+Documentation
+OLPC documentation
+OLPC 10.1.3 release notes
+Discussion about the issue on the SL tracker
+Patches for the current master:
+http://bugs.sugarlabs.org/attachment/ticket/1636/0001-Journal-entry-sharing.patch
+http://bugs.sugarlabs.org/attachment/ticket/1636/0001-Convert-Journal-entries-that-have-been-saved-to-a-st.patch
+These are the 0.84 patches that went into
+10.1.3
+:
+Sharing/Backup Journal entries using a storage device:
+9657
+Convert Journal entries that have been saved to a storage device in 0.82:
+9658
+Release Notes
+You may now share Journal entries with another learner using a USB drive or SD card. The user experience is: Martin wants to give a picture he has been drawing to Simon. He plugs in his USB drive and copies the Journal entry on the drive. Simon plugs in Martin's drive in his laptop. The entry will be shown with Martin's XO color on the drive. Simon copies Martin's entry into his Journal.
+You can use this feature to backup Journal entries to a USB drive or SD card.
+Comments and Discussion
+See
+discussion tab for this feature

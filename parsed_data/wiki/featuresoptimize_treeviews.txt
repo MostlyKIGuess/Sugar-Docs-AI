@@ -1,0 +1,114 @@
+Title: Features/Optimize TreeViews
+URL: https://wiki.sugarlabs.org/go/Features/Optimize_TreeViews
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Findings
+4.2
+Implementation
+4.3
+GTK+ concepts
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+Gonzalo Odiard and Manuel Quiñones did a hackaton to find out why the
+lists that contain icons are so slow.  The affected views in Sugar are
+the Journal list and the activities list.  This feature is about improving the TreeView performance.
+Owner
+Name:
+Manuel Quiñones
+Name:
+Gonzalo Odiard
+Current status
+Targeted release: 0.104
+Last updated: Nov 17, 2014
+Percentage of completion: 90%
+Detailed Description
+Findings
+The source of the performance issues is Sugar CellRendererIcon, a treeview without it works ok.
+https://github.com/sugarlabs/sugar-toolkit-gtk3/blob/master/src/sugar3/graphics/icon.py#L781
+Sugar CellRendererIcon has too much logic inside.  It should only handle how to render itself.
+In particular, a CellRenderer is not a Widget, then do not have event to know when the mouse interact,
+then needed attach to the events on the treeview
+[1]
+Sugar CellRendererIcon is connected to many signals.  Just detaching them while scrolling provides a performance boost.
+Sugar CellRendererIcon could benefit from caching values instead of calculating them on each render.
+There are a additional block in the Journal. That is not addressed by this feature, we guess there is a DBus blocking call,
+but we could't confirm that.
+Implementation
+ScrollingDetector: A new class ScrollingDetector allow simplify slow operations while the treeview is scrolling.
+To use it, just do:
+scrolling_detector = ScrollingDetector(self._scrolled_window)
+scrolling_detector.connect_treeview(self._tree_view)
+CellRendererIcon changes:
+The CellRendererIcon is not a widget, then, do not receive events when the mouse
+enter or leaves, and all the logic in the CellRendererInvoker is more complex than should be.
+Worst, we had 6 different CellRendererIcons in the Journal, then we simplified (and solved issues) implementing a
+TreeViewInvoker. The TreeView knows where is every cell then the code is much more simple.
+The ObjectPalettes was created in the mouse enter callback, then if a user moved
+the mouse cursor over the activity icons, many palettes were created, and that palette creation is expensive
+[2]
+.
+Moving the palette creation to the treeview, we can create the palette when the mouse was in a cell for a specified timeout and not before.
+GTK+ concepts
+GtkTreeView — A widget for displaying both trees and lists
+https://developer.gnome.org/gtk3/stable/GtkTreeView
+GtkTreeViewColumn — A visible column in a GtkTreeView widget
+https://developer.gnome.org/gtk3/stable/GtkTreeViewColumn.html
+GtkCellRenderer — An object for rendering a single cell
+https://developer.gnome.org/gtk3/stable/GtkCellRenderer
+Benefit to Sugar
+Performance!
+Scope
+Affects Shell and Toolkit.
+UI Design
+We should not regress treeviews.  Pay special attention to Journal list and activities list.
+How To Test
+To test the changes in the journal we used a python program to start the journal window from a terminal. 
+You can download it here
+[3]
+To use it do:
+python -m cProfile start_journal.py > profile.txt
+After run it in a Sugar terminal, the view jump to the Home, but in the frame you can see two journal icons. 
+The second is the profiled version. In the toolbar have a Stop button.
+After stop, you can check the profile.txt file.
+User Experience
+Users should notice a performance boost.
+Dependencies
+No deps.
+Contingency Plan
+These optimizations can come in small steps, so there is no need for a contingency plan.
+Documentation
+To be written.
+Release Notes
+To be written.
+Comments and Discussion
+Your comments are very welcome. Please discuss through the mailing list.
+The initial announcement in the mailing list is here
+[4]

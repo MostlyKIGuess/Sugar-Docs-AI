@@ -1,0 +1,220 @@
+Title: Activities/Kandid
+URL: https://wiki.sugarlabs.org/go/Activities/Kandid
+--------------------------------------------------------------------------------
+Contents
+1
+Kandid is a system to evolve graphical forms
+2
+Introduction
+2.1
+Background
+2.2
+What you can learn
+3
+Usage
+3.1
+Where to get Kandid
+3.2
+Evolve an image population
+3.3
+Tweak the controls
+3.4
+Collaboration
+3.5
+Exporting images to an image manipulation program
+4
+Looking inside the image generating process
+4.1
+What you see is made of several layers each containing only simple signs
+4.2
+Offspring images differ from there parents
+5
+Kandid and genetic programming
+5.1
+Phenotype
+5.2
+Genotype
+5.3
+Genotype to Phenotype Transformation
+5.4
+Fitness Function
+5.5
+Interactive Genetic Algorithm
+5.6
+Different evolution Strategies
+5.7
+Mutation
+5.8
+Crossing over
+6
+Releases, translation and known bugs
+6.1
+Translations
+6.2
+Bug tracking
+6.3
+Version history
+6.3.1
+v5: April 2010
+6.3.2
+v4: February 2010
+6.3.3
+v3: January 2010
+6.3.4
+v2: December 2009
+Kandid is a system to evolve graphical forms
+Introduction
+Kandid is a tool for breeding graphics. In Kandid a population consists of images looking like abstract
+art or geometric patterns. These graphical forms are not drawn by hand.
+Instead new forms can be found using an interactive genetic algorithm.
+Kandid is a combination of image rendering algorithms, genetic
+programming and interactive aesthetic selection. The program is
+missing a fitness function, a component you normally expect in an
+artificial genetic system. The lack of the built in fitness
+function is done by concept. No mathematical algorithm can decide
+if a graphic is meaningful for the user. The fitness function in
+Kandid is replaced by human aesthetic selection. In other words:
+The user tells the program which images are 'cool' or never seen
+before.
+Background
+Darwinian evolution consists of a simple cycle. The most fit entities in a population reproduce. The resulting offspring are a combination of their parents with some random mutations. Some offspring may be improvements over their parents. The most fit of offspring continue to reproduce. In Kandid the definition of fitness comes from the users aesthetic preferences. The program is a working horse presenting the user proposals for new images letting the user the decision which one is preferable. The concept behind Kandid was introduced by Karl Sims 20 years ago. It is a combination of image rendering algorithms, genetic programming and interactive aesthetic selection. Back in 2003 I published a different version of Kandid based on fractal geometry at
+http://kandid.sourceforge.net
+. Kandid for the Sugar desktop is more than a simple port. It is based on different graphic algorithms and allows the user more introspection of how the images are composed.
+What you can learn
+You can consider Kandid as a simulation of evolution. But compared to the evolution of live there are some differences. The first is how fitness is handled. In Kandid a human selects the proposed images. Next issue is the limited range of output. The program can produce lots of color combinations and geometrical shapes. But after using Kandid for a while the style of the images is predictable.
+You can use Kandid to improve you aesthetic feeling. Most of the random images are too indifferent. But sometimes you find a surprisingly interesting composition of shapes or a god looking color combination. Maybe you see things you never noticed before.
+You can use Kandid to get in touch with art made by machines. Or more precisely: Art made by humans trying to control a generative random process. You can see the success and the limits of this algorithmic approach for making art.
+Kandid is also about complexity. Every single image produced by Kandid is made of simple shapes and color schemata. But combining these parts will result in a complex looking image. The result is more than simply summing up the details.
+Usage
+Where to get Kandid
+You can download Kandid from
+http://activities.sugarlabs.org/en-US/sugar/addon/4254
+Evolve an image population
+You can start Kandid from your Home view by selecting Start
+new. The new image population starts with randomly generated
+images.
+An other possibility is starting Kandid with an existing
+image population. You can load a former image population from
+Home view or from the journal.
+A randomly produced image population looks mostly very
+dull. Its only a starting point from where the image population
+can be evolved in subsequent generations.
+To evolve the new image population you must tell the program
+which images are interesting. There is a
+slider above every image. Use this slider to tell Kandid how
+aesthetic these images are. For an awfully bore image give 0 or
+1 point. For images not to bad you can give 5 or 6 points. Your
+favorites needs 8 or 9 points.
+Press the Random button and wait a few seconds. Some images
+will be replaced by other. You can
+repeat this for some rounds. Preserve interesting images by
+moving the slider to an value between 5 and 9 points. But the result is a little bit
+disappointing. Too much bore images. Finding good looking
+images is like finding a needle in an haystack.
+This is the point where evolution can help.
+Press the Breed button instead of the Random button and wait a few seconds.
+Again images with low ratings will be replaced by new images.
+But there is one difference. These new images are offsprings of your favorite images.
+This means that the offspring genes are build from crossing over two parental
+genes and additionally mutating this new gene.
+You can repeat this for a long run.
+Always mark the image you find most appealing with a high ranking
+and set the images, that should not appear again in the next generation,
+with a low ranking.
+Tweak the controls
+The „Flurry rate„ in Kandid is something like the mutation rate.
+Offspring images will be generated by crossing over the two parent images
+genes and mutating the new image gene. The Flurry rate influences the
+amount of randomness during reproduction. If you have a low "Flurry
+rate" its likely that offspring images looks similar to the image with
+the best ranking. If your population looks to uniform increase it to
+create more deviations.
+Collaboration
+Kandid supports collaboration by publishing a complete image population
+or by sharing the gene of single image.
+A new image population starts in private mode. To share it select 'My Neighborhood'.
+You can invite an other buddy to Kandid.
+If this buddy joins, your population will be send to your friends computer.
+Let explain this in detail: The gene of each image is send,
+not a bitmap of the image.
+In this way your friend can evolve an independent copy of your image population.
+I suppose your friend has an different aesthetic feeling.
+And after a few generations both populations will evolve in different directions.
+These separated populations can share images by sending 
+the gene of a single image to all friends. Above all images in your population you find
+a pull down menu. Selecting 'Publish to my friends' will send the 
+gene of this image it to all joined friends.
+Image genes send from friends will be first displayed in a separate box.
+You find this incoming box on the left side.
+If you accept an incoming image, its gene will replace one of the low rated genes
+in your population.
+An other possibility is to decline or to ignore an incoming image.
+Here you see white and pink colored images send from a friend.
+Maybe he prefers bright color. It is your decision to integrate these
+to your 'earth tones' image population or just to ignore it.
+Exporting images to an image manipulation program
+You can send an image to the journal and later open it with an image manipulation program. The images are exported in Portable Network Graphics (PNG) format. The RGB colors and the alpha channel is included. In the population view all images are painted on a black background. If the image is partial transparent you see this black background shining through. After loading an exported image to an image manipulation program it may look different. Depending on your image manipulation program a white background or a checkerboard is looking through. Internally Kandid stores the parameters for recreating an image not an pixel per pixel representation. Bitmaps are only used for post processing the images.
+Looking inside the image generating process
+What you see is made of several layers each containing only simple signs
+The image rendering is made from simple geometrical shapes. For example select a letter from the alphabet or a mathematical sign and draw it repeatedly on a drawing canvas. Or subdivide the drawing area in four smaller squares, pick some of these little squares by random and repeat this process for several times.
+Or select a bulk of points at random positions and paint a smooth curve using these points.
+Each of this rendering algorithm draws its output to a separate layer. The final image is a combination of approximately less than dozens of these layers. The layers are organized as a tree. The finally visible layer is composed from two secondary layers. The secondary layers are combined from layers below. Until you reach one of the leafs of this image rendering tree. There are different strategies for combining two layers. A simple example is adding the color values of two layers to build the resulting layer. A more complex composing strategy is using one of the layer as an mask channel to clip the other layer.
+Kandid can display all the details an image is made from. Select "Explain details" and wait a few seconds. Then the program shows a scrollable view with all image layers and how they are combined. The final image is made of nothing more than the displayed details but the effects during composing are often hard to understand.
+Offspring images differ from there parents
+Select "Show ancestor" to display a family tree of an newly breeded image. On the top of the page you see the youngest image and below its ancestors. Sometimes the offspring looks different form its parents. This can have two reasons. One is mutation. In this case the impact of the mutated parameters take precedence over the inherit genome. The other reason is genome information that having no visual effect in the parent, but now in the offspring it is visible. Don't confuse the details view and the ancestor view. In the details view you see all the elements an image is made of. In the ancestor view you see the final images from the current generation and earlier generations.
+Kandid and genetic programming
+Phenotype
+The biological term phenotype means all the visible aspect of an individual creature. Think of the physical appearance of beech trees. The visible representation in Kandid are digital images displayed on your computer screen. In terms of evolution biology this images can be called the phenotype.
+Genotype
+The internally coded genetic information carried by all living organisms are called genotype. This information is stored in the deoxyribonucleic acid (DNA).  During reproduction, it is replicated and transmitted to the offspring. The genotype in Kandid is the essential information needed for the image renderer. For simple image types this information can be described in a small set of independent parameters.
+Genotype to Phenotype Transformation
+The physical representation of an individual creature is determined by two factors its genetic information and the environment. In biology the simple equation
+Phenotype = Genotype + Environment
+will describe this. In Kandid the genotype will be rendered to visualize the image. The equation can be simplified to
+Image = Genotype + Renderer
+. The rendering is done with algorithms developed for fractal and Euclidean geometry.
+Fitness Function
+In traditional genetic programming a function is needed to calculate an indication how optimal a genome is. This is called fitness function or fitness landscape. The parents with the best results are preferred producing offspring. Unfortunately some problems, like producing interesting digital images, don't have mathematicall defined fitness functions. Therefore Kandid has no build in fitness function. No assumption is made how meaningfully an image is for the user. Kasimir Malewitsch 'black square on a white field' can be reinvented with Kandid. But most users would prefer more colorful images.
+Interactive Genetic Algorithm
+Instead of a mathematical fitness function the user must weight the relevance of the results. The user has to mark his favorite image in every generation. This is called an interactive genetic algorithm based on human aesthetic selection. Because of the users decreasing concentration the result, an interesting image, must be found in only a few generations.
+Different evolution Strategies
+There are different paradigms for implementing a genetic algorithm.
+Evolution Strategies
+, invited by Ingo Rechenberg, are suitable for evolving real valued parameters to optimizing the result of a fixed formula.
+Genetic Algorithms
+, introduced by John Holland are also for optimizing parameters in hard coded functions. Where the parameters are binary coded instead of floating point numbers. Genetic operations in Kandid can be better understand as 'Evolution Strategy'. But this abstract dispute.
+Mutation
+The mostly used mutation operator for elementary values is multiplying the original value by an Gaussian random number. A mutation will lead to an new value that is only slightly different from its original. Random Gaussian numbers varies around 0.0 and small values are much more likely than large numbers. This is the basic mutation schema in an Evolution Strategy. Boolean values in Kandid are toggled. Integer values are incremented or decremented. Points are moved in 2D space by a random angle and a random distance. Color values are perturbed in hue, saturation, brightness space. The operations are implemented in a way that the mutated value is never outside the defined boundaries.
+Mutation of a list of predefined elements is implemented by exchanging elements in the list. Two elements are picked randomly and then exchanged. A second list mutation operator is able to expand or reduce a list by one element. In case of expanding the list the newly added element has a random content.
+Crossing over
+Merging two genes is called crossing over. It is only used in sexual reproduction. Genetic algorithm can be implemented only with mutation operations. The advantage of crossing over is that the successor gene can take profit from both parent genes. Crossing over is a list operation. The new merged gene list is created by copying elements from both lists step by step. At every step a random generator decides between continuing with the current list or changing to the other list as a source for the copying. This leads to multiple crossing over points per gene sequence.
+Releases, translation and known bugs
+Developers can clone the source code repository from
+http://git.sugarlabs.org/projects/kandid/repos/mainline
+Translations
+Kandid is partial translated to 'de', 'el', 'en', 'es', 'fr', 'it', 'pt_BR' and 'vi'. The program is translatable using Pootle. See
+our Pootle server
+for details about how to translate Kandid into your language.
+Bug tracking
+Users can report bugs and suggest an enhancement to
+http://bugs.sugarlabs.org/
+. Use component name 'Kandid' to tag your ticket.
+Version history
+v5: April 2010
+Added a simple ancestors view. The ancestors of newly generated images will be displayed as a tree. This is only a temporary solution and should be replaced later.
+Added a layer for rendering quadtrees.
+Bug fixing samplers / rendering engine. The changes in the rendering engine are not backwards compatible.
+Saving and restoring the graphics context in modifier nodes. Maybe this bug fix is not backward compatible.
+v4: February 2010
+Images generated by Kandid can be exported as PNG images to the journal. You can open an exported image with an image manipulation program.
+The details of a generated image can be explained.
+Improving the color scheme.
+Cancel obsolete rendering task during start up. This may reduce time when starting from journal.
+v3: January 2010
+Some new views added to Kandid:
+Starting anew will show the 'Getting started' view.
+The zoom view shows a selected protozoon with higher resolution.
+The status view is for monitoring the programs internal state.
+Scalable vector graphics (SVG) and Unicode characters will be used as stamps.
+v2: December 2009
+first public release

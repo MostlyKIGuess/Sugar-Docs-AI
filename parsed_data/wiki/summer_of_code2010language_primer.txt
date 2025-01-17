@@ -1,0 +1,106 @@
+Title: Summer of Code/2010/Language Primer
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2010/Language_Primer
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+What is your name?
+Yao Zhang
+What is your email address?
+Saturntoad@gmail.com
+What is your Sugar Labs wiki username?
+Saturntoad
+What is your IRC nickname?
+Saturn
+What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+Chinese & English
+Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+I'm located in Shanghai, China( "UTC+8" ). I tend to work from the morning to the evening, which is about from 8 a.m. to 10p.m.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I have participated in the open-source project "Cairo-Dock(a.k.a GLX-Dock)" by doing some translation work.(URL:
+https://launchpad.net/~saturntoad
+) And now I think it is time that I should make more contributions to the open-source to do some critical and technical stuff because I think I am capable of it. It is the excellent experience of using open-source softwares as well as my current programming knowledge and skills that makes me want to work on an open-source project this summer.
+About your project
+What is the name of your project?
+Image-and-sound-based Language Primer Activity
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+In general, my project is to provide a simple and intuitive language learning activity for children who are either pre-school or low-grade elementary school students.
+What am I making?
+A simple and intuitive language learning activity.
+It helps kids to learn a language from the basic letters, words to common daily usage of the language.
+Intuitive images should be heavily included in it to make it easy and interesting for kids to use as well as the use of sounds. The basic grammar and daily usage will be taught implicitly and gradually through the integration of texts, images and sounds so that kids can memorize and comprehend them.
+It has a language database, where entries can be easily added, removed or modified. Each entry may be a letter, a word, or a sentence, which should all have its corresponding text and image, and may also contain an extra sound file.
+To make it adapted to a new language should be easy, as most of the images can be reused without modification and the replacement of corresponding text can be done by using things like "Google Translate" automatically.
+It should also have the potential to add other new language learning methods to it.
+Who am I making it for?
+Mainly for kids who are either pre-school or low-grade elementary school students (between the age of 5~10 approximately) in less-developed and developing countries.
+Can be used by teachers to help teaching. They can use it in class as an alternative of PPTs, or they can let students learn new things after class by using this activity themselves. Teachers can add, remove or modify any entries in the database. There will be a simple authoring system that only certified teachers can access the original db, while students and their parents may also add their own new entries and have access to them.
+Can also be used by elder students as an easy-to-use vocabulary enhancing tool.
+Why do they need it?
+Because it is a critical time period for kids to get a good sense of language when in their early childhood.
+Can form a solid foundation of language for those kids, which is important for their further study.
+When used to learn a native language, it can help reduce illiteracy rate in those countries.
+When used to learn other languages like English, it can give those kids a better chance to meet their future challenge of the globaliztion and internationalization
+What technologies will I be using?
+I will use my favourite programming language Python since Sugar is also written in Python so it should integrate well and my project do not need a huge amount of resources to run.
+For the UI part, I will use PyGTK as I have some experience with it.( I've written a small but interesting game using PyGTK and on the right is a screenshot of it. For more info about it, please email me :)
+My little game using PyGTK..
+For the database part, I will use the sqlite module as the whole db does not need to be very large and the performance on a XO should be taken in consideration as well. There will be a db for storing basic using information, for example, the current user and his/her current learning language, available languages on this XO and account info of teacher users and student or parent users. Another db will be used for storing language learning materials like texts, images and some extra sound files. Each language can have its own separate learning material db so that newly-added entries can be transferred easily through the Internet, and teachers can also distribute self-modified materials to students easily.
+For the learning methods used in this activity, I will not only add my own learning experience of a student from a developing country to it, but consult some professors in the School of Foreign Language in my university as well. Also, some sophisticated commercial language learning softwares could be good reference for this activity, and I will try my best to simplify them to be suitable for kids. For every language there will be several units, each has its own topic like "People and life", "Plants and animals", "Food and drink" and so on. A unit contains about dozens of frames, and those frames can have relations. For instance, let's have four frames F1,F2,F3 and F4, F1 teaches the words "Man" and "Woman"; F2 teaches the words "Boy" and "Girl"; F3 teaches the words "Eat" and "Drink"; F4 will give a sentence "A boy is eating an apple" and multiple choices illustrated by vivid images of the mixture for someone(could be a man, a woman, a boy or a girl) is eating or drinking something, and then the student is asked to pick up the correct picture to test if he/she have already got what's the difference between those words and have a good sense of their pronunciation.
+For the teaching of speech sounds and intonation, I will consider using some open-source TTS softwares, for example, espeak the Speech Synthesizer. The best choice might be to use sound files of words and sentences recorded by real human beings. This may be okay for widely used languages like English, but for other smaller languages this could be almost impossible. This may also raise license problems. However, I will let the activity have the potential to add sound files of corresponding entries for some certain languages when coding it.
+For the re-distribution of own-made entries, an import and export function will be included so that those changes can be made from the db of this activity on a certain XO into a package to be shared easily with others. If there is any time left at the end of this summer or maybe in the near future, I will design a website to check and store well formed packages of own-added entries so that users from worldwide can download them and import to their own XOs(the reason why I do not want to implement this right now is the consideration that there may be difficulties for most of the XO users to have an Internet access)
+What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10(should be May 24 - August 9 this year??); tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (July 6-13 (should be July 12-16 this year??)); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Before the summer begins: Finish a draft for UI design. Consult language professors for proper learning methods and think about an approach to implement it. Set required environment and build a HelloWorld activity.
+Week 1:Discuss with mentor and have a total plan for the whole project. Decide and clarify all key details to implement the project.
+Week 2:Code the user-interface part. This should be easy once the design of the UI and all other things like getting familiar with whatever will be encountered and used are done before the summer begins.
+Week 3:Code the database part. This may be a little sophisticated and can take up a bit more time. However, since the work for the former two weeks is quite easy, there should be more than one week to write the db part and I'm strongly confident of finishing it by the end of week 3.
+Week 4:Finish all the main framework by connecting the front-end and the back-end as well as any rest part of the project. If there is some extra time left, I will consider adding some extensive stuff like the entry-sharing website.
+Week 5:Add basic images and entries to test if it works. Debug and solve problems. If successful, by this time the whole activity should be able to run like a charm. And it should be ready for the midterm evaluation.
+Week 6:Implement changes and improvements according to the midterm evaluation. Meanwhile I will continue to add more images and entries to db and try to find some volunteers on the Internet to help translate the entries in the db to other languages, especially those widely used in less-developed and developing countries.
+Week 7:The major plan for the last week will be writing documentation files. But if there are any severe or sophisticated problems that have not been solved in the previous weeks, there will still be enough time to settle those down during this very last week.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+First, I am capable of doing the project. I have had many computer science courses in university and have the programming experience in Python. Here is some of my work before.(If you want the source code or related screenshots please feel free to email me and I will be very happy to send them to you:)
+Fingers-to-9 ("
+http://fingers-to9.appspot.com/
+") - A small game originally written in PyGTK due to my personal interests. And later on I re-wrote it in Java to put it on the "Google App Engine" so that my friends who do not have Python and GTK installed( since most of them use MS Windows:( and are lazy to do the downloading and installation ) can also play it online.
+MobileRave - An application written in PyS60(Python for S60) to prevent RSI(repetitive strain injury) caused by consistent use of mobile phones. I submitted it to participate in the "Nokia CallingAllInnovators" event.
+MobileRave - An application written in PyS60(Python for S60) to prevent RSI(repetitive strain injury) caused by consistent use of mobile phones.
+Second, I have the time to do the project. I am an undergraduate student now and I do not have the burden of other heavy research work in the summer. And I am always enthusiastic about coding own creative stuff.
+Third, I was brought up in an ordinary family in a developing country. I used to experience the lack of language learning tools. I also do some language tutoring work for some elementary school students on weekends. All those make me know the society of developing countries well and what kind of help those kids there need most.
+Most importantly, I really like open-source and regard the OLPC plan a wonderful and meaningful thing to do. After enjoying so much from the open-source communities and going through a little difficult childhood, I want make my own contributions to the open-source world as well as help other kids who really need the help. I always regard the value of one's life as making the whole world and other people's life better, and this project is just a great way to fulfill that.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My answer: It can provide a language learning activity for Sugar and thus make the Sugar and the OLPC more complete in the field of education for young kids. The following two comments from members of the Sugar Labs community help to prove this. And If my project is successfully completed, there will be more children in China know about the Sugar Labs community and the OLPC, and there will be more fellows around me who will have the interests and be willing to write more cool activities for the Sugar Labs community.
+From Christoph Derndorfer(christoph@olpcnews.com): "this definitely sounds like a great project idea! :-) ", "it's very important to provide a good interface for both using and building such language learning lessons", and "yet I think we haven't done a great job at addressing this when it comes to providing appropiate activities."
+From Edward Cherlin <echerlin@gmail.com> :"Learning languages is an essential part of the mission, so I am glad to see your proposal."
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+I live in Shanghai, where there are many special elementary schools for children whose parents are immigrant workers(people who used to work as farmers in rural areas and then went to big cities to seek opportunities of earning more money). In those schools, they don't have much modern teaching facilities and most of the students come from the poorest families in the city. I think those schools are where the deployment could be since most of them are in the best age for starting language learning but lack the facilities.
+What will you do if you get stuck on your project and your mentor isn't around?
+Ask the community for help, e.g. on IRC, mailing list
+do some googling, and look up in SugarLabs's wiki
+Turn to those professors in my university for help
+Discuss it with my fellows
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I will report my progress to my mentor weekly, and post the progress report to the mailing list at the same time. I will also write blog posts( URL:
+http://saturntoad.blogspot.com/
+) to record those problems, questions and my own experience of taking part in the course of the project.
+Miscellaneous
+My version for the little challenge. There is no "Restart" in the newest version of Sugar..
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "Restart." See the image on the right for an example. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Done. I've managed to find the corresponding source code on my own, but I can not find the "Restart" text at first. And then I was informed of the fact that there is an update of Sugar, and "Restart" has been removed :( by Mr.McNamara through email contact. So I replaced the text of "Logout" with my email address, build it and got the screenshot :)
+What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+ＸＬ :)
+Describe a great learning experience you had as a child.
+When I was a child, here in China many children of the same age were forced by their parents to take extra courses on weekends in order to get better grades at school and be more competitive over others. However, my parents did not do that to me. Instead, they just let me choose whatever I wanted to do. And my favorite choice was going to the local library. From there I read lots of interesting books, but more importantly it helped me form a habit of reading extensively and through reading my sight was largely broadened. I really wanted to thank my parents for letting me learn things in my own ways rather than attending those boring and meaningless weekend classes. That made me know how to read and then think deeply and independently, which I found was the basis for team working with others in my later studies.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Yep.. I like to add a large amount of sugar when drinking coffee so that it tastes really sweet~  :)
+And I'd like to give special thanks to Mr.Tim McNamara, Mr.Christoph Derndorfer and Mr.Edward Cherlin who gave me lots of help and suggestions for my proposal. It really means a lot to me.

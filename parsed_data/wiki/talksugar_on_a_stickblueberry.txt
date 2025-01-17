@@ -1,0 +1,69 @@
+Title: Talk:Sugar on a Stick/Blueberry
+URL: https://wiki.sugarlabs.org/go/Talk:Sugar_on_a_Stick/Blueberry#liveinst_command_to_install_to_Hard-Disk.2FUSB_from_Soas_CD
+--------------------------------------------------------------------------------
+Contents
+1
+zyx-liveinstaller Instructions for Mirabelle f13
+2
+Blog about using zyx-liveinstaller to install to HD(Spanish)
+3
+md5sum doesn't match
+4
+liveinst command to install to Hard-Disk/USB from Soas CD
+5
+Loading WiFi driver for Classmate 3
+6
+Get help section is redundant to Sugar_help page
+zyx-liveinstaller Instructions for Mirabelle f13
+A new version of zyx-liveinstaller is required for f13
+*In running SOAS root terminal
+su
+yum install zyx-liveinstaller gparted
+follow install zyx-liveinstaller instructions
+[1]
+Note zyx-liveinstaller is now available via yum 05/20/2010
+Blog about using zyx-liveinstaller to install to HD(Spanish)
+http://www.mediagala.com/rap/foro/viewtopic.php?f=8&t=425
+md5sum doesn't match
+SHA1SUM file from download directory does...
+Danceswithcars
+15:31, 12 December 2009 (UTC)
+liveinst command to install to Hard-Disk/USB from Soas CD
+liveinst(Anaconda) is included on CD
+Be Carefull as you can damage your PC Hard Disk if you select the wrong device in this procedure
+Minimum 4GB USB required
+Boot CD
+Using sugar-terminal:
+su
+liveinst
+ Select Keyboard
+ Basic
+ Select Drives
+ local host
+ city (tz)
+ root password 2x
+Custom Install
+/boot ext4 200
+   /     ext4 3600
+ Write to disk-create filesystems-
+ Bootloader
+ finished
+reboot
+Boot new USB
+Loading WiFi driver for Classmate 3
+1. Download rt2870.bin from ralinktech.com (Be sure to download the Linux version).
+2. Copy the .bin file into /lib/firmware
+cp rt2870.bin /lib/firmware
+3. You need to load the RPM Fusion repository for Fedora
+sudo rpm -i
+http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm
+or
+sudo rpm -i
+http://bit.ly/Fs7c7
+4. yum install the driver
+sudo yum install akmod-rt2870
+Note:
+Step 4 is going to eat up lots of disk space.
+Get help section is redundant to Sugar_help page
+This help section should perhaps be moved to the general Sugar_help page, or be limited specifically to help with Sugar-on-a-Stick, and be cross-referenced to that page.  There's a lot of redundant information here.
+Also, Is the answers portal still recommended for use?  The Sugar_help page doesn't link there or suggest its use.

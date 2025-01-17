@@ -1,0 +1,196 @@
+Title: Summer of Code/2015/mohayon.SugarWebBasicActivitySet
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2015/mohayon.SugarWebBasicActivitySet
+--------------------------------------------------------------------------------
+Contents
+1
+About You
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About You
+What is your name?
+My name is Michaël Ohayon, I am a 4th year student at Epitech Paris
+What is your email address?
+mohayon75@gmail.com
+What is your Sugar Labs wiki username?
+mohayon
+What is your IRC nickname on irc.freenode.net?
+mohayon
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My native language is French, I am fluent in English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I'm located in Paris, France.
+I'm planning to work 17:00 - 22:00 on Monday, Tuesday and Wednesday (I got a part time job) and 10:00 - 18:00 the other days.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I got invested inside the french ubuntu loco team (ubuntu-fr.org) by helping during ubuntu parties.I started in October 2007 as a simple visitor and became a volunteer by helping people switching from Windows to Ubuntu.
+Back in thoses days, migrating was not as simple as today and this was a really great human experience for me. As a longtime GNU/Linux educated user, Open-source is something really important to me. It's a way to communicate and share values with everyone.
+Now that I'm a programmer, I think that I can move forward and also contribute with my programming skills.
+I attended a GSOC conference by Lionel Laské and decided to register.
+About your project
+What is the name of your project?
+Sugar Web Basic Activity Set
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using? What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+This project is a full rewriting of some Sugar apps : Calculate, Paint, Memorize and Record using the Sugar Web Framework in order to get close to every device.
+	Thoses apps are the basics apps that every children need to have.
+This rewriting is needed to merge apps from Sugar/Fedora and Sugarizer/Web.
+Those apps tends to be used by every childrens using either a XO or a Web Browser. (Including PhoneGap/Cordova supported platform such as Android/iOS).
+The goal of the project is to provide the same experience for childrens ignoring the devices they are on. Moving to PhoneGap/Cordova is a really great step for Sugar, it's a way to provide the Sugar experience to every child using the web standards.
+The main technologies to be used will be
+HTML5 and Javascript
+. The ability to read the Python source code is required in order to provide the same features for the Sugar Web apps as on the XO.
+I have identified many difficults parts :
+- The abstract of the the touch/click layer in order to handle childrens using a computer with a keyboard and a mouse but also a child using a touchscreen with a phone or a tablet.
+- Responsive design in order to get a usuable app on both small and big screens
+- The storage layer which as to save the app state but also videos and pictures resources.
+- Phone compatibility which can be tricky with inputs and drawings (iOS and Android are not always acting the same way and need code customisations)
+Libraries
+These are some libraries that I will look into in order to accelerate the development. The libraries are all at least MIT licensed. This is not a definitive choice, iOS and Android compatibility has to be checked.
+EaselJS
+is a library made for working with canvas. I will definitely use it for the games development.  It is MIT licensed
+wPaint
+is a jQuery plugin used to create "Paint like" apps. It has a builtin support of undo/redo. I think it's a great start for the Paint App. It is MIT licensed
+RecordRTC
+is a Javascript-based media-recording library. I will look into this library to develop the Record app. It is MIT licensed
+JSXGraph
+is a Javascript library used for geometry and function plotting. I will use it for the Calc app. It is LGPL/MIT licensed
+Math.js
+is a Javascript library used for expression parsing. It will be used for the Calc app. It is Apache licensed.
+I will develop step by step using an Agile methodology.
+I have downloaded the Calculate, Paint, Memorize and Record xo files and will mimic their GUI.
+My apps will have the same look and feel that the natives ones.
+My timeline
+Week 0
+Research Work on frameworks compatibility (phone, tablets and XO laptop located at Le Spot Bouygues)
+Week 1 - 19 May
+Calculate application :
+Base GUI, landscape mode
+Touch / clicks inputs handling
+Base mathematical expression handling
+Results displaying and saving inside the Journal
+Week 2 - 25 May
+Calculate application :
+Advanced mathematicals expression handling
+Graph support
+Ouput format controls (digits, bases)
+Input buttons for sin,cos, etc
+Blog posts, documentation writing
+Week 3 - 1 June
+Calculate application :
+Testing on XO, Android, iOS, PC
+Bug fixing
+Paint application :
+Base GUI, landscape mode
+Touch / clicks inputs handling
+Basic drawing
+Color palette
+Undo / Redo
+Text typing support
+Saving to the Journal (local or cloud)
+Week 4 - 8 June
+Paint application :
+Testing on XO, Android, iOS, PC
+Bug fixing
+Memorize application programming :
+Base GUI
+Base game context
+Grid size picker
+Default grid creation
+Ability to play the Game
+Blog posts, documentation writing
+Week 5 - 15 June
+Memorize application programming :
+Grid creation using images, text and sound from Journal
+Grid saving to the Journal (local or cloud)
+Load game from journal (local or cloud)
+Week 6 - 22 June
+Memorize application programming :
+Testing on XO, Android, iOS, PC
+Bug fixing
+Record application programming :
+Base GUI
+Picture taking
+Publishing pictures to Journal (local or cloud)
+Testing on XO, Android, iOS, PC
+Blog posts, documentation writing
+MidTerm Evaluation
+Week 7 - 29 June
+Planning scheduling evaluation and modifications if required
+All apps checking
+Bug hunting
+Bug fixing
+Week 8 - 6 July
+Record application programming :
+Sound recording
+Sound publishing to Journal (local or cloud)
+Testing on XO, Android, iOS, PC
+Blog posts, documentation writing
+Week 9 - 13 July
+Record application programming :
+Video recording
+Video publishing to Journal (local or cloud)
+Testing on XO, Android, iOS, PC
+Week 10 - 20 July
+Calc and Paint app checking
+Bug hunting
+Bug fixing
+Blog posts, documentation writing
+Week 11 - 27 July
+Memorize and Record app checking
+Bug hunting
+Bug fixing
+Week 12 - 3 August
+All apps checking
+Bug hunting
+Bug fixing
+Blog posts, documentation writing
+Week 13 -  10 August
+All apps checking
+Bug hunting
+Bug fixing
+Week 14 - 17 August
+Final patches in order to make everything working flawlessly
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I am really dedicated to my work, I can't stand doing something and not finishing it.
+I like when working really hard gets to something : my scolarity is great, my GPA is 4 (out of 4).
+I've led a R&D laboratory in my school focused on Google Technologies (Android / Dart / Angular / Go).
+Our goal was to  keep track on the student's free projects and give them advices and workshops to discover new technologies.
+I got seen by my school and proposed to work with the GIGN on a serious project, I can't say any details but this was a great opportunity.
+After this project, I got hired as I'm now a "Innovation Mentor" for my school and keep track on students inside the national innovation lab (12 cities).
+This year I worked with big companies from Bouygues, thanks to Lionel Laské, on making innovation prototypes using new technologies such as the Google Glass or iBeacons.
+I really like to learn by myself and to discover new horizons and that's why I'm writing this today. 
+My two formers internships were about Mobile and PhoneGap/Cordova using HTML5/JS. I think I can handle the amount of work of this project and contribute to the community.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My answer :
+I think this will be a great move for Sugar onto web platforms.
+Sugarizer will allow everyone with every device to access the same user experience with the same look and feel.
+This is really important to provide a standard way to use Sugar, essentially when kids are involved in the using. Using web standards will allow a new way for developpers to developp and for users to discovers the possibilities provided by Sugar.
+Thoses apps are the basics apps required to make Sugarizer a really great thing to use.
+I hope Sugarizer will allow every child, ignoring their devices to acces education through Sugarizer !
+Lionel Laské :
+Sugarizer is a way to look forward on Sugar future. But to start a real deployment with Sugarizer, we need to include inside the activities most used today by children and teachers on Sugar. More, this basic set of activities is an important source of content for other activities in Sugar ecosystem: Record activity for example will be the main source of content for Memory, Fototoon, Write or Paint activity. So this project is really a bootstrap for the development of Sugar Web.
+Martin Abente Lahaye :
+It's been a while since we started with JavaScript activities and I think its time that we cover such basic set of activities. Record is especially interesting as I haven't seen anything similar for the web. This would help projects such as Sugarizer to offer a more complete experience of Sugar in the web.
+What will you do if you get stuck on your project and your mentor isn't around?
+I will ask the Sugar community, friends, collegues and my school mentors to discuss with me in order to explain what my problem is.
+I think that discussion is the first step of getting new opinions and others point of view.
+Of course I will also use my great friends, Google, StackOverflow, Github to see if somebody has encountered the same problems I did.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I think that I will setup a blog, in order to show what the project progress is. This blog will be updated with technical and non technical posts in order to allow everyone to understand what's going on.
+- I will (if it is relevant) create pages on the Sugar wiki
+- The Git commit messages will be clear and helpfull for others developpers
+- My code will be documented in order to reveal my work and progression
+- I will also use IRC to discuss with over people in order to get their opinions of the progress and or any problem I could have.
+Miscellaneous
+Screenshot of the Sugar development environment
+Describe a great learning experience you had as a child.
+I like to discover things, one of the best experience I had was around 2000, close to the summer when I discovered that it was possible do create things on a computer
+I remember going in the computer room and to discover Macromedia Flash. In this session we were in pairs and I really enjoyed using the software to draw stickmens.
+This really looks simple to me now that I'm a programmer running on ArchLinux every day.
+I think that we had only made 5 or 6 frames but it was animated and I found it awesome :)
+Simple things can change our perceptions and made people want to do things, I'm sure that my choice of studies is really close to the education and friends I had.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Eveything is okay !

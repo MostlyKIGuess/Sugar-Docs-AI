@@ -1,0 +1,77 @@
+Title: LiveOS image
+URL: https://wiki.sugarlabs.org/go/LiveOS_image
+--------------------------------------------------------------------------------
+This page has been moved to the
+Fedora Project Wiki
+.
+Additional information for
+Sugar on a Stick
+is available
+below the frame
+.
+The frame below is an active view of the
+LiveOS image
+page on the Fedora Project Wiki:
+Contents
+1
+Sugar Activity Storage
+2
+Device filesystem
+3
+Installation options
+4
+File Systems
+5
+Image customization, recompression, and overlay refreshment
+Sugar Activity Storage
+Activity bundles that come pre-installed with the Sugar on a Stick (SoaS) are saved in the /usr/share/sugar/activities folder of the root filesystem. When Activities are updated from the Sugar Control Panel, the new Activity bundles are saved in the /home/liveuser/Activities folder.  When an Activity is run, Activity instance data is saved in the Sugar Journal in /home/liveuser/.sugar/default/<activity bundle_id> folder and /home/liveuser/.sugar/default/datastore/<hashed folder names>
+When additional Activity bundles are downloaded, they are saved in the /home/liveuser/Activities folder (but not the /usr/share/sugar/activities folder).
+Thus, when SoaS is installed with the --home-size-mb NNN option of livecd-iso-to-disk, storage for the Activities one wants to try and, perhaps later, throw away, is made available without consuming the write-once root filesystem overlay, which can be consumed very quickly (and overlay file space is not directly reusable).
+Device filesystem
+The filesystem of the USB/SD flash storage device before SoaS was loaded is available through the /run/initramfs/live mount point (/mnt/live before Fedora 17 or SoaS Quandong).  It would be helpful if the Sugar Journal code were adjusted to recognize this partition structure and offer this space as an attached disk to facilitate file sharing.)
+Installation options
+Sugar on a Stick
+may be installed on a 1 GB USB device using the following options with
+livecd-iso-to-disk
+(on a single, Terminal Activity or console command line, even though the wiki may wrap the following text in accord with your browser window size):
+./livecd-iso-to-disk --reset-mbr --overlay-size-mb
+200
+--home-size-mb
+150
+--delete-home --unencrypted-home /path/to/source/iso/or/device /dev/sd
+?
+1
+where '
+?
+' in the final parameter represents the target bootable device node, such as
+sd
+b
+1
+or
+sd
+c
+1
+, etc.
+The above configuration would allow space for the home folder, the operating system, and a little on the device root.
+But with a larger capacity device, one may allocate the resources to suit the anticipated use, as described above.
+File Systems
+Consumption of the space allocated for persistent storage in the snapshot overlay file may be tracked with the
+device mapper
+dmsetup status
+report.
+Sugar Cellar
+is a small, utility script which uses that service to allow for Learner testing and discovery. It will help Learners manage their storage resources and learn ways to economize limited resources.
+Sugar Cellar
+is available at
+http://people.sugarlabs.org/fgrose/SugarCellar
+and as a component of
+Sugar on a Stick/Sugar Clone
+.
+Several developments in the Sugar on a Stick design may be considered to maximize the endurance of the LiveOS image.
+Image customization, recompression, and overlay refreshment
+Sugar on a Stick/Sugar Clone
+provides a method to build a customized LiveOS image installation file through the
+SoaS-remix
+bundle.  The SoaS-remix.iso installation file can be used to redistribute the customized image.  A new installation from this .iso will have the old image recompressed and a fresh overlay. With the current version, the home.img file must be manually copied to a new installation.  One's aging SoaS image can be refreshed by an over-installation (see the instructions on the referenced page).
+Development is proceeding on a new version of Sugar Clone, which uses the Device-mapper mirror facility to copy and merge the root filesystem and overlay, and then replaces the compressed SquashFS images on the USB or SD card with fresh, recompressed versions along with a refreshed overlay.  This procedure does not require re-running the livecd-iso-to-disk script to effect the refreshment.  An updated version of livecd-iso-to-disk will provide --copy-home, --reset-overlay, & --include <path s> options to support installation of the new, remixed builds.
+The remix building of a LiveOS image is also a good way to maintain and distribute system updates. Many software security, enhancement, and bug fixes are distributed through PackageKit (Software Update) or Yum update, which are turned off by default on LiveOS installations like SoaS.  After manually running an update, the image can be remixed to incorporate the changes into a new Updated-SoaS.iso file.  This process could be migrated to the Sugar BuildBot service to provide the Community with an up-to-date Sugar on a Stick image.

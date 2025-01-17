@@ -1,0 +1,63 @@
+Title: Dextrose/Server/Addons
+URL: https://wiki.sugarlabs.org/go/Dextrose/Server/Addons
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Moved and died at
+http://sugardextrose.org
+Some changes that will be included in the dextrose server, a lot of it based on work done by the AU olpc guys.
+Take out active antenna stuff:
+# clean up active antenna stuff and superflous network connections here:
+rm -f /etc/sysconfig/network-scripts/route-lanbond0 
+rm -f /etc/sysconfig/network-scripts/route-eth0 
+rm -f /etc/sysconfig/network-scripts/ifcfg-mshbond0
+rm -f /etc/sysconfig/network-scripts/ifcfg-mshbond1
+rm -f /etc/sysconfig/network-scripts/ifcfg-mshbond2
+rm -f /etc/sysconfig/network-scripts/ifcfg-msh0
+rm -f /etc/sysconfig/network-scripts/ifcfg-msh1
+rm -f /etc/sysconfig/network-scripts/ifcfg-msh2
+rm -f /etc/sysconfig/network-scripts/ifcfg-wmesh0
+rm -f /etc/sysconfig/network-scripts/ifcfg-wmesh1 
+rm -f /etc/sysconfig/network-scripts/ifcfg-wmesh2
+rm -f /etc/sysconfig/network-scripts/ifcfg-eth1
+rm -f /etc/sysconfig/network-scripts/ifcfg-lanbond0
+rm -f /etc/sysconfig/network-scripts/ifcfg-lanbond0:0 
+rm -f /etc/sysconfig/network-scripts/ifcfg-lanbond0:1 
+rm -f /etc/sysconfig/network-scripts/ifcfg-lanbond0:2
+Make custom named based on original XS:
+# setup custom named
+mv /sbin/ifup-local /sbin/ifup-local.rpmsave
+cat > /sbin/ifup-local <<EOF
+# Authors: Jerry Vonau <jvonau@shaw.ca>
+#          Martin Langhoff <martin@laptop.org>
+#  
+if [ x"\${1}" = x ]; then
+    exit
+else
+     case \$1 in
+	   eth0|ppp0)
+            namedtpl=/etc/named-xs.conf.tpl
+            namedconf=/etc/named-xs.conf
+            FWD=""
+            for i in \`cat /etc/resolv.conf | grep nameserver | awk  '{print \$2}'\`; 
+            do 
+                if [ x\$i != x127.0.0.1 ]; then
+                    FWD="\$FWD \$i;"
+	 	  else
+                   exit    
+	 	  fi
+            done 
+	      cp \$namedtpl \$namedconf 
+            logger "changing /etc/named-xs.conf using forwarders \$FWD"
+            sed -i -e "s/@@BASEDNSFWD@@/\$FWD/" \$namedconf
+            logger "changing /etc/resolv.conf for principal school server"
+	      cp /etc/sysconfig/olpc-scripts/resolv.conf /etc/resolv.conf  
+	      ;;
+    esac
+fi
+EOF
+chmod 755 /sbin/ifup-local

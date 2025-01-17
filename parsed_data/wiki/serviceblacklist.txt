@@ -1,0 +1,46 @@
+Title: Service/blacklist
+URL: https://wiki.sugarlabs.org/go/Service/blacklist
+--------------------------------------------------------------------------------
+Contents
+1
+Hostnames
+2
+Hosted on
+3
+Administrative contact
+4
+Sysadmins
+5
+Notes
+6
+Upgrade notes
+Hostnames
+None
+Hosted on
+Machine/jita
+Administrative contact
+See
+Sysadmins
+section.
+Sysadmins
+For non-emergency calls, preferably send email to the administrative contact.
+Aleksey Lim
+Notes
+User
+blacklist
+Home
+/srv/blacklist
+Cron
+/etc/cron.daily/blacklist
+Config
+/srv/blacklist/.config/sweets/config
+This is an infra to keep
+sugar-server-blacklist
+package up-to-date. The cron task will trigger checking if upstream blacklist was changed, and it it is, new package will be uploaded to
+https://obs.sugarlabs.org
+by calling
+sweets
+command. The sources of sweets is cloned to blacklist user's home directory.
+Upgrade notes
+git
+/srv/blacklist/site

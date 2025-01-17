@@ -1,0 +1,92 @@
+Title: Features/GTK3/Development
+URL: https://wiki.sugarlabs.org/go/Features/GTK3/Development
+--------------------------------------------------------------------------------
+This page includes repo details and how to get sugar-jhbuild set up with the GTK3 work.
+Contents
+1
+Repos
+2
+jhbuild setup
+3
+Pending work
+3.1
+sugar-toolkit-gtk3
+3.2
+sugar-artwork
+4
+Pending upstream work
+Repos
+http://git.sugarlabs.org/sugar-toolkit-gtk3
+- branch 'master': this is the GTK3 port of sugar-toolkit
+http://git.sugarlabs.org/sugar-toolkit
+- branch 'master': the GTK2 version of sugar-toolkit needs a handful of structure changes prompted by our GTK3 work. They have been committed here.
+http://git.sugarlabs.org/sugar
+- branch 'master': we are not (yet) porting the sugar shell to GTK3, but a handful of structural changes were needed.
+http://git.sugarlabs.org/sugar-artwork
+- branch 'master': mainline sugar-artwork repo containing the new theme work (folder gtk3)
+http://git.sugarlabs.org/browse
+- branch 'master': Browse port to GTK3
+http://git.sugarlabs.org/read
+- branch 'master': Read port to GTK3
+http://git.sugarlabs.org/hello-world
+- branch 'master': hello-world ported to GTK3
+http://git.sugarlabs.org/~walter/abacus/abacus-gtk3
+- branch 'abacus-gtk3': Abacus ported to GTK3 and to use cairo for drawing
+jhbuild setup
+All the changes have been landed in the master branches. Make sure you have the sugar-toolkit-gtk3 repository checked out and installed. There has been a fix in pygobject. Either compile/install the master branch or in F16 you can install as well the
+recent pygobject3
+release.
+Pending work
+shortcuts in palettes: button tooltips should show the shortcut, if any, next to the tip.  Like in the Stop button, "Stop Ctrl+Q"
+title in menus (e.g. 'Back' in the Browse back button palette)
+sugar-toolkit-gtk3
+take screenshot: the code has to be ported to cairo, see
+_get_screenshot in Browse
+as an example
+toolbars: finish the sub-toolbar look-alike like in gtk2
+finish porting the 'do_expose_event' calls to 'do_draw' calls
+sugar-artwork
+deprectate icon-slicer
+finish
+the theme
+Pending upstream work
+All of these have been worked around (or will be worked around) for now, at the sugar level.
+gobject introspection bindings for librsvg:
+https://bugzilla.gnome.org/show_bug.cgi?id=663049
+Solved: fix has been pushed to librsvg master in
+http://git.gnome.org/browse/librsvg/
+, is in  2.35.0
+related gobject-introspection fix for libxml2
+https://bugzilla.gnome.org/show_bug.cgi?id=663048
+Solved: fix has been pushed to gobject introspection 42e9ea858c454646ecf5d4b9579ea7a2ce4192fd
+enable GDK introspection access to X11 window properties:
+https://bugzilla.gnome.org/show_bug.cgi?id=663261
+.
+current workaround patch in sugar-toolkit
+(Raul)
+extend gio mime type API so that we can drop our xdgmime copy (e.g. need to be able to get default file extension for a given mime type)
+chaining up in vfuncs:
+https://bugzilla.gnome.org/show_bug.cgi?id=662994
+Solved: fix has been pushed to pygobject master
+http://git.gnome.org/browse/pygobject/commit/?id=2fd3aa9d4ca0906a5e609845ee500ba72e358f94
+implementing GtkContainer::forall:
+https://bugzilla.gnome.org/show_bug.cgi?id=644926
+, also needs
+https://bugzilla.gnome.org/show_bug.cgi?id=663052
+missing parts in pango introspection,
+646788
+does contain what we need (there are quite a few introspection related pango bugs open atm, from a quick look I found
+https://bugzilla.gnome.org/show_bug.cgi?id=660070
+,
+https://bugzilla.gnome.org/show_bug.cgi?id=627973
+,
+https://bugzilla.gnome.org/show_bug.cgi?id=645792
+,
+https://bugzilla.gnome.org/show_bug.cgi?id=645871
+,
+https://bugzilla.gnome.org/show_bug.cgi?id=646788
+even with patches attached already for a while)
+GLib.utf8_validate does segfault:
+https://bugzilla.gnome.org/show_bug.cgi?id=672889
+Can not listen to signals in subclassed subclasses:
+https://bugzilla.gnome.org/show_bug.cgi?id=672864

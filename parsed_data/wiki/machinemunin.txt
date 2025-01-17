@@ -1,0 +1,77 @@
+Title: Machine/munin
+URL: https://wiki.sugarlabs.org/go/Machine/munin
+--------------------------------------------------------------------------------
+Data
+Name
+munin.treehouse.su
+Description
+Development VM for
+Munin
+OS
+Debian
+Squeeze
+Typ
+Virtual Machine
+Location
+housetree
+Service
+template_SERVICE
+Admins
+Stefan Unterhauser
+Monitoring
+munin
+Recipe
+ssh root@housetree 'qemu-img create -f qcow2 /srv/vm/munin.qcow2 20G'
+ ssh root@squeeze 'rm /etc/udev/rules.d/70-persistent-net.rules'
+ ssh root@squeeze 'sed -i "s/squeeze/munin/" /etc/dhcp/dhclient.conf; sync'
+ ssh root@housetree 'virsh suspend template-squeeze'
+ ssh root@housetree 'virt-clone --force -o template-squeeze -f /srv/vm/munin.qcow2 -n munin'
+ ssh root@housetree 'virsh resume template-squeeze'
+ ssh root@squeeze 'sed -i "s/munin/squeeze/" /etc/dhcp/dhclient.conf'
+ ssh root@housetree 'virsh start munin'
+add "munin" to .ssh/config and to treehouse-DNS
+ssh root@munin 'sed -i "s/squeeze/munin/g" /etc/hostname /etc/mailname /etc/hosts /etc/postfix/main.cf'
+ ssh root@munin 'ssh-keygen -N "" -f /etc/ssh/ssh_host_rsa_key -t rsa'
+ ssh-keygen -f ".ssh/known_hosts" -R munin.treehouse.su
+ ssh root@munin 'ssh-keygen -N "" -f /etc/ssh/ssh_host_dsa_key -t dsa'
+ ssh root@munin 'ssh-keygen -N "" -f /root/.ssh/id_rsa -t rsa'
+ssh root@munin 'sed "s/squeeze/munin/" </etc/munin/munin-conf.d/squeeze >/etc/munin/munin-conf.d/munin' #recursion :P
+user "hhardy" name "Henry Edward Hardy" other "hhardy01@gmail.com"
+ssh root@munin 'adduser --disabled-password --add_extra_groups hhardy'
+ ssh root@munin 'echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDcvPyaILAJXdOM074kdswcFXLsAJgi34cZmumaOwa/88Uv/4rHBtNLBbRnGNOE7ZnMlW3T+GvgGvAKIunCmK9UpNCBA+zWq8Heosfnemf55ygnCn56ESHKFLV9IH0TZqKFMKH5/LU8CcxxAAmKvbk5nz/xNEbPyUisaBaI/J2ff3q5KQujgfhyPfZGpEUjKCrAXx+IBqcMUrwi7yWQRPaa12AxxNz7YEBMM0MWWbHP90OafnRIjM03v8L+KYjjCw9psRMI9uKWmF0XpD1MO/iqXPGOlj+ouYVXyT8W3PosDpPCDoNr/djIbzr5om8gw0qRgpE4q+a4g9YGP7pJ6CEl hh@hh-hp.bc.edu" >> /home/hhardy/.ssh/authorized_keys'
+ ssh root@munin 'reboot'
+ ssh root@munin 'echo "deb
+http://snapshots.munin-monitoring.org/packages/debian/
+/" >> /etc/apt/sources.list'
+ ssh root@munin 'aptitude update'
+ ssh root@munin 'aptitude install munin apache2'
+ ssh root@munin 'echo "dbdir /var/lib/munin" >> /etc/munin/munin.conf'
+ ssh root@munin 'echo "htmldir /var/cache/munin/www" >> /etc/munin/munin.conf'
+ ssh root@munin 'echo "logdir /var/log/munin" >> /etc/munin/munin.conf'
+ ssh root@munin 'echo "rundir  /var/run/munin" >> /etc/munin/munin.conf'
+ ssh root@munin 'echo "tmpldir /etc/munin/templates" >> /etc/munin/munin.conf'
+ ssh root@munin 'sed -i "s/localhost.localdomain/VMs;munin.treehouse.su/" /etc/munin/munin.conf'
+ ssh root@munin 'sed -i "s/^<\/Vir/#<\/Vir/" /etc/apache2/sites-enabled/000-default'
+ ssh root@munin 'echo "Alias /gar /var/cache/munin/www" >> /etc/apache2/sites-enabled/000-default'
+ ssh root@munin 'cat /etc/munin/apache.conf >> /etc/apache2/sites-enabled/000-default'
+ ssh root@munin 'sed -i "s/localhost 127.0.0.0\/8 ::1/all/" /etc/apache2/sites-enabled/000-default'
+ ssh root@munin 'echo "</VirtualHost>" >> /etc/apache2/sites-enabled/000-default'
+ ssh root@munin 'service apache2 restart'
+ ssh root@munin 'echo "[VMs;TEMPLATE.treehouse.su]" > /etc/munin/munin-conf.d.tpl'
+ ssh root@munin 'echo "  address TEMPLATE.treehouse.su" >> /etc/munin/munin-conf.d.tpl'
+ ssh root@munin 'echo "  use_node_name yes" >> /etc/munin/munin-conf.d.tpl'
+ ssh root@munin 'sed "s/TEMPLATE/dextra/" </etc/munin/munin-conf.d.tpl >/etc/munin/munin-conf.d/dextra'
+ ssh root@munin 'sed "s/TEMPLATE/treehouse/" </etc/munin/munin-conf.d.tpl >/etc/munin/munin-conf.d/treehouse'
+ ssh root@munin 'sed "s/TEMPLATE/housetree/" </etc/munin/munin-conf.d.tpl >/etc/munin/munin-conf.d/housetree'
+ ssh root@munin 'sed -i "s/VMs/DOMs/" /etc/munin/munin-conf.d/dextra /etc/munin/munin-conf.d/treehouse /etc/munin/munin-conf.d/housetree'
+redirect to /gar
+ssh root@munin 'echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\"><html><head><title>munin.treehouse.su/gar</title><meta http-equiv="REFRESH" content=\"0;url=
+http://munin.treehouse.su/gar
+\"></HEAD><BODY>Optional page text here.</BODY></HTML>" > /var/www/index.html'
+ ssh root@munin 'service apache2 restart'
+enable CGI
+ssh root@munin 'aptitude install libdate-manip-perl'
+ ssh root@munin 'echo "graph_strategy cgi" >> /etc/munin/munin.conf'
+ ssh root@munin 'echo "html_strategy cgi" >> /etc/munin/munin.conf'
+ ssh root@munin 'echo "cgiurl_graph /cgi-bin/munin-cgi-graph" >> /etc/munin/munin.conf'
+ ssh root@munin 'service apache2 restart'

@@ -1,0 +1,89 @@
+Title: Platform Team/Prosody
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Prosody
+--------------------------------------------------------------------------------
+Contents
+1
+Purpose
+2
+Plugins
+2.1
+mod_sugar_roster
+2.2
+mod_sugar_pep
+2.3
+mod_sugar_muc
+3
+Installation
+4
+Configuration
+5
+Getting involved
+5.1
+TODO
+6
+Resources
+Purpose
+These are reasons to use Prosody Jabber/XMPP server:
+be humble for consuming memory and CPU resources, especially for the Sugar Server Kit usecase (up to 1K users),
+jabber server should be simple to initially configure, and work in an unmaintained mode as long as possible.
+Plugins
+These plugins are tested against the Prosody 0.8.2 version.
+mod_sugar_roster
+Provides a global roster, where every user sees all registered accounts.
+mod_sugar_pep
+In difference with the original
+mod_pep
+plugin,
+mod_sugar_pep
+allows all buddies from the sugar roster to get all notifications, even without proper subscriptions. This plugin seems to be a workaround, because subscription should be done on the client side, but that doesn't happen. The affected use case can be reproduced in the Glucose-0.88 (Dextrose-2) environment:
+Clean up
+data/
+directory;
+Start XO #1;
+Start XO #2;
+Create and share activity instance on XO #2;
+Neighborhood view on XO #1 doesn't show shared activity;
+Sharing activity on XO #1, is visible from XO #2.
+In over words, XO #1 is not subscribed to PEP notifications from XO #2.
+mod_sugar_muc
+The only difference compared with the original
+mod_muc
+plugin is a workaround for the
+telepathy-gabble
+/
+Prosody
+issue.
+This plugin should be used instead of
+mod_muc
+until the issue is fixed in telepathy-gabble or in Prosody.
+Installation
+To reuse sugar plugins, copy them to the directory with Prosody plugins. Or, install the
+prosody-sugar
+package from the
+Sweets Distribution
+repository
+.
+Configuration
+See sugar-server-templates
+sources
+for a configuration example.
+Getting involved
+Report
+on bugs.
+Read the
+HACKING
+file to know how to contribute with code.
+TODO
+Compare Prosody resources consumption with existing ejabberd.
+Resources
+Prosody
+home page
+.
+Prosody
+sources
+.
+Prosody Sugar plugins
+sources
+.
+Packages
+with Prosody Sugar plugins.

@@ -1,0 +1,145 @@
+Title: Features/Semantic Web
+URL: https://wiki.sugarlabs.org/go/Features/Semantic_Web
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+8.1
+On an XO-1 running the software 12.1.0
+8.2
+On a desktop PC
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+15
+Subpages
+Summary
+Make use of Semantic Web technologies (for instance
+RDF
+,
+SPARQL
+) to enhance data management in Sugar.
+Owner
+Name:
+Christophe Gueret
+Email: <christophe.gueret@gmail.com>
+Current status
+Targeted release: 0.98
+Last updated: 20121003033033
+Percentage of completion: 60%
+Detailed Description
+The idea is to leverage the flexible RDF data model to encode the data Sugar has to deal with. In association with SPARQL, a query language for RDF, it will be possible to have a universal query system as expressive as SQL but without the constraints imposed by databases (tables with fixed schema).
+The model for the data encoded in RDF is that of a graph with directed labelled edges. The nodes of this graph are resources, for instance a file on the disk or a journal entry. Note that these nodes are are not the resources themselves but a representation of them (i.e. the content of a file is not serialized as the label of a node). Edges between the nodes maps to relations binding resources together. Considering a journal entry and a file, the relation would be that the journal entry has stored the file. This model is flexible as any kind of relation can be created. It is conceptually very close to key/value stores.
+In relation to RDF and SPARQL, the principle of "Linked Data" suggests publishing data by using URIs for both the resources and the relations. The use of URIs removes the risk for ambiguity in data encoding, it also provides an easier integration for multiple languages
+Benefit to Sugar
+Sugar will benefit from the usage of RDF, SPARQL, and the Linked Data publication scheme at several points:
+RDF is a standard pushed by the W3C and which is gaining popular adoption by public bodies (UK gov, ...) as well as companies (Facebook, Google, ...). Using that data model in Sugar would ease data integration processes with other data sources already using that format. For instance, an activity will be able to query Wikipedia (actually, DBpedia - it's RDF enabled flavor) for the population of a country, or a list of countries sharing some particular feature. The acquired knowledge could then be stored in the XO and connected to other information.
+SPARQL is a query mechanism for RDF data that will expose the data contained in Sugar. In a class room, a teacher will be able to query all the XOs for their most used activity and generate statistics with a single SPARQL query sent to all the machines.
+The implementation of
+Features/Tags_in_Journal
+is facilitated as it maps to picking up tags from a set of pre-defined resources and connected to them with an "hasTag" relation. Rather than being hard-coded within Sugar, the tags can be stored on a SPARQL enabled server on an XS and be queried when needed.
+Enhanced multi-lang support. For instance, let's consider the tag "Car" and assume a French speaking class and a Spanish class want to use it to tag some activities usage. French pupils will tag "voiture", their Spanish friends will most likely use "coche". Consolidating the two terms as speaking about a car is tricky, data consolidation is better done upfront. Linked Data proposes to solve this issue by picking up a resource for "Car", for instance "
+http://laptop.org/ontology/Car
+" and relate it to "voiture"@fr and "coche"@es with a relation "rdf:label". Sugar will then display the french label or the spanish label depending on the locale but always use "
+http://laptop.org/ontology/Car
+" in the backend.
+As illustrated by the previous example, using these technologies will facilitate data integration and re-use between schools, bringing collaborative learning to a new scale.
+Similarly to the tags, the meta data an activities uses can be controlled via an external data source and a controlled vocabulary.
+In general, Sugar can be turned into a
+Semantic Desktop
+. A concept which relates to a better integration of data between desktop applications and across desktops. It will be the first of this kind reaching a young public, that's something worth a bit of PR :)
+Scope
+The scope will vary with the degree of adoption to consider. It ranges from installing a python package to let activities query for RDF data to making a complete re-design of the Journal data store.
+UI Design
+There should be no need for a UI as most of the changes concerns the code of Sugar and activities.
+How To Test
+All the code is available
+on SugarLabs
+It is possible to test SemanticXO on both an XO-1 or a desktop PC. However, it is recommended to use an XO-1 are the installation is easier on these and they are used as a primary target for all the development.
+On an XO-1 running the software
+12.1.0
+Go to
+http://git.sugarlabs.org/semanticxo/main/trees/master/patch_my_xo
+Put the files "setup.sh" and "semanticxo.tar.gz" somewhere on the XO
+Login as root, set setup.sh to be executable and type "./setup.sh setup". This will install the API of SemanticXO, the triple store and two demo activities
+Reboot
+On a desktop PC
+This is a step by step intruction guide to test the triple store based Journal backend. It assumes that all the packages for sugar are available and the sugar-emulator is running.
+Download and install RedStore
+Follow the instructions on
+http://www.aelius.com/njh/redstore/
+to download and install RedStore on the test machine. It should also be possible to use other triple stores such as Virtuoso or OWLIM as long as a SPARQL 1.1 compliant service is accessible on the port 8080.
+Install the dependencies for SemanticXO
+RDFLib
+http://code.google.com/p/rdflib/
+SPARQLWrapper
+http://sparql-wrapper.sourceforge.net/
+Download and install the code from SemanticXO
+Clone the repository:
+git clone
+git://git.sugarlabs.org/semanticxo/main.git
+semanticxo
+Edit line 4 and 5 of datastore/bin/datastore-service to make it fit the location of the directory where you clone the code (by default ~/Code/SemanticXO)
+Locate the datastore-service startup script from the normal datastore
+type datastore-service
+Replace that daemon with datastore/bin/datastore-service
+Start redstore in debug mode, so that you will see the queries being executed ;-)
+redstore -v
+Start the sugar emulator
+sugar-emulator
+Play around with Sugar, creating and updating entries in the Journal
+With an explorer, within the emulator or outside, go to
+http://localhost:8080/
+to see the content of the triple store. There should be one named graph per Journal entry
+User Experience
+Users will eventually see that:
+Activities can share information
+They can directly contribute to the translation of parts of the software
+They can share and link Journal entries from different instances of Sugar, even if remotely connected
+Developers of activities will have:
+An easy way to store graph-shaped data
+A query system for fetching information published in RDF, for instance those in the
+LOD Cloud
+A mechanism to query data from other Sugar instances
+Dependencies
+Most noticeably, the implementation of storing RDF data on Sugar and having it queried with SPARQL requires the addition of a triple store. Triple store are RDF databases that are optimized for storing and serving data in that format. Most of the triple stores have been designed for servers are too big to be run on an XO. For now, some
+interesting performances
+have been reached with
+RedStore
+. An other alternative to consider would be the popular
+4store
+. These two seems however to be the only ones usable on the XO hardware, currently none of them is packaged for Fedora.
+Contingency Plan
+Well, revert to previous release behaviour should be enough to solve all problems.
+Documentation
+This feature is being investigated under the contributor project "SemanticXO", it has been explained and demoed at various conferences and demo events. Most of the documentation can be found on the
+blog of the project
+Release Notes
+Comments and Discussion
+See
+discussion tab for this feature
+Subpages
+Features/Semantic Web/Testing

@@ -1,0 +1,35 @@
+Title: Sugar on a Stick/Linux/bootable device
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Linux/bootable_device
+--------------------------------------------------------------------------------
+These instructions help with determining and setting disk partitions as bootable devices.
+Note
+: This page is transcluded in other instruction pages.
+Check the disk partition table for a device, such as
+/dev/sdc
+,
+sudo fdisk
+-l
+/dev/sdc
+<----that's a lowercase letter 'L' for the
+l
+ist option.
+You should see something like the following:
+$ sudo fdisk -l /dev/sdc
+
+Disk /dev/sdc: 4012 MB, 4012900352 bytes
+124 heads, 62 sectors/track, 1019 cylinders, total 7837696 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x0000a9c7
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1   *          62     7834071     3917005    c  W95 FAT32 (LBA)
+The asterisk,
+*
+, under the Boot column indicates that the partition is bootable.
+If it is missing, then execute the commands here:
+parted /dev/sd
+c
+toggle 1 boot
+quit

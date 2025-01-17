@@ -1,0 +1,364 @@
+Title: Sugar on a Stick/Linux
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Linux#Put_SoaS_onto_a_stick_using_Fedora_or_Ubuntu
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+livecd-iso-to-disk tool
+2.1
+Persistence
+3
+Linux users, suggested methods
+4
+Experimental
+4.1
+Load SoaS further insight
+4.2
+livecd-iso-to-disk transcript
+5
+What's next?
+Introduction
+The page
+Sugar on a Stick/Linux/Installation
+provides up-to-date and concise instructions for loading  the most recent released version of
+Sugar on a Stick
+(SoaS) onto a USB/SD flash storage device using GNU/Linux.
+livecd-iso-to-disk tool
+Before experimenting beyond the instructions in the link above, please read
+fedora:How to create and use Live USB
+for more background details. That page starts with Direct Write methods of creating a (non-persistent) Live USB system, and further down the page describes using the livecd-iso-to-disk tool which is the prefered method of making persistent Sugar on a Stick.
+The reader should be aware that Ubuntu/Debian use a method to create a live USB system which is fundamentally different to Fedora's method, used by Sugar.
+Quote from the above Fedora page
+Issues using other Linux distributions
+Ubuntu and derivative Linux distributions have a usb-creator program similar to Live USB Creator. This does not work with Fedora ISO images, it silently rejects them. usb-creator requires the ISO to have a Debian layout, with a /.disk/info file and a casper directory. Do not attempt to use this utility to write a Fedora ISO image.
+The livecd-iso-to-disk script is not meant to be run from a non-Fedora system. Even if it happens to run and write a stick apparently successfully from some other distribution, the stick may well fail to boot. Use of livecd-iso-to-disk on any distribution other than Fedora is unsupported and not expected to work: please use an alternative method, such as the "direct write" methods described above.
+end Quote
+Persistence
+Persistence in the context of a live USB system, is the ability to save both system changes, including Software updates, and the user's work between sessions, that is after shutdown and reboot.
+Linux users, suggested methods
+Linux users might consider reading the following pages for supported methods to install SoaS.
+Users of Fedora and Red Hat derivitives:
+Sugar on a Stick/Linux/Installation
+Debian, Ubuntu, and derivitives, and other distros:
+Make your SoaS from within a Sugar Live OS environment, which is itself a Fedora system.
+Either
+Burn a Sugar.iso and follow the section of
+Sugar on a Stick/Installation
+entitled
+"1. Burn a CD-ROM disc, boot from it, then run the script,
+livecd-iso-to-disk
+"
+or
+create a Sugar image by dd or any of the methods on
+this page
+. Then boot into the Live OS, to create SoaS from the running Live OS image.
+If you have questions, trouble, or feedback, please let us know on the
+discussion
+page. If you can improve these instructions, please edit the page and do so!
+Experimental
+To explore a variety of experimental options for putting a
+Sugar
+image on a USB or SD flash drive under GNU/Linux, see the following pages:
+SoaS test builds
+|
+OLPC XO-1
+|
+openSUSE
+|
+Trisquel
+|
+VirtualBox
+|
+VMware
+|
+non-compressed Fedora
+|
+Live USB: (all known portable Sugar distributions)
+Load SoaS further insight
+This is known to work in Fedora and has been reported to work in Ubuntu.
+First, download a SoaS
+.iso
+image from
+http://spins.fedoraproject.org/soas/#downloads
+, then return here.
+Make sure you have the
+syslinux
+package installed on the operating system that you will use to prepare the Live USB image. It is recommended that you also have the
+isomd5sum
+package installed. The
+cryptsetup
+package is another option potentially used by the "livecd-iso-to-disk" installation script. (On Ubuntu,
+sudo apt-get install syslinux isomd5sum cryptsetup
+will install the packages. They are also available through the Synaptic Package Manager.)
+(On Gentoo, one needs to uncomment 'SAMPLE FILE' in /etc/mtools/mtools.conf to make syslinux work.)
+syslinux
+is needed to set up booting on the FAT file system of the USB disc or Live CD.
+isomd5sum
+is needed for the recommended verification step, which checks that the .iso file is complete after its travels. If there is a problem with the .iso file, the script will exit and provide a failure message.  The verification step can be bypassed by using the
+--noverify
+option.
+cryptsetup
+is only needed for the option to provide password protection and encryption for the persistent /home/liveuser folder. It is not necessary if one applies the  recommended
+--unencrypted-home
+option. The
+--unencrypted-home
+option is preferred because the reduced overhead improves robustness with the compressed
+SquashFS
+file system employed by the Live USB deployment.
+Plug in a 2 GB or larger USB stick into your computer.
+Mount the 'SoaS.iso' image to reach the onboard livecd-iso-to-disk installation script:
+sudo mkdir /run/soas/
+sudo mount /path/to/Fedora-Live-SoaS-x86_64-20-1 /run/soas/
+(mount: /dev/loop0 is write-protected, mounting read-only)
+Change the working directory to the LiveOS folder on the SoaS.iso mount:
+cd /run/soas/LiveOS
+Execute
+./livecd-iso-to-disk --help
+for usage details. (The file is already executable.)
+Check the USB device node name on your system. In the example below, the
+s
+csi
+d
+evice is /dev/sdc and filesystem partition on that device is /dev/sdc1:
+$ df -Th
+Filesystem    Type    Size  Used Avail Use% Mounted on
+rootfs      rootfs     20G   12G  7.5G  61% /
+udev      devtmpfs    1.6G     0  1.6G   0% /dev
+tmpfs        tmpfs    1.6G  904K  1.6G   1% /dev/shm
+tmpfs        tmpfs    1.6G  788K  1.6G   1% /run
+/dev/sda2     ext4     20G   12G  7.5G  61% /
+tmpfs        tmpfs    1.6G     0  1.6G   0% /sys/fs/cgroup
+tmpfs        tmpfs    1.6G     0  1.6G   0% /media
+/dev/sda2     ext4     20G   12G  7.5G  61% /tmp
+/dev/sda2     ext4     20G   12G  7.5G  61% /var/tmp
+/dev/sda2     ext4     20G   12G  7.5G  61% /home
+/dev/loop0 iso9660    668M  668M     0 100% /run/soas
+/dev/sdc1     vfat    3.8G  4.0K  3.8G   1% /run/media/MyAccount/MyUSBdiscMountPoint
+Another way to find out the USB device node name on your system is issuing the command
+sudo fdisk -l
+and looking in the output for the disk that corresponds to the USB device, e.g., a disk described with a stanza like
+Disk /dev/sd
+?
+: 1939 MB, 1939865600 bytes
+   150 heads, 42 sectors/track, 601 cylinders, total 3788800 sectors
+   Units = sectors of 1 * 512 = 512 bytes
+   Sector size (logical/physical): 512 bytes / 512 bytes
+   I/O size (minimum/optimal): 512 bytes / 512 bytes
+   Disk identifier: 0x000e14bf
+   
+   Device Boot      Start         End      Blocks   Id  System
+   /dev/sd
+?
+1   *        2048     3784703     1891328    c  W95 FAT32 (LBA)
+where
+?
+in /dev/sd
+?
+is (usually) a letter of the alphabet.
+If you have only
+one
+storage device with 2 GB of nominal capacity, it will be easy to recognize the USB device in the fdisk output by looking at which device has (about) 2 GB of capacity. In the example above, "Disk /dev/sd
+?
+" reports to be as large as
+1939 MB
+, that is almost 2 GB.
+If you have
+more than one
+disk with about 2 GB of capacity, consider moving to a situation where you'll have only
+one
+device with 2 GB of capacity, because this will help out a lot in recognizing the drive correctly.
+Unmount the drive,
+sudo umount /run/media/MyAccount/MyUSBdiscMountPoint
+(The
+/run/media/MyAccount/
+path is the new, standard Fedora mount point. Other operating systems may use
+/media/MyMountPoint
+.)
+Check the disk partition table for a device, such as
+/dev/sdc
+,
+sudo fdisk
+-l
+/dev/sdc
+<----that's a lowercase letter 'L' for the
+l
+ist option.
+You should see something like the following:
+$ sudo fdisk -l /dev/sdc
+
+Disk /dev/sdc: 4012 MB, 4012900352 bytes
+124 heads, 62 sectors/track, 1019 cylinders, total 7837696 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x0000a9c7
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1   *          62     7834071     3917005    c  W95 FAT32 (LBA)
+The asterisk,
+*
+, under the Boot column indicates that the partition is bootable.
+If it is missing, then execute the commands here:
+parted /dev/sd
+c
+toggle 1 boot
+quit
+Run
+livecd-iso-to-disk
+as the root user, making sure to pass the correct USB device node name and to set overlay and home size appropriately, depending on the target USB device storage capacity.
+./livecd-iso-to-disk --reset-mbr --overlay-size-mb
+500
+--home-size-mb
+800
+--unencrypted-home
+/path/to/downloaded
+.iso /dev/sd
+?
+1
+If the command fails telling you that /dev/sd
+?
+1 does not exist, try using the command for /dev/sd
+?
+(the name of the device) and not for /dev/sd
+?
+1 (the name of the partition), like this:
+./livecd-iso-to-disk --reset-mbr --overlay-size-mb
+500
+--home-size-mb
+800
+--unencrypted-home
+/path/to/downloaded
+.iso /dev/sd
+?
+If the command fails returning a complaint about the filesystem not being mounted,
+and
+you can afford to
+loose all data on the USB device
+, you can try reformatting the USB device filesystem:
+mount the USB device (e.g., by unplugging and re-inserting it),
+repeat the steps for learning its device name (there can be situations when the device name has changed!)
+issue the command with the
+--format --msdos
+options, like this:
+Warning
+The command described here will ask for a confirmation and will
+destroy
+all pre-existing data on your USB device.
+See also
+How to Damage a FLASH Storage Device
+for a discussion of why using the factory format is preferred.
+./livecd-iso-to-disk --reset-mbr
+--format --msdos
+--overlay-size-mb
+500
+--home-size-mb
+800
+--unencrypted-home
+/path/to/downloaded
+.iso /dev/sd
+?
+In the above examples, the
+/path/to/downloaded
+.iso
+may be substituted with
+/dev/loop0
+, as this is the loop device that the mount command chose.
+Note
+Additional USB or SD devices may be loaded from a running
+Sugar on a Stick
+image that was loaded with the livecd-iso-to-disk script (but not those installed by other methods) by running this command in the Terminal Activity as a root user:
+/run/initramfs/live/LiveOS/livecd-iso-to-disk --reset-mbr --overlay-size-mb
+500
+--home-size-mb
+800
+--unencrypted-home /run/initramfs/livedev /dev/sd
+?
+1
+The
+livecd-iso-to-disk
+installation method has other advantages over the
+liveusb-creator
+method by allowing the creation of a separate,  persistent /home/liveuser folder with the
+--home-size-mb
+NNN
+option. This feature avoids consumption of the persistent overlay for Activity storage (see
+LiveOS image
+) and allows one to update the OS image while keeping the user files (by running the script against your existing installation but
+leaving out
+the --home-size-mb NNN option).
+A
+--delete-home
+option is available to avoid an error message while requesting both a new home (with
+--home-size-mb
+) when there is already a persistent home on the device). You wouldn't use the --delete-home option on an upgrade of the operating system only.
+Depending on the size of your USB stick, you may have to decrease
+--overlay-size-mb
+and
+--home-size-mb
+values (for example, for a 2 GB stick, use 500 for the overlay and 800 for the home folder).
+If you have sufficient capacity on your target device, and format it with an ext[234] filesystem to overcome the 4096-MB fat32 file size limit, you may avoid the SquashFS compression by including the
+--skipcompress
+option in the script command line.
+Watch out for errors in the output of the script, the script seems to ignore them! (and say all is fine on the last line).
+livecd-iso-to-disk transcript
+[LiveOS]$ sudo ./livecd-iso-to-disk --reset-mbr --overlay-size-mb 500 --home-size-mb 800 --unencrypted-home /home/MyAccount/Downloads/Fedora-Live-SoaS-x86_64-20-1.iso /dev/sdc1
+Verifying image...
+/home/MyAccount/Downloads/Fedora-Live-SoaS-x86_64-20-1.iso:    b0a9414ff7eb79b680d5c86440e19587
+Fragment sums: 9bfe23577651c88dcfb78c76ac3a28a5c53eead4561e3bdc5921b8b2e748
+Fragment count: 20
+Press [Esc] to abort check.
+Checking: 100.0%
+
+The media check is complete, the result is: PASS.
+
+It is OK to use this media.
+Copying live image to target device.
+squashfs.img
+    630,784,000 100%    1.96MB/s    0:05:06 (xfr#1, to-chk=0/1)
+osmin.img
+          8,192 100%    0.00kB/s    0:00:00 (xfr#1, to-chk=0/1)
+Updating boot config file
+Initializing persistent overlay file
+500+0 records in
+500+0 records out
+524288000 bytes (524 MB) copied, 216.717 s, 2.4 MB/s
+Initializing persistent /home
+800+0 records in
+800+0 records out
+838860800 bytes (839 MB) copied, 344.643 s, 2.4 MB/s
+Formatting unencrypted /home
+mke2fs 1.42.8 (20-Jun-2013)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+51296 inodes, 204800 blocks
+10240 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=209715200
+7 block groups
+32768 blocks per group, 32768 fragments per group
+7328 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+tune2fs 1.42.8 (20-Jun-2013)
+Setting maximal mount count to -1
+Setting interval between checks to 0 seconds
+Installing boot loader
+Target device is now set up with a Live image!
+What's next?
+After you've created your stick, it's time to
+boot your stick
+and
+test
+it out.  Please also
+report
+your observations.

@@ -1,0 +1,125 @@
+Title: Human Interface Guidelines/The Sugar Interface/Toolbars
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/The_Sugar_Interface/Toolbars
+--------------------------------------------------------------------------------
+english
+|
+español
+|
+한국어
+HowTo
+[ID# 32616]
++/-
+←
+Text and Fonts
+Toolbars
+Rollovers
+→
+See
+Toolbars
+for new design images.
+Contents
+1
+Toolbars
+1.1
+Grouping by Context
+1.2
+Standard Toolbars
+1.2.1
+Activity Toolbar
+1.2.2
+Edit Toolbar
+1.2.3
+Text Toolbar
+1.2.4
+Image Toolbar
+1.2.5
+View Toolbar
+1.3
+Custom Toolbars
+1.3.1
+Inserting Objects
+1.3.2
+Bookmarking
+1.4
+Hiding Toolbars
+1.4.1
+Soft Hiding
+1.4.2
+Hard Hiding
+Toolbars
+Every activity will have a "Toolbox" at the top edge of the screen.  The Toolbox consists of a set of (at least one) toolbars, individually selectable via the tabs beneath them.  Placement of the tabs beneath the toolbars themselves makes selection of tools and buttons within the toolbars easier according to Fitts' Law, since they will remain against the screen edges where they are "un-missable."  Though this makes the tabs slightly more difficult to activate, we anticipate the frequency with which these toolbars require explicit switching to be minimal, specifically due to their contextual nature as described below.
+Grouping by Context
+Each toolbar will contain a logically grouped set of buttons and controls, as the name on its corresponding tab suggests.  Each of these sets will represent a distinct editing or control  context.  For instance, the Write activity contains individual toolbars for Text, Images, and Tables.  Each of these contains a set of controls relevant to the context they relate to.  In order to streamline workflow, activities may initiate a toolbar-switch when the current editing context changes, automatically selecting the toolbar for the newly selected context.  Clicking on an image within a report will automatically focus the Image Toolbar, revealing the associated controls; Clicking back within the body text will automatically re-focus the Text Toolbar.  In this fashion, the controls visible on screen always remain relevant to the selection, virtually eliminating the need to select most toolbars explicitly, except perhaps to locate the "insert" button for an element for which no context currently exists.
+Of course, a one to one relationship may not always exist.  For instance, a selection may include both text and image, or perhaps for some reason focus isn't within any context at all.  In these cases, it is up to the activity to decide the appropriate behavior.  One suggested fallback is to switch automatically to the Edit Toolbar, since copy and paste, as well as most other editing commands, often apply across contexts.
+Standard Toolbars
+As mentioned above, every activity will have at least one toolbar within the toolbox:  The Activity Toolbar.  This toolbar will provide core activity functionality and will automatically be included in the Toolbox.  Though sugar requires no other toolbars, it does provide a short list of potentially common ones along with suggested names and controls for consistency across Activities.  These are suggestions, not rules, and as a developer you should feel free to ignore the suggestions when you find a compelling case to do so.  The following table suggests a standard ordering for some common toolbars.  Note that the arrows indicate the relative position of the tabs, where those with double arrows can be interspersed with custom elements as long as their relative order remains.  In the examples which follow for controls within each toolbar, the arrows should be taken to indicate alignment within the toolbar, double arrows indicate control regions which expand to fill the remaining space.
+< Activity
+< Edit
+< Text >
+< Image >
+[ Custom Toolbars ]
+Format >
+View >
+Activity Toolbar
+Always the first of the tabs, the Activity toolbar will remain consistent in every activity, providing a place to name and tag the instance, set preferences, share within the mesh, or stop (close) the activity, among others.  This toolbar will always have focus when a new activity instance is created, encouraging the children to provide a name and any related tags.  An API will allow developers to associate various palettes with some of the buttons which reside in the Activity toolbar, such as preferences.
+Edit Toolbar
+Though not automatically included within the Toolbox, we anticipate nearly every activity will have an Edit Toolbar, since nearly every activity should at least allow copying if not pasting as well.  Likewise, we are strongly encouraging every activity to support complete Undo/Redo functionality, which should also reside within the Edit Toolbar.  Finally, the edit toolbar will also provide a common interface for performing find operations on any text within the activity.  Of course, activities should only include those functions which pertain to them, and additional editing tools may be added to the toolbar as necessary.
+< Undo
+< Redo
+< Copy
+< Paste
+[ Custom Controls ]
+Find >
+Undo/Redo:
+The undo/redo commands have extremely high importance on the laptops, since their presence encourages creative exploration without the fear of unrecoverable changes.  They should function in a manner chosen by the activity, and although that manner should reflect our current expectations, the collaborative nature of most activities complicates the matter to some extent.  A broad approach to managing collaborative undos requires a general notion of collisions between editing events.  The
+AbiCollab tools
+which make the Write activity possible define this idea in detail in relation to text-based editing.  The overall concept applies generally:  For instance, a collision in a drawing activity could mean the collision of the bounding boxes of two drawn shapes.  The secondary rollovers for the "undo" and "redo" buttons contain "undo all" (essentially revert) and "redo all" functionality.  When supported, these controls should be the left-most item in the toolbar.
+Copy/Paste:
+Sugar has a fully featured clipboard within the Frame, and as such we want to encourage children to copy and paste text, images, or anything else both within and between activities freely .  The copy/paste, reuse, reorganize, modify, and share approach is core to the educational and creative experience that the laptops are designed for.  We've simplified the paradigm, eliminating "cut" command from the top level editing commands.  The distinction between "cut" an "copy" can seem unclear to those unfamiliar with computing, and so we've chosen to embed "cut" functionality in the secondary rollover beneath the "copy" button, and called it "copy and erase."  When present, these controls should be left-aligned, immediately following the undo/redo commands.
+Find/Replace
+Wherever
+Text Toolbar
+< Bold
+< Italic
+< Underline
+< Color Selector
+Font Size >
+Font >
+Alignment >
+Image Toolbar
+< Insert Image
+< Rotate Left
+< Rotate Right
+< Width
+< Height
+[Custom Image Controls]
+View Toolbar
+< Zoom Out
+< Zoom In
+< Show Grid
+< Show Rulers
+[ Custom View Controls ]
+Hide Toolbox >
+Custom Toolbars
+< Insert Object
+[Custom Controls]
+Add Bookmark >
+Inserting Objects
+Many custom toolbars will provide controls useful in editing contexts which don't always exist by default.  The Table Toolbar within the Write activity is a good example of this: Until a table has been inserted into a document, there is no "table context" within which to edit.  Of course, once there is one, the Table Toolbar will be automatically selected whenever the table is selected.  Since the act of inserting the corresponding object creates the context that the toolbar associates with, this control should always appear first within the toolbar.  The Icon guidelines provide further information on the visual style for insert buttons.
+Bookmarking
+We hope to encourage discussion, iteration, and sharing on the laptops, and so we hope to encourage the idea of annotation across many different activities.  When activities support textual annotations, highlighting, or other complex forms, they should have an Annotation Toolbar containing all of these features.  Some activities, especially early on before a system-wide annotation system exists, may simply like to implement basic bookmarking.  Though we hope to implement bookmarking as a subset of the annotation model, this particular feature is essential to some activities, and can be implemented in simpler ways in the meantime.  When bookmarking exists as a single action within an activity, it should be placed to the far right of any custom toolbar which seems appropriate.
+Hiding Toolbars
+Although every activity requires at least the Activity Toolbar, developers may desire to hide the Toolbox in order to provide an all-encompasing experience, such as in an adventure game or a slideshow, or simply to make use of the full screen as an editing area.  However, activity developers should consider these use cases carefully and take the following guidelines into account when taking advantage of this feature.
+Soft Hiding
+Most activities should use soft-hiding, which means that although the Toolbox will be hidden completely from view, it will still be accessible by moving the cursor to the top edge of the screen, provoking it to slide out and exposing the controls.  This works great for casual or turn-based games, as well as any games which don't require the mouse.  In these instances, the ability to access preferences, share or invite friends to the activity, start a new game, and of course exit the activity remains available at all times.  This is also useful for presentation modes, such as slideshows, allowing the child to access the bar to perform operations such as next, back, and of course stop slideshow, thus showing the toolbar permanently again.  When a soft-hidden toolbar slides into view, it slides in on top of the activity view beneath, eliminating the need to reflow the content; When hiding is turned off, it again embeds itself within the view, thus shifting the content downward.
+When the sole purpose for hiding the Toolbox is to provide additional screen area for viewing or editing, a control within the View Toolbar should provide this option.  Activities should not automatically invoke soft-hiding for this purpose (unless the aforementioned toggle is stored as a preference in the selected state).  Though the laptops have a small viewable screen area, the choice to hide potentially frequently used controls should be left to the children.
+When soft-hiding of the Toolbox is in effect, pressing the escape key should always reveal it again, exiting any mode related to its hiding (such as the slideshow).  If no explicit toggle button or action (such as "start slideshow") exists to turn soft-hiding back on, activities may institute a timeout, after which it turns soft-hiding on again without input from the child.  The activity must ensure that soft-hiding is never initiated without explicit interaction whenever the cursor remains within the Toolbox area.
+Hard Hiding
+Activities which make use of the entire screen, and moreover require active cursor movement across it, may wish to hide the Toolbox completely from view, eliminating the possibility that it could be invoked at the screen edge via the mouse.  Hard-hiding allows activities to do this.  The primary use case for this mode is action games which could be interrupted accidentally during gameplay.  As such, these guidelines are written with respect to a fullscreen game, but their principles should carry over to other uses activity developers may find.
+Hard-hiding removes all access to the Toolbox for an extended period of time, and therefore should only be used within activities which don't have their own toolbars.  Also, since hard-hiding eliminates any means of invoking the Toolbox, the activity must always provide any of the basic functionality otherwise contained within the Activity Toolbar itself.  Any game which supports networked play over the mesh should always provide a way for the initiator to name the instance.
+To remain consistent with soft-hiding mode and with general expectations, the escape key should always provide a mechanism for exiting the game, even if another means exists.  The escape key could immediately exit the game, returning to an intro screen, but it will more likely pause the game and reveal a menu containing an option to do so.
+←
+Text and Fonts
+Toolbars
+Rollovers
+→

@@ -1,0 +1,190 @@
+Title: Vision proposal 2016/Call 1
+URL: https://wiki.sugarlabs.org/go/Vision_proposal_2016/Call_1
+--------------------------------------------------------------------------------
+2016-06-14 Video Call:
+http://www.youtube.com/watch?v=ENLWvPV8jrI
+This is an archive of Revision 8 of
+https://titanpad.com/SLVision
+Contents
+1
+Laura's pre-meeting text
+2
+Call Summary
+2.1
+What are the important things Sugar Labs should make?
+2.2
+Should we support the XO-1?
+2.2.1
+No
+2.2.2
+Yes
+2.3
+What is the reference hardware for the 0.110 release, if it is not the XO-1?
+3
+Call Minutes
+Laura's pre-meeting text
+I believe this is a vision, we can all share> why we made SN?
+"Sugar has the capacity to become the main facilitator for free-libre knowledge exchange among children-users of all continents."
+why is this necesary?
+Only by eliminating all obstacles for children-users to exchange knowledge among each other, they are going to be able to build a new, more just and enjoyable world.
+In SN Knowedge exchange is measured as:
+knowledge exchange = Amount of Interactions among Nodes / cycle
+Facilitating the access to the net communication exchange services directly from the OS, as SN does, facilitates the knowledge exchange among children-users to actually happen.
+Call Summary
+What are the important things Sugar Labs should make?
+Sean suggested 4 things which DC phrases as:
+installable software, so its easy to try out and to use
+stable software, so nothing crashes
+lesson plans. so any adult can cultivate the education Sugar is designed to encourage
+active user community, so any one can get help
+Should we support the XO-1?
+No
+The Browse activity is fundementally broken: We can't use old browsers (webkit v1) on modern websites, and that hardware isn't powerful enough for new browsers and modern websites either; the latest v8 JavaScript JIT compiler doesn't work well with the exotic x86 chip on the XO-1.
+All the XOs require specially crafted Linux kernels, and OLPC doesn't have up to date versions so OLPC OS is stuck with Fedora 18. New versions of GTK are blocked on the kernel - it seems - and this turns away developers. Its not fine! ;)
+As Fedora gets newer, it will work less well on the XO-1, assuming more resources than the XO-1 has, even if the kernel is updated. Would Puppy work better than Fedora going forwards, as it is something intended for ultra low power computers?
+Yes
+The XO is still exciting: Its why Eli and I were excited to join Sugar Labs this year, as we have our own XOs, and that it is not a powerful computer is not a problem, it is way more powerful than an Apple Macintosh from the 80s (which cost $20,000+ back then)
+Few people are using Sugar without an XO, there seem to be 10,000s of kids using XO-1s on a weekly basis, based on the ASLO stats, and high 100s (?) using it on a generic computer.
+Its easy to get an XO-1 on ebay as a developer.
+Its sad that the kernel work has ended up being painted into a corner because OLPC didnt upstream stuff (?) and we are stuck with kernel on a private fork, stuck on fedora 18, stuck on old GTK versions, but it isn't the end of the world. Its fine! We just need to be clear that in 2016 that is what you have to write against, and make it easy to do so.
+CentOS v7 will be supported until 2020, so making a image with the crafted kernel and CentOS v7 packages could be ideal. Or perhaps it could target puppylinux or something that is 'old school' and will never do Network Manager, systemd, etc?
+http://puppylinux.org
+https://github.com/puppylinux-woof-CE/woof-CE
+But all mainstream distros will stop support for x86 in 2020, so that will be the EOL date, and we should plan for that.
+ACTION ITEM: Dave will talk with Leah at OLPC on Thursday, and ask what their goals are for the next few years, when they will end support for XO-1s, and what they would advise in the scenario that we break Sugar for XOs in the 0.110 release, etc
+What is the reference hardware for the 0.110 release, if it is not the XO-1?
+Let's select a cheap chromebook that boots as a fedora sugar system, as there are a lot of choices. and we know that schools are buying chromebooks (they outsell apple these days.) Sugar Labs can buy some and offers to loan them to developers, and the sugarlabs.org website could even sell them direct. Before that, it can provide links to 3 vendors to buy a specific SKU from, and clear instructions on how to get that machine up and running with Sugar.
+Then the Sugar developer community can get it really working on this machine for 0.110.
+We should not pick XOs or Classmates, these are niche machines and hard to obtain.
+We could pick a chromebook model from 1-3 years ago, and perhaps there are batches of 100s of them somewhere to buy cheaply.
+ACTION ITEM: Walter is in Santiago de Chile this week promoting Sugar and will ask what people there suggest as a reference hardware device in 2016.
+Call Minutes
+Dave: Should we support the XO-1?
+Walter: The idea that Sugar runs on low iron machines is important; schools can use old or refurbished + donated computers is good, and running on XO-1s helps ensure that is possible. We're not OLPC but its a good message.
+Dave: I think so, the getchip.com guys said the Debian packages they tried didn't work on their screen
+WB: Yep, a lot of activities were intended for 900x1200 of the XO-1
+Sam: XO-1 and XO-1.5 are x86 an upstream, but newer userlands have broken because they were not supported with testing. Network Manager hit a loop with the XO-1 mesh interface. XO-1.5 the camera driver is broken somehow. Peter Robinson thought we might get volunteer kernel developer time, but that was a while ago.
+DC: Fedora as gets newer, it will work less well on the XO-1. Would Puppy work better than Fedora going forwards, as it or something else is intended for ultra low power computers?
+WB: the screen res that keeps us off new hardware should get resolved. i dont think kernel issues for XO-1 should be a top priority. a lot of bug fixes in sugar, new things in GTK, are great but not showstoppers. the main wall is browse; thats where I don't know what to do. We can't use old browsers on modern websites. webkit1 can't use gmail. but that hardware isn't powerful enough for new browsers and modern websites either.
+DC: is there a webkit2 branch of Browse is are up to date?
+Sam: Quozl or someone would need to port it; the JIT JS compiler doesn't work well with the exotic x86 chip on the XO-1.
+WB: So we need a strategy for the browser, but beyond that, supporting the old hardware is ok.
+DC: i disagree, for the new font editor, we can't use gtk flowbox as its not supported in GTK on the XO-1, and new versions of GTK are blocked on the kernel - it seems.
+WB: I'm not sure, maybe backporting new GTK is possible, but usually we write widgets using GTK grid for that reason.
+DC: Is GTK tied to the kernel?
+WB: I dont know
+Sam: maybe systemd or display server; GNOME has a tight systemd integration
+DC: and Sugar uses GNOME libraries? Well, the point is that OLPC OS is using really old system libraries and its fine if we are going to target that, but I want to make a decision so its possible to make progress with the font editor.
+Moving on, similar to Android and Nexus devices, my question is, what is the reference hardware for the 0.110 release if it is not the XO-1?
+WB: we should find a cheap chromebook that boots as a fedora sugar system. there are a lot of choices there, lets pick one and go for it. we know that schools are buying chromebooks, they outsell apple these days, so a low end chromebook that is widely available is a good reference statement.
+Sam: Schools might not unlock a chromebook
+WB: This is a reference hardware, that's fine
+DC: And specifically I am interested in a reference for developers, this is something the sugarlabs.org website ought to be selling to make it easy to join the project
+WB: the lesser idea is: here's a link to 3 vendors you can buy this SKU from, here's clear instructions on how to get that machine up and running with Sugar. Tony and I have been trying to get a laptop to Samson Goddy in Nigeria, and we bought a machine but it will be $730 to ship it from Boston to Nigeria. I tried to buy locally too, and the price was 2x the USA price. So, first step is a simple 1-2-3 for how to get started, and we let people figure out how to get the unit shipped to them.
+Sam: Is Intel Classmate still going? Latest news article I can find is from 2014...
+DC: I think in Latin America there are OEMS making machines to the classmate spec...
+WB: Well, lets decide on a machine and the core development team can decide it really works on there, and then go from there. Classmates are now niche machines, we should pick something mainstream, like a Chromebook. We know schools are buying them.
+DC: So, the XO-1 ebay palette auction item is not worth pursuing, unless its a donation?
+SB: Sam did this for a living for 4-5 years at OLPC and it was hard work, even as a donation I don't think its a good idea. It is a lot of work.
+Sam: It has merit if its donated and you could give it out to a single group, perhaps siphon off  some for devleopment. But, if you don't already maintain XOs, then its not a good time to start doing so. I am maintaining a few reference SKUs here, and I can test things. They are all in good condition. But, we dont know the condition of that palette of devices. if you have to open each unit to reset the clock when the RC battery went dead, that is a big job.
+WB: I think its a nice idea, but the effort is better to make sugar run really well on a reference machine with a future. We could buy a small number of those, and resell them with Sugar pre-installed to places that are economical to ship to.
+DC: we could take a chromebook from 1-3 years ago as a reference. Perhaps there are palettes of old Chromebooks somewhere we can find.
+WB: right, as long as we can unlock it, we can run even on the oldest chromebooks.
+WB: I am at the airport as I was invited to visit Santiago de Chile specifically to speak about Sugar; I'll ask around here this week what they would use as a reference hardware device in 2016.
+DC: I guess if Sugar Labs passes a motion or otherwise clearly states that all XO support is over and its now up to OLPC to backport our next release, its good to have clarity on that.
+WB: Or, they need reach out to us and tell us what their needs are... I emailed them a few weeks ago and did not hear back.
+[ 30 mins in - WB leaves ]
+Eli: well, I have my XO-1 i picked up at a recycle center, and I love it. I understand that the browser is a problem and that is blocked on the kernel, and thats a hard problem... but I would like to see it continue to be supported.
+DC: OLPC to continue to maintain the fedora 18 based OLPC OS.... and I am sketical about how many people are using Sugar outside of XO users. I would also like to see support continue because the XO is why Eli and I were excited to join Sugar Labs this year, and have our own XOs.
+Sam: Right, the image for the fedora sugar 'spin' (with it set up as the default desktop) was nearly 1% of release downloads as of August 2015 (Fedora Flock keynote slides).
+Eli: The XO-1 is a beautiful piece of hardare, its part of computer history, and I think in a few years, people will have real nostalgia for them.
+Sam: there are still possibilities. there could be a centOS port, v7 is stable on x86, and that could be a port... that is similar to fedora 19... but at some point we need to talk to OLPC and its not clear what their goals are for the next few years; they have trouble with Sugar and noting their successes. The Zemora Tehran foundation which also is involved with the Nicaraguan deployment is in a way leading OLPC. The volunteer-led help@laptop.org issue tracking run by Adam Holt appears to be shutdown for a year or more now, so there is no significant direct channel for individual XO support anywhere. If there were any XO users out there due to eBay sales, we'd hear about them. Really, we need to justify why schools should use Sugar given it is 10 years old. OLPC did studies to show that constructionism can be used alongside an actual classroom; for Sugar to be used in a regular state school that has a state or national curriculum, we must be able to explain how it fits into their curriculums. The original sales strategy was that Sugar was concieved along with XOs and school servers as a whole-system, that would be the only computers used in a school. That was optimistic then and simply impossible today. Classmates laptops have a larger harddisk for storage and a faster graphics card for playing back videos, so even big XO schools used a mix of regular PCs and they were often not running XS.
+XOs have a non-standard battery cell size and a non-standard PSU port size, which helped with anti theft, but now makes them harder to support. Sugar was seen as a platform for others to move to, but that didn't really happen.
+And a modern web pages on a browser with 256 Mb is eaten fast. Back then there was a lot of flash on the web too, as well as macromedia director, the latter of which was never supported by Adobe on Linux. Also, Sugar's Browse Activity is not certified for anyone's web apps, eg the Miami Dade schools used around 20 apps and many of those would not work at all with the XO browser.
+Generally Sugar was designed for the hi dpi of the Pixel Qi display, and only now is hi dpi support arriving on mainstream free desktops.
+I think Sugar now needs to support all regular desktops.
+DC: I think sugar could be packaged as a regular app, so that by itself its a launcher, and you can launch any activity like it was a regular application, and each has its own individual sugar frame or runs inside the main launcher's frame; like a browser with tabs that can be torn out to their own windows.
+Sam: I also saw the possibility of VNC like systems...
+DC: a thin client project for GNU? www.ltsp.org
+Sam: yeah, I saw a presentation in ohio about LTSP, but my current employer {Citrix} sells a fancy remoting access solution supporting Linux VMs where almost any OS could be used by end users.  Sugar Labs briefly hosted Sugar being remoted via VNC being accessed in a browser, that could work.
+DC: So, kids with an XO, should throw them away?
+Sam: How much effort are we going to put into them? Adam Holt is in touch with Haiti deployments... we could ask them. OLPC avoided setting an EOL date.
+DC: I think it sounds like when 0.110 will not run on XO-1s, the XO-1 is dead? But the XO-1 won't die, people will keep using it, just they will have no upgrade path and new activities won't work for them.
+Eli: Steping back, if OLPC was restarted today, what would be done? No one seems to know where this project is going. If we restarted today, what would that look like?
+Sam: throw them out of helicopters ;) OLPC's most recent thing was a classmate spec device, UEFI anti theft stuff, running Ubuntu, James said on the sugar-devel mailing list that they would not make 32 bit binaries of their ubuntu repo as its x64 only unless paid for, and it was running sugar; a lot of porting work was done to get sugar on a 14.04 Ubuntu. This is 2014, maybe 2015. They also had a Android build for XO-4 that they did a few public releases for and stopped.
+DC: there are about 6 separate orgs left in this space: OLPC Inc itself, Sugar Labs, OLPC Canada (maybe), OLPC France, OLPC SF, and finally "One Education" AKA OLPC Australia. All the people in other places have moved on to other projects it seems, as their websites show no activity but did show things in 2014 or earlier (eg unleash kids.) So, of those still left, most are just social groups with maybe 1 individual like Lionel or Sameer somewhat active, except for One Education. And they have abandoned Sugar because there is no demand for it.
+Sam: yeah.... Who knows what sugar is, compared to scratch and etoys? Columbus Ohio School for Girls had in recent years a summer project doing things with XOs, they may be on the scale of Adam's unleashkids group, a few schools they support with refurbished XOs.
+DC: sounds like kidsoncomputers.org, they have about 20 classroom sized deployments, they just use ubuntu desktop, on raspberry Pis.
+Sam: its annoying to install sugar alongside Gnome as its sets the mouse for all desktops which sucks.
+Sam: also there was waveplace...
+DC: yeah I spoke to Tim Falconer there, thats not sugar at all, its propreiary, its cool like etoys with better network support so it becomes a MMORPG, and has a more story telling than science modelling focus, and its 3D like Croquet was/is, but its all in Java. Tim has some users, but not very many, and his recent kickstarter to fund it did not work out.
+Sam: So, it sounds like, if OLPC is not communiciating the install based, that excluding peru and uruguay, the known sugar users are around 1,000; eg colombus school for kids is using etoys (maybe without sugar) for around 100 kids, and there are a few places like that around the world. So the number of users is unknown; many machines are in schools with firewalls so we cant see them online....  and OLPC was paranoid about usage, they were afraid of someone like MS and Intel coming in to sweep their users away.
+DC: I think the most successful remix cutlure free software leanring software today is scratch.
+Sam: And that has some journal integration in the old squeak VM version;
+DC: then scratch 2 was Flash VM based; and Google and MIT annoucned a HTML5 player for Chrome. but that is a good model to follow, there is no 'hardware reference' for it, and it runs everywhere.
+Sam: It seems today that Sugar is best known as  a Google Summer of Code / Code In project. Why should anyone use Sugar today? I don't know why. Its a good learning environment for the semi isolated, with plenty of things to do offline, and by young kids who rely on icons in the UX. In my time here, schools in developing counies are not interested in XO-1s with all the great attributes they have, instead they wantever the 1st world has, despite how unsuited it might be to their context. Why not write a general GTK app, an Android app - we have so many Android developers around everywhere - and that is so much easier than finding someone who can deal with the peculiar GNU, GTK, Python environment of Sugar.
+DC: Interesting, because the explanation that i heard from WB and Bernie maybe Adam Holt was that sugar was made instead of using eToys as the XO's whole UI because python is more widely known than smalltalk and red hat was donating Python developers.
+Sam; A key feature of XOs was the physical 'view source' key, the idea was that all kids would become programmers; you could copy the app between XOs peer to peer; and you could copy the applicatoin and edit it. Is this realistic?
+Eli: A big flaw for me is that you can't create activities on the XO itself.
+DC: Have you seen Pippy? Its a simple program editor to do that.
+Sam: its not a real IDE, you can't debug with it, step a program through.
+DC: I saw that in the archive on the wiki there was a "Develop" activity but it seems to have never arrived.
+Eli: I'll check it out, gotta run
+[ 60 mins in - Eli leaves ]
+Sam: I think we need a future platform, if we're reinventing the project, we should start with a blank state, and market research...
+[ Sean joins ]
+DC: sean, please check the minutes
+Sean: seems there's a discussion about the architecture
+Sam: I was saying, should everyone see the source code?
+Sean: Its Walter's idea, that it must be possible to do so; in OLPC, Quanta had required some NDAs for some proprietary hardware... but for Sugar itself, its all possible. In marketing we always used 'view source' as a selling point, its the essense of 'low floor no ceiling.'
+Sam: Its more a issue for OLPC, they paid for sugar development and others could use it for free and that annoyed them. in SL we have no issue with people using it, we see the other users as helping us. OLPC saw upstreaming things as giving things away. Well, today, what is the current state of things? Where should we go? If we started the project today, what would it look like?
+Sean: Sure, but there's no budget for that. So we can't do it. If we had a budget....
+Sam: We could ask people what they use it for? There were the big deployments in Peru and Uruguay (although it is unknown how many users they still have....) but we could ask other users too.
+Sean: OLPC did not want to share client information historically. There was a development side and a sales side and these were always split.
+DC: The earlier discussion was about XO-1 support. Should the GSOC project or any new activty aim to support the XO-1 or not? Walter seems to think not; I understood him to say that we should let support for XO-1 lapse slowly, and focus on new cheap machines.
+Sean: The XO-1 is getting long in the tooth, sure. When is the end date? Sam said 2020 on the list
+DC: I'm happy with abandoning the XO-1 today, if that is seen as the best decision :) But I want clarity.
+Sam: there was a test group in New Zealand but they disappeared.
+Sean: There's also the olpc map site adam made. he has good answers for this kind of thing.
+DC: Well, there seem to be 10,000s of kids using XO-1s on a weekly basis, I think based on the ASLO stats. Its easy to get an XO-1 on ebay as a developer. So it seems sad that the kernel work has ended up being painted into a corner because OLPC didnt upstream stuff, and is stuck on a private fork, stuck on fedora 18, stuck on old GTK versions. Perhaps we should target puppylinux or something that is 'old school' and will never do Network Manager, systemd, etc?
+http://puppylinux.org
+https://github.com/puppylinux-woof-CE/woof-CE
+Sean: there were people at OLPC in 2010-11 who wanted to get rid of Fedora, but the big contributors were fedora people.
+DC: the kernel changes needed can be put upstream for XO-1, sticking with fedora is ok.
+Sam; its more it hasnt been tested with new kernels, new userlands, so those 2 are not so much work. the 2020 date I gave comes from that; mainstream distros stop x86 support in 2020.
+Sam: and the XO1.75 and XO-4 were arm adoptions earlier. New fedora won't run on 1.75s due to patents (???)
+Sean; there were old requeests for flash, answer was never.
+Sam: with XO-4s, the arm stuff, they are now upstreams with video drivers etc, but mapping that to open firmware in the XO-4 will take work, and its a 3 year old machine. How long will it take a kernel dev to do it? There are ways forwards, but is the effort worth it?
+DC: Walter seems to say no.
+Sam: I think also not, unless you have aleady been doing it. Eg I would not store 100 XOs in my house.
+Sam: so, how do we market sugar? how do we expand its market?
+Sean: I have been mystified for the last 2-3 years on how to market it. I had a good strategy in 2009-2010, and a crisis developed where there was pushback from develoeprs who were not happy with tasks that needed to be done, marketing was assigning tasks to them, they didnt take orders; i said its not about orders, its about making a package that is useful for teachers in a classroom.
+like an easy installer. those piece did not get written. no one wanted to. when sugar is not preinstalled, it is a very high barrier. there are 3 key barriers:
+installation first, which could be as simple as you imagine with 4 ways to do it and we tried to simplify this with SOAS so it doesnt touch the disk, it was fairly reliable.
+second, kids are ok with playing with sugar but adults had a terrible time. OLPC did not brief journalists on how to use it, and journalists would just say 'it runs linux' and that would be it. a simple video showing how to navigate and get things done, didnt happen.
+third, support. No one wants to do front line support for SOAS; there are 10,000s of downloads but no one wants to be in a loop responding. So a teacher would email us, saying students get stuck here, what do i do? and peter robinson would do his best in evenings, while coding in evenings, and hit his limit for what he could do.
+So its a hard nut to crack. If sugar was easy to install, and did not crash, that would be great.
+In 2009-2010 i was able to invest some funds - around $5k total of my own - to do marketing. it was successful, BBC coverage, press releases carried by 40 news outlets... but that was not enough. we needed more pieces:
+- an installer
+- zero crash software
+- lesson plans
+- a support desk
+All the things that other edu-tech projects do: eg, moodle had a large community, there was 24/7 IRC support desk. Since sugar labs is smaller, that doesnt hpappen.
+Walter talked to other hardware vendors to pre-install sugar but it fizzled; he knows the details. the vendors liked it being zero price, but they did not like sugar because it was unfamiliar.
+I saw this myself: I did a stand at a expo for sugar, a little Dell with Sugar on it; they had a fake classroom in their booth with 20 dell educational laptops, their eyes would pop out seeing what it could do. i said they could add it to their offering, and they said no because its exotic, its not windows, its not a mainstream distro like SuSE.
+After the main SOAS developer left the project, while we had good press coverage, we had some pressure; someone wanted more control over the trademark, and things didn't recover.
+DC: Was that Activities Central?
+Sean: DFarning was a dynamic guy, who felt there should be a business approach. He would go in his own direction, he felt - maybe true - that SL should be 2 entitites like Mozilla and OLPCA/OLPCF. The foundation should own a business, and the foundation should manage the agenda of the corp. I thought it was interesting, but some people had objections and said they would not contribute because its libre software and its not normal that someone is making profit off out work.
+DC: That is silly.
+Sean: Well, while the GPL says commerce is fine, I interviewed RMS twice and I'm familiar with the concepts, and I think that could have worked.
+after SOAS fizzled out, I looked for corp sponsors. I saw virtualbox was available with zero price distribution for personal and educational use, so you could have a single binary that runs and presents sugar in a window. 2 downsides, a 1Gb application size, and Ubuntu responded to that back in the day by posting out a bootable CD with the image; and other problem is the hosting, the load. I proposed partnering with Oracle, they could host a 'matrix' of VMs for all kinds of systems, all languages, and some developers said Oracle is evil and we shouldn't even talk to them. If others had picked up the ball we could have made that happen, but there was no interest in that.
+Since then I've been stumped. I've done very little around the project for 3 years, and I really try to imagine how things could be jump started. The best way forwards I see is the availability of funds, that makes things possible. Fund raising is a good idea.
+One ingredient is needed for that, having a pitch, a brouchure, that sets out the vision, the mission, the goals for a few years. So I want that to be good.
+I have suggested for a few years to do something with Raspberry Pi. I thought we could do branded SD cards pre-imaged.
+Tony Anderson said the Pi is a rip off compared to the XO when you dont have a TV or a keyboard lying around. But then millions have been sold, more than XOs.
+Lionel said to look at the Pi too. A marketing guy like me, or Lionel can make suggestions, but I can't do that. However Lionel has done Sugarizer.
+DC: walter seems to be happy to leave the XO behind, and leave it up to OLPC to produce new builds for XOs, and if they have to fork Sugar 0.108 for their users, and ASLO, because new activities don't work on anything older than 0.110 which uses GTK 3.20 which isn't available on XOs, then so be it. But if that's the direction, perhaps 0.110 should be the final release and we should all focus on Sugarizer.
+SD: there are a lot of deployments with original versions of sugar, that are never upgraded. there are a few aces like Tony who know how to upgrade XOs, but I expect there are many XOs stacked up not used because they only ever ran the version they came with.
+I have always been frustrated that I have never been able to chat with OLPC. The only exception was when Rodrigo came to Paris, we visited a foundation here, and they had started a project that did not get off the ground. I had difficult relations with OLPC, not for lack of trying. I don't know who is there now, what they are doing, what their plans are.
+Sam: It is now run by the Zamorans, from the public filings. My current employer had a situation where if you EOL a product and you have no alternative that isn't as good, your customers will start looking at all alternatives. Eg, "oh, no more XP support? we'll look at Android and Mac as well as Windows, then." So you need vision and proof you can still execute on it.
+Sean: well, I think anything that makes it easy for a teacher to install is great.

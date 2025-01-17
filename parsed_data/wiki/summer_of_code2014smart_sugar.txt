@@ -1,0 +1,217 @@
+Title: Summer of Code/2014/Smart Sugar
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2014/Smart_Sugar
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+2.1
+Long Term Vision:
+2.2
+Proposal for GSoC 14
+3
+You and the community
+4
+Miscellaneous
+About you
+Q1:
+What is your name?
+Ans:   Amar Sharma
+Q2:
+What is your email address?
+Ans:   amarsharma.iitp@gmail.com
+Q3:
+What is your Sugar Labs wiki username?
+Ans:   [
+Amar Sharma
+]
+Q4:
+What is your IRC nickname on irc.freenode.net?
+Ans:   amarsharma
+Q5:
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+Ans:  Primary language for e-mails, IRC, Blogs: English and native language is Hindi.
+Q6:
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+Ans: I am located in Indore, India (UTC +5:30). I work late (7 PM IST) to late at night (1-2 AM IST and more if need be) so timezones will not be a problem.
+Q7:
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+Ans: Nope, I haven't participated in open-source project before this is the first time I am getting interested in it as I have only done projects which are either closed-source or academic projects. As new to the community I would like to push my limits this summer as a open-source
+contributor, make new friends in developer community and help others!
+About your project
+Q1:
+What is the name of your project?
+Ans:   Smart Sugar
+Q2:
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+Ans:
+Long Term Vision:
+This project aims at introducing various sensors of smart phones to Sugar Web activities.
+Using
+Accelerometer
+:
+An accelerometer is a device that measures proper acceleration. Using accelerometer we can get the motion of device that user is holding and perform Sugar Activity like lets say Activity is like that we are teaching them to save water so the water will be falling from one of three tab and they have to save it from falling by moving bucket below falling water using accelerometer.
+Using
+Gyroscope
+:
+A gyroscope is used to get current orientation of device. Using gyroscope(Compass) an activity of teaching user about direction like there is a sailor who lost contact with ground using gyroscope user has to guide the sailor with direction by seeing map and help him to reach land.
+Using
+GPS
+:
+A GPS is used to get device's current location. Using this activity a large number of possible Activities can be developed for instance an Activity uses Geolocation to get info about history of that place and inform user about it.
+Using Media Capture:
+This plugin can be used to record Audio and Video to and from local device using any Sugar Activity of such structure For example this feature can be connected to speech recognition Activity of Sugar OS in future.
+Using Connection:
+This feature is used to get device network speed so to isolate Slow speed connection's Activities from High speed connection's Activities.
+Using Camera:
+We can use smart-phone's Camera to perform certain activity which can be further extended by image processing at server end using Sugar OS.
+Using Vibration:
+This feature can be used to make Sugar activities more interactive as a point of view from kid. Like in current FoodChain Activity in [
+sugarizer
+] instead of using just sound we can vibrate phone on collision of Frog with snake or Rock.
+Using Storage:
+This feature can be used to maintain a local database of Activities in the device itself and can be queried as needed.
+Proposal for GSoC 14
+My deliverables for GSOC this year are:
+Writing a Smart Sugar wrapper for Sugar Web to make it available for using Smartphone's or tablet's sensors mentioned above to make Sugar Web Activities more interactive and Joyful.
+Improve PythonGTK of Sugar Web to interface between JavaScript and Sugar backend on Python and make current few Activities Touch Screen Compatible.
+Writing Templates of Sugar Activities to give Developer Community an idea of how to use wrapper to make new Activities.
+Writing Documentations for the Smart Sugar wrapper for further extension in future.
+I. The Smart Sugar wrapper:
+The wrapper will automatically detect the device used to access Sugar Web and classify Activities to be displayed to User according to device configuration.
+[Device Info]
+				      		       |
+					 	       |
+					 	       V
+					      [Smart Sugar Engine]
+  (Sensors compatible Activities)*_____________________|_____________________(Sensors incompatible Activities)
+				 |           	                             |
+                         [Get Sensor Data]              [Get Input by Touch Screen or mouse click]
+				 |                      	             |
+				 |                      	             |
+ 				 V                            	             V
+	 [Call PhoneGap engine at backend of Sugar Shell ]   [Call current Sugar Web Engine]
+				 |					     | 
+				 |					     |
+				 V					     V	
+	 [Interact with Sugar Shell and Datastore API]  [Interact with Sugar Shell and Datastore API]
+				 |					     | 
+				 |					     |
+				 V					     V		
+     	         [JSON response to Perform Activity]         [JSON response to Perform Activity]
+* Activities also include the incompatible ones.
+Flow:
+User opens Sugar Web and Smart Sugar Engine will recognize device and display all the Activities in Compatible category.
+A notification will appear to get permission of using device data by Sugar Web.
+If User declines, navigate to Incompatible Activities.
+If Accepts use device sensor data to perform Activities.
+This approach will simplify quite a few aspects and will be efficient.
+II. Why do they need it:
+A large number of current population have Smartphones in there home which is used actively by Parents to teach their child as much as possible with concept of Infotainment i.e. information with Entertainment.
+Using cool features their device has it is easier to attract kids to learn new things.
+III. Technologies used:
+I will be using PhoneGap/Cordova API to connect this devices to Sugar Web technology and improve Python GTK of Sugar to incorporate PhoneGap. With HTML5 and CSS3 the developer community can focus on design part of Activity leaving worries of getting device sensor data behind.
+Q3:
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22;
+tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June);
+the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Ans:
+Dates
+Week
+Task
+Pre 19th May
+Get around with Sugar Code and Web framework, study API of PhoneGap and discuss the structure of Smart Sugar with Mentors, make new friends in Developer community
+20th May - 27th May
+1
+Configure PhoneGap and Start making changes in Sugarizer UI to add support for Compatibility test.
+28th May - 3rd June
+2
+Start making branch structure to support activities, which device hardware support which Activities.
+3rd June - 10th June
+3
+Complete Separating branches and test its functioning with Developer community to have tested maximum devices.
+10th June - 17th June
+4
+Start writing wrapper for Smart Sugar to support Accelerometer and Events. Simultaneously add touch support to some Activities
+17th June - 24th June
+5
+Add GPS, Gyroscope and Media Capture support.
+24th June - 1st July
+6
+Mid-Term Evaluations - Test the functioning of Wrapper by making some small test activities and finish up any remaining work from preceding weeks
+1st July - 8th July
+7
+Add support for vibration and Camera.
+8th July - 15th July
+8
+Add support for storage and test local SQL database generated by making a small Activity to query Database.
+15th July - 22nd July
+9
+Finish up the wrapper and accumulate all small Activities to test all the features on web and Smartphone.
+22nd July - 29th July
+10
+Make Small Activities as Templates for each feature, adding README and Docs with proper comments.
+29th July - 5th August
+11
+Add touch screen support for existing Activities.
+5th August - 12th August
+12
+Releasing the Templates and make few Activities to test wrapper and have a meeting on developer IRC.
+12th August - 19th August
+13
+Finalizing Documentations, debug and beautify the code with some performance enhancement.
+19th August - 26th August
+14
+Firm Pencil Down, Final Evaluations and Party!!!
+Q4:
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+Ans:	I am dedicated program with fast learning capabilities. At Indian Institute of Technology Patna as soon as we get any academic project, I have a tendency to do it as soon as possible which sometimes give me
+added advantage to keep my hobbies alive and enhance my capabilities to be a fast learner and suddenly this makes me "Debugger" for my friends. Every problem that they face during project sometimes are solved by me,
+I don't how I was untouched with open-source society. An example would be the last week we got an Assignment to make a mini version of paint in C++ with only using OpenGL library from Scratch and in time of only 8 hours
+I was able to get hold of OpenGL library and made the program.
+GitLink Mini-Paint
+You and the community
+Q1:
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Ans:
+I. Benefits of this project
+The completion of this project would mean Sugar will have benefits like:
+Intuitive interaction:
+It will make most of the use of smart devices that parents have to teach their kid in the most fun way.
+A whole new area to explore
+This will open new area of making intuitive Sugar Activities which were limited in laptop and desktop systems/ Sugar OS.
+Access to masses
+As it is just a website that is to be open to get started with Sugar it will be easier for attracting more user base and this will also boost them to use Sugar OS.
+-Me
+II.
+Today, Sugar activities written using the Sugar Web Framework had limited features because they can't benefit to device capabilities (camera, audio/video capture, accelerometer, network detection, ...). Integrating a PhoneGap container into Sugar will allow to provide the same level of features to Sugar Web activities than existing Sugar activities. Plus it will allow to web developers familiar with PhoneGap/Cordova framework to easily port or adapt their applications to Sugar. So we could expect to enhance the community of developers.
+-
+Lionel Laské
+(Mentor)
+Q2:
+What will you do if you get stuck on your project and your mentor isn't around?
+Ans: If I get stuck on my project and mentor isn't around:
+First I'll try to find solution on different forums like StackOverflow via Googling.
+If this doesn't help which is highly unlikely, I will go through forums of Sugar Labs, PhoneGap and Javascript for my problem.
+Even then I couldn't find the solution I'll ask respective IRC channels and Developer Community of Sugar labs.
+But at last Even with my mentor around I'll go through 1st and 2nd step at least, so as to save both of our time and I'll ask my Mentor(s) only to test my wrapper in their devices so as to achieve maximum compatibility.
+Q3:
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+Ans: I will maintain a Google Doc which will be shared by whole Developer Community and keep informing them about my challenges and achievements on weekly basis through Mailing list.
+Miscellaneous
+Q1.
+We want to make sure that you can set up a development environment before the summer starts. Please do one of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Ans:
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Ans: [
+Here You Go
+]
+Q2.
+Describe a great learning experience you had as a child.
+Ans: Since childhood I learned everything on my own by exploring magazines, libraries and then Internet after my exposure to internet, I have developed capabilities in learning in short time as much as possible.
+I never had any tutor for my schooling so I grew up being independent for gathering knowledge and be hungry for knowledge.
+Q3.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Ans: Yes, My API Docs will be fun to read, I will try to make it as humorous as possible keeping the sincerity in it.

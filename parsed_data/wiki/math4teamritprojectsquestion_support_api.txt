@@ -1,0 +1,233 @@
+Title: Math4Team/RIT/Projects/Question Support API
+URL: https://wiki.sugarlabs.org/go/Math4Team/RIT/Projects/Question_Support_API
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Contents
+1
+Question Support API
+1.1
+Project Information
+1.2
+Current Goals
+1.3
+Setting Up a Development Environment (For Newbies)
+1.3.1
+Dependencies
+1.4
+Motivation
+1.5
+Envisioned Usage
+1.6
+Current Status
+1.7
+Current implementation
+1.7.1
+"How to Play/Use" for end user
+1.8
+Education Standards
+1.8.1
+A Teacher's Guide Abstract
+1.9
+Milestones
+1.10
+Community Contacts
+1.11
+RIT Project Usage
+1.12
+See Also
+Question Support API
+Status:
+Unknown
+Unknown
+Group Members:
+Greg Stevens
+,
+Jameson Finney
+,
+Brian Long
+The purpose of the Question Support API is to provide a unified method for Activities to access standardized format question files. The API currently supports the use of multiple choice questions with a single correct answer and no partial credit. Currently, the API only reports questions in a plain text format from Moodle format question files.
+Project Information
+Primary Project Contact
+Greg Stevens
+Project Members
+Greg Stevens
+,
+Jameson Finney
+,
+Brian Long
+Source Repository
+http://git.sugarlabs.org/projects/question-support-api
+Current Goals
+Documentation
+Packaging
+Documenting Dependencies and how to enable them in a development environment (Simple tutorial on setting up your Question API Development Environment)
+Question Authoring guidelines
+Integrate within lesson planning
+How does an instructor get the questions they have written/found into an Activity?
+Liase w/ other Math4 teams and Sugarlabs (What would it take to be included in the Sugar core?)
+Future Development (Needs / Wants — collect proposals from other teams)
+Discovery / Plugin  (How do activities find questions, i.e. how to get URIs to load questions from?)
+Setting Up a Development Environment (For Newbies)
+These are links, tutorials and things that
+Brian Long
+has found along the way, as well as help gained from
+Greg Stevens
+.  Brian is new to the Linux / OpenSource community, and is working on documenting a development environment for
+you
+and for us to continue developing this API.  The small amount of information below is meant to help someone new step into the world of developing for the Sugar environment, from Ubuntu and have all  dependencies and things setup to continue development of this API.
+Next
+Brian would like to document how to setup these sort of items for
+Activity developers
+to include our API and be able to extend it.
+For development environments, you may consider consider first installing a linux OS and the the LAMP stack with PhpMyAdmin.  Brian is choosing Ubuntu, Aptana as a (free) Python IDE that can be used with PyDev to easily allow Python writing.
+Links that Brian is relying on at the moment include:
+http://help.ubuntu.com/community/ApacheMySQLPHP
+http://www.sqlalchemy.org/docs/04/ormtutorial.html
+http://docs.python.org/
+http://andrewbleakley.com/blog/2008/11/01/installing-and-running-aptana-on-ubuntu-810/
+http://forums.aptana.com/viewtopic.php?f=37&t=7147&p=32918&hilit=ubuntu#p32918
+Dependencies
+The following are required by the Question Support API.
+python-setuptools
+pyparsing
+peak-rules
+sqlalchemy
+You can install these via a linux terminal in this manner
+sudo apt-get install python-setuptools
+       sudo easy_install pyparsing
+       sudo easy_install peak-rules
+       sudo easy_install sqlalchemy
+Exception
+When developing on a Fedora based distro, you'll need to install python-setuptools-devel for easy_install
+Motivation
+In the RIT class working on the Math4 projects, many proposed activities
+require a question database of some kind.  A common API or library for
+accessing databases in different formats, stored either locally or remotely,
+along with a simple mechanism to determine more complex formatting or
+presentation than simple text (e.g. to include simple graphics or
+mathematical notation) would cover a majority of the cases where the
+activity needs some configurable "curriculum data".
+Eventually this library could be extended to provide hints, explanations, or
+walkthroughs for questions, in addition to the basic metadata about level,
+grouping, difficulty, and subject matter that would be part of the base
+system.
+Envisioned Usage
+Consider a simple flash-card-like activity.  It presents a question from a
+list of questions, allows the student to select an answer from the provided
+answers for the question or to enter their own answer.  Then the correct
+answer is revealed and the student it told whether their answer is correct.
+If the question has an explanation of the correct answer, the flash-card
+activity will show the explanation of the correct answer.  (Note that this
+is just a simple usage example, the interaction design of a drilling
+activity could be very different.)
+The flash-card activity would use this proposed Quiz API for the following:
+Loading the questions from the storage location into memory. This includes any filtering or network lookup to download the questions from a remote resource and select appropriate questions for the student.
+Determining whether the student has entered a correct answer.
+To start with, the library would simply be a time-saving tool for developers
+needing similar functionality, but as the XS (School Server) becomes more
+fully developed the library should integrate the functions provided by the
+XS to enable automated update of course material for the current topic of
+study so the students can drill material using any tool they prefer, while
+still reporting progress to the instructor using the XS services.
+Current Status
+Currently, (14 May 2009) the API supports parsing the GIFT file format well enough to import Multiple Choice and True/False questions, along with complete implementations for basic functionality of the corresponding question objects.  No support for partial credit answers is currently implemented, nor are other question types working correctly (though most can be parsed to some extent).  Export to CSV works as intended, though it is intentionally simple.  Documentation on usage and integration of the API into an activity is in the doc/ directory of [
+the repository
+]. A simple, but complete usage example, using a console interface is available in tests/complete_test.py.
+Current implementation
+1. Ensure that PyParser and PEAK-Rules are installed
+2. Include the quizdata module
+import quizdata
+3. Select plain text output
+from quizdata.text import plain_text
+4. Select desired question types
+from quizdata.question import MultipleChoiceQuestion, MissingWordQuestion
+5. Import when function to assist with question sorting
+from peak.rules import when
+6. Handle questions (this section should be rewritten as needed for your activity
+# this is the base case for any question type we don't handle otherwise.
+   def do_question(q):
+       print "Unhandled question type.", type(q)
+   # for multiple choice questions (incl. subclasses) we do this...
+   @when(do_question, (MultipleChoiceQuestion,))
+   def do_multi_questions(q):
+       print plain_text(q.text)
+       for a in zip('0123456789', q.answers):
+           print "%5s: %s" % a
+       answer = int(raw_input())
+       q.answer = q.answers[answer]
+       print q.correct
+   # for missing word-style questions, which aren't implemented correctly yet, and
+   # are a subclass of multiple choice questions... we make sure to ignore them
+   # with a more specific rule.
+   @when(do_question, (MissingWordQuestion,))
+   def do_mw_question(q): # XXX: inheritance is annoying here...
+       print "Unhandled question type. (MissingWordQuestion)"
+7. Open questions
+questions = quizdata.open("file://%s?format=gift" % path.join(base_path, 'tests', 'multi_choice.txt'))
+   for q in questions:
+       do_question(q)
+"How to Play/Use" for end user
+This is a requirement of the RIT OLPC seminar.  The question doesn't exactly pertain to the API team's project, a more applicable question might be “How development of the API is done?” and “How do activity developers include / extend our API?”.
+The API is written in Python and has a set of
+dependencies
+, documented above.
+For activity developers to include our API into an activity, we're hoping to have the Sugar development team create a mechanism for developer's to install or include components.
+Greg Stevens
+'s has a bit more knowledge on this than
+Brian
+or
+Jameson
+, but we will be looking into how to package our API, and how it can be accessed by other Activities.  The issue with this later concept, is that Activities running on Sugar's platform are intentionally meant to be restricted to their own space inside of the Sugar environment.  This means that we'll either need to hack something together to make other Activities include our API, or we'll need to collaborate with people at Sugar and figure out the best practice to include our API.
+Education Standards
+As a general API and not a standalone Activity, along with the nature of the API in specific, this project does not directly address any specific education standards or learning outcomes.  It is reliant on educators to write questions, or have questions available to them in usable formats.  As such, the potential educational standards this project could help to meet includes **any** standard where drilling or question/response evaluation is appropriate. (This includes a wider range of topic areas than the Math4 focus, even.)
+A Teacher's Guide Abstract
+Per the nature of this API, we've decided that our “Teacher Guide” will be more of an abstract.  Below is a hypothetical situation of the Question Support API:Imagine a school manages a repository of quiz material that fit's some curriculum, and this repository is located at Moodle.org (for example the 4th Grade Math curriculum see:
+http://wiki.sugarlabs.org/go/User:Gdk/4th_Grade_Maths
+).  The teacher's use of our API design might go something like this:
+An activity that has extended / implemented our API is started by the teacher.  The teacher is presented with an input field that requires a URI (URL).  The teacher enters the URI of this week's quiz (i.e.
+http://moodle.org/SchoolName/ClassName/Week_11_Quiz/
+)  The activity fetches the specified quiz data from the web, and presents the teacher with a summary and confirmation dialog box.  Upon confirmation, the teacher can send / assign the quiz to the class.  The class starts their corresponding activity which then also has a mechanism to either grab the assigned quiz from the Moodle.org server or from the local “School Server” (also-known-as the XS server, see:
+http://wiki.laptop.org/go/School_server
+).  The student's complete their assigned quiz, and data is sent back to the server for reporting / grading.
+Milestones
+Initial Prototype Phase (1)
+Simple implementation, data model not yet nailed down, focus on import and utility to question *consumers*, Like Activities. Initial formats to include MoodleXML, GIFT.
+Rigorous Design Phase (2)
+Nail down the data model, including developing the 'native' format, probably using a sqlite file mechanism, or other database support, if possible. Freeze the Question object (in terms of required properties,        etc.), finalize decisions about URLs for question aquisition.  Make sure requirements of other projects *can* be met by the design at this stage.
+Full Implementation Phase (3)
+Complete the implementation of the import formats, including the 'native' format.  Should be usable to other Activity developers at this point (hopefully useful, before now, but all needs should be filled at this point).  Export implementation should start now, along with prototyping for an authoring activity. (Collaboration with the reporting team *needs* to happen at this point, as the activity will probably be combined with reporting tools.)
+Activity Development Phase (4)
+Complete the authoring/reporting activity for the teachers, allowing export to file formats (and possibly *serving* the questions to other XOs; requires support in activities (using the API) to support).
+Community Contacts
+User:FGrose
+,
+User:Tony37
+(see
+talk page
+)
+RIT Project Usage
+Produce Puzzle
+No API need or usage.
+Lemonade Stand
+No API need or usage.
+Assimilate
+API Usage needs documented on
+talk page
+.  Progress not far enough to start implementation using the API.
+Fun Towers
+No API need or usage.
+Reporting Team
+Simple export format documented at
+API Design
+.  Futher integration work would be nice, but there is more work than could be done in a year along these lines (and neither team is prepared to embark on it).
+Muthris
+No API need or usage.
+See Also
+Math4Team/RIT/Projects/Question Support API/API Design
+Math4Team/RIT/Projects/Question Support API/Data Model
+Math4Team/RIT/Projects/Question Support API/status

@@ -1,0 +1,205 @@
+Title: Dextrose/3/Patches State
+URL: https://wiki.sugarlabs.org/go/Dextrose/3/PatchesState
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Moved and died at
+https://sugardextrose.org/projects/dextrose/wiki/Patches_state
+Resources:
+http://git.sugarlabs.org/dextrose/mainline/trees/bleeding-edge/rpms/sugar
+http://dev.activitycentral.com/issues/18
+Activity Central Priority Patches list & Status:
+Dextrose/3/ACPriorityPatches
+Contents
+1
+Ready to upstream
+1.1
+Change the method to add new actitivities in the activities list in home view (Jorge Saldivar)
+1.2
+Add lease duration information in about my computer (Anish Mangal)
+1.3
+Globalkey for touchpad device icon (Martin Abente)
+2
+To do while GTK3 port
+2.1
+Clipboard menu off screen #2201 (Aleksey Lim):
+2.2
+Set default scaling to 100 (unknown author)
+2.3
+Add font dpi schema (Jorge Saldivar)
+3
+Need design reviews
+3.1
+Database support for 3G control panel (Andrés Ambrois)
+3.2
+Notification enhancements (Martin Abente)
+3.3
+Yum-updater notifications integration (Aleksey Lim)
+3.4
+Journal Backup / Restore (Martin Abente)
+3.5
+Memory and cpu resource indicator (Anish Mangal)
+3.6
+Operations over multiple files in the journal
+3.7
+New microformat activity updater (Anish Mangal)
+3.8
+Transfer to many
+4
+Need follow feature process
+4.1
+Extend sugar-launch with more options (Martin Abente)
+4.2
+Share 3g connection (Martin Abente)
+5
+Bugs to solve
+5.1
+Flickering and unknown icons in the window bar #870 (Aleksey Lim)
+6
+Mixed bag
+6.1
+Accesibility Series
+6.2
+More robust handling of unhandled exceptions (Aleksey Lim)
+6.3
+Enable to call the frame from arbitrary code avoiding circular imports (Aleksey Lim)
+7
+Low priority
+7.1
+Show register gconf value (Martin Abente)
+7.2
+Feedback feature (Aleksey Lim, Mukesh Gupta)
+Ready to upstream
+Change the method to add new actitivities in the activities list in home view (Jorge Saldivar)
+This patch seems o.k but needs to be updated to latest sugars.
+https://bugs.sugarlabs.org/ticket/1660
+(in comment).
+Assigned to: Rafael (dirakx)
+Blockers: Don't think there are any
+Current Status: Being discussed with upstream (follow ticket history)
+Add lease duration information in about my computer (Anish Mangal)
+We need check xo-1.75 compatibility
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0046-Add-lease-duration-information-in-about-my-computer.patch
+Assigned to: Anish (m_anish)
+Blockers: None
+Current status: Patch Coming soon (port to mainline done)
+Globalkey for touchpad device icon (Martin Abente)
+Must be upstreamable,.especify for only 1.0. to check deviceicon/touchpad.py for specific path and verify hotkey <alt-m> ??
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0040-Globalkey-for-touchpad-device-icon.patch
+Assigned to: Anish (m_anish)
+Blockers: None
+Current status: Patch coming soon (tested, ported)
+To do while GTK3 port
+Clipboard menu off screen #2201 (Aleksey Lim):
+Note: We nend to add new functionality to the pallete in order to allow max widht and add widgets instead of only text.
+Better to  do in gtk3 port, this patch its a hack.
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0045-Clipboard-menu-off-screen-2201.patch
+Assigned to: Anish (m_anish)
+Current status: Resend patch with typo in description fixed
+Link:
+https://bugs.sugarlabs.org/ticket/2201
+Blockers: None
+Set default scaling to 100 (unknown author)
+in GTK3 is going to be possible to set scale with other units than pixels. like CSS. We must see Gnome bugs..and ask Carlos Garnacho.
+Assigned to: Anish (m_anish)
+Blockers/Current status: Downstream patch is a hack, upstream needs to be a proper fix, for which discussions with gnome need to happen. As for the current patch, I'll post it upstream, but it would be understandable if its rejected. Further research and follow up with gnome is outside the scope of upstreaming this particular patch.
+Add font dpi schema (Jorge Saldivar)
+Needs to be analyzed for post - GTK3 and propose a features page.
+Old feature page
+http://wiki.sugarlabs.org/go/Features/Font_configuration
+Assigned to: Anish (m_anish)
+Current status: Need to review whether to include in future dextrose. (Needs some testing, after which it may be dropped)
+Quoting Sascha <silbe@activitycentral.com> verbatim:
+Used in combination with sugar-settings-manager. Should probably have never been in sugar, but rather in sugar-settings-manager. sugar-settings-manager apparently didn't work reliably and was dropped from Dextrose 2, never shipped in Dextrose 3. We should check whether we still need this (for configuring global default font settings) in GTK 3 world and try to use upstream gnome-settings-daemon rather than duplicating its functionality.
+Need design reviews
+Database support for 3G control panel (Andrés Ambrois)
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0042-Database-support-for-3G-control-panel.patch
+Assigned to: Anish (m_ainsh)
+Current status/Blockers: This probably requires porting some of the code in model.py to be NM 0.9 compliant. A simple port of this patch to mainline didnt work out of the box (preliminary attempt)
+Notification enhancements (Martin Abente)
+Patch not found, prepare a feature request, comments in link:
+https://wiki.sugarlabs.org/go/Notification_system_draft
+To review actual state in regard to GTK3.
+[anish, ask on sugar-devel if porting to gtk3 first. Goal: having design discussed in sugar-devel and the feature upstream]
+[DISCUSS how to implement this]
+Yum-updater notifications integration (Aleksey Lim)
+Needs to be investigated and use package kit instead of yum.
+to acoount integration debian or other service. Use ubuntu-fedora related implementations.
+[anish, depends on Notification enhancements]
+Journal Backup / Restore (Martin Abente)
+Redo feature page and analyse if this can be done on the control panel.
+PATCH :
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0019-Journal-Volumes-Backup-and-Restore.patch
+Old:
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/Backup-restore
+[DISCUSS how to implement this]
+Memory and cpu resource indicator (Anish Mangal)
+It needs to be re-designed. ?  CPU cycles code must be tuned for ARM ?
+Does this needs CPU cycles, suspend resume behavior?, Using it only with the fram is open.
+Assigned to: Anish (m_anish)
+CUrrent status: Not ported
+Blockers:
+Design issues. Fixing the sad face
+Heuristic issues. The heuristic needs to be ARM compliant.
+Disagreement on whether such numbers should be made visible in the fashion they are with this implementation.
+Action: Check and update feature page.
+Operations over multiple files in the journal
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0082-uy-1242-Batch-Operations-on-Journal-Entries-Copy-Era.patch
+Needs design discussion.
+[DISCUSS how to implement this]
+New microformat activity updater (Anish Mangal)
+This
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0060-Replace-activity-updater-with-microformat-compatible.patch
+https://dev.laptop.org/ticket/10641
+https://dev.laptop.org/ticket/11086
+It hasn't been ported to sugar 0.94, OLPC had a patch in sugar-0.84 with this functionality.
+Transfer to many
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0105-uy-1769-1-to-N-Feature.patch
+(to be upstreamed after finishing all dx3 features upstream process)
+[DISCUSS how to implement this]
+Need follow feature process
+Extend sugar-launch with more options (Martin Abente)
+We need to make a feature page for that, the change its simple but its needs discussion.
+https://patchwork.sugarlabs.org/patch/594/
+[anish]
+Share 3g connection (Martin Abente)
+Need investigation regards New network manager versions, impleting share connection feature (for all kinds of connections), and needs desing for sugar interface experience.
+First we need to apply:
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0036-Make-sure-Adhoc-is-Sugar-Adhoc.patch
+Then:
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0035-Share-3g-connection.patch
+Bug reference:
+https://dev.laptop.org.au/issues/1028
+Assigned to : Ajay
+[DISCUSS how to implement this]
+Bugs to solve
+Flickering and unknown icons in the window bar #870 (Aleksey Lim)
+Needs review and testing to get it upstream, its an interesting bug to work.
+https://bugs.sugarlabs.org/attachment/ticket/870/0001-Flickering-and-unknown-icons-in-the-window-bar-870.patch
+[anish?]
+Mixed bag
+Accesibility Series
+Doing patch separations., ruben to ask for feedback, separate and clean up tyhe patches.
+[quidam]
+[DISCUSS how to implement this]
+More robust handling of unhandled exceptions (Aleksey Lim)
+Patch not found. We need to review this one.
+Enable to call the frame from arbitrary code avoiding circular imports (Aleksey Lim)
+Not sure why this one is necessary. We should fix circular imports by refactoring rather than adding hacks to break the cycle.
+Status unknow. What is the problem that this patch is trying to fix, bug fixes?
+PATCH :
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0056-Let-call-the-frame-from-arbitrary-code-avoiding-curc.patch
+[?]
+Low priority
+Show register gconf value (Martin Abente)
+ISTR the Design Team had an issue with this (or maybe just with another "Register" menu item related topic). We should restart discussions on this.
+From a UX perspective, it would be nice if we could automatically determine whether a School Server is available, rather than always showing the option and adding a crutch to disable it. There are privacy issues to consider (that are potentially shared with the existing code; see e.g. a discussion of the current security model).
+We need a link to discussion, why is this needed and what the problems are.
+Feedback feature (Aleksey Lim, Mukesh Gupta)
+New feature page, design dicussion.
+needs new desing and analisis, follow: abrt, apport..and request how is it used in Paraguay. Low prioriy. 
+Probably the best solution is taking it out.

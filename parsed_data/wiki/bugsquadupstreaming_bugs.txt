@@ -1,0 +1,181 @@
+Title: BugSquad/Upstreaming bugs
+URL: https://wiki.sugarlabs.org/go/BugSquad/Upstreaming_bugs
+--------------------------------------------------------------------------------
+Sugar on XOs runs on Fedora Linux. There are also Sugar packages for a number of
+other Linux distributions
+. When Sugar is packaged for a new distribution, please add the bug tracker for that system to this page, along with a link to information on how to use it.
+Contents
+1
+Reporting bugs
+1.1
+Fedora specific bugs
+1.2
+Debian
+1.3
+Ubuntu
+1.4
+ALT Linux
+1.5
+Mandriva
+1.6
+Trisquel
+1.7
+OpenSUSE
+1.8
+Caixa Magica
+1.9
+Gentoo
+1.10
+Slackware
+2
+Distro QA
+2.1
+Ubuntu 11.4 Natty Narwhal
+Reporting bugs
+Fedora specific bugs
+To report a bug in Fedora, go to
+http://bugzilla.redhat.com
+.
+Please try to reproduce the bug in a
+standard Fedora installation
+, or in a
+Fedora Live CD
+, because many Fedora package maintainers might be unfamiliar with Sugar.  In many cases, you can get along by setting up a VM in VirtualBox or QEMU.
+For hardware related bugs, the output of
+dmesg
+and
+lsmod
+is useful information to attach.  For networking bugs,
+iwconfig
+and
+ifconfig
+usually provide interesting output.
+Refer to the
+Bugs and Feature Requests
+page for detailed instructions on filing Fedora bugs.
+Debian
+About
+Debian Bug Tracking System
+(BTS)
+We strongly recommend that you report bugs in Debian using the reportbug program. To install and start it, simply run:
+# aptitude install reportbug
+   $ reportbug
+It will guide you through the bug reporting process step by step.
+If you have questions that the interactive prompts of reportbug do not resolve, you can refer to the rest of the documentation at the link above, or ask the
+Debian user mailing list
+.
+Ubuntu
+Ubuntu Bug Tracking System
+(BTS)
+Bugs in Ubuntu
+Ubuntu Bug Squad
+Ubuntu uses the apport/ubuntu-bug program to gather data on software problems and report bugs. Usage is
+apport-bug <package name>
+for non-running programs, and
+apport-bug <pid>
+for running programs. See
+apport-bug --help
+for other options.
+ALT Linux
+Bugzilla server at ALT Linux
+Bugzilla MiniHowto
+(in Russian)
+ALT Linux Bugzilla
+Documentation (in Russian)
+Mandriva
+Mandriva Bugzilla
+Mandriva Bugzilla Howto
+Trisquel
+Trisquel GNULinux Issues
+OpenSUSE
+Developers: You can go directly to
+Bugzilla
+and report a bug.
+Non-technical users: You may try first the
+OpenSUSE Forums
+.
+Want to learn
+: It is not the easiest thing that you ever did, but it is not rocket science either.
+Caixa Magica
+Bugs in The Caixa Magica Project
+Getting started with bug tracking in Launchpad.
+Gentoo
+Gentoo's Bugzilla
+Gentoo Bug Reporting Guide
+Slackware
+From
+Slackware made easy
+:
+For most of its history, since the first release in 1993, Slackware has been largely the work of one developer: California-based 42-year-old Patrick Volkerding. Pat had some assistance from other paid developers in the distro's earlier days, but now he's a one-man band - albeit with the help of bug reports and patches from the community - and uses sales of Slackware boxed sets to fund his work on the distro.
+An affable chap with a quirky sense of humour, Pat's down-to-earth geekness puts many long-time Linuxers at ease. Got a question? Try Pat. Got a suggestion? Try Pat. Want to file a bug report? Try Pat. Don't worry about mailing lists, project leaders and Bugzilla accounts - Pat's your man. Indeed, he's known as The Man in Slackware circles.
+Pat says that he may be reached via email at: volkerdi at slackware dot com
+Distro QA
+If you are willing to do systematic testing of packages in a particular distribution at each package release or upgrade and each distro upgrade, please add your name and data here, and e-mail
+Mokurai
+. This does not entail a commitment to test every version of every package in the
+Sugar Labs Activity repository
+, just the packages included with your chosen distribution.
+Ubuntu 11.4 Natty Narwhal
+Mokurai
+Activity packages that cannot run should be removed or fixed: jigsaw, sliderpuzzle, browse, read, flipsticks.
+Old
+307206 sugar
+moon
+activity works and should be packaged—Done. Please close.
+601219 Sugar package files installed in wrong directory--Mostly fixed, except
+sliderpuzzle
+and
+jigsaw
+, which have other issues.
+Current
+284968
+Jigsaw
+fails to launch--Actually, cannot install because python-abiword is still missing.
+307209 sugar
+speak
+activity works fine and should be packaged.
+307225 sugar
+ruler
+works/should be packaged, screen resolution fix
+459532 sugar-web-activity uninstallable due to python-xpcom dependency, should depend on xulrunner-1.9 instead
+460111 sugar
+browse
+fails -- libxul.so: No such file or directory. Browse-122 ImportError: No module named hulahop
+Browse downloads .xo bundles to the Journal, but Firefox does not. In that case, copy the bundle file to a USB drive. You can copy it to the Journal from there. Click to install and start the activity.
+623726
+read
+fails to start--Starts now, but does not open file.
+731133
+TurtleArt
+cannot start due to missing files.--Version 108 installs and runs. Please package.
+788815 Sugar
+Flipsticks
+activity crashes on start.
+788822 Sugar
+SliderPuzzle
+activity dependent on missing Abiword.
+788832
+Firefox
+in Sugar hangs on exit
+Sascha Silbe
+I am sad to announce that we are dropping Ubuntu support for
+sugar-jhbuild. Karmic Koala (9.10), the last version of Ubuntu that
+shipped all packages required to use Sugar (including all Fructose
+activities), has went end-of-life on 2011-05-01.
+Apart from a bug in the Ubuntu version of Xephyr that prevents
+sugar-emulator from working out of the box [1], all recent Ubuntu
+versions lack python-xpcom [2], a crucial package for Browse. The latter
+issue can only be worked around by building all browser engine packages
+(xulrunner, python-xpcom, hulahop) in sugar-jhbuild. We (that is, I)
+lack the time to go this route again. At least in the past, Mozilla had
+a bad record for security updates: most of the time, the required
+patches needed to be hand-picked by downstream (in this case us) from
+their VCS repository. This is not only error-prone, but also rather
+time-consuming. AFAICT this hasn't changed a bit.
+I can only hope that Surf grows to be a full replacement for Browse.
+Once that happens and all required packages for Surf (probably going to
+include some bleeding edge ones) enter the most recent Ubuntu version,
+we can start supporting Ubuntu again.
+I will keep the Ubuntu configuration files in the sugar-jhbuild
+repository. Use them at your own risk. Feel free to send patches, but
+please don't file bug reports about anything Ubuntu-specific.

@@ -1,0 +1,27 @@
+Title: Automated Activity Testing
+URL: https://wiki.sugarlabs.org/go/Automated_Activity_Testing
+--------------------------------------------------------------------------------
+Sugar toolkit now has support for Automated Activity Testing. This page lists the various aspects of Activity Testing.
+The tests are supposed to be organized into the
+tests
+directory inside the bundle path. Inside this there are two subdirectories -
+integration
+and
+unit
+which contain UI and unit tests respectively. Both of them contain test files starting with
+test_
+. So the directory structure can be summarized as follows -
+tests/
+ |-integration/
+  |test_operations.py
+ |-unit/
+  |test_functions.py
+Only files beginning with test_ will be executed.
+These tests can be executed using
+./setup.py check
+setup.py also takes a optional argument of which set of tests to run -
+./setup.py check integration
+./setup.py check unit
+See the example
+tests
+inside Calculate.

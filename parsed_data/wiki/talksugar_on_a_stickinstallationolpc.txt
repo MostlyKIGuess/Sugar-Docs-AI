@@ -1,0 +1,60 @@
+Title: Talk:Sugar on a Stick/Installation/OLPC
+URL: https://wiki.sugarlabs.org/go/Talk:Sugar_on_a_Stick/Installation/OLPC
+--------------------------------------------------------------------------------
+Will the process described for creating SOAS work if the Fedora system used to make the stick/SD is an XO running OLPC build 8.2?
+Haven't tried it, but in theory it should work, unless there is an F9 issue I am unaware of. You'll likely need external storage for the .iso image as well as the target USB. If you try it, please report back here. --
+Walter
+00:31, 19 March 2009 (UTC)
+I"m doing the yum install right now... seems to work, but it is pulling in 17K worth of rpms, including Perl... --
+Walter
+00:40, 19 March 2009 (UTC)
+Would
+mtd-utils
+also be known as
+mtd-tools
+? Under Ubuntu 8.04 (Hardy) there appears to be no mtd-utils but there is an mtd-tools. --
+Kevin Cole
+10:41, 20 Mar 2009 (EST)
+no se, but
+[1]
+would suggest that it is. --
+Walter
+15:18, 20 March 2009 (UTC)
+You're too quick, sir (or I'm too slow). After answering e-mails, etc, I investigated. It is indeed the same beastie: Under
+8.10 (Intrepid)
+it is known as
+mtd-utils
+.  However, under
+Hardy (and earlier releases)
+it is known as
+mdt-tools
+. Might be worth noting for those of us staying with the Long Term Support (LTS) releases. --
+Kevin Cole
+11:51, 20 Mar 2009 (EST)
+A data point for whomever... Under Hardy, I get:
+$ sudo sh livecd-iso-to-xo.sh Soas1-200903191225.iso Soas.img
+ [sudo] password for kjcole:
+ Create root filesystem...
+ Build jffs2 image...
+ trap: 49: SIGINT: bad trap
+ $
+--
+Kevin Cole
+11:41, 21 Mar 2009 (EST)
+Linux LiveUSB creation problems
+Having trouble creating a LiveUSB from Linux. Please refer to the discussion
+here
+--
+Walter
+17:23, 26 March 2009 (UTC)
+Frustrations
+At the moment I am a little peeved, something that happens everytime I try to do something that should be easy to understand and am confronted with the Linux community's obsession with the hopelessly archaic unix command line.  Before you condemn me as a fool, know this: I started working with computers using unix on a pdp-11 as a teenager in the 1970's.  My complaint is deeper than simply not being able to remember the ever expanding command line gibberish.  There seems to be a genuine disregard for the necessity of abstract understanding (in contrast to mere obedience to cookbook recipes).  It is analogous to the IRS creating 'simple instructions', which indeed, any fool can follow, but just try and unravel the abstract purposes underlying those instructions, that will take you years of study.
+So it is with installing sugar on a stick using an olpc XO (option 1 in the wiki).  My objective is simple: to create a bootable USB device for use by a ten year old, using the only machine I have available - an XO - and a public wifi access point, the only internet I have available, in short, third world conditions.
+First off, there are no man pages and precious few help files on an XO, presumably to
+conserve flash memory.  So when you write 'wget', I don't know what that is or what it does, and I'm too experienced to trust that you got it right, so I'm not going to do it until I know where it is going to put the file and what other side effects and options there may be.  I presume wget somehow finds the internet connection and 'gets' the file, but where does it go?  I know where I want it to go: I want it to go onto the usb device (8GB - more than enough space).
+Secondly, I want to be absolutely sure I do not damage in any way the files already existing on my XO.  Again, I have too much experience to believe that this will not happen when I execute an unknown script at the root prompt, so I won't do it, especially when there is no detailed abstract description of what the script will actually be doing.
+Finally, I need to verify the device file corresponds to the actual usb device and not, say, the nand flash on the machine, without benefit of a GUI that provides these tools in places that are easy to find.  I am forced to use the command line.  I know there is a configuration file someplace that lists this mapping.  I can't remember its name or location because, frankly, life is too short to fill one's mind with such rubbish.  It was in my mind once, but no longer.  Again, the poverty of help resources on the XO is a handicap here.
+In the spirit of education, would it be too much to ask for a few paragraphs abstractly summarizing the processes and commands, a refresher course if you will, for those of us who rarely use these ancient tools anymore?  This would not be patronizing; it would be genuinely helpful.  Only the arrogant could misinterpret pedagogic information as patronizing.  If you already know or remember these things, great, ignore the help and get to the work, but if you don't know these things, or no longer remember, such aid is a saviour.
+Excellent points. It is not too much to ask, and it will take a cooperative effort to fulfill.  Thank you for pointing out your specific frustrations.  Please continue to contribute in every way you can.  --
+FGrose
+22:44, 8 August 2009 (UTC)

@@ -1,0 +1,81 @@
+Title: Archive/Current Events/2009-02-10
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2009-02-10
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Community jams, meet-ups, and meetings
+3
+Help Wanted
+4
+Tech Talk
+5
+Sugar Labs
+Sugar Digest
+Baselines, Part 1: A few months ago, Tomeu Vizoso set a baseline for the Sugar "view source" functionality that had largely gone unrealized in most Activities. In the upcoming (March) release of Sugar, the default behavior of all Activities will be to have their source code opened inside of Pippy, the Python editor written by Chris Ball and maintained by C. Scott Ananian. (This is already the default behavior of Chat—try it, you'll like it.)
+While this is a baseline, it is clear that for many Activities, it is not sufficient. In some Activities, such as Browse, view source is geared towards the content being browsed, rather than the Browser itself. In a manner similar to the Mosaic web browser—and most browsers built since—view-source shows the HTML content from which the page is created. Browse puts a copy of the HTML content into the Journal from where it can be viewed and modified by the Write Activity.
+It has often been argues by me (and many others) that view source is what made the web transparent and enabled any consumer of web content to become a producer. Indeed, this was the threshold through which a generation has passed—remix is a part of our culture, not just something for Trekkies and other fringe groups as observed by Henry Jenkins in the mid 1980s.
+I have been thinking about view source within the content of Turtle Art lately. I had gotten immersed in Turtle Art when some teachers on the Sur list began asking for some extensions. At the time I tried to get them to make the extensions themselves, but the floor was too high. I jumped in in order to document the process of modifying an Activity and also to try to understand first hand where the difficulties laid. My early attempts are described in the wiki (
+Patching Turtle Art
+).
+Between Bill Kerr's subsequent questions (
+Talk:Activities/Turtle Art/Patching
+) and my own experiences, I was awakened to the fact that we have a long ways to go in terms of making view source meaningful to the teacher, the student, and the potential Sugar contributor.
+View source was central to the discussion I had with Bill Kerr and Tony Forster last week in Melbourne. We agreed that it worthwhile exploring the impact of the addition of some more steps between using an Activity and viewing the project's Python code; indeed, it would be necessary if any but the most dedicated would venture forth. Tony has braved the GNU/Linux shell to try to modify Turtle Art; he has been documenting his efforts (
+Tony Forster blog
+) Previously I had added an export function to Turtle Art so that the psuedo Logo generated in the graphical interface could be viewed inside a text-based, fully featured Logo environment—a one-way path towards more sophisticated programming concepts.
+As a result of the Melbourne discussion, I decided to take a slightly different approach. I have added two new blocks to Turtle Art (actually, at the moment, just to Turtle Art Portfolio, a fork of Turtle Art).
+One block lets you try Python code directly into it. It can be used for simple, in-line extensions, such as added new functions from the math library. It uses a simple set of assumptions: there is one input (int or float) and one output (float), e.g., typing sin(x) into the block turns the block into the sine function. It is similar to the programmable extensions found in may environments, such as
+Gamemaker
+. While I expect that this will satisfy the needs of many of those who are looking for simple extensions to the Turtle Art environment, I don't think it addresses the question of how to provide a stepping stone towards modifying Turtle Art itself—in fact, it may discourage many from every bothering to view the source code because they can make changes without having to "look under the hood."
+I have higher hopes for the second block I introduced. Internally it calls a Python procedure, myblock, that is currently a "nop"—it simply returns without executing any code. The idea is that myblock, which is loaded as a separate module, will be modified by the end user. When Turtle Art Portfolio is launched for the first time, it makes a copy of myblock in the Journal. It can be opened in Pippy, where it can be modified and saved back to the Journal. From within Turtle Art, you can reload the myblock module by selecting a new module from the Journal.
+I've put some commented-out examples of what you can do with myblock into the Python code: a dotted line; some string manipulations; and the extension of the Turtle Art color space to include chroma (gray) in addition to hue and value.
+In using myblock, my typical work cycle is to switch between Turtle Art Portfolio, Pippy, and Log Viewer (so that I can see the error messages from the Python interpreter—I make a lot of mistakes as I code). The major limitation I face in the current implementation is that within Pippy I don't have access to the Turtle Art environment. I need all but rudimentary syntactic debugging in Turtle Art itself and I need to know what resources are available within that environment, which I can only find out by looking at more of the source code. (I am hoping that enough examples will help in regard to the latter issue.) Nonetheless, I hypothesize that the barrier to entry into making real modifications to Turtle Art is much lower now. I cannot wait to get feedback from the field to see if I am heading down the right path.
+I am hoping that other Activity developers go beyond the baseline set by Tomeu. I am sure that there are many creative ways to engage in the appropriation of the tools we are creating.
+Baseline, Part 2: There has been an interesting discussion this week about setting a baseline for Sugar collaboration. The discussion began, ironically, when James Simmons, author of the Etexts and View Slides Activities asked how he could turn off collaboration, as it too bandwidth intensive. He got a number of replies in regard to mechanisms for removing the sharing menu on the toolbar, e.g.,
+# Hide the sharing button from the activity toolbar
+activity_toolbar = self.tbox.get_activity_toolbar()
+activity_toolbar.share.props.visible = False
+But Carol Farlow Leche took the discussion in to a different direction.
+I'm guessing someone has already suggested this on some list or other, but in my experience kids like to watch over each other's shoulder, and a default collaboration of "everyone watches, one person types" VNC would in my opinion be the 80 of a collaboration 80–20 rule.  I think this ought to be implemented in the Sugar infrastructure, and then let activities that have an obvious extended collaboration (such as two person games or shared authorship documents) do something more.
+This led to a (renewed) discussion of using VNC as a default collaboration baseline for all Activities. Chris Ball has already done a lot of the ground work necessary to make this happen (See his great demo at
+multi-pointer remote desktop
+). With a bit of UI glue, we could have shared desktops in Sugar, although I don't think we'll land this feature as part of 0.84 in March.
+Many others joined the discussion, including Eben Eliason, Wade Brainerd, Andrés Ambrois, Gary Martin, Martin Langhoff, C. Scott Ananian, Morgan Collett, and Ben Schwartz. Together, they came up with a nice model where by any Activity that was already "full" from the perspective of joining would be available for watching—by default through VNC.
+As with view source, collaboration is a core Sugar affordance for learning. Much of the original inspiration for the Sugar collaboration comes from observing how people collaborate on the Web. But also in the classroom. As Carol observes, looking over shoulders represents a large portion of the collaboration that happens in the classroom. Undoubtedly, we should support simple mechanisms for this, although I would argue that we should not lose sight of the fact that the easiest way to look over someone's shoulder is to get out of our chair, walk over, and look. Much of the time we don't need to impose technology between children or their teachers.
+So how should we be thinking about the VNC model? A common use of VNC in classrooms is for the teacher to single out several students to share their work with the entire class for discussion. Often a mosaic of up to 16 screens are projected in front of the class. A less common, but in my opinion just as interesting model is one that was developed in Chile: the children are assigned to small groups to work on problems. Each group is tasked with coming to consensus. The teacher then asks different groups to present their work and their hypotheses to the class as a whole.
+The simplest, and arguably most powerful example of Sugar collaboration is peer editing in Write. To always be just one "click" away from inviting someone to edit your work is revolutionary. When Ben first demonstrated the Distance Activity (aka Acoustic Tape Measure) it was a revelation. It is great to see a new wave of interest in Sugar collaboration. I look forward to more awakenings.
+Community jams, meet-ups, and meetings
+The minutes of the most recent meeting of the Sugar Oversight Board are posted in the wiki (See
+Minutes:2009-02-02
+).
+There will be a Sugar gather in Brussels at FOSDEM, the free and open-source developers' European meeting (See
+FOSDEM 2009
+). The Fedora booth will feature a create your own Sugar-on-a-Stick station.
+While I was unable to recruit a Sugar representative to
+SCALE
+, there will be several community members. Send email to the list if you will be attending.
+Help Wanted
+We continue to advance towards the release of Sugar 0.84 in March. Testers are critical at this time. Please see
+the BugSquad page
+for more information on how you can help.
+I had a conversation with a colleague at the World Bank yesterday. We discussed their textbook efforts and how it would be worth exploring some remixing ideas within the context of Sugar. Info slicer, a tool to enable teachers to quickly and easily select web-based content to edit, package, and distribute as teaching materials, comes to mind (See
+Info Slicer
+). Let me know if you'd be interested in participating in a follow-up conversation.
+Tech Talk
+New versions of
+Slicer-1.xo Turtle Art
+,
+Turtle Art Portfolio
+, and
+InfoSlicer
+are available for testing.
+Sugar Labs
+Gary Martin has generated another SOM from the past week of discussion on the IAEP mailing list (Please see
+SOM
+). He is also looking for feedback on his algorithm:
+I've been putting in some more time on the SOM code the last couple of weeks (high resolution contour lines being one improvement). I wanted to bounce 2 (low-res) maps of this weeks IAEP content off the list for feedback. The first (2009-January-24-30-3-mean) uses the same fully normalized procedure as per the last month of maps (i.e height == term link density); the second (2009-January-24-30-3-corrected) has an identical cluster layout, but has its topographic height re-adjusted to bring back in the term frequency (i.e height == term link density * term frequency). I think this 2nd map gives us the undistorted term layout as seen in maps of the past month, while allowing term frequency to have some influence again over the topography (maps last year all had term frequency frequency).
+See
+the SOM overview page
+for more details.

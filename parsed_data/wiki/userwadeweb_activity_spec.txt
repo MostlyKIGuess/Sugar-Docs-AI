@@ -1,0 +1,35 @@
+Title: User:Wade/Web Activity Spec
+URL: https://wiki.sugarlabs.org/go/User:Wade/Web_Activity_Spec
+--------------------------------------------------------------------------------
+Contents
+1
+Requirements
+2
+Prior Work
+2.1
+GMail
+2.2
+WikiBrowse
+2.3
+XOL Content Bundles
+3
+Overview
+Requirements
+The Web Activity Spec must meet two major requirements.
+To provide a way for programmers familiar with HTML, CSS and JavaScript to create first class Sugar activities, with the same level of functionality as Python based activities.
+To provide an adequate replacement for the .xol Content Bundle format for packaging HTML based content.
+Prior Work
+Several web based activities have been created and distributed thus far using different mechanisms.  Their implementations, benefits and drawbacks are described here.
+GMail
+http://dev.laptop.org/git/projects/gmail-activity/
+The GMail activity is copy of the Browse activity source code, modified to use gmail.com as the homepage and also with some features (sharing, keep) disabled.  The activity has not been kept up to date as Browse has advanced, and thus no longer works on current versions of Sugar.
+WikiBrowse
+http://dev.laptop.org/git/projects/wikiserver/
+http://wiki.laptop.org/go/WikiBrowse
+The WikiBrowse activity is an offline snapshot of Wikipedia.  It's implemented as a highly compressed DB of wikitext, with a local BaseHTTPServer-based webserver which decompresses and serves pages.  The browser component subclasses from the Browse activity, so if Browse is not installed the WikiBrowse activity will fail to launch.
+XOL Content Bundles
+http://wiki.laptop.org/go/Creating_a_collection
+http://wiki.laptop.org/go/Library
+http://wiki.laptop.org/go/Dynamic_library
+The OLPC Library system provides a local HTML (and other formats) content library which can be accessed using the Browse activity.  Content bundles saved as .xol files are installed into the local "library" which causes them to be added to the Browse homepage.  This system works, but there are complaints that the content is "hidden", distribution tools are weak, and the possibilities for interactive pages are limited by the lack of a web server.
+Overview

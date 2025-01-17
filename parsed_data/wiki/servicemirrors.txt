@@ -1,0 +1,119 @@
+Title: Service/mirrors
+URL: https://wiki.sugarlabs.org/go/Sysadmin/Content_Delivery_Network
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+Introduction
+2
+Goals
+3
+Architecture
+4
+Mirrors
+5
+Considerations
+5.1
+Bandwidth
+5.2
+HDD Space
+6
+Setting up a new mirror
+6.1
+For mirror administrators
+6.2
+For Sugar Labs sysadmins
+Introduction
+A content delivery network or Content Delivery Network (CDN) is a system of computers containing copies of data, placed at various points in a network so as to maximize bandwidth for access to the data from clients throughout the network. A client accesses a copy of the data near to the client, as opposed to all clients accessing the same central server, thereby causing a bottleneck near that server.
+Goals
+Reduce bandwidth at primary download server.
+Improve quality of service for users.
+Move content closer to users, thus reducing latency.
+Architecture
+The Sugar Labs Content Delivery Network uses
+MirrorBrain
+as a redirector.  The redirector, which lives in a Sugar Labs data center, keeps track of which files are available on which mirror. When a user requests a file, the redirector points the user to the correct mirror and automatically starts the file download.
+Mirrors
+The current list of available mirrors is available at
+http://mirrors.sugarlabs.org/
+Considerations
+Bandwidth
+To run a mirror you need a lot of bandwidth!  You should look at
+the total bandwidth used by all the mirrors
+.
+If you have trouble with bandwidth, you should look at
+CloudFlare
+.
+HDD Space
+Hosting a mirror takes a lot of space.  If you don't have a lot of space you can only choose to mirror some parts.  For example exclude all directories but the activities (~13gb):
+rsync -avzh rsync://download.sugarlabs.org/pub --exclude 'dextrose' --exclude 'hexoquinasa' --exclude 'images' --exclude 'sources' --exclude 'docs' --exclude 'packages' --exclude 'soas' /rsync/download.sugarlabs.org
+Setting up a new mirror
+For mirror administrators
+All you need is a web server with enough bandwidth to serve the files. To set up a new mirror, the site administrator needs to:
+First lets make a directory to store the data:
+mkdir /rsync
+ mkdir /rsync/download.sugarlabs.org
+Then lets use rsync to download the data (warning: takes a long time)
+rsync -avzh rsync://download.sugarlabs.org/pub /rsync/download.sugarlabs.org
+Save the rsync command as a shell script and make it executable:
+echo "rsync -avzh rsync://download.sugarlabs.org/pub /rsync/download.sugarlabs.org" > /rsync/download.sugarlabs.org/sync.sh
+ chmod 774 /rsync/download.sugarlabs.org/sync.sh
+Then lets make this to sync automatically.  We can use a cron job to do that.  You could make sync every 2 hours:
+echo "0 */2 * * * /rsync/download.sugarlabs.org/sync.sh" > asloSyncCronJob.txt
+ crontab asloSyncCronJob.txt
+If you don't want it to sync every 2 hours, have a look at
+a cron tutorial
+to change that value.
+Publish the files via HTTP.  Look at your http server documentation on how to do that.  You could set up a virtual host to serve these files:
+in nginx
+in apache
+Setup a rsync mirror so we can view the status of your mirror.  To do so, create a rsyncd.conf file and open it:
+sudo nano rsyncd.conf
+Then insert the following config:
+log file = /rsync/log
+[sugarlabs]
+     path = /rsync/download.sugarlabs.org
+     comment = PUT SOME INFORMATION HERE - LIKE A MOTD
+     read only = true
+     list = yes
+Save and quit nano.  Then start rsyncd so it can serve your files:
+rsync --daemon --config=/etc/rsyncd.conf
+Alert the
+Sugar Labs System Administrators
+that they would like their mirror into rotation, including the following information in the request:
+Name and URL of the mirror operator (e.g. organization)
+Name and email address of the administrative contact
+ISO 3166-1 alpha-2
+country code of the server location
+HTTP base URL of the files on the mirror  (typically
+http://mirrors.example.org/sugarlabs/
+)
+rsync base URL of the files on the mirror (typically rsync://mirrors.example.org/sugarlabs/)
+Please contact sysadmin AT sugarlabs DOT org if you are interested in hosting a mirror.
+For Sugar Labs sysadmins
+To add a new mirror to the MirrorBrain redirector:
+Choose a name for the mirror, usually the host name.
+Register the mirror with MirrorBrain:
+sudo -u mirrorbrain mb new <mirror name> --operator-name <operator name> \
+ --operator-url <operator URL> -a <admin name> -e <admin email> \
+ -c <country code> -H <base HTTP URL> -R <base rsync URL> -F <base FTP URL>
+Scan and enable the mirror:
+sudo -u mirrorbrain mb scan -e <mirror name>
+Export the list of mirrors for mirmon (a hourly cronjob does this, but if you don't want to wait...):
+mb export --format=mirmon-apache | sudo -u mirrorbrain tee /srv/mirrorbrain/mirmon/mirrorlist-export
+Finally, re-run mirmon to ensure it can check the health of the mirror (this is also done by a cronjob, but our patience is very short):
+sudo -u mirrorbrain mirmon -v -get all -c /etc/mirmon.conf

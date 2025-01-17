@@ -1,0 +1,29 @@
+Title: Features/Change home view name
+URL: https://wiki.sugarlabs.org/go/Features/Change_home_view_name
+--------------------------------------------------------------------------------
+Contents
+1
+Testing
+1.1
+Default initial condition
+1.2
+Add second home view
+1.3
+Change home view label
+2
+References
+Testing
+Feature depends on the homeviews key of the org.sugarlabs.desktop schema.
+Default initial condition
+The default in Sugar 0.107.0:
+gsettings set org.sugarlabs.desktop homeviews "[{'layout': 'ring-layout', 'view-icon': 'view-radial', 'favorite-icon': 'emblem-favorite'}]"
+Add second home view
+Add a second home view using the standard icons:
+gsettings set org.sugarlabs.desktop homeviews "[{'layout': 'ring-layout', 'view-icon': 'view-radial', 'favorite-icon': 'emblem-favorite'}, {'layout': 'ring-layout', 'view-icon': 'view-radial', 'favorite-icon': 'emblem-favorite'}]"
+Restart Sugar and another ring icon will be shown on the top right of the home view.
+Change home view label
+Set different view labels:
+gsettings set org.sugarlabs.desktop homeviews "[{'layout': 'ring-layout', 'view-icon': 'view-radial', 'favorite-icon': 'emblem-favorite', 'view-label': 'alpha'}, {'layout': 'ring-layout', 'view-icon': 'view-radial', 'favorite-icon': 'emblem-favorite', 'view-label': 'omega'}]"
+Restart Sugar and the icon label shall have changed.
+References
+https://github.com/sugarlabs/sugar/pull/624

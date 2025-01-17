@@ -1,0 +1,73 @@
+Title: Talk:Activities/Turtle Art/Patching
+URL: https://wiki.sugarlabs.org/go/Talk:Activities/Turtle_Art/Patching
+--------------------------------------------------------------------------------
+Contents
+1
+Ideas for new features
+2
+Bill Kerr's questions (and some answers)
+3
+erikos comments
+4
+Earth Treasury
+Ideas for new features
+Integration with Turtle Art with Sensor
+conversion from GIF to SVG
+scalable to other than 1200x900
+more variables?
+more color control: gray, color palettes?
+Icons on tiles, rather than text (no localization; test with preschoolers)
+"While" icon, others--functions, flow control, NumPy data structures
+Prefix arithmetic and logic
+Tile that can read color of current location (for toy Turtle Turing Machine)
+Text tile with stroke font
+Bill Kerr's questions (and some answers)
+Where do you find things (Python files, source code)?
+The source code for Sugar Activities are found in /home/olpc/Activities. Each Activity is in a subdirectory, e.g., /home/olpc/Activities/TurtleArt.activity. The source code (Python files) are in these subdirectories.
+Which things do what? How does Walter know which Python files have to be tweaked?
+I started reading through the code, looking for sections that were relevant to problem I was trying to solve. For example, since I was adding a new math function, I looked in the code for where the other math functions were defined. I found the code for "+", "-", "*", "/", "random", etc. in talogo.py and I found code for generating blocks in taturtle.py. It was an iterative process. I proceeded by trial and error and made lots of mistakes along the way. In the process, I learned a lot about the overall structure of the code.
+A debugging tip: print statements put into the code are logged; use the Log Activity to view them.
+Who do you communicate with? (I didn't know that Brian Silverman was the maintainer and didn't know his email)
+Many Activities has an Authors file. Most Activities have additional author information on their respective wiki pages, e.g.,
+[1]
+. Most Activities have a maintainer in the trac system
+[2]
+. TurtleArt tickets are "Owned by: bss".
+How do you program more advanced stuff in Python, eg. using lambda?
+There are a number of freely available guides to programming in Python, including:
+The Byte of Python (www.swaroopch.com/notes/Python)
+How to Think Like a Computer Scientist: Learning with Python, 2nd edition (openbookproject.net/thinkcs/python2e.php)
+Python for Fun (www.openbookproject.net/py4fun/)
+Python Bibliotheca (www.openbookproject.net/pybiblio/)
+Dive into Python (diveintopython.org/)
+What is FOSS etiquette, how do you go about learning to be a member of this community?
+Start by asking questions... welcome to the community!
+Start by lurking a bit and observing. Different parts of the community have different customs. Read code and FAQs, and get in the habit of checking through Google for help, before asking questions. Learn the basics of git and Trac.--
+Mokurai
+00:53, 15 March 2009 (UTC)
+--
+Walter
+13:13, 27 September 2008 (UTC)
+erikos comments
+I made an .xo bundle so I could let other people easily install and test my changes
+Maybe good to use here ./setup.py dist_xo instead of the zip command
+Further instructions on how to get the new Turtle Art into the release system (so it is part of the standard Sugar distribution) are found here: ReleaseTeam#New_modules_proposal Specifically, I need to generate a .xo and a distribution source:
+This process is only meant for requesting inclusion of new activities that are not yet part of the release sucrose cycle. For the releases of the other modules the maintainers of the activity are responsible. Since this article is about patching turtle art and possibly releasing the activity containing the fix by the maintainer, this could be misleading.
+Thanks Simon. I think I have it straight in the article now. --
+Walter
+00:52, 21 October 2008 (UTC)
+Earth Treasury
+I'm planning to use Turtle Art to teach math, programming (in TA, Logo, and Python, at least), and Computer Science, and to write a
+book
+on it at
+FLOSS Manuals
+.--
+Mokurai
+00:53, 15 March 2009 (UTC)
+Where are the magic numbers in the code documented? (a little documantation at
+Modifying_Activities
+- tony)
+Is the file format for TA documented somewhere, so that we can write a Logo to TA translator? (this would require some complicated logic, the resulting block stack would have to fit on the canvas and not overlap itself too much, I have found laying out blocks a difficult task if wanting to keep a complicated program readable. Unfortunately, the canvas does not scroll - tony)
+Scrolling canvas... another item on the wish list... Tony, can you file a ticket? --
+Walter
+04:07, 15 March 2009 (UTC)- #549 Tony

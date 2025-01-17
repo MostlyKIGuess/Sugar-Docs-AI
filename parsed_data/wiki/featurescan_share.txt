@@ -1,0 +1,70 @@
+Title: Features/Can share
+URL: https://wiki.sugarlabs.org/go/Features/Can_share
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Implementation plan
+7
+Scope
+8
+UI Design
+9
+How To Test
+10
+User Experience
+11
+Dependencies
+12
+Contingency Plan
+13
+Documentation
+14
+Release Notes
+15
+Comments and Discussion
+Summary
+This feature was to make it clearer if an activity can collaborate or not.
+It was replaced by max_participants metadata.
+Owner
+Name:
+Simon Schampijer
+Email: <simon AT laptop DOT org>
+Current status
+Targeted release: none
+Last updated: 14.11.11
+Percentage of completion: none
+Detailed Description
+So far we know inside an Activity if it is able to be shared or not because the share button is changing it's state accordingly (the button is made insensitive if the activity does not support collaboration). But there are other places that need to be aware if an activity supports collaboration or not. For example the buddy palette in the neighborhood view where you can invite a buddy to your activity. An invitation should only be possible if the activity supports collaboration.
+Benefit to Sugar
+It will be clearer to the user if an activity can collaborate or not.
+Implementation plan
+I propose to add a field to the activity.info file. This field should be named 'can_share' ad takes the values 'yes' and 'no' (like the 'show_launcher' field). The default value that is assumed if the field is not set will be 'no'. The reason here is that the activity maintainer who cares about collaboration sets the field and there are more activities that do NOT support collaboration than there are who do.
+Scope
+The shell and the toolkit has to change, furthermore the activities that support sharing have to change their activity.info file.
+UI Design
+No UI design involved.
+How To Test
+Features/Can share/Testing
+User Experience
+The user will be able to know if he can invite a person to an activity or not.
+Dependencies
+None
+Contingency Plan
+Revert to previous behavior.
+Documentation
+Is there upstream documentation on this feature, or notes you have written yourself?  Has this topic been discussed in the mailing list or during a meeting? Link to that material here so other interested developers can get involved.
+Release Notes
+to be written
+Comments and Discussion
+See
+discussion tab for this feature

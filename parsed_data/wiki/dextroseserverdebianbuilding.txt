@@ -1,0 +1,27 @@
+Title: Dextrose/Server/DebianBuilding
+URL: https://wiki.sugarlabs.org/go/Dextrose/Server/DebianBuilding
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Moved and died at
+http://sugardextrose.org
+This is a description on how to integrate the FAI (Fully Automated Install) using debian technology to create a similar server with similar services to the pre-defined RHEL 6 install. The instructions below should help to create an unattended install with all the necessary components that mirror what is being done for the RHEL 6 automated install.
+Here’s a definition from the FAI Guide at
+http://www.informatik.uni-koeln.de/fai/fai-guide/ch-intro.html
+:
+“FAI is a noninteractive system to install a Debian GNU/Linux operating system on a single computer or a whole cluster. You can take one or more virgin PCs, turn on the power and after a few minutes Linux is installed, configured, and running on the whole cluster, without any interaction necessary. Thus, it’s a scalable method for installing and updating a cluster unattended with little effort involved. FAI uses the Debian GNU/Linux distribution and a collection of shell and Perl scripts for the installation process. Changes to the configuration files of the operating system can be made by cfengine, shell, Perl, and Expect scripts. Note the mention of cfengine scripts used during the installation process. Those familiar with cfengine can easily understand FAI configuration and usage. FAI also has the concept of classes at its core, and uses assignment to classes and the definitions assigned to those classes to determine how a host is installed and configured.”
+Here are the steps required to set up FAI from scratch and image our first Debian system:
+1. Install Debian system manually for use as automation installation server
+2. Install the FAI packages along with dependent packages on the new system
+3. Configure FAI
+4. Run FAI-setup
+5. configure network booting for further server installs
+Below you will find the actual technical details that will turn a Debian based system to include and encompass the required additions to turn it into as close as possible to a schoolserver (much of it XS based) but mostly a synergy of what has been done to turn the RHEL6 server into something we can call not only usable but required. In the most simplest of tersm it means, taking what is included in the old Fedora XS server and the newer RHEL6 sever components, to allow it to be used as a KISS server whereby what ever we advertise (AC) actually works in the forthecoming prototypes. Please... remember... this is only the 1st month we've been working on this, so cut us some slack. The end resut will surely do more than ust turn heads. We are here to worth with the community and do whtas some might say is the imposssible.
+6. Customise installation process for all systems, as well as special configuration particular to our first auto-installer
+7. Boot and install our first FAI server system without hitches, find any bugs that might arise, fix them, and try again
+8. Test the whole procedure in a small setup of 3-4 servers (these can be VMS, but we will use a non vm machine too, to make sure nothing out of the ordinary pops up)
+Full Instruction Set to Build Deb 6 Deployer

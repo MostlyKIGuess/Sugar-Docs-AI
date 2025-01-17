@@ -1,0 +1,174 @@
+Title: Development Team/Almanac/sugar.graphics.alert
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/sugar.graphics.alert
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Contents
+1
+Class: Alert
+1.1
+How do I create a simple alert message?
+1.2
+How do I create an alert message with a button that allows a user response to the alert?
+2
+Class: ConfirmationAlert
+2.1
+What is special about a confirmation alert and how do I use it in my activity?
+3
+Class: TimeoutAlert
+3.1
+What is special about a TimeoutAlert and how do I use it in my activity?
+4
+Class: NotifyAlert
+4.1
+What is special about a NotifyAlert and how do I use it in my activity?
+Class: Alert
+Alerts appear at the top of the body of your activity, just below the toolbox if it is visible. The image below shows what a simple alert looks like.
+File:Sugar-alert.jpg
+At a high level, Alert and its different variations (TimeoutAlert, ConfirmationAlert, etc.) have a title, an alert message and then a bunch of buttons that the user can click. The diagram shows that when you create Alert objects in your code, each button is connected to a specific response_id (in this case, gtk.RESPONSE_OK). The Alert class will pass "response" events to your activity when any of these buttons are clicked, along with a response_id to help you identify what button was clicked.
+File:Alert-control-flow.jpg
+How do I create a simple alert message?
+You can create the most basic alert message by first creating a new instance of the Alert class and then calling the add_alert() method for your activity.
+from sugar.graphics.alert import Alert
+...
+       # Create a new simple alert
+        alert = Alert()
+        # Populate the title and text body of the alert. 
+        alert.props.title=_('Title of Alert Goes Here')
+        alert.props.msg = _('Text message of alert goes here')
+        # Call the add_alert() method (inherited via the sugar.graphics.Window superclass of Activity)
+        # to add this alert to the activity window. 
+        self.add_alert(alert)
+        alert.show()
+How do I create an alert message with a button that allows a user response to the alert?
+The _alert_user() method below is called to alert the user about something (here it is very generic). In this example, we add a simple 'OK' button that the user can click. When this button is clicked, the _alert_response_cb() method gets called, which removes the alert from the screen.
+from sugar.graphics.alert import Alert
+...
+    def _alert_user(self):
+        # Create a new simple alert
+        alert = Alert()
+        # Populate the title and text body of the alert. 
+        alert.props.title=_('Title of Alert Goes Here')
+        alert.props.msg = _('Text message of alert goes here')
+
+        #Add an 'OK' Button
+        ok_icon = Icon(icon_name='ok-button')
+        ok_icon.set_pixel_size(50)
+        alert.add_button(gtk.RESPONSE_OK, _('Okay'), ok_icon)
+        alert.connect('response', self._alert_response_cb)
+
+        # Call the add_alert() method (inherited via the sugar.graphics.Window superclass of Activity)
+        # to add this alert to the activity window. 
+        self.add_alert(alert)
+        alert.show()
+
+
+    def _alert_response_cb(self, alert, response_id):
+        if response_id is gtk.RESPONSE_OK:
+            self.remove_alert(alert)
+Class: ConfirmationAlert
+What is special about a confirmation alert and how do I use it in my activity?
+A confirmation alert is a nice shortcut from a standard Alert because it comes with 'OK' and 'Cancel' buttons already built-in. When clicked, the 'OK' button will emit a response with a response_id of gtk.RESPONSE_OK, while the 'Cancel' button will emit gtk.RESPONSE_CANCEL.
+The code below shows how a ConfirmationAlert is created. It also shows a response method that takes care of one of the two action buttons being clicked.
+from sugar.graphics.alert import ConfirmationAlert
+...
+    #### Method: _alert_confirmation, create a Confirmation alert (with ok and cancel buttons standard)
+    # and add it to the UI. 
+    def _alert_confirmation(self):
+        alert = ConfirmationAlert()
+        alert.props.title=_('Title of Alert Goes Here')
+        alert.props.msg = _('Text message of alert goes here')
+        alert.connect('response', self._alert_response_cb)
+        self.add_alert(alert)
+
+
+    #### Method: _alert_response_cb, called when an alert object throws a response event. 
+    def _alert_response_cb(self, alert, response_id):
+        #remove the alert from the screen, since either a response button was clicked or
+        #there was a timeout
+        self.remove_alert(alert)
+
+        #Do any work that is specific to the type of button clicked. 
+        if response_id is gtk.RESPONSE_OK:
+            print 'Ok Button was clicked. Do any work upon ok here ...'
+        elif response_id is gtk.RESPONSE_CANCEL:
+            print 'Cancel Button was clicked.'
+Class: TimeoutAlert
+What is special about a TimeoutAlert and how do I use it in my activity?
+A TimeoutAlert is a special type of alert with two standard buttons ('Cancel' and 'Continue'). This alert also times out after a given number of seconds, returning with a positive response.
+In the code below, we create a TimeoutAlert that will send a positive signal in 10 seconds if the user does not click any of the buttons. The callback method detects that a timeout occurred by checking that the response_id parameter is -1. If so, it simply removes the alert and prints out 'Timeout occurred'.
+from sugar.graphics.alert import TimeoutAlert
+...
+    #### Method: _alert_timeout, create a Timeout alert (with ok and cancel buttons standard)
+    # and add it to the UI. 
+    def _alert_timeout(self):
+        #Notice that for a TimeoutAlert, you pass the number of seconds in which to timeout. By
+        #default, this is 5. 
+        alert = TimeoutAlert(10)
+        alert.props.title=_('Title of Alert Goes Here')
+        alert.props.msg = _('Text message of timeout alert goes here')
+        alert.connect('response', self._alert_response_cb)
+        self.add_alert(alert)
+
+    #### Method: _alert_response_cb, called when an alert object throws a response event. 
+    def _alert_response_cb(self, alert, response_id):
+        #remove the alert from the screen, since either a response button was clicked or
+        #there was a timeout
+        self.remove_alert(alert)
+
+        #Do any work that is specific to the type of button clicked. 
+        if response_id is gtk.RESPONSE_OK:
+            print 'Ok Button was clicked. Do any work upon ok here ...'
+        elif response_id is gtk.RESPONSE_CANCEL:
+            print 'Cancel Button was clicked.'
+        elif response_id == -1:
+            print 'Timout occurred'
+Class: NotifyAlert
+What is special about a NotifyAlert and how do I use it in my activity?
+A NotifiyAlert is just like a TimeoutAlert except that it has only an 'OK' button. It is used just for user notifications. For brevity, no response callback method is included below; it would be just like the other alerts discussed thus far.
+from sugar.graphics.alert import NotifyAlert
+...
+    #### Method: _alert_notify, create a Notify alert (with only an 'OK' button)
+    # and add it to the UI. 
+    def _alert_notify(self):
+        #Notice that for a NotifyAlert, you pass the number of seconds in which to notify. By
+        #default, this is 5. 
+        alert = NotifyAlert(10)
+        alert.props.title=_('Title of Alert Goes Here')
+        alert.props.msg = _('Text message of notify alert goes here')
+        alert.connect('response', self._alert_response_cb)
+        self.add_alert(alert)

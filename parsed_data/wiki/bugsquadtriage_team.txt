@@ -1,0 +1,159 @@
+Title: BugSquad/Triage Team
+URL: https://wiki.sugarlabs.org/go/BugSquad/Triage_Team
+--------------------------------------------------------------------------------
+Contents
+1
+Questions
+2
+What are the priorities for Sugar development?
+3
+Notes
+4
+High priority
+5
+Normal priority
+6
+Probably fixed, needs verification
+7
+Fun to read
+Questions
+What are the priorities for Sugar development?
+The
+1.0 Roadmap
+should give you a good idea of what are the medium term priorities. --
+Marcopg
+What is the goal for this upcoming milestones?
+For 0.82, the next Sugar release, we are going to work mainly on OLPC
+Update.2 priorities
+. I need to extract the major Sugar features and changes from there and add to the
+Development Team/Release/Roadmap
+. Other than that 0.82 will be mostly bug fixes. --
+Marcopg
+What are the big annoyances/obstacles to making the above happen?
+I don't see big obstacles. Involving the community more and better would certainly get us faster though. --
+Marcopg
+Some assigned bug reports are written in an opaque (to outsiders) shorthand that may make sense for the developer involved, but could forestall anyone else from being able to pop into and contribute towards.
+This is a very good point actually and I would like to see it our bug reporting guidelines. --
+Marcopg
+Do we have a team of verification volunteers? (Should they be recruited?)
+We don't have one but we should totally recruit it. See my and Walter notes about the verification process on
+Talk:BugSquad/ContentToEdit/Triage
+.
+would love to help with this, personally - need to get my feet underneath me first. Also, waiting for Sugar Labs to solidify in general before pulling in new people sounds like a good idea.
+Mchua
+04:50, 16 May 2008 (UTC)
+Do we want to make it easier to cross-reference bugs with each other by using something like the
+TracBacks plugin
+? (Full disclosure: I wrote this.) Also potentially helpful if there will be a separate Sugar Trac:
+the TrashTalk plugin
+, which does external trackbacks to tickets (useful for monitoring upstream/downstream trac instances, for instance).
+We are having a discussion about infrastructure by mail, I'll make sure we include you in the next steps. Give this a few days though, we are still defining Sugar Labs infrastructure and it's relation to laptop.org. --
+Marcopg
+Do we have a "trac" component on trac (to report something's broken, to request plugins, etc)? Should we?
+Yup dev.laptop.org has such component. --
+Marcopg
+D'oh. Yeah. I should have checked that first. I noticed a lot of these tickets are owned by coderanger - not sure how active he is these days - so folks may need to do a little gentle pinging for the resolution of trac component tickets which would benefit Sugar development. I can't think of any immediate use cases (read: I can't think of trac things we need yet that we don't have), so I'll leave it at this for now.
+Mchua
+04:50, 16 May 2008 (UTC)
+Do we have a good way for newcomers to get set up for testing so they can help verify all the unverified tickets and write better bug reports?
+Good question. I will send mail about this, added it at the top of my
+TODO
+. --
+Marcopg
+Update - I'm now in my 8th hour and counting of trying to get sugar-jhbuild running on my machine (running Ubuntu Hardy), despite lots of help from patient people (Tomeu, Marco, Cjb, etc...) This does not bode well if we want more volunteers. I'd love an easier way to get the bleeding-edge stuff working. Cjb pointed out that keeping the debs (Jani Monoses's Ubuntu packages etc) super up-to-date makes a great experience for people running the latest version of Ubuntu, but no experience at all (that is to say, a terrible one due to nonexistence) for people not running the latest version of Ubuntu. What other options do we have?
+Mchua
+04:50, 16 May 2008 (UTC)
+What is
+a snowflake
+?
+The way XO icons are clustered around a shared activity in mesh view is represented by code in snowflakelayout.py in sugar.  With several participants, the shape is vaguely similar to a snowflake... I'll add a better description in that ticket, in case someone other than Marco works on it...--
+Morgs
+13:56, 15 May 2008 (UTC)
+Notes
+A lot of bugs need to be verified. Nearly all of them need to be verified, in fact.
+Yup, we need to seek help from the community to do this. The developers team is small and overworked. --
+Marcopg
+We need to make it easier for the community to do this - sugar-jhbuild building is currently an agonizing, multi-hour process.
+Mchua
+04:50, 16 May 2008 (UTC)
+Please please please cross-reference tickets in Trac. When a comment on a ticket refers to "that other ticket where Foobar happened," nobody else knows what "Foobar" was!
+Good candidate for triage guidelines! --
+Marcopg
+Added to the list.
+Mchua
+04:50, 16 May 2008 (UTC)
+I read all the tickets, but the report below doesn't summarize them all; it points out the ones I think may be
+in need of a spotlighting.
+How would an external tester know what milestone a ticket should be assigned to, or is this the responsibility of a triage team? I've added tickets and not known why it should belong to any specific milestone, so left it at Never Assigned. Using Update.2 as the filter shows just 85 tickets, removing that constraint lists 492 tickets (filtering for Never Assigned is about 100 extra tickets)! --
+garycmartin
+Assigning milestones should be left up to the triage team, yeah. In the last few months no one really triaged tickets, so we need to go through all the 492 tickets and make sure they are triaged sensibly. --
+Marcopg
+High priority
+#4100
+-
+School server component needed to provide human readable index of journal backup.
+This has been on the to-do list for 7 months. There is a
+spec
+for this, and implementation is nearly done except for one bit. This was formerly supposed to be done by Ivan, but Martin has taken over. The bug report text should change to make this clearer.
+Which text do you think should change? I reassigned the ticket to Martin, but if you can think of ways to make that more clear, sure. --
+Marcopg
+There's "some outstanding task" that needs to be done, but after reading through Ivan's spec and the decripts of the files Tomeu wrote for his bit, it's still unclear to me what that task is that would make the ticket close. Maybe I'm not reading closely enough? What would make it clear to me is something like
+Tomeu's note on what he needed to do
+, except as an announcement of what is left to be done. This could be done either as a comment, or by editing the main ticket text itself.
+Mchua
+04:50, 16 May 2008 (UTC)
+Normal priority
+#2244
+-
+Battery rollover palette inaccurate
+- This hasn't been touched for 8 months; it appears to have been harder than expected to get battery charge/discharge data. This would be a good thing for someone to pick up in conjunction with making the
+Power Activity
+, after verifying that it's still outstanding.
+#4208
+appears to be a duplicate; if so, please close one of these and note that on the other.
+#5867
+should be checked afterwards as it may be potentially related.
+I made 2244 a dup of 5867. 4208 seem different. I think both tickets should be verified since they are old and there has been code changes --
+Marcopg
+#4464
+requests documentation to be written for mime-type definition for Activities; this is already implemented (see
+#2453
+. Also see
+#6145
+, which is one result of mime handling done not-quite-right (and a great argument for better documentation so people will do it correctly!)
+#4001
+may also be mime-type related.
+4464 an 6145 are actually different. The first is about defining your own custom mime type, the second is about declaring support for an existing, system defined mime type. All the mime type bugs, like 4001, needs to be verified after joyride starts using Fedora 9, which includes updated mime definitions --
+Marcopg
+Probably fixed, needs verification
+If you can, please verify and close these bugs (then mark them as verified on the list, possibly by
+striking out
+the text.)
+#2616
+-
+Shutdown doesn't stop running activities (so if you're in mesh view, they still look like they're active).
+- This needs to be verified and marked appropriately asap, as the new protocol may have fixed the problem.
+#2908
+-
+Mesh view fails to connect to access point
+- this is one particular access point, and the problem appears to be fixed, so if someone can verify the fix and close it, that'd rock.
+#3087
+-
+Rollover scrubbing leaves "trails"
+- this may be fixed; it needs verification.
+#5577
+-
+green not listed as valid color in sugar-control-panel
+has a simple patch, someone should check if the patch got included and take appropriate action (close the ticket if yes, ask how to get it included if no).
+This one is not fixed. It will land with Simon control panel patch (which is being reviewed on the sugar list). --
+Marcopg
+Fun to read
+#5629
+-
+Add a disable screencorners option in Sugar-control-panel
+- fun design discussion on the UI for hot corners. Also interesting:
+#3936
+, which discusses hotcorners not working in Browse sometimes, and
+#4429
+which discusses the frame-on-hotcorner behavior being slow.
+5629 will be fixed by Simon control panel patch. 3936 and 4429 should be verified, if they are still there we need to figure out a way to reproduce (I think that's also something the bug triaging team can help out with)

@@ -1,0 +1,327 @@
+Title: Talk:Sugar on a Stick/Installation/Variations
+URL: https://wiki.sugarlabs.org/go/Talk:Sugar_on_a_Stick/Installation/Variations#How_to_install_to_a_4GB_USB_using_liveinst.28ANACONDA.29_from_SoaS
+--------------------------------------------------------------------------------
+Contents
+1
+Soas stick that writes live USB's
+2
+How To Sugarize liveusb-creator
+3
+Strawberry USB with "Sugarized liveusb-creator"
+4
+How to install to a 4GB USB using liveinst(ANACONDA) from SoaS
+4.1
+CASE 1 Using a burned Soas Live CD
+4.1.1
+Step by Step Procedure
+4.2
+CASE 2 In a Booted Fedora-13-i686-Live-SoaS.iso, script written, 4GB USB
+4.2.1
+Step by Step Procedure
+4.3
+USE new USB for the first time
+5
+From https://bugzilla.redhat.com/show_bug.cgi?id=460854
+Soas stick that writes live USB's
+this USB can make a new USB with liveusb-creator called from the terminal
+How To Make Stick:
+1-) In Gparted, (Partition Manager),format a Lexar Jumpdrive Firefly 4GB USB:
+/dev/sd(*)1 fat 16 Fedora   1.86 Gib boot
+/dev/sd(*)2 fat 16 My Files 1.86 Gib
+(*)
+Be certain of your sticks device name
+ie: /dev/sdb,/dev/sdc....
+In terminal enter "mount" and you will see a list including your device.
+2-) In terminal, install the soasxxx.iso to the first partition:
+./livecd-iso-to-disk  --format --reset-mbr --overlay-size-mb 800 soas-xxx.iso /dev/sd(*)1
+This leaves an empty 2nd Partition on the USB  labeled "My Files"
+3-)remove and re-insert USB in PC (it will appear as 2 USB's on Desktop)
+Paste a copy of soasxxx.iso from the PC into the 2nd Partition "My Files"
+4-) Boot PC with USB stick.
+5-)in root terminal:
+yum install liveusb-creator
+6-)to start program:
+in terminal:
+liveusb-creator
+In the Graphical Program the soasxxx.iso is found in the "My Files" partition.
+This partition is seen on the frame in sugar and can store files for the user .
+Any other live.iso can be pasted into the 2nd "My Files" Partition which appears on a PC Desktop when it is inserted. 
+(It has the capacity to hold up to 3)
+With this USB, you only need 2 USB's 1-)This Boot USB and 2-)Target to make new live USB copies.
+How To Sugarize liveusb-creator
+DO this when running a live USB SOAS
+Locations of activities in sugar versions:
+soas-1-strawberry           /home/liveuser/Activites
+soas-v2-Blueberry           /home/liveuser/Activities
+soas-i386-Nightly composes: /usr/share/sugar/activities
+soas-v3-Mirabelle:          /usr/share/sugar/activities
+F12-EDU-spin:               /home/xxxx/Activities
+IN Sugar Terminal enter:
+su -
+ yum install liveusb-creator  15 pkgs  32M
+ yum install wget                     711k
+ yum install gedit                    5.7
+Instructions:
+copied from:
+http://www.catmoran.com/olpc/#sugxterm
+--------
+"Sugarize an X terminal program
+(SOURCES:
+[1]
+,
+[2]
+,
+[3]
+,
+[4]
+and CatMoran)
+I know that this works for firefox, I can't vouch for any other program. I know that it does not work for mc. It also doesn't work for roto's current mplayer configuration, because only programs that use the same command every time (ie, no input file name, in this case) can be set up to run this way.
+To setup (one time):
+Start a Terminal activity. Enter the following commands. (They log you in as root, gets a copy of Albert Cahalan's compiled libsugarize file, and gets the script I created.)
+su
+wget
+http://www.catmoran.com/olpc/libsugarize.so
+chmod 755 libsugarize.so
+wget
+http://www.catmoran.com/olpc/sug
+chmod 755 sug
+
+Optional, if you want to use the icons I've already 'created':
+wget
+http://www.catmoran.com/olpc/plain.svg
+wget
+http://www.catmoran.com/olpc/ff.svg
+wget
+http://www.catmoran.com/olpc/l.svg
+>*the script "sug" needs to be edited to reflect the location of activities in different versions of SUGAR:
+*Edit the line :"CREATEPATH"= at begining of script "sug"
+(use gedit command in terminal)
+/bin/sh
+CREATEPATH=/home/xxxx/Activities/
+ACTIVITYFILE=activity/activity/activity.info
+>
+To run:
+Locate an icon you want to use/reuse.
+You can copy any .svg file located in /usr/share/activities/*.activity/activity/*.svg  >(SEE NOTE AT TOP OF PAGE)<
+Or you can use one of the icons I've created. (wget commands above.) plain.svg is a plain circle, ff.svg is a circle with FF (for firefox) inside, l.svg is a circle with L
+inside. ff.svg and l.svg can easily be edited for any two or one character(s). Open the file in any text editor. Each letter is in plain text just before the </tspan> tags,
+replace them and save the file.
+Enter the following commands, to log in as root and execute the sug script.  >(SEE NOTE AT TOP OF PAGE and edit script for your version of sugar)<
+su
+./sug
+You'll be prompted for an activity name. Enter a short, descriptive name with no spaces or punctuation, such as BibleTime or Firefox.
+You'll be prompted for an icon file to copy into the new task. You can enter the full path and filename of any .svg file. If the icon is in the same directory as the sug file, 
+you can enter just the filename.
+You'll be prompted for the command to start the program. This is the command you entered from Terminal to start the program, such as firefox.
+You'll be prompted for an organization path, such as org.mozilla If you don't know what this is, just enter org.x
+(If at any of the prompts you want to quit the script, just enter nothing at the prompt.)
+The script will give you a success message. Reboot sugar to see the new task in the sugar taskbar."
+Alternate Download Locations:
+http://people.sugarlabs.org/Tgillard/sugarize/libsugarize.so
+http://people.sugarlabs.org/Tgillard/sugarize/sug.txt(rename
+without .txt after download)
+http://people.sugarlabs.org/Tgillard/sugarize/plain.svg
+http://people.sugarlabs.org/Tgillard/sugarize/l.svg
+http://people.sugarlabs.org/Tgillard/sugarize/ff.svg
+References and Download Mirrors:
+http://wiki.sugarlabs.org/go/Running_Linux_Applications_Under_Sugar
+Strawberry USB with "Sugarized liveusb-creator"
+strawberry USB and converted it to a compressed .img file
+Requires a 4GB or larger USB
+It has gedit, wget, liveusb-creator  and anaconda installed on it.
+su yum install gedit wget liveusb-creator anaconda
+liveusb-creator is "sugarized" and shows up on the F3 screen of the booted sugar USB
+How To Sugarize liveusb-creator :
+http://wiki.sugarlabs.org/go/Category_talk:Live_USB
+You can download it here:
+http://people.sugarlabs.org/Tgillard/strawberry-liveusb-creator.img.tar.gz
+Notes:
+Use this USB to boot soas-1-strawberry
+sugarized liveusb-creator can be accessed from sugar f3 ring (icon: circle with L inside)
+link:
+http://wiki.sugarlabs.org/go/Category_talk:Live_USB
+soas-strawberry.iso
+link:
+http://download.sugarlabs.org/soas/releases/soas-1-strawberry.iso
+Built in f12 liveusb-creator (from terminal liveusb-creator --reset-mbr) with full persistence file
+This USB does not have  the capacity to download soas-1-strawberry.iso to itself you will fill up the USB.
+Use a 2nd USB with the strawberry.iso
+note:
+Liveusb-creator does not see a CD here
+TO find the strawberry.iso on the 2nd USB stick:
+hit the CD button on liveusb-creator
+select root
+hit up arrow on top bar of window
+select /media/<you usb label>/strawberry.iso
+select
+makes a USB with 0.84.2 sugar
+How to install to a 4GB USB using liveinst(ANACONDA) from SoaS
+CASE 1 Using a burned Soas Live CD
+Using Preformatted 4 GB USB Target:
+4GB USB pre-formatted using gparted outside of soas:
+/boot	ext4 	196
+/	ext4	3570
+Step by Step Procedure
+NOTE THIS IS A VERY DANGEROUS PROCEDURE AS YOU CAN DESTROY YOUR COMPUTER'S HARD DRIVE
+(NOT FOR NOVICES: FOLLOW THIS PROCEDURE EXACTLY)
+*Boot Soas USB:
+*sugar-terminal:
+ su
+ liveinst
+(Graphical Installer starts)
+*next
+*Basic Storage Devices
+ "Please select the drives you'd like to install the operating system on, as well as any drives you'd like to automatically mount to your system, below::
+ ( )	Hard Disk (netbook) /dev/sda  DO NOT SELECT
+ (+)	Lexar JD Firefly (Target for Install)  SELECT THIS ONE
+next
+"finding storage devices"
+ Host Name_______(localhost)
+ *next
+ Select City (time zone)
+next
+Root Password
+  ___________
+ Confirm
+  ___________
+next
+*Create Custom Layout
+NOTE: /dev/sda is most likely your Hard Disk
+Do NOTHING with it
+unless you want to install to Hard Disk and Delete
+ALL
+of it's Contents.
+*Please Select a Device (look at label at top of page to choose correct USB)
+labeled on top of screen:(Lexar JD Firefly)
+next
+^Hard Drives
+  sdb                  (TargetUSB)
+   sdb1      199     ext4  	     
+   sdb2     3624     ext4
+   
+Editing instructions:
+click on
+*sdb1
+*edit
+ Mount Point:/boot
+*OK
+click on
+*sdb2
+*edit
+ Mount Point/
+* OK
+next
+*Write changes to disk
+  creates filesystems...
+*Boot loader operating system list
+(x) "Install boot loader on /dev/sdb"
+ Boot Loader operating system list
+ (x) Fedora /dev/sdb2
+next
+(Installation Begins)
+"Copying Live image to Hard Drive"
+"Performing post-installation filesystem changes"
+"Bootloader"
+"Congratulations, your Fedora installation is complete
+Close
+(shut down installer Soas live CD)
+remove Soas live CD
+CASE 2 In a Booted Fedora-13-i686-Live-SoaS.iso, script written, 4GB USB
+script
+./livecd-iso-to-disk  --format --reset-mbr --overlay-size-mb 1200 /home/xxxx/Desktop/Fedora-13-i686-Live-SoaS.iso /dev/sdg*
+ACER ASPIRE ONE AO532h V1.05
+Laptop Hard Drive=/dev/sda
+Using Preformatted 4 GB USB Target:
+4GB USB pre-formatted using gparted outside of soas:
+/boot	ext4 	196
+/	ext4	3570
+Step by Step Procedure
+NOTE THIS IS A VERY DANGEROUS PROCEDURE AS YOU CAN DESTROY YOUR COMPUTER'S HARD DRIVE
+(NOT FOR NOVICES: FOLLOW THIS PROCEDURE EXACTLY)
+Boot Soas USB:
+sugar-terminal:
+su
+liveinst
+(Graphical Installer starts)
+next
+keyboard select
+Basic Storage Devices
+"Please select the drives you'd like to install the operating system on, as well as any drives you'd like to automatically mount to your system, below::
+( )	Hard Disk (netbook) /dev/sda  DO NOT SELECT
+(+)	Lexar JD Firefly (Live Soas USB Booted from)PRESELECTED
+(+)	SanDisk Cruzer   (Target for Install)  SELECT THIS ONE
+next
+"finding storage devices"
+Host Name_______
+*next
+Select City (time zone)
+*next
+Root Account
+ ___________
+ ___________
+next
+Create Custom Layout
+NOTE: /dev/sda is most likely your Hard Disk
+Do NOTHING with it
+unless you want to install to Hard Disk and Delete
+ALL
+of it's Contents.
+(select from Table by using arrows to
+move both USB's to the right
+)
+next
+sd(b) (boot USB) 	Lexar JD Firefly
+sd(c) (TargetUSB)	SanDisk Cruzer
+Please Select a Device (look at label at top of page to choose correct USB)
+labeled on top of screen:(SandDisk Cruzer)
+*sdc1
+*edit
+Label:/boot
+*OK
+*sdc2
+*edit
+Label:/
+OK
+next
+Write changes to disk
+creates filesystems...
+Boot loader operating system list
+( ) "Install boot loader on /dev/sdb" [Change device]
+select this box
+change selection to
+"first sector of of boot partition" /dev/sdc1
+"Bios Drive Order:"
+(reverse order)
+first  bios drive = sdc Sandisk
+second bios drive = sdb Firefly
+OK
+info window:
+Boot loader on /dev/sdc1
+  Default Device Fedora /dev/sdc2
+next
+(Installation Begins)
+"Copying Live image to Hard Drive"
+"Performing post-installation filesystem changes"
+"Bootloader"
+"Congratulations, your Fedora installation is complete
+Close
+(shut down installer Soas live CD)
+remove Soas live USB
+USE new USB for the first time
+Boot from your newly installed Target USB:
+light brown SUGAR splash screen
+Plymouth animation circle
+Firstboot
+license
+Create USER
+ name___________
+ password___________#
+Date and Time
+send profile (smolt)
+Plymouth
+Blue gdm login screen
+login with your password#
+SUGAR starts....
+From
+https://bugzilla.redhat.com/show_bug.cgi?id=460854
+--- Comment #4 from Jeremy Katz <katzj@redhat.com> 2009-02-04 09:15:40 EDT --- The problem is that the overlay fills up and that there is then nothing that can really be done. Fedora 10 adds the 'reset_overlay' option that you can pass on the kernel command line which helps to recover, but ultimately, we need something better than dm-snapshot to use for the overlay

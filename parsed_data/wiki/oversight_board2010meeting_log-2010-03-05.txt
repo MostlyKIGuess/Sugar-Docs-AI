@@ -1,0 +1,421 @@
+Title: Oversight Board/2010/Meeting Log-2010-03-05
+URL: https://wiki.sugarlabs.org/go/Oversight_Board/2010/Meeting_Log-2010-03-05
+--------------------------------------------------------------------------------
+<mchua>
+walterbender: meeting time?
+<walterbender>
+hi mchua
+<cjb>
+morning.
+<mchua>
+walterbender: What's the agenda for the day?
+<walterbender>
+could SLOB members please wave so we can see if we have a quorum?
+tomeu:waves
+<walterbender>
+mchua: as per the wiki: TM, ASLO, GSoC, Goals
+seems we have a quorum, so let's begin.
+#
+startmeeting
+<meeting>
+Meeting started at 11:04 UTC. The chair is walterbender.
+Commands Available: #TOPIC, #IDEA, #ACTION, #AGREED, #LINK
+bernie:present... (but not for long)
+mchua:here
+<walterbender>
+since Sean is not here yet, let's start with the ASLO discussion.
+#
+topic bundle policy on ASLO
+Has everyone been following alsroot's thread?
+mchua:nods
+tomeu:is not uptodate
+mchua:looks for list thread to #link in
+<walterbender>
+the gist is, right now we don't have a great way of supporting bundles with binary dependencies and it is causing some confusion in ASLO.
+<bernie>
+walterbender: I did
+<walterbender>
+So the question alsroot posed is do we want a policy where by we ban such mixed bundles or ignore the problem or defer the problem until we have a suitable solution.
+<mchua>
+#link
+http://lists.sugarlabs.org/archive/sugar-devel/2010-March/022800.html
+tomeu:doesn't have time to read it today :/
+<mchua>
+The request from Aleksey as originally phrased: "Can activity bundles on Activity Library [1] be not fully bundled and demand additional (except having .xo) steps (that in most cases will demand network connection) to its launch."
+<walterbender>
+alsroot: put a specific proposal for our consideration in the agenda in the wiki:
+http://wiki.sugarlabs.org/go/Oversight_Board/Minutes
+<tomeu>
+well, I guess the policy should match the intended design?
+<walterbender>
+there are of course technical considerations, but there is a policy issue underlying this, hence the SLOBs request
+IMHO, bemasc's post was the most relevant to framing our policy discussion:
+If Sugar is working as intended, 99% of Activities will be crap. This is
+because the purpose of Sugar is to invite novices to engage actively in
+software development. Novices make bad stuff, and we want to install and
+run that stuff. This means we can't rely on any transmission medium that
+requires human approval.
+I that spirit, I think we want to open things up as much as possible...
+but we don't want to compromise stability...
+<mchua>
+#link
+http://idea.olpcorps.net/ideatorrent/ideatorrent/idea/20/
+<mchua>
+has two proposals + poll results.
+mchua:wants to thank alsroot for his work in bringing this discussion up and gathering the evidence, btw - it's a lot of work
+<walterbender>
++1
+<bernie>
+walterbender: re-enabling rainbow would help
+<walterbender>
+bernie: yes... I don't know the status
+<bernie>
+walterbender: I have this on my todo list, btw... but I don't know if and when I'll ever get around to do it... there's too much work to do here.
+<alsroot>
+well at the end request wasn't about quality of activities but about having non-SP deps
+<bernie>
+walterbender: we are "almost there", according to m_stone. rainbow is packaged in fedora and sugar patches were committed... but there's some integration work to be done
+alsroot: right
+<mchua>
+alsroot: are the 2 options on
+http://idea.olpcorps.net/ideatorrent/ideatorrent/idea/20/
+still the ones we're considering and debating between?
+mchua:thinks that's about right, but wants to be sure
+<alsroot>
+mchua: at least in my mind there is a fork and we have to explicitly follow one of directions -- imho
+mchua:agrees
+<walterbender>
+alsroot: agreed and maybe being open to novices is orthogonal to the question, but I think it suggests we want to be as open as possible... Solution #2
+<alsroot>
+walterbender: well "being open to novices" could mean being open to java novices
+<walterbender>
+if we have a mechanism for local caching of ASLO, then the fetched on demand problem is diminished
+<alsroot>
+e.g.
+mchua:agree with the "as open as possible" - the best solution will win
+<cjb>
+walterbender: the package being fetched will probably not come from ASLO.
+for example, ASLO does not contain a JVM
+<bernie>
+I will have to drop off the meeting soonish
+<mchua>
+if people care about making something possible, making it easy for something to work, they'll make the tools and docs that allow novices to get involved with $their_platform; I see no need to block that
+<walterbender>
+cjb: well, maybe the key is that we facilitate local caching of dependencies, regardless of where they originate
+<cjb>
+walterbender: so, we're talking about generic distro dependencies, not merely other-activity-on-ASLO dependencies.
+<mchua>
+We may want to make a stronger statement about support (or lack thereof) so that everyone's clear that allow != support.
+<bernie>
+cjb: we also would like to have inter-activity dependencies, I guess
+cjb: think Gcompris
+<cjb>
+maybe, yeah. we're not very close to an actual technical proposal yet.
+<walterbender>
+or even Etoys
+<cjb>
+bernie: yes, of course; that's the easier part.
+<bernie>
+walterbender: or turtle art activities :)
+<alsroot>
+cjb: but we are trying to solve next questions, in my mind we can ask only on request and going further and discuss possible tech implementations
+s/ask/answer/
+<cjb>
+I think we probably all agree that #2 is where we'd like to be, as a strategic decision. I don't think we should enact any policy that takes us into that world until the technical issues with dependencies are all sorted out, though.
+<walterbender>
+cjb: I think that if we endorse the openness policy, it will help inform the tech. work
+<mchua>
+Do we need a motion to be clear that we want to go in the #2 direction (is anything specific being blocked by not having a motion passed right now)?
+<alsroot>
+cjb: but my original concern was about Agenda items's #1 issue, in my mind if we will continue to follow existed scheme we will get a heap of binary crap instead of ASLO
+<walterbender>
+alsroot: it seems the only way to make it less fragile until we have a solution is to ban binary bundles...
+but I think that is extreme
+<alsroot>
+walterbender: yup, like
+http://thread.gmane.org/gmane.linux.laptop.olpc.sugar/21243
+<walterbender>
+a boldly displayed warning ...
+<alsroot>
+oops sory, wrong link
+<cjb>
+I agree with walterbender. These problems with the .xo format aren't new; we've been trying to work out how to improve them for years. It doesn't make sense to start banning them now.
+<walterbender>
+I kind of liked the .x0 idea :)
+<alsroot>
+cjb: did we have ASLO(deployment agnostic tool) two years ago? I guess nope
+<walterbender>
+so let me try to make a motion
+<alsroot>
+in case of OLPC this problem is not so critical
+the right link about restrictions is
+http://article.gmane.org/gmane.linux.laptop.olpc.sugar/21244
+<tomeu>
+rather than seeing one or another solution as problematic, I see it as if each known solution handled better a different set of use cases
+<walterbender>
+alsroot: I think experimental is the wrong label... GCompris is not experimental
+<cjb>
+I guess I'm having trouble reconciling bemasc's post there with his later message about how he wants novice/bad activities
+<tomeu>
+maybe the most important use cases have changed with time
+<alsroot>
+walterbender: but it already public, so..
+<walterbender>
+alsroot: I don't think it is a public vs not publc issue.
+I think it is a no-external dependencies vs. you may need to download additional stuff issue
+that is what we want to communicate
+<tomeu>
+what I would like to avoid is focusing on improving the wrong set of use cases, thus degrading general quality of experience
+<alsroot>
+tomeu: keeping in mind current situation, every explicit declaration about blobs in acitivites(including it is wrong use case) is useful
+<walterbender>
+tomeu: well, it seems we have the large deployments that already can pick and choose what they install...
+and then there is the user who wants an addon
+orthogonal to all of this is the update problem (which is another use of ASLO)
+<walterbender>
+sdziallas, who just joined us, and I discussed a few ideas about updates yesterday... but that is orthogonal to today's topic
+<alsroot>
+walterbender: but we are moving to other stuff, I mean bemas's idea of moratorium for *new* blobs and implementing new scheme, is useful
+<walterbender>
+tomeu: so the use case is the kid who wants to download a new activity and may or may not be successfull because of dependencies an architures
+<bernie>
+walterbender, alsroot: at this time, the XO builds are fetching activities from aslo, but indirectly. they go through wiki.laptop.org because aslo does not add the required microformat tags to the activity pages.
+<walterbender>
+tomeu: that determines the quality of the experience
+<bernie>
+I think it would be trivial to add those tags to aslo
+<tomeu>
+walterbender: sorry, I'm not ready to actually discuss possible solutions because haven't read the thread yet
+<walterbender>
+so it seems we should try to immediately WARN the users...
+<mchua>
+walterbender: did you have a motion in mind earlier?
+<walterbender>
+and work on a solution where the experience
+mchua:looks at time, wonders if we want to figure out next-steps for this one so we can tackle other topics as well
+<CanoeBerry>
+mchua: i'm open if this discussion is productive
+<walterbender>
+mchua: w/o Sean, we cannot get far on TM anyway :(
+anyway, my proposal would be to:
+mchua:points out we still have goals, gsoc
+<walterbender>
+(1) Bundles with non-Sugar dependencies be clearly marked in ASLO
+mchua:listens for proposal :)
+<walterbender>
+(2) We work towards a mechanism for supporting access to non-Sugar dependencies--a specific endorsement of being open.
+(3) We do not restrict ASLO while we progress towards #2.
+Consider that a motion...
+<mchua>
+what does "support" mean in this context?
+<walterbender>
+mchua: well maybe we need to have another field: supported/not supported
+<bernie>
+walterbender: yea
+<alsroot>
+walterbender: btw, "restrict" means only *new* blobs not existed activities thus such restriction could be useful
+<mchua>
+If it's "allow people to do it and put it on ASLO," that's one thing, if it's "provide hosting resources for them to do it" that's another, if it's "we will help you with our limitedpeople-time-resource s if things break," that's yet another
+<walterbender>
+alsroot: yes... but personally, I think that is a mistake...
+<mchua>
+I'm fine with the first two but we don't have the resources to do the third.
+<walterbender>
+mchua: agreed... but that is true of many Python-only activities as well
+mchua:nods
+<walterbender>
+mchua: I think we want to support Write and I am not sure we want to support, for example, Sliderule
+<alsroot>
+walterbender: btw existed activities can upload blobs w/ new versions
+<mchua>
+Aye. Well, the "support - what does it mean, what do we grant it to?" question is a whole different discussion, I think
+<walterbender>
+so it seems a separate topic of do we want to add a support flag to ASLO and what is the polciy for settign that flag
+mchua:offers to write that up for next week's meeting if desired
+<walterbender>
+we can tackle that next, but is there a second to my motion?
+#
+action: mchua to write up support question for next meeting
+mchua:likes motion, trying to rephrase, one moment
+<mchua>
+walterbender: "Activities with non-Sugar dependencies are also allowed to use ASLO so long as they are clearly marked as having non-Sugar dependencies."
+is that a shorter way of putting it?
+do we need to specify a mechanism for marking?
+the "we will work towards..." part is "this comes up as a topic next week"
+imo
+<walterbender>
+mchua: sure... but that is a tech. issue we don't need to address as SLOBs
+<mchua>
+walterbender: point.
+<walterbender>
+I second mchua's phrasing of the motion
+mchua:laptop about to run out of power and shut down
+<cjb>
+mchua: I think yours might be overly concise, for someone who hasn't got all of the context already
+<mchua>
+cjb: feel free to rephrase :)
+<cjb>
+so perhaps a slight preference for Walter's extended one
+<mchua>
+Okay.
+<CanoeBerry>
+yeah
+<mchua>
+My vote is +1 for either, btw
+in case my laptop dies on me suddenly
+<cjb>
+I'll second walterbender's, and we can always give more details if they're asked for
+<walterbender>
+OK. Let's vote on "walter'
+'s motion"
+<mchua>
++1
+mchua:battery dying
+<walterbender>
+(excuse the fat fingers"
+=-=:mchua is now known as mchua_afk
+walterbender:aye
+<CanoeBerry>
++1
+cjb:aye
+<walterbender>
+OK. The motion passes...
+alsroot: is that sufficient to unblock you?
+<alsroot>
+walterbender: so only 2) was accpeted?
+I mean w/o 3)?
+<cjb>
+alsroot: not sure what you mean -- can you quote?
+walter's (1), (2), (3) list were all accepted
+<alsroot>
+http://pastebin.be/23817
+<walterbender>
+alsroot: all three statements were part of the motion
+<cjb>
+yes, all of those were accepted
+alsroot:ok w/ that
+<walterbender>
+alsroot: I'll make it more clear in the minutes...
+alsroot: I just want to make sure you are unblocked
+<alsroot>
+walterbender: I am, will post going further email post to devel@
+<walterbender>
+alsroot: thanks.
+OK. Next topic...
+#
+TM in brief
+<walterbender>
+While I would like Sean's feedback, I modified yet again
+http://wiki.sugarlabs.org/go/Talk:Sugar_Labs/Governance/Trademark#Sugar_Trademark_Policy
+<bernie>
+mchua_afk, walterbender: for the record, I would also have seconded the motion if I weren't on the phone.
+<walterbender>
+I think it should capture both cjb's intentions and (hopefully) sean's
+<cjb>
+oh, cool
+thanks!
+<walterbender>
+bernie: not to late to vote
+=-=:unmad|away is now known as unmadindu
+<bernie>
+walterbender, cjb: cool
+<walterbender>
+cjb, bernie: let's see what Sean thinks...
+but cjb: does it address your concerns?
+<cjb>
+yes, totally
+mchua:on phone now so can vote but not so useful for discussion
+<walterbender>
+(essentially I broke 2.a into three chucks... and put two on the no permission needed side and one on the permission needed side.
+OK. let's move on because Sean is not here.
+#
+action Walter to discuss mod to TM policy with Sean...
+<cjb>
+ok
+<walterbender>
+#topic GSoC
+this is both an update and a discussion...
+update: Tim and I are talking/making headway on getting us enrolled again.
+discussion: We have been thinking about a slightly different approach to projects this year...
+While we'd be open to considering any proposal, we would like to encourage interns to develop projects around predefined open tickets...
+<mchua>
+read proposal and i like it. useful starting point with room to move.
+<walterbender>
+e.g., there are a number of open tickets in Browse... it would be great to have an intern to work on a clearing defined subset of those, and include engagement with deployments for testing
+<walterbender>
+and we could ask for a patch to a more trivial Browse ticket as part of the qualification process
+<walterbender>
+I think this would make the whole program more focused and more likely to see success for both the student and SL at the end of the summer.
+What do people think of that?
+<CanoeBerry>
+Which Tim?
+<walterbender>
+Macnamara (timclicks)
+<CanoeBerry>
+McNamara
+<walterbender>
+yes... more fat fingers...
+I don't no how to spell :)
+<CanoeBerry>
+Tim is great, no dought..
+<cjb>
+that sounds good to me
+<CanoeBerry>
+doubt :)
+tomeu:likes the idea
+<walterbender>
+I guess the bottom line is that we have lots of problems we have already identified and trying to steer interest towards those would be more useful than opening up new explorations... in general...
+of course, if we found the right person to explore some new idea...
+<CanoeBerry>
+Anyone in touch with Jameson Quinn on useful organizational lessons learned from 2009? EG.
+http://wiki.sugarlabs.org/go/Category:GSoC
+<walterbender>
+CanoeBerry: I have been... but have much more to ask him...
+one aside re GSoC 2009: we have had some issues with being slow to reimburse the mentors for their travel expenses to the mentor's conference.
+I am not sure where the bottleneck is... somewhere between Google and the SFC.
+but I authorized SFC to pay them now with the expectation that the Google money will come in.
+these are the monies we authorized GSoC mentors discretion over...
+a few thousand $s.
+<walterbender>
+Any other comments/suggestions re GSoC?
+<CanoeBerry>
+Buy Tim Clicks Ice Cream
+<walterbender>
+CanoeBerry: BTW, I assume not, but is OLPC applying again this year?
+<CanoeBerry>
+SJ's talking about the possibility of 6 interns at OLPC this summer, but I'm not sure if GSoC would be involved at this point.
+<walterbender>
+CanoeBerry: well, if any of them are going to be working in Sugar-related areas, let us know :)
+<dogi>
+#link
+http://idea.sugarlabs.org/drupal5/ideatorrent/gsoc/latest_ideas/
+please write ideas there
+<walterbender>
+dogi: thanks.
+walterbender:notes that dogi is sitting across the table from him at the moment :)
+<dogi>
+:)
+<CanoeBerry>
+walterbender: will do, i want a seat at the table too ;)
+<walterbender>
+OK, well, as they say in CarTalk, you've wasted another hour with us... Actually, I think we got some decisions made today :)
+<CanoeBerry>
+QED, thanks all for accelerated discussion this time..
+<walterbender>
+Let's all agree to add our comments/suggestions to the Goals page for next time?
+I think it would be good to articulate some 5-year goals too... I'll start that thread
+CanoeBerry: w31-120... be there!!
+<CanoeBerry>
+I would if I wasn't sick-- don't want to infect you.
+<walterbender>
+It would be good to have prominent in the wiki both our short-term and long-term goals.
+anything else before we adjourn?
+<walterbender>
+I have a noon meeting I need to attend... so I will endmeeting now.
+Thanks everyone. See you next week...
+#
+endmeeting
+<meeting>
+Meeting finished at 12:14.
+Logs available at
+http://me.etin.gs/sugar-meeting/sugar-meeting.log.20100305_1104.html

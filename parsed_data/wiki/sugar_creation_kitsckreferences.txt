@@ -1,0 +1,475 @@
+Title: Sugar Creation Kit/sck/References
+URL: https://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/References#How_to_make_your_own_custom_Sugar-Creation_Kit.iso_file
+--------------------------------------------------------------------------------
+Contents
+1
+References: Sugar Creation Kit
+1.1
+Sugar 0.96 feature list
+1.2
+FileShare
+1.3
+logo
+1.4
+surf browser
+1.5
+Razor-qt Desktop
+1.6
+Firefox for Sugar
+1.7
+Firefox/sharemenot
+1.8
+Hardware Compatibility
+1.8.1
+Share files with a MAC
+1.8.2
+Notes on Live File Systems
+1.8.3
+Cautions with u3 USB sticks
+1.8.4
+Commercial source of SoaS-loaded media
+1.9
+WiFi
+1.9.1
+FileShare
+1.9.2
+logo
+1.9.3
+surf browser
+1.9.4
+Razor-qt Desktop
+1.9.5
+Firefox/sharemenot
+1.10
+DVD covers; artwork & screenshots
+1.11
+Floss Manuals
+1.12
+Linux Commands pdf
+1.12.1
+Open_Education_Resources
+1.12.2
+Python Programming
+1.12.3
+Replacing_Textbooks - Booki
+1.12.4
+Download or listen to Classical Music
+1.12.5
+TunesViewer
+1.12.5.1
+f17 RC4 Desktop Installation
+1.12.6
+Khan Academy videos in OGV format
+1.12.7
+Online Free Courses
+1.12.7.1
+Adobe Flash
+1.12.7.2
+Flash Player
+1.12.7.3
+Gnash
+1.12.7.4
+Flash Video Replacer
+1.12.8
+References
+1.12.8.1
+How to make your own custom Sugar-Creation_Kit.iso file
+1.12.8.2
+copy items between a USB drive and Sugar Journal
+1.12.8.3
+Guide to GNOME 3 desktop
+1.12.8.3.1
+Start Gnome3 in Fallback Mode
+1.12.8.3.2
+Workaround for Alacarte
+1.12.8.4
+pulseaudio-fixes-and-workarounds
+1.12.8.5
+How to Sugarize an Application
+1.12.8.6
+FSF-How to choose a license for your own work
+1.12.8.7
+fedora Licensing Guidelines
+1.12.8.8
+Scratch Licensing
+1.12.8.9
+how-to-mount-and-access-files-in-an-iso-image-on-linux
+1.12.8.10
+grub and grub2
+1.12.8.11
+how to recover grub and grub2 after installing windows
+1.12.8.12
+coreboot
+1.12.8.13
+Re work LiveCD
+1.12.8.14
+Download Methods
+1.12.8.15
+HTMLDOC
+1.12.8.16
+WLAN configuration of NetworkManager
+1.12.9
+Converting Mediawiki files to DocBook.XML
+1.12.10
+HTTrack
+1.12.11
+E-books
+1.12.12
+English Simple Wikipedia
+1.12.13
+Spanish Simple Wikipedia
+1.12.14
+French Simple Wikipedia
+1.12.15
+offline-reader-available-for-sugar
+1.12.16
+epub reader
+1.12.17
+OLPC Map
+References: Sugar Creation Kit
+Sugar 0.96 feature list
+Accepted and Deferred features of next Sugar version
+FileShare
+FileShare is an activity that allows the user to share files from their journal.
+Note small files can be posted to sites like
+pastebin
+for sharing
+Also see:
+Send a file to a Friend
+from within sugar.
+logo
+Book:  Challenging Programs in Logo
+surf browser
+alternate to sugar-browse
+Included in latest f15 sugar 0.92.1 as the main web browser
+Works in situations where sugar-browse will not start
+Download:
+http://people.sugarlabs.org/Tgillard/Surf-115.xo
+git:
+http://git.sugarlabs.org/surf
+WebKit Development:
+http://wiki.sugarlabs.org/go/Features/WebKit
+Razor-qt Desktop
+Razor-qt is an open source and free project. GPL and LGPL
+Blog Post:
+http://yarpen.cz/rants/?p=43
+http://www.qtdesktop.org/
+Firefox for Sugar
+I have packaged full Firefox for Sugar in the past, there were no obvious blockers there
+ (
+http://wiki.laptop.org/go/Firefox/Obsolete
+) 
+C. Scott Ananian
+Firefox/sharemenot
+http://sharemenot.cs.washington.edu/
+MIT license
+ShareMeNot is a Firefox add-on designed to prevent third-party buttons 
+(such as the Facebook “Like” button or the Twitter “tweet” button)
+embedded by sites across the Internet from tracking you until you actually click on them.
+Hardware Compatibility
+EeePC:
+http://fedoraproject.org/wiki/EeePc
+key-to-press-to-access-bios-for-various-oem-and-computer-systems
+smolt profiles:
+http://www.smolts.org/
+http://smolts.org/smolt-wiki/Main_Page#Usage
+XO-pixelqi Display:
+http://www.pixelqi.com/
+XO-1 Display screen technology
+Share files with a MAC
+"Mac OS X offers various forms of file service so that other operating systems can connect to your computer with built-in tools or common application programs"
+Notes on Live File Systems
+LiveOS image
+This page shares some information about the LiveOS design that helps
+Sugar on a Stick
+Learners make better use of their disc resources.
+Clarify writing ISO to USB
+(Discussion on what is supported in fedora)
+https://fedorahosted.org/fedora-qa/ticket/134
+Technical Discussion of Live USB's:
+http://fedoraproject.org/wiki/How_to_create_and_use_Live_USB#Data_Persistence
+Limited Lifetime of Persistent Overlay
+One very important note about using the "primary" persistent overlay for system changes is that due to the way it's currently implemented (as a LVM copy-on-write snapshot),
+every single change to it (writes AND deletes) subtracts from its free space, so it will eventually be "used up" and your USB stick will no longer boot.
+Because of these limitations, it is advisable to use the system-level persistence sparingly, for configuration changes and important security updates only.
+For a truly persistent write-many (vs write-once) overlay, use the --home-size-mb option to create a home directory filesystem image for personal files.
+Unlike the primary system overlay image, the home.img can be re-used and loop mounted outside of the liveusb environment.
+Cautions with u3 USB sticks
+USB sticks with u3 partition will not boot with liveusb-creator
+CAUTION:
+Formatting the USB-stick will not remove the hidden (virtual CD-ROM drive)
+How to remove hidden u3 partition
+Linux:
+http://u3-tool.sourceforge.net/
+Windoz: Insert u3 Stick then click on tray icon for u3; select delete u3 partition, once it is deleted the USB-stick will work with liveusb-creator
+http://en.wikipedia.org/wiki/U3
+Commercial source of SoaS-loaded media
+USB Flash Drives: -4gb-8gb-16gb-32gb (32 and 64-bit PC)
+http://www.osdisc.com/cgi-bin/view.cgi/products/usb/fedora
+http://www.osdisc.com/cgi-bin/view.cgi/products/usb/fedora/fedora-16-sugar-on-a-stick-4gb-usb-flash-drive-pc.html
+Note: Ordered One. In testing; It is Not Persistent   -
+satellit_
+6 December 2011
+Long Delay on shutdown as it is "waiting for the CD to be removed from the Drive"
+Visible if you hit <esc> on shutdown
+SDHC Flash Cards: -2gb-4gb-8gb-16gb-32gb (32 and 64-bit PC)
+http://www.osdisc.com/cgi-bin/view.cgi/products/usb/fedora/fedora-16-sugar-on-a-stick-4gb-sdhc-flash-card-pc.html
+- see listing on site for more -
+WiFi
+Wifi (Open FirmWare for WiFi networks):
+http://www.ing.unibs.it/~openfwwf/
+http://www.ing.unibs.it/openfwwf/
+"free" Wifi Models:
+http://www.h-node.org/wifi/catalogue/en/1/1/undef/undef/yes/undef/undef
+http://www.h-node.com/wifi/view/en/2/BCM4311--rev-02-/1/1/Broadcom/undef/undef/undef/undef
+http://linuxwireless.org/en/users/Drivers/b43#Known_PCI_devices
+http://www.h-node.com/wifi/catalogue/en/1/1/undef/undef/yes/USB/undef
+Mesh Networking:
+http://hothardware.com/News/Nonprofit-Group-Releases-Open-Source-WiFi-Software/
+FileShare
+FileShare is an activity that allows the user to share files from their journal.
+Note small files can be posted to sites like
+pastebin
+for sharing
+logo
+Book:  Challenging Programs in Logo
+surf browser
+alternate to sugar-browse
+Included in latest f15 sugar 0.92.1 as the main web browser
+Works in situations where sugar-browse will not start
+Download:
+http://people.sugarlabs.org/Tgillard/Surf-115.xo
+git:
+http://git.sugarlabs.org/surf
+WebKit Development:
+http://wiki.sugarlabs.org/go/Features/WebKit
+Razor-qt Desktop
+Razor-qt is an open source and free project. GPL and LGPL
+Blog Post:
+http://yarpen.cz/rants/?p=43
+http://www.qtdesktop.org/
+Firefox/sharemenot
+http://sharemenot.cs.washington.edu/
+MIT license
+ShareMeNot is a Firefox add-on designed to prevent third-party buttons 
+(such as the Facebook “Like” button or the Twitter “tweet” button)
+embedded by sites across the Internet from tracking you until you actually click on them.
+DVD covers; artwork & screenshots
+Booth_Banners
+Marketing Team/Booth Banners
+LinuxTag
+http://www.flickr.com/photos/39656470@N02/sets/72157620524327203/
+SeanDaly
+F16 Artwork:
+https://fedoraproject.org/wiki/F16_Artwork/Submissions/Banners#Release_Banner_.28small.29_SubmissionsFedora
+Screen Shots
+Marketing Team/Screen Shots
+Marketing Team/T-Shirt
+nice collection of images
+Fedora 15 GNOME 3 Desktop with sugar-emulator:
+Community/Distributions/Fedora#GnomeShell
+Floss Manuals
+(Important Manuals on how to use Sugar Applications and Features)
+READ THESE FIRST!
+Sugarlabs Download Page
+(Local ARCHIVE of the.pdf files shown below:)
+Source Links:
+Introduction to Sugar
+http://en.flossmanuals.net/sugar
+como-hacer-una-actividad-sugar
+MakeYourOwnSugarActivities
+Internet Archive
+Publishing Quality
+In PDF, EPUB, Kindle, Daisy, Full Text. DjVu formats
+Introduction to the command line
+SugarCollaboration
+http://en.flossmanuals.net/ActivitiesGuideSugar/SugarCollaboration
+Reading_and_sugar:
+http://people.sugarlabs.org/Tgillard/floss_manuals/Reading_and_sugar_28Sep10.pdf
+Text to Speech:
+http://people.sugarlabs.org/Tgillard/floss_manuals/Text_and_Speak_09Nov10.pdf
+e-book resources:
+http://en.flossmanuals.net/e-book-enlightenment/
+Linux Commands pdf
+Very complete Linux Command reference
+Use Download icon on right end of top bar to save as a .pdf
+Open_Education_Resources
+Open Education Resources (OERs) are digital replacements for textbooks available under some form of Free license, such as Creative Commons
+Python Programming
+Extensive list of references
+Online Python Tutor
+Learn and practice Python programming in your web browser
+Replacing_Textbooks - Booki
+Replace textbooks
+Booki
+booki user guide
+Blog
+Booki importing-a-book
+FLOSS Manuals WRITE
+Download or listen to Classical Music
+Musopen (www.musopen.org) is a 501(c)(3) non-profit focused on improving access and exposure to music
+by creating free resources and educational materials.
+We provide recordings, sheet music, and textbooks to the public for free, without copyright restrictions.
+TunesViewer
+TunesViewer is a small, easy to use program to access iTunes-University media and podcasts in Linux.
+Tunesviewer works well even on older computers, but you must have pygtk >= 2.16 and lxml available.
+f17 RC4 Desktop Installation
+Still Testing-
+Does not work
+http://sourceforge.net/projects/tunesviewer/files/tunesviewer-1.4.noarch.rpm/download
+yum install *lxml*
+Install Amarok; Movie Player and exaile in Add/Remove Software
+Khan Academy videos in OGV format
+Only OGV format seems to work in Fedora-17-Beta-TC1-i686-Live-Desktop
+Re: [IAEP] Khan academy content   04/05/2011
+You can download around 1000 of the Khan Academy videos in OGV format
+(playable on XO laptops) from Archive.org   Here's an English/Spanish
+index of relevant categories
+If you're skeptical or haven't seen his videos, his talk sparked a great
+discussion about math education on Hacker News:
+http://news.ycombinator.com/item?id=2307532
+For more recent videos, including YouTube, there's this media guide:
+http://wiki.laptop.org/go/MediaGuide
+Regards,
+Nick Doiron
+link:
+http://www.khanacademy.org/
+Review:
+http://www.wired.com/magazine/2011/07/ff_khan/all/1
+Online Free Courses
+http://ocw.mit.edu/courses/
+https://www.coursera.org/courses
+Adobe Flash
+a proprietary player for Flash media
+OLPC:Adobe Flash
+Adobe Flash
+Flash Player
+needed for firefox viewing of Khan academy lectures
+http://plugindoc.mozdev.org/linux.html#Flash
+Gnash
+GNU Flash movie player and as a plugin to Browse is the default Flash player on the XO. It is the free software counterpart to the Adobe Flash player.
+http://wiki.laptop.org/go/Gnash
+Flash Video Replacer
+http://www.webgapps.org/add-ons/flashvideoreplacer/download-firefox
+http://www.webgapps.org/add-ons/flashvideoreplacer/compatibility
+References
+How to make your own custom Sugar-Creation_Kit.iso file
+(How this DVD was converted to an .iso file)
+Collect, annotate and sort the files you want in a folder on your Desktop.
+Burn the contents of this folder to a CD or DVD.
+Use the following command in Terminal as the root user:
+dd if=/dev/sr0 of=Sugar-Creation-Kit.iso
+/dev/sr0 is the device name for your DVD/CD drive
+Sample output:
+dd if=/dev/sr0 of=Sugar-Creation-Kit.iso
+ 5555584+0 records in
+ 5555584+0 records out
+ 2844459008 bytes (2.8 GB) copied, 232.86 s, 12.2 MB/s
+the resulting .iso file can be sent over the internet or used to make copies by burning to a DVD
+copy items between a USB drive and Sugar Journal
+copy files between the sugar-journal and a 2nd USB-stick
+install an <activity>.xo file from a 2nd USB-stick
+Guide to GNOME 3 desktop
+https://extensions.gnome.org/extension/5/alternative-status-menu/
+Replaces GNOME Shell Status Menu with one showing Suspend/Hibernate and Power Off as separate items
+Packaged in fedora repos
+gnome-shell-extension-alternative-status-menu.noarch
+Gnome cheatsheet
+GNOME 3 release notes
+Gnome_shell_software_rendering
+Gnome IRC Channels
+https://live.gnome.org/GnomeIrcChannels
+Start Gnome3 in Fallback Mode
+"You can force fallback mode from a VT,much faster than trying to get through the control center, with this command:
+gsettings set org.gnome.desktop.session session-name 'gnome-fallback'
+With live CD or USB liveuser
+run it as user - not root - then log out and back in again.
+Switching between text consoles in a Linux virtual machine When the CTRL + ALT + F1 key combination is used to switch to another text console (terminal) on a Linux virtual machine,
+the host switches to a text console instead of the guest.
+Resolution The CTRL + ALT combination is used by VMware to direct the keyboard input to the host. Press CTRL + ALT + Space , press the F1 key (or desired Function key) while still holding down CTRL + ALT .
+Workaround for Alacarte
+Edit gnome3 menus
+Change menu items by editing the *.desktop files in /usr/share/applications/
+pulseaudio-fixes-and-workarounds
+How to Sugarize an Application
+Instructions on how to make a program appear in the (F3) Home view of Sugar as an icon
+http://people.sugarlabs.org/Tgillard/sugarize/wiki-sugarize.txt
+Running Linux Applications Under Sugar
+Ceibal:
+sugarizar-una-aplicacion
+This seems to be the same script as listed here:
+Sugarize
+which has these insructions:
+How to sugarize a program
+used with permission: Albert Cahalan's compiled libsugarize file. --
+Satellit
+17:45, 18 January 2012 (EST)
+Translated from Spanish with google translate:
+There is a special package for an existing program sugarizar X11 using a bash script and a library specially created for it,
+here let the package be zipped for download:
+Sugarizar_software.zip
+Just unzip the file and run the script found in the package and you answering the questions,
+the script will generate a directory with the activity for sugar, then you should give the required permissions to  each file and directory
+as explained in the main page this site and package the directory
+to download the activity from the x or directly copy the entire directory to / home / olpc / Activities on the XO.
+FSF-How to choose a license for your own work
+fedora Licensing Guidelines
+https://fedoraproject.org/wiki/Licensing#Good_Licenses
+Scratch Licensing
+http://info.scratch.mit.edu/Scratch_1.4_Source_GPL
+how-to-mount-and-access-files-in-an-iso-image-on-linux
+grub and grub2
+how to recover grub and grub2 after installing windows
+coreboot
+Re work LiveCD
+Scheduled for f17 - Under discussion ATM
+May affect spins and remixes.
+How it works
+livemedia-creator
+Download Methods
+There are many alternative methods to install Sugar. The options can be very confusing because of the technical details and features that may be unfamiliar.
+This page begins to itemize some of the many options that are available for those interested in learning more about the possibilities.
+HTMLDOC
+http://www.htmldoc.org/documentation.php/Introduction.html
+HTMLDOC software, version 1.8.27. HTMLDOC converts Hyper-Text Markup Language ("HTML") input files
+into indexed HTML, Adobe® PostScript®, or Adobe Portable Document Format ("PDF") files.
+WLAN configuration of NetworkManager
+http://blog.nixpanic.net/2012/03/wlan-configuration-of-networkmanager.html
+Display connections:
+nm-tool
+Converting Mediawiki files to DocBook.XML
+HTTrack
+HTTrack allows you to download a World Wide Web site from the Internet to a local directory,
+building recursively all directories, getting HTML, images, and other files from the server to your computer. 
+HTTrack arranges the original site's relative link-structure.
+HTTrack is a free (GPL, libre/free software) and easy-to-use offline browser utility.
+E-books
+Education Team/Creating textbooks
+Reading And Leading With One Laptop Per Child
+http://en.flossmanuals.net/ReadingandSugar/Introduction
+http://en.flossmanuals.net/e-book-enlightenment/
+calibre e-book reader:
+http://calibre-ebook.com/about
+calibre is a free and open source e-book library management application developed by users of e-books for users of e-books
+Read the Docs :
+http://readthedocs.org/
+hosts documentation
+English Simple Wikipedia
+Spanish Simple Wikipedia
+French Simple Wikipedia
+offline-reader-available-for-sugar
+The Offline Wikipedia reader
+Kiwix
+has recently been extended to read offline Wikipedia files on the Sugar operating system!
+epub reader
+EPUBReader is a Firefox addon which lets you read ePub-files just in the browser. You don't need to install additional software!
+https://addons.mozilla.org/en-US/firefox/addon/epubreader/
+Suggested uses:
+Example: in an install of Ubuntu plus sweets-distribution sugar 0.94.1
+Download an epub book with Get Books Activity in sugar.
+Close Get Books.
+Click on Sugar Journal
+drag drop the epub file from the sugar journal to the documents folder in the bottom left of the frame.
+exit sugar and use firefox (with EPUBReader addon) to "open with" command to open the EPUB file from the Documents folder of Ubuntu.
+OLPC Map
+http://olpcmap.net/home

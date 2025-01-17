@@ -1,0 +1,48 @@
+Title: Infrastructure Team/Account Management
+URL: https://wiki.sugarlabs.org/go/Infrastructure_Team/Account_Management
+--------------------------------------------------------------------------------
+There are a number of account management systems available.
+Contents
+1
+Fedora Account System
+1.1
+Install
+1.1.1
+Install dependancies
+1.1.1.1
+==
+1.1.1.1.1
+=====
+1.1.1.1.2
+=====
+Fedora Account System
+Install
+This is a test install on Ubuntu 9,04.
+Install dependancies
+sudo apt-get install git-core postgresql-plpython-8.3 postgresql-8.3 python-pgsql python-turbomail python-turbogears python-sqlalchemy python-genshi python-psycopg2 python-tz python-pybabel python-geoip python-openid python-migrate python-memcache
+possible mission dependancies
+pygpgme babel python-fedora
+Start database
+sudo /etc/init.d/postgresql-8.3 restart
+edit pg_hba.conf
+sudo vim /etc/postgresql/8.3/main/pg_hba.conf
+add
+host all all 0.0.0.0 0.0.0.0 md5
+ host all all ::1/128         md5
+reStart database
+sudo /etc/init.d/postgresql-8.3 restart
+Get the code
+==
+If you want to hack on the Account System you need to checkout the module.
+git clone
+git://git.fedorahosted.org/git/fas
+cd fas
+Generate Metadata
+=====
+Once you are inside you're fresh checkout, you need to regenerate some files
+that are created by the build script, setup.py::
+python setup.py egg_info && python setup.py build
+This will create the fas.egg-info directory which has metadata about the
+program.  It allows things like the identity provider to work.
+Start up Postgres
+=====

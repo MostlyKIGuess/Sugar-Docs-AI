@@ -1,0 +1,92 @@
+Title: Features/Patch workflow
+URL: https://wiki.sugarlabs.org/go/Features/Patch_workflow
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+Patch workflow for glucose components is an important part of sugar development process. This feature is about improving this process.
+Owner
+This should link to your home wiki page so we know who you are
+Name:
+Your Name
+Include you email address that you can be reached should people want to contact you about helping with your feature, status is requested, or technical issues need to be resolved
+Email: <your email address so we can contact you, invite you to meetings, etc.>
+Current status
+Targeted release: 0.90
+Last updated: Sun May 16 11:25:18 UTC 2010
+Percentage of completion: 0%
+Detailed Description
+pylint and pep8.py should be integrated to git pre-commit hooks to catch all obvious fails
+Reviewer notes should cover only logic of patch, other things will be caught on pre-commit level (if hook lacks of some checks, it shouldn't be subject for review process any way, and hooks should be fixed)
+Submiting patches via email sounds pretty obvious and comfortable since glucose uses git.
+But we need to have some kind of centralization to simplify releasing workflows and do not enforce people to setup local environment if they used to track patches in web browser.
+Possible options are, vote for particular option on
+[1]
+:
+We dont need such centralization at all, this is just remains from previous workflow
+no comments :)
+http://patchwork.sugarlabs.org/
+Pro:
+already implemented
+...
+Contra:
+since most of patches are bug fixes, will have two places for bugs related info, bugs.sl.o and patchwork.sl.o
+...
+trac <-> mailing list synchronization
+Pro:
+the same place for all bugs fixes related info
+using only email to work with bugs.sl.o (not only for patches)
+...
+Contra:
+afaik, not implemented
+...
+Benefit to Sugar
+Clean and obvious glucose patching workflow.
+Scope
+Glucose development process.
+UI Design
+None
+How To Test
+Features/Patch workflow/Testing
+User Experience
+None
+Dependencies
+None
+Contingency Plan
+Preserve existed patching scheme.
+Documentation
+None
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+See
+discussion tab for this feature

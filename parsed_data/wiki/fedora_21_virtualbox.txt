@@ -1,0 +1,172 @@
+Title: Fedora 21 VirtualBox
+URL: https://wiki.sugarlabs.org/go/Fedora_21_VirtualBox
+--------------------------------------------------------------------------------
+Fedora
+®
+version page:
+17
+|
+18
+|
+19
+|
+20
+|
+21
+|
+22
+|
+23
+|
+24
+|
+25
+|
+26
+|
+27
+|
+28
+|
+29
+|
+30
+|
+31
+|
+32
+|
+VirtualBox Install to f21 Workstation
+NOTE: fully yum update of f21_final_RC1-live workstation x86_64 to bare metal
+uses kernel 3.17.2.-300
+Install VirtualBox 4.3.18 r96516
+In f21 Workstation terminal:
+$ su -c 'yum install gcc kernel-devel'
+Installing:
+gcc                x86_64     4.9.2-1.fc21           updates-testing      18 M
+kernel-devel       x86_64     3.17.2-300.fc21        fedora              9.1 M
+Installing for dependencies:
+binutils           x86_64     2.24-21.fc21           fedora              5.0 M
+cpp                x86_64     4.9.2-1.fc21           updates-testing     7.0 M
+glibc-devel        x86_64     2.20-5.fc21            fedora              902 k
+glibc-headers      x86_64     2.20-5.fc21            fedora              488 k
+kernel-headers     x86_64     3.17.2-300.fc21        fedora              943 k
+libmpc             x86_64     1.0.2-3.fc21           fedora               55 k
+Transaction Summary
+Install  2 Packages (+6 Dependent packages)
+Total download size: 41 M
+Installed size: 120 M
+Is this ok [y/d/N]: y
+Downloading packages:
+No Presto metadata available for fedora
+(1/8): binutils-2.24-21.fc21.x86_64.rpm                     | 5.0 MB  00:11     
+(2/8): cpp-4.9.2-1.fc21.x86_64.rpm                          | 7.0 MB  00:11     
+(3/8): glibc-devel-2.20-5.fc21.x86_64.rpm                   | 902 kB  00:02     
+(4/8): glibc-headers-2.20-5.fc21.x86_64.rpm                 | 488 kB  00:01     
+(5/8): kernel-headers-3.17.2-300.fc21.x86_64.rpm            | 943 kB  00:01     
+(6/8): libmpc-1.0.2-3.fc21.x86_64.rpm                       |  55 kB  00:04     
+(7/8): kernel-devel-3.17.2-300.fc21.x86_64.rpm              | 9.1 MB  00:14     
+(8/8): gcc-4.9.2-1.fc21.x86_64.rpm                          |  18 MB  00:34
+Total                                              1.2 MB/s |  41 MB  00:35     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction (shutdown inhibited)
+Warning: RPMDB altered outside of yum.
+Installing : libmpc-1.0.2-3.fc21.x86_64                                   1/8 i
+ Installing : cpp-4.9.2-1.fc21.x86_64                                      2/8 
+ Installing : kernel-headers-3.17.2-300.fc21.x86_64                        3/8 
+ Installing : glibc-headers-2.20-5.fc21.x86_64                             4/8 
+ Installing : glibc-devel-2.20-5.fc21.x86_64                               5/8 
+ Installing : binutils-2.24-21.fc21.x86_64                                 6/8 
+ Installing : gcc-4.9.2-1.fc21.x86_64                                      7/8 
+ Installing : kernel-devel-3.17.2-300.fc21.x86_64                          8/8 
+ Verifying  : kernel-devel-3.17.2-300.fc21.x86_64                          1/8 
+ Verifying  : cpp-4.9.2-1.fc21.x86_64                                      2/8 
+ Verifying  : glibc-headers-2.20-5.fc21.x86_64                             3/8 
+ Verifying  : glibc-devel-2.20-5.fc21.x86_64                               4/8 
+ Verifying  : binutils-2.24-21.fc21.x86_64                                 5/8 
+ Verifying  : libmpc-1.0.2-3.fc21.x86_64                                   6/8 
+ Verifying  : gcc-4.9.2-1.fc21.x86_64                                      7/8 
+ Verifying  : kernel-headers-3.17.2-300.fc21.x86_64                        8/8
+Installed:
+gcc.x86_64 0:4.9.2-1.fc21        kernel-devel.x86_64 0:3.17.2-300.fc21
+Dependency Installed:
+binutils.x86_64 0:2.24-21.fc21            cpp.x86_64 0:4.9.2-1.fc21           
+ glibc-devel.x86_64 0:2.20-5.fc21          glibc-headers.x86_64 0:2.20-5.fc21  
+ kernel-headers.x86_64 0:3.17.2-300.fc21   libmpc.x86_64 0:1.0.2-3.fc21
+Complete!
+su -c 'yum install dkms time'
+Password: 
+Loaded plugins: langpacks
+Package time-1.7-46.fc21.x86_64 already installed and latest version
+Resolving Dependencies
+--> Running transaction check
+---> Package dkms.noarch 0:2.2.0.3-28.git.7c3e7c5.fc21 will be installed
+--> Finished Dependency Resolution
+Dependencies Resolved
+Package    Arch         Version                             Repository    Size
+Installing:
+dkms       noarch       2.2.0.3-28.git.7c3e7c5.fc21         fedora        81 k
+Transaction Summary
+Install  1 Package
+Total download size: 81 k
+Installed size: 221 k
+Is this ok [y/d/N]: y
+Downloading packages:
+dkms-2.2.0.3-28.git.7c3e7c5.fc21.noarch.rpm                 |  81 kB  00:01     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction (shutdown inhibited)
+Installing : dkms-2.2.0.3-28.git.7c3e7c5.fc21.noarch                      1/1 
+ Verifying  : dkms-2.2.0.3-28.git.7c3e7c5.fc21.noarch                      1/1
+Installed:
+dkms.noarch 0:2.2.0.3-28.git.7c3e7c5.fc21
+Complete!
+$ su -c 'wget
+http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+-O /etc/yum.repos.d/virtualbox.repo'
+Password: 
+--2014-11-09 11:35:13--
+http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+Resolving download.virtualbox.org (download.virtualbox.org)... 137.254.120.26
+Connecting to download.virtualbox.org (download.virtualbox.org)|137.254.120.26|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 225 [text/plain]
+Saving to: ‘/etc/yum.repos.d/virtualbox.repo’
+100%[======================================>] 225         --.-K/s   in 0s
+2014-11-09 11:35:13 (34.3 MB/s) - ‘/etc/yum.repos.d/virtualbox.repo’ saved [225/225]
+./VirtualBox-4.3.18-96516-Linux_amd64.run
+Verifying archive integrity... All good.
+[root@localhost Downloads]# ./VirtualBox-4.3.18-96516-Linux_amd64.run
+Verifying archive integrity... All good.
+Uncompressing VirtualBox for Linux installation............
+VirtualBox Version 4.3.18 r96516 (2014-10-10T18:49:15Z) installer
+Installing VirtualBox to /opt/VirtualBox
+Python found: python, installing bindings...
+Building the VirtualBox kernel modules
+VirtualBox has been installed successfully.
+You will find useful information about using VirtualBox in the user manual
+/opt/VirtualBox/UserManual.pdf
+and in the user FAQ
+http://www.virtualbox.org/wiki/User_FAQ
+We hope that you enjoy using VirtualBox.
+[root@localhost Downloads]#
+Upgrade to VirtualBox-4.3.20-96996
+$ su
+Password: 
+[root@localhost Downloads]# ./VirtualBox-4.3.20-96996-Linux_amd64.run
+Verifying archive integrity... All good.
+Uncompressing VirtualBox for Linux installation............
+VirtualBox Version 4.3.20 r96996 (2014-11-21T14:12:48Z) installer
+Removing previous installation of VirtualBox 4.3.18 r96516 from /opt/VirtualBox
+Installing VirtualBox to /opt/VirtualBox
+Python found: python, installing bindings...
+Building the VirtualBox kernel modules
+VirtualBox has been installed successfully.
+You will find useful information about using VirtualBox in the user manual
+/opt/VirtualBox/UserManual.pdf
+and in the user FAQ
+http://www.virtualbox.org/wiki/User_FAQ
+We hope that you enjoy using VirtualBox.

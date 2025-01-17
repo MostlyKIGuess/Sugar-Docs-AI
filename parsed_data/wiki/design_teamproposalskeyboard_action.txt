@@ -1,0 +1,29 @@
+Title: Design Team/Proposals/Keyboard Action
+URL: https://wiki.sugarlabs.org/go/Design_Team/Proposals/Keyboard_Action
+--------------------------------------------------------------------------------
+Contents
+1
+discoverable, consistent, lazy-programmer keyboard shortcuts
+2
+Subpages
+discoverable, consistent, lazy-programmer keyboard shortcuts
+http://www.mail-archive.com/sugar-devel@lists.sugarlabs.org/msg03938.html
+(revised 4/23/09)
+monopoly key (windows key) would be the grab key.
+Insert would be the frame key (mnemonic: "INSet"). This would also be available as alt-F3 or alt-monopoly as a (hopefully unnecessary) backup.
+F1-F4 would be view / zoom level, as currently. Pressing F3 while already in home view would toggle view all/ring view, while pressing F4 while already in app view would cycle through open activities. If we ever get different friend sets or something, we could do something similar for F2. F9-F12 would be reserved for sugar, too - for instance, journal, context-sensitive help. F5-F8 would be for activity-specific functions. (IMO this is consistent with the XO keyboard and a fair way to divvy up this set of keys)
+alt-<key> would be reserved for sugar-wide (or nearly) shortcuts.
+This would preseve z, x, c, v as the 1984 mac standards.
+Globally-available keys: print screen, view source, power/volume/brightness controls, shut activity (alt-escape), next/previous activity (alt-tab), possibly in the future chat-with-people-sharing-with-me-now/ bulletin board, etc. Holding down alt would bring up a static cheat sheet of these shortcuts after a short delay.
+ctrl-<key> would be reserved for application-specific shortcuts, including z, x, c, v. ctrl-<numeral> would switch toolbars to toolbar x. Holding ctrl would immediately bring up a translucent letter over the appropriate icon in the toolbar. Translucent letters would also flash briefly when clicking on a toolbar button, to aid discovery. Python apps (at least) would get keys assigned for free, though they could do it manually with an underscore char before the given letter ("_Print" would be p, "P_rint" would be r, "Print__o" would be o; all would display as simply "Print"). This behind-the-scenes magic would respect localization - shortcuts would change by language. Shortcuts would be available even if the given toolbar were not open.
+Alt shortcuts would not duplicate ctrl shortcuts, so copy, paste, undo, and exit would not have alt shortcuts.
+ctrl-shift would be the reverse action, and ctrl-alt would be modified action (such as paste and pop from clipboard instead of just paste).
+Both ctrl and alt would be sticky toggles which reverted to off after a user-settable amount of time, defaulting to 1 second. If a global key (such as Insert or F1) was pressed while ctrl was toggled on, it would be sent to the current activity, not caught by Sugar. This would allow legacy applications which needed these keys to function.
+All other keys would have their conventional meaning, except for num lock. The number pad would always be numbers, and pressing num lock would cause the machine to make a loud farting noise.
+proposal by
+Homunq
+21:06, 22 March 2009 (UTC)
+Reviewer Comments:
+http://www.mail-archive.com/iaep@lists.sugarlabs.org/msg03332.html
+comments on talk page
+Subpages

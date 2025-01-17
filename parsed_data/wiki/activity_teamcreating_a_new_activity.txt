@@ -1,0 +1,73 @@
+Title: Activity Team/Creating a New Activity
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Creating_a_New_Activity
+--------------------------------------------------------------------------------
+Contents
+1
+Documentation for activity authors
+2
+Checklist for new activities
+3
+When releasing an existing Activity
+4
+Before you write a new activity
+5
+Additional tips and common "gotchas"
+Documentation for activity authors
+See
+Activity Team/Resources
+.
+Checklist for new activities
+Create a GitHub project repository at
+http://github.com
+and start hacking on your code! :-)
+Request a trac component for your activity at
+http://bugs.sugarlabs.org/
+Open a trac ticket to request addition to
+http://translate.sugarlabs.org/
+(when your strings are mature)
+Add your Activity to
+http://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Roadmap
+if you want to be on the SoaS distro
+If your Activity is migrating over from the OLPC infrastructure, see:
+How to migrate from OLPC
+.
+When releasing an existing Activity
+If you have one, update your wiki page at
+http://wiki.sugarlabs.org/go/Activities/
+<actvity-name>
+Upload your new .xo bundle, screenshots, notes to
+http://activities.sugarlabs.org/
+Unless your source code is already available through git, upload a .bz2 source tarball to shell.sugarlabs.org /upload/sugar/sources/honey (e.g., scp to download.sugarlabs.org:/srv/upload/sources/fructose/...)
+Edit
+http://wiki.sugarlabs.org/go/Development_Team/Source_Code
+and make sure it's pointing to your latest source tarball
+Before you write a new activity
+Do you have an idea for a new Activity you'd like to write but don't know how to begin?  Here's some advice:
+Don't try to write a Sugar Activity right away.  Instead, write a standalone Python program that does what you want, then convert it to a Sugar Activity, being sure to keep a copy of the non-Sugarized version around for future use.  There are several reasons for this, but the chief one is that standalone programs are easier to test, especially if you are not currently a Linux user.  A standalone Python program can run anywhere, but a Sugar Activity really needs Sugar running on top of Linux.  You can run your standalone Python program on an XO using the Terminal Activity.
+When I add new features to my Sugar Activities I generally try to get the feature working on the standalone version first.  I did this with text to speech in Read Etexts, for instance.  This was useful because when I ran into problems I had a standalone app I could send to the speech-dispatcher mailing list so they could easily recreate my problem.
+You'll want a good code-highlighting editor that understands Python.  A couple of good ones:
+Eric:
+http://eric-ide.python-projects.org/eric4-download.html
+Gedit:
+http://projects.gnome.org/gedit/
+These are a bit more complicated to install than typical Windows programs.  They are included in every Linux distribution, though.
+To make and test a Sugarized Activity you really should have a Linux distribution installed.  The best for this purpose is probably Fedora, which includes the latest Sugar environment, eric, gedit, Python, pygame, PyGTK, a tool for making SVG icons, and lots of other useful stuff.  You can run Linux on the same computer as Windows (by partitioning your hard drive, something the Fedora installer will do for you) and choose which one you want to run at boot time.  Fedora is no more difficult to install than Windows is, even if you want to run it and Windows on the same machine, and will run on hardware that would be inadequate for current versions of Windows.  A Pentium III with 256 meg of RAM and a few gig of hard disk is more than adequate for Sugar development.
+If you don't want to have anything to do with Linux, you
+could
+make a standalone Python program and find a collaborator to Sugarize it for you.  You could also attempt to develop your Activity using Sugar on a Stick, or an actual XO, but this would probably be more trouble than simply installing Fedora 10.
+Feel free to ignore any of this advice if it doesn't seem applicable.  I hope that you'll find it gives you a place to start.
+See also:
+Activity_Team/Resources
+,
+Activity_Team/Modifing_an_Activity
+and
+Activities/Turtle_Art/Patching
+Additional tips and common "gotchas"
+Don't use punctuation in your bundle_id, e.g. org.sugarlabs.my-activity-name is not a valid bundle name. Use CamelCase instead: org.sugarlabs.MyActivityName
+Follow the
+Rainbow
+guidelines.
+On OLPC-XOs, you can test with Rainbow disabled by removing /etc/olpc-security
+rm /etc/olpc-security
+Reënable Rainbow by touching /etc/olpc-security
+touch /etc/olpc-security

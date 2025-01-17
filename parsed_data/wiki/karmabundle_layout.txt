@@ -1,0 +1,150 @@
+Title: Karma/Bundle layout
+URL: https://wiki.sugarlabs.org/go/Karma/Bundle_layout
+--------------------------------------------------------------------------------
+Contents
+1
+The Main Karma Package
+2
+Karma XO bundle
+3
+Lesson
+4
+Reading, Game and Exercise
+The Main Karma Package
+A set of tools that will help you start working with Karma quickly
+This is what is contained in the repository at
+http://git.sugarlabs.org/projects/karma/
+Includes script for Karma activity generation, xo bundle generation
+includes "platform" files, i.e. a basic html5-capable browser that can be used to create an xo bundle
+ROOT/                              ( ROOT is not actually a directory name, it just labels the top-level of this package )
+   assets/                         ( images, audio, and text common to karma.html, examples, and the lessons for the launch page for all lessons )
+          image/
+          audio/
+          locale_name/
+                   image/            
+                   locale_name.json   ( karma actually needs the .po file to be converted to .json )
+                   audio/
+   AUTHORS                         ( Should include names of everyone that has contributed to Karma main package )
+   css/                           ( css/ and js/ contain the code common to all examples, lessons )
+   COPYING                         ( Licensing information, should default to MIT License   ? how distinguish b/w code licensing and content licensing )
+   docs/
+   examples/                       ( working examples of karma lessons )
+   index.html                     ( The starting page for accessing Karma lessons, should include links to the examples, known as the CHAKRA )
+   js/                             ( css/ and js/ contain the code common to all examples, lessons, and karma.html )
+   README
+   tests/                          unit tests
+Karma XO bundle
+similar to E-Paath layout and uses the standard
+Sugar bundle structure
+It is still undecided whether karma will default to using Browse which is based on Firefox or
+Surf
+which based on webkit (Safari/Chrome). Surf requires that you install the rpms for pywebkitgtk and webkitgtk
+The
+Below information is out-of-date
+activity/
+        activity.info                          (activity info file)
+        activity-web.svg                       (icon for activity as specified in activity.info)
+        mimetypes.xml                          (map documents to MIME types)
+        text-plain.svg                         (icons for documents, e.g. "text-plain.svg" for "text/plain")
+        text-html.svg
+        contents                               (manifest for bundle contents)
+        contents.sig                           (credentials for signed bundle)
+        permissions.info                       (optional;
+not a stable API
+)
+ assets/
+ AUTHORS
+ bin/
+        launch.sh                           (launcher script)
+ browser.dtd
+ browser.py
+ cert8.db
+ clickToView.xml
+ COPYING
+ css/
+ downloadmanager.py
+ edittoolbar.py
+ globalhistory.py
+ icons
+ index.html
+ js/
+ linkbutton.py
+ karma
+ karmaactivity.py
+ lessons/
+ locale
+ MANIFEST
+ messenger.py
+ model.py
+ palettes.py
+ places.py
+ po/ 
+ promptservice.py
+ README
+ securitydialogs.py
+ sessionhistory.py
+ sessionstore.py
+ setup.py
+ viewtoolbar.py
+ utils/
+ webtoolbar.py
+Lesson
+consists of a single lesson
+lesson_name/
+             assets/
+                     {langCode}/         (files specific to langCode: en-US, en, es-MX, es, ....) and not the default locale
+                     image/
+                     audio/
+                     svg/
+                     video/
+             
+             css/
+                    lesson.css
+             index.html             
+             js/
+                 lesson.js      main logic of program
+             kDoc.html   (viewer for lesson plan and teacher's Note)
+             lessonPlan.html
+             teachersNote.html
+             start.html     (start page)
+Notes:
+{langCode} represents the lang code and country code
+which will be the template language for assets/docs/* ?, English suggested
+suggestion: rename assets/{langCode}/docs/ to docs/{langCode}/ . This is based that at this moment there are no other kind of files under assets/ than 'docs'
+The following is out of date but kept for history
+Reading, Game and Exercise
+consist of a single 'reading', 'game' or 'exercise'
+{type}/
+             index.html               (valid html5 -- markup only includes visual elements and links in other resources, no inline code or styling )
+             css/{type}.css           ( css files   -- specific to the lesson )
+             js/{type}.js             ( javascript controlling logic for the lesson )
+             po/                      ( translation files )
+                 ne-NP.po             ( example translation file for Nepal - Nepali )
+                 sp-ES.po             ( example translation file for traditional Spanish )
+                 {langCode}.po        ( translation file )
+             assets/
+                    generic/          ( for language independent assets (e.g. arrows, background images, etc.) )
+                       images/
+                           preview.jpg  ( screenshot for Chakra  )
+                       sounds/
+                       videos/
+                       docs/
+                    ne/
+                       images/
+                       sounds/
+                       videos/
+                       docs/
+                    en/
+                       images/
+                       sounds/
+                       videos/
+                       docs/
+                    {langCode}/
+                       images/
+                       sounds/
+                       videos/
+                       docs/
+Notes
+{type} represents 'game' or 'exercise' or 'reading'
+does docs/ is used?
+</stike>

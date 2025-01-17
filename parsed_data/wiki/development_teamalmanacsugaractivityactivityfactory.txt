@@ -1,0 +1,43 @@
+Title: Development Team/Almanac/sugar.activity.activityfactory
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/sugar.activity.activityfactory
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+How do I start up another sugar activity programmatically?
+The sugar.activity.activityfactory package has a convenience function called create() that you can call to start up a new instance of a particular activity. You simply need to pass the create() function the service name of the activity you desire. The service name can usually be obtained by looking in the activity.info file of the activity in question.
+#Start up a new instance of the Web activity. 
+        activityfactory.create('org.laptop.WebActivity')

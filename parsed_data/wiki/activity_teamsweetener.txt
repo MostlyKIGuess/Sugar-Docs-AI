@@ -1,0 +1,137 @@
+Title: Activity Team/Sweetener
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Sweetener#Activity_information
+--------------------------------------------------------------------------------
+Sweetener is a desktop framework which provides compatibility between Sugar and other Desktops. Does all the repetitive parts, for be more friendly with developers. It's divided in modules, they can be included in an activity for do a specific task.
+Contents
+1
+Maintainers
+2
+Current Release
+3
+Documentation
+4
+Get started creating an activity
+5
+Activity information
+6
+Key accelerators
+7
+Activities using Sweetener
+8
+Gtk2 and Gtk3 Support
+Maintainers
+Daniel Francis
+Current Release
+At the moment it hasn't got a stable release. Clone the
+GIT Repository
+and feel free to send patches, request merges or contact the maintainers.
+Documentation
+The Sweetener documentation is available in
+[1]
+.
+Its source code is in Git:
+http://git.sugarlabs.org/sweetener/doc
+Get started creating an activity
+Start a repository on
+Git
+Clone Sweetener
+$ git clone
+git://git.sugarlabs.org/sweetener/sweetener.git
+Copy to your new activity directory the following files:
+Makefile
+activity.py
+canvas.py
+info.py
+options.py
+setup.py
+Optional, only if you want to get your activity working on other Linux desktops:
+application.py
+hello-integration # (rename it to your activity name)
+Make the following directories inside your activity:
+activity/
+sugar/
+desktop/  # (Only if you want to run your activity on Linux desktops)
+Clone sweetener submodules
+$ git submodule add
+git://git.sugarlabs.org/sweetener/makescripts
+$ git submodule add
+git://git.sugarlabs.org/sweetener/sugar
+sugar/sweetener
+
+# This is only for other Linux desktops.
+$ git submodule add
+git://git.sugarlabs.org/sweetener/desktop
+desktop/sweetener
+Fill info.py with information about your activity. See
+info.py fields
+.
+Create a sugarized icon on activity/activity-(lower-name).svg where lower-name must be the same as the variable on info.py
+Generate the activity.info file trough the command make.
+$ make activity
+Install it
+$ python setup.py dev
+Make a .xo bundle
+$ make xo_bundle
+Make a desktop tarball
+$ make dist_tarball
+Activity information
+The way to tell the framework scripts and all your program some data is through the file info.py
+We recommend a text search for fill the following fields:
+Activity Service Name
+IO Mode
+Document or Config. Important at desktops.
+Generic Name
+Only for desktops. See examples at the file comments.
+Activity Name
+lower-name
+copyright note (Obligatory for desktops, recommended)
+Version
+Summary
+Authors
+If any, Web site and documentation URL (Only for desktops)
+Categories (Only for desktops)
+Filter
+Important on desktops with IO mode Document, also needed to create your own mimetype.
+license name
+Key accelerators
+Gtk Stock sets by default some accelerators for convention, like Ctrl+Q for Quit.
+Sweetener sets and overwrites some key accelerators for integrate them with Sugar.
+Keep this in mind when setting up key accelerators in your activity.
+At your convenience, edit files sugar/sweetener/stock.py and desktop/sweetener/stock.py.
+Stock label
+Key accelerator on Sugar
+Key accelerator on Linux desktops
+Add
+Ctrl + A
+Ctrl + A
+Fullscreen
+Alt + Return
+F11
+Normal Size
+Ctrl + 0
+Ctrl + 0
+Remove
+Shift + Del
+Ctrl + R
+Save as
+Unused :)
+Ctrl + Shift + S
+Select Color
+Ctrl + L
+Ctrl + L
+Zoom In
+Ctrl + +
+Ctrl + +
+Zoom Out
+Ctrl + -
+Ctrl + -
+Activities using Sweetener
+Graph Plotter
+Illustrate Sweetener
+(Development)
+Gtk2 and Gtk3 Support
+There are efforts to port Sweetener to Gtk3
+[2]
+, but at the moment it isn't possible thanks to the upstream bug
+GNOME#652697
+.

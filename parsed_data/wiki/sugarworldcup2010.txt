@@ -1,0 +1,91 @@
+Title: SugarWorldCup2010
+URL: https://wiki.sugarlabs.org/go/SugarWorldCup2010
+--------------------------------------------------------------------------------
+Contents
+1
+Invitation
+2
+Invitación
+3
+Teams / Equipos
+4
+Eventos / Events
+Invitation
+Even in the United States we know that the FIFA World Cup is coming soon – June 11–July 11.
+We can use it as an excuse to organize a Sugar World Cup.
+Beginning with the observation that many of the open bugs on the Sugar [bugs.sugarlabs.org] and OLPC [dev.laptop.org] Trac systems are
+relatively simple (most could be resolved in just a couple of hours effort), we are proposing establish country-based teams that
+compete to close as many tickets as we can during the same time frame as the football tournament. For each bug fixed, a "goal" is scored. (A
+bug is considered fixed when a patch is approved on the Sugar-devel list.) Note that, like Maradona, you are allowed to use your hands.
+At the end of the tournament, after Ghana wins the FIFA cup, the Sugar Bowl will be awarded to the team that fixed the most bugs. Not only
+will we fix a lot of bugs, but we will be strengthening local development/deployment teams.
+Invitación
+Tengo el placer de invitarlos a participar del próximo "Sugar World Cup".
+Tanto en bugs.sugarlabs.org como en dev.laptop.org hay muchos bugs abiertos, pero la buena noticia es que hay muchos que se pueden solucionar con un par de horas de programacion.
+La idea central es que armaremos equipos por cada pais, y desde el 11 de Junio al 11 de Julio contaremos un GOL por cada bug solucionado. Para los efectos de este concurso, consideraremos solucionado un bug cuando se envia un patch a la lista sugar-devel y este es aprobado.
+Proponemos centrarnos en las actividades de uso mas comun: Escribir, Leer, Navegar, Pintar, Grabar, Charlar, Calcular,  Medir, Memorizar, etc. Estas actividades son más sencillas y los resultados obtenidos se aprovecharan de inmediato.
+Como bien aclara Walter Bender, está permitido usar las manos (como Maradona).
+Esperamos que sirva como excusa para desarrollar nuestros grupos locales y mejorar la plataforma.
+En los proximos días tendremos mas información en esta página.
+¡Preparen sus equipos! ¿Uruguay tendrá un nuevo Maracanazo? ¿Nos sorprenderá Chile? ¿Que estrategia tendrá Peru? ¿Viviremos un nuevo clasico del Rio de la Plata?
+Teams / Equipos
+Add your team here.
+...
+Country/País
+Group/Grupo*
+Team members/Miembros del equipo
+Estados Unidos
+C
+Walter Bender, ...
+Argentina
+B
+Alejandro Cura, Héctor Sanchez, Gonzalo Odiard
+Paraguay
+Bernie Innocenti, Martin Abente, Jorge Saldivar
+Group/Grupo is of course optional.
+Eventos / Events
+El equipo de Argentina se reunirá el sábado 12, de 15 a 19h, para poner en marcha el equipo y comenzar a corregir bugs de nuestras actividades favoritas.Estan todos invitados. El lugar es a confirmar en la semana. A los interesados en participar les pedimos que avisen en argentina at laptop dot org asi vamos calculando cuantos somos.
+Reporte de la reunión:
+Decidimos en primer lugar trabajar con la actividad Paint, ya que es sencilla, tiene unos cuantos tickets abiertos y ya la conocemos,
+por otro lado, intentamos que todos tuvieramos entornos de trabajo listos para debugear y programar
+Actividades
+.
+1) Instalamos Sugar, en nuestra computadora:
+En Fedora 12 y en Ubuntu es sencillo, instalamos todos los paquetes sugar*.
+En Arch Linux, con:
+yaourt -S sugar
+ver:
+http://wiki.archlinux.org/index.php/Sugar
+2) Buscamos los tickets pendientes de resolución en la actividad:
+Los tickets, actualmente se encuentran reportados en los dos tracks siguiente, así que por el momento revisamos los dos.
+En Sugarlabs:
+http://bugs.sugarlabs.org/query?status=accepted&status=assigned&status=new&status=reopened&component=Write&order=priority&col=id&col=summary&col=component&col=status&col=type&col=priority&col=milestone
+En OLPC:
+http://dev.laptop.org/query?status=assigned&status=new&status=reopened&component=write-activity+%28abiword%29&order=priority&col=id&col=summary&col=status&col=owner&col=type&col=milestone
+Aquí habíamos hecho una búsqueda previa, porque hay tickets que ya no son válidos o que han sido resueltos en la versión de desarrollo.
+Puede ser útil ver los comentarios de los commits con:
+git log
+Se puede ejecutar un emulador de Sugar con el comando:
+sugar-emulator
+3) Luego bajamos la versión de desarrollo de la actividad, en este caso paint:
+Para bajar las actividades, necesitamos utilizar git, con el siguiente comando obtendremos de manera local una copia de una rama del repositorio.
+$ git clone
+git://git.sugarlabs.org/paint/mainline.git
+paint.git
+Para el caso de la actividad Paint, utiliza una librería en C, que se encuentra en el directorio fill, ésta hay que compilarla o bien reemplazarla, con la versión ya compilada que vienen en archivo Paint.xo , el cual se puede descargar de activities.sugarlabs.org.
+Para poder usar la versión de desarrollo de Paint, desinstalamos el paquete de la actividad (si estuviera instalado) y creamos en el directorio Activities en el raíz del home de nuestro usuario, y ahí un directorio Paint.activity , luego copiamos allí los archivos de la actividad.
+4) Corregir el bug:
+Una vez detectado el error que se quiere corregir, se puede editar los archivos de Python.
+Para que se tomen los cambios realizados, simplemente hay que salir de la actividad y volver a entrar, si existe algún error en la modificación que realizamos, va a quedar el icono de la actividad un tiempo largo y no va a iniciarse.
+Para saber cual es el problema por el cual no cargó la actividad, tenemos que ver en el directorio ~.sugar/default/logs/ donde se creará un archivo con el nombre del bundle_id de la actividad.
+cat ~.sugar/default/logs/NOMBREARCHIVO.log
+En el caso de Paint el archivo se llama
+org.laptop.Oficina
+. , tener en cuenta que cada vez que se ejecuta la actividad se crea un nuevo archivo de log con un número consecutivo en el nombre.
+5) Enviando la corrección:
+Una vez que hemos hecho la modificación, copiamos el archivo modificado en el directorio donde clonamos el repopsitorio git y creamos un patch:
+$ git commit -a -m 'descripcion del patch'
+  $ git format-patch -1
+Esto va a generar un archivo "0001-descripcion-del-patch.patch" que se debe enviar a la lista
+sugar-devel@lists.sugarlabs.org
+Esperamos que les sea de utilidad este reporte.

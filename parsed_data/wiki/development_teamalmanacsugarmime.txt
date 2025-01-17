@@ -1,0 +1,140 @@
+Title: Development Team/Almanac/sugar.mime
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/sugar.mime
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Contents
+1
+Helper Functions
+1.1
+How are mime types represented in sugar and how do I get a list of the basic generic mime types?
+1.2
+Given a specific file, how do I figure out what its mime type is?
+1.3
+How do I access the description of a specific mime type?
+1.4
+How do I get the primary extension that is standard for a given mime type?
+1.5
+Who decides the default activity for opening files of different mime types?
+1.6
+How do I register my activity as supporting different mime types?
+1.7
+How can children open files of a certain mime type with my activity? (Since they can't modify the default activity for that mime type).
+Helper Functions
+How are mime types represented in sugar and how do I get a list of the basic generic mime types?
+The mime package in sugar has an ObjectType class that represents a specific type of data (image, text, video, etc.). If you use the mime.get_all_generic_types() method, you will be able to see the different data types standard in sugar and the mime types that these data types can have.
+A specific data type may be saved in several mime type formats. For example, text can be of type 'text/plain', 'application/pdf' and several other standards. The code below gets all the generic types available and then prints out the information contained in the ObjectType instance for each type.
+from sugar import mime
+...
+        # Get a list of ObjectType objects representing all the generic types
+        types = mime.get_all_generic_types()
+
+        # Cycle through each type and print out relevant information by accessing 
+        # fields in ObjectType
+        for ot in types:
+            print '------- BEGIN -------'
+            print ot.type_id
+            print ot.name
+            print ot.icon
+            print ot.mime_types
+            print '--------- END --------'
+You can also use the mime.get_generic_type() method to get a single ObjectType instance for a given type (eg. 'Text'). The code below does just this - it retrieves all the generic mime types for Text files that are known:
+from sugar import mime
+...
+       # Look up the different mime types available for text files. 
+        text_type = mime.get_generic_type('Text')
+
+        print 'Here are the mime types known for text files: '
+        for mime_type in text_type.mime_types:
+            print mime_type
+Given a specific file, how do I figure out what its mime type is?
+The mime.get_from_file_name() method lets you get the mime type based on the name of a given file. The mime.get_for_file() is a little more robust and can get mime types often without an extension.
+from sugar import mime
+...
+       # Get the mime type for a specific file
+        print mime.get_from_file_name('~/file-test/sample-music.mp3')
+
+        # Get mime type for a file (does some more sophisticated checking on the file - not
+        # dependent upon the file extension). 
+        print mime.get_for_file('/home/fanwar/file-test/sample-acrobat')
+How do I access the description of a specific mime type?
+The following code will print out a description ('Text') for the 'text/plain' mime type. You can pass it any other mime types to get a basic description of those types to present to users.
+from sugar import mime
+...
+        print mime.get_mime_description('text/plain')
+How do I get the primary extension that is standard for a given mime type?
+If you are saving or manipulating a new file and want to know the extension typically used for the mime type you are dealing with, then use mime.get_primary_extension().
+from sugar import mime
+...
+        # Get the primary extension used for jpeg images
+        print mime.get_primary_extension('image/jpeg')
+Who decides the default activity for opening files of different mime types?
+Take a look at the file
+/usr/share/sugar/data/mime.defaults
+Where you will see a file formatted something like this:
+# MIME                                Activity service name
+
+application/pdf                       org.laptop.sugar.ReadActivity
+
+text/rtf                              org.laptop.AbiWordActivity
+text/plain                            org.laptop.AbiWordActivity
+application/x-abiword                 org.laptop.AbiWordActivity
+text/x-xml-abiword                    org.laptop.AbiWordActivity
+application/msword                    org.laptop.AbiWordActivity
+application/rtf                       org.laptop.AbiWordActivity
+
+image/png                             org.laptop.WebActivity
+image/gif                             org.laptop.WebActivity
+image/jpeg                            org.laptop.WebActivity
+text/html                             org.laptop.WebActivity
+application/xhtml+xml                 org.laptop.WebActivity
+application/xml                       org.laptop.WebActivity
+application/rss+xml                   org.laptop.WebActivity
+application/ogg                       org.laptop.WebActivity
+audio/ogg                             org.laptop.WebActivity
+video/ogg                             org.laptop.WebActivity
+How do I register my activity as supporting different mime types?
+So, you've made a new image viewer/text editor/audio player and want children to open those files with my activity.  Unfortunately, you cannot change the default activity for those files, as those choices are already decided (see [Who decides the default activity for opening files of different mime types?]).
+However, you can register your activity as capable of opening files of these mime types so that children can choose to open these files with your activity.
+There are two steps involved in supporting different mime types in your activity.  First, you need to update your activity's .info file by listing the mime types you are going to support.  For a comprehensive overview of everything your activity's info file must include, please see
+Activity_bundles#.info_File_Format
+.
+If you wanted to make a new image viewer activity, you might want to modify your .info file to something like:
+mime_types = image/bmp;image/gif;image/jpeg;image/png;image/tiff
+The second thing you need to do is handle these files when they are opened with your activity (e.g., show the picture, play the sound, etc.).  The file will arrive in your activity via the read_file( self, file ) method in your activity subclass.
+How can children open files of a certain mime type with my activity? (Since they can't modify the default activity for that mime type).
+In their journal, children need to select "more info" about that file's journal entry.  Then they need to hover over the "resume" button until a pop-up menu appears listing your activity.  Then they select your activity.

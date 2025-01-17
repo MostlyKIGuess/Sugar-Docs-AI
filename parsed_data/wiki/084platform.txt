@@ -1,0 +1,140 @@
+Title: 0.84/Platform
+URL: https://wiki.sugarlabs.org/go/0.84/Platform
+--------------------------------------------------------------------------------
+Contents
+1
+Shell refactoring
+1.1
+People
+1.2
+Actions
+1.3
+Ideas
+1.4
+Done
+2
+Stable activities API
+2.1
+People
+2.2
+Actions
+2.3
+Ideas
+2.4
+Done
+3
+Compatibility with desktop applications
+3.1
+People
+3.2
+Actions
+3.3
+Ideas
+3.4
+Status
+4
+Rainbow update
+4.1
+People
+4.2
+Actions
+4.3
+Status
+Shell refactoring
+People
+Owner: Marco Pesenti Gritti
+Peers
+Simon Schampijer
+Hemant Goyal
+Actions
+Cleanup window management. The requirements changed a lot since the code was written and we didn't do enough refactoring. The UI design is now pretty solid. We should document our window management strategy and then refactor the code to simplify and make it more solid.
+(marco)
+Refactor session management, it's scattered around several components right now.
+(marco)
+Ideas
+Remove unnecessary abstraction layers. They makes the code harder to debug and affect performance.
+De-gobjectify. For code which is independent from the GNOME platform we should really use plain python objects. One layer less to care about for new comers, avoid the memory leaks associated to cycle reference and signals in pygobject, less bloat. Do we have a substitute for signals? Perhaps we are using them too heavily anyway?
+Extensibility
+http://trac.edgewall.org/wiki/TracPlugins
+http://www.djangoproject.com/documentation/forms/
+http://twistedmatrix.com/projects/core/documentation/howto/plugin.html
+http://twistedmatrix.com/projects/core/documentation/howto/choosing-reactor.html
+Done
+Modularized the shell to have every major UI component like the frame the home view and the control panel reside in his own module and be self contained
+(marco)
+Use gconf as a backend to store the profile.
+(erikos)
+Stable activities API
+People
+Owner: Marco Pesenti Gritti
+Peers:
+Simon Schampijer
+Actions
+Figure out a compatibility strategy. We can't just break API because a lot of activities out there are using it. But we also can't stick with the current one because... it sucks too badly. We can either deprecate gradually or support parallel installation of two different versions. Several trade offs to consider and discuss.
+(marco)
+Full review of all the modules.
+(marco)
+Ideas
+Complete the API documentation and provide an introduction/tutorial.
+Refactor the generic part of the Browse activity code into hulahop (creating a web based activity should be as simple as subclassing hulahop.WebActivity and setting a few properties)
+sugar. Make env activity specify, move the path helpers from sugar.activity in here, probably move it inside sugar.activity. Move network inside sugar.network, assuming it's still useful. Drop profile, use whatever configuration system we adopt instead. Drop wm. Move util in sugar base, drop stuff which is not generally useful, split up the module. Ship libsexy python bindings instead of our own copy of the entry.
+sugar.activity. Factor out the helper classes from the activity module. Review activityhandle and try to rationalize and clarify the identifiers story. Drop the registry, keep the related functionalities exposed as a shell service. Factor out bundlebuilder to its own git module.
+sugar.graphics. Use gobject like API consistently, in particular gobject properties instead of constructor parameters. Extend the interfaces to match the full UI requirements. Do not subclass gtk widgets when not strictly necessary, instead work upstream whenever it's possible.
+sugar.presence. Degobjectify and provide asyncronous interfaces. Expose wrappers over the DBus service *only* for functionalities which are frequently needed by the activities and which are better exposed through a python API. Probably rename to sugar.network.
+sugar.clipboard. Make it private to the shell.
+sugar.datastore. Degobectify, factor out the bundle specific bits. Make asyncronous where necessary. Expose only the functionalities which are relevant for activities and which are better suited by a python API.
+sugar.bundle. Make most of it private to the shell/journal (once they are merged in the same process). Move the activity relevant bits in sugar.activity.
+sugar._sugarext. What should we do with this? It contains several functionalities used only by the shell.
+Toolbar redesign.
+Done
+Figured out an ABI break policy that we can actually sustain.
+(marco)
+Compatibility with desktop applications
+People
+Owner: Sayamindu Dasgupta
+Peers
+Marco Pesenti Gritti
+Scott Ananian
+Actions
+sugar.graphics.icon needs support for pixbufs #8661.
+(sayamindu)
+jarabe.model.shell should use a SnMonitor instead of dbus to listen for startup notifications.
+(marco)
+sugar.activity.activityfactory should use SnLauncher to notify startup instead of a dbus call to shell. I don't think it's worth to use GdkAppLaunchContext yet. It's just a tiny layer over libsn and it would introduce a strong dependency on gtk 2.14/glib 2.18. Furthermore we will need to interface directly with libsn for the Monitor anyway.
+(marco)
+jarabe.model.shell.Activity should provide the icon as a pixbuf instead of a path (or maybe additionally).
+(sayamindu)
+sugar.graphics.icon shoud be able to xo-color pixbufs. We can specify two conventional colors (+ transparency) and replace them with the xo colors (only when there are not other colors in the pixbuf.
+(marco)
+jarabe.model.shell.Activity should provide his icon on the base of WM_ICON and SnMonitor::icon_name.
+(marco)
+The activity_id X property on the activity window should be completely optional, unless the activity supports collaboration.
+(marco)
+sugar.activity should set WM_ICON instead of the bundle_id X property.
+(marco)
+jarabe.* should not use the bundle_id X property.
+(marco)
+jarabe.desktop.activitieslist and jarabe.desktop.favorites view should additionally look into /usr/share/applications/*.desktop. We might want to use gio + GdkAppLaunchContext here and degrade gracefully on systems with gtk < 2.14.
+(sayamindu)
+replace matchbox with a more traditional desktop window manager, with the ability to fullscreen windows when appropriate.
+Ideas
+Expose a posix interface to read and write from the datastore, a la
+Olpcfs
+.
+Status
+Wrote down some general goals. There might be more that I'm forgetting.
+Sayamindu is drafting a proposal to send to the metacity mailing list to provide an hint for our fullscreen-but-not-really-so activity windows.
+Rainbow update
+People
+Owner: Michael Stone
+Peers:
+Marco Pesenti Gritti
+Actions
+Move rainbow to use an nss module to manage container users. This makes the system a lot less invasive and hence more friendly to use on standard distributions.
+(mstone)
+Get rainbow packaged for the major distributions so that it can be used by Sugar developers outside the XO. Provide scripts/instructions to setup the nss module.
+(mstone)
+Move sugar/jhbuild to use rainbow by default.
+(marco)
+Status
+A first implementation of rainbow-nss is ready.

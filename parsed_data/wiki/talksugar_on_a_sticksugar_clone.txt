@@ -1,0 +1,65 @@
+Title: Talk:Sugar on a Stick/Sugar Clone
+URL: https://wiki.sugarlabs.org/go/Talk:Sugar_on_a_Stick/Sugar_Clone
+--------------------------------------------------------------------------------
+Contents
+1
+Other neat uses for the modified_livecd-iso-to-disk script
+1.1
+Case 1-non-live USB/SD
+1.2
+Case 2-Copy files to your Live USB
+1.2.1
+Reboot from USB
+1.2.2
+Make new USB
+2
+Obsolete?
+Other neat uses for the modified_livecd-iso-to-disk script
+submitted by
+User:Satellit
+on 14 April 2010
+Case 1-non-live USB/SD
+Make second live USB from iso downloaded with wget to root of your USB/SD
+(I used Bernie's Blueberry-Direct ext3 non-live real file system, expanded with gparted to fit a 8-GB SD card)
+http://people.sugarlabs.org/bernie/soas-2-blueberry-direct-2GB.img.xz
+http://people.sugarlabs.org/Tgillard/soas-2-blueberry-direct-cleared-3GB.img.xz
+(modified and expanded version)
+Downloaded to root:
+wget
+http://alt.fedoraproject.org/pub/alt/nightly-composes/soas/soas-i386-20100411.16.iso
+(latest)
+[root@localhost ~]# ./modified_livecd-iso-to-disk soas-i386-20100411.16.iso /dev/sd(*)1    *(see note below)
+Verifying image...
+/root/soas-i386-20100411.16.iso:   ca444a0f44d7b49204cec4f3022c3c97
+Fragment sums: 5fba13ea314eeb4376b2d3a6411a4ae5aa95d38aea691e12fb86adfe88df
+Fragment count: 20
+Checking: 100.0%
+The media check is complete, the result is: PASS.
+It is OK to use this media.
+Already set up as live image.
+Deleting old OS in fifteen seconds...
+Copying live image to USB stick
+Updating boot config file
+Installing boot loader
+USB stick set up as live image!
+Case 2-Copy files to your Live USB
+Copy-paste/drag-drop soas-i386-20100405.17.iso (or any soas .iso) to an opened 2-GB live USB while it is mounted in a PC (as a USB storage device, not booted).
+(This is the same location seen when the USB is booted and one is looking at the /mnt/live/ directory in the Sugar Terminal activity.)
+Copy-paste modified_livecd-iso-to-disk to the same location.
+Reboot from USB
+reboot a computer from this USB device and proceed to write it to another 2-GB USB device:
+Here is an alternate method to obtain the script file:
+In the Terminal Activity, change the working directory:
+cd /mnt/live
+wget
+http://people.sugarlabs.org/fgrose/modified_livecd-iso-to-disk
+chmod +x modified_livecd-iso-to-disk
+Make new USB
+cd /mnt/live/
+./modified_livecd-iso-to-disk soas-i386-20100405.17.iso /dev/sd(*)1
+NOTE: /dev/sd(*)1 (the 1 is important)
+type mount to find your USB device name
+Works fine....
+It should work with any live cd.iso
+Obsolete?
+This page appears to be rather stale.... is any of it still current? :)

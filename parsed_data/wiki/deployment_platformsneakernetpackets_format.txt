@@ -1,0 +1,100 @@
+Title: Deployment Platform/Sneakernet/Packets format
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/Sneakernet/Packets_format
+--------------------------------------------------------------------------------
+Packets format
+Packets are tarball files with
+.packet
+suffix.
+On logic level, every packet consists of:
+one header, a dictionary of key-value pairs;
+records, a dictionary of key-value pairs and optional data depending on record type.
+Header
+Header is being stored in JSON notation in
+/header
+file in packet tarball.
+src
+, sender's GUID
+dst
+, optional destination GUID
+filename
+, suggested file name for packet file, it is assumed to be unique
+Record types
+Push changes of Sugar Network resource's properties.
+cmd: sn_push
+;
+content_type: records
+;
+document
+, Sugar Network resource to push diff to;
+guid
+, document GUID to push diff for;
+diff
+, dictionary of
+<prop_name>: {"value": <value>, "mtime": <mtime>
+} with changed property values.
+ACK
+packet:
+type
+:
+ack
+src
+: master's identity
+dst
+: receiver's identity ack is intended for
+push_sequence
+: original PUSH packet's sequence
+pull_sequence
+: Sequence after merging original PUSH packet
+Pull Sugar Network data.
+cmd: sn_pull
+;
+sequence
+: sequence to pull.
+Pull files from shared directory.
+cmd: files_pull
+;
+directory
+, synchronized directory to pull;
+sequence
+, sequence to pull.
+Push a file from shared directory.
+cmd: files_push
+;
+directory
+, synchronized directory;
+path
+, pushed file path relative to
+directory
+;
+Push deleted file from shared directory.
+cmd: files_delete
+;
+directory
+, synchronized directory;
+path
+, pushed file path relative to
+directory
+;
+Commit recently pushed shared files.
+cmd: files_commit
+;
+directory
+, synchronized directory;
+sequence
+, pushed sequence.
+Push usage statistics.
+cmd: stats_push
+;
+user
+, user GUID;
+db
+, RRD dn name;
+sequence
+, pushed sequence.
+ACK pushed usage statistics.
+cmd: stats_ack
+;
+sequence
+, pushed sequence as
+{user: {db: sequence
+}} dictionary.

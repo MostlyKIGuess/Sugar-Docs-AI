@@ -1,0 +1,70 @@
+Title: SoaS/Testing/Soas-beta 20090423
+URL: https://wiki.sugarlabs.org/go/SoaS/Testing/Soas-beta_20090423
+--------------------------------------------------------------------------------
+http://download.sugarlabs.org/soas/appliances/soas2-20090423.zip
+VirtualBox 2.2.2 on Jackalope64 host
+boots to Fedora setup
+creates a personal account
+launches Sugar
+bridged networking works
+yum.log
+Apr 29 10:56:32 Installed: kernel-headers-2.6.29.1-111.fc11.i586
+Apr 29 10:57:02 Installed: kernel-devel-2.6.29.1-111.fc11.i586
+Apr 29 10:57:05 Updated: libgcc-4.4.0-3.i586
+Apr 29 10:57:06 Installed: dkms-2.0.19.1-2.fc11.noarch
+Apr 29 10:57:16 Updated: glibc-2.9.90-22.i686
+Apr 29 10:57:17 Updated: libgomp-4.4.0-3.i586
+Apr 29 10:58:07 Updated: glibc-common-2.9.90-22.i586
+Apr 29 10:58:11 Installed: glibc-headers-2.9.90-22.i586
+Apr 29 10:58:16 Updated: cpp-4.4.0-3.i586
+Apr 29 10:58:18 Installed: binutils-2.19.51.0.2-17.fc11.i586
+Apr 29 10:58:19 Installed: ppl-0.10.1-1.fc11.i586
+Apr 29 10:58:20 Installed: cloog-ppl-0.15-0.8.git1334c.fc11.i586
+Apr 29 10:58:20 Installed: 1:make-3.81-15.fc11.i586
+Apr 29 10:58:20 Installed: glibc-devel-2.9.90-22.i586
+Apr 29 10:58:22 Installed: gcc-4.4.0-3.i586
+Installation of VBox Guest Additions reported this error after successful yum install:
+[root@localhost cdrom]# ./VBoxLinuxAdditions-x86.run 
+Verifying archive integrity... All good.
+Uncompressing VirtualBox 2.2.2 Guest Additions for Linux installation..............................................................................................................................................................................................................................
+VirtualBox 2.2.2 Guest Additions installation
+Please install the build and header files for your current Linux kernel.
+The current kernel version is 2.6.29.1-102.fc11.i586
+This system does not seem to have support for OpenGL direct rendering.
+VirtualBox requires Linux 2.6.27 or later for this.  Please see the log
+file /var/log/vboxadd-install.log if your guest uses Linux 2.6.27 and you still see this message.
+Problems were found which would prevent the Guest Additions from installing.
+Please correct these problems and try again.
+vboxadd-install.log:
+Installing VirtualBox 2.2.2 Guest Additions, built Mon Apr 27 20:21:11 CEST 2009
+
+Testing the setup of the guest system
+
+Could not find the Linux kernel header files - the directories
+  /lib/modules/2.6.29.1-102.fc11.i586/build/include and /usr/src/linux/include
+  do not exist.
+Giving up due to the problems mentioned above.
+Appliance on VirtualBox
+sun virtualbox version 2.2.0 r45846 not ose
+Don't get far enough to get a profile
+Fails in firstboot
+$ ls -l /tmp/first*
+total 44
+ -rw------- 1 drew drew   814 2009-04-24 18:40 firstboot-iEFIdg
+ -rw-r--r-- 1 drew drew 37190 2009-04-24 18:40 firstbootX.log
+$ cat firstboot-iEFIdg
+Traceback (most recent call last):
+ File "/usr/lib/python2.6/site-packages/firstboot/interface.py", line 102, in _nextClicked
+   self.advance()
+ File "/usr/lib/python2.6/site-packages/firstboot/interface.py", line 147, in advance
+   result = module.apply(self, self.testing)
+ File "/usr/share/firstboot/modules/date.py", line 51, in apply
+   rc = self.scd.firstboot_apply()
+ File "/usr/share/system-config-date/scdMainWindow.py", line 224, in firstboot_apply
+   return self.apply ()
+ File "/usr/share/system-config-date/scdMainWindow.py", line 201, in apply
+   self.timezoneBackend.writeConfig (timezone, utc)
+ File "/usr/share/system-config-date/timezoneBackend.py", line 57, in writeConfig
+   if selinux.is_selinux_enabled() > 0:
+ AttributeError: 'module' object has no attribute 'is_selinux_enabled'
+Drew Einhorn

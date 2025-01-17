@@ -1,0 +1,77 @@
+Title: Activities/Plot
+URL: https://wiki.sugarlabs.org/go/Activities/Plot
+--------------------------------------------------------------------------------
+Contents
+1
+Overview
+2
+Modifying Plot
+2.1
+Adding a function
+2.1.1
+Create an icon
+2.1.2
+Create node class
+2.1.3
+Add node appropriate category
+3
+Resources
+Overview
+Plot is an activity that plots mathematical functions.
+Modifying Plot
+For the ambitious, who don't mind programming:
+Adding a function
+1. Add to plotter/parse.py
+Create an icon
+Create an icon for the new function. As a convention, its name should be the same as the function name in all lowercase letters. There should be two files: one for the working copy, and an exported "Plain SVG" copy. There names should be <functionname>.svg for the plain svg and <functionname>-inkscape.svg for the working copy.
+Create node class
+Create a new file plotter/view/puzzletree/nodes/<functionname>.py.
+In it place:
+from .simplenode import SimpleNode
+from gettext import gettext as _
+
+
+class FunctionName(SimpleNode):
+    """Node representing <some function>."""
+
+    CLASS = "functionname"
+    background = SimpleNode.loadbackground("functionname.svg")
+    title = _("Function Name")
+    description = _(u"Enter a description of the function here.")
+
+    def __call__(self, x):
+        """Calls the function... put a more descriptive comment here."""
+        return functionname(x)
+
+
+    def get_equation_string(self, variable):
+        """Returns a string to use this function in the Python parser."""
+        return "functionname(%s)" % variable
+CLASS should be a unique identifier for the node class (the lowercase class name should work fine). This is used when saving to the journal to describe which nodes are used.
+background should be loaded from the plain *.svg file created as an icon. Just give it the filename (not the full path).
+title is shown above the description in the palette. It should reflect the common name for the function being added.
+description is a longer description that gives more information about the function. Ideally, it should be understandable by those without advanced knowledge of Mathematics.
+__call__ should return the value that the function would return for x. Additional modules may need to be imported in order to do this, depending on the function.
+get_equation_string should return the string needed to apply the same function in the Python parse equation input. (NOTE: this may mean you'll need to add the function to the list of those available to the plotter.parse module.)
+Add node appropriate category
+Edit the file: plotter/view/puzzletree/nodes/__init__.py.
+Add the node class you just created to the appropriate category (in this case: functions).
+...
+
+# functions
+from .constant import Constant
+from .identity import Identity
+from .functionname import FunctionName
+
+FUNCTIONS = [
+    Constant,
+    Identity,
+    FunctionName
+]
+
+...
+That's it! Your new function should now show up in the palette when you edit equations in the Plot activity.
+Resources
+Activity download page
+Bug Tracker
+Source

@@ -1,0 +1,101 @@
+Title: Service/meeting/Usage
+URL: https://wiki.sugarlabs.org/go/Service/meeting/Usage
+--------------------------------------------------------------------------------
+Bot is named
+meeting
+. It supports many useful features, read the
+Supybook
+to learn them.
+Contents
+1
+Join the bot
+2
+Logging
+3
+Handling meetings
+4
+Multi-lingual relaying
+4.1
+IRC command interface
+4.2
+Keep special phrases untranslated
+Join the bot
+To join the bot to your IRC channel, email your
+request
+.
+Logging
+The bot supports keeping logs for further browsing on
+meeting.sugarlabs.org
+. This feature is disabled by default, to enable it, email your
+request
+.
+Handling meetings
+The bot has MeetBot plugin to handle meeting on channels it joined to. Read MeetBot
+tutorial
+to learn how to handle meetings.
+Meeting logs are stored on
+meeting.sugarlabs.org
+(even if logging is disabled). Go to channel page and click
+Meetings
+link (rightmost switch in toolbar).
+Multi-lingual relaying
+Translation is provided by
+Apertium
+project. If it is not good, please consider possibility to
+improve
+it.
+Translation is not good in all cases.
+Be patent,
+keep special words untranslated
+and avoid short phrases while chatting with people on translation channels.
+The bot supports language translation relaying. It is plugin implementation of
+transbot
+.
+It is about implicit translation for particular IRC channel into several languages. People being in satellite channels, like
+#sugar-ru
+, can type posts in Russian, all theses posts will be translated into English and posted to
+#sugar
+. The same works in opposite direction.
+The easiest way to try it is
+web client
+. On login screen, choose one of sugar channels and the language you want to type posts in. Language might be
+Default
+that means that you need to type in default language for IRC channel from the list. After being logged in, you can all time open new Sugar channel using combo boxes on the leftmost side of upper toolbar.
+IRC command interface
+Translation process might be managed from IRC commands sent to
+meeting
+nick.
+List channels that can be translated (primal channels) with current translation status:
+meeting: lingvo list [
+channel
+]
+List supported languages:
+meeting: lingvo langs
+Open new translation channel:
+meeting: lingvo join [
+primal-channel
+]
+lang
+By default, empty translation channels will be closed in 3 days. To prevent it:
+meeting: lingvo pin [
+translation-channel
+]
+meeting: lingvo unpin [
+translation-channel
+]
+List all nicks that take part in conversation, i.e., nicks from the primal channel and nicks from all translation channels:
+meeting: lingvo nicks [
+channel
+]
+If command output is too big, use
+more
+command to get the rest of output:
+meeting: more
+Keep special phrases untranslated
+While keeping phrases untranslated, the system tries to be as obvious as possible.
+To not process translation where it doesn't make sense, warp the text into the double quotes. To pass entirely post untranslated, start it from the double quotes (there is no need in ending the post by second double quote).
+Other cases where text won't be translated:
+channel names (words started from
+#
+symbol),
+nick names.

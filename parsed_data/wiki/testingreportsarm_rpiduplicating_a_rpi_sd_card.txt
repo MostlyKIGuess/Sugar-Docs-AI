@@ -1,0 +1,85 @@
+Title: Testing/Reports/ARM RPi/Duplicating a RPi SD Card
+URL: https://wiki.sugarlabs.org/go/Testing/Reports/ARM_RPi/Duplicating_a_RPi_SD_Card
+--------------------------------------------------------------------------------
+<==Go Back to
+Testing/Reports/ARM_RPi
+Contents
+1
+Duplicating a RPi SD Card
+1.1
+Equipment used
+1.2
+Remove Working SD Card from a shutdown RPi and insert it in Laptop SD Slot
+1.2.1
+Compress Rpi_8GB.img (Optional)
+1.2.2
+rpfr-f18-rc1-a-sd.img.zip  2.3 GB
+1.2.3
+Extract rpfr-f18-rc1-a-sd.img.zip
+1.3
+Insert 2nd SD Card in Laptop SD Slot
+1.4
+Insert the duplicated SD in the Rpi
+2
+Optional:Expand the ext4 partition with
+gparted
+Duplicating a RPi SD Card
+This makes an exact copy of a working SD Card
+Equipment used
+RPi and SD Card
+Raspberry Pi "B" 512 memory
+8GB class 10 Sandisk Ultra SD with XFCE and Sugar-Desktop installed (see link)
+http://wiki.sugarlabs.org/go/Testing/Reports/ARM_RPi#Test_report_rpfr-f18-rc1.img
+Laptop
+"System 76" Gazelle Professional laptop
+Intel® Core™ i7-3630QM CPU @ 2.40GHz × 8
+Ubuntu 12.10 running gnome classic
+Remove Working SD Card from a shutdown RPi and insert it in Laptop SD Slot
+Start "Disks" gnome-disks
+Unmount SD (both partitions)
+Select "Create Disk Image"
+Saved File is Rpi_8GB.img  7.9 GB
+Name is optional; name it as you wish: xxxxx.img
+Unmount SD Card in Disks
+Compress Rpi_8GB.img (Optional)
+NOTE this is an optional step
+Do it if you want to share Rpi_8GB.img with others or archive it as a backup.
+right click "Compress select Rpi_8GB.img
+rpfr-f18-rc1-a-sd.img.zip  2.3 GB
+Uploading now; available later today:--
+Satellit
+14:12, 18 March 2013 (EDT)
+Prebuilt 8 GB SD Card img file with sugar-emulator 0.98.x and xfce
+This file can be Downloaded Here:
+http://people.sugarlabs.org/Tgillard/rpfr-f18-rc1-a-sd.img.zip
+user=sugar password=sugaruser
+Note do not use the
+rpfr-f18-rc1-a-sd.img
+with dd; it will fail to boot.
+Extract rpfr-f18-rc1-a-sd.img.zip
+right click on compressed file "archive Manager" Extract
+Insert 2nd SD Card in Laptop SD Slot
+8GB class 10 Sandisk Ultra SD
+16GB class 10 Lexar Platinum II SD
+used in these examples
+Start "Disks" gnome-disks
+select "Restore disk image"
+Select rpfr-f18-rc1-a-sd.img.zip and restore it.
+Eject SD Card in "Disks"
+Note do not use the
+rpfr-f18-rc1-a-sd.img
+with dd it will fail to work.
+Insert the duplicated SD in the Rpi
+Plug in RPi power supply cord and it will boot on copied SD Card.
+rpfr-f18-rc1-a-sd.img file created with
+disk utility
+from working 8 GB SD card
+and then restored with
+disk utility
+to a 16 GB SD Card and booted on RPi 512 "b"
+Optional:Expand the ext4 partition with
+gparted
+original partitions on restored 8 GB rpfr-f18-rc1-a-sd.img file
+mmcblk0p2 partition is ext4
+expanded mmcblk0p2 partition on 16 GB SD card with gparted "resize"
+Command is not available in "disks"

@@ -1,0 +1,109 @@
+Title: Activities/Turtle Art/Packaging
+URL: https://wiki.sugarlabs.org/go/Activities/TurtleArt/Packaging
+--------------------------------------------------------------------------------
+Contents
+1
+Packaging
+1.1
+turtleart-core
+1.2
+turtleart-data
+1.3
+turtleart-sugar
+1.4
+turtleart-gnome
+1.5
+plugins
+1.5.1
+turtleart-extras
+1.5.2
+turtleart-camera
+1.5.3
+turtleart-sensors
+1.5.4
+turtleart-rfid
+1.5.5
+turtleart-butia
+1.5.6
+turtle-art currency
+1.5.7
+turtleart-physics
+Packaging
+TurtleArt has both a Sugar and GNOME front-end. To package TurtleArt for your distro the following layout is recommended:
+turtleart-core
+TurtleArt/
+icons/
+images/
+locale/
+utils/
+setup.py
+NEWS
+COPYING
+turtleart-data
+pysamples/
+samples/
+samples/images
+turtleart-sugar
+activity/
+TurtleArtActivity.py
+turtleart-gnome
+collaboration/
+turtleart.py
+turtleart.desktop
+gnome-plugins/
+plugins
+Included in each plugin would be:
+plugins/plugin.py
+plugins/__init__.py
+turtleart-extras
+plugins/turtle_blocks_extras/
+plugins/turtle_blocks_extras/icons/
+turtleart-camera
+plugins/camera_sensor/
+plugins/camera_sensor/icons/
+turtleart-sensors
+plugins/audio_sensors/
+plugins/audio_sensors/icons/
+turtleart-rfid
+plugins/rfid/
+plugins/rfid/icons/
+plugins/rfid/serial/
+turtleart-butia
+plugins/butia/
+plugins/butia/icons
+plugins/butia/butia_support/
+plugins/butia/butia_support/bobot/
+plugins/butia/butia_support/bobot/drivers
+plugins/butia/butia_support/bobot/lib
+plugins/butia/butia_support/bobot/share
+turtle-art currency
+plugins/currency/
+plugins/currency/icons
+plugins/currency/images
+Note
+: Requires v113 or greater
+File:Oz-coins.tar.gz
+Australian coins plugin
+File:Oz-bills.tar.gz
+Australian bills plugin
+File:Oz-coins-and-bills.tar.gz
+Australian coins and bills plugin
+File:US-currency.tar.gz
+US dollar plugin
+File:Rwanda-currency.tar.gz
+Rwanda francs plugin
+File:Paraguay-currency.tar.gz
+Paraguay Gurani plugin
+File:Colombia-currency.tar.gz
+Colombian peso plugin
+File:Mexican-currency.tar.gz
+Mexican peso plugin
+File:US-bills.tar.gz
+US bills plugin
+File:UY-currency.tar.gz
+Uruguayan peso plugin
+turtleart-physics
+plugins/physics/
+plugins/physics/icons
+File:Physics-plugin.tar.gz
+Physics plugin

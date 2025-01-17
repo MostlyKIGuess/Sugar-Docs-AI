@@ -1,0 +1,43 @@
+Title: Sugar 0.110
+URL: https://wiki.sugarlabs.org/go/Sugar_0.110
+--------------------------------------------------------------------------------
+Release Notes: Sugar 0.110
+Contents
+1
+Overview
+2
+New Features
+3
+Fixes
+4
+Platform: SOAS
+5
+Platform: Raspberry Pi 3
+6
+Platform: Raspberry Pi 2
+Overview
+Sugar 0.110 is the latest stable release of the Sugar Learning Platform. This page describes changes and new features of this list and provides instructions for downloading and installing Sugar on supported computers.
+New Features
+Features/Proxy_Settings
+Added the "sugar-erase-bundle" script
+https://github.com/sugarlabs/sugar/pull/687/files
+User:Quozl
+Turned off Metacity compositing User:Quozl
+Add a new PopWindow module for developers
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/313#issuecomment-223776873
+Abhijit Patel
+Fixes
+fix for CVE-2015-7547, a severe remote code execution vulnerability exposed by DNS lookups,
+predictable neighbourhood view icons; now placed the same each time, #381,
+predictable frame; the frame appears or disappears more easily, #4806,
+predictable palettes; menus appear where the mouse was when they were triggered, instead of where the mouse may have moved to, #4897,
+Platform: SOAS
+Download the SOAS 0.110 image
+Mount a usb drive with minimum 4GB capacity, more is better. Backup as needed, it will be erased.
+Find out the path to the device. One method is to use df -h. Be careful to identify the usb stick, 
+e.g. /dev/sdb1 - check its size to match the size of the stick. A partition of 7.3GB might be shown for an 8GB stick.
+Platform: Raspberry Pi 3
+Platform: Raspberry Pi 2
+copy the SOAS image to the stick with the dd command:
+dd if= ~/Downloads/Fedora-SoaS-Live-x86_64-24-20160614.n.0.iso of=/dev/sdb1 bs=4M
+Mount the stick on your computer and reboot. It should boot to Sugar.

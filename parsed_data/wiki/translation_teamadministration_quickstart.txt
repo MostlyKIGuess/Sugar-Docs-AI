@@ -1,0 +1,89 @@
+Title: Translation Team/Administration QuickStart
+URL: https://wiki.sugarlabs.org/go/Translation_Team/Administration_QuickStart
+--------------------------------------------------------------------------------
+Please copy/paste "{{Translationlist |
+xx
+| origlang=en | translated={{{translated}}}}}" (where
+xx
+is
+Translation Team/ISO 639
+language code for your translation) to
+Translation Team/Administration QuickStart/translations
+HowTo
+[ID# 64033]
++/-
+This page is a work in progress, please feel free to work upon it, and improve it
+Pootle administrators have extended privileges over normal translators. They can grant or revoke permissions for normal Pootle registered users on a project wide basis, and can also add other administrators for their particular project. Note that administrators are specific to the combination of project and language, which means that
+[ Spanish ] [Honey]
+can have a totally different set of administrators and privileged users than
+[ Spanish ] [ Fructose ]
+, or of course,
+[ Amharic ] [ Honey ]
+.
+Contents
+1
+Translations Overview
+2
+News and Events
+3
+Catching up with new strings to translate
+4
+Translate Messages for a Project
+5
+Translation Review
+6
+Approval of Suggestions
+7
+Committing files
+8
+Managing Permissions for other Translators
+9
+References and links
+Translations Overview
+This page shows the current status of all translations for all files in a Project. Summary statistics along the top reveal the totals across all the files. For each file, a colored bar shows the progress of translations. It starts out in red color and becomes green when the translation is complete. The summary column shows the number of words that remains to be translated for this file. Selecting this link will take you to the first untranslated message for this file. The last column shows the current commit status. Don't depend on it fully. Sometimes, the status appears OK even when changes are not committed yet. This may be corrected in the future.
+From this overview page, the Language Administrator will be able to perform translations, review suggestions and approve suggestions from other translators, catch up with the latest message files, commit translations to the repository and then manage permissions for other Translators contributing to this project.
+It is important that translations checked into the projects are from the latest message files, so we will start with that operation.
+News and Events
+The News section allows you to track changes happening in the Project like updates to translations, suggestions, commits, changes to VCS and so on. This page also allows to add your own message like vacation notices or hints to other translators.
+It is a good place to catch up with events after you return from a break or during intense activities.
+Catching up with new strings to translate
+Developers will be modifying the strings that need to be translated as they implement features and fix bugs. It can happen at any point in the release cycle but less so during the
+string cooling
+and
+string freeze
+periods. Watch out for commit messages in the mailing list.
+To tell Pootle that it needs to pick up those changes, the language administrator for that project needs to go to the Files tab and press the link "rescan the project files" if any files have been added. Press the link "update the files from templates" if any existing files have been updated.
+If existing files have become obsolete, you can remove them by checking Delete checkbox (along the right) and then press "Save Changes" button near the bottom:
+While rescan and update templates links take effect immediately, Delete operations take effect only when you press "Save Changes". Otherwise the operation will be canceled.
+Translate Messages for a Project
+You can start translating messages for a file from the Overview, Translate or Review pages. For large files, selecting "Quick Translate" takes you to the first untranslated message in a file and skip already translated messages.
+Once most of the translations are completed for a file, you need to Review it for errors before committing it to VCS. The commit links also appear here for convenience. You should really use the ones in the Review page where possible errors are displayed.
+If translations have been checked into VCS meanwhile, you can update to the latest version file by file or all files (see below) from this page.
+For bulk edits like search and replace, it may be easier to download files, fix the messages and then upload or merge them back into Pootle taking due care not to overwrite any translations done by others in the interval.
+You could also could add new translations as suggestions. These options appear at the bottom of the Translate section:
+Bulk uploads from version control can be done using "Upload all changes from version control" button. Use this with caution, as the risk of overwriting is quite high.
+Translation Review
+Before the administrator commits a particular file, she must make sure that the translations are OK. There are several way to do this, one of them would be
+To download the PO files, and go through it
+To run '--check' to ensure that the file is formatted correctly
+To use the various
+checks
+available from within Pootle:
+Once the administrator is reasonably satisfied that the file is OK, she should go ahead and commit:
+Wait for confirmation from the server before switching from this page.
+Approval of Suggestions
+Suggestions from other translators and anonymous users can be reviewed against each message. When a suggestion is selected by pressing the "correct" tickmark, its contents overwrite the current translation. You can edit it further if you like before pressing "Submit" and going to the next message. If you select "cancel" tickmark, the suggestion is rejected and deleted.
+The "hassuggestion" hint appears along the top right when scanning through all suggestions. In this mode, pressing "Submit" will display the next pending suggestion. When all suggestions are reviewed, the "Review Suggestions" link at the top of the Review Summary will disappear.
+A summary of accepted and rejected suggestions appears at the end of Review summary.
+Committing files
+The final step in ensuring that the translations are merged back into the master source tree of the software is to "Commit" them. Committing is a pretty straightforward process, but you should ideally do it only after you have done the relevant checks and reviews. We recommend that you follow a 'release early and release often policy'
+[1]
+while committing, as that would get the maximum amount of exposure and testing for your translations.
+To Commit, click on the "Commit to VCS" link that appears below each file in the "Translate" or "Review" pages:
+..and you are done. If you don't see this link, it means "can commit to version control" permission is off. The link may also disappear if the contact with project repository is broken. Send a request to mailing list to fix this.
+Managing Permissions for other Translators
+Language Admins need to actively solicit contributions from translators and language experts. Initially, these people will be able to suggest translations. More experienced translators can take on additional roles for reviewing all suggestions, submitting translations, download message files for offline translations, upload whole message files and so on. The picture below shows the page on which these permissions can be managed individually for each translator.
+A single click will select only one permission. Use SHIFT-click for multiple selections. Select Delete checkbox (near right edge) to remove an account. When all settings are complete, click the "Update Rights" button near the bottom to complete the operation. If this button is not clicked the operation will be canceled.
+References and links
+↑
+http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/ar01s04.html

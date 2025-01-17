@@ -1,0 +1,140 @@
+Title: Activities/Thumbs View in Journal
+URL: https://wiki.sugarlabs.org/go/Features/Thumbs_View_in_Journal
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Implementation
+6.1
+Memory usage with thumbs for ds and non-ds objects
+6.2
+Memory usage with thumbs for ds objects
+6.3
+Memory usage without thumbs
+7
+Resources
+Summary
+Thumbs view plugin for Journal.
+Owner
+Name:
+Aleksey Lim
+Email:
+send an email
+Current status
+Targeted release: 0.88
+Last updated: Sat Aug 29 13:38:41 UTC 2009
+Percentage of completion: 50%
+Detailed Description
+Implement thumbs view
+mockup
+.
+Benefit to Sugar
+In process..
+Implementation
+Memory usage with thumbs for ds and non-ds objects
+Scroll and requery thumbs and list view during 5 min.
+sugar-session
+sugar-presence-service
+datastore-service
+len(gc.objects())
+252m 25m
+33761
+400m 50m
+120m 14m
+113m 12m
+53423
+402m 52m
+120m 14m
+113m 12m
+54939
+403m 53m
+120m 14m
+113m 12m
+56071
+402m 52m
+120m 14m
+113m 12m
+57104
+410m 52m
+120m 14m
+113m 12m
+57991
+411m 53m
+120m 14m
+113m 12m
+59458
+Memory usage with thumbs for ds objects
+Scroll and requery thumbs and list view during 5 min.
+sugar-session
+sugar-presence-service
+datastore-service
+len(gc.objects())
+252m 25m
+33757
+319m 47m
+120m 14m
+113m 12m
+53210
+319m 47m
+120m 14m
+113m 12m
+54942
+319m 47m
+120m 14m
+113m 12m
+56154
+319m 48m
+120m 14m
+113m 12m
+58475
+320m 48m
+120m 14m
+113m 12m
+62065
+321m 49m
+120m 14m
+113m 12m
+63102
+Memory usage without thumbs
+Scroll and requery list view(from trunk) during 5 min.
+sugar-session
+sugar-presence-service
+datastore-service
+len(gc.objects())
+251m 24m
+33751
+314m 44m
+121m 14m
+114m 13m
+51101
+315m 44m
+121m 14m
+115m 14m
+53334
+315m 45m
+121m 14m
+116m 15m
+56375
+315m 45m
+121m 14m
+116m 15m
+59084
+318m 48m
+121m 14m
+117m 16m
+63172
+320m 50m
+121m 14m
+118m 17m
+67776
+Resources
+Thumb view mockup

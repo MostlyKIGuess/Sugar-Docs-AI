@@ -1,0 +1,275 @@
+Title: Development Team/Almanac/Activity Bundles
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/Activity_Bundles#Bundle_Structure
+--------------------------------------------------------------------------------
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Contents
+1
+Introduction
+2
+Rationale
+3
+Location
+4
+Bundle structure
+5
+.info file format
+6
+Localization/translation of the activity name and tags
+7
+Package, extension, mime type
+8
+Bundling native libraries
+9
+activity/permissions.info
+10
+Other technologies comparison
+11
+See also
+Introduction
+Activities
+in the
+Sugar
+environment are packaged into a self-contained
+"bundles"
+.  Each bundle contains all the resources and executable code (other than system-provided base libraries) which the activity needs to execute.  Any resources or executable code that is not provided by the base system must be packaged within the bundle.  Activity bundles are the end result of, and use a different directory structure than,
+activity development
+See also
+olpc:OLPC Bitfrost
+in general and its section on
+software installation
+HIG-Activities
+and its section on
+activity bundles
+olpc:Creating an activity
+Rationale
+Activities are meant to be shared between children.  If a child doesn't have the activity, it is automatically transfered to the child when he or she joins the shared activity.  Packaging activities in self-contained bundles allows easy sharing, installation, removal, and backup.
+Location
+Activities are installed and removed automatically by
+Sugar
+, in response to user actions.  Sugar places activities in directory of its choice.  Activities should not rely on being installed in a specific location, and should use relative paths where paths are necessary (i.e., for shared library linkage, activity resources such as images, sounds, etc).  They should also not rely on the bundle's base directory name remaining the same.  Sugar may rename the activity bundle base directory at any time to prevent bundle conflicts.
+Currently Sugar on jhbuild looks for bundles in the "activities" subfolders of XDG_DATA_DIRS.  Right now this is /usr/share/activities and the usr/share/activities subfolder of the jhbuild build folder.
+Sugar will automatically generate and remove the .service files necessary to launch the activity through
+olpc:D-BUS
+service activation when the activity is installed or removed.
+Activities should also NEVER store local state or preferences in the activity bundle itself.  These should always be stored in an activity-specific directory in the user's sugar profile, available through the SUGAR_PROFILE environment variable.
+Python developers can also get the profile folder this way:
+import sugar.env
+profile_path = sugar.env.get_profile_path()
+Bundle structure
+The activity bundle is a directory, with a name ending in ".activity".  Each activity bundle must, in a subdirectory called 'activity', contain a file named "activity.info", and following a special format.  For example:
+Web.activity/
+    activity/
+        activity.info                          (activity info file)
+        activity-web.svg                       (icon for activity as specified in activity.info)
+        mimetypes.xml                          (map documents to MIME types)
+        text-plain.svg                         (icons for documents, e.g. "text-plain.svg" for "text/plain")
+        text-html.svg
+    bin/
+        web-activity                           (launcher script or activity executable)
+    locale/
+        de_DE/
+            activity.linfo                     (localized info 1)
+        zh_CN/
+            activity.linfo                     (localized info 2)
+    lib/
+        mylib.so                               (native library)
+    icons/
+activity
+All metadata about the activity is organized in this subdirectory.  The
+contents
+and
+contents.sig
+are manifest and credential files for the entire bundle contents (excepting the
+contents
+and
+contents.sig
+files themselves), as described by the
+olpc:Contents manifest specification
+; these files are not supported by current versions of Sugar.  The optional
+mimetypes.xml
+file is a
+freedesktop.org MIME type file
+describing how to recognize the MIME types defined by the activity. SVG icons for those MIME types can be put in this directory as well.
+bin
+Contains executables, is added to the PATH environment variable.
+lib
+See
+#Bundling native libraries
+below.
+locale
+See
+#Activity name localization/translation
+below.
+icons
+Contains the icons used by the activity. When using the sugar.activity python package the path is automatically added to the default
+gtk icon theme
+.
+.info file format
+See
+sugar3/bundle
+for the latest bundle metadata specification.
+This section below deprecated, but has some useful historical information that goes beyond what the specification needs.
+Some additional comments on the key;
+name
+A 'name' key without a bracketed language code is the "en_US" localized name of the activity.
+activity_version
+An activity should not use the value in source code, as it may be changed by developers and packagers.
+bundle_id
+The name should conform to the
+D-Bus spec
+- in particular, hyphens are not allowed.  It is recommended that
+Java package naming conventions
+are used when choosing bundle identifiers, to ensure uniqueness.  Briefly, your name should begin with the reversed domain name of an organization you belong to.
+The reversed domain name part is supposed to be rooted in some actual DNS-rooted namespace.  You don't need to own this domain; you just need to have a reasonable claim on some
+unique
+name at that domain. There are several ways to derive one:
+If your email address is
+yourname
+@
+somemailhost
+.com, then you could use
+com.somemailhost.yourname
+.
+YourActivity
+.
+You could set up a web page on a free hosting service with information about your activity, and use a name derived from its URL.  For example, if you create a page at
+http://www.geocities.com/xotumusica
+for your activity, then com.geocities.www.xotumusica is a reasonable bundle_id.
+If nothing else is available, even org.sugarlabs.wiki.
+Your Activity Page Title
+is probably a reasonable bundle_id, provided that you create the 'Your Activity Page Title' page.  Remember, bundle_ids should be unique, so you should double check that the 'Your Activity Page Title' page doesn't already exist (and then create it) before using this as your bundle_id.
+In the Python bindings, the bundle_id is also used as the activity's default service type when the activity is shared on the network.  To determine this type, the distinct parts (separated by the '.' character) are reversed, any '.' is replaced by a '_' character, and the type is prefixed by a '_' character.  So in this example, the default service type would be "_WebActivity_laptop_org".
+license
+This field names the licenses used for the activity bundle (the "binary" .xo file).  For multiple licenses, separate them with semicolons ";".  Otherwise, the value should conform to the same guidelines as the
+License:
+field
+of an RPM package; consult the
+Fedora Licensing Guidelines
+for more information.  A 'license' field naming an entry or entries in the "Good Licenses" table at
+Fedora's Licensing list
+is required for any activities distributed by Sugar Labs.
+icon
+The icon is looked up in the activity bundle's 'activity' directory (the same directory the activity.info file is in).  It cannot contain a path.  When searching for the icon in the activity bundle's 'activity' directory, only a file with the icon name and the extension '.svg' will be looked for.
+exec
+The exec key specifies the executable which
+Sugar
+runs to start the activity instances. Environment variables given on the exec line are expanded. Executable files should be placed into the bin/ directory in the bundle. It should support the following arguments:
+-b, --bundle-id
+Identifier of the activity bundle
+-a, --activity-id
+Identifier of the activity instance.
+-o, --object-id
+Identifier of the associated datastore object.
+-u, --uri
+URI to load.
+Python activities should generally use the generic sugar-activity executable. Other activities need to adhere to the
+olpc:Low-level Activity API
+.
+tags
+Tags give more context in which to place the activity. This is used to allow users to find activities more easily in the journal, the home view,
+http://activities.sugarlabs.org
+, etc.
+single_instance
+Added to flag activities that use resources that cannot be shared, such as a camera.
+max_participants
+Setting max_participants in activity.py is possible, but deprecated.
+repository
+The URL of the master git repository for the activity, for use by
+git clone
+. Since activities are not all hosted in a single repository, it is important to include a link so that users can readily find the activity. Some git hosting services allow the URL to be used by web browser as well as
+git clone
+.
+Localization/translation of the activity name and tags
+Localized data lives in the locale directory. Each language stores its localized keys in a
+separate
+directory named for the language's ISO code.  Localized keys from the 'activity.info' file are stored in the 'activity.linfo' files in that directory. For example, German-localized German (as opposed to Swiss-localized German) language translations are stored in the 'de_DE/activity.linfo' file:
+Example.activity/
+    exampleactivity.py
+    activity/
+        activity.info
+    locale/
+        de_DE/
+            activity.linfo
+        de_CH/
+            activity.linfo
+        es/
+            activity.linfo
+At this time, only translations for the 'name' and 'tags' keys from the 'activity.info' file is supported.  A localized 'de_DE/activity.linfo' file would look like:
+[Activity]
+name = Web
+tags = erforschung;web
+Keys in the languague-specific '.linfo' files selectively override keys from the 'activity.info' file; if a key is not present in the '.linfo' file the value from the 'activity.info' file is used instead.
+Package, extension, mime type
+Activity bundles should be packaged as zip files with the ".xo" extension. The mime type in the journal is "application/vnd.olpc-sugar".
+Bundling native libraries
+Sometimes you need to include a native library or two with your activity.  The strategy that
+olpc:Develop
+and
+olpc:Model
+use is specifying a shell script for the executable in the .info file:
+exec = ./model_startup.sh
+The script, 'model_startup.sh', modifies the library path, python, or both paths (depending on the types of libraries you are including) to reference folders inside your bundle, then launches your application:
+#!/bin/sh
+
+export PYTHONPATH=$SUGAR_BUNDLE_PATH/site-packages:$PYTHONPATH
+export LD_LIBRARY_PATH=$SUGAR_BUNDLE_PATH/lib:$LD_LIBRARY_PATH
+
+sugar-activity model_app.ModelActivity
+activity/permissions.info
+Note: the API described in this section is DEPRECATED.
+Bitfrost describes a variety of security-related settings which activity authors can specify about their activity. At the option of the activity author, these settings can be described in a file called 'permissions.info' which can be placed alongside 'activity.info' in the 'activity' directory of the bundle.
+As of rainbow-0.7.21, writing the single line
+constant-uid
+into the permissions.info file will result in your activity being launched with the same uid each time it is run. (Usually each activity gets a constant gid, but each instance launched of the activity gets a unique uid.  Activities based on the xulrunner codebase, however, tend to set restrictive group permissions on local files, so this option avoids this problem at the cost of less isolation between activity instances.)
+As of rainbow-0.7.22, the line:
+use-serial
+will add the activity UIDs to the 'uucp' group, so that the activity can access /dev/ttyUSB* devices.  (See <trac>8434</trac>.)
+Other options which may be specified include:
+lim_nofile 20
+lim_fsize 10e6
+lim_nproc 8
+lim_mem 190e6
+which will limit the number of file descriptors, the maximum writable file size, the number of processes, and the maximum size of the activity's address space, respectively. (See
+man 2 setrlimit
+for details.)
+Other technologies comparison
+Activity bundles are similar to OS X bundles or Java JAR files; a simple mechanism to encapsulate everything you need in a single directory that can be moved around independently.
+It differs from autopackage, it's not a package management system.  There's no central database, no scripts get run on install/uninstall.  There also is no special file format.
+As compared to klik, it's not intended to replicate a local Unix directory structure inside the package; the activity can still link to system
+provided binaries and such.  There's also no server-side component other than compressing the archive and sending it over the network.There is also no dependency checking since activities are required to be self-contained.
+See also
+olpc:Activity tutorial

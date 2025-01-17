@@ -1,0 +1,50 @@
+Title: Archive/Current Events/2010-02-02
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2010-02-02
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+In the community
+3
+Tech talk
+4
+Sugar Labs
+Sugar Digest
+1. In the spirit of making Sugar and Sugar Activities readily appropriated and modified by the end user, I have been distracted of late writing code. Raúl Gutiérrez Segalés and I have been working on a refactoring of Turtle Art in order to make it easier to extend by teachers—
+a long-standing goal
+. I have an ulterior motive as well: making Turtle Art (and other Activities) easier to maintain. Towards that effort, I have been reworking and streamlining some of the library classes: specifically, the sprite module and the graphics generation module. The focus on these libraries is to address a typical problem I struggle with: localization. The Turtle Art graphics are assembled from a combination of pre-composed artwork and strings that are translated as part of the localization process. A word or phrase that is short in one language might be long in another, e.g., 'left' in English and 'izquierda' in Spanish. Coming up with static graphics that can accommodate this degree of variation has been a challenge. The original Turtle Art graphics were bitmaps (GIF), which are not readily amenable to manipulation. In an earlier refactoring, I converted the graphics to vectors (SVG), but I still have had to do a lot of hand-tuning of the artwork, saving the results in individual files for each language. In the case of Turtle Art, this has been unwieldy: thousands of files are involved. The solution I am exploring is the dynamic generation of the graphics, where I combine the use of SVG and Pango. I am hopeful that the end results will not only be easier to maintain, but will also enable more facile extensions to the base Activity. To test some of these ideas, I updated the
+VisualMatch Activity
+to use the new libraries. It not only allowed me to streamline the Activity itself, but it also made it much easier to add new play modes—adding Mayan took less than 30 minutes—and adding end-user editing—it was suddenly trivial to allow the users to modify the cards used in the word game. I'm close to pushing these changes into Turtle Art as well. Hopefully we will see more local forks of the code as the barriers to modification and maintenance are lowered.
+2. Speaking of Turtle Art, there is a wonderful essay on the origins of the Logo turtle at
+[1]
+.
+3. Most of the work we have been doing during our
+December and January Sugar Labs oversight-board meetings
+has been in regard to our Trademark policies. We are very close to reaching consensus on a
+redrafting of our policy
+. Please add your comments and give us your feedback before our next meeting, Friday, 22 January, at 16UTC (11EST) in #sugar-meeting on irc.freenode.net.
+In the community
+4. I gave two short talks about modifying Sugar over the weekend: one in Washington DC at the OLPC Learning Club meeting and one in Wellington, New Zealand at the Linux Conference Australia (LCA) education miniconference. (In both cases, I appeared remotely, saving a bit of wear and tear on my body and my carbon footprint.) My notes are available on line as well:
+[2]
+.
+5. The call for papers for the
+5th International Conference on e-Learning
+has been extended until the 22nd January 2010. This is a good opportunity to submit some abstracts about Sugar.
+6. Kaçandre Bourdelais announced the creation of
+FranXOphonie
+, a community portal for Sugar projects in Francophone countries around the world, including Senegal, Haïti, Cameroon, Vietnam, Central Africa, Rwanda, Libreville, Madagascar, Mali, Gabon, Democratic Republic of Congo, and, of course, France.
+Tech talk
+7. Simon Schampijer convened a meeting of the design team to discuss a number of open-ended design issues for Sugar 0.88. The most hotly debated topic has been the question of how to best accommodate both 'start new' and 'resume' on the Home View. Part of the contention has been a lack of consensus regarding the role of the Home View vs. the Journal in resuming Activities. A seemingly reasonable compromise has been reached—although we will have to do some thorough testing before pushing the change. The gist of the compromise is to make the Journal a permanent part of the Home View—thus more accessible—a change that has merit in itself. Gary Martin has made some mock-up images as a means of visualizing the ideas being discussed (See
+1
+and
+2
+).
+8. Sascha Silbe's version-support fork of Sugar is available for testing. Please see
+[3]
+for details.
+9. Sascha's VNC-based sugar-emulator (which can be used instead of the often problematic Xephyr) is also available for testing. If you use sugar-jhbuild and have had problems with keyboard mappings or window-manager interactions, you may want to try the VNC version.
+Sugar Labs
+10. Gary Martin has generated a SOM from the past week of discussion on the IAEP mailing list (Please see
+SOM
+).

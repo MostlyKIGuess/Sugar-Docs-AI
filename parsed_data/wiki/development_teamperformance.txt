@@ -1,0 +1,42 @@
+Title: Development Team/Performance
+URL: https://wiki.sugarlabs.org/go/Development_Team/Performance
+--------------------------------------------------------------------------------
+Just a quick dump of the snippets I use for profiling:
+First use a system-wide profiler like sysprof
+Next, profile python code, open the output with kcachegrind:
+import os
+import cProfile
+import lsprofcalltree  #
+http://www.gnome.org/~johan/lsprofcalltree.py
+profiler = cProfile.Profile()
+profiler.enable()
+
+### code to profile ### 
+
+profiler.disable()
+
+k = lsprofcalltree.KCacheGrind(profiler)
+data = open('/tmp/import.kgrind', 'w+')
+k.output(data)
+data.close()
+Check for leaks:
+import gobject
+        gobject.timeout_add(10000, self._log_mem_usage) 
+
+    def _log_mem_usage(self): 
+        import analysis, os, gc 
+        
+        for obj in gc.get_objects():
+            if hasattr(obj, '__class__') and 'ChooserListView' in obj.__class__.__name__:
+                logging.debug(obj) 
+
+        for i in range(0, 10):
+            gc.collect()
+        logging.debug('mem: %i' % analysis.Analysis(os.getpid()).ApproxRealMemoryUsage()) 
+        return True
+Rendering time of a widget/window:
+def do_expose_event(self, event):
+        import time
+        t = time.time()
+        hippo.Canvas.do_expose_event(self, event)
+        logging.debug('listview expose event: %r' % (time.time() - t))

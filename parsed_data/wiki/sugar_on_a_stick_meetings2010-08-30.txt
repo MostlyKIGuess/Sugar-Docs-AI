@@ -1,0 +1,161 @@
+Title: Sugar on a Stick meetings/2010-08-30
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick_meetings/2010-08-30
+--------------------------------------------------------------------------------
+Minutes
+No new topics from the mailing list to bring up at this meeting.
+Remix naming deferred until we have proposals as to how the remixes should be named. (HELP NEEDED! Got an idea for this? Write a proposal!)
+Upcoming deadline: 9/14 Beta Change - all changes must be pushed by this (Fedora-driven) deadline.
+Idea for the future: (re)schedule a SoaS Test Day with Fedora QA.
+We spent most of our time on the next big URGENT milestone: getting testable 0.90 SoaS image out the door for upstream Sugar QA. The 0.90 Beta release is this Wednesday; here's what has to happen to make this happen.
+erikos updates the sugar, sugar-toolkit, sugar-datastore, sugar-presence-service, sugar-artwork, telepathy-gabble and telepathy-salut packages in Fedorato the correct code versions.
+mchua gets 3 people to test these packages and give them karma in Fedora's system, which will put them in the stable repositories. I'll be writing instructions on how to do this shortly.
+erikos or pbrobinson or someone takes the next daily build and makes sure it boots, then announces the test image.
+What this means for you, o reader: if you run Fedora (or can run Fedora in a VM, or can follow written instructions on how to do exactly this), you (yes, you!) can help us with 0.90 testing this week. We're going to have instructions for this coming out once the code is ready to be tested; it should take less than 2 hours (hopefully less than 1) to do your setup and testing from start to finish, and you won't need any prior experience. We'll be using the same test setup for Sugar in the future, too.
+The catch is that because we're under intense time pressure to meet release deadlines, the time between when we can say "we're ready! We need help!" and when we need the testing finished by is going to be VERY short. So this is a heads-up letting folks know this call is going to be coming.
+Logs
+19:01 < mchua> #startmeeting
+19:01 < mchua> Hey folks. SoaS meeting time.
+19:01 < mchua> Er... is there a bot?
+19:01 < mchua> I'll mke sure logs go out, in any case.
+19:02 < mchua> First, I should apologize I'll be high-latency today becaues I'm on mobile broadband.
+19:02 < mchua> #link http://wiki.sugarlabs.org/index.php?title=Sugar_on_a_Stick_meetings#Agenda
+19:02 < mchua> Anything to add?
+19:02 < mchua> Otherwise this is going to be a very quick meeting, which is no problem. :)
+19:03 < erikos> mchua: hey
+19:03 < erikos> mchua: i would like to talk about testing ;p
+19:03 < mchua> erikos: Ok, will do.
+19:03 < satellit_> +1
+19:04 < mchua> #topic upcoming deadlines
+19:04 < mchua> First, let me say that there are a lot of good ongoing convos on the soas mailing list, which should continue there - I don't think there's anything specific from that we need to bring up here today.
+19:05 < mchua> In terms of actual deadlines, we're driven by the Fedora release calendar. The next one coming up is the Beta Change deadline (all changes will have to be pushed by this time. pending submissions are insufficient.)
+19:05 < mchua> This is 9/7 but I think it may have gotten pushed back a week so we may have a littl emore time.
+19:05  * mchua checking now
+19:06 < mchua> Yes, it is on 9/14 now.
+19:06 < mchua> #info Beta change deadline - all chnages must be pushed by 9/14
+19:06 < erikos> https://fedoraproject.org/wiki/Releases/14/Schedule
+19:06 < mchua> changes, sorry.
+19:06 < mchua> gah latency.
+19:06 < mchua> #link http://fedoraproject.org/wiki/Releases/14/Schedule
+19:06 < mchua> thanks erikos!
+19:06 -!- rgs [~rgs@77.210.18.56] has joined #sugar-meeting
+19:06 < mchua> #topic feature proposals
+19:06 < mchua> #info skipping - feature freeze is past
+19:06 < mchua> #topic QA
+19:06 < mchua> erikos: go!
+19:07 < erikos> mchua: a) we need a build to test on ;p
+19:07 < erikos> mchua: i know that peter is working on it
+19:07 < mchua> This is te last thing I'd like to tackle during this meeting since we don't have any proposals for remix naming and I'd like to have something to vote on for that before we actually bring it up.
+19:07 < mchua> (for the record.)
+19:07 < erikos> mchua: (latest snapshots are not loginable)
+19:07 < mchua> erikos: noted.
+19:07 < mchua> erikos: We should set a test day date so we have a milestone to aim at - deadlines help.
+19:08 < mchua> thoughts on when a good one would be?
+19:08 < mchua> maybe shortly after beta chnage?
+19:08 < mchua> The thursday after is 9/23
+19:08 < erikos> mchua: yeah - deadlines do help indeed
+19:08 < mchua> (wow, my typing is terrible today!)
+19:08 < mchua> erikos: so, 9/23 is my arbitrary proposal. How this works for anyone else, I do not know.
+19:09 < mchua> but it would work for me and I could help prep and show up there.
+19:09 < satellit_> soas-i386-20100818.16.iso   http://download.sugarlabs.org/soas/test/  works  can we use it?
+19:09 < erikos> mchua: soas - wise this sounds good
+19:09 < erikos> mchua: for sugar 0.90 - this would be too late
+19:09 < mchua> erikos: eeek. Okay, when is the deadline for that?
+19:09 < erikos> mchua: http://wiki.sugarlabs.org/go/0.90/Roadmap#Schedule
+19:09 < mchua> right-o.
+19:09 < erikos> mchua: actually, we would need heavy testing *now*
+19:09 -!- bernie_afk is now known as bernie
+19:10 < erikos> mchua: we will do our beta - on wednesday
+19:10 < mchua> erikos: Yikes. Okay, so if we get an soas image that's testable, are there people (tabs et al) waiting to attack and test that build?
+19:10 < mchua> whoa, wednesday. wow, the schedule totally snuck up on me this time.
+19:10  * mchua apologizes
+19:10 < erikos> mchua: at least we can announce it
+19:10 < erikos> mchua: and the feature owners should test etc
+19:11 < mchua> Okay.
+19:11 < mchua> Yeah.
+19:11 < erikos> mchua: i pinged them today
+19:11 < erikos> mchua: and i might get some more involved
+19:11 < erikos> mchua: so we need a build
+19:11 < erikos> mchua: that a) starts
+19:11 < erikos> and b) has the latest packages
+19:11 < mchua> Okay. Trying to figure out the best way to unblock you on that.
+19:11 < erikos> mchua: i work on it - that people update bodhi
+19:12 < mchua> If it's a matter of karma, I can call for Fedora testers and try to get it through that way.
+19:12 < erikos> mchua: so the packages get from updates-testing in the repo
+19:12 < mchua> I'm not a packager myself so I can't do much more than that, alas.
+19:12 < erikos> mchua: sure, that is helpful, too
+19:12 < mchua> erikos: do you have a list of packages you want updated?
+19:12 < mchua> ("all the ones in the soas kickstart file" works)
+19:13 < erikos> heh
+19:13 < mchua> (although that's sort of terrifying)
+19:13 < erikos> sugar, sugar-toolkit, sugar-datastore, sugar-presence-service, sugar-artwork
+19:13 < mchua> I'm flying mildly blind on this - not sure what you and peter talked about - what I'm trying to get at atm is a checklist of to-do items I can get people to help with
+19:13 < erikos> and telepathy-gabble and telepathy-salut
+19:13 < mchua> so it doesn't block on Peter, who is really hosed this week apparently
+19:14 < erikos> yeah, i can help as well building packages
+19:14 < mchua> Okay, and all those packages should be updated to the latest version... in the SL git, basically? The packages need to be updated and pushed to updates-testing?
+19:15 < erikos> once those are packaged (which is the easy part) they have to be karmadized in bodhi
+19:15 < erikos> to get them in the official repo
+19:15  * mchua can easily send out a call-to-arms saying "packagers! this is a list of packages that need to be in updates-testing at version X or later by $urgent_date" and when those are updated it's a matter of just making the .iso.
+19:15 < erikos> we already failed here lately, even so i made a call on that
+19:15 < mchua> right-o. Karma I can call for.
+19:15 < mchua> failed on karma-fu?
+19:16 < erikos> well, if i am the only one... I have only one vote ;p
+19:16 < satellit_> how do we solve non-booting problem?
+19:16  * pbrobinson is here 
+19:16 < pbrobinson> sorry I'm late
+19:16 < mchua> Oh, okay. erikos, would this work - if you can get the correct versions packaged, I can recruit people to test and add karma so we can get them pushed to updates-testing. I think that wouldn't block on anyone else.
+19:16 < mchua> We'd just need to find 3 people who can spend an hour installing stuff, that's all.
+19:17 < mchua> erikos: wait, just one more person, because you can test and I can test. woo!
+19:17 < erikos> mchua: right
+19:17 < erikos> mchua: tomeu might help, too
+19:17 < mchua> Hey, pbrobinson. We desperately need a build to test 0.90 on
+19:17 < mchua> erikos: ...if so, then I think we're taken care of
+19:17 < mchua> erikos: if you get the packages in I can get them tested
+19:17 < mchua> probably within 24 hours
+19:18 < erikos> can we aim to have a build by the end of the week?
+19:18 < mchua> pbrobinson: if the packages are in updates-testing, can you pull the lever and make a build from it?
+19:18 < erikos> mchua: one can install the rpms as well
+19:19 < erikos> mchua: but for some testers this might already be a blocker
+19:19 < mchua> the The workflow I'm seeing right now is: (1) erikos updates the sugar, sugar-toolkit, sugar-datastore, sugar-presence-service, sugar-artwork, telepathy-gabble and telepathy-salut to the correct code versions, (2) mchua gets 3 people to test and karma them so they get into updates-testing, (3) pbrobinson makes final build
+19:19 < erikos> (2) they get into updates-testing automatically - with karma they go into the stable branch
+19:20 < mchua> I can do (2) within 24 hours of when erikos sends the "packages are all ready and need karma now!" email (erikos, if you can cc mel@melchua.com on that I'll read it faster.)
+19:20 < pbrobinson> mchua: we'd need to enable updates-testing in the .ks which I don't think the spins wrangler would be happy with
+19:20 < erikos> (3) the builds are done daily, so...
+19:20 < mchua> erikos: d'oh. Right. s/updates/testing/stable, then.
+19:20 < erikos> w only need to fix the login issue
+19:20 < pbrobinson> they go straight to updates-testing. With appropriate karma or a week in updates-testing they go to stable
+19:20 < erikos> pbrobinson: i think we should go through the normal way
+19:21 < mchua> Okay, then it's: (1) erikos updates the sugar, sugar-toolkit, sugar-datastore, sugar-presence-service, sugar-artwork, telepathy-gabble and telepathy-salut to the correct code versions, (2) mchua gets 3 people to test and karma them so they get into stable, (3) erikos or pbrobinson or someone takes the next daily build and makes sure it boots, then announces the test image
+19:21 < pbrobinson> erikos: agreed. Its easy to install them with the enable repo option
+19:21 < erikos> mchua: yup
+19:22 < mchua> erikos: Okay. Are we unblocked then?
+19:22 < pbrobinson> mchua: all the versions of sugar and telepathy are at the latest versions I believe (i've just built the latest ones that have hit sugar-devel)
+19:22 < erikos> mchua: yes
+19:22 < mchua> I'll draft the "plz can haz test" instructions in advance of the packages being done so you don't even have to block on me to send the call for help :)
+19:22 < mchua> but I will test.
+19:22 < erikos> pbrobinson: yeah- you are doing an excellent job! thanks very much for that
+19:23 < mchua> #action mchua draft howto test sugar packages in fedora, send url to list and cc erikos
+19:23 < erikos> mchua: excellent
+19:23 -!- rgs [~rgs@77.210.18.56] has quit [Quit: Leaving]
+19:23 < pbrobinson> erikos: no issues, it generally gives me 5 mins away from switches and SANs in the DC :-|
+19:23 < mchua> Okay. So I'll just wait for erikos to say "all the packages are done and ready for testing+karma!" and then go forth and test and get my testing done.
+19:24 < mchua> I'll watch soas, sugar-devel, and my personal (mel@melchua) inbox for the announce.
+19:24 < mchua> and after that we can think again about a possible test day later on.
+19:24 < mchua> since this is the urget stuff.
+19:24 < mchua> er, urgent.
+19:24 < mchua> erikos: how's that? :)
+19:24 < erikos> mchua: ok, will send pings
+19:24 < mchua> yay!
+19:24 < erikos> mchua: :)
+19:24 < mchua> erikos: anything else?
+19:25 < erikos> pbrobinson: yeah, it can be refreshing
+19:25  * mchua is racing her laptop battery - 13min
+19:25 < erikos> mchua: :)
+19:25 < erikos> mchua: let's focus on that - then we can take care of testing instructions
+19:25 < mchua> Coolness.
+19:25 < mchua> #chair pbrobinson 
+19:25 < mchua> Any other business?
+19:26 < mchua> Then let's wrap and get to it. :)
+19:26 < mchua> thanks folks!
+19:26 < mchua> #ndmeeting
+19:26 < mchua> #endmeeting

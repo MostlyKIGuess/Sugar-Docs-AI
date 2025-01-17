@@ -1,0 +1,92 @@
+Title: Human Interface Guidelines/Activities/Activity Bundles
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/Activities/Activity_Bundles
+--------------------------------------------------------------------------------
+english
+|
+español
+|
+한국어
+HowTo
+[ID# 32219]
++/-
+←
+Activity Basics
+Activity Bundles
+Security
+→
+Contents
+1
+The Activity Bundle
+1.1
+Bundle Types
+1.2
+Bundle Versions
+1.3
+Naming Activities
+1.3.1
+Activities as Verbs
+1.3.2
+Meaningful Naming
+1.3.3
+Credit
+1.4
+Activity Tags
+1.5
+Obtaining Activity Bundles
+1.5.1
+Implicit Bundle Sharing
+1.5.2
+Explicit Bundle Sharing
+1.6
+Where Are Bundles Stored?
+1.7
+Removing Bundles
+The Activity Bundle
+API Reference
+Activity Bundle technical specifications
+Activities will exist in the form of bundles.  These bundles will manifest as groups of related files—source code, images, documentation, etc—that compose a given activity.  As self-contained modules, the distribution and installation of an activity distills to a simple transfer of the activity bundle to a laptop. Properties stored within a bundle provide information about its version and its creator(s).
+Bundle Types
+OLPC will support a signed "official" bundle type.  Signed bundles have been tested and verified by an authority such as laptop.org or any other organization through which children obtain bundles in some official capacity, such as a country's official repository. This system may support a trickle-up metaphor through which locally signed bundles propagate upward to higher authorities, allowing wider distribution of newly created activities and content to other regions and countries.
+Personal bundles, on the other hand, have been created or modified by an individual among the laptop community. A personal bundle isn't signed or verified by an official source; instead, it is signed or watermarked with the identity of the individual who modified it. This watermark remains attached to the bundle throughout its lifetime. As others modify or change it, their own watermark should be appended to the bundle. This gives a personal bundle some sense of origin and a means through which it is possible to give credit or responsibility.
+Bundle Versions
+Bundles always automatically update to the latest officially signed version present within the laptop's network. If a child's friend has a more recent version of a signed bundle, Sugar will download that newer version and update the laptop automatically.  This requires bundles to communicate a unique bundle identifier and version, as well as their signature if they have one.
+Naming Activities
+OLPC aims to provide a platform which encourages expression through creation.  In support of this idea, activities — not applications — provide the main tools through which objects are created.  Whenever possible, activities should be named with descriptive verbs, or suitable pseudo-verbs, in order to emphasize their function as
+things you do.
+Activities as Verbs
+Activities
+are
+verbs.  As such, the phrase "<activity> with my friends" should make sense.  For instance "draw with my friends," "browse with my friends", "chat with my friends" and "edit text with my friends" all make much more sense than "text editor with my friends."  Similarly, "Tam-tam with my friends" reads as an action, even though you may have never heard "tam-tam" before.  Treating the activity as an action (verb) and not as a thing (noun) maintains the interaction model that the laptop tries to embody.
+Meaningful Naming
+Of course, we don't mean to impose arbitrary limits on the types and number of activities that the platform has the potential to support.  Just because there is a "Draw" activity doesn't mean that one must either find a synonym or come up with a different activity.  (However, note that the former can be a very reasonable approach, as a synonym might actually have subtly different connotations which better support the concept of the activity. For instance, drawing and painting typically imply two very different types of media, dry and wet respectively.  Much is gained when these types of differences are reflected in the nature of the activity, and are not simply arbitrary.)  In some languages,
+verbification
+has become common practice in speech.  Many words function as both nouns and as verbs, indicating the action of creation and the resulting product of that action; additionally, many nouns can also function as verbs.  For instance, if you speak English, you've probably "Googled" something in the past few days.  Many nouns, not just proper ones, can be used in a similar manner.
+Additionally, while straightforward names can simplify the interface and provide a means of understanding an activity before entering it, compound names may also be used.  Providing a modifier, such as an adjective, can personalize the activity and provide that extra bit of information which differentiates it from similar ones. For instance: "Finger Paint."  However, please refrain from resorting to simple
+one-upmanship
+in the form of "Super Sketch" or "Ultra Paint," especially if another activity already uses the modified base.  Such names only serve to indicate superiority, and don't provide any useful feedback about the particular activity which makes it unique or useful.  Providing a meaningful name goes a long way to making the activity intuitive and enticing to the children using it.
+Credit
+Finally, please avoid integrating the name of yourself or of your company into the name of your activity.  As an open-source initiative we fully believe in giving due credit, but the name of your activity doesn't provide the appropriate place for accreditation.
+Activity Tags
+Tags provide additional information about the context of a specific activity, enabling powerful searching on the Mesh for generalizations or categories of activities.  For instance, searching for "game" should return the "Memory," "Chess," and "Tic-Tac-Toe" activities.  Likewise, searching for "drawing" should return any activities that relate to drawing, painting, sketching, etc.
+Obtaining Activity Bundles
+Officially signed bundles should spread freely across the mesh Neighborhood; their information and the bundles themselves should be readily available to anyone within communication range. Installation and updates should occur implicitly.
+While personal bundles are slightly more restricted, current thinking would limit distribution of personal bundles amongst a child's friends only. This should help limit the destructive power of a malicious bundle from spreading across the Neighborhood, yet still allow people to open up their bundle source code, improve it and share it explicitly.
+We may wish to allow distribution to any Group rather than just to Friends, 
+so that if a child wrote an activity that is useful for her whole class, she
+does not have to add everyone to her Friend group, breaking the metaphor.
+Implicit Bundle Sharing
+Implicit bundle sharing will automatically update signed bundles on a child's machine when the network allows. If a child finds an interesting activity running on the mesh Neighborhood, she will implicitly download and install the activity on her own machine when she joins that activity. Additionally, this provides a means of obtaining completely new bundles, since she doesn't necessarily need to have an older version of the bundle installed prior to joining. Of course, since there will likely be some download time before the activity can begin, a visual indication of the progress will appear during launch.
+In cases where a child joins a group running an older version of an activity she has a newer version of, the same will happen. Her laptop will silently download the older version of the activity so that when she joins, her active instance is service and communication level compatible. However, in such instances the old version will not overwrite the newer version, and will instead remain a transparent detail for compatibility reasons. The newer will remain present on her machine, so that future activities which she initiates begin with the new version, ultimately encouraging the spread of newer bundles.
+We might need some kind of warning when joining an activity on the mesh whose bundle is not signed...
+Explicit Bundle Sharing
+In the case of personal bundles, explicit sharing will be required. This results from the fact that many children may ultimately edit and redistribute new and altered bundle versions of a variety of software; automatic distribution of such modifications is neither secure nor efficient.
+In these cases, activities may be posted to private Bulletin Boards, or distributed directly to a child's friends through the drag and drop metaphors used elsewhere in the interface.
+Where Are Bundles Stored?
+The Journal keeps a record of all bundles on the laptop. Installing a bundle creates an entry that indicates who the child downloaded the bundle from and its version. If she installed the bundle through the joining of an activity, the activity entry in the journal will reference the newly updated bundle.  Of course, once stored within the journal, the Bundle will be available for activation within the Actions section of the Frame.
+Removing Bundles
+The journal entry for an activity bundle also allows for its removal; it is deleted in the same way one would remove any other item from the Journal.
+←
+Activity Basics
+Activity Bundles
+Security
+→

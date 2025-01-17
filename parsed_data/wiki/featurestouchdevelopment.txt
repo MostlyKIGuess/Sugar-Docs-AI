@@ -1,0 +1,284 @@
+Title: Features/Touch/Development
+URL: https://wiki.sugarlabs.org/go/Features/Touch/Development
+--------------------------------------------------------------------------------
+This page is about the development of the touch feature for the Sugar interface. Each item has a detailed implementation plan. The design decisions are based on these related pages:
+Sugar Shell Touch Input
+Sugar Shell Touch Input Talk
+On Screen Keyboard
+Activity Touch Input
+Contents
+1
+Todo (essential)
+1.1
+On screen keybord (OSK)
+1.1.1
+Canvas auto panning based on input focus
+1.1.2
+Show Frame or OSK, never both
+1.1.3
+Hide OSK key on OSK
+1.1.4
+Show OSK button on device Frame edge
+1.1.5
+Sugar theme
+1.1.6
+Internationalisation
+1.1.7
+Multilingual
+1.1.8
+Landscape/portrait
+1.1.9
+Reveal on text input focus, auto **dismiss** on loss of focus
+1.1.10
+Don't auto reveal in laptop mode, only ebook mode
+1.2
+Text selection
+1.3
+Drag scrolling support
+1.4
+Hide/show mouse cursor based on input method
+1.5
+Palette behaviours
+1.6
+Frame
+1.7
+Switch between Views
+1.8
+Switch between activities
+1.9
+Gestures
+1.10
+Home view
+1.11
+Neighbourhood view
+1.12
+Journal
+1.13
+Combobox
+1.14
+Touch & hold '==' right click equivalent
+1.15
+Visual feedback for button presses
+1.16
+Visual feedback for touch and hold
+2
+Todo (ideal)
+3
+Todo (polish)
+4
+Done
+5
+Test
+5.1
+Apply patches to Sugar
+5.2
+Patches
+5.3
+Restart Sugar
+Todo (essential)
+On screen keybord (OSK)
+Canvas auto panning based on input focus
+maliit-framework: Emit GtkIMContext::clear-area on VKB relocations
+GTK+ branch from Carlos
+patch for the sugar-toolkit-gtk3
+to listen in the 'request-clear-area' and 'unset-clear-area' signal
+Show Frame or OSK, never both
+When the OSK is up and the frame is revealed the OSK should go away, same when the Frame is up and the OSK is revealed (manually or automatically) the Frame should hide.
+Maliit-glib API "maliit_input_method_hide"
+.
+Hide OSK key on OSK
+There should be a key on the OSK to manually hide the keyboard. Currently you can already hide the Maliit keyboard by a vertical stroke but that is not as discoverable and does not work as reliable (as of today).
+The
+functionality is already there
+to add it to the style. We just have to add the key in the layout
+(per language)
+.
+Show OSK button on device Frame edge
+There should be a key on the Frame in the device section to manually reveal the OSK.
+Maliit-glib API "maliit_input_method_show"
+,
+testing
+patch that adds a device button, clicking on it shows the OSK (works only when we ported the shell to dynamic bindings
+Sugar theme
+The OSK should have a Sugar theme and good quality font.
+Internationalisation
+e.g. layout covers our accent needs
+Multilingual
+there should be the ability to switch between at least two languages, at the moment this can be done by swiping horizontally, this is not as discoverable and hard to do, would be nice to have a button for that (see iOS)
+add languages, could be done in a control panel section
+Landscape/portrait
+Currently not working anymore,
+upstream Maliit bug
+.
+Reveal on text input focus, auto **dismiss** on loss of focus
+Reveal the OSK when clicking e.g. on a GTK entry (working quite well already)
+Dismiss the OSK when defocus: e.g. in Browse the OSK comes up when clicking in the url entry, clicking on the canvas defocus the entry and hide the OSK (is already working fine), in other places e.g. in the Neighborhood View when the search field is focused we have to see how we can do better, we can experiment with a) not putting the default focus in the search widget; b) on physical keyboard typing auto focus into the search widget. For b) we would need to check there is not some other text input widget in focus, e.g. in Journal view you might be trying to retitle an entry and would not want the search to grab input at that time,
+testing
+patch to defocus when clicking on the canvas
+and
+patch to set the env variable for Maliit
+Don't auto reveal in laptop mode, only ebook mode
+For devices which have a hardware keyboard and a touchscreen the OSK should not be auto revealed in the "laptop mode". You will be able to manually reveal it with the button in the Frame.
+Text selection
+Selection handles
+Cut(?)/Copy/Paste/Speak selection palette
+design discussions
+GTK+ branch from Carlos
+Drag scrolling support
+For example scrolling in the Journal or the activity list view.
+Hide/show mouse cursor based on input method
+When in Ebook mode, or when using the touch screen, the cursor should be hidden. When using the trackpad the cursor should be revealed. Idealy fade the cursor in and out of visibility using alpha if possible.
+Palette behaviours
+Tapping/clicking icons with no primary action should instantly open full palette
+Frame: buddy icons
+central home buddy icon,
+testing
+patch
+Frame: network device icons and the battery icon,
+testing
+patch
+Tapping/clicking toolbar icons with no primary action that are open should close the palette
+e.g. Journal: sort icon
+Home View activity icons: leave behavior as is or always show palette, ideally we have the intermediate screen
+Journal: auto-resume is the primary action when clicking on an activity entry, current behavior is correct here
+Frame
+Expose/hide gesture: reveal/hide the Frame by a swipe in/out gesture, revealing would be a gesture over the frame area into the center and the other way around to hide, will collide when you sketch at the edge of the Paint activity if the gesture is not carefully tuned (a swipe, not slow drag, of short length perpendicular to frame edge, diagonal at corners).
+Button for top left (fallback)
+Use the square game button on the XO as a Frame button,
+testing
+patch
+do not hide frame on mouse out, do hide frame when going to a hot corner (and frame is visible),
+testing
+patch
+hide frame when an activity is selected (todo: hide as well when resume in the palette is clicked),
+testing
+patch
+(the problem is when you want to get to the secondary options - use touch & hold ?, the resume option should be more visible as primary option - hint at separator)
+hide frame when a zoom level is selected,
+testing
+patch
+Switch between Views
+use Frame (see Frame section)
+discuss: use Gesture (pinch/zoom, or horizontal swipe)
+Switch between activities
+use Frame (see Frame section)
+discuss: use Gesture (horizontal swipe)
+Gestures
+we want the following gestures to be supported in Activities: touch-and-hold, swipes (left/right/up/down), and pinch-to-zoom
+we need global gestures as well (e.g. Frame)
+http://git.gnome.org/browse/gtk+/commit/?h=gestures
+Home view
+Disable Activity icon dragging in fixed layouts
+e.g. allows easier access to long hold of Activity icon to access palette
+Neighbourhood view
+Remove primary action from AP icons (raise palette),
+testing
+patch
+Remove primary action from ad-hoc/mesh icons (raise palette),
+testing
+patch
+Remove primary action from shared activity icons (raise palette),
+testing
+patch
+Remove primary action from buddy icons (raise palette),
+testing
+patch
+Journal
+Touch & hold on an entry should invoke full palette
+Dragging an entry needs to work but not prevent the touch and hold palette (if finger moves a little)
+e.g. to copy it to another volume
+see how it is handled in the home screen in iOS for touch & hold and the swipe gesture
+add copy option for the DOCUMENTS folder in the entry Palette and Details View Copy toolbar button
+Detail/List View: Erase (and Duplicate) tools should both raise confirmation alerts
+Combobox
+Single touch of a combo should lock open it's palette and allow drag scrolling,
+Fix from: Carlos Garnacho
+landed in GTK+ 3.5.10
+Should not show blank space when previous selection was near the bottom of the list (not as bad when the scrolling works,
+discussion why technically this is really hard to do
+)
+Up/down menu/combo overflow widgets need to be larger (could probably be done in the theme)
+activity.py
+for HelloWorld activity that has a ComboBox to test with
+Touch & hold '==' right click equivalent
+The right click is the equivalent to touch and hold, e.g. bringing up the Palette immediately.
+Visual feedback for button presses
+Generic solution - use a mouse HW cursor with alpha white 'glow' marking all primary touch events?
+Existing GTK button down highlights work well in toolbars
+Shell canvas area views
+Use grey round rect outline for presses
+AP icons
+Activity icons
+Buddy icons
+Ad-hoc icons
+Only really needed where there is no palette and/or primary action is too slow
+Visual feedback for touch and hold
+Animated circle timer? Carlos did some work on that in GTK+, see in
+this video
+, at ~30 seconds.
+Blinking grey round rect outline
+Todo (ideal)
+Palette behaviours
+Single touch should never trigger hover content
+Touch and hold should raise hover content
+Touching the icon of an open palette should close the palette
+e.g. Journal list sort palette
+Toolbar overflow widget should be same size as Sugar toolbar button icons
+Zoom to content behaviour
+e.g. Browse
+Frame
+Activity Zoom icon (and physical key) should act like Alt-Tab
+Home view
+Improve layouts
+e.g. larger Activity icon usage where possible
+e.g. Increase separation between icons where possible
+Details view
+Alert dialogue needed for Erase toolbar button
+Alert dialogue needed for Duplicate toolbar button
+Accelerometer auto rotate based on rotation when laptop is in ebook mode
+Drag scrolling
+Smooth!!
+Priorities UI redraw over other processes
+e.g. don't stall the UI thread
+Todo (polish)
+Smooth transitions/animations
+Text selection
+Feature extensible selection palette
+e.g. Activity specific formatting
+Home view
+New grid layout option
+Make sure Activities and shell works well in portrait
+e.g. toolbar button overflow in some Activities
+Pre-light hover effects (remove for touch screen input)
+hspan/vspan separators, make sure they are large enough for finger interaction
+OSK
+Subtle key click feedback
+Custom context
+Custom key strips/extras based on Activity
+Predictive text
+Context sensitive
+Locale sensitive
+Activity start/resume screen
+Remove start/resume palette
+Palette options presented in fullscreen UI, before activity pulse loader
+Done
+Test
+Apply patches to Sugar
+yum install gettext GConf2-devel gtk2-devel intltool perl-XML-Parser pkgconfig python pygtk2-devel make gcc
+git clone
+git://git.sugarlabs.org/sugar/mainline.git
+shell
+cd shell
+git checkout 6fbc4188249a6f59cc55381824cf1ec1f90dc5e8 (master has changed already since the patches have been made)
+./autogen.sh --prefix=/usr
+wget
+http://dev.laptop.org/~erikos/touch/0001-Make-the-palette-come-up-on-left-click-for-the-buddy.patch
+git am 0001-Make-the-palette-come-up-on-left-click-for-the-buddy.patch
+make
+sudo make install
+Patches
+The patches are in
+my public home folder
+. They are as well linked for the individual item they fix above. Most of them should be independent from each other, to be sure to not run into any dep issues you need to apply them in order.
+Restart Sugar
+If you want to be able to restart Sugar with the ctrl+alt+bksp command on the XO you can set the Option "DontZap" to "false" in the "ServerFlags" section in the xorg config file (/etc/X11/xorg.conf.d/xo1.75.conf).

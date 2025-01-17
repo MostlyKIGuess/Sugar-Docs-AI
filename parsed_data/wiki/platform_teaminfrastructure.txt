@@ -1,0 +1,94 @@
+Title: Platform Team/Infrastructure
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Infrastructure
+--------------------------------------------------------------------------------
+This page describes the infrastructure map that the Platform Team provides. See also Sweets
+introduction page
+.
+Contents
+1
+Introduction
+2
+Services
+2.1
+obs.sugarlabs.org
+2.2
+activities.sugarlabs.org
+2.3
+packages.sugarlabs.org
+2.4
+sweets.sugarlabs.org
+2.5
+download.sugarlabs.org
+Introduction
+Technologies involved within the Platform Team infrastructure
+Zero Install
+- Decentralized cross-distribution software installation system that Sweets is based on.
+PackageKit
+- Is used as a backend for Zero Install to work with native package management systems.
+Open Build Service (OBS)
+- The hosting and build service.
+addons.mozilla.org (AMO)
+- The source software for
+Activity Library
+.
+The entire workflow is whirling around the following major services:
+<imagemap>
+File:Platform.png
+rect 8 144 192 184
+[1]
+rect 280 160 423 200
+[2]
+rect 504 200 679 240
+[3]
+rect 72 223 239 264
+[4]
+rect 8 296 184 336
+[5]
+desc none
+</imagemap>
+Services
+obs.sugarlabs.org
+The cornerstone component that's intended to be a place to consolidate all the efforts of Sugar doers regarding the sharing of code:
+hosting released sources (so, there is no need in requesting a shell account to upload files to
+http://download.sugarlabs.org
+),
+being a universal build farm for binary-based projects.
+It is an
+instance
+of
+Open Build Service
+.
+In many cases, obs.sugarlabs.org will be used implicitly:
+while uploading a new version from the
+sweets commit
+command,
+while managing already released versions (and uploading new ones using the Web UI) from
+Activity Library
+'s
+Developers Hub
+,
+launching will happen just by calling a sweet URL.
+The only thing required is being registered in the
+Sugar Labs Central Login
+system.
+activities.sugarlabs.org
+This is the
+Activity Library
+. Once obs.sugarlabs.org is in service, the Activity Library will be (for now, it is entirely
+.xo
+based) just a catalog of activities, all downloading will happen from download.sugarlabs.org.
+In the doers' environment, the Activity Library will be a catalog of sweets. In other words, activities.sugarlabs.org might be treated as a front-end for the Sugar development process (where obs.sugarlabs.org is a back-end) and an analog of the current Developer Hub on Activity Library.
+From a usage point of view, only the Zero Install interface URL is needed to obtain a new Activity Library entity; the rest will be done by Sweets under the hood.
+packages.sugarlabs.org
+It is an
+original
+Web interface to Open Build Service. It seems to be an overkill for regular Sugar doers' workflow (since OBS is primarily designed to support a native packages workflow) when Activity Library's Developers Hub can be used as a more appropriate OBS client. But packages.sugarlabs.org will be useful when people need full OBS control for creating native packages (original ones or those based on existing sweets).
+All packages on packages.sugarlabs.org split into several types:
+regular OBS packages,
+aliases that map native packages names of several GNU/Linux distributions into one OBS level name,
+sweets built only for Zero Install usage,
+native packages built based on sweets.
+sweets.sugarlabs.org
+It is being used to host Zero Install feeds produced from sweet sources. After being uploaded to obs.sugarlabs.org, a sweet source will be built on OBS, and the final result will be shared as Zero Install feeds on sweets.sugarlabs.org.
+download.sugarlabs.org
+All files, sources, and binaries, that are hosted or produced on obs.sugarlabs.org, will be finally copied to download.sugarlabs.org. This allows us to reuse the existing mirroring infrastructure.

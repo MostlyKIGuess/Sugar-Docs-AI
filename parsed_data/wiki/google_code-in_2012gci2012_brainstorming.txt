@@ -1,0 +1,55 @@
+Title: Google Code-In 2012/GCI2012 Brainstorming
+URL: https://wiki.sugarlabs.org/go/GoogleCodeIn2012/GCI2012_Brainstorming
+--------------------------------------------------------------------------------
+These are general concepts and areas of opportunity from which individual GCI2012 tasks can be developed and submitted.  We need at least 5 tasks in each category, but beyond that we can have as many as we can think up.
+The GCI categories are:
+Code
+Tasks related to writing or refactoring code
+Documentation/Training
+Tasks related to creating/editing documents and helping others learn more
+Outreach/Research
+Tasks related to community management, outreach/marketing, or studying problems and recommending solutions
+Quality Assurance
+Tasks related to testing and ensuring code is of high quality.
+User Interface
+Tasks related to user experience research or user interface design and interaction
+Examples of tasks created by other organizations participating in GCI2011 can be found here:
+http://www.google-melange.com/gci/homepage/google/gci2011
+Your ideas here
+1) Activity Rescue (code)
+There are abandoned activities that need to be ported to gtk3 or generally resuscitated.  For example, some have been left behind on
+https://dev.laptop.org/git
+and not migrated to Sugar Labs hosting.  Any migration should include i18n (if not already done).  The spreadsheet linked below would be a good place to look for specific activities from ASLO.
+2) Activity internationalization (code)
+There are a number of activities in [activities.sugarlabs.org ASLO] that are either English only or Spanish only.  Each one could of these could be listed as an individual task to refactor for i18n and submit for Pootle hosting. See
+File:ASLO spreadheet Oct 2012.ods
+This idea is being fleshed out so it can be broken into individual taks on this page
+Google_Code-In_2012/Activity_i18n
+.
+3) Sugarizing good Python (or other) programs (code)
+There are nice packages out there that could be readily ported to run as Sugar Activities by various means.  Identifying a number of candidate packages to be sugarized as a GCI task would enhance the Sugar user experience in ways we have not had adequate time to do.
+For example, it would be wonderful to empower "bootstrapping" of L10n on the XO from within Sugar itself by porting a version
+Virtaal
+as a Sugar Activity capable of reading and writing the PO/MO files already present in the source code (if coupled with glibc locale availability),
+4) Infrastructure tasks (QA)
+For example, I'll be creating a task for a new pootle-helper script to do msgfmt checks on PO files as part fo our regular Pootle cron jobs to prevent build-breakers in PO files from going unnoticed for more than 24 hours.
+5) GTK-3 conversion (code, documentation)
+We have migrated Sugar to GTK-3 and introspection, but many activities still use the old GTK-2 framework. Migrating these activities would help to stabilize our code base and make long-term maintenance more tractable. Any port should include i18n (if not already done). Also writing documentation about Sugar-specific issues with the porting process would be of great benefit. Rewriting out
+Sugar Almanac
+to reflect GTK-3 would be a task as well. And updating
+Make Your Own Sugar Activities
+.
+6) GST-1 conversion (code, documentation)
+We are also migrating to Gstreamer 1.0, which better supports introspection. Lots of coding to be done to refactor existing programs. Also documentation about Sugar-specific issues.
+7) User eXperience (code, documentation)
+Visual improvements on some of the flagship activities such as enhancing the display with new graphics, visual aids functionality and improved sound effects.
+8) Wiki clean up (documentation)
+see
+http://pe.sugarlabs.org/go/Wiki_Clean_Up
+9) Systematically test compatibility of Activities given for various versions of Sugar
+When browsing
+http://activities.sugarlabs.org
+with the Browse activity, Activities are filtered by compatible versions.  I.e. you are be automatically exposed to the version of the activity that is running fine on your system.  But this is not always the case, either because an Activity developer/maintainer gave a wrong compatibility information, or because some other issue.
+The task is to (1) list versions of Sugar that needs to be tested for this (high priority first - e.g. Sugar on a Stick could be high on that list) and (2) test the most popular activities for these versions.
+When problems are encountered: 1) describe the problem (activity freezes, activity crash, etc.); 2) try to fix it; 3) report to the maintainer and the sugar-devel mailing list.
+The benefit for Sugar is to fix problems in this area.  The benefit for the student is to draft and refine the testing procedure.

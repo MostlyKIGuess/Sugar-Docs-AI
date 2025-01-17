@@ -1,0 +1,190 @@
+Title: Sugar on a Stick/Resources
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Resources
+--------------------------------------------------------------------------------
+Project Home
+·
+Get Involved
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+Project essence and core challenges
+2
+Technical challenges
+3
+Social structures
+4
+Project Planning
+4.1
+Use Cases
+4.2
+Installation Methods
+4.3
+Upgrade Paths
+4.4
+More Information
+4.5
+Home View Design
+4.6
+Initial Home View Activities
+5
+Marketing resources
+Project essence and core challenges
+Sugar on a Stick is a project to design, distribute, and deploy the Sugar Learning Platform
+software
+on inexpensive USB and SD flash storage devices, which people can easily
+carry from home to school to library to clubhouse to boot or run on any computing device
+for seamless continuation of their learning Activities and collaborations.
+Simultaneously, the project must
+overcome the technical challenges of building and distributing a transportable GNU/Linux operating system—in the sense that each installation must work on multiple and diverse computing platforms to provide learners with continuity in their accessibility to friends and activities, and
+develop the social structures to best deploy this new, online, offline, inter-device, resumable, mixed computer, collaborative technical capability within and between the communities where learning occurs.
+Thus,
+distribution
+no longer just means
+getting the software onto an end user's computer
+, where it can be stably configured for a single hardware environment.  The installation must be ready to be picked up and moved to another, wholly different environment.  This goal presents many technical challenges that are new, or made more significant because
+portability
+and
+resumability
+are essential to the project.
+Developing the social mechanisms to imagine, plan, and deploy this leap in technology is also at the core of the project. We must take existing community resources, often old and institutionalized, and reconstruct them around the movements of the learners and their collaborators.  Just as the human brain grows and develops in a social context, the Sugar Learning Platform aims to offer a constantly accessible, electronic, companion set of tools for learning, and ultimately, growing our capabilities in human society.
+Having persistence of availability for the learner's Activities and collaborations permits repeated and deep exploration of concepts and phenomena, and recreates that electronic system into an adaptable learning appendage.
+Technical challenges
+Sugar on a Stick is unique among the
+Fedora Spins
+in that it is designed to be the primary and a resumable portable medium for computing on different computing hardware.  (The installations are not simply demonstrations or temporary stages for a future home, although they may be.)  This feature exposes the software platform to some difficult shortcomings in system capability:
+Hardware interoperability
+For example, we have not yet provided reliable
+Macintosh support
+.
+Software image endurance
+Specifically, the capacity and capability to perform repeated system updates without exhausting the persistent operating system storage.
+The rapidly growing capability of mobile electronics influences society, which, in turn, feeds back new challenges for technologists to fulfill.
+Social structures
+Technical difficulties quickly overwhelm early adopters of Sugar on a Stick, and inhibit advanced experimentation in deployment, despite enthusiasm for the concept. (See
+Sugar on a Stick/TODO
+.)
+The pervasive availability of ever-more-capable cell phones among students, and an anticipated boom in tablet computing devices and their apparently easy-to-use apps (often using touch interfaces) has begun to shift the attention of educators toward rethinking the role of such technology in learning. This should open the door for more techno–social experimentation as it becomes easier for teachers, parents, and all participants in the learning environment to imagine how they might be involved with the new technology for traditional roles.
+The mass of resulting deployments will set standards of expectations for ease of use and will likely stimulate creative improvements in networking and collaborative methods.  Synchronizing tablet and smart phone versions of Sugar is the natural extension of the portable and resumable essence of Sugar on a Stick, where the phone can become both the computer and the storage stick.
+The social–technical feedback cycle presses both traditional educators and traditional technologists who might be comfortable with their current systems and supposedly reliable methods. As Alan Kay has taught, the computing revolution has hardly just begun, and the Sugar on a Stick concepts can surely contribute to the future of learning and computing.
+We need to stimulate more sympathetic technologists to work on Sugar on a Stick technical challenges so that we can advance our partnerships with educators and learners.  See this description of the
+core strengths
+of Sugar Labs that help us meet our mission.
+One potential benefit that Sugar on a Stick might achieve as part of its essence is independence from many current technical and administrative barriers that inhibit free collaboration in learning.  Imagine a field trip where a class visited a museum and, without special preparation, was able to connect their SoaS devices to the computers in the museum's computer or library room and continue group projects and Activities in a routine and safe manner.
+Project Planning
+See
+Sugar on a Stick/TODO
+for some project tasks.
+See
+Sugar on a Stick/Goals
+for some specific deployment/distribution obstacles.
+See our
+Feature blueprints
+tracking system for feature development.
+Use Cases
+This is a list of ways we're working to support SoaS installation and their status.
+TODO:
+replace with a flow chart.
+Sugar:
+On a Stick:
+Mobile booting using USB boot support in BIOS -
+implemented
+Mobile booting using ISO helper CDs -
+implemented
+Mobile virtualization or emulation -
+unimplemented
+Combination of booting and emulation -
+unimplemented
+VMware
+(VMware Player and Appliance on one 8-GB bootable stick, or a 4-GB boot stick and a 4-GB stick with the Appliance) works but is complicated. (Waiting for Fedora 11 to allow VMware Player installation; this workaround uses Ubuntu 9.04 boot stick with VMPlayer.)
+On a fixed hard disk:
+Local booting with storage -
+implemented
+via various distros.
+Local booting with external storage -
+unimplemented
+, students would insert their SoaS stick and the fixed system would operate off their transportable data, and optionally, update their stick's software to the latest image.
+Installation Methods
+Windows/Mac/Linux
+Live USB creator script -
+implemented
+Windows
+SoaS-emu
+- installer for a SoaS appliance on the local machine -
+work in progress
+MokaFive portable player installer -
+investigating
+Virtualization environments
+Boot a SoaS image on a USB device in
+VirtualBox
+.  See this
+discussion thread
+.
+Live CD which boots a Mac OS X version of VirtualBox and uses a SoaS USB device as the guest OS.  See this
+discussion thread
+.
+Live CD which boots to live user and autostarts VMware Player (installed in CD SquashFS). Then students can sequentially insert their USB Stick and work on same PC - "idea" [satellit 07/05/2009]
+Other variations
+Live CD which creates USB sticks -
+works in SoaS Strawberry
+Insert the target USB storage device into your computer,
+Boot from a CD-ROM burnt with the soas-strawberry.iso image,
+Launch Terminal,
+Switch to the root user,
+su -l
+Unmount the USB device,
+umount /dev/sdb1
+Install the live image to the USB device by executing the following,
+single
+command with arguments:
+/mnt/live/LiveOS/livecd-iso-to-disk --noverify --overlay-size-mb 300 --home-size-mb 160 --unencrypted-home --delete-home /dev/sr0 /dev/sdb1
+Note:
+If you have more than 1 hard disc or USB device, you should verify the name of the USB storage device by reviewing the output of the
+mount
+command before step 5 above.
+zyx-liveinstaller (in Terminal) in SoaS v2 Blueberry can be used to make USB installations from the running live CD. - "works for v2 Bluberry, not yet working in Nightly Composes (v3, F13)"
+dd install to USB device with F12 dual mode .iso "works, but offers no persistence"
+liveinst command from terminal, install to USB - "works for v2 Bluberry, not yet working in Nightly Composes (v3, F13)"
+Prebuilt USB .img/vmx/vdi files to download
+[1]
+ext3 real install USB .img file
+[2]
+[3]
+Upgrade Paths
+With a Journal full of learning, how does one upgrade to a new version of Sugar?
+Will Journals restored from a School Server work?
+Is a persistent home overlay usable?
+Is Home.img exchangeable from one device to another?
+More Information
+fedora:Sugar on a Stick
+- The Fedora Project home for the project.
+SoaS Gitorious home
+- Tools to build Sugar on a Stick images.
+SoaS Desktop Manager
+Sugar_on_a_Stick/sdm
+Other
+portable Sugar distributions
+that share the Sugar on a Stick goals.
+Home View Design
+See
+this page
+for ideas about the Home view design.
+Initial Home View Activities
+Discussion of which Activities should be visible on initial display of the Home view is appropriate here.
+See this
+sugar-devel thread
+for the background.
+Marketing resources
+SoaS Blueberry Banner
+SoaS Blueberry Instructions
+SoaS Blueberry Notes

@@ -1,0 +1,276 @@
+Title: Development Team/Almanac/Pango
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/Pango
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Pango is "the core text and font handling library used in GNOME applications. It has extensive support for the different writing systems used throughout the world."
+[1]
+. The end of this section points to some standard documentation of Pango that should help you walk through most of what you want to do. We will simply discuss a few representative examples to help you get started in using Pango to display text in your activity.
+Contents
+1
+How do I create a simple canvas that can render fonts using Pango?
+2
+How do I dynamically set the text in a pango layout?
+3
+How do I set the width of the layout on which my pango text will be rendered?
+4
+How do I control the appearance of fonts on a Pango layout?
+5
+Are there widgets other than drawing areas where you can render fonts using pango?
+6
+How do I load file data in to a Pango layout?
+7
+Notes
+How do I create a simple canvas that can render fonts using Pango?
+Pango is built upon several other technologies, most notably gtk and Cairo. So to get pango working, you have to do a little coordinating between all of these players.
+The diagram below explains the general relationship. Sugar and GTK arrange and control basic UI widgets (labels, notebooks, drawing areas, scroll bars, pull down menus, etc.). On top of these widgets, you can create Cairo and Pango contexts that coordinate the rendering of graphics and text respectively.
+[2]
+Pango is built on top of Cairo, which is a general purpose graphics rendering library. Pango is specialized for text.
+File:Pango-architecture.jpg
+Given this broad architecture, text rendered through Pango requires a UI widget where the text will show up and then a Cairo context that will be used to help do the graphics rendering needed by Pango. The code below shows how I first create an extension of a gtk.DrawingArea class that will be the UI widget where our Pango text will display. This widget, which I call TextWidget, can then be placed somewhere in the larger gtk/sugar UI (we put it on the first page of the main notebook widget for our activity).
+In this structure, most of the meaty code is in the expose_cb() method, which is called when an "expose_event" signal is sent out.
+import gtk
+
+from gtk import gdk
+import cairo
+import pango
+
+class TextWidget(gtk.DrawingArea):
+
+	def __init__(self):
+		
+		gtk.DrawingArea.__init__(self)
+		self.context = None
+
+		#create a pango layout. Leave text argument to be empty string since we want to use markup
+		self.pango_context = self.create_pango_context()
+		self.pango_layout = self.create_pango_layout('')
+		
+		#Use pango markup to set the text within the pango layout
+		self.pango_layout.set_markup('<span foreground=\"blue\">This is some sample markup</span> <sup>text</sup> that <u>is displayed with pango</u>')
+
+		#Make sure to detect and handle the expose_event signal so you can always
+		#redraw the pango layout as appropriate. 
+		self.connect("expose_event", self.expose_cb)
+		self.set_size_request(450, -1)
+
+
+	#The expose method is automatically called when the widget
+	#needs to be redrawn
+	def expose_cb(self, widget, event):
+		
+		#create a CAIRO context (to use with pango)
+		self.context = widget.window.cairo_create()
+
+		#Show the pango_layout in the Cairo context just created. 
+		self.context.show_layout(self.pango_layout)
+Below is the code we put in our initial class that will create the larger UI for the activity. Note how we create a sugar.graphics.notebook.Notebook object as the main container for the "stuff" in our activity. Then we populate this notebook with more UI widget. The one widget of interest for us is the TextWidget object that is placed on the first page of the activity.
+from TextWidget import TextWidget
+from sugar.graphics.notebook import Notebook
+...
+        top_container = Notebook()
+        
+        #Create pages for the notebook
+        first_page = gtk.VBox()
+        #Create a TextWidget object that can display pango markup text and add it to the first page
+        tw = TextWidget()
+        first_page.pack_start(tw)
+
+        second_page = gtk.VBox()
+        third_page = gtk.Frame()
+
+        #Add the pages to the notebook. 
+        top_container.add_page('First Page', first_page)
+        top_container.add_page('Second Page', second_page)
+        top_container.add_page('Third Page', third_page)
+        return top_container
+How do I dynamically set the text in a pango layout?
+You will often want to change or reset the text in a pango layout during the life of your activity. To create such dynamic layouts, the main thing you need to do is reset the text or markup for your pango layout (usually using set_markup()) and to then call the queue_draw()
+[3]
+method which schedules a redraw (effectively forcing an expose_event signal to be thrown).
+The code below uses a standard timeout code pattern
+[4]
+to call a method every 1 second. So the text in the Pango is updated to give the current time roughly every 1 second.
+import gtk
+
+from gtk import gdk
+import cairo
+import pango
+import gobject
+import datetime
+
+class TextWidget(gtk.DrawingArea):
+
+	def __init__(self):
+
+		self.repeat_period_msec = 1000 
+		
+		gtk.DrawingArea.__init__(self)
+		self.context = None
+
+		#create a pango layout. Leave text argument to be empty string since we want to use markup
+		self.pango_context = self.create_pango_context()
+		self.pango_layout = self.create_pango_layout('')
+		
+		#Use pango markup to set the text within the pango layout
+		self.pango_layout.set_markup('<span foreground=\"blue\">This is some sample markup</span> <sup>text</sup> that <u>is displayed with pango</u>')
+
+		#Make sure to detect and handle the expose_event signal so you can always
+		#redraw the pango layout as appropriate. 
+		self.connect("expose_event", self.expose_cb)
+		self.set_size_request(450, -1)
+		self.repeatedly_update_time()
+
+
+	#The expose method is automatically called when the widget
+	#needs to be redrawn
+	def expose_cb(self, widget, event):
+		
+		#create a CAIRO context (to use with pango)
+		self.context = widget.window.cairo_create()
+		
+		#Show the pango_layout in the Cairo context just created. 
+		self.context.show_layout(self.pango_layout)
+
+	#This method calls itself every 1 second and updates the time displayed. 
+	def repeatedly_update_time(self):
+		now = datetime.datetime.now()
+		self.pango_layout.set_markup("<u>Current time:</u> " + str(now))
+		self.queue_draw()
+		gobject.timeout_add(self.repeat_period_msec, self.repeatedly_update_time)
+How do I set the width of the layout on which my pango text will be rendered?
+As the two images below show, you can set the width of your pango layout so that text is output within a narrow or wide space. To do this, you simply call the set_width method in
+pango.Layout
+.
+File:Pango-screenshot-narrow.jpg
+File:Pango-screenshot-wide.jpg
+The sample code below shows how this is done. Note how the width argument itself is in relatively large units (at least for sugar-jhbuild).
+import pango
+...
+class TextWidget(gtk.DrawingArea):
+	def __init__(self):
+                ...
+		#create a pango layout. Leave text argument to be empty string since we want to use markup
+		self.pango_context = self.create_pango_context()
+		self.pango_layout = self.create_pango_layout('')
+
+		#Make the width of the pango layout to be relatively narrow
+		self.pango_layout.set_width(200000)
+
+		#Make the width of the pango layout to be relatively wide. 
+		self.pango_layout.set_width(800000)
+                ...
+How do I control the appearance of fonts on a Pango layout?
+There are two ways in which you can customize how fonts are displayed in your activity.
+You set th default font properties throughout your layout.
+Using
+Pango markup
+, you customize specific blocks of text in your Pango layout.
+To customize the default font throughout your layout, you call the
+pango.Layout.set_font_description()
+method when you create and initialize your Pango layout.
+import pango
+...
+		#create a pango layout. Leave text argument to be empty string since we want to use markup
+		self.pango_context = self.create_pango_context()
+		self.pango_layout = self.create_pango_layout('')
+
+		#Set the default font style for this pango layout
+		self.pango_layout.set_font_description(pango.FontDescription('serif Ultra-bold italic 14'))
+Once you have set the default font, you can change around the appearance of specific blocks of text using
+Pango markup
+. This is done by calling the
+pango.Layout.set_markup()
+method. The markup below shows how text is customized in Pango. The block of text in the
+tag specifically overrides some of the default settings made earlier through set_font_description().
+#Set the markup for our pango layout. 
+		self.pango_layout.set_markup('<span foreground=\"blue\">This is some sample markup</span> 
+<sup>text</sup> that <span style=\"normal\" size=\"small\">is displayed with pango</span>\n\n <u>Current time:</u> ')
+The screenshot below shows how the text above shows up after setting the default font earlier and then customizing with the markup.
+File:Pango-font-control-appearance.jpg
+Are there widgets other than drawing areas where you can render fonts using pango?
+Yes, in fact some widgets like gtk.Label already have built in methods to set pango markup. This makes the process of creating custom Pango text extremely easy. In fact, if you just want some small or simple area of text in your activity UI, you might be better served creating a gtk.Label and using the set_markup() method that comes built in for use with Pango. Of course, if labels, tooltips or other widgets are not sufficient for what you are trying to do with your UI, you will have to revert to using more broad-purpose widgets like the gtk.DrawingArea.
+Below is some code that creates a label, sets its text to be Pango markup and then adds it to some existing UI widget (called first_page).
+import Pango
+...
+        #Create a new label whose text is rendered by Pango
+        mylabel = gtk.Label()
+        mylabel.set_markup("<u>This is pango markup</u> <span foreground=\"orange\">inside a label</span>")
+        first_page.pack_start(mylabel)
+Here's how this label shows up in the UI.
+File:Suagar almanac pango label.jpg
+How do I load file data in to a Pango layout?
+More often than not, you will probably want larger Pango layout areas to display data contained inside of a file rather than data that is conceived within the code of your program. The following code shows a utility method used to read from a file that can then be used to load data in to a Pango layout.
+#### Method getFileData, which takes a file_path and returns the data within that file
+def getFileData(file_path):
+    fd = open(file_path, 'r')
+    try:
+        data = fd.read()
+    finally:
+        fd.close()
+    return data
+With this utility method in place, updating a Pango layout with file data is pretty straightforward:
+import pango
+...
+class TextWidget(gtk.DrawingArea):
+	def __init__(self):
+
+		self.repeat_period_msec = 1000 
+		
+		gtk.DrawingArea.__init__(self)
+		self.context = None
+
+		#create a pango layout. Leave text argument to be empty string since we want to use markup
+		self.pango_context = self.create_pango_context()
+		self.pango_layout = self.create_pango_layout('')
+                ...
+
+
+	#### Method update_file, reloads data from filepath and then updates the Pango layout that
+	# displays the data in the file. 
+	def update_file(self, filepath):
+		self.pango_layout.set_markup(annotateutils.getFileData(filepath))
+		self.queue_draw()
+Notes
+↑
+Pango Reference Manual
+↑
+PYGTK's gtk.gdk Class Referencegtk.gdk.PangoRenderer
+↑
+PyGtk Documentation: gtk.Widget.queue_draw
+↑
+PyGtk/Smooth Animation: Timer Objects

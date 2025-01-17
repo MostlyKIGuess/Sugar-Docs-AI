@@ -1,0 +1,149 @@
+Title: Features/SoaS Creation Station
+URL: https://wiki.sugarlabs.org/go/Features/SoaS_Creation_Station
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+A Custom Remix of Gnome Desktop with livecd-tools and spin-kickstarts
+It can be either a liveCD or An Install CD.
+Targeted Audience: Teachers, Experienced Users, and Deployments.
+This Feature will allow Users to Make Customized Respins by editing kickstart files and Building Custom-Remix.iso files.
+Detailed instuction on how to make remixes will be provided on the Desktop and as a default firefox web page  wiki:[
+http://people.sugarlabs.org/Tgillard/Build-Your-Own-Remix.txt
+Talk:Features/SoaS Remixability#Build_Your_Own_Remix
+This CD provides a complete set of tools for Creating a Custom Remix of Soas.
+Requires installation to a Hard Disk
+to allow Building .iso's.
+Recommended Install Method:
+Sugar_on_a_Stick/ZyX-LiveInstaller
+Works wih zyx.?
+(still testing=looks like livecd-tools may use too many resources with the zyx-liveinstaller file structure)  still testing 09/09/2010 tg
+Managed to do build on 16Gb USB took
+4+ hrs
+.
+NOT PRACTICAL (as need LVM structured install for enough room)
+08/14/2010
+zyx-liveinstaller copies the SCS CD exactly (as It is running on Users Desktop.) Any personal customization is transferred to a normal file system on the users Hard Disk
+zyx-liveinstaller (In fedora repositories) is included on the SCS.iso
+CD also includes gparted; livecd-tools, spin-kickstarts.
+liveinst(Anaconda) does not transfer the custom features of the SCS.iso
+Coordination with the Remixability feature.
+Features/SoaS Remixability
+May require using Anaconda with custom anaconda.cfg and .ks (If this is possible)
+Owner
+Name:
+Thomas Gilliard
+Email: satellit <at> bendbroadband <dot> com
+Current status
+Targeted release: (Soas v4
+Mango Lassi
+)
+Last updated:
+Thomas Gilliard
+06:08, 9 Sept 2010 (PST)
+Percentage of completion: 40%
+Detailed Description
+This CD will Provide the tools, including detailed instructions, for creating a custom Soas-remix.
+References on how to use the SCS will be added to The Customization Guide.
+Benefit to Sugar
+Promotes our already-existing technical flexibility to customize Soas-v4 for Deployments and individuals.
+add/delete desired applications to standard set on .iso
+Targeted uses:
+Multiple Language versions (Including EU Languages?)
+e-book reader
+Older students
+Games
+Shared kickstart files e-mailed to SOAS and posted to wiki allow others to learn how to make a .ks file and try various remixes.
+Posted links to a Catalog of prebuilt remix.iso's, with a description of their use and contents, allows less skilled users to use them.
+Scope
+The technical ability to create remixes has worked for a long time.
+all entries labled xxxx-remix were built using these instructions:
+Current
+Talk:Sugar_on_a_Stick_release_process#Test_Matrix
+Archive:
+Testing/Activity Test Table/Install_Test_Table#Test_results
+The implementation of this feature depends on:
+the editing of the Customization Guide
+http://download.sugarlabs.org/soas/docs/customization-guide
+The creation of a wiki page
+UI Design
+N/A
+How To Test
+Features/SoaS Creation Station/Testing
+1-) Burn .iso to CD and boot from CD
+2-)
+Install to HD with zyx-liveinstaller
+(Icon is on desktop)
+use partitioner (button at top of zyx-liveinstaller window) to partition HD
+/boot 500 ext4
+/     (balance of HD minus 10000)
+swap 10000
+exit partitioner "X" on top right of window
+Hit -> arrow at bottom of zyx-liveinstaller
+Select root (/); boot-(/boot); swap.
+Hit -> arrow at bottom of zyx-liveinstaller to begin install
+3-)
+Reboot to HD when installer completes.
+make a new directory on the Desktop "spin-kickstarts"
+open terminal and enter this command:
+cp /usr/share/spin-kickstarts/*.ks /home/(user)/Desktop/spin-kickstarts
+Follow instructions on wiki:
+Talk:Features/SoaS Remixability#Build_Your_Own_Remix
+4-) Create your own Remix.iso with one of the .ks files in the Desktop spin-kickstarts folder
+edit with gedit the .ks file to add programs etc; save with new name in spin-kickstarts folder
+save-as
+to use new name of your .ks and then copy that name inot the following commands in a new gedit file:
+livecd-creator \
+--config=/home/(user)/Desktop/spin-kickstarts/fedora-livecd-soas.ks \
+--fslabel=SCS-v(2-3-4)-dd/mm/year-Remix --cache=/var/cache/live
+copy-paste the above edited command to a root terminal:
+cd Desktop
+# Desktop
+connect to internet and hit return and Build should begin..(up to 1 hr to finish )
+Burn .iso to CD
+Boot from new Remix
+User Experience
+Wider choices for users of Soas-v4 due to ability to Customize.
+Dependencies
+None that I know of.
+Contingency Plan
+Not Needed
+Documentation
+Log of successful build on 8GB USB:
+Talk:Features/SoaS Creation Station
+Instructions:
+http://people.sugarlabs.org/Tgillard/Build-Your-Own-Remix.txt
+Remixability:
+Talk:Features/SoaS Remixability#Build_Your_Own_Remix
+Release Notes
+None Needed
+Comments and Discussion
+See
+discussion tab for this feature

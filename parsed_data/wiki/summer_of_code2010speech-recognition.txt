@@ -1,0 +1,183 @@
+Title: Summer of Code/2010/speech-recognition
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2010/speech-recognition
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+Q.1:
+What is your name?
+A:       Chirag Jain
+Q.2:
+What is your email address?
+A:       chiragjain1989{AT}gmail{DOT}com
+Q.3:
+What is your Sugar Labs wiki username?
+A:       chiragjain1989
+Q.4:
+What is your IRC nickname?
+A:       chirag
+Q.5:
+What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if   you'd prefer.)
+A:       Hindi and English
+Q.6:
+Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+A:       I am located in India, Delhi 5:30+GMT. I can work from early morning to late midnight.
+I will be honored by working with any mentor you will provide. :-)
+Q.7:
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those  projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+A:       Yes, I have been actively involved in open source projects from last one year. As a Software Engineer, Products and : Services at SEETA, New Delhi, India
+http://seeta.in
+, I am mangaing the design and development of speech related projects. Please visit my profile at
+http://seeta.in/j/team.html
+My Major contributions are:
+1) Lead Developer of Listen and Spell activity
+Listen and Spell is an activity that helps children learn and revise English words through fun and engaging  methdologies. Learn more about the activity by visiting the following links:
+http://activities.sugarlabs.org/en-US/sugar/addon/4234
+http://seeta.in/wiki/index.php?title=Listen_Spell
+http://seeta.in/j/products/listen-spell.html
+Currently I am involved in collaboration implementation in Listen and Spell.
+2) Sugar packaging for Lucid
+Recently I have taken some packaging work for Sugar artwork, sugar presence service and ubuntu sugar remix.
+Please visit the details at:
+http://launchpad.net/~sugarteam/+archive/ppa
+3) ShruthLaikh
+This is also one major project that I have undertaken at SEETA. It is nothing but a more advanced version of Listen and Spell including features like automatic database adaptation, user profile system and automatic feedback generation. For more details please visit:
+http://seeta.in/j/products/shruthlaikh.html
+http://seeta.in/wiki/index.php?title=Shruthlaikh
+One more thing that I would like to mention is that recently I got my first International paper submission accepted at PyCon Asia Pacific Conference going to be held in June 2010 at Singapore.
+http://pycon.sit.rp.sg/conference-1
+This publication was entirely based on how Python and its batteries helped in the development of ShruthLaikh project.
+About your project
+Q.8:
+What is the name of your project?
+A:       Sugar Voice Control
+Q.9:
+My project description. What I am making?
+A:    Sugar has got all the potential to become an excellent educational platform. One particular problem that I feel with current version of sugar is the lack of features that can help even physically challenged users to interact with the system easily. This limits us to reach this section of chidren. But when we have technology, then why to restrict ourselves?
+My project for this summer, aims at integrating Speech recognition into sugar that will open whole new set of opportunities both for Activity developers and end users (especially for physically challlenged.)
+Q.10:
+What is Speech Recognition?
+A:      Although the title is self explanatory, but still I would like to mention that Speech Recognition is a process of converting spoken words into text. You just speak, and the system automatically converts the audio into editable text which can be used for countless purposes that I will show you in the remaining part of this proposal.
+Q.11:
+How Speech Recognition can help Sugar become better?
+A:       As I mentioned previously, speech recognition can help physcially challenged children to interact with a system running sugar. Imagine a child who is not able to operate keypad and touchpad can now open the activities by just speaking "Open Write Activity" or "Open turtle art" etc. They can even type into the write activity and others by simply speaking the appropriate commands. This is more of less like the Microsoft Speech Recognition system, where you can control the entire Windows by just speaking commands.
+Correct Pronunciation is the first lesson given in any educational system. With the help of Speech recognition, we can develop activities to conduct automatic oral testing. We can create language models, for particular set of words and if a child is speaking them correctly then they should be properly recognized or not.
+Implementation of Speech Recognition will provide activity developers an opportunity to create more interactive activities, where users can interact by just speaking words.
+Q.12:
+Who are you making it for and why do they need it?
+A:       With speech recognition system, we will be fulfilling the needs of two types of audience: one is the end users who are not technical and others are activity developers.
+End users (Non technical)
+For end users Speech recognition can act as a medium for controlling the sugar. Now imagine a child who is physically challenged and thus is not able to interact with systems can now open the activities (like write activity) by just saying “Open write activity”. Then he/she can simply interact with the activity with speech recognition running in the background by just saying simple commands. For example, he/she can start typing by saying “Start typing” and then speaking the words that they want to write into the document. Thus sugar will become accessible for physically challenged users which will be a boon to them.
+Activities can be developed around speech recognition that can help children to improve their pronunciation by incorporating oral testing. Oral testing is a method to provide feedback to the users on their pronunciation by recognizing their speech. Thus a child speaking a word “Apple” correctly should be recognized otherwise not. This is only one example and we can create numerous activities around speech recognition. This will make possible to develop more interactive activities for children that can help make sugar a useful educational tool.
+Activity Developers (Technical)
+Activity developers would be primarily interested in the API’s provided for speech recognition. We will provide simple and easy to use interfaces for the developers that will have all the control over speech recognition. The developers of already existing activities can also integrate speech recognition to make them more useful. Consider for example the write activity, we can modify it to take the inputs for typing from Speech recognition system instead of the keyboard.
+Q.13:
+What technologies (programming languages, etc.) will you be using?
+For a speech recognition system, we require a Speech recognition engine that can be integrated into sugar over which we can develop the entire framework. The major requirements of such an engine are:
+1.      It should be capable of running on Linux which is the core of sugar.
+2.      It should be open source so that we can modify it accordingly as per our needs and requirements.
+3.      It should not consume a lot of memory during run time.
+4.      It should be an efficient speech recognizer.
+One such Speech recognition engine that nearly fulfills all of these requirements is Sphinx. Sphinx is an open source speech recognition engine, developed at CMU is one of the top class speech recognizer. It has been developed primarily for Linux and comes under different versions.
+http://www.speech.cs.cmu.edu/
+The currently available versions are:
+1.      Sphinx 3
+2.      Pocket Sphinx
+3.      Sphinx 4
+Sphinx 4 is the latest version which has been developed entirely in JAVA. Sphinx 3 and pocket sphinx are older versions but still are the famous ones. Using Sphinx 4 for integration in sugar does not seem feasible because it has been written in JAVA. So we are left with two options of either using Sphinx 3 or Pocket Sphinx. Now the decision between these two can only be made by experimenting them with sugar. This will also depend on the devices currently being aimed by sugar and thus the main focus will be on OLPC XO laptops. The XOs have 256 MB of RAM and the run time requirement of Pocket Sphinx is around 20 MB. At this time I am not sure about the requirements of Sphinx 3 but this should be more than 30 MB. Pocket Sphinx is light weight and is designed primarily for embedded devices like PDA. Sphinx 3 on the other hand is developed to run on desktops and consumes considerable amount of memory. So at least Pocket Sphinx can be implemented in sugar and the feasibility of Sphinx 3 will be tested soon.
+Language Support
+Sphinx engines require training data sets and language models for recognizing speech. Thus we can set them to recognize many languages. At present they have been tested for recognizing Chinese, Spanish, Dutch, German, Hindi, Italic, Icelandic and Russian successfully. Thus we can target a wide range of users belonging to different parts of world speaking different languages. I have collected all this data after discussion with a Sphinx developer on IRC and I am testing the Sphinx 3 and Pocket sphinx too.
+GUI considerations
+We can provide a Speech recognition button in the sugar frame (for example on Top Right hand side) which when clicked will automatically start recognizing speech in the background. Clicking the same button again will stop the recognition process. On hovering over the Speech recognition button, a sugar palette will be exposed which will display the speech recognition parameters that can be modified by the user. Sugar Controls like Sliders, Palette Buttons, and Combo boxes will be used within the palette to achieve the desired effect.
+A keyboard shortcut like <Alt+S> can also be provided for starting speech recognition. The corresponding hooks for the key shortcut must be made in the Sugar UI source code.
+Gnome Voice Control to Sugar Voice Control
+Gnome Voice Control is a Gnome Desktop Voice Control system which allows to control the entire system by speaking commands.
+The system consists in an application that will be monitoring the audio input(microphone) and when a significant audio signal has been detected, the software catches, processes and recognizes the signal and then executes the desired action over the Gnome Desktop.
+For more details please visit:
+http://live.gnome.org/GnomeVoiceControl
+Gnome Voice Control uses Pocket Sphinx. The idea is to sugarize it to implement "Sugar Voice Conrol"
+A block view of the above implementation plan is as shown below:
+Q.10:
+What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (July 6-13); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Tasks Division:
+As I have already mentioned, a lot of features can be implemented around Speech Recognition. I have sub-divided my proposal into  following parts:
+a) My first priority this summer is to enable "Sugar Voice Control". This includes:
+1. Testing Pocket Sphinx on Sugar
+2. Studying more about Gnome Voice Control.
+3. Sugarizing the Gnome Voice Control.
+4. A command line interface that will start speech recognition in the background and will start taking "Speech Commands".
+b) After the successful implementation of Sugar Voice control, we can then look into providing speech recognized text to unmodified sugar activities. Thus activities like Write can be made to get the required inputs either from Keyboard or through microphone. This includes:
+1.  Providing a Speech recognition button in the sugar frame (for example on Top Right hand side) which when clicked will automatically start recognizing speech in the background. Clicking the same button again will stop the recognition process.
+2.  A key board shortcut like Alt+S for starting speech recognition
+3. Speech recognition control panel for controlling the various parameters.
+c) The last part can be creating an API for providing easy Speech Recognition access to activity developers.
+My aim is to atleast achieve part a) this summer and if time permits I would also like to implement part b). Part c) can be taken care off later.
+Detailed time line:
+Present to May 24 (before actual working for GsoC starts): I will be studying more about Gnome Voice Control and Pocket Sphinx. Upto this time I will be sure and confident about how Sugar Voice Control has to be derived from Gnome Voice Control. Also we require to test the compatibility of Pocket Sphinx on Sugar.
+Weekdays
+During this time, I am involved in studies too. I am having classes from morning 9:30 AM to Evening 4:30 PM. Thus from Present to end May I will be working around 2 hours per day between 8 PM to 11 PM (IST).
+Weekends
+I have weekends off, so I can spare around 4 hours per day on weekends. During weekends I can communicate with my mentor any time suitable for him/her.
+From May end I will be getting my summer break which will continue till August end. Thus I will be completely free of any other distraction and thus can spare all my energies on development. During this period I can spare around 4-5 hours per day. Again I can communicate with the mentor any time as I have the habit of working late night too.
+May 24 to June 13: Sugarizing the Gnome Voice Control to obtain "Sugar Voice Control". Implementation of a Command line interface, which will run the speech recognition in the background and will take the simple speech commands like open an activity, go to home or desktop, close activity etc.
+June 14 - June 25: Test the implemented framework of Sugar Voice Control on limited resource devices like the XO-1.0. Take the community feedback on the current implementation. Add more "Control Commands" to the framework after discussions.
+Thus upto end June we should be completed with the implementation of part a) as mentioned above.
+June 26- July 11: Implementation of Sugar Voice Control button in the GUI. This button will be implemented in the sugar frame (for example on Top Right hand side) which when clicked will automatically start recognizing speech in the background. Clicking the same button again will stop the recognition process. Implementation of Sugar Voice Control Panel as mentioned in the GUI considerations part.
+Thus before mid term evaluations we should be done with the part a) and part b) as mentioned above.
+July 12-July 16: Submitting mid term evaluations.
+July 17 - July 30: Creating different Language models and datasets so that "Sugar Voice Control" can support different types of Languages.
+Aug 1 - Aug 8: Testing the different language models on XOs. Specifically I would like to create a language model for recognizing Hindi control commands. Then I would like to test the implementation in a Primary school situated in my locality.
+Aug 9- Aug 16: Documenting the entire work and specially how to create language models. I have gone through some tutorials on how to create them, but most of them are very complicated. I would like to create a simple documentation, so that anyone can create simple language models of their favourite languages. In this way Sugar Voice Control will be extensible for multilingual users.
+Q.11:
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+A:    I have been working as a Software Engineer at SEETA
+http://seeta.in
+from last 10 months. SEETA is working in collaboration with Sugar Labs and we have undertaken a lot of projects and completed them successfully too. During this time I have gained a lot of knowledge about Sugar platform and how development works.
+I have also been working with MILLEE
+http://millee.org
+project under the guidance of Prof. Matthew Kam, Carnegie mellon university CMU. One project that I would specifically like to mention is Voice Activity Detection on Java based cell phones. I have completed this project during Dec 2009 to Feb 2010, and during this time I have gained decent knowledge of how speech processing works internally. Due to the documentation of the project kept private, I would not be able to share it here. This project aimed at detecting human speech in the mobile recored WAV format audio files.
+I will be getting almost 2.5 months break during my summer vacations right from the end of May to August. Therefore I can concentrate entirely on this project with all my energies.
+You and the community
+Q.12:
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+A:
+My answer:
+If Sugar Voice Control gets successfully implemented, then it will greatly increase the usability of Sugar. This is because now sugar can be controlled by physically challenged children too and thus Sugar will have a reach to a greater section of users.
+Q.13:
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+A:      As I already mentioned, I would like to implement Hindi language models too that will help me testing the framework in my locality. We have some primary schools where students know Hindi very well although they have poor English speaking skills. So testing with Hindi Language and seeing how this affects the children will be a great idea and I am more than happy to set up the Sugar plot.
+Q.14:
+What will you do if you get stuck on your project and your mentor isn't around?
+A:      Ever since I have got my first Computer system and high speed broadband connection, I have always found my best teacher as Google. :-)
+If still the problem can't be resolved then I can always ask it on IRC.
+I can also post the problem on sugar mailing list.
+Q.15:
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I will regularly post my progress reports on my wiki page.
+Link:
+http://wiki.sugarlabs.org/go/chiragjain1989
+I can mail my progress reports to sugar mailing list.
+Miscellaneous
+My Screenshot with my email address
+Q.16:
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "Restart." See the image on the right for an example. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+A:     My development environment screen shot is attached on the right side.
+Q.17:
+What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+A:       Extra Large
+Q.18:
+Describe a great learning experience you had as a child.
+A:     When I was in my primary school there were some teachers who believed in education through entertainment. So they always perform some entertaining activities to teach us. Like for example when I was in third or fourth standard, I always get confused in less than and greater than signs. Even if I could make which number is greater or lesser but I become confuse in selecting the right sign.  So one day I approached my teacher. She removed my confusion by a nice method. She told me that I should give two dots in front of the number which is greater like : and one dot to the number which is lesser like. For example if I have to place sign between 2___ 5 then I would give one dot in front of 2 and two dots in front of 5 like this 2. : 5 
+Now on joining these dots we can get the correct less than sign.
+Q.19:
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+A:     Nopes :-)

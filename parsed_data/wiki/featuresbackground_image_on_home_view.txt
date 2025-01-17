@@ -1,0 +1,72 @@
+Title: Features/Background image on home view
+URL: https://wiki.sugarlabs.org/go/Features/Background_image_on_home_view
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+11.1
+Counter proposal
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Add the ability to set a background image to the Home View.
+Owner
+Name:
+Walter Bender
+Email: <walter at sugarlabs dot org>
+Current status
+Targeted release: 0.100 or 1.0
+Last updated: 22.03.2013
+Percentage of completion: 90%
+Detailed Description
+With Sugar already ported to Gtk3, changing the background in the Home View is easier than before. The image can be set from the Sugar control panel, selecting from the backgrounds in /usr/share/backgrounds or in the Documents folder.
+Benefit to Sugar
+Deployments could customize backgrounds for l12n purposes. Uses could customize the look of their machines. Background could add some structure to the Home View.
+Scope
+The changes would be to sugar/src/jarabe/desktop favoriteview.py and to the Sugar control panel
+How To Test
+Features/Background image on home view/Testing
+User Experience
+We need images where the icons are not confused with the background.
+See the following examples with bad and good images:
+Dependencies
+No new dependencies
+Contingency Plan
+Documentation
+The actual implementation was coded by Agustin Zubiaga for the GCI contest [1]. The following improvements can be useful:
+If there are many images to read, the control panel screen takes time to load, should be good load the images after open the section, or change the mouse cursor to show a clock. (or both)
+Should be good monitor the change in the gconf value, without need restart sugar to see the change in the background.
+Should be good add a label to communicate to the user he can put images in the Documents folder to select.
+Right now, the code try to open every file in the Documents directory. Should be good test if is one image.
+[1]
+http://wiki.sugarlabs.org/go/GoogleCodeIn2012/Homeview_image
+Counter proposal
+Manual has a counter proposal [1] which would tile the background with a pattern.
+[1]
+http://lists.sugarlabs.org/archive/sugar-devel/2013-March/042111.html
+Release Notes
+Comments and Discussion
+See
+discussion tab for this feature

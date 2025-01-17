@@ -1,0 +1,151 @@
+Title: Summer of Code/2015/Pointy
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2015/Pointy
+--------------------------------------------------------------------------------
+Contents
+1
+About You
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About You
+What is your name?
+Andrej Trajchevski
+What is your email address?
+andrejtrajchevski@gmail.com
+What is your Sugar Labs wiki username?
+Andrej_T
+What is your IRC nickname on irc.freenode.net?
+Andrej_T
+What is your first language?
+Macedonian
+Where are you located, and what hours (UTC) do you tend to work?
+Located in Macedonia, UTC+01; Ideally, from 10:00 to 18:00 local time
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+A good part of my open-source contributions can be found on my Github page:
+https://github.com/whoeverest
+Most of them are pet projects I started, or small contributions I made on projects started by other people in our
+local hackerspace KIKA
+This summer I'd like to work on a project that is used by more than 10 people, something more meaningful.
+About your project
+What is the name of your project?
+Pointy, a programming game
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+I would like to create a game that's inspired by
+LightBot
+, a really popular game that teaches you basic programming concepts. Basically, you're a robot (or a turtle) on a grid, and the objective is to "activate" a number of cells on the grid. You do that by dragging and dropping commands in slots: forward, turn left, jump etc. As the game progresses, writing linear procedures is no longer enough, so you're expected to extract common commands to a function or call a function recursively in order to create a loop.
+The game is intended for kids that want to learn programming. More specifically, kids that no longer find
+Spirolaterals
+to be challenging, but aren't ready for the complexity of
+Turtle Blocks
+yet.
+The project will include a level editor, so members of the Sugar community will be able to create and share challenges with their friends.
+It will be written in JavaScript and rendered using HTML canvas. I'll probably use some lightweight library for isometric drawing.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+First part: develop the game itself
+Logic: how the state is changed when a command is executed
+Validation: a set of methods that check if a given state is valid, and if not, that tell you why not (for the sake of easier debugging and faster dev.)
+Rendering: this includes the isometric drawing and working on animations (jump successful / failed etc.)
+GUI: drag-and-drop commands, delete them, rearrange them,
+Second part: develop the level editor
+Scene perspective changes: rotating, scaling
+Adding / removing objects: click to stack cells on the grid, right click to remove (note: this might involve patching Isomer.js because it currently doesn't support click detection. I patch the library or work around it by making the level editor simpler in some way.)
+Positioning Pointy: starting position and rotation
+Adding / removing buttons: the objects clickable by Pointy (the "press" command)
+Third part: developing a web service for sharing levels
+Simple /levels REST endpoint with GET, POST and PUT defined
+Bonus: promo website
+If there's enough time at the end, I'd like to create and host a promo single-page website that explains the game. Or maybe after GSOC.
+Timeline:
+Start
+End
+Description
+May 19
+May 24
+Basic game logic, and validation, state transitions
+May 25
+May 31
+Basic rendering and GUI, drag-and-drop, delete, rearrange commands
+June 1
+June 7
+Adding Pointy animations
+June 8
+June 14
+Level editor tab, GUI controls (add/remove cell or button, rotate grid left/right, add/remove functions, change number of slots)
+June 15
+June 21
+Level editor, implementing click (object) detection
+June 22
+June 27
+Level editor, implementing click (object) detection
+Midterm
+Start
+End
+Description
+June 28
+July 5
+Finishing up the level editor
+July 6
+July 12
+Web service for sharing levels (node.js)
+July 13
+July 19
+Polishing the game and level editor
+July 20
+July 26
+Polishing the game and level editor
+July 27
+August 2
+Integrating with Sugar, making the game an activity
+August 3
+August 9
+Writing documentation, "How to play", "How to install", "How to deploy"
+August 10
+August 16
+Setting up a server to host the web service, writing deploy scripts, infrastructure.
+August 17
+August 22
+<extra week for unplanned things>
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I made a demo of the game:
+http://whoeverest.github.io/pointy-demo/
+(or alternatively a
+video
+)
+For the past year I've been developing games for
+gambit.com
+as a part of a small team. I worked on several major features, including writing Dominoes and Rock-Paper-Scissors from scratch (both backend and frontend) and writing a physics engine for billiards (based on computational pool papers, not live yet).
+3 years ago I successfully completed my first GSOC project for Orange, a data-mining software. I wrote widgets that read images, then processed them and made their pixel data available for further statistical analysis by the rest of the software.
+I'm also a member of Free Software Macedonia and I help run the first hackerspace in MK, which has been active for over 8 years. During the period I've been a member there, I've learned a lot, organized programming/hardware
+courses
+and got familiar with Linux. Here's me
+talking about 3d printing
+. :-)
+I'm at the end of my studies, finishing with GPA 9.2/10
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Andrej T. (andrejtrajchevski@gmail.com):
+The original game that inspired me to work on Pointy had a huge impact; teachers have used it to explain basic programming concepts and I have too. Even
+NYTimes wrote about it
+It's unfortunate that it's written and Flash and that it's proprietary, and in that form it can't be integrated into Sugar, because otherwise it's a great learning resource.
+My project will bring the core of the game to the platform. It will teach kids programming, specifically those who find Spirolaterals to be too easy, but aren't ready for Turtle Blocks and it's complexity.
+Walter Bender:
+<blank>
+Third member of the Sugar community:
+<blank>
+What will you do if you get stuck on your project and your mentor isn't around?
+I'm familiar with web development and googling for solutions; I've been freelancing for 2 years so I'm used to not having someone to ping IRL or them not being around at the moment.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+Other than informing my mentor regarding the progress of the project every week, over email, I'll try to summarize what's been done in a monthly mailing list post. I'll be online on IRC most of the time, too.
+Miscellaneous
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please do
+one
+of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Describe a great learning experience you had as a child.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Please include the category tag at the bottom of your page the Catagory tag for 2015 GSoC applications.

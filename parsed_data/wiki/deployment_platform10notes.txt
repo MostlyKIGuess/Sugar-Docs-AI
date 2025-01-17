@@ -1,0 +1,108 @@
+Title: Deployment Platform/1.0/Notes
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/1.0/Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Conception
+3
+Components
+4
+Getting the release
+5
+Looking forward
+6
+Credits
+Summary
+This is the initial release of
+Sugar Server Kit
+project. It states the fact that basic ideas and core implementations are settled down. This release should not be treated as a release that is ready to use in the field, but see the
+Looking forward
+section.
+Conception
+Sugar Server Kit
+is not a final solution for school servers in the filed but rather a set of components that do its work on its own. They might be composed to the final solution basing on particular needs of deployments of distributors.
+Read the following documents to know more:
+Architecture
+Statement of purpose for releases
+Components
+The components that were initiated at that time:
+sugar-server
+The deamon that provides basic sugar related services, like anti-thief support or Journal backup.
+mace
+The mace is a tool to make final configuration using source templates. Mace is supposed to help with configuration of services on Server based school servers.
+sugar-server-templates
+This component contains configuration templates of basic services that need to be installed and configured on bare servers at school. It is possible to peek at some of these services in a downstream solution to apply using the
+mace
+utility. See the
+demoxo
+demonstration project for example.
+sugaroid
+It is a library and application that mimics regular sugar client behaviour to help with testing
+Sugar Server Kit
+components and
+Sugar Server Kit
+based solutions.
+prosody-sugar
+Sugar specific plugins for
+Prosody
+, lightweight Jabber/XMPP server.
+sugar-server-demoxo
+This is a demonstration of a
+Sugar Server Kit
+based school server solution. It is intended to be run on XO-1 laptops to demonstrate how a
+Sugar Server Kit
+based downstream solution might look, but that's only
+one of the possible ways
+it might be applied.
+Getting the release
+There are no source tarballs released since it is not production targeted release and it is not yet clear what deployment model will be eventually useful. For now there are only version tags in
+git repositories
+.
+In any case, the easiest way to try new project is
+setting up
+school server on a XO-1 laptop. There is also
+instructions
+how to setup it in Fedora-14 environment on a XO-1. This
+Fedora-14 binary repository
+might be also used to install particular component for singular usage.
+Binaries were built only for Fedora-14 distribution because current usage is only Fedora-14. Sugar Server Kit is distribution agnostic project and new distribution builds will be supported on purpose.
+Looking forward
+The next minor,
+1.1
+, release should:
+be the first release that will follow the
+releasing plan
+,
+have reliable set of internal automatic tests of all
+Sugar Server Kit
+components,
+reliable set of system integration automatic tests of
+Sugar Server Kit
+components using
+sugaroid
+application,
+documented on development and deployment levels,
+have at least one production deployment.
+Credits
+Activity Central
+for an initial push to have community level project for school server and for supporting during the work on 1.0 release.
+OLPC School server (XS) project that was used as a prototype for
+sugar-server
+,
+mace
+and
+sugar-server-templates
+components.
+People from Nepalese, Paraguayan and Australian deployments for sharing their experience.
+Especial thanks to
+Paraguay Educa
+for their interest and contribution to
+Sugar Server Kit
+project.
+The
+Wiki Team
+for continuous polishing
+Sugar Server Kit
+wiki pages.

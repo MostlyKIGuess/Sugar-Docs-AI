@@ -1,0 +1,362 @@
+Title: Testing/Reports/Sweets on Debian Wheezy
+URL: https://wiki.sugarlabs.org/go/Testing/Reports/Sweets_on_Debian_Wheezy
+--------------------------------------------------------------------------------
+These tests were carried out on an HP-dx5150 desktop PC, running Debian testing Wheezy amd64 version, with x-display manager, Slim, and Openbox desktop environment. During these tests aptitude shows no missing dependencies.
+Limitation of article
+In Debian testing,
+gnome
+is not marked as a dependency of
+gnome-packagekit
+. This article does not challenge nor assume that "
+gnome-packagekit
+relies on
+gnome
+for full functionality."
+Platform Team/Guide/Sugar via Sweets
+provides the instructions followed.
+sudo apt-get update && sudo apt-get dist-upgrade
+sudo apt-get install gnome-packagekit
+The following extra packages will be installed: app-install-data gnome-desktop3-data gnome-packagekit-data gnome-settings-daemon libelf1 libglib2.0-bin libgnome-desktop-3-2 libgnomekbd-common libgnomekbd7 libpackagekit-glib2-14 libwacom-common libwacom2 libxklavier16 packagekit packagekit-backend-aptcc   python-packagekit
+Restart the machine before proceeding
+In the text that follows, the first line in the code box is the command entered, followed by the response generated.
+wget
+http://download.sugarlabs.org/sweets/sweets/installer.sh
+--2012-07-10 21:35:49--
+http://download.sugarlabs.org/sweets/sweets/installer.sh
+Resolving download.sugarlabs.org (download.sugarlabs.org)... 208.118.235.53, 2001:4830:134:7::11
+Connecting to download.sugarlabs.org (download.sugarlabs.org)|208.118.235.53|:80... connected.
+HTTP request sent, awaiting response... 302 Found
+Location:
+http://mirrors.rit.edu/sugarlabs/sweets/sweets/installer.sh
+[following]
+--2012-07-10 21:35:50--
+http://mirrors.rit.edu/sugarlabs/sweets/sweets/installer.sh
+Resolving mirrors.rit.edu (mirrors.rit.edu)... 129.21.171.98
+Connecting to mirrors.rit.edu (mirrors.rit.edu)|129.21.171.98|:80... connected.
+Saving to: `installer.sh'
+100%[======================================>] 625,993      242K/s   in 2.5s    
+2012-07-10 21:35:52 (242 KB/s) - `installer.sh' saved [625993/625993]
+sh installer.sh
+Sweets self extracting installer
+-- Scan
+ftp://download.sugarlabs.org/sweets/sweets
+for updates
+-- No need in upgrading                                        
+-- sweets launcher was installed to /home/inky/.local/bin
+-- sweets-index service was installed to /home/inky/.local/share/dbus-1/services
+Restart the machine before proceeding
+It is not necessary to do this, but if we ran the "status of dependencies" command right now, the first lines, and last lines of response look like this:
+sweets status --deps dextrose/sugar:emulator                    
+dr dextrose/sugar (0.88.1-17)      
+ir   base/libwnck-python (2.32.0)
+...
+ir   base/xephyr (1.12.1.902-1)
+-- Legend: (-)ok (m)ake (d)ownload (i)nstall (e)rror (r)untime (b)uildtime (bold)local
+This reports (confirming known) that dextrose/sugar still requires to be downloaded - "dr", and libwnck-python and xephyr still require to be installed - "ir".
+Ready to launch first sweet.
+sweets dextrose/sugar:emulator
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-artwork/sugar-artwork-0.88.1-r2-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-base/sugar-base-0.88.0-r4-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-toolkit/sugar-toolkit-0.88.1-r2-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-presence-service/sugar-presence-service-0.88.0-r3-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar/sugar-0.88.1-r17-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-datastore/sugar-datastore-0.88.0-r2-src.tar.gz
+-- Solve dextrose/sugar-base for building                                       
+-- Solve dextrose/sugar-toolkit for building     
+-- Solve dextrose/sugar-presence-service for building
+-- Solve dextrose/sugar-datastore for building        
+-- Solve dextrose/sugar-artwork for building   
+-- Solve dextrose/sugar for building         
+-- Install python-gtk2-dev python-xklavier libxt-dev xdg-user-dirs-gtk libxv-dev python-wnck telepathy-salut icon-slicer python-gobject-dev libxfont-dev libxres-dev libxfixes-dev libdrm-dev libxdmcp-dev python-dev libxcomposite-dev libxss-dev libfontenc-dev intltool hal libice-dev python-cjson python-decorator libxdamage-dev libxmu-dev libcairo2-dev libxpm-dev libgtk2.0-dev libxxf86dga-dev libgconf2-dev libx11-dev libasound2-dev python-rsvg libxext-dev gnome-common python-telepathy libxau-dev libxft-dev python-simplejson libxcursor-dev libfs-dev libtool libxi-dev python-dateutil libdmx-dev python-hippocanvas libxtst-dev metacity libdmx1 libxxf86vm-dev libxp-dev python-xapian xserver-xephyr libxinerama-dev libxp6 libxkbfile-dev libxrender-dev libxvmc-dev icon-naming-utils libxrandr-dev python-gtksourceview2 libsm-dev telepathy-gabble pkg-config
+-- Build dextrose/sugar-base (0.88.0)                                           
+-- Build dextrose/sugar-toolkit (0.88.1)
+-- Build dextrose/sugar-presence-service (0.88.0)
+-- Build dextrose/sugar-datastore (0.88.0)        
+-- Build dextrose/sugar-artwork (0.88.1)   
+-- Build dextrose/sugar (0.88.1)         
+[dix] Could not init font path element /usr/share/fonts/X11/cyrillic, removing from list!
+/home/inky/.cache/0install.net/implementations/sha1new=a7b57623334cb6b79e1ff7c4d7f2b6009e2eafe6/.sweets/local/bin/sugar: 51: /home/inky/.cache/0install.net/implementations/sha1new=a7b57623334cb6b79e1ff7c4d7f2b6009e2eafe6/.sweets/local/bin/sugar: [[: not found
+/home/inky/.cache/0install.net/implementations/sha1new=a7b57623334cb6b79e1ff7c4d7f2b6009e2eafe6/.sweets/local/bin/sugar: 109: /home/inky/.cache/0install.net/implementations/sha1new=a7b57623334cb6b79e1ff7c4d7f2b6009e2eafe6/.sweets/local/bin/sugar: [[: not found
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+E: [pulseaudio] pid.c: Daemon already running.
+E: [pulseaudio] main.c: pa_pid_file_create() failed.
+Window manager warning: Failed to load theme "Adwaita": Failed to find a valid file for theme Adwaita
+The XKEYBOARD keymap compiler (xkbcomp) reports:
+> Warning:          Compat map for group 2 redefined
+>                   Using new definition
+> Warning:          Compat map for group 3 redefined
+>                   Using new definition
+> Warning:          Compat map for group 4 redefined
+>                   Using new definition
+Errors from xkbcomp are not fatal to the X server
+Window manager warning: Failed to load theme "Adwaita": Failed to find a valid file for theme Adwaita
+...
+This command has opened Sugar in an emulator for me, but it is not useable on my machine. No Actiities are visible in F3 Home view, and no avatars are visible in F1 neighborhood view. There is no ~/Activities folder or contents. Clicking on the central avatar (represents the user) => My Settings => Software update, reports updates are available, but offers no means to install them.
+To find out if all dependencies are now fulfilled, run the "status, dependencies" command.
+sweets status --deps dextrose/sugar:emulator
+-r dextrose/sugar (0.88.1-17)
+-r   base/libwnck-python (2.32.0)
+-r   base/pygtk (2.24.0-3)
+-r   base/iso-codes (3.37-1)
+-r   dextrose/sugar-toolkit (0.88.1-2) (>=0.88, <0.89)
+-r     base/gtk (2.24.10-1)
+-r     base/python-dateutil (1.5-1)
+-r     base/alsa-lib (1.0.25-3)
+-r     base/librsvg-python (2.32.0)
+-r     base/hippo-canvas-python (0.3.1-1.1)
+-r     sdk/python-cjson (1.0.5-4)
+-r     base/python (2.7.3)
+-r     base/gconf-python (2.28.1)
+-r     dextrose/sugar-base (0.88.0-4) (>=0.88, <0.89)
+-r       base/decorator (3.3.3-1)
+-r       base/pygobject (3.2.2-1) (>=2.15)
+-r     base/dbus-python (1.1.1-1)
+-r     base/unzip (6.0-6)
+-r     base/x11-libs (1.5.0-1)
+-r   base/xdpyinfo (7.7)
+-r   base/metacity (2.34.3-2) (>=2.27)
+-r   dextrose/sugar-presence-service (0.88.0-3) (>=0.88, <0.89)
+-r     sdk/telepathy-python (0.15.19-2.1)
+-r     sdk/telepathy-salut (0.8.0-2)
+-r     sdk/telepathy-gabble (0.16.1-1)
+-r   base/gconf (3.2.5-1)
+-r   base/simplejson (2.5.2-1)
+-r   dextrose/sugar-datastore (0.88.0-2) (>=0.88, <0.89)
+-r     base/xapian-bindings-python (1.2.10-1)
+-r   base/hal (0.5.14-8)
+-r   dextrose/sugar-artwork (0.88.1-2) (>=0.88, <0.89)
+-r     base/cairo (1.12.2-2) (>=0.1.1)
+-r   base/gvfs (1.12.3-1)
+-r   base/pygtksourceview (2.10.1-2)
+-r   base/dbus (1.6.0-1)
+-r   base/openssh-client (6.0)
+-r   base/dbus-x11 (1.6.0-1)
+-r   sdk/python-xklavier (0.4-4)
+-r   base/xsetroot (7.7)
+-r   base/xephyr (1.12.1.902-1)
+-- Legend: (-)ok (m)ake (d)ownload (i)nstall (e)rror (r)untime (b)uildtime (bold)local
+-- Use -v argument to show all available implementations                        
+-- Use -dd argument to show all dependencies
+Look at first character of each line, all "-" compare with legend: "(-) = ok".
+So all dependencies are reported to have been fulfilled by Sweets.
+Launch a different sweet.
+sweets dextrose/sugar:emulator
+[dix] Could not init font path element /usr/share/fonts/X11/cyrillic, removing from list!
+[dix] Could not init font path element /var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType, removing from list!
+/home/inky/.cache/0install.net/implementations/sha1new=a7b57623334cb6b79e1ff7c4d7f2b6009e2eafe6/.sweets/local/bin/sugar: 51: /home/inky/.cache/0install.net/implementations/sha1new=a7b57623334cb6b79e1ff7c4d7f2b6009e2eafe6/.sweets/local/bin/sugar: [[: not found
+/home/inky/.cache/0install.net/implementations/sha1new=a7b57623334cb6b79e1ff7c4d7f2b6009e2eafe6/.sweets/local/bin/sugar: 109: /home/inky/.cache/0install.net/implementations/sha1new=a7b57623334cb6b79e1ff7c4d7f2b6009e2eafe6/.sweets/local/bin/sugar: [[: not found
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+E: [pulseaudio] pid.c: Daemon already running.
+E: [pulseaudio] main.c: pa_pid_file_create() failed.
+Window manager warning: Failed to load theme "Adwaita": Failed to find a valid file for theme Adwaita
+The XKEYBOARD keymap compiler (xkbcomp) reports:
+> Warning:          Compat map for group 2 redefined
+>                   Using new definition
+> Warning:          Compat map for group 3 redefined
+>                   Using new definition
+> Warning:          Compat map for group 4 redefined
+>                   Using new definition
+...
+Errors from xkbcomp are not fatal to the X server
+This produced a Sugar window. Clicking on central avatar => My Settings => Software update, reports updates are available.
+Make a selection of these six Activities:
+Chat, IRC, Labyrinth, Log, Pippy, Terminal, and click Install selected. Turn to the F3 Home view. Favorites view is empty, look in List view, Activities are there but nothing starts.
+Restart the machine. Launch a different sweet.
+sweets dextrose/sugar:emulator = 0.94
+[dix] Could not init font path element /usr/share/fonts/X11/cyrillic, removing from list!
+[dix] Could not init font path element /var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType, removing from list!
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+Window manager warning: Failed to load theme "Adwaita": Failed to find a valid file for theme Adwaita
+The XKEYBOARD keymap compiler (xkbcomp) reports:
+> Warning:          Compat map for group 2 redefined
+>                   Using new definition
+> Warning:          Compat map for group 3 redefined
+>                   Using new definition
+> Warning:          Compat map for group 4 redefined
+>                   Using new definition
+...
+Errors from xkbcomp are not fatal to the X server
+One or two items start.
+Open the Activity Log. Look for a line for each Activity you have used in the session, the last line of the log file is what I quote here.
+spirolaterals says "no module named pygame", memorise and speak say no module named gst, MeasureActivity no module named pygst, Browse no module named hulahop.
+We already established sweets reported that dependencies are all met.
+We can use -dd argument to show all dependencies:
+sweets status -dd dextrose/sugar:emulator = 0.94
+This produces an even longer list indicating that all dependencies are met.
+From past experience, in Debian these might help:
+sudo apt-get install python-vte python-gst0.10 python-pygame
+and also "Suggested packages"
+sudo apt-get install oss-compat python-gst0.10-dev python-gst0.10-dbg timidity
+Restart
+Turtle Art now runs.
+spirolaterals now runs
+memorise now runs
+and speak now says AttributeError: 'module' object has no attribute 'voices'
+Measure Activity now says ElementNotFoundError: alsasrc
+Maze has an empty log
+sudo apt-get install alsa-utils - already the newest version.
+sweets sdk/sugar:emulator
+Sofware updates reports software is not up to date. Select all, and install all.
+Maze now runs.
+Use host browser to download Chat.xo, unzip to ~/Activities test ok
+Use host browser to download Surf.115.xo, unzip to ~/Activities, test. Fail, log reports - no module named webkit.
+sudo apt-get install python-webkit
+Surf fails again - different issue - ImportError: cannot import name AddressEntry
+sweets sdk/sugar:emulator = 0.88
+Surf now works, but we have no avatars in F1 view.
+During testing Turtle Art now reports: "Failed to start"
+Review
+Past experience with Debian indicates it is often necessary to cycle through all the sweets variants with one or two restarts to get expected activities to work.
+The above makes me believe that at a minimum, with Debian, these packages must be manually installed:
+python-webkit python-gst0.10 python-pygame
+It could be further investigated whether the "suggested" packages python-gst0.10-dbg and python-gst0.10-dev are beneficial.
+Sweets tested:
+dextrose/sugar
+[default is 0.88]
+and dextrose/sugar = 0.94,
+sdk/sugar
+[default is 0.94]
+and sdk/sugar = 0.88.
+Environment Report
+In both 0.94 versions:
+All F1 to F6 keys worked correctly, all views and avatars seen and behave correctly, Software updates works correctly.
+In both 0.88 versions:
+Some function key, some Avatar not showing in F1, and some Software update failure issues.
+Activity Surf works in both 0.88 versions, and in neither 0.94 version.
+Activities Report
+All the following worked in one or both 0.94 versions.
+(the 0.88 versions were not comprehensively tested)
+Abacus v.30.5 - 
+Arithmetic v.2 - 
+Calculate v.40 - 
+Chat v.77 - 
+Dimensions v.39 - 
+Edit v.8 - 
+FlipSticks v.13 - 
+FotoToon v.13 - 
+ImageViewer v.21 - 
+Implode v.12 - 
+IRC v.10 - 
+Jukebox v.26 - 
+Labyrinth v.14 - 
+Log v.29 - 
+Maze v.21 - 
+Memorize v.41 - 
+Moon v.14 - 
+Paint v.43 - 
+Pippy v.49 - 
+Ruler v.19 - 
+Spirolaterals v.23 - 
+StopWatch v.16 - 
+Sugar Commander v.8 - 
+Terminal v.40 - 
+TurtleMachine v.22 - 
+TypingTurtle v.29 - 
+Words v.17.
+The following all reported "Fail to start"
+Browse v.129 - 
+Colors v.15 - 
+Etoys v.113 - 
+Measure v.42 - 
+Physics v.10 - 
+Read v.92 - 
+Record v.87 - 
+Speak v.41 - 
+TamTamMini v.63 - 
+Turtle Art v.149 - 
+TuxPaint v.6 - 
+Write v.79.
+Update, using the -S option
+I have never previously achieved a sweets window with the -S option in Debian.
+Having finished writing this report I have tried:
+sweets -S dextrose/sugar:emulator = 0.94
+Now working activities include:
+Browse v.129 - 
+Physics v.10 - 
+Turtle Art v.149 -
+Checking the dependencies, we see:
+sweets status -d -S dextrose/sugar:emulator = 0.94
+-r dextrose/sugar (0.94.1-19)
+-r   base/libwnck-python (2.32.0)
+-r   base/pygtk (2.24.0-3)
+-r   base/beautifulsoup (3.2.1-1)
+-r   sdk/hulahop (0.8.2-7)
+-r     base/gtk (2.24.10-1)
+-r     sdk/pyxpcom (1.9.2-15) (<2)
+-r       base/python (2.7.3)
+-r       sdk/xulrunner (1.9.2-20) (>=1.9.2, <1.9.3)
+-r         base/x11-libs (1.5.0-1)
+-r         base/cairo (1.12.2-2)
+-r         base/alsa-lib (1.0.25-3)
+-r         base/libidl (0.8.14-0.2)
+-r   base/iso-codes (3.37-1)
+-r   dextrose/sugar-toolkit (0.94.0-3) (>=0.94, <0.95)
+-r     base/python-dateutil (1.5-1)
+-r     base/librsvg-python (2.32.0)
+-r     base/hippo-canvas-python (0.3.1-1.1)
+-r     sdk/python-cjson (1.0.5-4)
+-r     base/gconf-python (2.28.1)
+-r     dextrose/sugar-base (0.94.0-5) (>=0.94, <0.95)
+-r       base/decorator (3.3.3-1)
+-r       base/pygobject (3.2.2-1) (>=2.15)
+-r     base/dbus-python (1.1.1-1)
+-r     base/unzip (6.0-7)
+er
+http://sweets.sugarlabs.org/sdk/pyabiword
+-r   base/python-xlib (0.14)
+-r   base/gst-python (0.10.22-3)
+-r   base/vte-python (0.28.2-5)
+-r   base/xdpyinfo (7.7)
+-r   base/metacity (2.34.3-2) (>=2.27)
+-r   dextrose/sugar-presence-service (0.88.0-3)
+-r     sdk/telepathy-python (0.15.19-2.1)
+-r     sdk/telepathy-salut (0.8.0-2)
+-r     sdk/telepathy-gabble (0.16.1-1)
+-r   base/gnome-python (2.28.1)
+-r   base/gconf (3.2.5-1)
+-r   base/simplejson (2.5.2-1)
+-r   base/lxml (2.3.2-1)
+-r   base/gst-plugins-base (0.10.36-1)
+-r   dextrose/sugar-datastore (0.94.0-1) (>=0.94, <0.95)
+-r     base/xapian-bindings-python (1.2.10-1)
+-r   dextrose/sugar-artwork (0.94.0-1) (>=0.94, <0.95)
+-r   sdk/etoys (4.1.2390-6)
+-r     sdk/squeak (4.4.7.2357-1.1)
+-r   base/gvfs (1.12.3-1)
+-r   base/pygtksourceview (2.10.1-2)
+-r   base/dbus (1.6.0-1)
+-r   base/pygame (1.9.1)
+-r   base/gst-plugins-good (0.10.31-3)
+-r   sdk/csound-python (5.17.11)
+-r   sdk/elements (0.13)
+-r   base/evince (3.4.0-2)
+-r   base/openssh-client (6.0)
+-r   base/dbus-x11 (1.6.0-1)
+-r   base/pywebkitgtk (1.1.8-2)
+-r   sdk/telepathy-mission-control (5.7.1-9) (>=5.6)
+-r     sdk/telepathy-glib (0.18.1-2) (>=0.11.13)
+-r     base/dbus-glib (0.100-1) (>=0.82)
+-r     base/glib (2.32.3-1) (>=2.24)
+-r   sdk/python-xklavier (0.4-4)
+-r   base/xsetroot (7.7)
+er
+http://sweets.sugarlabs.org/sdk/evince-python
+-r   base/xephyr (1.12.1.902-1)
+-- Legend: (-)ok (m)ake (d)ownload (i)nstall (e)rror (r)untime (b)uildtime (bold)local
+-- Use -v argument to show all available implementations
+Use -dd argument to show all dependencies
+sweets status -dd -S dextrose/sugar:emulator = 0.94
+Shows only these lines without "-" as first character.
+mb     sdk/pyxpcom (1.9.2-15) (<2)
+er
+http://sweets.sugarlabs.org/sdk/pyabiword
+er
+http://sweets.sugarlabs.org/sdk/evince-python
+-- Legend: (-)ok (m)ake (d)ownload (i)nstall (e)rror (r)untime (b)uildtime (bold)local
+It would be good to know why, in Debian, dependencies are unpredictable to resolve.

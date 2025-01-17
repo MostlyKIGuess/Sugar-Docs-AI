@@ -1,0 +1,75 @@
+Title: Features/Keyboard CP Section
+URL: https://wiki.sugarlabs.org/go/Features/Keyboard_CP_Section
+--------------------------------------------------------------------------------
+Contents
+1
+Keyboard Control Panel Section
+1.1
+Summary
+1.2
+Owner
+1.3
+Current status
+1.4
+Detailed Description
+1.5
+Benefit to Sugar
+1.6
+Scope
+1.7
+How To Test
+1.8
+User Experience
+1.9
+Dependencies
+1.10
+Contingency Plan
+1.11
+Documentation
+1.12
+Release Notes
+1.13
+Comments and Discussion
+Keyboard Control Panel Section
+Summary
+Keyboard layout and model configuration support in the Control Panel
+Owner
+Name:
+Sayamindu Dasgupta
+Email: <sayamindu@gmail.com>
+Current status
+Targeted release: 0.86
+Last updated: 19th August, 2009
+Percentage of completion: 100%
+Detailed Description
+The control panel extension will allow users to choose and modify their keyboard model and layout settings graphically without going into XKB internals. Ticket
+407
+provides some more information on the issue (including a discussion on what options to expose).
+Benefit to Sugar
+Users in multilingual environment will find it easy to use the layout for their own language in Sugar
+Users using somewhat different keyboards (eg: the one shipped with the Classmate PC) will be able to choose their keyboard model easily from the control panel
+Some (OLPC) deployments have been asking for a way to permanently change the keyboard layout - this will be only possible if Sugar decides to manage the keyboard layouts on its own, which this feature would provide.
+Scope
+Implemented as a Control Panel extension using bindings for libxklavier, a high-level library for manipulating XKB settings
+The Sugar startup code will be affected to enable the keyboard layouts during startup
+How To Test
+Features/Keyboard CP Section/Testing
+Layout configuration can be tested by enabling new layouts and typing inside Activities, etc. (Write and Browse should provide ideal test cases.)
+Model selection needs access to different types of keyboard hardware. Choose the exact vendor and model of your keyboard and test if all keys work as expected.
+User Experience
+Users will see a new section inside the control panel marked as "Keyboards".
+Dependencies
+libxklavier (this is shipped by all major distributions since it is used by GNOME (and probably KDE as well) for keyboard configuration.
+libxklavier-python (this is a new binding, and work on it has been completed (ie: it is release worthy)). This needs to be packaged for various distributions. Also python-xklavier depends on the latest bleeding edge version of libxklavier. However, this version of libxklavier has been
+proposed
+for GNOME 2.28, so I expect version 4.x of libxklavier to be in all distributions when we ship 0.86.
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+Ticket
+407
+Release Notes
+The keyboard configuration section in the control panel lets user graphically change the layout settings of the keyboard, and also lets users choose the keyboard model that they have.
+Comments and Discussion
+See
+discussion tab for this feature

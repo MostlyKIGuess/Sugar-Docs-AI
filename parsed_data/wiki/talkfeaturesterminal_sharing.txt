@@ -1,0 +1,31 @@
+Title: Talk:Features/Terminal Sharing
+URL: https://wiki.sugarlabs.org/go/Talk:Features/Terminal_Sharing
+--------------------------------------------------------------------------------
+This sounds quite fun and useful. Is there a reason this couldn't be integrated with the Terminal activity itself, with these features enabled when the activity is shared? -
+Eben
+02:04, 25 July 2009 (UTC)
+There is no major technical reason that this sharing functionality could not be integrated into the main Terminal activity.  However, there is a security issue.  The Terminal activity exposes the full power of the user over the machine.  On an XO in the default configuration, this includes root access with no password.  Even without root access, anyone participating in the activity could easily "rm -rf .sugar" and delete your entire Journal, etc.  Advising users not to share the Terminal with people they don't trust might be sufficient... I'm not sure how to reach consensus on this point.
+ShareTerm, simply by not being named "Terminal", is treated as a normal activity, and so is sandboxed by Rainbow... if Rainbow is present. If Rainbow is not present, then ShareTerm has no security advantage at all.
+Adding sharing to Terminal itself, in an unsafe fashion, would have the distinct advantage of allowing deep technical troubleshooting and problem-solving directly over the collaboration system.  I could invite an expert onto my machine to perform arbitrary upgrades and maintenance, and watch them as they work. Perhaps you can think of a clever user interface that will ensure "unsafe sharing" is only performed after careful consideration? Perhaps an activity that can only be shared with "Friends"?
+Bemasc
+17:57, 6 August 2009 (UTC)
+Feature Acceptance
+Hi Benjamin,
+what would be the downside of packing the needed packages inside the activity? I guess one criteria for adding to the platform is: is this worthy for several activities? -
+Simon Schampijer
+04 August 2009 (UTC)
+My principal reason for wanting Screen to be a Sugar dependency is to avoid shipping binaries inside .xo bundles.  I strongly believe that .xo bundles should be "noarch", to run on any platform.  I would be happy to ship the Screen source code and compile it on the user's machine, but gcc is not a sugar dependency either.
+Additionally, as Eben noted, the functionality described here is quite close to Sugar's fundamental mission, and there is an argument for including it in Terminal.  Making Screen a Sugar dependency allows us to make these kinds of decisions later.  It also opens a door for other shared activities that make use of a shared command line.
+Bemasc
+17:57, 6 August 2009 (UTC)
+Hey Benjamin,
+Is there a way that this technology could be achieved without the dependencies, while maintaining security?  I'm wondering about sending input and output over encrypted tubes rather than relying on sshd, and using some kind of key event trapping to redirect input instead of screen. It would be nice to keep Terminal's scrollback functionality etc. while sharing.  Perhaps you should post this activity to ASLO with instructions for installing the dependencies.  Bonus points for trapping the lack of the dependencies and showing a legible error message at startup!
+Wade
+12:55, 21 September 2009 (UTC)
+I'm not using SSH here to maintain any kind of security.  In fact, it provides little cryptographic security, because the private key for the session is known and fixed.  I'm using it simply because RSH (unencrypted remote shell) is no longer installed in most distributions.  SSH is being used here to provide bidirectional terminal access over the network.  This is difficult to achieve in any other way due to the notorious vagaries of the TTY subsystem.
+I haven't found any easy way to achieve the desired functionality without using Screen and OpenSSH.  These seem like fairly harmless dependencies to me, since OpenSSH is already installed on almost every Sugar machine, and GNU Screen is already installed on many or most Linux desktops.
+In contrast to Terminal Sharing, Sayamindu has recently implemented a sort of
+"Terminal Watching"
+functionality.  He used the accessibility features of our Terminal widget to scrape the screen and send it over a tube.  This is also interesting, and does not introduce any new dependencies.  It is, however, a less powerful form of collaboration.
+Bemasc
+17:04, 6 December 2009 (UTC)

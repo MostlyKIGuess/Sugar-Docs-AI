@@ -1,0 +1,192 @@
+Title: Platform Team/packagekit-backend-presolve
+URL: https://wiki.sugarlabs.org/go/Platform_Team/packagekit-backend-presolve#The_reason
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+The reason
+3
+Concept
+3.1
+Upsides
+3.2
+Downsides
+4
+Implementation
+4.1
+Overview
+4.2
+Repositories
+4.3
+Usage
+5
+Build from sources
+6
+Getting involved
+Summary
+This is a
+PackageKit
+backend which is intended to be used on restricted systems, like XO-1 laptops, where regular package management routines are too heavy for limited amounts of memory or CPU resources.
+The reason
+The known, for the author of these lines, current practice is:
+olpc-update
+Rsync
+the full system.
+sugar-client
+'s
+unattended update
+in
+Dextrose
+Regular update, but only for particular, much smaller than main ones, repository(ies).
+Both methods are useful for the situations they were created for. But there is a situation when they both become less useful. Having
+Activity Library
+(or its distributed version on regional or school server), XO users might download activities directly from the Internet (or a distributed server). So, it is becoming hard to use:
+olpc-update,
+Activity Library
+might have non-standard dependencies, and it is either hard to keep the olpc-update server up-to-date, or, impractical to install all possible dependencies on every XO.
+sugar-client,
+activity dependencies are, in most cases, from official repositories when sugar-client's 3rd party repository are useless.
+In other words, there is a need to install particular packages from an official Fedora repository and using existing methods is either impractical (olpc-update) or impossible (sugar-client). The fallback to use regular methods (like yum) is also not useful, because they take too much memory (at the beginning) and CPU resources.  This is a special problem on XO-1 laptops.
+The packagekit-backend-presolve method is intended to solve this issue by providing a standard way (it is PackageKit backend, i.e., sugar launching code will be common for all platforms, it will always call PackageKit) to install activity dependencies and consumes as little as possible resources on XO laptops. The backend was designed to support reliable launching from services like
+Activity Library
+and/or
+Sugar Network
+when there are activities that might have non-standard dependencies. This backend might be treated as a temporary solution, i.e., when either the XO is powerful enough, or regular installation procedures take fewer resources, it will be possible to switch to the default PackageKit backend (without making changes in activity launching code).
+Concept
+The general idea is to pre-resolve dependencies for a limited set of top-level packages and store this information on a server. Clients need to download only a small amount of information (compared with the entire list of available packages) to reuse it as-is (and avoid reading a database into memory during the solving process).
+Another important feature is that pre-resolved dependency graphs don't include packages from the base system. In other words, a particular dependency tree doesn't end with the
+glibc
+package. Instead, it ends with the
+sugar
+package. This expedient should drastically reduce the size of trees.
+Finally, missing packages will be installed directly by using the
+rpm -i
+command.
+Upsides
+Users download metadata on a package-by-package basis, thus avoiding the need to download the full packages database;
+After downloading, metadata will be reused as-is, i.e., after checking what packages were already installed, the system will download only missing RPMs, and install them directly by calling the
+rpm -i
+command;
+Activities on resources like
+Activity Library
+or
+Sugar Network
+will be distro-agnostic. That is, they will work unmodified on all platforms that provide PackageKit (which means all mainstream GNU/Linux distributions).
+Downsides
+The project is intended to install only a limited number of top-level packages, i.e., packages that have pre-resolved dependency trees on a server; for example, it is not suitable for a full system update;
+Need to support server-side generation of dependency trees.
+Implementation
+Overview
+The implementation is following these premises:
+Being targeted only to XO laptops (assuming that other platforms are more powerful, thus the standard PackageKit backend can be used);
+Keep less work on the XO side and more work on the server side to make the installation process on a client's side as fast and reliable as possible;
+Implement only priority functionality, such as, install new packages and update installed packages that are presolved;
+Implementation is intended to cover only one-cycle post-deployment system upgrade, i.e., relatively lightweight ones; heavy update, e.g., from one OS release to another one should happen using different methods.
+The key implementation points are the following:
+Clients keep a list of packages installed by the back-end;
+After getting an install request, the back-end will check if the requested package is already installed;
+If not, it downloads a file from a known HTTP location with the requested package's name;
+Downloaded file contains the RPM url for the requested package and a list of package-name/url pairs for all dependencies (starting from some known point);
+All missing packages will be downloaded and installed by directly calling
+rpm -i
+.
+Repositories
+Current implementation is designed to work in close cooperation with the
+Sugar Network
+installing dependencies required by Sugar Activities. To make it possible, Sugar Network supports a
+list of metadata entries
+for all required packages on major GNU/Linux distributions (to support not only XO laptops). Each activity, which requires dependencies, should mention proper metadata entry names in the
+activity.info
+file. Client side startup code will process this dependency list and ask PackageKit to install packages via packagekit-presolve-backend.
+While working, packagekit-presolve-backend will use public
+Sugar Network API
+(look for development API server for recently implemented functionality). The regular operations called from the API server are the following:
+GET
+/packages/OLPC/
+OLPC-RELEASE
+/
+METADATA-ENTRY-NAME
+This request returns a dependency tree for particular entry from the
+metadata list
+. The result will be served in JSON notation in form of:
+"
+ARCH
+": [{"name": "
+PACKAGE
+", "version": "
+VERSION
+", "release": "
+RELEASE
+", "path": "
+PATH
+"}]
+Where
+PATH
+is either relative or absolute path to the targeting rpm on the same server.
+GET
+/packages/OLPC/
+OLPC-RELEASE
+/updates
+Returns JSON list of package names to fetch updates for. Sugar Network server will dynamically generate response according to HTTP
+If-Modified-Since
+header value.
+Usage
+Install
+PackageKit-presolve
+binary package from the
+Sweets Distribution
+Factory repository;
+Set
+DefaultBackend=presolve
+option in
+/etc/PackageKit/PackageKit.conf
+file;
+On XO laptops, it might be useful to disable authentication for installing packages, compose special polkit file like
+/etc/polkit-1/localauthority/50-local.d/pk.pkla
+.
+Build from sources
+Clone source repository from
+Gitorious
+project:
+git clone
+git://git.sugarlabs.org/desktop/packagekit-backend-presolve.git
+Download and untar PackageKit
+sources
+(current presolve backend was testing against PackageKit-0.6.12).
+Prepare PackageKit sources for building presolve backend. Copy
+backends/presolve
+sub-directory to the corresponding directory in PackageKit sources. Patch PackageKit build scenarios to enable presolve building, e.g.,
+[1]
+.
+Go to PackageKit source root directory and build presolve backend.
+autoreconf
+./configure \
+    --prefix /usr \
+    --sysconfdir /etc \
+    --disable-static \
+    --disable-networkmanager \
+    --enable-qt=no \
+    --enable-systemd=no \
+    --with-security-framework=dummy \
+    --disable-cron \
+    --disable-browser-plugin \
+    --disable-gstreamer-plugin \
+    --enable-introspection=no \
+    --disable-local \
+    --disable-strict \
+    --disable-tests
+make -C backends/presolve
+Staying in PackageKit root directory, install binaries.
+make -C backends/presolve install
+Getting involved
+Subscribe to the
+sugar-devel
+mailing list and email with the subject prefixed with
+[PLATFORM]
+.
+Ask your question on IRC channels,
+#sugar
+(not logged) or
+#sugar-newbies
+(logged).

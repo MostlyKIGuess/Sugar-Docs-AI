@@ -1,0 +1,222 @@
+Title: Deployment Platform/XO reference distribution
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/XO_reference_distribution
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Overview
+3
+Start new implementation
+3.1
+Deployment repository
+3.2
+Deployment package
+3.3
+Create images
+3.4
+Post-install support
+4
+Try a reference implementation
+4.1
+XO-1
+4.2
+XO-1.5
+5
+Downstreams
+6
+Resources
+Summary
+This is
+one of the possible
+reference implementations of
+Deployment Platform
+based solutions. The goal is creating a Sugar based downstream distribution to run on OLPC XO laptops by end-users. The created reference implementation is intended to be a template for final deployment distributions.
+Overview
+The task is to create an XO image capable of further support.
+The image will be composed using the
+olpc-os-builder
+utility and will be populated with the following content:
+System packages
+Packages will be installed from the following sources:
+stock Fedora repositories,
+stable OLPC repositories
+,
+one of the
+Sweets Distribution
+repositories (for now, only the
+Factory
+repository is available),
+the
+deployment repository
+to keep packages specific to a particular deployment.
+Initial Sugar Activities
+Deployment Platform
+based solutions are based on
+Sugar Network
+, which makes all Sugar Activities accessible from a local school server or an Internet located one. Nonetheless, it is useful to have some first-time activities already included with the image.
+Activities will be downloaded from the Sugar Network and placed in the
+~/Activities
+directory in the image.
+Deployment configuration
+This is how final systems will be initially configured and supported afterwards. All deployment configuration is placed in a
+meta package
+in the
+deployment repository
+. This meta package contains dependencies and configuration files for all other packages needing to be installed on final systems. Further, if there is a need to change the configuration on already installed systems, the meta package will be updated and spread among users.
+Start new implementation
+These are step-by-step instructions on how to create a new deployment distribution based on this reference implementation.
+Deployment repository
+Make sure that the Fedora repository is accessible from the building host and end-users. If you are looking for a building and hosting environment, try
+packages.sugarlabs.org
+, which is an instance of
+Open Build Service
+.
+If you are using
+packages.sugarlabs.org
+, create a new project, and add the Fedora 14 repository from the
+Sweets Distribution
+project your implementation is based on. For example, there is
+reference project
+based on
+SweetsDistribution:Factory
+repositories.
+Deployment package
+Use the
+reference package
+as a template. Copy its source and tune it for local needs. Look for comments to gain a better understanding.
+The reference package is structured as follows:
+etc/
+These files will be copied as-is. Place here all configuration files you need to support afterwards.
+post.d/*.sh
+These files will be executed right after installing package. Place here routines that can't be represented by configuration files.
+image/
+olpc-os-builder files to
+create XO images
+.
+Makefile
+Handy makefile to create sources tarball.
+deployment.spec
+RPM spec file to create package.
+This is the only package that will be installed implicitly after including the
+sweets
+olpc-os-builder module. Thus, add to the
+deployment.spec
+all dependencies that final systems will require. Note that there is no need in installing Sugar Activities or their dependencies; these routines will be handled automatically after setting the
+offline_activities
+option in the olpc-os-builder configuration file.
+Put sources in the new git project and commit them.
+To create a package tarball, call the command
+make dist
+If you are using
+packages.sugarlabs.org
+, call the
+osc
+utility to upload newly created sources tarball and spec file to OBS.
+Create images
+First of all,
+attach
+the proper
+Sweets Distribution
+repository, and install the
+olpc-os-builder
+package from there. This package is different from upstream; it contains additional modules (see
+image/*.ini
+files for details).
+Then, go to the
+image/
+directory and call one the the following commands to create images:
+olpc-os-builder --additional-defaults common.ini xo-1.ini
+olpc-os-builder --additional-defaults common.ini xo-1.5.ini
+Consult olpc-os-builder's
+home page
+for more information.
+Post-install support
+Post installation support is all about updating packages in the
+deployment repository
+, e.g., update the configuration in the
+deployment package
+. Then, using one of the
+deployment scenarios
+, distribute the package updates among users.
+Try a reference implementation
+To try a reference implementation on an XO laptop, download one of the prebuilt images and proceed with the  instructions below to flash it. Note that images were built using a recent development version of the software. So, images might be used to easily test recent changes.
+Reference XO images might not be up-to-date (since there are not intended to be used as-is by deployments), so, run full system update right after flashing to make sure that system is recent:
+sudo yum update
+XO-1
+First, ensure that your laptop is
+unlocked
+.
+Download
+os.img
+and
+os.crc
+files to the root directory of a USB stick or SD card.
+Drop to the Open Firmware
+"
+ok
+"
+prompt by pressing
+(Esc) repeatedly during boot.
+Type the command:
+copy-nand u:\os.img
+for a USB stick or
+copy-nand sd:\os.img
+for a SD card followed by
+(enter).
+Wait for the display to fill in with color and the "
+ok
+" prompt to return
+Type the command
+reboot
+followed by
+(enter)
+The XO will reboot, finish writing, reboot itself, and take you to the naming and color choice process
+During the reboots, keep the charger connected to allow Open Firmware to self-update.
+XO-1.5
+First, ensure that your laptop is
+unlocked
+.
+Download
+os.zd
+to the root directory of a USB stick
+Drop to the Open Firmware
+"
+ok
+"
+prompt by pressing
+(Esc) repeatedly during boot
+Type the command:
+fs-update u:\os.zd
+followed by
+(enter)
+Wait for the display to fill in with color and the "
+ok
+" prompt to return
+Type the command
+reboot
+followed by
+(enter)
+The XO will reboot and take you to the naming and color choice process.
+Downstreams
+Here is a list of solutions based on this reference implementation:
+Hexokinase
+.
+Resources
+Sources for deployment package
+reference implementation
+.
+Sources for olpc-os-builder
+additional modules
+.
+OBS project
+for reference deployment repository.
+OBS package
+for reference deployment package.
+Binary packages
+for reference deployment repository.
+Prebuilt
+XO images
+.
+Sweets Distribution
+this reference implementation is based on.

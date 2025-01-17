@@ -1,0 +1,214 @@
+Title: Smoke test
+URL: https://wiki.sugarlabs.org/go/Smoke_test
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+How to smoke test
+3
+Image under test
+4
+Installation and setup
+5
+Test cases
+5.1
+Reflecting and exploring with Activities
+5.2
+Servers and collaboration
+5.3
+Installing, modifying, and uninstalling Activities
+6
+Features tested
+6.1
+Activities start
+6.2
+Activities stop
+6.3
+Home view appears
+6.4
+Neighborhood view appears
+6.5
+Friends view appears
+6.6
+Frame appears/disappears
+6.7
+Connects to School Server
+6.8
+Sugar on a Stick Additional Tests
+6.9
+Frame can launch items
+6.10
+Neighborhood view only displays shared sessions
+6.11
+Journal records Activity sessions
+6.12
+Activity titles can be renamed
+6.13
+Multiple Activities can run simultaneously
+6.14
+Activity sessions can be resumed
+Introduction
+Smoke testing is the first quick round of simple tests run on a new software build to verify that it starts and does not catastrophically crash. It is a preliminary to further testing, and is also a fast way to verify the basic integrity of a new development environment, as well as a good tour of basic functionality. The instructions below are for smoke-testing core Sugar using Activities included in Glucose (though it does not test the Activities themselves). To learn how to create smoke tests for other software (such as Activities), see
+Release Team/Creating a Smoke Test
+.
+How to smoke test
+Install
+the current
+Sugar image under test
+. All smoke test cases assume you begin with a clean install of Sugar in Home view with no Activities running.
+Review
+Sugar on a Stick/Getting Involved
+for known problems with your build.
+Execute the smoke test cases below. Test cases are listed in priority order, so if you have limited time, go through them sequentially.
+If a smoke test fails,
+file a bug in Trac
+noting the failure with as much detail and reproduction steps as possible.
+Summarize your results to help other testers at
+Sugar on a Stick/Getting Involved
+.  Please help structure the test results pages. (Needed: a way to report smoke test results for builds.)
+Image under test
+For the 0.84 release, we are using Fedora-based
+Sugar on a Stick
+as our common test image.
+Installation and setup
+See
+Sugar on a Stick
+.
+Test cases
+Reflecting and exploring with Activities
+Begin in Home view with no Activities running.
+Verify:
+Home view appears. (Tests:
+#Home view appears
+)
+From Home view, start the Chat Activity.
+Verify:
+Activity icon pulses while Chat is starting, followed by the Chat interface. (Tests:
+#Activities start
+)
+Switch to Neighborhood view.
+Verify:
+Neighborhood view appears. (Tests:
+#Neighborhood view appears
+)
+Verify:
+Neighborhood view does not display any shared Chat sessions with your colors. (Tests:
+#Neighborhood view only displays shared sessions
+)
+Switch to Friends view.
+Verify:
+Friends view appears. (Tests:
+#Friends view appears
+)
+Switch to the Chat Activity.
+Share Chat session with Neighborhood.
+Switch to Neighborhood view.
+Verify:
+Neighborhood view now displays a shared Chat sessions with your colors. (Tests:
+#Neighborhood view only displays shared sessions
+)
+Switch to Home view.
+From Home view, start the Write Activity.
+Once the Write Activity has started, type something into the main text input area of the Write Activity.
+Rename the Write Activity title to something that is not "Write Activity."
+Verify:
+You are able to rename the Activity title. (Tests:
+#Activity titles can be renamed
+)
+Display the Frame.
+Verify:
+The Frame displays. Battery and volume indicators are visible in the Frame. Neighborhood, Friends, Home, and Activity view icons are visible in the Frame. The Journal icon is visible in the Frame. Both Chat and Write are displayed as active in the Frame. (Tests:
+#Frame appears/disappears
+)
+Switch to Journal view from the Frame.
+Verify:
+The Journal starts and contains an entry for your current Write session at the top with the correct name, as well as an entry for your current Chat session below it. (Tests:
+#Frame can launch items
+,
+#Journal records Activity sessions
+,
+#Activity sessions can be renamed
+)
+Switch to the Chat Activity.
+Verify:
+You are able to access the currently running session of Chat. (Tests:
+#Multiple Activities can run simultaneously
+)
+Stop the Chat Activity.
+Verify:
+That the Naming Dialogue appears, allowing you to enter a new title, a text description, and tags.
+Press enter or click the tick icon to dismiss the Naming Dialogue and accept the defaults.
+Verify:
+The Chat Activity stops. (Tests:
+#Activities stop
+Hide the Frame.
+Verify:
+The Frame hides. (Tests:
+#Frame appears/disappears
+)
+Switch to the Write Activity.
+Stop the Write Activity.
+Verify:
+The Write Activity stops. (Tests:
+#Activities stop
+Switch to Journal view.
+Resume the Write session you just closed.
+Verify:
+The Write session resumes, and the text you typed in earlier is still present. (Tests:
+#Journal records Activity sessions
+,
+#Activity sessions can be resumed
+)
+Close the Write Activity.
+Servers and collaboration
+This test case is not complete.
+This test will require 2 instances of Sugar, likely on 2 computers/virtual machines, with the ability to connect with each other via an AP, XS, or Jabber server.
+This test will verify:
+registering with a XS / connecting to an AP / connecting to a Jabber server
+making and removing friends
+seeing other Sugar users in Neighborhood view
+seeing shared Activity sessions in Neighborhood view
+sharing an Activity session
+inviting another Sugar user to a private Activity session
+accepting invitations to an Activity session
+Installing, modifying, and uninstalling Activities
+This test case is not complete.
+This test will require internet connectivity.
+This test will verify:
+selecting a means of connectivity
+installing a new Activity
+upgrading an existing Activity
+uninstalling an existing Activity
+editing an existing Activity
+Features tested
+This list is not complete.
+Activities start
+#Collaborating, reflecting, and exploring with Activities
+Activities stop
+#Collaborating, reflecting, and exploring with Activities
+Home view appears
+#Collaborating, reflecting, and exploring with Activities
+Neighborhood view appears
+#Collaborating, reflecting, and exploring with Activities
+Friends view appears
+#Collaborating, reflecting, and exploring with Activities
+Frame appears/disappears
+Connects to School Server
+Sugar on a Stick Additional Tests
+Can make a stick
+Stick can boot a computer
+All activities on the stick open and run
+#Collaborating, reflecting, and exploring with Activities
+Frame can launch items
+#Collaborating, reflecting, and exploring with Activities
+Neighborhood view only displays shared sessions
+#Collaborating, reflecting, and exploring with Activities
+Journal records Activity sessions
+#Collaborating, reflecting, and exploring with Activities
+Activity titles can be renamed
+#Collaborating, reflecting, and exploring with Activities
+Multiple Activities can run simultaneously
+#Collaborating, reflecting, and exploring with Activities
+Activity sessions can be resumed
+#Collaborating, reflecting, and exploring with Activities

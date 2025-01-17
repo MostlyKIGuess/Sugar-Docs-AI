@@ -1,0 +1,154 @@
+Title: 0.84/0.83.6 Notes
+URL: https://wiki.sugarlabs.org/go/0.84/0.83.6_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.83.6 Release Notes
+1.1
+Announcement
+1.1.1
+Resume by Default
+1.1.2
+View Source
+1.1.3
+File transfer
+1.1.4
+Read
+1.1.5
+Browse
+1.2
+Compatibility
+1.3
+Glucose modules
+1.4
+Glucose news
+1.4.1
+sugar-toolkit
+1.4.2
+sugar
+1.4.3
+sugar-base
+1.4.4
+sugar-artwork
+1.5
+Fructose modules
+1.6
+Fructose news
+1.6.1
+Chat
+1.6.2
+Read
+1.6.3
+Browse
+1.6.4
+Turtleart
+1.6.5
+Log
+1.7
+Fructose dependencies
+1.7.1
+Hulahop
+Sucrose 0.83.6 Release Notes
+Announcement
+This is Release Candidate 2 for the upcoming 0.84 Release - see the
+Development Team/Release/Roadmap#Schedule
+for more details. Only one more week to go in this release cycle. Please test this release and report all the bugs you find that we are able to fix them in time. A friendly
+BugSquad
+will be available to triage those bugs accordingly and the developers can never have enough bug food. If you have non-bug feedback about features you can use the sugar-devel mailing list to share it with us.
+From a user point of view we want to highlight the following changes that have been made:
+Resume by Default
+Resume by default is now the way we handle activity startup. The option in the Favourites View palette has been removed completely. You can still start a new instance using the 'Start' option in the Activity palette.
+View Source
+There has been some refinements to the View Source dialog. You can access it from the Activity palette in the Frame or by using 'Shift+Alt+V' directly.
+The coloured activity icon represents the source of the activity instance. The outlined activity icon represent the bundle source for the activity itself, the template. We use this to help draw a distinction between the "activity instance" and the "activity bundle"
+Using the uncoloured outline to represent the bundle vs the coloured icon to represent an instance has been the design cue all along.
+File transfer
+Updated the file transfer code to make use of the new icons that Eben draw for us.
+Read
+Morgan fixed an error that was introduced due to changes in Evince.
+Browse
+Martin Langhoff has been adding functionality to authenticate with the Schoolserver. When registered with the server an HTTP Cookie is created to ease the use of services on the Schoolserver in future sessions. Thanks to Daniel Drake Browse propagates the current locale now. This helps to use web services and pages in your mother language. Try it out with the
+addons
+page for example.
+Thanks everyone for your great contributions!
+Compatibility
+When you upgrade a computer running an earlier version,
+The old datastore will be updated to the new format.
+Your old profile (in
+.sugar/default/config
+) will be imported into GConf
+If you later downgrade from Sucrose 0.83.x to an earlier version,
+The datastore is incompatible
+You will be prompted to enter all your profile settings like you are on first boot
+Most of the activities in Sucrose 0.83.x should be compatible with Sucrose 0.82 , the version shipped with
+XO Software Release 8.2.0
+.  An exception is Browse, which depends on new versions of XULRunner and Hulahop.  Read likewise may soon depend on a new version of Evince
+Glucose modules
+sugar-toolkit 0.83.7
+sugar 0.83.8
+sugar-artwork 0.83.5
+sugar-base 0.83.4
+sugar-datastore 0.83.3
+sugar-presence-service 0.83.3
+etoys 4.0.2205-2
+Glucose news
+sugar-toolkit
+Don't try to hide the tray if the activity has none (alsroot)
+#395
+NamingAlert: Icon dependent on the entry type
+#353
+Updated Languages
+sugar
+Revert "Add a favorites mode setting for deciding if the favorites view resumes by default or not"
+Listen for changes in the Activities dir and install/uninstall activities accordingly
+#235
+Fix sorting of favorite icons by installation_time
+#387
+View Source: Option and accelerator in activity frame palette
+View Source: Use activity icon outline for Bundle Source, part of
+#360
+View Source: Hide Python Bytecode files
+#361
+Use the file transfer icons
+Many new translations!
+sugar-base
+Many new translations!
+sugar-artwork
+Icon for a generic document, part of
+#360
+Add view source icon
+Fructose modules
+read 64
+chat 63
+terminal 21
+imageviewer 5
+jukebox 6
+turtleart 36
+browse 104
+etoys 99
+write 61
+calculate 28
+log 17
+pippy 25
+Fructose news
+Chat
+Translation update
+Read
+AttributeError: 'module' object has no attribute 'evince_embed_init'
+#351
+Translation updates.
+Browse
+Create a HTTP Cookie to authenticate with the Schoolserver (Martin Langhoff)
+Deprecation fix: Use bundle_id instead od service_name
+Set intl.accept_languages based on the locale (Daniel Drake)
+New Translations
+Turtleart
+updated activity.info to new format
+added vi, nl, zh_TW, el
+updated pt
+Log
+updated translations
+Fructose dependencies
+hulahop 0.4.9
+Hulahop
+hulahop_get_view_for_window implicitly converted to pointer (Dann Frazier) #20

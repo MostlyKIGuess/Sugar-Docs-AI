@@ -1,0 +1,52 @@
+Title: Sugar Creation Kit/sck/Autostart Virtualbox Mac
+URL: https://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/Autostart_Virtualbox_Mac
+--------------------------------------------------------------------------------
+Set up MacBook to Open VirtualBox
+..automatically when you power it on
+Mac OSX Version 10.6.8
+Open System Preferences/Accounts
+use Spotlight:
+magnifying glass on right end of top bar
+search for "accounts"
+Choose System Preferences| Accounts
+Click on your user
+unlock
+login Options/
+Login Items (to right)
+Click Add(+) button to the right of the accounts list
+Select an application
+VirtualBox  -  Application
+and click add.
+lock
+Boot Mac
+Mac opens directly to VirtualBox VirtualBox Manager
+Pointed to VirtualBox Appliance - (the last one used)
+You can select another on list
+==> Start
+Now when the MacBook is powered on, it will boot up in VirtualBox pointed at the last Virtual Appliance used
+There can be multiple VirtualBox appliances, belonging to individual students/teachers to choose from, on the same Mac.
+Nice school set up for 1 Mac with multiple student's Sugar.
+easy to archive
+with
+export
+function of VirtualBox  - save weekly? backups for each of the students.
+To roll back: import the previously exported file -  quick and easy
+Where we need to simplify
+We need a simple, elegant, Sugar specific UI that is presented to the user when they insert a stick into a running Windows machine.
+Suggestion-1:
+Download the 2 files for VirtualBox import to a 2nd USB stick
+On insertion; the contents of the USB stick pop up
+An example:
+ f16-live-RC4-Desktop-sugaruser-disk1.vmdk
+ f16-live-RC4-Desktop-sugaruser.ovf
+<==click on this file and it immediately imports into VirtualBox (less than 2 Minutes)
+(Only the .ovf file icon is highlighted in the USB stick contents)
+Suggestion-2:
+Export the VirtualBox .vdi hard drive to a 2nd USB and create a new machine that uses the .vdi to run
+/home/(user)/VirtualBox VMs/ (copy all three files to USB-stick)
+Create a new appliance
+use pre-existing hard disk
+Look for .vdi (on USB-stick)
+click on image ^ to enlarge
+Use your browser (back) <== arrow to return here
+This is OS agnostic for a system with an installed VirtualBox 4.1

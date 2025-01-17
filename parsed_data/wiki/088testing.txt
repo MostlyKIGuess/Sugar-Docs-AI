@@ -1,0 +1,218 @@
+Title: 0.88/Testing
+URL: https://wiki.sugarlabs.org/go/0.88/Testing
+--------------------------------------------------------------------------------
+Contents
+1
+Install testing environment
+1.1
+SoaS
+1.2
+Fedora 13
+1.3
+Ubuntu 9.10 (Karmic)
+2
+Testing plans
+2.1
+0.88 Features
+2.2
+Language Tests
+2.3
+Backwards compatibility tests
+2.4
+Connectivity: Different internet connections
+2.5
+Bug Fix testing
+3
+How to write a good bug report
+4
+Meetings
+4.1
+Where
+4.2
+01 March 2010
+4.3
+Testing Day February the 16th
+4.3.1
+When
+4.3.2
+Attendees
+4.3.3
+Testing image
+Install testing environment
+SoaS
+See
+Sugar on a Stick/Beta
+.
+Also see:
+Sugar on a Stick/Installation/Variations
+Fedora 13
+See
+Fedora
+.
+Ubuntu 9.10 (Karmic)
+Follow
+instruction
+to install latest sugar packages and keep them up-to-date.
+Testing plans
+0.88 Features
+For instructions how to test the Features listed below please have a look at the section "How to test" of each Feature page. Please add yourself with your test result to the table of each Feature.
+Enhanced Gettext
+Enhanced Gettext Testing plan
+- Enhanced Gettext adds an extra search path for translation files for Sugar activities. This allows deployments to add and update activity translations independently of the release process.
+Name
+Works
+Comment
+Juan Pérez
+no
+None
+Allow the Sugar user to connect to 3G networks
+3G Support Testing plan
+- This Feature allows the Sugar user to connect to 3G networks using a device in the frame.
+Name
+Works
+Comment
+Jane Doe
+yes
+None
+Font configuration
+Font configuration
+- Distributors/deployers can use a GConf preference to customize the Sugar font size.
+Name
+Works
+Comment
+Marko Marković
+yes/no
+None
+Language Tests
+Test your own native language (can be set using the Control Panel).
+is the 3G Feature listed in the section above fully translated?
+Name
+Language
+Works
+Comment
+Max Mustermann
+German
+yes/no
+None
+Backwards compatibility tests
+Migrate the Journal
+Please verify that the Journal is migrated fine after an update. For example from 0.82 to 0.88.
+Name
+Versions
+Works
+Comment
+Pierre-Paul-Jacques
+0.82-0.88
+yes/no
+None
+Connectivity: Different internet connections
+You should test here if you can connect with a WEP and WPA/WPA2 network, if a wired connection is possible and the 3G connection test can be logged here, too.
+Name
+Connectivity Type
+Works
+Comment
+Pierre-Paul-Jacques
+WEP
+yes/no
+None
+Bug Fix testing
+For particular bugs you can indicate your test results in this section. This can be done by more than one person, just separate name and result by a column.
+Bug
+Description
+Works?
+Tester
+Comment
+#1
+Example
+yes, no, yes
+Walter Bender, Tomeu Vizoso, Gary C. Martin
+None
+#1358
+Synchronize changes made to a Journal entry
+yes/no
+Name
+None
+#330
+Several Access Points with the same essid
+yes/no
+Name
+None
+#1497
+Name input screen is deactivable
+yes/no
+Name
+None
+#1602
+Can't connect to WEP shared key networks
+yes/no
+Name
+None
+#1601
+Intro screen doesn't unfreeze dcon
+yes/no
+Name
+None
+How to write a good bug report
+You should note the following in the bug report:
+the version you are using
+steps to reproduce
+In most cases it is of interest to the developers to look at the Sugar logs. Instructions how to get the logs can be seen
+here
+.
+Meetings
+Where
+Meetings are held online using IRC,
+Internet Relay Chat
+. You can read here more how to use
+IRC
+to join the meeting. The meeting will be taking place on the channel #sugar on the irc.freenode.net server,
+irc://irc.freenode.net#sugar
+, or
+webchat client
+.
+01 March 2010
+When:
+14:00 UTC (9 EST)
+Testing Day February the 16th
+This will be an asynchronous effort, hence "Testing day" :). However we will do two kickstart meetings. One at 14:00 UTC and one at 19:00 UTC. In these meetings we will give a short introduction to what to test and answer questions about how to get the image on a usb-key and of course how to gather the results.
+When
+Kickoff-Meeting 1: 14:00 UTC
+Kickoff-Meeting 2: 19:00 UTC
+Attendees
+Are you planning to attend?  Add your name and your expertise below!
+Name
+Tester
+Feature owner
+Coordinator
+Special skills
+Simon Schampijer
+yes
+yes
+yes
+Sebastian Dziallas
+yes
+no
+soas
+Ryan Kabir
+yes
+no
+no
+Mel chua
+yes
+no
+soas pilot
+community QA, SMW-based test case systems
+Satyaakam Goswami
+yes
+no
+Hindi Translation
+testing
+Gary Martin
+yes
+no
+no
+Testing image
+Soas Testing day build
+(This is the
+latest soas nightly build
+. At the moment starting activities is broken in that build. As this is a daily snapshot it will not be fixed in time for the meeting, hence use the build from the link above.)

@@ -1,0 +1,44 @@
+Title: Activity Team/Activity Development Fedora 17
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Activity_Development_Fedora17
+--------------------------------------------------------------------------------
+Contents
+1
+Develop an Activity under Fedora 17
+1.1
+Install Fedora 17
+1.2
+Install Sugar
+1.3
+Start the sugar emulator
+1.4
+Modify an Activity
+Develop an Activity under Fedora 17
+Developing an activity under Fedora has never been so easy. Here are the most basic steps to get you started.
+Install Fedora 17
+Follow the instructions at the
+Fedora page
+and install Fedora or run it in a virtualized environment.
+Install Sugar
+Now install Sugar, on Fedora this is
+Sugar 0.96
+:
+yum groupinstall sugar-desktop
+For running Sugar under GNOME you can use the 'sugar-emulator' install the package:
+yum install sugar-emulator
+Start the sugar emulator
+You can start the Sugar emulator from the terminal, like:
+sugar-emulator
+Or you can run it from your launcher like any other application:
+Modify an Activity
+The Activities you installed earlier with the 'groupinstall' command are installed under '/usr/share/sugar/activities/'. For developing it is easier to have them available in a user accessible part of the system. Sugar does look in the $HOME/Activities folder for Activities. The folder has to be named to end with '.activity'.
+Start a terminal and create the folder in your $HOME directory and change into it:
+cd
+mkdir Activities
+cd Activities/
+Clone the HelloWorld activity (in the folder helloworld.activity):
+git clone
+git://git.sugarlabs.org/hello-world/mainline.git
+helloworld.activity
+If you know restart the sugar-emulator the activity will be available. You can favorite it in the activity-list view in the Home view.
+So the first fun thing to do is to change the HelloWorld Activity to welcome yourself. Just change the activity.py file in the Activity folder with your favorite editor and restart the Activity. You do not need to restart the emulator for that.
+If you made it this far, you have made a big step to becoming an Activity developer using the tools available in Fedora 17. I hope you enjoyed it.

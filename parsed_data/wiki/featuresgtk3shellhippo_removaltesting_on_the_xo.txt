@@ -1,0 +1,37 @@
+Title: Features/GTK3/Shell/Hippo Removal/Testing on the XO
+URL: https://wiki.sugarlabs.org/go/Features/GTK3/Shell/Hippo_Removal/Testing_on_the_XO
+--------------------------------------------------------------------------------
+Install dependencies
+I have grepped sugar-build scripts/check-system in it's
+shell port branch
+to get them.
+sudo yum install git make
+sudo yum install Xvfb pkgconfig gcc autoconf automake libtool icon-slicer \
+ intltool xorg-x11-apps gnome-common python-devel glib2-devel \
+ gtk3-devel libSM-devel libICE-devel alsa-lib-devel librsvg2-devel \
+ gobject-introspection-devel pygtk2-devel GConf2-devel pycairo-devel \
+ icon-naming-utils gnome-python2-libwnck hippo-canvas-python \
+ python-telepathy python-cjson xapian-bindings-python python-dateutil \
+ pygtksourceview vte python-decorator pygobject3 evince-libs \
+ gnome-python2-rsvg flex bison gtk-doc cairo-gobject-devel \
+ libXrandr-devel libX11-devel tar
+Clone the repositories
+Get os15.  Open Terminal activity and do:
+mkdir shell-port
+ cd shell-port
+ git clone
+git://git.sugarlabs.org/~erikos/sugar/erikos-shell-port.git
+sugar
+ git clone
+git://git.sugarlabs.org/~erikos/sugar-toolkit/erikos-shell-port.git
+sugar-toolkit
+Install
+cd sugar
+ ./autogen.sh --prefix=/usr
+ make
+ sudo make install
+cd sugar-toolkit
+ ./autogen.sh --prefix=/usr
+ make
+ sudo make install
+Then, restart the XO.

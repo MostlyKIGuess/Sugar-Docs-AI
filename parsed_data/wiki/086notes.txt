@@ -1,0 +1,359 @@
+Title: 0.86/Notes
+URL: https://wiki.sugarlabs.org/go/0.86/Notes#New_share_button
+--------------------------------------------------------------------------------
+english
+|
+spanish
+HowTo
+[ID# 57885]
++/-
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+Sucrose 0.86 Release Notes
+1.1
+Introduction
+1.2
+What is new for users
+1.2.1
+Activity Toolbar redesign
+1.2.2
+Switch to Metacity window manager
+1.2.3
+Flash Activities
+1.2.4
+Tabs in Browse
+1.2.5
+Ad hoc Networking
+1.2.6
+Read
+1.2.7
+Software Update
+1.2.8
+Improved Accessibility
+1.2.9
+Keyboard Settings
+1.2.10
+Home Favourites View Improvements
+1.2.11
+Improved File Transfer
+1.2.12
+New share button
+1.2.13
+Reordered the buddy menu items
+1.3
+Update to this version
+1.4
+What's new for developers
+1.4.1
+Widgets
+1.4.2
+API
+1.4.3
+Dependencies
+1.4.4
+Activity Authors guidelines
+1.5
+What's new for packagers
+1.6
+Internationalization (i18n) and Localization (l10n)
+1.7
+Compatibility
+1.8
+Detailed changes
+1.8.1
+Glucose
+1.8.2
+Fructose
+1.8.3
+Fructose dependencies
+1.9
+Getting the sources
+1.9.1
+Glucose
+1.9.2
+Fructose
+1.9.3
+Fructose dependencies
+1.10
+Looking at the release cycle details
+1.11
+Looking Forward to 0.88
+1.12
+Credits
+Please do not edit unless you are part of the Sugar Release Team!
+Sucrose 0.86 Release Notes
+Introduction
+Sucrose
+0.86 is the latest version of the Sugar learning platform, consisting of
+Glucose
+, the base system environment; and
+Fructose
+, a set of demonstration activities.
+Sucrose is released every six months. Each new release contains new features, improvements, bug fixes, and translations. Sucrose 0.86 continues this tradition and is our third well-planned release to date.
+You can learn more about Sugar itself by studying the
+Sugar definition
+or by reading the
+comic strip
+about the learning platform from Dongyun Lee. Even better, why not
+try Sugar
+?
+What is new for users
+Activity Toolbar redesign
+The toolbar used in the Activities has been redesigned. The previous design using small text tabs to group toolbar options together caused a number of usability difficulties. Many of these issues have been addressed in the redesign. For example, the redesign provides a solution for the "how do I stop an activity" issue, pointed out in
+#452
+(the older toolbar design did not provide an always visible "Stop" button, causing confusion for our young learners). Among the Activities, Browse, Write, Calculate, Terminal, Read, ImageViewer, and Turtle Art have already been ported to use the new Toolbar design, while work on many others is under way. See
+Features/New Toolbar Design
+for more details about the new design.
+The new
+Browse
+toolbar design.‎ There is an activity toolbar containing the title entry, the share and the keep button.
+The old Browse toolbar, for comparison
+The new
+Write
+toolbar design.‎
+The old Write toolbar, for comparison
+Switch to Metacity window manager
+Sugar has
+switched
+from Matchbox to a new window manager,
+Metacity
+. Matchbox was designed for small devices; it forces
+all
+applications to run maximized. Sugar can be run on devices with much larger screens, and while activities native to Sugar are designed to be run maximized (full screen), some applications not specifically designed for Sugar can behave in unexpected ways when run with Matchbox. The switch to Metacity means that many "unsugarized" applications will run better inside of Sugar (e.g. Inkscape, Gimp). We endeavour to ensure that "traditional" desktop applications run well in Sugar, without requiring programming or behavioural changes.
+The new window manager, Metacity, lets you run GNU/Linux programs such as The Gimp that open multiple windows.‎
+Flash Activities
+Gnash
+has been added to the Sugar Platform, meaning that authors of education content can use
+Flash tools to create first class activities
+for Sugar.
+Example activity using an embedded GTK+
+Gnash
+widget.
+Tabs in Browse
+Some web pages contain links that are designed to be opened in a new window. The Browse Activity now opens these links in new tabs inside the main activity window, similar to the behaviour of most common web browsers, thus providing a better browsing experience. Note that this
+feature
+does not yet allow the user to explicitly open any link in a new tab or explicitly create a new tab.
+Browse
+with several open tabs.
+Ad hoc Networking
+New ad-hoc networking facilities allows you to connect with other Sugar users over wireless in an ad-hoc manner without relying on any wireless networking infrastructure. This is the so called "under-a-tree scenario", where children can work, play, and learn collaboratively in any place imaginable, without requiring any wireless access point, which for many children is unavailable or only available at school. (The One Laptop per Child XO-1 computer provides similar functionality with its firmware-based 802.11s (mesh) network.)
+Ad-hoc networking
+allows Sugar to use this feature with most of the wireless hardware commonly found on computers. Furthermore it allows one to share an Internet connection using the same mechanism. For more details see
+Ad-hoc network testing
+.
+Using an ad-hoc local network in Sugar.
+Read
+The Read Activity now has support for
+Epub
+files. Epub is a standard format for ebooks which is gaining fast acceptance in the (e)book publishing and distribution community. A number of websites such as
+feedbooks.com
+,
+epubbooks.com
+and
+Google Books
+provide high-quality, Epub books for download at no charge. In addition to Epub support, this release of the Read Activity also lets one associate (add and edit) notes with bookmarks, and it has a more useful full-screen view that roughly indicates battery life without requiring the invocation of the Sugar Frame.
+Read
+Activity displaying an Epub book.
+Software Update
+The
+software-update control panel
+is now included in standard Sugar. It uses the Sugar
+Activity Library
+to check for and install the latest Activity updates available. This makes it easier for users to update to the latest version of a given Activity, and makes smoother for developers to publish and distribute newer version of Activities.
+Software update
+(found under
+My Settings
+) uses the
+Activity Library
+server to find and install new versions of existing installed Activities.
+Improved Accessibility
+Some parts of Sugar (Journal and Home list view) have been modified to use Gtk+ widgets, instead of HippoCanvas, which had no accessibility support. This is a part of an ongoing effort to make Sugar work seamlessly with accessibility tools such as screen readers and magnifiers so that everyone can benefit from Sugar, regardless of physical or mental abilities. Among other accessibility enhancements, more Sugar tools now show their keyboard shortcuts to help their discovery and Activities in the activity tray frame use palettes that show both their names and text title.
+Both the Activity, and the Activity session Title are now shown in the Activity Frame palette.
+Keyboard Settings
+The Sugar control panel (found under
+My Settings
+) has a new section for selecting multiple keyboard layouts, as well as the keyboard model. This feature will allow users who do not use the US QWERTY keyboard layout/model to easily switch to their preferred configuration. More information is available in this
+Feature documentation
+.
+Keyboard
+(found under
+My Settings
+) allows different keyboard layouts to be selected from within Sugar.
+Home Favourites View Improvements
+Resuming and starting new activities from the Home favourites view has been enhanced by simplifying the Activity palettes so that activities cannot be accidentally deleted or removed from the favourites view. All Activity management is now done via the Home List View. Tip: To quickly start a new activity without using the palette, one hold the
+<Alt>
+key and click an activity icon.
+Home favourites Activity pallets are now simpler, Activity management options are now available only in the Home list view.
+Improved File Transfer
+The Journal
+"Send to friend"
+feature has been extended to support file transfers via a Jabber server, previously this only worked for machines on the same local network. This now allows one to transfer Journal entries to any available friends, regardless of the underlying communication mechanism (a remote Jabber server, or the local network). One can use the Neighbourhood View to add new friends.
+The Journal
+Send to friend
+feature now works with friends over both local networks and remote Jabber servers.
+New share button
+The design of the share button has changed. We hope that the functionality is easier to discover that way.
+The new share button.‎
+Reordered the buddy menu items
+As requested from the field (
+#1206
+) the order in the buddy menu has been changed. The shutdown options is placed first, as it is the most frequently used. The Restart option has been removed.
+Reordered buddy menu items.‎
+Update to this version
+Please use the instructions for your distribution (SoaS, Fedora, Ubuntu, Debian etc) of choice to upgrade to this release. Note that it may take a while until the release is packaged for each distribution. Please stay tuned for distribution specific announcements and watch out for updates at
+Get Sugar
+.
+What's new for developers
+The following changes are important for developers using the Sucrose 0.86 developer platform.
+Widgets
+New Toolbars:
+Sugar has switched to a new toolbar design. The simplest example can be found in the
+hello world
+activity. If you want to group functionality into a secondary toolbar you can have a look at the
+terminal activity
+. To have a consistent layout over activities please group the edit and view toolbar to the left. The items on the toolbar should be aligned to the left.
+New Share button
+: The design of the share button has changed (
+0.86/Notes#New_share_button
+). If your activity does not support collaboration you can set the activity class member max_participants to '1' which makes the share button insensitive.
+CellRenderIcon:
+This new widget allows to place sugar svg icons in a gtk.TreeView. The
+CellRendererInvoker
+is used for the palette accordingly.
+RadioPalette
+: Base class for the ShareButton.
+PaletteWindow
+: A PaletteWindow widget has been added.
+API
+To add the toolbar_box to the activity we use a toolbar_box property now instead of the set_toolbox method.
+Dependencies
+Switch from
+Matchbox
+to
+Metacity
+. To activity authors this means that their windows need to be user-resizable which in turn requires that the layout adapts changes in window size.
+Activity Authors guidelines
+The md5 and sha module have been deprecated in python 2.6. Please clean up your sources accordingly. We encourage every author, fructose or other activity authors to follow the
+Development_Team/Code_guidelines
+. Please mind that we have the source view functionality enabled and that kids are able to have a look at the code. They hopefully find consistent and well written activities.
+What's new for packagers
+sugar-base: new dependency:
+python-decorator
+Sugar:
+Metacity:
+The switch to
+Metacity
+as window manager is dependent on this
+commit
+that adds a command line option to disable autofullscreening maximized windows without decorations.
+Sugar: The keyboard control panel:
+libxklavier
+>= 4.0,
+python bindings
+>= 0.2
+Flash Activities:
+Distributions need to package the last version of Gnash (v9).
+Tabs in Browse:
+Hulahop version >= 0.5
+Write:
+Abiword 2.8 is close to be released and will be part of the Sugar Platform 0.86, so we need to have the latest release in the 2.7.x series packaged so we start testing it.
+Read:
+New dependencies for Read version >= 70 (needed for epub support): webkitgtk (Note:
+pywebkitgtk
+has to be >= 1.1.6), python-lxml, python-BeautifulSoup,
+sugar-datastore:
+LICENSE.GPL, README.txt files were renamed to COPYING and README; added AUTHORS and NEWS new files.
+Internationalization (i18n) and Localization (l10n)
+Thanks to members of the worldwide translation team, who can be found on the
+localization mailing list
+, we have the following languages (listed alphabetically) which have significant support (more than 75% of the user interface translated):
+Arabic
+Dutch
+French
+German
+Greek
+Italian
+Japanese
+Portuguese
+Spanish
+Tamil
+Vietnamese
+Altogether, 25 languages have more than 50% of the user interface translated.
+Compatibility
+Collaboration in the Write activity will not work when the abiword backend is not the same (libabiword 2.6, 2.8).
+Detailed changes
+Glucose
+sugar
+sugar-toolkit
+sugar-base
+sugar-presence-service
+sugar-datastore
+sugar-artwork
+etoys
+Fructose
+Fructose
+Activities help provide a base level of functionality that demonstrate Sugar and some of its core features.
+Terminal
+Log
+Read
+Browse
+Chat
+Write
+Calculate
+Image Viewer
+Jukebox
+TurtleArt
+Etoys
+Pippy
+Fructose dependencies
+hulahop
+Getting the sources
+If you want to package sugar for your favourite distribution or just want to examine sugar's lovely code ;) you can find all the source code of each module at the links below.
+Glucose
+sugar-toolkit 0.86.0
+sugar 0.86.0
+sugar-artwork 0.86.0
+sugar-base 0.86.0
+sugar-datastore 0.86.0
+sugar-presence-service 0.86.0
+etoys 4.0.2319
+Fructose
+read 75
+chat 66
+terminal 27
+imageviewer 13
+jukebox 8
+turtleart 69
+browse 114
+etoys 108
+write 67
+calculate 28
+log 23
+pippy 34
+Fructose dependencies
+hulahop 0.6.0
+Looking at the release cycle details
+You can browse the notes of each development release in
+0.86
+. Their respective sources are listed there as well.
+Looking Forward to 0.88
+Planning of the next release cycle has started at
+0.88/Roadmap
+.
+Credits
+Many people contributed to this release indirectly, including testing, documentation, translation, contributing to the Wiki, outreach to education and developer communities. On behalf of the community, we give our warmest thanks to the developers and contributors who made this Sugar release possible.

@@ -1,0 +1,102 @@
+Title: Machine/justice
+URL: https://wiki.sugarlabs.org/go/Machine/freedom
+--------------------------------------------------------------------------------
+Contents
+1
+Hostnames
+2
+Info
+3
+Machines
+4
+Hardware
+5
+Management
+6
+Software
+7
+Location
+8
+Admins
+9
+Network configuration
+10
+Hosted VMs
+Hostnames
+justice.sugarlabs.org
+freedom.sugarlabs.org
+Info
+Freedom and Justice are two twin KVM hosts bought by Sugar Labs in 2012.
+Justice is currently our primary VM hosting box, while freedom is a hot-standby running some secondary services in docker containers and backups.
+Machines
+The following machines services are hosted:
+Machine/lightwave
+,
+Service/Nameservers
+,
+Machine/pootle
+,
+Service/translate
+,
+Service/activities
+aslo,
+Machine/library
+,
+Machine/aslo4
+,
+Machine/jita
+,
+Service/git
+,
+Service/jabber
+,
+Service/meeting
+,
+Service/obs
+,
+Service/chat
+,
+Service/cgit
+,
+Service/blacklist
+,
+Service/stats
+,
+Hardware
+2U rack-mountable case
+Motherboard Supermicro H8SGL (or maybe H8SGL-F)
+8-core Opteron 6212 @ 1.7GHz
+64GB RAM
+2x1TB RAID1
+Management
+The two servers have SMT management cards from Supermicro with a seriously awful web interface:
+justice-mng.sugarlabs.org
+freedom-mng.sugarlas.org
+Of course you need a separate account. Full KVM support requires the Java browser plugin (yuck!), so we mostly use them for the big reset button in case a server hangs (it happened about once per year).
+Use a long, unguessable password, but not one you're also using elsewhere! A few years ago, a backdoor was discovered in this firmware which would reveal all passwords in plaintext with a simple telnet! Also, login uses unencrypted http.
+It's also possible to talk to the management card from Linux using ipmitool.
+Both cards are running firmware version 3.16, which patched a huge backdoor that would trivially reveal all passwords in plaintext. No kidding.  There's a
+newer firmware version
+, but attempts to update to it failed with both Chrome and Firefox (error: "413 - Request Entity Too Large"). I suspect a bug in their http POST implementation :-(
+Software
+Justice: Ubuntu 18.04 LTS Bionic
+Freedom: Ubuntu 18.04 LTS Bionic
+Location
+Hosted by the
+MIT Media Lab
+in server room E15-243.
+Admins
+Alex Perez
+, aperezbios on #sugar libera.chat
+Bernie Innocenti
+, bernie on #sugar libera.chat
+Srevin Saju
+, srevinsaju on #sugar on libera.chat
+Network configuration
+Justice is globally accessible through public, static IPv4.
+The IPv6 /64 subnet (6to4) is currently experimental and not associated with AAAA records.
+Hosted VMs
+All KVM virtual machines are managed by libvirtd.
+See
+Sysadmin/Add virtual machine
+for creating new VMs.

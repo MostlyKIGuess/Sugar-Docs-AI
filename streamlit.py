@@ -16,6 +16,7 @@ from matrix_client.client import MatrixClient
 from matrix_client.api import MatrixRequestError
 import asyncio
 import time
+from time import perf_counter
 
 
 logging.basicConfig(level=logging.INFO)
@@ -38,69 +39,253 @@ class SharedState:
 state = SharedState()
 
 
+class PerformanceMonitor:
+    def __init__(self):
+        self.queries = {}
+        self._lock = threading.Lock()
+
+    def start_query(self, query_id):
+        with self._lock:
+            self.queries[query_id] = perf_counter()
+
+    def end_query(self, query_id):
+        with self._lock:
+            if query_id in self.queries:
+                duration = perf_counter() - self.queries.pop(query_id)
+                logger.info(f"Query {query_id} took {duration:.2f} seconds")
+
 class MatrixBot:
     def __init__(self, state, api_url):
         self.state = state
+        self.perf_monitor = PerformanceMonitor()
         self.api_url = api_url
         self.client = MatrixClient(os.getenv('MATRIX_HOMESERVER', 'https://matrix.org'))
+        self.api = self.client.api
         self.messages = []
         self.connected = False
         self.retry_count = 0
         self.max_retries = 3
         self.is_thinking = False
+        self._request_lock = threading.RLock()
+        self._active_requests = {}  # Track requests per user
+        self._request_timeouts = {}
+        self.request_timeout = 30  # seconds
+        self._image_context = {}  # images per user
+        self._image_timeout = 300 
+        self.homeserver = os.getenv('MATRIX_HOMESERVER', 'https://matrix.org')
+        self._global_lock = threading.Lock()
         self.lock = threading.Lock()
         self.request_in_progress = False
+        self._message_queue = []
+        self._worker = None
+        self._should_run = True
+        self._last_sync = 0
+        self._sync_delay = 30  # seconds
+        self.sync_token = None
+        self._last_message_time = 0
+        self._listener_thread = None
+        self._media_base_url = f"{self.homeserver}/_matrix/client/v1"
+        self._max_image_size = 10 * 1024 * 1024 
+        self._latest_image = None
+        self._latest_image_description = None
+
+        
+    def _convert_mxc_url(self, mxc_url):
+        """Convert MXC URL to HTTP URL using v1 client API"""
+        if not mxc_url.startswith('mxc://'):
+            return None
+            
+        parts = mxc_url.split('/')
+        if len(parts) != 4:
+            return None
+            
+        server_name = parts[2]
+        media_id = parts[3]
+        
+        return f"{self._media_base_url}/media/download/{server_name}/{media_id}"
+
+
+    def get_image_description(self, image_data):
+        """Call Gemini API to get image description"""
+        try:
+            # image_bytes = base64.b64encode(image_data).decode('utf-8')
+            image_prompt = "Describe this image in detail, focusing on any musical or programming elements visible in MusicBlocks."
+            response = model.generate_content([image_data, image_prompt])
+            return response.text
+        except Exception as e:
+            logger.error(f"Error getting image description: {str(e)}")
+            return "No description available"
+        
+    def handle_image(self, room, event):
+        """Handle image upload with v1 client API"""
+        if 'url' not in event['content']:
+            return
+                
+        sender = event['sender']
+        mxc_url = event['content']['url']
+        
+        try:
+            http_url = self._convert_mxc_url(mxc_url)
+            if not http_url:
+                logger.error(f"Invalid MXC URL: {mxc_url}")
+                return
+                    
+            # Try thumbnail first
+            if 'info' in event['content'] and 'thumbnail_url' in event['content']['info']:
+                thumb_mxc = event['content']['info']['thumbnail_url']
+                thumb_url = self._convert_mxc_url(thumb_mxc)
+                if thumb_url:
+                    http_url = thumb_url
+            
+            headers = {
+                'Authorization': f'Bearer {self.token}',
+                'Accept': 'image/*'
+            }
+            
+            logger.info(f"Downloading image from: {http_url}")
+            response = requests.get(
+                http_url,
+                headers=headers,
+                timeout=10,  # Set a timeout for the request
+                stream=True
+            )
+            
+            if response.status_code == 200:
+                logger.info("Image downloaded successfully")
+                content_type = response.headers.get('Content-Type', '')
+                if not content_type.startswith('image/'):
+                    logger.error(f"Invalid content type: {content_type}")
+                    return
+
+                content_length = int(response.headers.get('Content-Length', 0))
+                if content_length > self._max_image_size:
+                    logger.error(f"Image too large: {content_length} bytes")
+                    return
+
+                image_data = response.content
+                response.close()
+                # Validate image
+                try:
+                    logger.info("Processing image")
+                    image = Image.open(io.BytesIO(image_data))
+
+                    # encoded_data = base64.b64encode(final_data).decode('utf-8')
+                    logger.info("Getting Description " )
+
+                    # Call Gemini API for image information
+                    image_description = self.get_image_description(image)
+                    logger.info(f"Image description: {image_description}")
+
+                    self._latest_image_description = image_description
+                    logger.info("Description added")
+                    return
+                except Exception as e:
+                    logger.error(f"Invalid image data: {e}")
+                    return
+               
+                    
+                encoded_data = base64.b64encode(image_data).decode('utf-8')
+                
+                with self._global_lock:
+                    self._image_context[sender] = {
+                        'data': encoded_data,
+                        'content_type': content_type,
+                        'timestamp': time.time(),
+                        'event_id': event['event_id']
+                    }
+                logger.info(f"Successfully stored image from {sender}")
+            else:
+                logger.error(f"Failed to download image: {response.status_code} - {response.text}")
+                    
+        except requests.exceptions.Timeout:
+            logger.error("Image download timed out")
+        except Exception as e:
+            logger.error(f"Error handling image: {str(e)}")
 
     def message_handler(self, room, event):
-        """
-        Handle inbound Matrix events, log everything for debug.
-        """
+        """Handle both text and image messages with proper locking"""
         logger.info(f"Received Matrix event: {event}")
+        
         if event['type'] == "m.room.message":
             msgtype = event['content']['msgtype']
-            body = event['content']['body']
             sender = event['sender']
-            logger.info(f"Matrix message from {sender} of type {msgtype}: {body}")
             
-            if msgtype == "m.text" and body.startswith('!ask'):
-                query = body[5:].strip()
-                with self.lock:
-                    if self.request_in_progress:
-                        self.room.send_text("Another request is being processed. Please wait.")
-                        return
-                    self.request_in_progress = True
-
-                logger.info(f"Processing query: {query}")
+            # Handle images
+            if msgtype == "m.image":
+                logger.info(f"Processing image from {sender}")
                 try:
-                    self.is_thinking = True
-                    self.room.send_text("🤔 Thinking...")
-                    logger.info("Sent 'Thinking...' to room")
-                    
-                    response = requests.post(self.api_url, json={"input": query})
-                    logger.info(f"Chatbot API status: {response.status_code}")
-                    if response.status_code == 200:
-                        data = response.json()
-                        logger.info(f"Chatbot response data: {data}")
-                        self.room.send_text(data['response'])
-                        self.messages.append({
-                            'query': query,
-                            'response': data['response'],
-                            'sources': data.get('sources', []),
-                            'timestamp': time.strftime('%H:%M:%S'),
-                            'debug': data.get('debug', {})
-                        })
-                    else:
-                        logger.error(f"Chatbot API returned error code: {response.status_code}")
-                        self.room.send_text("Sorry, internal error from chatbot API.")
+                    with self._global_lock:
+                        self.room.send_text("🖼️ Image received. Processing...")
+                        self.handle_image(room, event)
+                        # currently using latest image
+                        # if self._latest_image:
+                        #     self.room.send_text("✓ Image received. You can now use !ask with your question.")
+                        # if sender in self._image_context:
+                        if self._latest_image_description:
+                            self.room.send_text("✓ Image received. You can now use !ask with your question.")
+                        #     self.room.send_text("✓ Image received. You can now use !ask with your question.")
                 except Exception as e:
-                    logger.error(f"Error processing Matrix message: {e}")
-                    self.room.send_text("Sorry, there was an error processing your request.")
-                finally:
-                    with self.lock:
-                        self.request_in_progress = False
-                    self.is_thinking = False
-                    logger.info("Finished processing query")
-
+                    logger.error(f"Error handling image: {e}")
+                    self.room.send_text("Sorry, there was an error processing the image.")
+            
+            # Handle text messages    
+            if msgtype == "m.text":
+                body = event['content']['body']
+                logger.info(f"Matrix message from {sender}: {body}")
+                
+                if body.startswith('!ask'):
+                    query = body[5:].strip()
+                    with self._request_lock:
+                        if self.request_in_progress:
+                            self.room.send_text("Another request is being processed. Please wait.")
+                            return
+                        self.request_in_progress = True
+                    
+                    try:
+                        self.is_thinking = True
+                        self.room.send_text("🤔 Thinking...")
+                        
+                        # Build request data
+                        request_data = {"input": query}
+                        
+                        # Add image if available
+                        # with self._global_lock:
+                            # if sender in self._image_context:
+                            #     request_data["image"] = self._image_context[sender]["data"]
+                            # if self._latest_image:
+                                # request_data["image"] = self._latest_image["data"]
+                        # with self._global_lock:
+                        #     if self._latest_image:
+                        #         request_data["description"] = self._latest_image["description"]
+                        
+                        if self._latest_image_description:
+                            request_data['input'] =  f"{query} + Latest Image Description: {self._latest_image_description}"
+                            self._latest_image_description = None
+                        # Make API call
+                        response = requests.post(self.api_url, json=request_data)
+                        
+                        if response.status_code == 200:
+                            data = response.json()
+                            self.room.send_text(data['response'])
+                            self.messages.append({
+                                'query': query,
+                                'response': data['response'],
+                                'sources': data.get('sources', []),
+                                'timestamp': time.strftime('%H:%M:%S'),
+                                'debug': data.get('debug', {})
+                            })
+                        else:
+                            logger.error(f"API error: {response.status_code}")
+                            self.room.send_text("Sorry, there was an error processing your request.")
+                            
+                    except Exception as e:
+                        logger.error(f"Error processing message: {e}")
+                        self.room.send_text("Sorry, there was an error processing your request.")
+                    finally:
+                        with self._request_lock:
+                            self.request_in_progress = False
+                        self.is_thinking = False
+                        
     def connect(self):
         """
         Connect and join the specified Matrix room with retries. Log all steps.
@@ -152,6 +337,7 @@ class MatrixBot:
                 
         logger.error("Max retries reached - Matrix connection failed")
         return False
+
 
 
 class Section:

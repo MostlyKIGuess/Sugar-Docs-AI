@@ -1,0 +1,37 @@
+Title: Design Team/Proposals/Welcome First Boot Intro
+URL: https://wiki.sugarlabs.org/go/Design_Team/Proposals/Welcome_First_Boot_Intro
+--------------------------------------------------------------------------------
+Contents
+1
+First Boot Welcome Feature
+1.1
+Welcome View
+1.2
+Naming View
+1.3
+Colour Picker View
+1.4
+Sugar Home View
+First Boot Welcome Feature
+This design proposal tries to cove the needs of
+ticket #11816
+while keeping the first boot user experience as smooth and Sugar friendly as possible. The first boot process should be:
+Boot animation
+Welcome view
+Naming view
+Coloir picker view
+Sugar home view
+Welcome View
+In the welcome view, the user can step through, or skip, welcome content with a goal of providing initial XO and Sugar orientation. The content should be centred, onto a plain white canvas (same colour as first boot intro background) with no borders. This allows for content imagers with no visible edge boundaries, or a seamless style of the content authors choosing (e.g. drop shadows, traditional frame, texture). Content images can be in varying width and height, up to some recommended maximum, always presented centred on the canvas. Note that the content image below has been given a subtle coloured glow/shadow in post production as one possible example of seamless styling content in a frameless view.
+A timer could allow for auto flipping through the content card deck if no interaction is made after a set period, though care should be taken not to take control away from a user who may just bee looking closely at one of the content images (timer should be stopped if the user is interacting, touching keys, moving cursor). For keyboard accelerators, the Enter/Return key should be used to move onto the Naming view, with Space bar navigating through the content slide deck (and or cursor left, cursor right, game pad left, game pad right).
+For future efforts we should consider providing animated feedback to the interaction (and swipe touch gestures), where the content images quickly animate as translations left and right when navigated through (a carousel like effect). And ultimately a left right full screen transition animation stepping through the Intro views pages.
+Layout example with centred go-previous-paired and go-next-paired content navigation buttons.
+Layout example with go-previous and go-next content navigation buttons on opposite sides of the view.
+Naming View
+Naming view, user types their name. The next button is initially inactive until the user starts to type a name. Note the addition of the Back button on the bottom left, this should return the user to the welcome content.
+Colour Picker View
+Colour picker, user chooses their fill and stroke colours. No change needed to this view.
+Sugar Home View
+First boot process leads to the Sugar Home view, where the user can choose to review the welcome content by starting the Welcome activity. Once at the Sugar home view a Welcome Activity is available if the user wants to review the welcome content at a later time. The Activity should have a standard Sugar toolbar with buttons for back and next that render the content, centred, onto a plain white canvas (same colour as first boot background) with no borders. This allows for content imagers with no visible edge boundaries, or a seamless style of the content authors choosing (e.g. drop shadows, traditional frame, texture). Content images can be in varying width and height, up to some recommended maximum, always presented centred on the canvas.
+TODO: Design new Welcome Activity svg icon
+Simple viewer activity for welcome content after first boot. Ideally the image content should be shared between both first boot and activity implementations to reduce disk space usage and stay consistent. Should the first boot implementation check and look inside the Welcome activity bundle, or should the Activity look for content somewhere in the system? Using the Activity as the content source would allow for easy upgrading and modifying of the content using existing tools and infrastructure, but might become an issue as different deployment start to provide different sets of localised welcome content (local Welcome activity version number will begin to conflict due to multiple maintainers, or become large in size if many sets of localised image based content are included in one officially maintained release).

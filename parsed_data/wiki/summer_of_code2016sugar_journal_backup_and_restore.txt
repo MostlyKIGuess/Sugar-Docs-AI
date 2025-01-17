@@ -1,0 +1,228 @@
+Title: Summer of Code/2016/Sugar Journal backup and restore
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2016/Sugar_Journal_backup_and_restore
+--------------------------------------------------------------------------------
+Contents
+1
+About You
+2
+About your project
+3
+You and the community
+3.1
+Miscellaneous
+About You
+What is your name?
+My name is
+Manash Pratim Das
+. I am a 2nd Year, Bachelor of Technology (B.Tech), undergraduate student at the
+Indian Institute of Technology, Kharagpur, India
+What is your email address?
+My email address is
+mpdmanash@gmail.com
+What is your Sugar Labs wiki username?
+ManashRaja
+What is your IRC nickname on irc.freenode.net?
+ManashRaja
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My native language is Hindi, but I am fluent in English as well.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I live at in Kharagpur, West Bengal, India.
+My timezone is
+UTC + 5:30 (Indian Standard Time)
+I generally tend to work in the evening (from 5 pm) and late night (to 4 am). But my time table is very flexible and can be changed as per the convenience of my mentor/community members.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+Yes, I have contributed to two completely open source research projects at my college:
+“Aerial Robotics Kharagpur”
+: I am a software team member of this organization. Few specific (other than open code contribution)
+1
+2
+“Autonomous Ground Vehicle”
+: Specific work
+1
+,
+2
+My
+GitHub profile
+in general.
+I also solved a bug for an Arduino library, but it was solved before I could send the PR :) .
+About your project
+What is the name of your project?
+Sugar Journal backup and restore
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+My project will add advanced Sugar-server integration to increase the utility of available servers (XSCE or cloud). The following are the features in detail:
+Add selective backup-restore:
+(Difficulty level: easy).
+User can select part of the journal to be backed up or restored directly from within the backup page. Metadata for each Journal entry will store the list of dependencies and library objects, which will be downloaded again as needed (and, as available).
+Why?
+Backups will be specific and save unnecessary wastage of storage space.
+Teachers will be able to distribute specific Journal objects without hampering the existing Journal of a student.
+Add system to backup and restore from school servers (XSCE):
+(Difficulty level: medium)
+. Now backup can only be stored and restored from devices, but this feature will add school servers to the options.
+Why?
+If the school-servers are present, then they can be made an easy way to store and distribute backups among many.
+The existing (ds-backup) option on OLPC OS is not an effective method because it cannot be easily restored. (from what I understand)
+Add cloud service:
+(Difficulty level: easy).
+In a few clicks, it will let schools to connect each student’s pc to a local cloud server or a third party cloud server as per the availability to sync the journal data at a central location.
+Why?
+It will be easy for schools to let hardware be shared among the student batches as students can login to their account from any hardware and can still access his/her own journal. This feature will strongly support the "One to many concept" that can be implemented on Sugar. (concept discussed on GSoC 2016 idea page
+link
+)
+Easy sharing of Journal items based on above server frameworks:
+(Difficulty level: medium)
+When server frameworks like XSCE and cloud are available, their utility can be increased by adding features where children can share any item with each other in just few easy clicks.
+Why?
+The backups can be used by multiple types of hardware/platform running Sugar (OLPC pcs, Android, Sugarizer) seamlessly using school-server’s multi-platform support to the advantage.
+Teachers can distribute journal entries on mass scale.
+Use the servers for sharing storage space:
+(Difficulty level: hard)
+.
+The data created by a Journal may take the free storage space on a low storage device pretty soon.
+Hence this background feature will let the Journal utilize both the local storage and the server storage. Journal objects or libraries will be shifted if it can be shifted to the server. When any object will be needed, it will be downloaded and cached temporarily on the local storage. A method will be devised that will be looking for the objects that can be shifted to the server like, objects which are rarely used and those containing library items. The user will be able to set rules to manage the behaviour.
+Technologies:
+I will use python and its libraries for the main backend along with GTK+ (GTK3) for the GUI and graphics generator like Inkscape for the icons. For the different server integration, I am planning to use use server specific cli, apis, libraries or scripts like “owncloudcmd” for ownCloud,  “RClone” that supports many cloud services like Google Drive, Amazon S3, Openstack Swift / Rackspace cloud files / Memset Memstore, Dropbox, Google Cloud Storage, Amazon Cloud Drive, Microsoft One Drive, Hubic, Backblaze B2, Yandex Disk, The local filesystem. I will also use polkit for permissions and symbolic links. If I finally use rclone for cloud sync, then I might learn and use go programming language (its written on) or use pexpect to run its cli.
+What is the timeline for development of your project? The Summer of Code work period is from mid-May to mid-August; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (end of June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Week
+Scheduled Work
+Time I can devote
+22 April-22 May
+(Community Bonding period)
+Introduce and become part of the community.
+Look for various different ways to approach the project.
+Discuss with mentor(s), OLPC members, XSCE members and if possible the people who work down there to tailor the project to the perfect needs and flow.
+Draw a detailed roadmap on how I will implement each feature.
+Learn any required skill I may be missing.
+Design GUI according to the flow as discussed above and create icons as required required.
+Install XSCE and ownCloud servers at my own place.
+Create accounts in the third party cloud providers.
+22 April-29 April: 9 hours per week (end semester examinations.)
+30th April-22nd May: 65 hours a week (summer vacations)
+23 May-29 May
+Complete the specific backup-restore(1) and cloud server backup(3) features as I have a head start on both, having gone through the code and tested the functionality.
+1
+,
+2
+.
+Try to match my style of coding with the existing code by reviews and proper study of the code.
+60 hours a week (summer vacations)
+30 May-5 June
+As I would have already installed the XSCE server at my place, and the implementation discussed to its detail in the "Community bonding period" hence I believe that I can buckle up and finish at least the basic functionality of this feature.
+Relatively free week to act as buffer if required or start the next week's work.
+60 hours a week (summer vacations)
+6 June-12 June
+Since, the feature "servers for sharing storage space"(5) is a difficult task, hence I have planned more time for this feature. I will create the basic functionality as per the road map we would have discussed in the "Community Bonding period"
+60 hours a week (summer vacations)
+13 June-20 June
+Finalize the 5th feature.
+Testing and code documentation.
+90% as per functionality of the project will be complete before the Mid-Term Evaluation.
+60 hours a week (summer vacations)
+21 June-28 June
+Mid-Term Evaluation
+Keep on brainstorming for GUIs and integration of my project which makes it very effective and user friendly.
+28 June-3 July
+Work on the feedback received after the evaluation.
+Complete cloud integration for third party service providers for it any of them were left.
+60 hours a week (summer vacations)
+4 July-10 July
+Understand all types of collaborations that happen in the school among the children(students) and teachers, to know how my sharing feature fits in.
+Will add more finishing touches to the features (1,2,3,5) developed above.
+Start coding for the sharing feature.
+60 hours a week (summer vacations)
+11 July-16 July
+Finish the sharing feature.
+Apart from the regular updates to the community about the project, I will submit my work upto now for review and suggestions by the community.
+Work on the suggestions.
+60 hours a week (summer vacations)
+18 July-24 July
+Buffer week to complete if work is pending or add GUI to use the cloud framework developed to support “One hardware to many user” feature of Sugar.
+60 hours a week (summer vacations)
+25 July-31 July
+Finalize the code
+Testing and improvements
+40 hours a week (college)
+1st Aug-7 Aug
+Testing and improvements
+Proper code documentation, cleanup and flake8 verification.
+40 hours a week (college)
+8 Aug-15 Aug
+Testing and improvements
+Feature documentation on
+https://wiki.sugarlabs.org/go/Features
+40 hours a week (college)
+16 Aug-24 Aug
+Submit code and evaluations.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+My strength lies in my dynamic learning and self motivated hard work. I am a 2nd year undergraduate of the Indian Institute of Technology, Kharagpur where I am actively involved with the tech community and contribute to 2 research groups (
+1
+2
+), 2 tech societies(
+1
+), projects under professors and have participated in many competitions and hackathons apart from keeping my academics up. In these two years of my stay, I have learnt a great deal about time management.
+All the professional level work we do has made me to realize realistic timelines for myself and my team.
+Though I failed initially, but I am getting better. My work has been mostly in software RnD and autonomous robotics and hence
+I have gained lots of experience about the process and its time consumption involved in converting an idea to finished product.
+So, I have learned to plan my work and execute it efficiently.
+Another important fact is that
+my college summer vacations lie in the period of 29th April to 24th July, during which I will be able to devote 100% of my work time as GSoC being my top priority
+(8-9 hours a day and around 60 hours a week for 12 weeks) towards my contribution. Even though my college semester will start from 25th July, I will still be able to devote 40 hours a week due to a light semester. I also have a head start on the project I would be working on as
+I have been involved with the Sugar code base since February 1st, added two features
+1
+,
+2
+, fixed three bugs
+1
+,
+2
+,
+3
+and have made the prototype of two features (
+1
+2
+) I will develop in this project
+apart from discussion about the project on IRC. Hence I am confident that I can ensure fully dedicated work and a pledge to deliver more than I promise.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My project will mostly be used in the deployment side of Sugar. I strongly believe that my project will add to the sweetness of Sugar to make it come closer to the people who deploy and the even sweeter kids who use it. Backup and restore is a very important feature for various other members of the community who might be testing, developing and integrating Sugar on multiple platforms.
+What will you do if you get stuck on your project and your mentor isn't around?
+If I am stuck anywhere, then I will put my best efforts to solve the problem myself by trying Google search as always and referring other resources. But if in case help is required and my mentor is not available then I would refer to the community over developer mailing list, IRC, other GSoC participant if relevant or some specific member(s) whom I might know during the course of the project (eg: Quozl`and SAMdroid who have helped me before). If the problem is not Sugar specific, then I may even take help from my tech circle (Kharagpur Open Source Society) consisting of very smart people or professors if they are available during the vacation.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I would propose a repetitive scheduled meeting every two days at a particular time or as per the convenience of mentors/community members  where we would discuss the progress made and the further course of action. I can understand its effectiveness as we use this technique at our college while doing projects under professors so that the focus and progression is maintained.
+I will frequently update my progress and milestones achieved on my
+blog
+.
+Share it along with doubts or queries on a particular thread for this project on the developer mailing list to welcome inputs from all the community members.
+Miscellaneous
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please do
+one
+of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug.
+It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Yes I have started the following pull request.
+Feature: Proxy setting
+Feature: Connect to multiple School Server easily
+BugFix: Fix custom restart message display in control panel
+BugFix: Timezone change not accepted on cancel, fixes #3093
+BugFix: Metacity on fail reaped after timeout, fixes #4958
+If you plan to work on Sugar-Web projects we want to be sure that you're familiar with web technologies, so:
+Clone the
+Sugarizer repository
+Using instructions
+here
+develop your first Sugar-Web activity
+Send us a screenshot of your new activity executed in Sugarizer
+Describe a great learning experience you had as a child.
+I can relate to the goals of Sugar, now when I have grown up, since I have witnessed how an access to computer aided learning and quick access to resources (internet) can accelerate the process of learning as in my case. The ability to create has been the major driving force of my learning. Three events in particular were the most significant that I would like to share with:
+An investment into the future for a PC made by my parents at my 3rd grade gave me my best friend and teacher at my childhood. I believe, it is more about the enhancement of thinking process than in the ability to score higher marks in exams. Even though some people might be skeptical about the results of OLPC and Sugar provided the investment, but I believe in its long term effect as I have seen it.
+Then I was introduced to programming and the Internet by my school at 6th grade. The introduction made all the neurons light up in excitement for the ability to create my own real world applications.
+I was shown the path and I started sprinting on it myself. From the period of 7th grade to 10th grade, I learnt C++, C#, PHP, HTML, CSS, electronics and embedded programming to create many software and hardware applications and participated in many competitions upto the national level.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Yes, I would like to tell why I chose to contribute to Sugar. While looking at various organizations at the 2015 GSoC page, I shortlisted a few organizations based on my strongest skill set. I looked upon for the problem statement of each of the organizations that they were trying to achieve and there I came to know about Sugar. I felt attached to the community due to the following points:
+I could relate the computer aided Sugar pedagogy with my own experience.
+I am a volunteer at “National Service Scheme” in my college and along with my unit, we provide community service at a nearby village. Hence I can visualize if not perfectly the effect of OLPC and Sugar would have in the children deep down there. We used to take our laptops to show them animated content, fascinate them with electronics and RC planes. They used to gather around us and we witnessed maximum attendance on the Saturdays we went there.
+I found the community members at IRC and developer mailing list very welcome and I feel excited about my first experience at an International selfless open source project.
+Please include the category tag at the bottom of your page the Category tag for 2016 GSoC applications.

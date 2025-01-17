@@ -1,0 +1,166 @@
+Title: Summer of Code/2015/Kiran P S/Developing Cordova Plugins for Sugar Cordova Container
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2015/Kiran_P_S/Developing_Cordova_Plugins_for_Sugar_Cordova_Container
+--------------------------------------------------------------------------------
+Contents
+1
+About Me
+2
+About my project
+2.1
+Skills:
+2.2
+Relevant Projects in Past:
+3
+You and the community
+4
+Miscellaneous
+About Me
+What is your name?
+Kiran P S
+What is your email address?
+pskirann@gmail.com
+What is your Sugar Labs wiki username?
+kiran ps
+What is your IRC nickname on irc.freenode.net?
+kiru
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+English
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+Location: Cochin, Kerala, India
+Time Zone: UTC + 5:30 (Indian Standard Time)
+Working hours: no fixed timings, I can find 8 hours between 10 AM(morning)- 1 AM(night)
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+My opensourced projects and contributions to other project can be found on my github account
+https://github.com/kiranps
+About my project
+What is the name of your project?
+Developing Cordova Plugins for Sugar Cordova Container
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+Apache Cordova is a platform for building native mobile applications using HTML, CSS and JavaScript. It is a set of device APIs that allow a mobile app developer to access native device function such as the camera or accelerometer from JavaScript. When using the Cordova APIs, an app can be built without any native code from the app developer. Instead, web technologies are used, and they are hosted in the app itself locally.
+The native platform API's are first developed which communicate with the cordova libraries, these native cordova libraries then communicate with the javascript APIs which the developer uses to develop his HTML, CSS and JS application.
+To allow the web developers to interact with the device's native functionality, we shall build a communication between the python and javascript part by using the sugar web architecture.Once that is done, we then need to add to the cordova-js project of cordova - which provides the common API's for sending messages and triggering error and success callbacks with native framework responses. The cordova plugins will interact with the sugar platform through the sugar API and with the webview through its native API.This will then provide a javascript API to developers for their apps. Sugar api interacts with the cordova plugins,the native cordova api which interacts with the webview and the javascript API which allows the developers to make their apps directly on HTML,CSS and JS using the device functionality through plugins and customs plugins.
+My task is to develop cordova plugins for sugar which shall help the HTML apps to interact with the native code beneath. We shall build the cordova part as well as the native APIs needed to communicate with the cordova middle layer. Finally we shall provide the javascript APIs though which the developers can make their HTML apps for the sugar platform.So the final goal of the project is to provide the cordova plugins for the developers and code some sample apps which depict the usage of those plugins in the real environment.
+the following plugins will be developed for sugar platform
+org.apache.cordova.splashscreen
+This plugin displays and hides a splash screen during application launch.
+it will be using two methods
+splashscreen.show
+splashscreen.hide
+org.apache.cordova.file
+This plugin implements a File API allowing read/write access to files residing on the device.
+battery-status
+It adds the following three window events
+battery status
+battery critical
+battery low
+plugin.http.request
+This plugin helps you to access to the external server using HTTP request
+com.msopentech.indexeddb
+Implements Indexed Database API support for Apache Cordova apps based on IndexedDBShim implementation.
+com.rossmartin.dropboxsync
+This plugin allows your application to use the Dropbox Sync API
+com.knowledgecode.cordova.websocket
+Cordova plugin that allows WebSockets to be used
+org.apache.cordova.media
+This plugin provides the ability to record and play back audio files on a device.
+it will be using following methods
+media.getCurrentPosition: Returns the current position within an audio file.
+media.getDuration: Returns the duration of an audio file.
+media.play: Start or resume playing an audio file.
+media.pause: Pause playback of an audio file.
+media.release: Releases the underlying operating system's audio resources.
+media.seekTo: Moves the position within the audio file.
+media.setVolume: Set the volume for audio playback.
+media.startRecord: Start recording an audio file.
+media.stopRecord: Stop recording an audio file.
+media.stop: Stop playing an audio file.
+org.apache.cordova.file-transfer
+This plugin allows you to upload and download files.
+it will be using following methods
+upload: sends a file to a server.
+download: downloads a file from server.
+abort: Aborts an in-progress transfer.
+de.appplant.cordova.plugin.local-notification
+The plugin supports scheduling local notifications in various ways with a single interface. It also allows you to update, clear or cancel them. There are different interfaces to query for local notifications and a complete set of events to hook into the life cycle of local notifications
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Weeks
+Expected Tasks
+May 19 - May 23
+Develop splashscreen plugin
+May 24 - May 30
+Develop websocket plugin
+May 31 - June 6
+Develop file plugin
+Jun 7 - June 13
+Develop battery-status plugin
+Jun 14 - June 20
+Develop http-request plugin
+Jun 21 - June 27
+Develop indexedBD plugin
+Mid Term Evaluation
+Jun 28 - July 4
+Develop dropbox plugin
+July 5 - July 11
+Develop media plugin
+July 12 - July 18
+Develop local notification plugin
+July 19 - July 25
+Develop file transfer plugin
+July 26 - August 1
+testing
+August 2  - August 8
+optimize code
+August 9  - August 15
+optimize code & fix bugs
+August 16  - August 22
+Fix Bugs
+August 23  - August 24
+Document the project
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I have created a cordova plugin for sugar and also created(ported) a game for sugar, both of are listed below. Other opensource projects are also listed below
+Skills:
+Languages : C, C++, JavaScript , Python, Shell Scipt
+Web Design / Web Applications: - HTML5, CSS3, JavaScript, jQuery, Zepto, Bootstrap, Node.js, Express, passport, Socket.io, Angular, Django
+Mobile Apps / Mobile Web - PhoneGap(cordova), Ionic Framework, OnsenUI
+Database - MongoDB, MySQl, sqlite, diskdb
+Tools - Vim, Tmux, zsh, Git, Grunt, Docker , Yeoman, Qt, Inkscape
+OS - Linux(Ubuntu, Archlinux), Android, Windows
+Relevant Projects in Past:
+Hextrix app for sugar platform (html5, javscript, css3, cordova)
+Hextrix game
+Sugar cordova plugin sample (javscript, python, cordova)
+sugar-plugin
+English Malayalam Dictionary (python, pygtk)
+Dictionary
+Battery plugin for tmux
+Tmux Battery Plugin
+Command line app that shows live cricket score (python)
+Cricket live score
+Hosel management system made for college (javascript, nodewebkit, AngularJS, diskdb)
+hostel-management-system
+Techfest mobile site (html5, javascript, css3, AngularJS)
+dyuthi mobile site
+Offline contact app (Node-webkit, AngularJS, diskdb)
+Offline contact app
+App to scroll pages using face ( cpp, opencv )
+facescroll
+Photo filter app (html5, javascript, css3, cammanjs)
+photoeffect
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors
+.
+Kiran ː
+Success of sugar depend on the number of application present in platform. By developing plugin for sugar it would be very easy to port applications made for other platforms to sugar platform. Developer need not worry about the native side of the platform, they can depend entirely on web technologies HTML5, CSS, Javascript to develop applications for sugar.
+Walter:
+We are trying to broaden the reach of Sugar by incorporating Javascript/HTML5 as a first-class environment. But this means we need to provide ready access to the camera, microphone, sensors, etc. Having a common, robust framework is critical.
+Puneet:
+Through the purpose of this project, we aim to complete the vision of encompassing the web apps with the diverse abilities to leverage into the device specific features. The native code parts would be tried to be wrapped around into a plugin interface which shall be exposed as a part of standard cordova library which the cross platform web apps can use. This shall eventually lead to integration of thousands of web apps out there, enabling each one to use the native abilities of the sugar environment and play around with it to make it more user-friendly and development centric. Hope to reach the goal of diversifying the sugar environment by strengthing the cordova plugin base.
+What will you do if you get stuck on your project and your mentor isn't around?
+If mentor is not around i will depend on stackoverflow, google, IRC
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I will update the status on my blog or github project pages
+Miscellaneous
+Screenshot of sugar development environment Home view
+modified logout caption with email
+Describe a great learning experience you had as a child.
+Computer was my favorite subject, that time i didn't had computer in my house. we had only one computer period in a week. I always waited for that day to come and never took leave on that day.

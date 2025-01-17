@@ -1,0 +1,32 @@
+Title: Translation Team/Localization testing
+URL: https://wiki.sugarlabs.org/go/Translation_Team/Localization_testing
+--------------------------------------------------------------------------------
+Contents
+1
+Localization Testing
+1.1
+1) String is not localized
+1.2
+2) String localized, but not committed
+1.3
+3) String localized and committed
+1.4
+There are other less common causes for a string not being localized.
+1.4.1
+i18n error
+1.4.2
+Pootle refresh needed
+Localization Testing
+If you find that there are untranslated strings in an Activity, there are three common causes.
+1) String is not localized
+Check the PO file for that Language and Activity in Pootle.  If the string has not yet been localized, ther is no way for it to show up properly in the Activity.
+2) String localized, but not committed
+If the string is localized in Pootle, next check the PO file in the git repository.  If the string is not localized in the version of the PO committed to git, then it will not show up in the build.  A language administrator for that language needs to review and commit the PO file from Pootle for it to get into git.  Ask on the Localization list if this is the case.
+3) String localized and committed
+If the string is localized in Pootle and git, it still might not show up in the activity if there has not been a build of the activity made since the string was committed to git.  In this case, ask on sugar-devel for the activity maintainer to bump the version of the activity and add the new localizations.
+Make sure that the string in the git PO file has a standard location string before it.  Sometimes there strings at the bottom of the PO file that do not have locations, this is a template issue with the POT.  Ask about this on the Localization list.
+There are other less common causes for a string not being localized.
+i18n error
+It is possible that the string doesn't appear in the PO file at all, which might be a failure to set up the string with gettext in the code (a failure of internationalization, a necessary precursor to localization).
+Pootle refresh needed
+Changes may have happened to the activity and for whatever reason, the POT (template) file has not been updated (either in git or Pootle).  There are scripts intended to take care of this on a routine basis, but sometimes errors are made in setting them up.  Please ask on the Localization list.

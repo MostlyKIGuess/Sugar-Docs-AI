@@ -1,0 +1,84 @@
+Title: Development Team/Almanac/API Changes
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/API_Changes
+--------------------------------------------------------------------------------
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+This article is a
+stub
+. You can help Sugar Labs by
+expanding it
+.
+Contents
+1
+API Changes
+1.1
+XO Software Release 8.2.0
+1.1.1
+Sugar API Changes
+1.1.1.1
+Deprecations
+1.1.1.2
+Additions
+1.1.2
+System API Changes
+1.1.2.1
+Removed
+API Changes
+This page documents known API changes in OLPC releases.
+Sugar now has an API policy documented at
+Sugar API policy
+but that takes effect as of 0.84.
+XO Software Release 8.2.0
+Documenting the 8.2.0 API changes is a work in progress... Please contribute!
+XO Software Release 8.2.0 uses Sugar (sucrose) release 0.82. See
+http://sugarlabs.org/go/ReleaseTeam/Releases/Sucrose/0.82
+Sugar API Changes
+Deprecations
+sugar.activity.activity
+self._shared_activity is deprecated in 8.2.0 and will be removed in 9.1.0. Use self.shared_activity instead.
+Additions
+sugar.presence.sugartubeconn
+Use SugarTubeConnection instead of TubeConnection to get resolution of Telepathy handles to Buddies without needing the get_buddy boilerplate function. See this
+commit to Connect
+to see how to use it.
+System API Changes
+8.2.0 was based on Fedora 9, whereas 8.1.x was based on Fedora 7.
+The package changes between 8.1.x and 8.2.0 are listed on
+update.1 - 8.2
+. It includes several cases where two packages were folded into one or a package was renamed.
+Removed
+python-numeric
+This package is not present in 8.2, use numpy instead.

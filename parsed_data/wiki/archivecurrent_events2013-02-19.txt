@@ -1,0 +1,68 @@
+Title: Archive/Current Events/2013-02-19
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2013-02-19
+--------------------------------------------------------------------------------
+Sugar Digest
+1. Redwood City: Raul Gutierrez Segales, Bernie Innocenti and I have been busy hacking in a mini Sugar Camp this weekend. Our goal is to build an interface between the Sugar Journal and several on-line services. Specifically, Raul and I are working on an interface between the Journal and Facebook and Bernie is working on an interface between the Journal and Google Drive.
+Here's is where we are at at the moment:
+We have a control panel widget for managing your Facebook account. It saves a token in .gconf that can be used to make transactions with Facebook. (We plan to add a section to manage all of the users online accounts, probably in the manner of the GNOME online account manager. Suggests (and patches) welcome.)
+We have a "Share on" extension to the Journal palette menu. Right now, the only option is to share on Facebook. Raul has written a class that manages a Facebook object consisting of the Journal preview image, the title, and the description. The preview image is uploaded as a photo object to the Sugar Journal album on Facebook. The title and description are added as a comment. (Question for the design team: can we bump up the resolution of the preview image?)
+We are finishing up work on two extensions to the Journal detail-view toolbar for Journal entries with corresponding Facebook entries. The Refresh Button grabs comments from Facebook and adds them to the Object description. The Like Button grabs likes from Facebook.
+We've also explored using Facebook graph objects, which would open up a number of interesting options, but we have some infrastructure and authentication issues to sort through before we go too far down that path.
+We'll be uploading patches (
+sugar
+) and (
+sugar-artwork
+) pretty regularly throughout the weekend.
+Facebook Control Panel
+Share on Facebook
+Kim Toufectis commented on this post about online services:
+Appreciative of the ideals upon which Sugar Labs and OLPC formed, it’s deeply troubling to envision a commercial entity like FaceBook integrated into the Control Panel.
+For a system in which a proprietary browser (Opera) or plugin (Adobe Flash) are controversial even as optional add-ons, can we really be headed for integrating a private corporation into the heart of the OS? This is very difficult to understand…
+My response:
+First, I will dodge the issue. The web-services intervention into the Sugar code base is not specific to any service provider, rather it is designed as a plug-in architecture. It is not too much of an exaggeration to say it is little more than the addition of four lines of code that add new destinations to the “Copy to” button in the Journal menu:
++       from jarabe.web import online_accounts_manager as oam
++       for account in oam.OnlineAccountsManager.configured_accounts():
++            menu = account.get_share_menu(metadata)
++            self.append(menu)
+Raul and I added a new module to Sugar extensions that provides a general framework for managing and accessing online accounts in a way that is service-provider agnostic for the online accounts manager imported from jarabe.web.
+We are also working on a patch to the Journal detail view that will display comments made to shared entries. This is a generalization of a mechanism I built for the Sugar Portfolio activity, which displays comments made on Journal entries when your portfolio is shared using the existing Sugar collaboration framework.
+Regarding the Facebook icon on the control panel shown in the sketch I posted, this is misleading. This is just a place holder. As I mentioned in my blog, we are working on a panel that can be used to manage all of a user’s online accounts, in a manner similar to GOA. (We may just use GOA with a Sugar wrapper, depending upon what
+dependencies it introduces.)
+So far, I think it is fair to say we are not “integrating a private corporation into the heart of the OS”.
+End of dodge.
+There are several issues raised by our proposal (none of this code has yet been reviewed and accepted):
+Should Sugar facilitate integration with online services?
+If so, should we do it in such a way that is service-provider agnostic?
+Why specifically are we working on a Facebook plugin?
+In regard to the first question, one could argue that the Sugar collaboration framework is capable of internalizing whatever services a user may want, and hence there is no reason to open the door to external services. Further, one could argue that the Sugar Browse activity provides sufficient access to online services that there is no need to provide any additional interfaces.
+Personally, I don’t think it is realistic or pragmatic to try to contain our users or to replicate every service that might be of interest within our own framework. We don’t have the resources to do that, but even if we did, such an approach is not, in my opinion, aligned with the goals of the project. I want children to use Sugar as
+a “free as in freedom” and safe place to learn, however, I don’t want to confine them to that space: they should be launched out of Sugar into the broader world of computing and the web, hopefully shaped by their experiences with Constructionism and with free software. Indeed, one of the most rewarding experiences of the project is to watch
+children who grew up with Sugar submitting patches to reshape it into a something new and better. Just as we provide a mechanism to inter-operate between Sugar (an environment for exploration) and the GNOME desktop (an environment for productivity), I envision children learning to move fluidly between the garden of internal web services provided by our collaboration model and external services.
+As far as being agnostic as to which services our framework *can* support, I think that from the technical perspective, this is a requirement. We cannot be in the business of censoring on behalf of our users. We leave decisions as to what to learn up to the local communities in which Sugar is deployed. Where we have a deliberate
+influence is on how it is learned. We try to strike a much-needed balance between consuming and creating, between critiquing and reflecting, and this is reflected in the affordances we provide: the Journal, view source, sharing, etc.
+That said, we all make decisions of commission and omission. For example, on the one hand, I filled a ticket with YouTube regarding enabling the uploading of .ogv files. On the other hand, when I post videos, I use Dailymotion, because it supports .ogv. And yet I admit to still watching the occasional YouTube video. And as you alluded to
+in your question: we shipped Gnash instead of Adobe Flash.
+Regarding social networking, I blogged this past spring about how the teachers using
+Sugar in Amazonas Peru hang out on Facebook
+. Consequently, when we set up a common space for collaboration and support for those teachers, we set it up on
+Facebook
+. I’ve tried to get teachers to come to the Sugar channel on IRC, but few, if any, ever do so. (The default channel of the IRC client we bundle into Sugar takes them to #sugar on irc.freenode.net, but they never use that tool. They do manage to find Facebook on their own using Browse.) If I want to engage with them, I need to go to where they hang out. The engagement itself, independent of the service used to provide it, has been rewarding.
+As to why Facebook as the place to start building services, there are several reasons. The first is simply that Raul wrote facebook-gobject, which he hosted on
+git-hub
+, that allows you access Facebook’s Graph API via a set of GObject based objects for easy integration with GLib2-based code. The second is that Facebook has 1-billion users with whom we’d like to interact and impact.
+There are certainly caveats: First, Facebook is not for children. My intention is to provide a mechanism for teachers, not children. Second, Facebook does not provide a place for file (project) sharing, just a place for talking about projects. We will need other services for that (dare I say, Google Drive). Third, there may well be other social networking sites that are aligned with the principles of Free Software. Help us identify those sites and write plugins for them. Which services are exposed in a control panel extension is not a decision we will make unilaterally, but in order to offer a service, someone needs to write the code. Raul and I are trying to lower the
+barrier to entry. Admittedly, by lowering the barrier for Facebook, we may be discouraging others from trying to compete in this space.
+We have an obligation to take these issues seriously and to discuss them vigorously. They are not decisions that come easily or lightly. How we open the door to web services within Sugar is still to be decided.
+2. I blogged about a cool
+visualization of prime factors
+last week. Tony Forster and I
+coded it up in Turtle Blocks
+. Quite fun. It uses a simple iteration to calculate the prime factors and then a recursive algorithm to render the factors in a tree, e.g., 25=5x5. It cycles through the factors of 2 through 100, but it is easy enough to change the main loop to cycle through whatever range of numbers you'd like. It takes advantage of the on-the-fly box definition mechanism in Turtle Blocks and the ability to reference a box from the value in another box to manage the state as it changes in the recursion. Note that you can vary the playback speed by moving the mouse up or down on the screen.
+25=5x5
+Box<-Box<-Name
+In the community
+3. When visiting Facebook's campus in Menlo Park, we bumped into Chris Blizzard, formerly the Red Hat project manager for Sugar.
+Sugar Labs
+Visit
+our planet
+for more updates about Sugar and Sugar deployments.

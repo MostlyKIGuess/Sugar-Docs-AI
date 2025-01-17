@@ -1,0 +1,84 @@
+Title: Summer of Code/2010/Pippy improvements
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2010/Pippy_improvements
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+What is your name?
+Dinko Galetić
+What is your email address?
+dinko dot galetic gmail.com
+What is your Sugar Labs wiki username?
+dgaletic
+What is your IRC nickname?
+dgaletic
+What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+Croatian and English.
+Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+I'm located in Croatia (timezone UTC+2 during summer), and I tend to work at night (though that is just a preference, I can work anytime due to my schedule)
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+Yes, I have successfully participated in GSOC 2009 and completed my project. I worked for OpenImageIO, and my project was to write Python bindings for their C++ library, together with some Python scripts for image processing. You can find some documentation here:
+http://openimageio.org/wiki/index.php?title=Python_bindings
+, and my source code is in the trunk (
+http://svn.openimageio.org/external/trunk
+), under /src/python.
+I've also installed Linux on about ten computers, if that counts. :)
+About your project
+What is the name of your project?
+Pippy improvements
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+I will improve on the Sugar's ability to teach children how to code in Python. My project will be composed of three parts.
+First, I will add more examples to Pippy (to at least double the current amount).
+Second, I will add an interactive tutorial (let's call it PyTutor for now) which will guide the learner through the process of learning Python and programming in general. Pippy provides a good place to practice Python, and I will improve on that by adding more features. The learner will be given material to study (some of it written by me + links to external sources) and questions to check what he has learned. The learner will also be encouraged to practice and write his own code as much as possible - to construct his own knowledge and view on programming. I think the constructivist approach is extremely important in the process of learning how to code: the learner simply has to internalize programming knowledge to become a programmer.
+Third, I will create a small RPG adventure game (let's call it Scholar for now) in which the learner can check his knowledge in a fun way. The player will advance through Scholar by solving Python problems. As he completes his tasks, he will be rewarded experience points, through which his character will develop new abilities (access to more Python functionality) and given more challenging foes (coding problems) to face. Copy/paste from my email on the sugar-devel list:
+"I'll throw some ideas: the player starts as a level 1 wizard who has just learned a few basic spells (Python commands). He meets enemies which he must defeat by demonstrating his knowledge of Python and programming creativity. At first, he'd have to feed the villagers (just set some "food" variables to a higher number), then perhaps defeat a few goblins (using loops to inflict damage, control statements to heal himself...) and finally slay the ancient dragon by studying his API functions and finding a weakness for which to exploit he'll have to write a DragonSlayer class. Of course, the game would have to be text based (at least for now) since anything else would be too much for one GSOC project."
+If the player fails, he will be pointed to a PyTutor lession which can help him pass to the next level.
+I consider this a good project since (I do suppose Sugar developers will agree) Python is an important language and its simple and intuitive syntax makes it a great choice for someone's first programming language. PyTutor and Scholar would provide a great and fun way to practice Python, while Pippy already provides a functional interpreter inside a familiar environment.
+What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (July 6-13); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+During 'bonding with the community' period: getting familiar with Sugar and Pippy implementations, deciding about the interface, discussing the best approach to teaching Python with the community.
+Week 1: adding Python examples. This one will be fairly easy and probably take only a few days so I'll be able to move on to other tasks.
+Week 2: Finish the draft of the tutorial, get suggestions and approval. Start hacking! First lesson(s) + game 'engine' implemented by the end of the week.
+Weeks 3-6: Code on both PyTutor and Scholar at the same time, in weekly iterations. Though I am confident that I can safely plan for more than 10% of the project to remain after the midterm, this parallel approach to both parts of my project will provide a natural control over how much is to be completed. Each of these weeks I will simply add another part to PyTutor and a corresponding game level to Scholar and make sure it is working before moving on.
+Week 7: Wrapping up, adding documentation where needed etc. If there is extra time, I will start translating my project and Sugar to Croatian.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+My teaching credentials:
+- I'm a last year graduate student, soon to be a teacher of CS. I've worked with both high school and elementary school children, and I'm tutoring a few students from my faculty in coding.
+- I am currently employed at my faculty (a student contract), where I'm assisting the professors in two freshmen courses (among other things, helping students with Python).
+- I have studied the constructivist approach to learning/teaching to some extent (beyond what was required in my teaching courses). Two years ago I have participated in an international course called "Designing eLearning", held by the University of Tallin, Estonia, where the goal was to work in an international team and design an elearning course. The course was based on constructivism, and the course my team (with me as the group leader) designed was also based on constructivism. Though most of the information was through private emails or required a login to their Moodle, you can find some of it here:
+http://teamwork.open-board.com/index.htm
+,
+http://htk.tlu.ee/elearning/dinko/
+(not much info here) and here
+http://groups.google.com/group/group5icamp?hl=en-GB&pli=1
+My programming credentials:
+- Coding in C++ for about 6 years and about 2-3 years in Python.
+- Written several small projects for my faculty courses (I have a B.A. degree in CS).
+- Successfully completed my project for GSOC 2009.
+My game design credentials:
+- I've been playing adventure and RPG games for quite some time, including board roleplaying games (Dungeons&Dragons etc.) and I've designed several adventures, stories and game systems (mechanics) for them, so I believe I'd know how to make my suggested programming game fun.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+It will greatly improve on Sugar's ability to teach children Python. I hold a strong opinion that this is a very important task for Sugar. Pippy provides a good place to practice, which I'll improve by more examples, and an interactive tutorial would work great with it since it would facilitate learning (but maintaining and requiring a high level of independent study). It would also mean giving something back to the Python community, which provided us with the language in which to write Sugar. Also, elementary schools in Croatia (and probably somewhere else as well) teach their students either Logo or BASIC, and this might provide a tool to nudge them in the Python direction.
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+Through my teaching practice I've met teachers of CS in several schools, and with some I'm in good relations. With three of them I've talked about projects which we could make to create (I volunteered my time and ideas) more interest in CS/programming. If Sugar Labs would be able to help with such an event, I believe it would be quite possible to arrange something like that. It would require me to finish the translation of my project to Croatian, but that won't take an unreasonable amount of time.
+What will you do if you get stuck on your project and your mentor isn't around?
+If I am unable to get unstuck myself, I would first discuss the problem with a friend who taught me most of what I know about programming, and now we discuss programming ideas almost daily. If the problem is still beyond us (unlikely, but possible), I would write an email to the developers' mailing list.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+Since I have planned to work on my project in weekly iterations, it would present no problem to send an email once per week to the mailing list, informing of my progress. Of course, it depends on what you will require. Last year I've communicated almost entirely only with my mentor, through email and IM, and it worked fine. When I will have questions, I will first try to use some form of instant messaging (first with mentor, if that is OK with him, and then IRC) before mailing to the list.
+Miscellaneous
+Here it is.
+A screenshot of the changed menu
+What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+L.
+Describe a great learning experience you had as a child.
+I think it would be appropriate to mention my introduction to programming. I was in the last grade of elementary school (13 years old), and with a classmate attended an extracurricular activity (an Informatics course). We approached the teacher with the idea that we would wish to learn how to code. My classmate acquired a tutorial of Visual Basic (version 4 or 5, IIRC) and suggested we try it. However, our teacher knew nothing about VB, so the deal was that we would attend the course (so we have computer access) and work on VB independently from what the rest of the class was doing. So, most of our work was just rewriting the examples from the book, and we could hardly make any meaning of it since we weren't fluent enough in English at the time. By struggling to understand what the code was doing and experimenting with it myself, I was able to gain an understanding of how programming works, and that is how I acquired that algorithical approach to thinking which is the most important barrier one must pass to be able to learn how to code.
+If I had had at least some help with it, I would have been surely been able to learn by an order of magnitude more than I had at the time. I think my Sugar/GSOC ideas could provide that help for children interested in programming as I was, since small nudges in the right direction would be the best assistance someone with high willingness for independent study needs (and there'd be larger nudges for those a bit less intrinsically motivated).
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Oh yes. This semester I'm (sort of) taking a sabbatical from faculty and am attending only one course, meaning I'm completely free the entire week except Tuesdays afternoon. I will have exams at the start of July, but last GSOC I've also had exams + lectures through the entire week (for over a month during GSOC!), with lectures being time consuming and a huge annoyance. Time will definitely not be a problem for me this GSOC and I am very confident I will be able to finish my project, specially because of my high interest in what I've suggested (just look at the lengthy proposal you've just read!).

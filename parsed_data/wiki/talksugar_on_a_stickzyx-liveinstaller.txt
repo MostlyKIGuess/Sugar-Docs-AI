@@ -1,0 +1,62 @@
+Title: Talk:Sugar on a Stick/ZyX-LiveInstaller
+URL: https://wiki.sugarlabs.org/go/Talk:Sugar_on_a_Stick/ZyX-LiveInstaller
+--------------------------------------------------------------------------------
+Superuser needed?
+Shouldn't "Type:
+zyx-liveinstaller
+" be "Type:
+sudo zyx-liveinstaller
+"?
+David Kergyl
+17:59, 12 March 2010 (UTC)
+alternative instructions
+ZyX-LiveInstaller allows you to install Sugar from either a LiveUSB device or LiveCD media to a system or external disk, in order to create a traditional operating system installation on disk (or removable media such as SD or USB storage devices).
+Note:
+This is
+not
+a method for creating a Sugar-on-a-Stick (LiveUSB) image. Although you can install to an external USB drive/stick, resulting in an installation that similarly boots your system to the Sugar UI. The difference is that the resulting system is not a 'Live' system; it uses a normal filesystem instead of a compressed read-only filesystem and a read-write overlay.
+IMPORTANT WARNING:
+This software will
+overwrite entire partitions or disks
+—as well as your bootloader—during installation. It is
+currently
+intended only for users that are familiar with the risks and possible complications of installing a GNU/Linux distribution to system disk. If you need a dual-boot configuration, you will need to configure
+grub
+yourself.
+To use the ZyX-LiveInstaller:
+Boot your target computer with Sugar-on-a-Stick;
+Run ZyX-LiveInstaller:
+Start the Terminal activity;
+Type:
+zyx-liveinstaller
+Check that you have room on the target drive:
+Run
+gparted
+from within ZyX-LiveInstaller
+You will need at least a single partition for the root filesystem that is greater than 2GB. (Some disks labeled and sold as 2GB may not be quite large enough.)
+Optionally create a separate partition for the /boot filesystem, at least 42MB in size
+Optionally create a separate partition for swap space, typically 1–2 times the size of the RAM in your system. This will allow the use of hibernation (suspend-to-disk, via pm-hibernate command run from root terminal shell).
+Note: formatting the partitioner is not required; (does not work for VirtualBox use: /boot 200 ext2; / 3000 ext4; balance: linux-swap)
+Exit the partitioner by hitting the X in the top corner of window.
+While still in Zyx-LiveInstaller:
+Read and follow the simple wizard, choosing destination volumes/partitions for root, boot, and swap.
+Notes:
+This is a
+destructive
+install:
+The contents of the disks or partitions you choose will be overwritten entirely
+;
+During installation, you are free to use other activities;
+After installation completes, you may remove the LiveUSB or LiveCD, and continue using the newly installed system
+without rebooting
+!  This means that anything done with the system before, during, or after installation persists into the installed system;
+For more information, see the upstream project website
+[1]
+.
+Mirabelle Space Requirements -- Need 8GB USB drive?
+Tried to install as per instructions on 4GB USB drive but zyx-liveinstaller failed with the following (abbreviated) message:
+"*Installer backend error*... target root size 3341520Kb is less than live root size 4194304Kb"
+The important number is the 4GB!  Can't get a 4GB root on a 4GB target disk!
+Successfully installed on 8GB disk and Gparted confirmed that the root has 4.39GB used.  I did install a couple of extra activities, but it still seems one needs at least a 4GB partition for the root.
+Incidentally, Gparted reports only 28.23 MB used in /root after successful install.
+Should numbers on page be changed accordingly?

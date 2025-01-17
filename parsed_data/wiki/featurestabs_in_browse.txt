@@ -1,0 +1,62 @@
+Title: Features/Tabs In Browse
+URL: https://wiki.sugarlabs.org/go/Features/Tabs_In_Browse
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Pages to be opened in new windows are opened in a small pop-up window without any controls at the moment. This feature opens those pages in a new tab inside the activity window.
+Owner
+Name:
+Tomeu Vizoso
+Email: tomeu@sugarlabs.org
+Current status
+Targeted release: 0.86
+Last updated: August 14th 2009
+Percentage of completion: 100%
+Detailed Description
+New pages will open in a new tab similarly to other browsers, though this feature isn't proposing any way for the user to explicitly open any link in a new tab.
+Benefit to Sugar
+Some sites expect that new pages will open in a window with the same navigation capabilities of the main window. Currently those sites break when new pages are opened in dialog-like windows.
+Scope
+It requires changes in the Browse activity and in Hulahop (which is only used currently by Browse).
+How To Test
+Features/Tabs In Browse/Testing
+Go to a web page with links that open in new windows and check that after clicking on such a link, a new tab is created and the new page loaded there. Switch between tabs and check that the address bar changes accordingly and the buttons affect the current tab.
+User Experience
+Links that used to open in a new window will open in a new tab inside the main window.
+Dependencies
+The maintainer of Hulahop and Browse need to accept the patches.
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+None other than this page.
+Release Notes
+Links that would open in a new window now open in new tabs inside the main activity window, so they don't loose the toolbar, nor notifications, etc.
+Comments and Discussion
+See
+Talk:Features/Tabs In Browse

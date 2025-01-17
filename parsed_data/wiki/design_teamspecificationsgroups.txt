@@ -1,0 +1,61 @@
+Title: Design Team/Specifications/Groups
+URL: https://wiki.sugarlabs.org/go/Design_Team/Specifications/Groups
+--------------------------------------------------------------------------------
+Contents
+1
+What is a group?
+2
+Types of Groups
+2.1
+Open groups
+2.2
+Closed groups
+3
+Creating groups
+4
+Leveraging groups for collaboration
+4.1
+Visualizing groups
+4.2
+Sharing with a group
+4.3
+Groups and the Journal
+What is a group?
+A group is composed of a set of people who have elected to have membership in that group, and who all agree upon the membership of that group.  In other words, unlike "buddy lists" in common instant messaging clients which offer
+local
+(per user) definition of groups mostly for organizational purposes, groups instead offer a facility for defining sets of people who all desire to collaborate together.
+This could be a school, a class, or a study group.  It could be a chess club, a poetry group, or a set of close friends.  Groups can be defined for the duration of the schoolyear, the duration of a specific project assignment, or simply for the day. Groups are a flexible and open framework for making collaboration with others simple and efficient.
+Types of Groups
+We envision two types of groups: open and closed.  The distinction between these is the management infrastructure (which we minimize as much as possible in both cases).
+Open groups
+Open groups have no manager(s).  This means that the set of operations that can be performed on the group are the same for every member of the group.  First, consider the set of properties that defines an open group.
+Properties:
+Name
+Colors/Icon
+Set of members
+Then, consider the set of operations that can (or cannot) be performed on these properties. The name is chosen at time of creation of the group, and cannot be changed thereafter. The colors and icon are also chosen at creation time, and cannot be changed. Any member within the group may invite additional members, and any member may leave the group freely.  Open groups naturally disappear when their membership sets become empty.
+Closed groups
+Properties:
+Name
+Colors/Icon
+Set of members
+Set of instructors
+Closed groups provide additional facilities for management, which can be useful in structured settings, such as a classroom. To enable this, closed groups also have a set of instructors, in addition to the members set, who have the ability to perform group management.  Instructors may rename the group, change it's icon/colors, edit group membership, and add instructors.
+Unlike open groups, membership is defined solely by the instructors. Members (who are not also instructors) cannot invite new members to a closed group, nor may they leave the group freely. Instructors may promote members to instructors, or add new instructors, but can only remove themselves from the instructors list.  At least one instructor must be defined for any closed group; the last remaining instructor cannot remove herself, but can opt to delete the group.
+In addition to managing the sets of people which define the groups, instructors may delete a closed group, or choose to convert a closed group to an open one.  When a closed group is opened, all instructors become simple members of the group.  It is not possible to convert an open group to a closed one (though it is trivial to define a
+new
+closed group based on an existing open one).
+The management facilities in closed groups make it possible to define classes, manage the student roster, transfer classes to new teachers, rename groups (say, from "grade 3" to "grade 4"), etc.  The class example is the primary use case for closed groups, though others surely exist.
+Creating groups
+Groups are exposed, primarily, in the Groups view of the Sugar UI---one of the four zoom levels defined in the interface. Anyone may create a group.  The interface for group creation allows the creator to set the basic group parameters such as name, color, and icon, to define a set of initial members to invite to the group, and the option to make the group open or closed.
+Once the group has been defined, invitations are sent to the set of initial members (and instructors, if applicable).  The invitee receiving the invitation then has the option to accept or reject the invitation. Upon accepting, the new group gets added to their list of available groups.
+Leveraging groups for collaboration
+So, what good are groups anyway? The group framework exists primarily to enable simple and seamless collaboration in Sugar.  This includes easily finding group members and joining their activities, sharing activities with specific groups of people, and finding objects and activities created by or with a given group of people within the Journal.
+Visualizing groups
+Groups are a core construct of the "zooming" interface of the Sugar UI.  With a zoom level dedicated just to them, it is possible to visualize individual groups, filtering the densely populated neighborhood to a specific set of individuals and their activities.
+This filtering is an important aspect of the scalability of the collaborative interface Sugar provides, since it makes it simple to view relevant slices of the available information, perhaps by class, or by subject, or by groups of friends and family
+Sharing with a group
+Groups also make sharing one-step simple.  Rather than having to invite a number of individuals to an activity, a child can simply share an activity with a group (or groups) of choice.
+This also offers an addition level of granularity with respect to sharing.  Whereas currently activities may only be shared with privately invited individuals or openly public, groups provide an intermediate scope for sharing with a specific set of individuals.  Effectively, the set of individuals who can see and join a given activity is defined as the union of all groups it has been shared with and all individuals invited to it.
+Groups and the Journal
+In addition to providing a shortcut of sorts for sharing activities, groups also have a purpose within the Journal.  Metadata regarding the groups any activity has been shared with are kept with their Journal entries, making it possible to locate all activities worked on with a given group.

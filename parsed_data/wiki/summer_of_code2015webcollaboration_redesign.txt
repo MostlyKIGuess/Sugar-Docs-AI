@@ -1,0 +1,109 @@
+Title: Summer of Code/2015/WebCollaboration Redesign
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2015/WebCollaboration_Redesign
+--------------------------------------------------------------------------------
+Contents
+1
+About You
+2
+About your project
+3
+You and the community
+3.1
+Miscellaneous
+About You
+What is your name?
+Abhishek Jairath
+What is your email address?
+jairath.abhishek@gmail.com
+What is your Sugar Labs wiki username?
+ABHISHEK JAIRATH
+What is your IRC nickname on irc.freenode.net?
+jairath
+What is your first language?
+English
+Where are you located, and what hours (UTC) do you tend to work?
+New Delhi, India(UTC +5:30). Usual working hours 5:30 - 9:30 and 16:30 - 20:30 (UTC)
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I haven’t exactly contributed to a open-source project but I did add some functionalities to
+Ghost
+, an open source blogging platform, while working for a startup. Moreover I have been using a lot of open-source stuff for so long that I really want to contribute to the community.
+About your project
+What is the name of your project?
+Re-design collaboration with web technologies
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+The project aims at redesigning the existing collaboration model for web activities. Collaboration is a major part of sugar and this project would bring just that to sugar web, allowing web activity developers to incorporate collaboration associated features in the activities.
+The project would provide the sugar web ecosystem with following features :-
+Making sugar web activities shareable and collaboration friendly
+Rooms : An IRC like functionality to allow students and teachers to work on activities together by joining rooms
+Discovery Mechanism - Something on the lines of 'Neighbourhood View', to make web activities discoverable
+Implementing this project would require a node.js server running a
+socket.io
+instance which will act as the link of communication of content between the activities. The socket.io library already comes with 'rooms' which would be more than useful for this project. It also provides authentication layer and namespacing so it would suit the requirements well enough.
+A javascript api will have to be developed for frontend which would expose the communication methods between server and client which would be used by web activity developers.
+The framework would also allow the activities to exchange other kind of media like videos,files etc. 
+[
+Here
+] is a prototype of how collaboration would work in the web activities.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Time
+Task
+28 April - 20 May
+Discussing the project in detail.
+21 May - 2 June
+End Semester Exams
+3 June - 7 June
+Setting up scoket.io instance and working on basic communication functions.
+8 June - 17 June
+Working on the 'Room' based features
+18 June - 27 June
+Implementing Discovery and creating Neighbourhood view for web
+28 June - 2 July
+Testing and Mid Evaluation
+3 July - 12 July
+Developing the client side api for sugar-web developers and working on a Chat Activity
+12 July - 17 July
+Feedback and refining UI of Chat Activity
+17 July - 20 July
+Working on feedback
+20 July - 31 July
+Add other required features like sharing files etc.
+1 August - 7 August
+Testing and Documentation
+8 August - 17 August
+Buffer Period
+18 August - 28 August
+Winding up and submitting code
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I have been programming since school where I won an Inter House competition and was runner up at 
+an  inter school programming competition. In college I have undertaken a number of projects as part of my curricula. I also worked with a startup where I worked on lots of technologies both at backend and frontend, Node.js, MongoDB, WebSockets, Redis, AngularJs to name a few.
+Some of my school and college projects:
+Ticketing System made using C++. My first somewhat usable project
+An MP3 player with playlist based features included in C
+A web based voting platform using MySQL and Node.js
+Know Your Leader
+A git free version control system. Also worked on realtime editor which was made part of the VCS.
+Codeyard
+Codeyard-Editor
+A chat server using socket.io.
+Node-Chat
+Developed node.js powered backend for a chrome extension, currently working on a MEAN based analytics engine for the same
+Developed and maintained website of a Artist at Work Productions,a Delhi University organisation
+With experience in working on production level projects I think I will be able to complete this project given my familiarity with the involved technologies. Besides I have vacation for better part of coding timeline so time won't be an issue.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Me
+: Collaboration is important for the growth of individuals and an important aspect of modern society. So when sugar already puts so much weight to it why should web ecosystem be left out. For Sugar web-activity developers completion of this project would mean having an option to provide collaboration related features in the web activities. And with web taking precedence over native softwares I think project would help push the envelope in terms of creating new kind of activities for the web, including web activities for android.
+Martin Abente Lahaye
+: Collaboration is a fundamental piece of Sugar's pedagogic approach, a big part of the learning experience happens while sharing. Writing activities in a different language won't change that. So we must provide a collaboration framework to sugar web-activity developers.
+Walter Bender
+: The only time collaboration is called cheating is when you are in school in the rest of life it is called being productive and getting the job done we put an emphasis on collaboration in Sugar to introduce it from the start. We have a solid mechanism for Python but are lacking a mechanism in Javascript. We need to address that lack.
+What will you do if you get stuck on your project and your mentor isn't around?
+For programming problems I would Google my problem and look for solutions on popular forums. And for sugar specific architectural or technical problems I will try to communicate my problem via IRC and mailing list and wait for someone to respond while I do other project related tasks.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I would open a thread in Sugar mailing list and update my weekly progress there. I can't promise but I would love to blog my experiences while I work on this project.
+Miscellaneous
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Describe a great learning experience you had as a child.
+It was in school when I flunked a chemistry test and it was the very first time I had scored so bad in an exam. I felt so dejected because I had always been a sincere student. After knowing this my mother said to me that failure is part of life, something which everyone has to go through at some point in time but it is important that one should not make it a habit and resolve to work harder. This is something that I always follow to get over tough times.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+I have always thought that education is the best way to have a better society. And Sugar is indeed doing a great job at it. And features like sharing activities and being able to communicate with kids anywhere around the globe makes children realise that people in other countries are just as good as them and they all belong to the same world.

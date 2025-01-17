@@ -1,0 +1,102 @@
+Title: Archive/Current Events/2008-10-06
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2008-10-06
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Community jams, meetups, and meetings
+3
+Tech Talk
+4
+Sugar Labs
+Sugar Digest
+First, an aside: I introduced the concept of peer editing in the
+FLOSS Manual on the Write Activity
+by referencing the late
+Don Murray
+, who taught generations of journalists how to write. He had three simple rules for great writing:
+revise
+revise
+revise
+Revision is an essential part of the writing process and one of the easiest and most effective ways to revise is to share the burden of editing among your friends. Hand your writing to a friend, who will read it and make comments and suggestions. You return the favor by doing the same for your friend's writing.
+While riding my bike into Cambridge yesterday, it occurred to me that a simple peer-editing exchange for bloggers would be easy to set up; it could make a world of difference in the quality of the writing, while not in any way impinging upon the freedom and spontaneity that characterizes the blogshpere. In deed, I am of the opinion that one of the biggest differences between blogging and the mainstream media is the strong editorial tradition of the latter.
+So why doesn't someone set up a social-networking site—ideally integrated with the popular tools such as Word Press—to enable bloggers to find a willing peer to suggest revisions before the publish button is pressed (a "Send to editor" button)? Such an exchange need not be symmetric—some people prefer the role of critic to creator; it would be a simple, powerful enhancement to the blogsphere. (Or does such a site already exist? Try the
+Peer Editing Exchange
+.)
+1. Open Minds: David Farning and I had the opportunity to attend the
+Open Minds
+conference in Indianapolis this past weekend. It was refreshing to spend time with so many teachers passionate for learning and creating opportunities for their students. I tried to tune into discussions about the various roadblocks that inhibit the introduction of technology into schools and into classrooms. The list is pretty long and some of the items are formidable, but nonetheless, there are obvious needs and teachers and administrators who are fighting for change. There was lots of interest in Sugar—teachers and administrators are looking for an easy (and inexpensive) way to try it in their classrooms.
+A few specific outcomes from the conference: Nate Ridderman will be helping set up a Sugar classroom in an elementary school in Indianapolis that is doing a one-to-one laptop experiment; David and I will be helping set up a Sugar classroom in a Boston public school that trying to make use of some old Pentium IV desktop machines; we also discussed making Sugar available as part of the offerings from some hardware OEMs who focus on the education market, including
+2goPC
+and
+Resara
+(who offer a thin-client solution).
+2. LiveUSB: It seems that a LiveUSB offers the most simple way to experience Sugar on a preexisting hardware base, such as a school computer lab. (One advantage of a LiveUSB approach—where user data is stored in a disk partition—is that the same key can be used at school and at home, emulating the experience of a one-to-one laptop program, where the laptops go home with the children. The Fedora team has made progress on a LiveUSB this week (See Item 11 below) and we are also working to get "fresher" Sugar bits into the Ubuntu LiveUSB. However, there remains a problem in that many computers do not have boot-from-USB enabled in the BIOS. Steve Pomeroy suggested we look into U3, a proprietary method of launching applications from a USB key. This would provide a work-around for running Sugar on machines that are running Windows (alas, this accounts for the majority of hardware found in schools). Ben Schwartz pointed out that we could do the same thing using autorun.inf (See
+autorun an executable from a USB key in Windows XP
+), launching an instance of Sugar in QEMU. Running Sugar in emulation requires a reasonably fast machine in order to give an acceptable experience. We need to do more testing in this arena, as it is a path of least resistance for teachers and parents who are interested in trying Sugar.
+3. Teachers/developers: There was a productive discussion on the IAEP list this week about how to better engage teachers in the Sugar developer community. Rob Costello pointed out that only a small percentage of teachers would participate in the actual development process, building bridges to even that small group would be worthwhile. It was pointed out that the
+Activities/Turtle Art/Patching
+(which is still incomplete) is far from meeting the needs of a teacher (or anyone else new to the community). Bill Kerr wrote up some questions that I tried to answer in the wiki (See
+Talk:Activities/Turtle Art/Patching
+):
+Where do you find things (Python files, source code)
+Which things do what? How does one know which Python files have to be tweaked?
+Who do you communicate with? (Who are the maintainers and how do you content them?)
+How do you program more advanced stuff in Python, e.g., using lambda?
+What is FOSS etiquette, how do you go about learning to be a member of this community?
+I repeat here my answer to Bill's last question:
+"Start by asking questions... welcome to the community!"
+Bill also wrote more generally about what it means to join a community, summarizing James Gee from his book
+What Video Games Have to Teach Us About Learning and Literacy
+(2003), drawing a distinction between knowledge and being part of a community of knowledge:
+we learn to experience the world in a new way: see, feel and operate on;
+we gain the potential to join a new social group, a new club;
+we gain the resources that prepare us for future learning and problem solving in a new domain and perhaps related domains.
+Community jams, meetups, and meetings
+6. Sugar meetings: The deployment team will be meeting on Wednesday at 14 UTC (10 EST) on irc.freenode.net (channel: #sugar-meeting). The oversight board will be meeting on Friday at 14 UTC (10 EST), also on #sugar-meeting.
+Tech Talk
+7. Release candidate: For those of you with OLPC-XOs, Michael Stone has released a candidate build (766) that incorporates Sugar .082. It is well worth the hassle of updating from 652 or 711.
+8. Tricks: Michael also posted a list of "idioms" that he relies on in order to make his software-development efforts more predicable and robust (See
+Mstone Tricks
+).
+9. Sugar control panel: Simon Schampijer speed up control panel start up in 0.84. The next issues he want to tackle are better localizations in the panel for the available languages and switching to gconf (if tests show it is worth it).
+10. Bugsquad: Simon had also setup the Sugarlabs Bugsquad, the quality assurance (QA) team for Sugar. The squad will triage bugs, set priorities, verify usability and test cases.  Furthermore it does coordinate testing, does testing itself and help setting up bug infrastructure, i.e., trac components (See
+BugSquad
+).
+11. Sugar Live CDs: Greg Dekoenigsberg reports progress on a Fedora Live CD/USB  based on rawhide/F10. He has a LiveCD for Fedora 10 devel (Rawhide) that allows a Sugar 0.82 boot option via GDM. Activiites are still missing, but Greg says that we will close this gap quickly. There is also a kickstart file that can be used by any Fedora user to generate such an
+image trivially (See
+for some background on Fedora kickstarts Introduction for some background on Fedora kickstarts
+). Also, see
+liveusb-creator
+for help on making a Windows-bootable LiveUSB for Fedora.
+Bryan Kearney built a virtual image for the Sugar rawhide package. To use it: (1) download
+sugar-rawhide.tgz
+; (2) uncompress the .tgz file; and (3) run the command:
+virt-image sugar-rawhide.xml
+12. Telepathy goes upstream: In their newest release (2.24), GNOME announced "the inclusion of an instant messaging client based off the Telepathy communications framework." Whereas Sugar uses Telepathy, this means that there will likely be many non-Sugar users, adding to the community of support for the project. This is a big step towards longer-term stability, support, and general acceptance of all of our efforts. Congratulations!
+13. Activity updates: There are updates available for:
+Terminal-18
+Write-60
+Calculate-25
+PlayGo-5
+Moon-7
+Measure-21
+14. ImageViewer: Sayamindu Dasgupta wrote a new Activity to let you view images from the Journal. It supports zoom and rotation as well. Download it from
+ImageViewer-1.xo
+; the source is in git (
+| imageviewer-activity;a=tree
+)
+15. DrGeoII: Hilaire Fernandes announced a new DrGeoII release with macro-construction and Smalltalk scripting, plus tons of bugs fixes. The new DrGeoII distribution is based on an universal one-clic distribution for GNU/Linux, Windows and Mac OSX (Please visit
+DrGeo web page
+to learn more). Hilaire is also discussing with the Etoys team the possibility of adding DrGeoII to the Supplies flap.
+16. Etoys project sharing: Daniel Ajoy inquired about uploading Etoys projects to the Internet. While the "core" Etoys team doesn't have a world-writable project-sharing site, they do recommend tools for setting up regional sites. To set up your own server, the simplest thing is to set up the
+SuperSwiki2 server
+.
+17. Debian jhbuild: The Debian team has done a thorough job of documenting the process of building a Sugar environment on a Debian GNU/Linux distribution (See
+Development Team/Jhbuild/Debian
+).
+Sugar Labs
+18. Self-organizing map (SOM): Gary Martin has generated another SOM from the past week of discussion on the IAEP mailing list (Please see
+Image:2008-September-20-26-som.jpg
+).

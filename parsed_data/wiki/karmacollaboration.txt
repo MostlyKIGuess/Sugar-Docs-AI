@@ -1,0 +1,57 @@
+Title: Karma/Collaboration
+URL: https://wiki.sugarlabs.org/go/Karma/Collaboration
+--------------------------------------------------------------------------------
+Contents
+1
+Objective
+2
+Use cases
+3
+The problem
+4
+Keep in mind
+5
+Possible solutions
+Objective
+To provide a mechanism to enable collaboration using JavaScript. On this way, we'll be able to support collaboration on Karma lessons.
+Use cases
+Examples:
+A simple chat (over an html file), where you can see connected children to the activity and talk each other.
+Let's imagine a lesson: "Learning basic arithmetic", on this lesson we touch the topics: add, rest and multiply a number. At the end of the lesson we got the "Test". Here on "Test" one child writes a basic equation and challenges other child to solve it, then switch turns.
+The problem
+How to create an easy way to write collaborative JavaScript to be run client-side in browsers.
+Keep in mind
+JavaScript has no model for distributed collaboration.
+Shared data can be considered volatile.
+Possible solutions
+It would be ideally as simple as possible and as web-like as possible.
+lucian has suggested 2 possible ways
+[1]
+:
+Starting local servers in each Browse and using XMLHttpRequest(XHR) to send data between.
+Adding an API for this in window.sugar and using the existing Sugar collaboration Python API as a backend.
+bemasc
+a DNS server and httpd server on each client. (example WikiBrowse )
+m_stone:
+name the people with one wishes to collaborate with using:
+Telepathy
+DNS
+D-Bus to telepathy
+a way to get those names to the JS.
+D-Bus to telepathy
+HTTP to a webserver to D-Bus to telepathy
+data transfer via:
+D-Bus + Telepathy
+a central relay webserver
+point-to-point HTTP links to peer webservers.
+Collaboration data:
+Bemasc has suggested to store the messages using files and directories
+/users could be a list of current users
+/$USERNAME/ could be a list of messages, displayed as files
+To check for new messages, just poll the contents of /$USERNAME/.
+To check for new users, just poll /users.
+If you want to see what messages $USERNAME has emitted, poll /$USERNAME/
+Also one other way is using http PUT & GET
+Flaws: it's all broadcast, and it's all polling.
+Broadcast is inefficient in the network if you really only want to send a message to a single user.  Polling wastes CPU, battery, and possibly network.
+On way to handle polling is setting a high timeout for XHR. (Thanks Lucian)

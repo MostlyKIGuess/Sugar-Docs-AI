@@ -1,0 +1,85 @@
+Title: Dextrose/Server
+URL: https://wiki.sugarlabs.org/go/Dextrose/Server
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Moved and died at
+https://sugardextrose.org/
+Contents
+1
+Dextrose Server
+2
+System builders
+3
+Defining Policy
+4
+Applying Practical Automation
+5
+Focusing on Results
+Dextrose Server
+Before diving straight into what the Dextrose server is, should and will be, I'd like to talk a little about policy, and the way its used in both small, medium and defenitely large companies. This policy document, is usually written with 2 essential ideas in mind, and passed around the company or often even expected to be known instinctively by all company employees of all categories (we'll mention just the relevant parties here):
+1. Techies tend to have the mindset that, whatever it takes, however long it takes, and however many other systems are affected is not something they ought to be aware of nor is it really their problem. Adhering to a strict policy stops this kind of thinking from happening. Techies are unfortuantely almost all culpable in some way or another of this condition [me included], which is why they/we are usually very good at finding a solution for almost anything, but also very good at bringing a system down in order to resolve it.
+2. On the other hand a more admin-like policy perspèctive, is that what a techie does comes second to having a fully functional system that does not crash, change too often, or make dramatic changes to the policy document in place. In other words, if its not broken they shouldn't fix it. The problem here lies in the fact that most admins/managers don't realise that not being continously aware of the system, understanding how it works, when updates are required and such, are just as important as keeping the system running. Policy, therefore, for them strictly outlines that updates, especially security related ones must be perfomed on a reguar cycle, power systems must be checked, internet connectivity, etc, etc. For them it is a kind of checklist that needs to be performed every so often.
+Normally, small companies notice the terrible state of affairs that occurs when either one or more commonly both of these groups of people ignore policy altogether, resulting in the numerous non-functional servers in the field. And if the techies and managers/admins/deployers are not taking much notice of policy, you can imagine how much attention a teacher or headmaser gives it. Ususally this third group of people are very briefly made aware of a certain set of steps they should adhere to, when problems occur. It is usually not well explained, possibly only in one language, and thought of as a weird document that some guy wrote way up the food chain, that has never been in the field, and couldn't possibly have written anything that might help the particular problem they are experiencing.
+The end result of this is usually many many broken systems all because a proper structure was either not created in the first place (most commonly) or it being ignored due to too much growth, too much turn around, or not enough people to enforce and more commonly believe in the policy document.
+This is one of the main reasons, automation was integrated into larger companies that want to do a number of differing jobs, but that all revolve around strictly following a policy (who can do what, when, how it should be done, what every member is responsible for, etc) Unfortuantely, companies rarely comply fully with policy, but by automating the processes for building the servers we want to create, it almost creates the policy for us. Of course this involves documentation!
+Techies are terrble at this, but this is an attempt at trying to get that right. We want to spend quite some time on the various aspects of the policy document so that it can help every member  involved in the deployment scenario. The whole aim of this is to make things run more smoothly, faster, more efficiently, and hopeully even with a little more excitment involved. Yes... this document needs to be created... so lets do our best to join forces with all the different brain types (Jungian Archetypes) and create a kick ass policy document that can make it easy for us to know where we all fit in this large wheel of ongoing change.
+System builders
+Right now we are in the process of defining/documentin/testing 2 automated installation processes, one based for RHEL 6 (CentOS 6) and the other Debian 6. We don't need to go into the best parts of one system (sysadmins ususally say debian 6 is much easier to control for centralised networking services like DNS, NTP, CFengine or Puppet, Nagios, etc), whereas RHEL 6, which is the system we have chosen to support solely at this time, on the other hand is based on the direct support we can get from the company itself, who, I am sure, as soon as they see our automated builder, would be very interested in giving us access to their RHN Satellite (If not, we just wait for CentOS rpms) for educational purposes.
+Right now, We have various pieces that have been created to help both simplify and modularise the existing XS system. Clearly, .au has done a wonderful job with taking out components which just weren't necessary. Granted, it is always much easier to add on new items, than to start reverse engineering and extracting elemens that we might find are essential further down the line. Having buld both the FAI (Fully automated Installer) for debian, and the kickstart based automatic installer for RHEL 6, these are the current bases we will want to be working on.
+The current supported infrastructure is based on Redhat Enterprise Linux 6. We may move to/work with Centos 6 when it is released. Right now we only support 32 bit i386, though we might support x64 in the future
+One thing I find it quite important to mention is that we have to try and get as much of the code sorted into segments which can be extracted and then modularised to be used in any OS as possible. In reality doing this also simplifies everything as it is much easier for system administrators to understand how the underlying system works, when it works similarly be it a debian based or a redhat based system. Its easier to add stuff than to subtract/reverse engineer it.
+The emphasis should of course be to make sure it is supported on one OS, but we shouldn't make it harder than it has to be for others to use the system on another OS. This strategy was quite successful with projects like LTSP, which used to be K12LTSP and only worked on Redhat. This caused many developers to shy away from working with it, until it was modularised, and supported seperately for other operating systems. I'm not saying the dextrose server should be supported for every operating system from onset, or that we should even build for every contingency, but we should keep in mind that this is an open source project, and as such should attract as many developers and users as possible.  To that end, it seems the .AU OLPC developers have done a lot of cleaning up and modularising of the current XS code. That's great, and we will probably take that code as opposed to the current XS as our base. What I mean is we should take their components and include them into our mass builders, before we start taking appart the larger and more complicated original OLPC XS server.
+Defining Policy
+We keep mentioning “policy,” which might sound like a big document handed down from on high, bound in leather and signed in blood by all executives at your company. This isn’t what we mean. The configuration policy is highly technical, and although it’s influenced by factors outside the technology team (i.e., legislation, credit card-security guidelines, site security policy, and so on), it is purely a statement of how the System Administrator team believes the systems should be configured. The problem with most sites (whether running UNIX-like operating systems, Windows, or other OSs) is that many machines will at best only partially comply with policy.
+All systems might be imaged exactly the same way, but over time user and SA activities make enough changes to each host that the system drifts from the desired state. Sites that use automation for all aspects of system configuration will still suffer from some drift associated With users and netWorked applications.
+Examples of this drift include varying disk utilization based on log files from daemons or files left on the system by users, or stray processes left around by users. This should be the extent of the drift,
+because the automation system should install and configure all configuration files and programs, as well as keep them in conformance with policy. In addition, as drift is observed, you can update the automation system to rein in its effects. You already have a system configuration policy, but there’s a good chance that it’s documented incompletely. There’s an even better chance that some or all of it exists only in some one, usually the main team developer's head. We want to try and clarify this sot that should anything worrying happen to any key person, the whole project isn't gone for good.
+Better stated, we are actually talking about system configuaration policies.  Whether this is done by shell scripts, perl scripts or tools like cfengine and/or puppet the automation serves as the documentation. It is in fact some of the most usable documentation for fellow SAs simply because they know its authorative (computers dont tend to make mistakes)
+If new SAs at the site read some internal documentation about installing and configuring system software, they dont have any assurance that following the documentation will achieve the desired effects they are looking for. The SA is much better off using a script that has been used all the previous times the software needed to be installed (hence the reasonf for documenting steps in the wiki,and pushing code to an SVN/Git/BZR)
+In this way either the script will work as advertised, or it will show breakage somewhere. Using automation, where all systems that install use the same sequence of events as laid out in a carefully laid out policy will help insulate the SA against breakage scenarios.
+The other advantage, though a rather morbid one is, should someone with the majority of this knowledge be hit by a car/truck/boat, the whole project won't come to a standstill.
+The process of Automation is a step by step one, where we build on previous runs until we get to a point we are happy that it s all just cogs in a wheel to let it drive. With very few if any crashes.
+For some more information on policy and dealing with larger projects to help manage the process along, I thought it wise to take a look at some of these links:
+[1]
+- configuration management tool system designed to appeal to lazy admins, an evolution from put files in some central dir. A glorified wrapper for rsync.
+[2]
+– Uses SELinux to define and control policy
+[3]
+← very nice visual outline for how things change from doing things the old fashioned one computer at  type way to many systems automation via policies.
+Applying Practical Automation
+You need to know several key things before you automate a new procedure or task.The prerequisite information in an easy-to-digest format. There 3 main parts that will decribe the applying the practical automation, one based on using the supported and what we will initially be working on exlusively (RHEL 6 or a derivate there of), its cousin operating system Debian 6, and the final Automation Programs that are used to push and pull data to and from the computers within a deployment.
+Sounds simple enough right? Well, on the surface it kind of is. Once Our Policy, which changes from deployment to deployment due to far too many reasons to document here, and the choice of OS has been made, a well oiled and proprely planned system should be able to install without user interaction of _any kind_
+That is the power of automation and the reason errors will not rear their ugly heads. I understand that at first, many people might feel this is overkill, that we should just have iso cds that do the work and be doen with it.
+But this is hardly the first open source project of its kind to fall falt on its face due to that kind of primitive thinking. Today no large deployment would consider using any system other than those outlined below.
+Ok, geting back on topic,
+Focusing on Results
+When in doubt, opt for simplicity. Don’t attempt fancy logic and complicated commands when the goal is simple. For example, you might have a script that takes a list of Domain Name System (DNS) servers and generates a resolv.conf file that’s pushed to all hosts at your site.
+When a new DNS server is added or a server is replaced with another, you need to run the script to update the file on all your systems. Instead of running the script to generate the file on each and every host at your site, you can run the command on one host, take the resulting output, and push that out as a file to all hosts.
+This technique is simple and reliable compared to the requirement of running a command successfully on every host. A complicated procedure becomes a simple file push.
+This is the KISS (Keep It Simple, Stupid) principle in all its glory. Our system administration experience has taught us that increased simplicity results in increased reliability.
+We have agreed therefore to build minimal systems that contain the bare esentials that every system admin will need or better said every schoolserver needs.
+In practice that means that ALL extension with very few exveptions will be  handled through cfengine or Puppet.
+So... as we are actually support just one of these systems, Let me document it as such so that it can easily be recreated/retouched/patched/or further developed on. The main reason we have chosenn to focus ona Red Hat system as opposed to Debian is 2 fold. First its because the stability means we can leave it running without worrying too much.
+We will also be using Puppet as the main example of pushing and pulling data as it seems to be both easy and currently quite the rage. But as our system is modular, it really doesn't matter if you want to use Cfengine instead of Puppet and Fedora instead of RHEL6 (though we wont necessarily be able to give  the same kind of support. To you)
+To image our Debian systems, We’ll use FAI, or Fully Automatic Installation (see
+http://www.informatik.uni-koeln.de/fai/
+). Some folks may argue that using FAI could be condisered overkill, seeing as we can use pre-seed instead, but FAI has matured to the point that it is extremely similar to Red Hat's kickstart and could easily be used to copy the steps we will outline for our Red Hat install.
+Some folks might  use Sun’s Custom JumpStart to image our Solaris machines (see
+http://docs.sun.com/app/docs/doc/817-5506/jumpstartoverview-4?a=view
+). We will not be doing any Solaris stuff, but I figured since the book I'm basing a lot of this automation stuff on mentiond it, it might be worth looking into.
+We’ll use Kickstart to image our Red Hat systems (see
+http://www.redhat.com/docs/en-US/Red-Hat-Enterprise-Linux/6.0/html/Installation-Guide/ch
+kickstart2.html).
+Each of our imaging systems Will utilize postinstallation scripts that We develop. These scripts will cause the system to utilize our newschoolserver infrastructure and extend it using Puppet in our case. The same can/could be done using Cfengine, though we neither explain nor support it here.
+All our new systems will be booted from the network, and during the imaging process they will have cfengine/puppet installed and this particular unit will be configured to use as our puppet master system. Puppet will handle all system configuration from the very first bootup of our hosts.
+Mothership
+Dextrose/Server/Building
+Mothership - Debian
+Dextrose/Server/DebianBuilding
+Extras to XS 0.6
+Dextrose/Server/Addons

@@ -1,0 +1,66 @@
+Title: Features/Improved Accessibility
+URL: https://wiki.sugarlabs.org/go/Features/Improved_Accessibility
+--------------------------------------------------------------------------------
+Contents
+1
+Improved accessibility
+1.1
+Summary
+1.2
+Owner
+1.3
+Current status
+1.4
+Detailed Description
+1.5
+Benefit to Sugar
+1.6
+Scope
+1.7
+How To Test
+1.8
+User Experience
+1.9
+Dependencies
+1.10
+Contingency Plan
+1.11
+Documentation
+1.12
+Release Notes
+1.13
+Comments and Discussion
+Improved accessibility
+Summary
+Switch some parts of Sugar to use Gtk+ widgets instead of HippoCanvas, which has no accessibility support.
+Owner
+Name:
+Tomeu Vizoso
+Email: tomeu@sugarlabs.org
+Current status
+Targeted release: 0.86
+Last updated: August 14th 2009
+Percentage of completion: 100%
+Detailed Description
+Gtk+ widgets implement support for some accessibility features, but Hippo Canvas doesn't. Particularly the list views in the Journal and the activity list are implemented in Hippo Canvas and could use instead Gtk+ widgets.
+Benefit to Sugar
+It will be easier for integrators of Sugar to provide solutions with a wider range of accessibility features.
+Scope
+The change affects only the shell.
+How To Test
+Features/Improved Accessibility/Testing
+Use the activity list and the journal and check that you can do everything you used to.
+User Experience
+This should be only noticeable to people using a screen reader or other components that make use of the accessibility features of Sugar. Scrolling in the journal should be a bit smoother.
+Dependencies
+None.
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+Further information about making Sugar more accessible:
+http://library.gnome.org/devel/accessibility-devel-guide/nightly/
+Release Notes
+Sugar 0.86 features improved interfacing with accessibility features already used in GNOME.
+Comments and Discussion
+See
+Talk:Features/Improved Accessibility

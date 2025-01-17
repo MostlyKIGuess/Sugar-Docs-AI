@@ -1,0 +1,191 @@
+Title: Dextrose/2/Todo
+URL: https://wiki.sugarlabs.org/go/Dextrose/2/Todo
+--------------------------------------------------------------------------------
+Dextrose
+·
+Get Involved
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Moved and died at
+http://sugardextrose.org
+Bugs/Issues
+See also
+open bugs
+Status
+Issue/Feature Description
+Associated Bug Id's
+Owner
+Priority
+Pending
+Browse-115 bug:
+Open blogger.com
+Try to make a new blog entry
+Click add image
+Select image
+Finalize
+Browse crashes!
+#2431 #2492 Cairo issues
+Review?
+Done
+Nitpicky fixes:
+Hotkey for touchpad icon
+Browse-115? Browse disables multiple tab support as it detects a new version of cairo (11000). Cario version should be <=10800
+Activity list updated
+Activity update url updated (if needed)
+all
+Review?
+Done
+Spanish translations
+Review?
+notabug
+Figure out if we need to 'yum clean all' after every update, to prevent yum from acting up!
+metadata_expire
+repository parameter prevents frequent fetching metadata from the server. Since we fetch updates on daily basis, it should fine.
+HIGH
+DONE
+Update computer resource usage indicator svg's
+anish
+Medium
+Workaround Included. Check if the actual fix for this landed in the kernel and whether we're using it.
+Redisable mesh after suspend
+tch
+High
+DONE
+Backport 0.90 fixes
+alsroot, anish
+Medium
+DONE
+1
+2
+NamingAlert being optional
+tch
+High
+DONE
+Downgrading activities not allowed
+#2164
+tch
+High
+Info patch done, notification pending.
+Display lease info in 'About my computer' and notifiy if lease is about to expire
+mohit
+High
+DONE
+OLPC Microformat compatible activity updater
+m_anish, gangil
+High
+DONE
+Yum based updater for sugar
+alsroot, tch, m_anish
+High
+Done
+Clear and complete error messages (even for crashes)
+This is the ABRT feature. flash the notification icon, see a simple error, link to log activity and send report (implicit).
+(Don't use fedora ABRT for the moment)
+Description/Justification:
+It is difficult for folks from non-technical backgrounds to give useful feedback when problems arise with the software. Such an automated bug reporting tool could be very useful for decreasing the time spent between deploying the software and identifying the bugs. This feature should be integrated with the notification system (described above).
+#1439
+,
+#1366
+,
+#630
+tch, alsroot, mukesh_dce
+Medium
+DONE
+Checks to prevent installation of incompatible activities
+#1442
+alsroot
+Medium
+Faster activity startup / memory savings
+(link to sugar-devel discussion and Quozl's research)
+Quozl
+Review
+Done
+Sugar: "Panic key" to force regenerating datastore index (hold both shifts on boot? hidden ctrl-r hotkey in the journal?)
+http://bugs.sugarlabs.org/ticket/2132
+Done
+3G connection sharing in Sugar
+tch
+Pending
+Try out jdk on dx2 builds and see if its worthwhile. There are a few activities using java floating around, for eg.
+GeoGebra
+,
+jre-less bundle
+.
+anish, rafael, alsroot
+Low
+UI Changes
+Status
+Issue/Feature Description
+Associated Bug Id's
+Owner
+Priority
+DONE
+1
+2
+kill the name picker that pops up when quitting activities (EASY)
+:
+Nobody ever uses it, it's just annoying and confusing for new users who don't know how to dismiss it. Maybe one day someone will come out with a less intrusive UI for the same purpose, but for the time being we're much better off without anything. (Gary suggests implementing
+Features/Write_to_journal_anytime
+)
+tch
+Medium
+Pending
+Figure out why so many control panels require restarting Sugar, and fix them not to (MEDIUM)
+:
+Because we use GConf for settings, we should be able to setup callbacks to be invoked on any change.
+(check with Hemanshu?)
+Low
+Review usability and Patch
+kill the "Mute" function on the volume icon in the frame (EASY)
+:
+I can't think of a useful use-case for it, and children often manage to turn on muting by simply clicking on the speaker icon (which is a lame UI, btw). If we remove this feature, we have to unconditionally unmute on startup! (Gary agreed and asked to file a ticket)
+Low
+DONE
+Notification system (tch)
+:
+A notification system for the sugar platform has been a long standing TODO. It would be very useful in the field for teacher-trainers and onsite developers to quickly triage problems as the crop up. It would be useful for the students and teachers in terms of having a more standardized and usable interface.
+tch
+High
+Control panel items reduction
+Status
+Issue/Feature Description
+Associated Bug Id's
+Owner
+Priority
+DONE
+touchpad -> device icon on the frame + global keyboard shortcut to switch between resistive and capacitive
+walter, tch
+High
+Done
+Change dx2 color scheme
+anish
+V.V. High priority ;-)
+modem config -> context menu on the modem icon in the frame
+Low
+Retest (anish)
+Register Again creates duplicate xs icons on the volumes toolbar
+done-by (tch)
+High
+Done
+Journal sort by creation date - journal entries are being created with ctime=0 (41 years ago)
+Having
+the patch
+, issue should be totally covered (ds set missed ctime).
+alsroot
+High

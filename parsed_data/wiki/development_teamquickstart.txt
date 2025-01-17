@@ -1,0 +1,141 @@
+Title: Development Team/Quickstart
+URL: https://wiki.sugarlabs.org/go/Development_Team/Quickstart
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+Step 1: Understanding Cross coding
+3
+Step 2: Getting Python and Pygame on OLPC on your Host PC
+4
+Step 3: Getting the Emulator
+5
+Step 4: Creating your activity structure
+6
+Step 5: Transferring files
+7
+Step 6: Create the Activity On your Emulator
+8
+Step 7: Prepare For Distribution
+Introduction
+A few months ago one of our classes covered the OLPC as a popular choice for low cost laptops for developing regions of the world. Our professor asked us to develop an application for the platform. Our classmates and ourselves discovered how scattered the information for the process of developing an "activity" (OLPC term for application) was. As history has shown, ease of application development is directly related to application success. While this guide will not make developing and debugging applications as easy as hitting F5 in MS Visual Studio, it seeks to provide guidance to a developer who has experience developing in Windows and would like to give XO development a shot. The only thing that you need to know going into this guide is a familiarity with the Python programming language, as well as Pygame. If you don't have this experience, I would recommend
+[1]
+and
+[2]
+, respectively. In this tutorial we will cover: Cross Coding with Python and Pygame  (a Python library of modules to make game programming easier), emulation, file transfer between host and emulated disk, activity creation and activity distribution by walking you through the creation of a typing tutor like this one.
+Step 1: Understanding Cross coding
+Python, if you already did not know is the de facto language of the OLPC. The cool thing about Python is that it is considered easy to code in but more importantly you can run your python programs on any Python compatible platform.
+Cross Coding is a method of programming in which you program on one platform (In our case Windows) and then port your application to another platform (OLPC)
+This helps speed up the process of development because you can develop in a familiar environment which will also run more smoothly than the emulated XO
+Step 2: Getting Python and Pygame on OLPC on your Host PC
+To code in Python on Windows you need to have python installed
+Grab the Python installer
+here
+You may need something to unzip .bz2 files
+WinAce
+is a good free utility for this.
+Grab the Pygame installer
+here
+After everything in installed if you were looking to develop your own application and not just use our example app take a break from this guide and do so now. If you already have your app or will be using our example app continue on
+Step 3: Getting the Emulator
+Luckily downloading and installing the emulator has become leaps and bounds easier than a few months ago.  Our friends at OLPC have added a single download of the emulator (QEMU) the accelerator to make running an emulated XO bearable (KQEMU) and a hard disk image with XO’s OS installed.  You can download that image
+here
+.
+After you download the .zip unzip it and go to start_olpc, and there it is your own XO!
+Step 4: Creating your activity structure
+First we need to get you into terminal. Go to your XO dock and click the terminal icon
+Terminal is just like command prompt in windows but the commands can be a little different.
+For a complete list of terminal commands for XO or any Linux platform go to
+http://www.ss64.com/bash/
+Here is a representation of the default directory structure for XO
+/
+Activities
+Boot
+Etc
+Lib
+Media
+Ofw
+Proc
+Sbin
+Selinux
+Sys
+Usr
+Bin
+Dev
+Home
+OLPC (AKA ~)
+OLPCGames-1.6
+Skeleton
+Your  Home Made Acitvities end up in here
+Lost+found
+Mnt
+Opt
+Root
+Security
+Srv
+First we need to get you Pygame run the following commands to get to the home directory , and download/install Pygame
+cd ~
+wget
+http://dev.laptop.org/~mcfletch/OLPCGames/OLPCGames-1.6.tar.gz
+tar -xvf OLPCGames-1.6.tar.gz
+When you come into terminal you are at the ~ directory (home directory which by default is the OLPC directory)  so to navigate to the skeleton folder enter the following commands
+cd OLPCGames-1.6/skeleton
+You are now in the skeleton directory to see the files in this directory or any other directory you are in type the following command
+dir
+Now we will create your empty activity, type in the following command:
+python buildskel.py  -- myAppName activityname ”myAppName”
+Replace myAppName with the name of your application
+In our case:
+python buildskel.py  -- TypingTutor activityname ”Typing Tutor”
+Now we can navigate to your new activity folder:
+cd myAppName.activity
+In our case:
+cd TypingTutor.activity
+In this folder you will have the following items
+activity (Folder)
+MANIFEST.in
+olpcgames (Folder)
+run.py
+activity.py
+NEWS (Folder)
+POTFILES.in
+Setup.py
+Although all these files are important for our purposes we only need to use 2
+run.py  is the python program that will run when you click your activity icon
+It is empty now but we will replace it in the following section
+Setup.py makes your python program into an activity that appears in your dock
+Step 5: Transferring files
+This process is often complicated on many XO development guides. Often they recommend using SSH to transfer file between host and emulated PC. I have found that uploading to a web page on your host and downloading to the XO is reasonably fast but removes the SSH learning curve. If you are looking for a quick solution to this problem head over to
+www.axspace.com
+grab some free web space and upload your files.
+If you would like to just follow the tutorial you can use my files as described
+We will still be working within Terminal here so don’t close that window!
+We want to get the files that you developed in windows and bring them into olpc
+wget is a command to download files to the current directory
+Type the following commands until all of your files are transferred
+wget url/filename.fileExtension
+In our case type the following commands:
+wget
+wget
+wget
+http://www.olpcdevguide.axspace.com/test.py
+So now we have everything we need so we need to just replace the run.py file
+First delete the run.py file (Don’t worry it doesn’t have anything in it)
+Type the following command
+rm run.py
+To do so use the mv (move) command without changing the directory like this:
+mv olFilename.fileExtenssion newFileName.fileExtension
+In our case:
+mv test.py run.py
+Step 6: Create the Activity On your Emulator
+Creating the activity is as easy as running a python file
+Type the following commands:
+python  setup.py dev
+Restart and your activity will be in the dock (It will look like a hammer)
+Step 7: Prepare For Distribution
+Load Terminal
+Navigate back to your activity’s folder (activityName.Activity, in our example TypingTutor.Activity)
+Type the following command:
+python setup.py dist
+The .xo file will be in the directory so throw it on the web and let the world see what you have done!

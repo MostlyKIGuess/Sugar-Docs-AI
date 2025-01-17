@@ -1,0 +1,75 @@
+Title: 0.110/Testing
+URL: https://wiki.sugarlabs.org/go/0.110/Testing
+--------------------------------------------------------------------------------
+Testing Sugar 0.110
+Please test, and report problems on sugar-devel@ mailing list, bugs.sugarlabs.org, or the discussion page here.
+To date there has been no independent testing of Sugar 0.110.
+What should I test?
+new features, see
+feature list
+,
+bug fixes, see GitHub commits for bug list,
+Fedora
+Fedora 26 has packaged 0.110.  Fedora 25 has packaged 0.108.
+For OLPC XO laptops, using OLPC OS 13.x (Fedora 18) or 14.x (Fedora 20), use the OLPC packages, and update only the Sugar packages to 0.110.0.olpc.x, like this:
+sudo yum update sugar*
+sudo service olpc-dm restart
+However, the OLPC Sugar packages contain extra commits:
+remove frame animation,
+remove the transition box,
+manufacturing support (About my computer; CPU, disk, memory and wireless firmware specifications),
+favourites view number unnecessary,
+pr707
+,
+journal batch erase: fix traceback,
+pr720
+,
+view Help - Backport to WebKit and WebKit2,
+pr723
+,
+fix for datastore.log noise,
+pr724
+,
+view Source - distribution specific paths,
+pr729
+,
+customise Bundle - fix logger name,
+pr730
+,
+Frame, Network Device icons: IP address, patch
+backport
+to Fedora 18,
+do not use connection tracking in Mission Control,
+OLPC#9669
+,
+OLPC#12817
+,
+fix journal star icon response
+SL#4904
+,
+add background for View Source images
+pr641
+,
+fix screen resize race
+pr732
+,
+restart metacity if it fails
+SL#4958
+,
+pr733
+,
+revert
+e05452a
+('Journal entries name can be renamed to blank'),
+SL#4940
+,
+fix for overlarge activity ring
+pr735
+,
+fix collision resolution in random view
+pr736
+,
+This makes the OLPC Sugar packages an incomplete test of Sugar 0.110.
+Other
+There are other distributions that have packaged Sugar 0.110, such as Debian or Ubuntu.  On these systems, use the distribution tools to install the packages.
+There are distrubutions that have not packaged Sugar 0.110.  On these systems, use the GNU standard autogen, configure, make, and make install steps.

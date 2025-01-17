@@ -1,0 +1,589 @@
+Title: Infrastructure Team/Migrating to GitHub
+URL: https://wiki.sugarlabs.org/go/Infrastructure_Team/Migrating_Bugs_to_GitHub
+--------------------------------------------------------------------------------
+Sugar Activities Developers: Take 10 Minutes to move to Github Today!
+Part of the vision of Sugar Labs is to introduce young people to the software freedom movement.
+A successful introduction means they are actively participating in Sugar's development, and the wider libre software world.
+The majority of libre software in 2016 is developed on Github, and it advances our cause to use the same collaboration platform as most other project use.
+The Sugar codebase has begun transitioning to Github in
+www.github.com/sugarlabs
+. 
+So we now invite all Activity developers to do 2 things to complete this transition.
+This should take you no more than 10 minutes:
+1. Migrate your project source code and issue tracking to Github (
+https://help.github.com/articles/create-a-repo
+)
+2. Once your project is set up as a Github Repo, please transfer it to github.com/sugarlabs so it is more discoverable (
+https://help.github.com/articles/transferring-a-repository/
+)
+After the transfer, we'll update the activity.info file of the activity itself with the new URL
+We'll also invite your Github username to join the
+github.com/sugarlabs
+organization, so you can transfer activities to yourself.
+No longer involved? To pass your Activity on to the community to maintain, drop a line to <sugar-devel@lists.sugarlabs.org>. 
+If you read this well after May 2016, we may have already forked your repo into the org to maintain an 'official' copy of it, but transferring is better than forking so that Github shows the sugarlabs repo as the 'upstream' repo on network graph pages (
+example
+)
+New to Github? Check their excellent documentation at guides.github.com, help.github.com, try.github.io
+Details
+All our code, bugs and discussions should be in one place.
+In 2013 Sugar's core components moved from
+http://git.sugarlabs.org/sugar-old
+to
+https://github.com/sugarlabs/sugar
+, but all issue tracking stayed at bugs.sugarlabs.org instead of moving to
+https://github.com/sugarlabs/sugar/issues
+and some code stayed in git.sugarlabs.org and some moved to personal Github username areas.
+This scattering
+deters new contributors;
+makes existing contributor's lives more painful;
+wastes time from our systems team volunteers (as we have a hard time keeping hackers out of trac, and need to spend time upgrading any service we run ourselves)
+Two solutions have been proposed:
+1. Consolidate on Github
+Set trac and gitorious read only, and then making it a static html archive, while moving all issue tracking and git hosting of each sugar repo to Github.
+2. Abandon Github
+Consolidate on our own systems; I guess this means setting up gogs or gitlab to replace gitorious, and perhaps something else to replace trac, and then removing each sugar repo from Github that we control, and regularly encouraging all sugar activities on github to move to our infrastructure.
+The developer community has discussed this (
+thread
+) and reached consensus in favour of (1) with the following comments:
+Benefits of Github Consolidation
+Notification
+This is handled due to the way that Github org membership works. Github-users in a 'developers' Github-team within the Github-organization will be emailed all posts to all repos that are added to that team (done here,
+http://imgur.com/gUTNFfV
+)
+Search
+Github provides org-wide search, and this is discoverable when you visit github.com/sugarlabs the search input widget at the top changes to show that the search is scoped to that organization. After entering a search query, a familiar search syntax is used in the query, and in the URL string. Eg,
+https://github.com/search?q=org%3Afontforge+x11&type=Issues
+Discoverability
+It will be easier for new developers to find and contribute if Sugar is all on github.
+Github allows us to separate issue into separate Sugar and Sugar Activity trackers, trackers are found predictably at github.com/sugarlabs/activity-name/issues
+It serves as an issue aggregation tool, as all issue trackers in the github.com can be searched by visiting github.com/sugarlabs and using the search input at the very top of the page (
+example
+)
+https://github.com/sugarlabs/sugar/issues/
+can be used as a default issue tracker, if there is any ambiguity on where to file an issue
+Issues on Github can be linked to pull requests that resolve them (and even close them automatically by including "closes #issue_id" in the commit/pr message)
+Github automatically places backlinks in issues that are referred to by other issuer or PRs, it is relatively convenient to manage the set of a github organization's per-repo issue trackers. Github makes this easy because it will add backlinks in the destination issue's timeline when that issue is mentioned in the original; and it will automatically create such links if you type user/repo#issueNumber :) As an example of this back-linking, see these 2 links,
+https://github.com/llaske/sugarizer/issues/49
+(link at end of first post) and
+https://github.com/mattlag/Glyphr-Studio/issues/234
+(currently link is at the bottom :)
+Focus
+SugarLabs should focus on core-competencies. Managing version control servers shouldn't be one of them. Support for "how to use git" would be mostly on github rather than SugarLab's systems
+Developer Preference
+Getting existing Github users to move their activities out of Github doesn't seem realistic. Developers know that Github is stable and has security and longevity. People new to Github have a wider interest in signing up for it - because almost all other libre software projects that they will interact with are currently on the service.
+Viability
+There are only
+182 open issues on bugs.sugarlabs.org
+so moving them over can be done in a day
+Automation
+Github enables easier automation of the release process, and easier tying of Sugar Activity version numbers to moments in git commit histories.
+Fully Featured
+Github doesn't exclude users from features based on their ability to pay; all features are available to non-paying users. Instead of charging for features, they require non-paying users to have all their repos be public; the only thing that they charge for is how many users can participate in private repos.
+https://github.com/pricing/plans
+explains this, and there are no gotchas.
+Pseudonymity
+Github does not require real names. To maintain pseudonymity, you can sign up using
+http://mailinator.com
+or a github-specific disposable email account.
+Further Actions For The Sugar Labs Team
+Do another list of repos not using sugar3, eg with
+from sugar.activity import activity
+Set up a "full notifications" team in the github organization so that all github users that join this team get emailed every issue, pr, and comment for every github project within the organization.
+Configure all non-github issue trackers to prominently direct users to the new github url, and disallow new issues, or simply to have their theme templates hide the 'new issue' link, and eventually to be configured read only and then fully archived by conversion to a static HTML site.
+Review the wiki and website advising users where to post an issue, and update to point to Github
+Write a py/js script that uses the Github API to check issue tags are consistent across all SL repos; this can start with a manual checklist to run through when accepting a repo transfer to the sugarlabs org. Also, ensure each activity's /README.md file (that Github presents on github.com/sugarlabs/activity-name as processed markdown) has explicit information about standard things, like where its issue tracker is.
+Once all activities are migrated to Github, set the Gitorious and Trac instances to be read-only.
+Once all activities are migrated to Github, set a naming convention like "activity-xyz"
+List of Existing Repos To Transfer
+On 2016-05-16
+https://github.com/search?l=&q=%22from+sugar3.activity+import+activity%22+language%3APython&ref=advsearch&type=Code&utf8=%E2%9C%93
+shows 327 code results, which when scraped and deduplicated lists 202 repos that are python sugar activities, which are listed here alphabetically by repo name (so duplicate repo names are adjacent)
+The process of migrating to Github is:
+1. request that all duplicate repos become forks of their most actively maintained repo, by being removed and then fork from the upstream, to create a github network graph.
+2. request that the most actively maintained or de facto upstream repos transfer to github.com/sugarlabs
+3. update any sugarlabs repos with newer commits found on git.sl.o
+4. migrate any activities not yet on github from sl.o
+This ensures that the github repositories that we minimise the number of sugar repos on github outside the sugarlabs repo network graph, are the repos transferred to the sugarlab org are actually the canonical repos.
+https://github.com/walterbender/abacus
+https://github.com/Boquete/activity-sliderpuzzle
+https://github.com/Boquete/activity-sliderpuzzle/issues/1
+it is1 commit ahead of upstream
+https://git.sugarlabs.org/slider-puzzle-branch
+is the upstream repo, with a PR (
+https://git.sugarlabs.org/slider-puzzle-branch/mainline/merge_requests/1
+)
+https://git.sugarlabs.org/acsliderpuzzle/acsliderpuzzle/commits/master
+is a duplicate repo, to be compared
+https://github.com/walterbender/AEIOU
+https://github.com/cristian99garcia/agubrowser-activity
+https://github.com/cristian99garcia/agubrowser-activity/issues/1
+transfer req
+https://github.com/puneetgkaur/backup_sugar_sugartoolkit
+(not canonical repo)
+https://github.com/samdroid-apps/bibliography-activity
+https://github.com/cristian99garcia/blender-activity
+https://github.com/cristian99garcia/blender-activity/issues/1
+transfer req
+https://github.com/ezequielpereira/Bridge/
+https://github.com/ezequielpereira/Bridge/issues/3
+transfer req
+https://github.com/richaseh/browse
+(not canonical repo)
+https://github.com/samdroid-apps/browse
+(not canonical repo)
+https://github.com/sugarlabs/browse-activity
+https://github.com/iamutkarshtiwari/Browse-fiddleFeature
+(not canonical repo)
+https://github.com/cristian99garcia/calculator
+(not canonical repo)
+https://github.com/cristian99garcia/calculator/issues/1
+transfer req
+https://github.com/llaske/Canope.activity
+https://github.com/walterbender/cardsort
+https://github.com/ezequielpereira/cavestory
+https://github.com/cristian99garcia/cedit-activity
+https://github.com/cristian99garcia/cedit-activity/issues/1
+transfer req
+https://github.com/ceibal-tatu/ceibal-notifica
+https://github.com/Daksh/CeibalRadio
+https://github.com/aguzubiaga/chart
+https://github.com/aguzubiaga/chart/issues/2
+transfer request
+https://github.com/walterbender/chat
+https://github.com/walterbender/chat/issues/3
+transfer request
+https://github.com/City-busz/city-repository
+https://github.com/godiard/classroomexplore
+https://github.com/walterbender/clipart
+https://github.com/godiard/clock-activity
+https://github.com/godiard/clock-activity/issues/4
+transfer req
+https://github.com/cristian99garcia/ClockActivity
+(not canonical repo)
+https://github.com/cristian99garcia/ClockActivity/issues/1
+refork req
+https://github.com/tchx84/ClockActivity
+(not canonical repo)
+https://github.com/Grumbel/clockgr
+https://github.com/cristian99garcia/collabedit
+https://github.com/cristian99garcia/collabedit/issues/1
+transfer req
+https://github.com/walterbender/colordeducto
+https://github.com/sdanielf/comunicate
+https://github.com/godiard/comunicator-maker-activity
+https://github.com/godiard/comunicator-maker-activity/issues/2
+transfer request
+https://github.com/tchx84/comunicator-maker-activity
+is a fork, no action
+https://github.com/ezequielpereira/Constellationsflashcards
+https://github.com/ers-devs/contact-app
+https://github.com/walterbender/convert
+https://github.com/walterbender/cookiesearch
+https://github.com/Richardopy/cuadradomagico
+https://github.com/cristian99garcia/dasher-activity
+https://github.com/cristian99garcia/dasher-activity/issues/1
+transfer req
+https://github.com/tchx84/debian-pkg-sugar-toolkit-gtk3
+https://github.com/fdanesse/DesafioMundial
+https://github.com/godiard/develop-activity
+https://github.com/cristian99garcia/devtutor-activity
+https://github.com/cristian99garcia/devtutor-activity/issues/1
+transfer req
+https://github.com/walterbender/dimensions
+https://github.com/godiard/distance-activity
+https://github.com/godiard/domino-activity
+https://github.com/activitycentral/ebookreader
+https://github.com/ezequielpereira/Edit
+https://github.com/godiard/favorite-fonts-activity
+this is now upstream in the sl org, so requested it become a fork,
+https://github.com/godiard/favorite-fonts-activity/issues/1
+https://github.com/godiard/finance-activity
+https://github.com/tchx84/sugar-finance-activity/commits/master
+has a commit not in upstream, so
+https://github.com/godiard/finance-activity/issues/4
+, then
+https://github.com/tchx84/sugar-finance-activity/issues/1
+https://github.com/walterbender/flip
+https://github.com/i5o/followme
+https://github.com/i5o/followme/issues/1
+refork req
+https://github.com/AlanJAS/followme/issues/3
+transfer req
+https://github.com/godiard/fototoon-activity
+https://github.com/godiard/fototoon-activity/issues/6
+transfer request
+https://github.com/ceibal-tatu/fototoon-activity
+has a hard coding change that seems fine to forget
+https://github.com/walterbender/fractionbounce
+https://github.com/FundacionZamoraTeran/Genios
+https://github.com/lesivan/Genios
+https://github.com/godiard/get-books-activity
+https://github.com/tchx84/get-books-activity
+is a fork
+https://github.com/i5o/getbooks
+is not a fork so asked it to become one,
+https://github.com/i5o/getbooks/issues/1
+https://github.com/manuq/get-books
+is not a fork so asked it to become one,
+https://github.com/manuq/get-books/issues/1
+https://github.com/jdsimmons/getiabooks
+https://github.com/jdsimmons/getiabooks/issues/1
+transfer request
+https://github.com/ezequielpereira/Gmail
+https://github.com/cristian99garcia/guido-van-robot-activity
+https://github.com/cristian99garcia/guido-van-robot-activity/issues/1
+transfer req
+https://github.com/ezequielpereira/HacketyHack
+https://github.com/georgejhunt/HaitiDictionary.activity
+https://github.com/tchx84/harvest-client/
+https://github.com/tchx84/harvest-client/issues/5
+transfer request
+https://github.com/tchx84/harvest-server/
+https://github.com/tchx84/harvest-server/issues/6
+transfer request
+https://github.com/manuq/hello-world
+https://github.com/manuq/hello-world/issues/1
+transfer req
+https://github.com/erilyth/Hello-World-Python_Sugar
+not canonical, a GSOC application requirement is to create a new hello world activity, so this is fine where it is
+https://github.com/godiard/help-activity
+https://github.com/fdanesse/Historico
+https://github.com/walterbender/iknowmyabcs
+https://github.com/godiard/imageviewer-activity
+https://github.com/walterbender/infoslicer
+https://github.com/godiard/ingenium-activity
+https://github.com/manuq/instalador-harvest-ceibal
+https://github.com/i5o/install-extensions
+https://github.com/godiard/irc-activity
+https://github.com/godiard/irc-activity/issues/7
+transfer request
+https://github.com/i5o/irc-activity
+is not a fork so request it become one,
+https://github.com/i5o/irc-activity/issues/1
+https://github.com/fdanesse/JAMediaPyGiHack
+https://github.com/ezequielpereira/Java
+https://github.com/ezequielpereira/JClic
+https://github.com/godiard/journalshare-activity
+https://github.com/godiard/jukebox-activity
+https://github.com/llaske/KAView.activity
+https://github.com/ezequielpereira/Kiwix
+https://github.com/cristian99garcia/laybrinth-activity
+(not canonical repo)
+https://github.com/cristian99garcia/laybrinth-activity/issues/1
+transfer req
+https://github.com/Boquete/activity-labyrinth
+(not canonical repo)
+Canonical repo?
+https://github.com/labyrinth-team/labyrinth
+https://git.sugarlabs.org/labyrinth
+https://github.com/ezequielpereira/Lemonade
+https://github.com/walterbender/lettermatch
+https://github.com/walterbender/letters
+https://github.com/walterbender/letters/issues/2
+transfer req
+https://github.com/i5o/letters
+is not a fork so request it become one,
+https://github.com/i5o/irc-activity/issues/1
+https://github.com/godiard/level-activity
+https://github.com/godiard/level-activity/issues/2
+transfer req
+https://github.com/ndefilippis/level-tool
+is not a fork so request it become one,
+https://github.com/ndefilippis/level-tool/issues/1
+https://github.com/walterbender/locosugar
+https://github.com/godiard/log-activity
+https://github.com/godiard/log-activity/issues/5
+transfer req
+https://github.com/i5o/log
+is not a fork so request it become one,
+https://github.com/i5o/log/issues/3
+https://github.com/shridharmishra4/mainline
+https://github.com/walterbender/makeymakey
+https://github.com/i5o/manage-homeviews
+https://github.com/svineet/manage-homeviews
+is a fork
+https://github.com/cristian99garcia/maps-activity
+https://github.com/cristian99garcia/maps-activity/issues/1
+transfer req
+https://github.com/cristian99garcia/mapa-ceibal-activity
+is duplicate, so suggest removing it
+https://github.com/cristian99garcia/mapa-ceibal-activity/issues/1
+https://github.com/ezequielpereira/MathGraph32
+https://github.com/godiard/maze-activity
+https://github.com/FundacionZamoraTeran/Megamente
+https://github.com/godiard/memorize-activity
+https://github.com/godiard/memorize-activity/issues/5
+transfer req
+https://github.com/tchx84/memorize-activity
+is a fork
+https://github.com/cristian99garcia/micropolis-activity
+https://github.com/cristian99garcia/micropolis-activity/issues/1
+transfer req
+https://github.com/godiard/music-keyboard-activity
+https://github.com/shlesha/My-Activities
+https://github.com/jdsimmons/myosa-examples
+https://github.com/walterbender/napier
+https://github.com/i5o/numbers
+https://github.com/walterbender/nutrition
+https://github.com/kperisetla/Oopsy
+https://github.com/godiard/paint-activity
+https://github.com/walterbender/paths
+https://github.com/walterbender/physics
+https://github.com/cristian99garcia/pilas-activity
+https://github.com/cristian99garcia/pilas-activity/issues/1
+transfer req
+https://github.com/walterbender/Pippy
+https://github.com/cristian99garcia/pocket-lrad-activity
+https://github.com/cristian99garcia/pocket-lrad-activity/issues/1
+transfer req
+https://github.com/cristian99garcia/PolariActivity
+https://github.com/cristian99garcia/PolariActivity/issues/1
+transfer req
+https://github.com/godiard/poll-activity
+https://github.com/godiard/poll-activity/issues/2
+transfer req
+https://github.com/cristian99garcia/poll-activity/issues/1
+is not a fork so req'd it to be
+https://github.com/Daksh/poll
+is not a fork, so req'd it be,
+https://github.com/Daksh/poll/issues/1
+https://github.com/walterbender/portfolio
+https://github.com/cristhofert/presentation
+https://github.com/walterbender/primedimensions
+https://github.com/cristian99garcia/pydebug-activity
+https://github.com/cristian99garcia/pydebug-activity/issues/1
+transfer req
+https://github.com/puneetgkaur/pygame_camera
+https://github.com/i5o/qr-reader
+https://github.com/godiard/read-activity
+https://github.com/jdsimmons/readetexts
+https://github.com/walterbender/recall
+https://github.com/i5o/record-gtk3
+(not canonical repo)
+https://github.com/walterbender/reflect
+https://github.com/walterbender/reflection
+https://github.com/walterbender/reflection/issues/2
+transfer request
+https://github.com/ShivamNegi/Reflections_Activity
+is not a fork,
+https://github.com/ShivamNegi/Reflections_Activity/issues/1
+https://github.com/cristian99garcia/riverhex-activity
+https://github.com/cristian99garcia/riverhex-activity/issues/1
+transfer req
+https://github.com/walterbender/ruler
+https://github.com/FOSSRIT/Sash
+https://github.com/quozl/settime-activity
+https://github.com/ezequielpereira/ShowJPEG
+https://github.com/cristian99garcia/showntell-activity
+https://github.com/cristian99garcia/showntell-activity/issues/1
+transfer req
+https://github.com/erilyth/Simon_Says-Sugar
+https://github.com/walterbender/slideruler
+https://github.com/ezequielpereira/Snow
+https://github.com/inkyfingers/SoaS_Loader
+https://github.com/svineet/Solari
+https://github.com/samdroid-apps/sour-textbook
+https://github.com/i5o/spirolaterals
+https://github.com/walterbender/story
+https://github.com/walterbender/storydos
+https://github.com/jdsimmons/sugar-commander
+https://github.com/tchx84/sugar-finance-activity
+https://github.com/cygwinports-extras/sugar-HelloWorld
+https://github.com/i5o/sugar-irc-client
+https://github.com/native93/Sugar-paint-activity
+https://github.com/curiousguy13/sugar-python3-tests
+https://github.com/prasoon2211/sugar-social-help
+https://github.com/sugarlabs/sugar-toolkit-gtk3
+https://github.com/ceibal-tatu/sugar-toolkit-gtk3
+is not a fork, but the whole org needs to be dealt with at once
+https://github.com/gusDuarte/sugar-toolkit-gtk3
+is not a fork, req'd at
+https://github.com/gusDuarte/sugar-toolkit-gtk3/issues/1
+https://github.com/manuq/sugar-toolkit-gtk3
+is not a fork, but has no issue tracker to request, so need to pm
+https://github.com/tchx84/sugar-toolkit-gtk3-1
+is a fork of manuq, can just be removed, but no issue tracker, so need to pm
+https://github.com/AbrahmAB/sugar-toolkit-gtk3-proto
+is not a fork, req'd at
+https://github.com/AbrahmAB/sugar-toolkit-gtk3-proto/issues/1
+https://github.com/walterbender/sugarchess
+https://github.com/cristian99garcia/sugarcity-activity
+https://github.com/cristian99garcia/sugarcity-activity/issues/1
+transfer req
+https://github.com/ezequielpereira/Sugarizador
+https://github.com/ezequielpereira/Sugarizehelp
+https://github.com/llaske/sugarizer
+https://github.com/llaske/sugarizer/issues/47
+transfer request
+https://github.com/erilyth/Sugarizer-Clone-Sugarlabs-
+(not canonical repo)
+https://github.com/godiard/tamtam
+https://github.com/godiard/tamtam/issues/1
+transfer request
+https://github.com/sethwoodworth/tamtam
+not fork, requested,
+https://github.com/sethwoodworth/tamtam/issues/1
+https://github.com/shridharmishra4/tamtam
+not fork, requested,
+https://github.com/shridharmishra4/tamtam/issues/1
+https://github.com/fdanesse/TamTamMini
+https://github.com/cristian99garcia/teachteacher-activity
+https://github.com/cristian99garcia/teachteacher-activity/issues/1
+transfer req
+https://github.com/godiard/terminal-activity
+https://github.com/ezequielpereira/Time-Line
+https://github.com/walterbender/training
+https://github.com/erik/translate-activity
+https://github.com/i5o/triples
+https://github.com/cristian99garcia/turtleart
+https://github.com/cristian99garcia/turtleart/issues/1
+transfer req
+https://github.com/walterbender/turtlepond
+https://github.com/cristian99garcia/tuxmath-activity
+https://github.com/cristian99garcia/tuxmath-activity/issues/1
+transfer req
+https://github.com/llaske/VideoViewer.activity
+https://github.com/jdsimmons/viewslides
+https://github.com/ezequielpereira/VncLauncher
+https://github.com/samdroid-apps/web-maker-activity
+https://github.com/sehgalvibhor/WebConfusion
+https://github.com/sehgalvibhor/WebConfusion/issues/10
+transfer request
+https://github.com/crusher95/webconfusion
+is a fork
+https://github.com/i5o/whatis
+https://github.com/walterbender/wordcloud
+https://github.com/walterbender/worddimensions
+https://github.com/godiard/words-activity
+https://github.com/godiard/write-activity
+https://github.com/godiard/write-books-activity
+https://github.com/ezequielpereira/XaoS
+https://github.com/i5o/xo-icon
+https://github.com/i5o/xo-retroscope
+https://github.com/walterbender/xocolors
+https://github.com/ezequielpereira/XOlympics
+https://github.com/walterbender/yupana
+https://github.com/cristian99garcia/pymusicblocks/issues/1
+transfer req
+https://github.com/cristian99garcia/spanish-guarani/issues/1
+transfer req
+https://github.com/cristian99garcia/pyeyes-activity/issues/1
+transfer req
+https://github.com/cristian99garcia/playgo-activity/issues/1
+transfer req
+https://github.com/cristian99garcia/reversi-activity
+transfer req
+https://github.com/cristian99garcia/Wine.activity
+transfer req
+https://github.com/cristian99garcia/supervampireninjazero-activity/issues/1
+transfer req
+https://github.com/cristian99garcia/supertux-activity/issues/1
+transfer req
+https://github.com/icarito/sugar-launcher-applet/issues/1
+transfer req
+https://github.com/AlanJAS/panorama/issues/2
+transfer req
+https://github.com/AlanJAS/biorhythm/issues/2
+transfer req
+https://github.com/AlanJAS/pointillism/issues/3
+transfer req
+https://github.com/AlanJAS/dotsAndBoxes/issues/3
+transfer req
+https://github.com/AlanJAS/iknowAmerica/issues/4
+transfer req
+https://github.com/AlanJAS/iknowMadagascar/issues/2
+transfer req
+https://github.com/iamutkarshtiwari/Flappy-Birds/issues/6
+transfer req
+https://github.com/AlanJAS/flappy/issues/1
+transfer req - maybe duplicate?
+https://github.com/AlanJAS/jump/issues/2
+transfer req
+https://github.com/AlanJAS/nxt
+transfer req
+https://github.com/AlanJAS/iknowUruguay/issues/1
+transfer req
+https://github.com/AlanJAS/iknowRwanda/issues/1 transfer req
+https://github.com/AlanJAS/iknowIndia/issues/1 transfer req
+https://github.com/AlanJAS/iknowPeru/issues/1
+transfer req
+https://github.com/AlanJAS/iknowSriLanka/issues/1
+transfer req
+https://github.com/AlanJAS/iknowEditor/issues/1
+transfer req
+https://github.com/AlanJAS/cellgame/issues/1
+transfer req
+https://github.com/AlanJAS/arduino/issues/1
+transfer req
+https://github.com/samdroid-apps/collabwrapper/issues/4
+transfer req
+https://github.com/axitkhurana/gmoksaya/issues/1
+transfer req
+https://github.com/studiobytestorm/JS-Shell/issues/1
+transfer req
+https://github.com/lionaneesh/sugarlabs-calculate/issues/3
+needs to be reforked after
+https://github.com/sugarlabs/sugarlabs-calculate/issues/34
+is closed
+Move all
+https://github.com/sugarlabs-infra
+repos
+Remove all inactive members from the org, and shift all owners who don't perform admin tasks to member status
+https://github.com/ceibal-tatu
+has many repos, but they seem stale. It would be good to find who owns this and help them update it.
+https://github.com/quozl/implode-activity/issues/3#event-669749829
+transfer request rejected.
+https://github.com/AlanJAS/fischerTX/issues/1
+may not be relevant
+Translations Migration
+Please prioritize rescue of these activities stranded on gitorious
+that have i18/L10n already.
+ClassroomBroadcast
+RafaelOrtiz
+https://git.sugarlabs.org/classroombroadcast
+Jigsaw puzzle
+alsroot
+https://git.sugarlabs.org/jigsaw-puzzle-branch
+Slider puzzle
+alsroot
+https://git.sugarlabs.org/slider-puzzle-branch
+StopWatch
+RafaelOrtiz
+https://git.sugarlabs.org/stopwatch
+Analyze
+garycmartin
+https://git.sugarlabs.org/analyze
+Arithmetic
+cjb
+https://git.sugarlabs.org/arithmetic
+CartoonBuilder
+alsroot
+https://git.sugarlabs.org/cartoon-builder
+Colors
+wadeb
+https://git.sugarlabs.org/colors
+FlipSticks
+alsroot
+https://git.sugarlabs.org/flipsticks
+Gogo
+dmoc
+https://git.sugarlabs.org/gogo
+If you could hunt these down, it would be nice
+Graph Plotter
+Hello Mesh
+HitTheBalls
+HMouse
+JAMedia
+Kandid
+Karma 6 English animal identification
+Lanzar
+Mateton
+Play Go
+Plot
+PyDebug
+StoryBuilder
+Telescope
+And if you do find them and move them, edits to this page would be
+much appreciated.
+https://wiki.sugarlabs.org/go/Translation_Team/Pootle_Projects/Repositories

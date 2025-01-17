@@ -1,0 +1,46 @@
+Title: Translation Team/Language Setup
+URL: https://wiki.sugarlabs.org/go/Translation_Team/Language_Setup
+--------------------------------------------------------------------------------
+Information needed to properly set up a language in Pootle:
+Language Code
+(ISO 639-1 or ISO 639-2)
+Number of plurals
+Plural Equation
+Special Characters
+Language Administrator
+It is very useful to set-up the first language administrator at the time the language is set up.  This can be done by providing the Pootle username of the person to be made language administrator.  This means they should register on Pootle, even before their language is set up, and then add their language after it is set up.
+This information should be included in a message to the Localization list requesting that the language be established on the Pootle server.  It is preferred that the request is also filed as a ticket on the
+Sugar Labs bug tracker
+with the component set to "localization"
+Language Plurals
+More information on plurals can be found at this page:
+http://translate.sourceforge.net/wiki/l10n/pluralforms
+A developer may use a single output string that is modified by a number.
+Example: "There are
+n
+incorrect answers".
+The Pootle interface is capable of providing the correct substitution of words based on the Number of Plurals and the Plural Equation.
+As an example English has two plural forms
+Number of Plurals:
+nplurals=2;
+The equation for deciding whether or not to use a plural form is the Plural Equation:
+plural=(n != 1)
+In English, you use the plural form as long as the number is not 1
+There are 0 incorrect answers
+There is 1 incorrect answer
+There are 2 incorrect answers
+Another common plural equation is:
+plural=(n > 1)
+Some languages have very complex plural forms.
+Arabic:
+nplurals=6
+plural= n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;
+note that this is more complex than necessary as
+"&& n%100<=99"
+could be omitted without effect (this is due to conversion from CLDR format which uses "in 11..99")
+Russian:
+nplurals=3
+plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10< =4 && (n%100<10 or n%100>=20) ? 1 : 2)
+Special Characters
+Some languages require additional characters to be properly represented.  Here is a useful resource for identifying special characters.
+http://www.eki.ee/letter/

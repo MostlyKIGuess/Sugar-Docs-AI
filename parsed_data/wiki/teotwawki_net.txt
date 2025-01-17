@@ -1,0 +1,96 @@
+Title: Teotwawki Net
+URL: https://wiki.sugarlabs.org/go/Teotwawki_Net
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Not part of 2016 Sugar
+Contents
+1
+Introduction
+1.1
+In a Nutshell
+2
+Demo
+3
+Updates
+4
+Plans
+5
+Feedback
+Developer:
+William Schaub
+William's
+blog
+&
+RSS
+TEOTWAWKI Net Project Home page
+Notice:
+This page is now redundant with the project home page and will be deleted in September 2009.
+Introduction
+TEOTWAWKI means The End Of The World As We Know It, and the idea is to preserve the type of collaboration we are used to with the Internet in adverse, disaster-type situations and in areas that simply have no real hope of being connected.
+This is only a proof-of-concept demo and is rather sloppy, but it does work. You get a local
+lighttpd
+web server with PHP, a
+DokuWiki
+wiki for personal use that can be seen by others currently on the network, and a PHP-based news reader (
+Web-News
+) and news server (
+InterNetNews-INN
+) that syncs up its news spool with every computer it can discover on the network that is broadcasting that it has Teotwawki Net installed on it.
+If you like Perl like I do, Perl 5.10 is included as well (the only part written by me is a patch to the suck program and some shell and Perl scripts that do the broadcasting, receiving, mapping the network and executing the news spool sync-up via NNTP).
+In a Nutshell
+TEOTWAWKI Net is a distributed BBS system based on Usenet technology that propagates discussion groups across a constantly changing network of mobile computers running ad-hoc wireless networking.
+Instead of a client-server model. every computer running the software can read and post articles to localhost. and the glue
+code handles discovery of other hosts on the network and propagating discussion articles automatically when new hosts come into range. Even with no other computers on the network all accumulated discussion is still on the hard drive or flash locally so constant access to a working network is not necessary until you want to exchange articles. I'm essentially taking the old BBS concept and taking it into the 21st century with mobile devices and wireless rather than switched telephone networks.
+Demo
+Session Notes:
+25 June 2009
+&
+23 July 2009
+Demo Download:
+You can download the demo at
+http://teotwawki.steubentech.com/download
+Read the
+README.txt
+file first.
+A few extra notes. once the /opt/tn/start.sh script is run you need to leave that terminal session open, otherwise the software will shut down. Also, there is only one empty newsgroup that is installed out of the box. (tn.general) but you can add as many newsgroups as you like by running /opt/tn/news/bin/ctlinnd newgroup groupnamehere in another terminal window as root while the system is running. All added news groups will be merged into other systems when they first try to sync up with each other. To stop the system, just go to the window you ran  /opt/tn/start.sh in, and hit <control C>; it should shut itself down.
+I am waiting for a book on managing Usenet to arrive, so that I can try and fine tune things and use less brute force, as I have never until about a month ago tried to do anything with Usenet other than use a news reader. I chose Network News because it is a tried and true technology and already has everything built into it to weed out duplicate articles, and it was designed to not require any sort of centralized management. It also can be used without any TCP/IP links at all via UUCP or some other method of batching articles and sending them. (USB sticks and SD cards come to mind, as well as traditional dial-up modem file transfers.)
+I have been monitoring downloads of the demo software package and so far there is only one IP that has downloaded the package. I was curious if it was you. If so I would love to get your feedback on it if you have had a chance to install it and play with the software.
+There is much to add to this software and a lot of fine tuning that needs to be done.
+Updates
+09-7-2010 I have started re-writing the system in python as a sugar activity please look at the main site for updates.
+Anonymous CVS access is now available see
+http://teotwawki.steubentech.com/doku.php/cvs
+for details.
+See Demo notes from
+23 July 2009
+.
+Plans
+A few of the things I would like to add to it include:
+a net: namespace in the wiki that contains wiki pages exported by other users on the network, and a way to tag various pages as being exported into this system.
+a NetNews administration control panel that allows for the creation of news groups, removal and blocking of news groups and a mechanism for canceling articles (as the kids own the laptop they should be allowed to change the defaults and decide which traffic they will allow to pass through it)
+Various Wireless operating modes other than mesh and connected to external AP.  In particular I want to add an ad-hoc wireless mode for compatibility with how I wish to use this system on regular PCs and laptops and a neat mode where the system acts as its own wireless access point with all DNS entries pointing to the web interface, so these devices can be used to serve up information and access to the system to many users at once that don't themselves have a copy of the software. also to reduce network congestion an offline mode that does not broadcast the system as available for syncup or sync to other hosts should be available (but it should still map out current users on the network so we can view their wiki pages etc) that way they can decide when they want to do the transfers and possibly ease up writes to the flash.
+If I can figure out how I would like to implement some form of private encrypted electronic mail and a tool for managing those accounts on each node.
+Possibly move to the telepathy system rather than my crude UDP broadcast system and integrate this into sugar so it can all show up on the network screen (Ideally I would like either an icon to show up that allows the browse utility to be opened to that host or to be able to hover over the hosts XO icon and see a list of exported web services on that machine and be able to click direct to each one) I would also like to add an activity Icon to open up direct to the localhost web page.
+Other than that I want to fine tune the existing configuration and find a much more efficient way of syncing the news spools than the heavy handed and very simplistic suck package, even if that means writing my own tool to do so. (avoiding all temporary files and writes to the flash other than transmitting or receiving articles we do not yet have, or have expired)
+I also will move from the tradspool storage format (lots of files and directories) to the CNFS news file system which is a single file of arbitrary size managed by INN that operates like a ring buffer. once it will write past the end of the file instead of growing it writes to the beginning, overwriting the oldest articles.
+Other than all of that, I need to, of course, write documentation once the design is more solid.
+Feedback
+I downloaded tn.  I got in yesterday evening and posted one news item.  But going to the neighborhood I get a page load error trying to connect to Bilbo's news or wiki: 'The connection was refused when attempting to contact nnn.nnn.nnn.nnn.'   Seems like a certificate/security problem of some sort. --
+FGrose
+15:54, 26 June 2009 (UTC)
+That is not a certificate/security problem it is a bug. you see the network neighborhood page is just a static HTML file that gets re-written when a new host is added to the network map. and bilbo is one of the 3 test laptops over here and when I tarred up the distribution that html file remained and since you don't have two machines on the mesh running the software it probably never updates that file.
+The only interesting bits at this point in time are the network news and the personal wiki, although network neighborhood is also somewhat interesting (if not crude) when you have 2 or more machines on the mesh running tn. (allows you to browse to  another machine's web server and look at/edit someone else's wiki, look at their news spool, etc)
+I tried installing it in a Sugar on a Stick Virtual Machine, but I ran out of space on the apparently small disc overlay that was provided.  I'll try will a larger disc VM.
+I have never tried installing it on a VM but space does get tight even on the real hardware, I find though that if there is no alternate OS version on the XO you get around 500MB of free space (or perhaps about 100 to 200MB less than that with a full install of all activities) one possible solution is to install it on an SD flash card by making /opt a symlink to /media/cardidhere/opt before unpacking. this can also have the benefit of freeing about 100MB of space because you could use an ext3 filesystem on the SD card and not have to work around the writable mmap issue on JFFS2 by having a 100MB file containing an ext3 filesystem that is loopback mounted to /opt/tn/news/spool
+Your general plans look interesting and good, but it would be better to discuss them with more experienced people than me.  We can start on Thursday night.  I hope you will post an announcement and code in a repository soon, as I think it will attract attention from more and unexpected angles offering more ideas to chew on.
+Thanks for all your efforts!          --Fred
+The repository thing is a bit difficult as 99% of the system is other peoples software and about 1% or less of it is simply glue code written by me to script it.  I might want to do a bit more polishing up of the system and pay a bit more detail to how I package it before I start having others work on it.  but I will enable access to the wiki at
+http://teotwawki.steubentech.com
+and I will eventually have a build process for the system, at which point I might either use a free repository or just house it on my web server.
+In either case, I really am looking forward to tomorrow if you bring in the XO that you put TN on and starst to run it at some point during the demonstration you will receive a lot of posts to the network news system which will propagate to all 4 laptops (or more as the case may be if Jeff has installed it) and all 4 laptops will have the post that you added to the tn.general group on your node.  Plus any other posts anyone decides to add on any of the machines in the room.
+Also others without the software installed can easily just browse to the IP of any of the laptops running on the mesh and contribute/read postings, play with the wiki etc.  and also download a copy of the software over the mesh from any of the machines running the software. This last bit actually saved my butt once because I didn't realize updating to version 802 would wipe out my custom installed software (including everything in /opt/tn!) I had updated 2 of the 3 test laptops and then found out that my software was gone. but thankfully there was one left that did not get updated yet and I simply restored the software over the mesh from the remaining box.  as long as one machine still exists with tn installed it can be recovered.

@@ -1,0 +1,160 @@
+Title: Version support for datastore/Proposal
+URL: https://wiki.sugarlabs.org/go/Version_support_for_datastore/Proposal
+--------------------------------------------------------------------------------
+Contents
+1
+About me
+2
+About my project
+2.1
+Description
+2.2
+Rationale
+2.3
+Time line
+3
+Me and the community
+3.1
+Action after getting stuck
+3.2
+Impact of this project
+3.3
+Sugar Pilot
+3.4
+Keeping the community updated
+4
+Miscellaneous
+4.1
+Great learning experience as a child
+4.2
+Anything else to like the project more
+About me
+Name: Sascha Silbe
+Age: 29
+EMail: domain sugarlabs.org, user silbe (obfuscated for SPAM reasons)
+Wiki user name: sascha_silbe
+IRC nickname: silbe
+Native language: german (english preferred for technical communication)
+Location: Germany
+Work hours: about 12h to 00h local time, i.e. 10h to 22h UTC
+Open source projects (with other developers beside me) I participated in:
+Husky (Fidonet on Linux)
+(many years ago, co-founded the project; my profile on that page is rather outdated),
+OSM
+, contributed bug reports and patches to a large number of projects. Try a web search on my name, it's unique (AFAIK at least).
+Current affiliation with Sugar Labs: maintainer of the
+build infrastructure
+About my project
+Name of project: Version support for
+data store
+/
+Journal
+Technologies used: The ones currently in use by the data store / journal. The bonus part might introduce additional ones (e.g. sqlite) for indexing.
+Description
+Don't overwrite existing entries in the Journal with the same name (which currently means loosing the old content forever
+and happens automatically), but rather add a new version to the entry. Enhance the UI to allow easy (and simple to understand) 
+access to "old" versions, including modification (which means automatically saving in a new branch).
+As "easy and simple to understand" isn't actually easy to implement, I'll concentrate on enhancing the current Journal view
+by adding previous/next buttons to the details view of each entry for the primary part of the project. 
+Adding a version tree details view and possibly other ways of presenting versions are planned for the optional 
+(based on remaining time) "bonus part". Metadata is going to be part of each version (and mutable without creating
+a new version) at first.
+Rationale
+Version support for data store / Journal already
+was part of
+the
+original design concept
+for the Journal, but
+hasn't been finished yet
+.
+There are several prototypes (
+Olpcfs
+,
+olpcfs2
+)
+that try to not only introduce version support, but also compatibility with legacy (i.e. non-Sugar) applications and,
+in the case of Olpcfs, support for the activity-based view. While those designs (and partial implementations)
+are quite interesting from a research point of view and might prove useful later on, the issue of legacy application 
+compatibility is a rather large can of worms, esp. if the applications are supposed to have access to multiple versions
+(there are other issues as well, e.g. treatment of multiple files written by the same application, deletion,
+handling of file names and file types).
+For this reason, I don't believe that any of these prototypes will mature enough to get integrated
+in Sugar even mid-term. My project focusses on the version support instead, enhancing the
+current data store
+instead of replacing it, with the Journal as the only
+intended user of the versioning API (though, at least in theory, regular activities could access it as well).
+The details of the project (i.e. on-disk format, exact API and UI design) needs to be considered with the
+Development Team
+resp.
+Design Team
+, but the general approach is quite clear.
+Time line
+2009-04-03
+Application deadline
+2009-04-12
+Easter (sunday); UI mockup submitted for review by
+Design Team
+2009-04-20
+start of (university) term; announcement of accepted GSoC proposals
+2009-05-10
+submitted API draft for review by
+Development Team
+2009-05-16
+SugarCamp Europe 2009
+2009-05-23
+start of GSoC
+2009-05-31
+current code examined and understood; API, on-disk format and UI design chosen
+2009-06-07
+data store enhanced to be able to deal with versions (basic API)
+2009-06-14
+added (working) prev/next buttons to Journal details view
+2009-06-21
+added support for importing from existing data store
+2009-06-28
+added unit tests (and potentially regression tests), fixed all known bugs, submitted for review by
+Design Team
+2009-07-06
+GSoC midterm evaluation ("working and 90% done"); added indexing (e.g. using sqlite)
+2009-07-13
+code integrated upstream for increased exposure (testing!); started discussion on extended UI design (version tree etc.)
+2009-07-25
+end of (university) term
+2009-08-10
+end of GSoC
+2009-10-31
+Fedora 12 release; Sugar 0.86 release short time later?
+Me and the community
+Action after getting stuck
+For this project, getting stuck means needing advice on UI issues. As I can ask both the whole
+Design Team
+and a friend of mine for input, it's rather unlikely that nobody will be around for a significant amout of time. Also I don't see the code produced by this project as the one and only answer to the problem, but rather as a start of a process. So I could just do an arbitrary choice and continue with the project, it's still adaptable later.
+Impact of this project
+One of the initial design goals will actually be provided. Instead of giving users the choice of irrevocably deleting either the
+old or the new content upon exit as current desktop applications do (unless the user explicitly invokes a "Save As" operation
+prior to exit), the computer will now retain both and provide the user with ways to access them.
+Sugar Pilot
+While I would very much like a Pilot to occur in my vicinity (once both this project and the Rainbow support have been merged),
+I'm not yet sure what the best target would be as I'm not directly involved with any school.
+Keeping the community updated
+For regular updates, I'll probably update a wiki page, as those interested in it can subscribe and get notifications via email.
+There are going to be several projects going on, so sending the reports to the regular mailing lists feels like spamming.
+For problems and questions, I can use both the IRC channel and the mailing lists, depending on the exact nature and target
+audience (e.g. details on the current data store are best asked on IRC, while UI design questions are best elaborated in
+a mail thread where there's sufficient time to do research to back up arguments).
+Miscellaneous
+I'm skipping the screenshot of the simple text replacement task for time reasons. I guess being the maintainer of the
+build infrastructure
+and having committed several patches on the bugtracker should be 
+sufficient substitute. :)
+T-Shirt size: depending on the actual size (instead of just what's printed on the label) it's M up to XXL. Usually I go for L.
+Great learning experience as a child
+Wow, good question. I don't remember any particular event right now. In general, I learned most (and most easily) when I was
+actually doing something, without any external help. Reading books (even text books, though not the school ones) was fun as well and
+helped me get further insight and new ideas. That's still the case, though "the internet" has replaced books for me.
+Anything else to like the project more
+I don't think there's any need for raising the priority of this projects even higher, but as you asked I'll give a reason nonetheless:
+Working on this project will significantly increase my understanding of the data store, the Journal and the whole Glucose software 
+stack. As a result,
+adding Rainbow support
+is going to get a lot easier.

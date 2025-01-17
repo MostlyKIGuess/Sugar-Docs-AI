@@ -1,0 +1,641 @@
+Title: Development Team/Project Ideas
+URL: https://wiki.sugarlabs.org/go/Development_Team/Project_Ideas#Registry_for_people
+--------------------------------------------------------------------------------
+Introduction
+This page contains a list of project ideas. For now, the focus is on giving
+GSoC
+students an idea of the kind of thing we're looking for. Summer of Code applicants should also visit
+Summer of Code/Resources
+.
+At the bottom of this page is a section for less-explicitly-explained & wild ideas.
+Summer of Code
+Priorities
+: see the
+ongoing discussion of priorities
+on our mailing list. To summarize that thread: the highest priority is for you to have a successful GSoC, which should bias you towards easier projects such as
+#Stand-alone activities
+. But, if we had to rank this list in terms of priorities for Sugar, the
+#AJAX Sugar aka Karma
+and
+#Versioned Datastore
+ideas are probably our highest priorities, followed by the rest of the
+#Toolkits / Frameworks for developers
+. These are generally hard, though, so we would need you to give us evidence that you are capable, in order for us to accept you for these ideas.
+There is a similar, project-ideas page on the
+OLPC wiki
+(and a related
+category
+).  OLPC-specific projects, including hardware-
+and schoolserver-
+related projects, should go there.
+Update: since OLPC did not get into GSoC this year, we would consider mentoring school-server related projects.
+Feel free to add below relevant projects from that list - perhaps
+80%
+95% of these could be appropriate Sugar Labs applications.
+See something that interests you? (steps to apply)
+To get in, you will need to design your project and find a mentor. On irc (#sugar on freenode) or the sugar-devel mailing list, you can briefly introduce yourself, state your interest, and ask relevant and specific questions about the state of the existing code. You should also do your own research for other open-source code that might help you. Get a
+development environment
+installed. We definitely appreciate it if you can show your readiness to help out - either joining
+bug squad
+and
+helping
+to
+triage
+, or actually helping fix some small
+bug
+(we've categorized
+some bugs as "sugar-love"
+, which means, not that they are easy to fix, but that they are good for beginners because they don't require much expert knowledge).
+When you're ready, figure out a very basic, preliminary design (where does your new UI fit in? what about the code - what talks to what?) and post that to the
+mailing list
+, asking if anybody would be willing to mentor you. You will almost certainly get some response, but you may not find a prospective mentor right away. That's OK. If your idea is really not a good fit for us, we will let you know; otherwise, remember that several mentors are holding back for now to see which projects show the most feasibility, clarity, and creativity in their design ideas. Persistence should pay off.
+Want to apply with an idea not on this list?
+That's fine. Read the thread linked above about priorities - and remember, our highest priority is for you to have a successful GSoC, and we hope that you will want to continue to contribute afterwards. Do the steps above, paying particular attention to getting some community members' opinions on whether your idea would be valuable. The
+"iaep" mailing list
+may be the best venue for this. We will not all agree with each other about how important your idea is - that's normal - but our feedback will almost certainly help you refine your idea.
+Contents
+1
+Introduction
+2
+Summer of Code
+2.1
+See something that interests you? (steps to apply)
+2.2
+Template for well-explained ideas
+3
+Project Ideas
+3.1
+Core Software
+3.1.1
+Versioned Datastore
+3.1.2
+Implement existing UI design proposal
+3.1.3
+Registry for people
+3.1.4
+Toolkit for dissimilar activity collaboration
+3.1.5
+Speech Synthesis for Sugar
+3.1.6
+Print Support
+3.1.7
+Sugar Toolbar submenu support
+3.1.8
+Port of Sugar to Pyjamas-Desktop
+3.2
+Toolkits / Frameworks for developers
+3.2.1
+AJAX Sugar aka Karma
+3.2.2
+SWF Sugar
+3.2.3
+Improve Develop activity
+3.2.4
+"Translate Activity" activity
+3.2.5
+SugarGames Pygame wrapper
+3.2.6
+Generic linux application wrapper
+3.3
+Stand-alone activities
+3.3.1
+Improved Read activity
+3.3.2
+Listen Spell activity
+3.3.3
+KDEEdu
+3.3.4
+Educational Toolkit
+3.3.5
+Improved Imageviewer
+3.3.6
+EduKT
+3.3.7
+Port LopArt to Sugar
+3.3.8
+Bug report activity
+3.3.9
+Etc., Etc.
+4
+Brainstorm / unexplained ideas
+4.1
+Visual geometric (e.g. linear bar, QR(matrix)) code recognition
+4.2
+Sugar adaption for the Nasa
+4.3
+Core Software
+4.3.1
+Homework turn-in
+4.3.2
+Research projects: unpolished code
+4.3.3
+Java
+4.3.4
+Graphical toolkit
+4.4
+Frameworks/Toolkits
+4.4.1
+Mono/.NET
+4.5
+Activities
+4.5.1
+VideoChat activity
+4.5.2
+Language Trainer
+4.5.3
+Thesaurus
+4.5.4
+Logo Activity
+4.5.5
+twext
+5
+Other ideas for improving Sugar Activities
+5.1
+Broad project ideas
+5.2
+Activities Site (addons)
+5.3
+Packaging for specific distros
+5.4
+Preeti's list
+Template for well-explained ideas
+If a project that interests you lacks a "potential mentor" here, or you want to know more about the current status of the related code, we would be happy to help guide you on irc (#sugar on freenode) or mailing lists (technical questions to sugar-devel@lists.laptop.org, educational/general ones to iaep@lists.laptop.org).
+==== Project title ====
+A quick explanation of the project idea
+* Priority for Sugar: Low/Medium/High
+* Difficulty (as a GSoC project): Easy/Medium/Advanced
+* Skills needed: Experience with WikiCode and copy-paste.
+Project Ideas
+Core Software
+Versioned Datastore
+To add
+Version support
+for
+Journal
+/
+DataStore
+: Start with (old)
+Olpcfs
+and (newer; less-documented; based on an RCS backend and a relatively small amount of fuse magic)
+olpcfs2
+. Get Sugar to mount OLPCFS2, a working virtual versioned filesystem, and keep its datastore there. Get datastore to create a new version for each save (automatic or manual). Modify journal UI to use these versions, fork from old versions, etc. Keep with the same name / tags, create a branch if metadata was changed. Allow the user to access "older" versions (Keeping and "old" version will create a branch) and view ancestry (tree of branches).
+We would not expect a GSoC project to be necessarily ready to check into our trunk. For instance, you could avoid facing the issue of automated pruning of old versions for disk space, or not have a converter for existing datastores. However, it should work as a proof-of-concept with a variety of activities.
+Note: the work for this idea is
+more than halfway done
+. The olpcfs2 virtual file system linked above is
+working
+, supporting versions and metadata; all you need to do is a UI and an index/searching mechanism on top of that. And even if your indexing mechanism is just brute-force-search each-time, sure, it will be too slow for real use, but we can take it from there, as long you have a working proof-of-concept UI.
+Priority for Sugar: High
+Coolness factor:++
+Difficulty: Hard
+Skills needed: primarily Python UI (pygtk); also FUSE/file systems (this part is mostly done); and Packaging and building.
+Implement existing UI design proposal
+Look at
+Design_Team/Designs
+and
+Design_Team/Proposals
+, choose a proposal in one of those, and implement it. Obviously, you need to investigate existing work on these by testing/playing with a current jhbuild and by talking on #sugar.
+Priority for Sugar: Medium
+Difficulty: easy-medium
+Skills needed: Python, PyGTK
+Registry for people
+Extend the interaction model to include real people beyond the user–laptop couple. This would extend the virtual network to include some very significant entities, such as family members, who may not have a physical computing device. See the
+suggestion
+submitted by
+User:Skua
+. The
+olpc:Record
+Activity could be used as a fun, instance-of-person creator and embellisher, by capturing an image or video of the person, and linking it to a new registry.
+Integration of a person object into the Sugar architecture
+Extension of the User/Group model to realistically capture the actual Person entity
+Modification of at least one activity (Record ?) to support the new API
+Extension of School Server registration model
+Extension of an Internet person model to support a Person entity (e.g., to support a missing-person registry in the
+Sahana
+Disaster Management System)
+Lots of extensions are possible, following a good, fundamental design
+Difficulty: Medium - Hard (depending on scope chosen)
+Skills needed: Data modeling, Core system programming
+Potential mentor:
+User:FGrose
+for data modeling, collaborators needed for Core systems and Internet architectures
+Toolkit for dissimilar activity collaboration
+Extend the collaboration model to include interconnection between different activity types.  People are trying to share data collected with Measure with spreadsheets or Write or TamTam or Colors!  Allow one user's activity to feed a community of collaborators performing different processes on the broadcast output.  Allow different activities to run simultaneously in a distributed multi-tasking model, on one or more computers.  See
+OLPC:Activity sharing
+and
+OLPC:Low-level Activity API
+for some essentials.
+The toolkit would encapsulate the low-level interface to allow activity developers to easily deploy distributed task collaboration.
+Extra extra credit for extending the model to general web browsers and web-enabled cell phones. Sugar web collaboration—a
+Honeycomb
+.
+Value to Sugar: High
+Difficulty: Hard
+Skills: low-level API mastery
+Potential mentors:
+See this thread for a discussion of the need and some issues,
+http://www.mail-archive.com/sugar-devel@lists.sugarlabs.org/msg02870.html
+Speech Synthesis for Sugar
+Integrate speech synthesis with all activities, not just
+Speak
+, and provide for karaoke coloring. See
+Mokurai
+'s
+article
+on adapting
+olpc:Same Language Subtitling
+for literacy to the XO.
+Desirable Features for Sugar Speech Synthesis Plugin:
+Provide Sugar Speech Synthesis Configuration Management Tool
+Karaoke Style Coloring in Sugar Environment
+UI for configuration Control
+Accent gets set on the basis of locale
+Priority for Sugar: Medium
+Difficulty (as a GSoC project): Advanced
+Skills needed: Experience with GTK, decent Python ability, ability to integrate with existing code.
+Existing Technical Documentation & Work that can be leveraged: Interested developers can refer to
+GSOC 08 Project Status Report
+.
+Print Support
+Print support in Sugar would be useful in many scenarios. The ideal project deliverables would include
+Integration of a printing infrastructure (CUPS ??) into the XO-1 software images
+Modification of Sugar Control Panel to set up the printer (add/select default printer?)
+Modification of at least one activity (Write ?) to support printing
+Making a printing activity, that follows sugar GUI guidelines?
+Extra credit: integrating a server, including permissions and quota management, into the XS image.
+Priority for Sugar: High
+Difficulty (as a GSoC project): Medium-high
+Skills needed: Python programming, API design, some communications
+comments
+Suggestion: See
+Printing_Culture
+. Oops, note screen-grabbing already exists -
+There is already screen-grab support built into Sugar. Alt-1 puts a copy of the current screen into the Journal as a PNG file. --
+Walter
+13:03, 31 January 2010 (UTC)
+Sugar Toolbar submenu support
+The Sugar Human Interface Guidelines have a toolbar design that includes submenus (See
+Toolbar designs
+). The project would be to extend the existing Toolbar widget to include this new feature and then to work with a few Activity developer to incorporate the new design into their Activities. Possible candidate activities include Paint and
+Turtle Art
+.
+Priority for Sugar: Medium
+Difficulty (as a GSoC project): Easy-Medium
+Skills needed: intermediate GTK and python skillz
+Port of Sugar to Pyjamas-Desktop
+A platform-independent reimplementation of PyGTK and PyGObject which utilises Pyjamas-Desktop to implement (near-)identical PyGTK widgets.  A proof-of-concept which can be used as the basis has already been completed - the
+Llpamies branch of pyjamas
+and merged into the current pyjamas infrastructure.  A transparent split of the SUGAR Activity infrastructure from the GUI front-end display code (along MVC lines) by using overrides of the python "__import__" method, adding in an RPC mechanism (JSONRPC recommended).  Again, the Llpamies branch has already achieved this and provides the basis and inspiration.  For example, any pyjamas applications which had "import md5": in the llpamies branch actually resulted in JSONRPC calls of any "md5" module methods, which were actually executed SERVER-SIDE.
+The consequences of providing this level of abstraction are quite startling: not only would it be conveniently and easily possible to install Sugar onto Win32 platforms (thanks to the MSHTML Pyjamas-Desktop port) but also it would be possible to have all the benefits of a client-server architecture.  Thanks to the nature of the Pyjamas API, that would be an extremely _rich_ "client", including being a web browser client.  Also, you get "remote desktop" functionality "for free".  i.e. thanks to the client-server architecture, a student can publish their work via the server (running on their
+The work involves:
+writing alternative infrastructure, replacing the c code gtk widgets with pyjamas widgets (e.g. the sugar menu gtk widget can go, and can subclass the pyjamas MenuBar widget.  Icon can subclass pyjamas Image class. etc. etc.)
+the Llpamies GTK browser port, containing the reimplementation of gtk and gobject, needs to be extended and improved
+some serious discussion needs to take place on how SVG Canvas support is to be done.  Pyjamas now has a port of GWTCanvas (which uses VML on MSHTML and IE6,7 and 8, but uses 2D SVG on all other browsers and all other brower engines) so there is an abstracted API which could be used to create vector graphics in a platform-independent fashion.
+writing a special importers.py (similar to setuptools zip-archives) which notices module imports such as activity and profile imports, and seamlessly creates a JSONRPC service to farm the function call out to a server (even if it's running on 127.0.0.1).  pyjamas-desktop already has example code that performs module import overrides, and the llpamies branch already has example code that performs JSONRPC function call farming.
+Priority for Sugar: TBD
+Difficulty (as a GSoC project): Advanced
+Skills needed: JSONRPC, Web Framework(s), PyGTK, PyGobject, Python, HTML, CSS,
+Pyjamas
+.
+Toolkits / Frameworks for developers
+AJAX Sugar aka
+Karma
+Create a proof-of-concept learning multimedia Sugar activity using javascript and html5 (for instance, Titanium-made apps). This activity should have animation, audio, persistent storage of user progress, and at least basic integration with the Sugar environment. For more information see the
+Karma
+wiki page.
+JavaScript/Sugar Communication through the following strategies: PyXPCom, hulahop, xulrunner or
+Titanium
+. see also
+the mailing list discussion
+. The preferred solution should use a minimalist rendering engine like Webkit and a toolset for local file access like Google Gears. Such a solution would have much less overhead than embedding all of mozilla. For the moment we are focusing on Titanium.
+Ideally, develop a demo activity which could be used as a template for sugarizing AJAX activities. The GSoC participant doesn't have to create her own activity but could simply recreate an existing activity such as one of
+OLE Nepal's flash activities
+.
+This demo should have the following features:
+Simple interactive animation and audio using html5 tags like <canvas> and <audio>
+An assessment section that stores results of student's progress and gives them suggestions on improvement. Assessment info should be persistent.
+Has embedded pdf for lesson plan that can be viewed w/in the activity
+Integrates with datastore
+Navigation and Help elements, ideally reusing widgets from popular javascript libraries like Jquery, Prototype, Mootools
+Some element of collaboration using telepathy (This could be really hard, depending on the state of javascript bindings to dbus)
+There is some discussion of the prior work on this question at
+User:Wade/Web_Activity_Spec
+.
+Priority for Sugar: Very High ("never bet against the browser")
+Difficulty (as a GSoC project): medium/hard  Note: integrating w/ the datastore likely won't be too hard but utilizing Sugar's collaboration features could be very hard
+Skills needed: Javascript/Python integration (PyXPCom, hulahop), CSS, knowlege of SQL
+potential mentors: Wade Brainerd (wadetb at gmail dot com), Bryan Berry (bryan at olenepal dot org) can serve as project manager, define requirements and project deliverables
+SWF Sugar
+Integrate SWF (Flash/Gnash) applications into Sugar.
+Ideally, develop a demo activity which could be used as a template for sugarizing Flash/Gnash activities.
+Priority for Sugar: Very High ("never bet against the browser")
+Difficulty (as a GSoC project): hard
+Skills needed: SWF/Python integration
+Improve Develop activity
+There are several improvements that would make the Develop activity a more attractive IDE. Any ONE of these would be a good GSoC project.
+Make a WYSIWIG GUI editor, like Glade. Note that GTK natively supports loading Glade-format interface definitions, although there would be some work involved making the Sugar interface elements available through this method.
+Integrate Sugarbot and auto-testing facilities.
+Integrate a debugger, based on pdb or other (see also
+Development Team/Debugging
+).
+Priority for Sugar: Medium-High
+Difficulty: Medium - Hard
+Skills needed: Good python skills.
+Potential mentor; Jameson Quinn (firstname dot lastname at gmail dot com)
+"Translate Activity" activity
+We will never finish localizing all our activities and base software for all our deployments - especially for places with high linguistic diversity like Afghanistan, Peru, Guatemala. So it would be great if there were an easy, discoverable way to translate any string on your machine; have the translation appear on your own machine immediately; and, assuming the activity has a link to a Pootle project, upload that translation to a Pootle server later. (For real-world use, these uploads would probably have to be cached at the school server level, but that is more complexity than we'd expect from a GSoC project.)
+Virtaal
+might be a good starting point for the UI.
+Priority for Sugar: Medium-High
+Difficulty: Medium to Hard
+Skills needed: at least some experience localizing, to know what's involved; ability to do minor hacks on gettext in C and Python; work with localization formats (.po, etc.); Python for activity UI; some simple communications, to upload proposed translations to pootle.
+potential mentor: Sayamindu Dasgupta (sayamindu at gmail)
+SugarGames Pygame wrapper
+The
+OLPCGames
+wrapper allows
+Pygame
+to run inside of GTK in Sugar, making Pygame based Activities possible.  However, the wrapper is geared specifically for use on the XO-1, and does not necessarily reflect the modern reality of running Sugar on diverse hardware.  It also does not allow for the use of other GTK Widgets in the Activity, restricting developers from adding UI features like pop up query boxes.  This project would involve porting OLPCGames or writing a Pygame wrapper from scratch that would allow Pygame to run in GTK while still enabling the use of GTK UI elements.  It would also involve making GTK events and other relevant parts of the Sugar API available to Pygame Activities.
+Priority for Sugar: Medium-High (Activity development is limited between the graphics limitations of PyGTK and the UI limitations of Pygame)
+Difficulty (as a GSoC project): Medium-Advanced
+Skills needed: Requires a fair amount of knowledge of both Pygame and PyGTK.
+Potential Mentor: Nirav Patel (nrpatel at gmail, nrp on freenode)
+Generic linux application wrapper
+Improve the ability to launch legacy Linux applications (or Windows applications in WINE) from inside Sugar. The issues are our window manager, our datastore/file system, and our security model (Rainbow). Basically, you'd have to fake all of these from one side or the other so that an average legacy app could live with Sugar.
+This is a priority for sugar, and there is significant prior art and design thought. The first part of your job would be to search this wiki, the laptop.org wiki, and old mailing list archives for OLPC and Sugarlabs, and talk on IRC, to settle on a good design. Because of this, we'd consider accepting a strong application even if it left some design questions open; but it would have to at least suggest some basic shortcuts you'd take to make the task feasible, and argue why these shortcuts would leave acceptable usability.
+Priority for Sugar: High-Very High
+Difficulty (as a GSoC project): Advanced
+Skills needed: Creative ability to use and quickly learn various tools, ability to focus on critical path (ie, build something quick-and-dirty that accomplishes the main goals rather than getting distracted by ideal solutions), experience with window manager and windowing systems (Gnome, KDE, etc.).
+Stand-alone activities
+Improved Read activity
+Use Gecko to implement a reader for
+epub
+format ebooks. This is superior to PDF because such books can be reflowed to better fit the screen and user preferences. Also, (although it would break the standard) it would make it very simple to include AJAX-style active features to books.
+Extra credit if you support textual and graphical annotation. Deployments have also asked for a page-turn animation. See also
+ml
+.
+Priority for Sugar: High
+Difficulty (as a GSoC project): Medium (w/o annotation); very hard (w/annotation)
+Skills needed: Strong Javascript/DOM skills, some interlanguage integration (Python/Javascript), ability to adapt Read activity's communications code (Python).
+Potential mentor: Sayamindu Dasgupta (sayamindu at gmail) (already has some code to start with)
+Listen Spell
+activity
+This activity has been last year GSoC project. Its code can be found
+here
+. Extending it activity wrt to following points
+Supporting Speech Synthesis model of sugar (speech synthesis model of sugar is not designed yet and is again a gsoc project this year. This task would involve either using speech-dispatcher or
+GST-Plugin
+as of now and later adding the support for sugar model)
+Multi player game over mesh network
+User Defined word list. (Adding support to add new words to dictionary)
+Test Mode: A teacher can feed the pre-defined word list on the network and activity is being used to conduct test/exam
+Speaking sentences to make student learn grammar (this as a higher level)
+Priority for Sugar: Medium
+Difficulty (as a GSoC project): Medium
+Skills needed: Python, GTK, Understanding of sugar mesh network
+Potential mentor:
+Assim Deodia
+(assim.deodia at gmail dot com)
+KDEEdu
+Sugarize any
+KDEEdu
+activity, especially the ones which have no corresponding Sugar activity. The issue is that Kdeedu uses qt, while sugar uses gtk; the student would propose a reasonable solution to this issue (see
+Talk:KDEEdu
+for one idea). It is doubtful that the whole sugarization process could be automated, so you'd probably just do one activity.
+Priority for Sugar: High
+Difficulty (as a GSoC project): easy-hard
+Skills needed: C/C++, GTK.
+Educational Toolkit
+Either based on the existing educational toolkit, or starting from scratch, enable XO use in classroom scenarios. Such scenarios could include
+Teacher shows slides, reproduced on child's screens
+Teacher asks questions - either pre-prepared or on-the-fly
+Students give answers via collaboration
+Teacher or student chooses - explicitly or randomly - an answer for further discussion
+Students split in groups and go from their individual answers to a collaborative answer
+Teacher can review all answers later
+Teacher gives individual or group feedback (offline) which will be shared with appropriate students when they come online
+Teacher checks what's on a child's screen - (experience on other platforms shows this "look over shoulder" ability reduces goofing off even though it is rarely used.)
+The low-hanging fruit on
+Educational Toolkit
+is the following:
+Enable collaboration scenarios
+Work on the GUI to provide support for multiple types of questions.
+Add API to make it easy to add new question types.
+Priority for Sugar: High
+Difficulty (as a GSoC project): medium-hard
+Skills needed: intermediate ability with Python and communications
+Improved Imageviewer
+Implement missing bits in Imageviewer, some of which are
+Sharing support
+Basic image effects support (grayscale, sepia effects, colorize, etc)
+Exif support
+There are more things that can be implemented, but the above are the basic minimum one should try to implement.
+Priority for Sugar: High
+Difficulty (as a GSoC project): easy-medium
+Skills needed: Python, GTK. the Sugar collaboration framework
+EduKT
+Simple content - history creation tool that needs:
+Re-design drag and drop features
+Add audio support
+Simplify the interface for little people
+Better the saving projects process.
+A lot of new features that simplifies to any level the building of interactive contents...
+Priority for Sugar: Medium
+Difficulty (as a GSoC project): medium
+Skills needed: Python, Glade, GTK. the Sugar collaboration framework
+Port
+LopArt
+to Sugar
+Subject:  	humbly introducing... LopArt: a Visual Arts Software that would fit perfectly with the XO
+Date: 	Tue, 29 Jan 2008 12:39:34 -0500
+From: 	ariel savion-lemieux <ariel@loplop.com>
+
+Hello,
+
+We have recently made the purchase of an XO Laptop. We believe in the
+project and would like to contribute to it in our own way.
+
+LopLop Inc. has worked in the software industry for more than a decade, and
+has developed a couple of drawing applications geared toward children.
+
+LopArt is a visual arts software that emulates real drawing strokes and
+styles (it beats TuxPaint out of the water J). Those who work with children
+are seduced by the simplicity of LopArt, as well as by the originality and
+creativity it allows. Whether it is used during free-time or for structured
+learning activities and projects, LopArt is a highly stimulating learning
+tool. It is present in more the 500 schools in Quebec alone. Examples of
+LopArt artworks can be seen on the LopArt Virtual Museum  it contains more
+than 40,000 artworks (www.lopart.org). LopArt was developed for all
+platforms, and is in open-source on Linux.
+
+For these reasons and plenty more, we would like a chance to present LopArt
+to XO members, since we believe it would be a great fit in the XO software
+family.
+
+If possible, please direct our request to the appropriate party. If you have
+questions or comments, do not hesitate to contact us.
+
+
+Regards,
+
+The LopLop Team
+
+----------------------
+
+Ariel Savion-Lemieux, LopLop
+Project Manager / Chargé de projet
+Telephone: 514.543.5849
+Difficulty: easy
+Bug report activity
+activity for bug reports
+Priority for Sugar: High
+Difficulty: Easy
+Skills needed: Python, GTK, maybe some simple web forms from both client and server side (ie, PHP or similar)
+Etc., Etc.
+It should not be hard at all to imagine educational activities or games which would be useful for primary or secondary school education. Let your imagination run wild!
+Priority for Sugar: Medium
+Difficulty: Medium
+Skills needed: Python, GTK, Sugar collaboration framework
+Brainstorm / unexplained ideas
+Visual geometric (e.g. linear
+bar
+,
+QR
+(matrix)) code recognition
+Robust, poor-man's alternative to OCR. These codes are used to track physical items, point at their use manuals, etc. Input devices: (for OLPC) integral camera; one-dimensional scanner like
+CueCat
+. Some software already exists:
+Open Source QR Code Library
+. (All camera cellphones in Japan bundle this function.)
+A "walk-around" solution:
+XO QR Reader on-line (Spanish)
+ZBar based in Ubuntu server.
+Sugar adaption for the Nasa
+One of the 91 indigenous cultures that still exist in Colombia is the
+Paez people
+(aka
+Nasa
+). They have their own traditions, customs, world view, mother tongue (Nasa Yuwe), i.e. their own culture. It could be possible to take cultural elements into the Sugar Interface, not only language, to provide Nasa children a suitable and familiar interface.
+Santiago
+18:01, 8 March 2008 (EST)
+Core Software
+Accessibility Support: Sugar currently doesn't have anything available for the visually impaired.
+Improve automatic testing across the system. This would improve our check-in and build process immensely. Very high priority which nobody is addressing head-on.
+Homework turn-in
+"Homework turn-in" support: Certain metadata on a file causes new versions to be pushed out over the net (via SMTP, rss, or other; note that Moodle already has
+support
+for routing from special email addresses to a "location"). No new UI in Sugar, and a trivial amount of changes to Moodle.
+[10:18] <homunq> If you'd rather something with PHP in it, I'd recommend the homework turn-in one. That one's really poorly documented. Basically, the steps are:
+[10:18] <homunq> 1. figure out a plan for including sugar metadata in the html download links from moodle
+[10:19] <homunq> 2. when downloading an assignment, put metadata of "send this back to adress xxx in server"
+[10:20] <homunq> 3. When saving new, worked-on versions of the assignment, mark them for upload to the server
+[10:22] <homunq> 4. when you see the server, and the homework deadline is not past, the sugar core automatically uploads the latest version. You could decide to use SMTP upload (already somewhat implemented in moodle) or something else like rss or REST or whatever.
+[10:22] <homunq> any questions, happy to clarify.
+Research projects: unpolished code
+There is also
+Journal, reloaded
+, another research project with real code behind it that is promising but languishing. In this case, the idea is to make the journal "tagging" view transparently compatible with a traditional hierarchical directory structure.
+bemasc's
+groupthink
+, expanded: The idea is to have a data structure which keeps itself in sync across many laptops "behind the scenes", thus providing drop-in collaboration as long as the structure in question provides the needed functionality. The problem is that the existing code is unpolished, and only supports some pretty limited data structures. I have some ideas of
+how groupthink could be more general
+.
+Homunq
+00:43, 11 March 2009 (UTC)
+Java
+Package and integrate the IcedTea open source bootstrap of OpenJDK Java with browser plugin for the XO. Deliverables would include:
+Binary, source and rpm dependencies for icedtea and icedtea browser plugin
+Java enabled os image
+Integration of packages into autobuild branch
+(This is just to get Java into the build. Creating an application framework would come later.)
+Graphical toolkit
+Important work left to do:
+Give focus feedback by showing a rounded rectangle in gtk buttons and HippoCanvas icons.
+Implement keyboard navigation in HippoCanvas.
+Implement accessibility hooks in HippoCanvas.
+Improve keyboard shortcuts - make them easier to create and implement a UI to make them more discoverable, such as transparent letters which appear when you hold <ctrl>
+Frameworks/Toolkits
+Mono/.NET
+The use of Mono could really enhance the number of Sugar developers due to the huge existing .NET community.
+Thanks to Torello Querci, developing a Sugar activity in Mono is already possible using the Mono/Sugar bindings Sugar.dll (more on Mono on Sugar
+here
+).
+The idea for this GSOC project is to greatly enhance this binding:
+Better integration with the Sugar look & feel and HippoCanvas,
+Binding to telepathy API,
+WinForm compatibility,
+MonoDevelop integration.
+More on this idea:
+Priority for Sugar: Low
+Difficulty (as a GSoC project): Medium-Advanced
+Skills needed: C# programming, Linux programming
+Potential mentor: Lionel Laské and/or Torello Querci
+Activities
+See also ideas at
+Activity Team/Project Ideas
+.
+A better, more fun, Paint option for small children - One way - Use eToys -
+http://lists.laptop.org/pipermail/etoys/2008-November/002770.html
+VideoChat activity
+telepathy-python has support for audio and video streaming and has recently gained support for using gstreamer, which means that we could easily do efficient videoconferencing using fully open source codecs.
+So a really nice project would be to do a proper Sugar activity for video conferencing.
+Language Trainer
+A language trainer with text to speech support would be very nice. Something that could start with letters and then teach words.
+Thesaurus
+Working together with openthesaurus -- someone could create a thesaurus for kids to learn different words (synonyms and antonyms)
+Logo Activity
+Logo is a computer programming language used for functional programming. It is an adaptation and dialect of the Lisp language; some have called it Lisp without the parentheses. Today, it is known mainly for its turtle graphics, but it also has significant facilities for handling lists, files, I/O, and recursion.
+Logo was created for educational use, more so for constructivist teaching, by Daniel G. Bobrow, Wally Feurzeig and Seymour Papert. It can be used to teach most computer science concepts, as UC Berkeley Lecturer Brian Harvey does in his Computer Science Logo Style trilogy. —
+Wikipedia article on the Logo programming language
+There is a "
+Sugarized
+" Logo—
+UCB Logo
+—but it does not record data into the Journal or use the standard Sugar toolbar.
+There are two possible approaches we could take: (1) digging deeper into UCB Logo and (2) working with another Logo, possibly
+PyLogo
+.
+Priority: high as Logo is an important tool engaging children in programming
+Difficultly: moderate to high, depending upon the approach chosen
+Integrating Pylogo would be relatively easy, but it is a very limited implementation of Logo that would need enhancing
+Experience: some Python and C if the UCB Logo approach is taken
+twext
+Twext es un idea para ayudarnos a aprender lenguajes.
+twext     is   an   idea    to       help us          to learn          languages
+El software Twexter ya tiene un demo que maneja
+twexter software                  now  has      ¡alpha!       that   works with
+el UniCode para que twexteamos en muchas idiomas.
+global text       so that  we can twext             in   many        languages
+*
+kids teach kids
+*
+alpha demo
+*
+moodle me
+*
+mediawixi
+*
+twext
+*
+code
+this fixed font twext 'roughly' aligns when you CTL+ or CTL- to adjust font size :)
+Other ideas for improving Sugar Activities
+Broad project ideas
+See
+a list of project ideas
+from a brainstorming session at Sugar Camp.
+Activities Site (addons)
+The activities
+http://activities.sugarlabs.org
+, is in need of a serious
+sugarization
+, a GSOC project could be giving some love to the dressing and coding of the underlaying activities site (based on mozilla's addons).
+Packaging for specific distros
+Debian
+Help in maintaining and packaging sugar and activities in debian.
+Including/adapting debian-edu .debs to sugar
+Hello there, I am quite interested in Debian and want to help with this and all other projects. Please contact me (bjoern AT xruby DOT net) if I can be of assistance to the XO project or other things. I will start my PhD studies in April and have previously studied Computer Science. I am highly interested in helping where I can and want to bring the necessary technology to kids around the world.
+from olpcwiki 2008
+Preeti's list
+Hi, I am Preeti, from New Delhi. I would like to get myself involved in this very interesting aspect of the OLPC software development. I have jotted some of my views on the same at:
+http://wiki.laptop.org/go/User_talk:59.178.99.172

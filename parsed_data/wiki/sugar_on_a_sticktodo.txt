@@ -1,0 +1,184 @@
+Title: Sugar on a Stick/TODO
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/TODO
+--------------------------------------------------------------------------------
+Project Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+Sugar on a Stick deployability
+1.1
+Make it easier to customize
+1.2
+Stick failure
+1.3
+Backup and recovery
+1.4
+Role of the XS in SoaS deployments
+1.5
+Collaboration is unreliable and thus frustrating
+1.6
+Using a CD helper
+2
+Improve Sugar on a Stick
+2.1
+The hard work of making a simple solution
+2.1.1
+Inspiration
+2.2
+Where we need to simplify
+2.2.1
+Make it work to both boot and to run on the computers' current operating systems.
+2.2.2
+Make it work with Macs.
+2.2.2.1
+Set up MacBook to Open items automatically when you log in
+2.2.2.1.1
+Make New Virtual Appliance for USB containing .vdi files
+2.2.3
+XS integration needs to work simply and elegantly.
+2.2.4
+Understand Stick failure and how to reduce it.
+2.2.5
+Make it simple and elegant to create sticks for your whole class.
+Sugar on a Stick deployability
+The good news is Sugar on a Stick is being successfully used in Schools around the world now!  Based on these experiences this is a list of some of the known challenges that people may face piloting Sugar on a Stick right now.  September is start of school in the US, so we expect to see an increase in teachers trying Sugar.  We want to be ready with suggestions and work arounds as people face these challenges.
+Make it easier to customize
+Make it easier for a teacher or school to customize a spin and then copy it for a hundred kids.
+Tickets on this topic:
+Red Hat -
+http://bugzilla.redhat.com/show_bug.cgi?id=448030
+-  RFE: create a bootable Live USB stick from the running livecd, also Sugar Labs Ticket
+#74
+.
+Use Case
+A teacher should be able to create a USB stick, add activities, add some content, change the language, change the jabber server etc. Then create new sticks that reflect these changes but do not copy the name, color or collaboration key.
+It would be great if the teacher could use an inexpensive USB hub to burn more then one stick at a time.
+Stick failure
+Discussions of stick failure and alternative file structures is now at
+Sugar on a Stick/Stick Layout
+Backup and recovery
+Ham and Dave from Solution Grove are making progress on this.  You can track progress on ticket
+#916
+Role of the XS in SoaS deployments
+What is a reasonable expectation for the role of the XS in Sugar on a Stick deployments in the next 6 months?
+Collaboration is unreliable and thus frustrating
+Its working fairly well in the wired network at the GPA lab, but no other use case seem to work reliably.  We need to expand the Poets Guide to
+Collaboration
+to give people hints on how to set up a scenario that will work for them.
+Using a CD helper
+Using a CD helper takes a lot of prep time before and after class.
+A floppy helper would reduce it.  A VM solution might also reduce it.  A network boot helper would also reduce it, for PCs that support a network boot.
+Tickets
+Ticket
+#598
+- Boot Helper Virtual Machine
+Ticket
+#907
+- change the format we use for the USB stick
+Ticket
+#597
+- Floppy disc Boot Helper
+See also
+Sugar on a Stick/Goals
+.
+Gardner Pilot Academy#Critical Path Technical Issues
+Note:
+The contents of this section have been transcluded from another page,
+Improve Sugar on a Stick
+:
+Improve Sugar on a Stick
+The hard work of making a simple solution
+Sugar on a Stick has tremendous potential. Kids love it, teachers see the possibilities.
+To scale, we need to make it SIMPLE.
+Inspiration
+Amy Smith, "Do the hard work needed to find a simple solution. As Leonardo da Vinci said, “Simplicity is the ultimate sophistication”—and it is the key to this type of design work."
+Get inspired by the design process of her coal creation device:
+http://www.youtube.com/watch?v=LqI63IEg3MM
+There is background in her TED talk:
+http://www.ted.com/talks/amy_smith_shares_simple_lifesaving_design.html
+Where we need to simplify
+Make it work to both boot and to run on the computers' current operating systems.
+This is clearly possible, LinuxliveUSB has a this working for Windows.
+We need a Mac and Linux VirtualBox or other VM Solution.
+We need a simple, elegant, Sugar specific UI that is presented to the user when they insert a stick into a running Windows machine.
+Suggestion-1: (not for XO-1)
+Put 2 files for VirtualBox import/export on a 2nd USB stick
+On insertion; the contents of the USB stick pop up
+An example:
+f16-live-RC4-Desktop-sugaruser-disk1.vmdk
+ f16-live-RC4-Desktop-sugaruser.ovf
+<==click on this file and it immediately imports into VirtualBox (less than 2 Minutes)
+(Only the .ovf file icon is highlighted in the USB stick contents)
+Suggestion-2: (not for XO-1)
+Export the VirtualBox .vdi hard drive to a 2nd USB and create a new machine that uses the .vdi to run
+/home/(user)/VirtualBox VMs/ (copy all three files to USB-stick)
+Create a new appliance
+use pre-existing hard disk
+Look for .vdi (on USB-stick)
+Suggestion-3 (works for XO-1 and PC's)
+Use "Sneakernet" Downloadable CD/DVD.isos
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit#introduction_to_the_sugar_interface_CD.iso
+7.4M
+A CD/USB-stick with .html files that will open with a click in the XO-1 or PC's Browser
+Contents:
+Introduction_to_Sugar_Interface.html
+Connecting_to_the_Internet.html
+Drag-Drop.html
+How_to_use_IRC.html
+How_to_use_Chat.html
+Terminal.html
+Downloaded .html from:
+Manuals
+--
+Satellit
+18:49, 24 December 2011 (EST)
+http://download.sugarlabs.org/images/SugarCreationKit-123.iso
+a 3.2 GB DVD.iso with most of the tools needed to install and use sugar
+Needs updating
+only goes to Mirabelle SoaS-v3
+Make it work with Macs.
+It kinda works sometimes now. Some macs reboot if you do magic incantations. Some don't.  A VirtualBox "boot helper" VM that started the boot in VirtualBox, then looks to the stick was created by Dave Bauer, but it doesn't work on all Macs yet.
+Set up MacBook to Open items automatically when you log in
+click link ^
+Make New Virtual Appliance for USB containing .vdi files
+VirtualBox/New/(Continue)
+Name..... Operating System...linux..  Version ...Ubuntu (Continue)
+Memory ....1024...(Continue)
+[x] Start-up Disk
+(O) Use existing disk  Click on the folder icon on right side
+Select the USB-stick in Devices: select the .vdi file listed (Open)
+Virtual Hard Disk
+Has (O) Use existing hard disk filled out with your .vdi (Continue)
+Summary (Create)
+VirtualBox Manager
+Pointed to new VM (at bottom of list) ==> Start
+Now when the MacBook is booted it will boot up in VirtualBox pointed at this Virtual Appliance on the USB-stick
+This Procedure can be used on multiple Macs to use the same USB-stick containing the Virtual Appliance of Sugar
+XS integration needs to work simply and elegantly.
+Backup and Restore
+A simple UI for recreating a lost or broken stick
+Give teachers the power of Moodle - We need tools for teachers to manage student work on the XS and to push files to students sticks.
+Understand Stick failure and how to reduce it.
+See Notes:
+Cautions with using Live USB devices
+,
+LiveOS image
+, &
+Stick Layout
+Make it simple and elegant to create sticks for your whole class.
+Not a lot of steps for drivers, etc., and it works on most of the computers in the kids' houses.
+Teacher decides what files and activities are included
+No command line usage, an enjoyable, Sugarish experience.

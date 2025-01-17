@@ -1,0 +1,78 @@
+Title: Development Team/Almanac/sugar.graphics.style
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/sugar.graphics.style
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Contents
+1
+What colors are in the sugar system color palette?
+2
+How do I use the system colors in my activity?
+3
+Is there a transparent color?
+4
+Can I use the sugar color object for my own colors since it offers so many useful conversion functions?
+5
+How do I change the background color of my activity?
+What colors are in the sugar system color palette?
+To keep your activity with the same look and feel of the sugar os, you might want to consider using the system color palette in your activity.  Here are some of the colors available to you to ensure a consistent look and feel.
+COLOR_PANEL_GREY
+COLOR_SELECTION_GREY
+COLOR_TOOLBAR_GREY
+COLOR_BUTTON_GREY
+COLOR_INACTIVE_FILL
+COLOR_INACTIVE_STROKE
+COLOR_TEXT_FIELD_GREY
+How do I use the system colors in my activity?
+The sugar color class has a number of conversion utilities returning these colors as different objects (e.g. gdk.Color, a hexadecimal string suitable for html, or an int value).
+gdkWhite = sugar.graphics.style.COLOR_WHITE.get_gdk_color()
+intWhite = sugar.graphics.style.COLOR_WHITE.get_int()
+Is there a transparent color?
+Yes there is.  You want to use sugar.graphics.style.COLOR_TRANSPARENT
+Can I use the sugar color object for my own colors since it offers so many useful conversion functions?
+Indeed, you can construct your own color objects with all of the same conversion utilities.  Pass into the constructor a hexadecimal string.  An optional second parameter lets you specify an alpha value.
+red = sugar.graphics.style.Color('#FF0000')
+How do I change the background color of my activity?
+Here is how you would change the color of your activity's background using the sugar system colors:
+import sugar.graphics.style
+...
+#use an eventbox to set the background color, not a vbox (vbox doesnt have a gtk.gdk.window to draw background on)
+self.bg = gtk.EventBox()
+self.set_canvas( self.bg )
+self.bg.modify_bg( gtk.STATE_NORMAL, sugar.graphics.style.COLOR_WHITE.get_gdk_color() )
+#don't forget to show_all or you won't see your color changes! (or anything)
+self.bg.show_all( )

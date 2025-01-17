@@ -1,0 +1,12 @@
+Title: The Undiscoverable/Change UI language
+URL: https://wiki.sugarlabs.org/go/The_Undiscoverable/Change_UI_language
+--------------------------------------------------------------------------------
+The Sugar Control Panel provides a function for changing the language settings in Sugar and Sugar Activities.
+In the home view, right-click on the XO icon and select My Settings on the menu. Then click Language. A menu will appear. You can scroll through it to select your language, and in some cases, country. When you change the language setting, you get a prompt warning that the change will take effect after a restart, and offering the choice of restarting, cancelling (so that no change will occur on the next restart), or waiting until later to restart and get the new language.
+The UI also includes a + button that allows you to add another menu, so that you can have two or more favorite languages selected. After you do this, it is necessary to change the selection and then change back to get the software to register your selection.
+Unfortunately, the language switching mechanism is rather broken, so that it is possible to get a mixture of Russian and Chinese in the US, among other oddities.
+Additional languages appear to be fall backs
+http://bugs.sugarlabs.org/ticket/1082
+The Language controls show an add button when the language is not set to English, but the button is not shown when the language is English.
+The Add button adds another language menu.
+While not intuitive for an "outsider", this is by design. The original"/"untranslated" strings in the source code are in english, so there is always an english (US) "translation" available. Setting a fallback for english doesn't make sense because it will never be used.

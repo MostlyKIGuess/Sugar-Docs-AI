@@ -1,0 +1,504 @@
+Title: Sugar on a Stick/Sugar Clone
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Sugar_Clone#SoaS-remix
+--------------------------------------------------------------------------------
+la versión revisada español
+Latest news
+:
+23 September 2012
+: I've updated editliveos.py with bug fixes and simplifications.  Run it in from a folder with these files:
+https://git.sugarlabs.org/~FGrose/soas/sugar-clone-extensions/trees/master/editliveos
+There is also a new Bash script, LiveOS-merge, for merging a LiveOS snapshot and refreshing an installation with the new image. (A new
+osmin.img is not created, but it is only used during installation of a traditional image from a LiveOS image.)
+17 June 2012
+: I've posted my working files for a new version of edit-livecd, which I named editliveos.py in this commit,
+http://git.sugarlabs.org/soas/sugar-clone-extensions/commit/8c4e03323fc9a7e630e6c62213bb842909fbaa00
+See my comments in this mailing list post,
+http://www.mail-archive.com/livecd@lists.fedoraproject.org/msg01506.html
+It includes several new options for adjusting the image filesystem size as well as home.img and overlay file sizes. Expand the
+#editliveos.help
+listing below.
+It includes editliveos.py, liveimage-mount, and temporary versions of fs.py, live.py, creator.py, util.py (pending incremental patches for livecd-tools acceptance).  The livecd-iso-to-disk version is not up-to-date with all the recent changes and improvements.
+Contents
+1
+Introduction
+1.1
+Some technicalities
+2
+Application
+2.1
+Test Usage
+2.1.1
+Live USB installation option
+2.2
+Possible Use Cases
+2.2.1
+Curriculum packaging
+2.2.2
+Full image backup or sharing
+2.2.3
+Ubiquitous Sugar
+2.2.4
+See also
+2.3
+Notes
+3
+Needs and future:
+4
+Source
+4.1
+Sugar Clone
+4.2
+Sugar Cellar
+4.3
+Bundle
+4.4
+Launcher
+4.5
+edit-liveos.py
+4.5.1
+editliveos.help
+4.6
+SoaS-remix
+4.6.1
+Recipe
+Introduction
+Sugar Clone
+makes it easy to share your personally-customized version of Sugar on a Stick.
+Start with a fresh
+install of Sugar on a Stick
+(or use your current or favorite working image).
+(For greatest flexibility and reliability, use the livecd-iso-to-disk option, --home-size-mb NNN )
+Add Activities, change Home favorites, save Browse bookmarks, Etoys projects, Physics model templates, download distributable ebooks, ... ...
+Plug in a second, target USB/SD stick.
+Switch to the Terminal Activity and execute
+3 simple commands
+.
+Voilà
+, you have a
+Sugar Clone
+! And the Sugar Clone can make new Sugar Clones with just 1 simple, Terminal command.
+Some technicalities
+Sugar Clone is, at this point in time, a Bash script (August 2010) that aids in the copying of a customized
+LiveOS image
+, such as
+Sugar on a Stick
+, to a secondary device. It works from within a booted LiveOS image to copy that image.  Or it may be used to copy a LiveOS image between 2 attached USB/SD storage devices.  It is intended to support the Sugar customization kit projects.
+A small, utility script,
+Sugar Cellar
+, is available in the bundle, or separately.  It is used to report on the storage space available on the persistent overlay, home directory, and other file spaces attached to the running image.
+http://people.sugarlabs.org/fgrose/SugarClone
+http://people.sugarlabs.org/fgrose/SugarCellar
+A python script (alpha version) has been added in January 2011 that uses an attached hard drive to stage the creation of a new iso image installation file of the running SoaS instance.  This permits system overlay refreshing and easy distribution of customized images.
+See this posting,
+http://www.mail-archive.com/soas@lists.sugarlabs.org/msg02044.html
+See this announcement post,
+You scream, I scream, we all scream for Mirabelle ice cream in a Sugar Clone
+.
+And this follow-on discussion thread,
+[SugarClone] -was: You scream, I scream, ...
+.
+Most recent post:
+Application
+See the embedded help documentation in the script
+displayed below
+.
+Test Usage
+Pre-boot installation option:
+Obtain the SugarClone script at
+http://people.sugarlabs.org/fgrose/SugarClone
+.
+Before booting the SoaS device that will be the source of the new Sugar Clone, copy the SugarClone script to the root, '/', folder at the base of the filesystem for the device, or, to /mnt/live (from the perspective of a running LiveOS image).
+Boot:
+Boot the computer from the USB stick into SoaS, and insert, or have a second USB device inserted, into the computer.
+Clone:
+In the Terminal Activity
+of that running SoaS image, enter the command,
+/mnt/live/SugarClone
+If there is more than one USB/SD storage device available, a menu of the devices will appear allowing for selection of the target device.
+The scripts will copy the currently running image to the target device. When that device is booted, a new, Sugar Learner sign-in will be triggered.  The previously customized Journal and operating system will be present on the Sugar Clone.
+Live USB installation option
+On a running LiveOS image, the root folder of the parent USB/SD device is available at the /mnt/live mount point.  The SugarClone script can be obtained (assuming Internet connectivity) as follows:
+In the Terminal Activity
+,
+change the working directory:
+cd /mnt/live
+Get the SugarClone script file:
+wget
+http://people.sugarlabs.org/fgrose/SugarClone
+Clone:
+SugarClone
+Possible Use Cases
+Curriculum packaging
+A teacher wants to prepare a SoaS image with a custom set of installed Activity bundles or a Journal of Activity instances for an upcoming class term.
+The teacher modifies their current working image by adding or deleting Activity bundles from their Home view and adding or removing Journal entries with specific content (such as a Physics model template or Etoys project), even saving distributable ebooks, or bookmarks in Browse Activity instances that are named for specific sets of local web destinations (a class portal perhaps for deployments lacking Internet connectivity).
+The teacher scrubs out any personal passwords or other history that should not be shared in the new copies.
+A fresh or recycled USB stick is inserted into the computer running the customized SoaS image and the SugarClone script is executed.
+Full image backup or sharing
+A Learner has modified their environment, perhaps adding Activity bundles and prepared specific instances such as a
+Activities/Physics
+simulation.
+Their modifications include changes to their operating system installed through
+yum
+or
+RPM
+to obtain some new core functionality.
+The Learner wants to archive or share this image with friends or for a backup.
+Personal or private information is scrubbed from the Journal or Browse history and other potential stores.
+The User creates one or more Sugar Clones.
+This method of backup has the advantage that it copies Learner changes to the core operating system as well as the Journal.
+A LiveOS image using a separate persistent home folder could be partially cloned with either the operating system overlay or home folder without the other, should that be desired.
+Ubiquitous Sugar
+An overarching vision is to be able to use and share Learners' Sugar environment wherever there are computing devices (see
+Project Essence and Core Challenges
+.)  Sugar then becomes a platform for continuous learning.  Working out the technical and social challenges of near-instantly resumable and portable learning with software is our challenge.  The separation of the system and Learner's Journal and Activities opens more opportunities for simpler solutions.
+See also
+Other
+neat uses
+for the modified_livecd-iso-to-disk script.
+Notes
+These scripts have been tested with SoaS-Mirabelle (available at
+http://download.sugarlabs.org/soas/releases/soas-3-mirabelle.iso
+) but should work with other versions of SoaS.
+The current version of the script has the /bin/bash shell specified without the -x (xtrace) option.  Set this option, #!/bin/bash -x in the first line of the script to aid testing.  When set, the script will show a lot of output on the screen as it runs.
+The script is copied to any new Sugar Clone devices prepared with this script so that Sugar Clone images can easily propagate themselves.  This also applies to all new SoaS installations that are prepared with these scripts.
+Needs and future:
+More review and testing.
+SD cards
+ONE PROBLEM on Acer Aspire One 532H:
+"Turns out the SD adapter uses the PCIe bus"
+and is not recognized by Sugar or your Script
+anyway to detect this in the script? (It is being used in test deployments now.)
+The SD slot is NOT bootable on this model but could be used to make clone custom SD's for use on other netbooks (EeePC900)
+satellit 04/26/2010
+Submission of the modified_livecd-iso-to-disk script upstream.
+https://bugzilla.redhat.com/show_bug.cgi?id=448030
+Modifications for XOs.
+Modifications for Intel Macintosh computers.
+https://answers.edge.launchpad.net/soas/+question/95622
+Extraction of the Learner's Sugar image name for labeling the Clone.
+(available 14 April 2010)
+A Sugar Activity that calls or controls the scripts. See
+Activities/Toaster
+.
+A way to automatically identify extra partitions on devices with more than one available partition.
+A way to automatically identify live media images on secondary devices and partitions that could be used as sources for a Sugar Clone.
+Bundling of the scripts for convenience until they are included in SoaS.
+(available 23 April 2010)
+Write custom iso image files to refresh the SoaS installation with an empty system overlay and permit redistribution of the customized system iso. (available 28 January 2011)
+See this comment
+https://bugzilla.redhat.com/show_bug.cgi?id=448030#c27
+Add the ability to refresh the installation without restarting or re-installing.
+Extend the facility to any Sugar image.
+Allow Learner account/stick swapping without rebooting.
+Allow multi-architecture distributions for larger capacity devices.
+These all should help us better prepare a SoaS customization kit.
+Source
+Sugar Clone
+The script is available at
+http://people.sugarlabs.org/fgrose/SugarClone
+and is displayed from there below.
+Embedded help, which describes the script and its usage in greater detail, is available in the script below (There is a 'shortusage()' section followed by a more complete 'usage()' section).
+http://git.sugarlabs.org/~FGrose/soas/sugar-clone-extensions/blobs/master/sugar-clone/newSugarStick#line52
+Sugar Cellar
+A small, utility script, available in the bundle, or separately.  It is used to report on the storage space available on the persistent overlay, home directory, and other file spaces attached to the running image.
+http://git.sugarlabs.org/~FGrose/soas/sugar-clone-extensions/blobs/master/sugar-clone/SugarCellar
+Bundle
+http://git.sugarlabs.org/~FGrose/soas/sugar-clone-extensions/blobs/master/sugar-clone/bundle
+Launcher
+http://git.sugarlabs.org/~FGrose/soas/sugar-clone-extensions/blobs/master/sugar-clone/launcher
+edit-liveos.py
+The edit-liveos script can be thought of as a "liveos-disk-to-iso" script.  It takes the currently installed system and converts it back into an iso9660 image file—but with all the current customizations to the system and Learner files.
+It is
+recommended
+that you use a separate, home.img file for the Learner's /home/liveuser directory to maximize your "mileage" with the consumable storage in the system overlay file.
+This installation variation is only available currently from the
+livecd-iso-to-disk
+script packaged on the installation iso at either /LiveOS/ or /mnt/live/LiveOS/ (from inside a running installation) or, in standard Fedora LiveOS Spins, in /LiveOS/ in the device's outer filesystem (this is equivalent to /mnt/live/LiveOS/ from within the running installation).
+livecd-iso-to-disk
+uses the --home-size-mb NNN options to specify the home.img installation.
+With edit-liveos (disk-to-iso), a nearly-consumed overlay can be refreshed by rebuilding the system into a new, SquashFS image that re
+sparses
+the system files and repackages them into an iso installation file for reuse or distribution.
+editliveos.help
+Below is the output of editliveos --help in a working version from 25 January 2013.
+editliveos.py --help
+Usage: 
+              editliveos.py: [options] <LiveOS_source>
+
+              Edit a LiveOS image to insert files or to clone a customized
+              instance, rebuild the image into a new, .iso image installation
+              file, and refresh the source's persistent filesystem overlay.
+
+              options:  [-n, --name <name>]
+                        [-o, --output <output directory>]
+                        [-k, --kickstart <kickstart-file>]
+                        [-S, --force-SELinux]
+                        [-s, --script <script.sh>]
+                        [-N, --noshell]
+                        [-t, --tmpdir <tmpdir>]
+                        [-T, --leave-tmpfiles]
+                        [-y, --yumcache <cachedir>]
+                        [-e, --exclude <exclude, s>]
+                        [-i, --include <include, s>]
+                        [-u, --seclude <seclude, s>]
+                        [-r, --releasefile <releasefile, s>]
+                        [-b, --builder <builder>]
+                        [--clone]
+                        [--refresh-only]
+                        [--skip-refresh]
+                        [-c, --compress-type <compression type>]
+                        [--compress]
+                        [--skip-compression]
+                        [--refresh-uncompressed]
+                        [--skip-minimize]
+                        [--skip-reboot]
+                        [--expand-image-gb [+[<size>]]
+                        [--shift-home-mb [+|-]<size>]
+                        [--adjust-overlay-mb [+|-]<size>]
+                        [-a, --extra-kernel-args <arg s>]
+                        [--extra-space-mb <size>]
+                        
+ USAGE HELP   editliveos.py --help
+
+              LiveOS_source must be entered as "live" to edit or clone the
+              currently running LiveOS image.  An attached LiveOS installed
+              device may be edited or cloned through its node id, such as
+              /dev/sdd1, or, if it is mounted, through its mount point path.
+              An .iso image file is addressed through its pathname, such as
+              /path/to/build.iso, or, if mounted, through the mount point
+              directory path.  A mounted Live CD-ROM image is addressed through
+              its device node, such as /dev/sr0.  Even a directory containing a
+              LiveOS and iso/syslinux folders with the appropriate files can be
+              edited or cloned through that parent directory path.
+
+              The --clone option copies the home.img or persistent home folder
+              to the new build .iso file, allowing user customizations to be
+              replicated.  A new version of livecd-iso-to-disk with the
+              --copy-home installation option may be used to propagate clones.
+
+              By default, other files and folders in the source device's outer
+              file system are included in the new build.  Options are provided
+              to --include, --exclude, and --seclude files or folders for the
+              new build.  The new builds are branded to distinguish them with
+              the --name, --builder, and --releasefile options.
+
+              Space requirements for stageing the build files are estimated by
+              the script and compared to the space available in a -t <TMPDIR>
+              option.
+
+              Invoke the --help option to learn about other optional features.
+              
+
+Options:
+  -h, --help            show this help message and exit
+  -n NAME, --name=NAME  Name for the new LiveOS image (don't include .iso, it
+                        will be added.) Unless the name is prefixed with a
+                        colon, :, the build will be branded with a date-
+                        builder-Remix-releasename string, and the .iso will be
+                        named as NAME-arch-Ymd.HM
+  -o OUTPUT, --output=OUTPUT
+                        Specify directory location for the new .iso file.
+  -k KSCFG, --kickstart=KSCFG
+                        Path or URL to kickstart config file.
+  -S, --force-SELinux   Force setting SELinux attributes on install root.
+  -s SCRIPT, --script=SCRIPT
+                        Specify a script to run chrooted in the LiveOS
+                        filesystem hierarchy.
+  -N, --noshell         Specify no breaking to shell after edit.
+  -t TMPDIR, --tmpdir=TMPDIR
+                        Temporary directory to use for staging the build.
+                        (default: /var/tmp)
+  -T, --leave-tmpfiles  Skip deletion of temporary files and directories and
+                        unmounting of the edited image.
+  -y CACHEDIR, --yumcache=CACHEDIR
+                        Directory to use for for the yum cache. default: None
+                        (A temporary filesystem cache will be used.)
+  -e EXCLUDES, --exclude=EXCLUDES
+                        A string of filename patterns to exclude from the copy
+                        of the outer device filesystem.  See _copy_src_root().
+                        Denote multiple patterns as "pattern1, pattern2, ...".
+                        To exclude all device content except for the
+                        iso/syslinux and LiveOS directories, enter  "all".
+  -i INCLUDES, --include=INCLUDES
+                        A string of file or directory paths to copy to the
+                        .iso file in _copy_src_root().  Denote multiple files
+                        as "path1, path2, ..."  (The paths are referenced
+                        relative to the source mount directory, either
+                        /mnt/live/ or /run/initramfs/live for the running
+                        LiveOS, or /TMPDIR/editliveos-<random>/<srcmnt>/ for
+                        an attached or .iso file.  So ../../../<mount
+                        point>/INCLUDE or ../../../../<mount point>/INCLUDE
+                        may be used, respectively, to include files from other
+                        branches of the active hierarchy.)
+  -u SECLUDES, --seclude=SECLUDES
+                        A string of file or directory paths in the LiveOS
+                        filesystem to seclude from the final build
+                        configuration.  The user directory may be denoted with
+                        ~/.  Denote multiple files as "path1, path2, ..."
+  -r RELEASEFILE, --releasefile=RELEASEFILE
+                        Specify release file/s for branding.  Denote multiple
+                        files as "path1, path2, ..."
+  -b BUILDER, --builder=BUILDER
+                        Specify the builder of a Remix.
+  --clone               Specify copying of the home.img filesystem or the
+                        /home folder contents to the new .iso file.
+  --expand-image-gb=EXPAND_IMAGE_SIZE
+                        Specifies a new size of NN GiB for the image (or
+                        changing the size by a difference of +NN GiB, if a +
+                        sign is prefixed).  This is useful when a larger image
+                        is needed for a script, or during package updates in
+                        the chroot shell.
+  --shift-home-mb=SHIFT_HOME_MB
+                        Specify copying of the /home folder contents into a
+                        home.img filesystem of size NN MiB, or changing the
+                        size of an existing home.img filesystem to NN MiB (or
+                        by a difference of +NN or -NN MiB, if a sign is
+                        prefixed).  If NN = 0 (or nets to <= 0), the home.img
+                        filesystem contents will be shifted to the the /home
+                        folder, which is normally compressed; however, it
+                        subsequently will not have access to the --encrypted-
+                        home installation option of livecd-iso-to-disk.  If
+                        the selected or calculated size is insufficient for
+                        the current home contents, the edit will be to a size
+                        10% larger than the current home size.
+  --adjust-overlay-mb=ADJUST_OVERLAY_MB
+                        Specifies a new size of NN MiB for the overlay (or
+                        changing the size by a difference of +NN or -NN MiB,
+                        if a size is prefixed).  If NN = 0 (or nets to <= 0),
+                        no change will be made.
+  --refresh-only        Specify replacing the squashfs.img or rootfs_img of
+                        the source LiveOS installation instance with such
+                        files from the new build, and resetting any overlay.
+                        No new .iso installation file will be produced.
+  --skip-refresh        Specify no refreshening of source filesystems.
+  -c COMPRESS_TYPE, --compress-type=COMPRESS_TYPE
+                        Specify the compression type for SquashFS. Will
+                        override the current compression or lack thereof.
+  --compress            Specify compression for the filesystem imageUsed when
+                        overriding an uncompressed source.
+  --skip-compression    Specify building the .iso with an uncompressed root
+                        file system.
+  --refresh-uncompressed
+                        Specify refreshing the source with an uncompressed
+                        root file system.
+  --skip-minimize       Specify no osmin.img minimal snapshot.
+  -a KERNELARGS, --extra-kernel-args=KERNELARGS
+                        Specify extra kernel arguments to include in the new
+                        .iso file boot configuration.  Multiple arguments
+                        should be specified in one string, i.e., --extra-
+                        kernel-args "arg1 arg2 ..."
+  --extra-space-mb=EXTRA_SPACE_MB
+                        Specify extra space in MiB to reserve for unexpected
+                        staging area needs.
+
+  Debugging options:
+    These options control the output of logging information during image
+    creation
+
+    -d, --debug         Output debugging information
+    -v, --verbose       Output verbose progress information
+    -q, --quiet         Supress stdout
+    --logfile=FILE      Save debug information to FILE
+SoaS-remix
+SoaS-remix
+is a bundle of edit-liveos.py and supporting scripts to make testing and use easier.
+The bundle will change with development. As of 10 February 2011 it contains,
+edit-liveos.py - the primary remix builder
+liveos-disk-to-iso - a Bash launcher script for edit-liveos.py
+fs2.py, live2.py, creator2.py - temporary modules from livecd-tools with pending squashfs-compression_type() functionality
+Get the
+SoaS-remix
+bundle:
+wget
+http://people.sugarlabs.org/fgrose/SoaS-remix
+Recipe
+Having used the
+livecd-iso-to-disk
+with --home-size-mb NNN to install my SoaS iso onto a Live USB device, I proceed to customize my working Stick with new Activites, content, or system settings as described
+above
+in step 2.
+Before copying
+SoaS-remix
+to the Live USB, it may be easiest to open it in an editor and adjust the
+set
+command statement at line 86 to something appropriate for your system.
+# Example command line. Edit and uncomment the set statement below to suit.
+# set -- -v -n SoaSremix -o /media/WD-ext4 -t /media/WD-ext4 -i /GPL \
+#        -r /boot/olpc_build --builder fgrose --clone /dev/live
+I then copy
+SoaS-remix
+onto the USB device bearing a SoaS installation (to the /LiveOS/ folder on the device's filesystem).
+Before running the
+SoaS-remix
+script bundle, I run these 2 system updates:
+yum install rsync
+yum update livecd-tools
+(Together, these operations consume about 8 MiB of overlay capacity, so be sure to have that available.
+You can use
+#Sugar Cellar
+to check.)
+I boot my Sugar Stick on a system with a hard disc bearing an ext4-formatted partition with well over 5 GiB of free space.
+Once booted, I mount the partition from a Terminal activity with the root user account:
+su -
+mount /dev/sdb2 /media/ext4
+(The device node and mountpoint names will depend on your resource names.  You might find the device node by issuing
+df -Th
+or
+cat /proc/partitions
+and knowing something about your disc resources.)
+If you didn't edit the
+set
+command before copying, you can use the vi editor or just invoke
+SoaS-remix
+with suitable parameters, such as,
+/mnt/live/LiveOS/SoaS-remix -v -n SoaSremix -o /media/ext4 -t /media/ext4 -i /GPL -r /boot/olpc-build --builder fgrose --clone /dev/live
+Otherwise, with a proper
+set
+command statement,
+SoaS-remix
+may be invoked simply with this command line:
+/mnt/live/LiveOS/SoaS-remix
+Common options
+:
+-v requests a slightly more verbose output,
+ -n names the remix,
+ -o designates the output file location,
+ -t designates the temporary directory to use,
+ -i designates files from the outer USB device's filesystem to include in the build.
+    Multiple files may be included with this syntax: -i "/f1, /d/f2, /d[/d.../f3]"
+ -r designates releasefile names in the image that may need adjustment,
+ --builder names the builder,
+ --clone flags the cloning feature to be invoked by the script on the
+ /dev/live device partition (the currently running image).
+
+ -h (alone) will show you some more options
+The script will launch and provide limited process reporting. (I open another Terminal tab and list the contents of my temporary directory to see the changes occurring.)
+After about 10 minutes (on my system) the product iso file will be ready in the file,
+/media/ext4/SoaSremix-x86_64-YYYYMMDD.HHMM.iso
+This iso holds, in the
+/LiveOS/
+directory, the
+home.img
+from the booted Live USB Stick, and the fresh
+squashfs.img osmin.img
+files.
+The
+livecd-iso-to-disk
+script should be used to install the new build, but it currently doesn't propagate a home.img file from the iso, so you will have to manually move the home.img file to the /LiveOS/ folder of a new USB device.
+(With a GNU/Linux system, the iso image file can be auto-mounted in Nautilus and one can see the file to copy in the /LiveOS/ folder under the iso-image device.)
+If one only wants to refresh the source Live USB stick, then the home folder does not need to be transferred. The following commands will refresh the overlay and system image:
+Boot into another image (such as from another SoaS device) with the target SoaS device inserted into a second USB connection port.
+From a root user Terminal activity or console session, issue this installation command:
+/path/to/livecd-iso-to-disk --overlay-size-mb NNN /path/to/refreshed/image.iso /dev/sd?1
+One needs to determine the proper paths on the working systems.
+For example, on a booted Mango Lassi, the path is
+/LiveOS/livecd-iso-to-disk
+.
+If the source Live USB was installed without a separate
+home.img
+, the above commands will also refresh your image, but it will consume the overlay more rapidly as all Activity storage is in the write-once overlay storage.  Even deleting Activities will consume more of the storage! (See
+LiveOS image
+.) Because the home folder (Learner's Journal and Activities) are mixed into the system SquashFS image file in this configuration, that portfolio as a whole will be less easily swapped or shared from one device or machine to another.
+Testing of any of the above would be appreciated.
+The script code is below:
+https://git.sugarlabs.org/~FGrose/soas/sugar-clone-extensions/blobs/master/editliveos/editliveos.py

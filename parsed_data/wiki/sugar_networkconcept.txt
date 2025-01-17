@@ -1,0 +1,376 @@
+Title: Sugar Network/Concept
+URL: https://wiki.sugarlabs.org/go/Sugar_Network/Concept#Targeted_audience
+--------------------------------------------------------------------------------
+This page is a guide to basic Sugar Network concepts. See
+its twin page
+for a technical point of view. Also, visit the
+introduction page
+.
+Contents
+1
+Overview
+2
+Targeted audience
+3
+Summary
+4
+Needs
+5
+Users
+5.1
+Reputation
+5.2
+Statistics
+6
+Contexts
+7
+Resources
+7.1
+Questions
+7.2
+Ideas
+7.3
+Problems
+7.4
+Wiki
+7.5
+Artifact
+7.6
+Implementation
+7.7
+Objectives
+8
+Comments
+9
+Events
+10
+Workflows
+11
+Roles
+11.1
+Support
+11.2
+Content
+11.3
+Sugar Activities
+11.4
+Networkless
+11.5
+Teaching
+11.6
+Developing
+12
+Infrastructure overview
+13
+Todo
+14
+Getting involved
+15
+See also
+Overview
+The major goal of the Sugar Network is to provide an infrastructure to let people share different types of content, e.g., Sugar Activities, artifacts created by Sugar Activities, books, etc. for friends, a class, parents, teachers, or Sugar Learners anywhere.
+Sugar Network's functionality is split into two parts:
+Core functionality, which covers low level needs to work with content (
+described below
+);
+Any number of representation models for usage of content, which are based on core functionality and add high level scenarios to interact with the same content, e.g., gamification elements. Representation models are pluggable and optional.
+Targeted audience
+The audience for Sugar Network is highly diverse:
+Students, which might be of different ages depending on a particular representation model or usage scenario;
+Educators who need to populate content for students and review what students uploaded to the Network;
+Deployment supporters who need to provide technical and educational support;
+Software developers who will have a chance to get feedback directly from users.
+Any individual person might belong to several categories at the same time, e.g., be a content creator, a user of content created by different creators, a reviewer of content uploaded by another people, etc.
+Summary
+The Sugar Network is about all these:
+Users
+,
+in different
+Contexts
+,
+interacting with
+Resources
+,
+to accomplish their
+Needs
+.
+When changed, Resources broadcast
+Events
+.
+Having
+Workflows
+defined that describe the regular behaviour of Users.
+Needs
+The needs that the Sugar Network is trying to support might be described by the following selection of
+Fundamental human needs
+:
+Identity
+Each User should be able to create and manage a unique identity in the network. Every interaction of the User with the network should be accounted in the User's metrics, as eventually, this may be part of the User's dashboard. Each User may have an individual reputation, based on other Users' ratings made of his contributions.
+Understanding
+A User should be able to view all objects and optionally apply filters to control their view based on the resource type, the Network Zoom level, tags, or the associated Users. In this preview, we may be able to offer basic statistics of the object in order to give an analytical perspective to the selection. The User should be able to select the object in order to participate on a deeper level, where he should be able to explore the associated resources. As a User, I might receive events from the objects I'm subscribed to, as well as personal events, like invitations made by other Users.
+Participation
+Any User may comment on any object, rate any contribution, edit any wiki, create any issue, attach any object to any gallery, become a follower of any object.
+Creation
+Any User may create a new Context by defining a name, the type of Context, and the Context objective(s). A Context's creator may invite other Users to follow/contribute to his Context.
+Users
+These are real people that take part in the Sugar Network.
+Actions:
+Send private message.
+Reputation
+Any particular Resource, i.e., contributions of some Users, might be rated by another Users. The Reputation of a particular User depends on how other Users appreciate him or his contributions.
+Statistics
+Based on tracking of
+Events
+, it is possible to
+measure
+a particular User's behaviour. This might be useful, e.g., for researchers.
+Contexts
+In the Sugar Network, Contexts are instances of content or software that include with them assumptions on how they may be shared or used.  A Context describes how Users behave with Resources. A Context represents the Behavior or set of Behaviors that are supported for associated Resources.
+There is a predefined general Context, the Global Context, which contains all other Contexts (according to the current
+zoom level
+). Thus, Users can interact with all Resources accessible on this
+zoom level
+.
+Context types may differ. For now, these are the only Context types:
+Sugar Activities,
+Various content (might be
+.xol
+libraries).
+Resources
+The whole experience within the Sugar Network is about a User's interaction with resources. Resources are tied to the current Context and might be of different types:
+Feedback related:
+Questions
+,
+Ideas
+,
+Problems
+,
+Wiki
+,
+Artifact
+,
+Development related:
+Releases
+,
+Objectives
+.
+Questions
+General question about the Context. A user-friendly interface for asking questions about the current Context. The workflow is much simpler when compared to typical bug trackers (Trac, RT, etc.).  It is intended to be more like "forums" or wiki "discussion" pages—just ask your question and wait for answers. In some cases, Questions might be treated as a kind of simple
+knowledge base
+for the Context (in contrast to bug trackers, Questions are not closed after answers are provided). The most useful Questions might be picked up to compose the
+FAQ
+for the Context.
+Other non-developer needs are covered by
+Ideas
+and
+Problems
+. Developer needs are covered by the
+Objectives
+and its advanced view, in particular.
+Actions:
+Create a Question;
+Discuss the Question;
+Vote for the Question;
+Create an Answer;
+Discuss an Answer;
+Vote for a single Answer;
+Vote given by the Question creator means an Answer for the Question.
+Ideas
+Any ideas regarding the Context. A user-friendly interface to propose your idea to the current Context developers. The workflow is much simpler, compared to typical bug trackers—just offer your suggestion, see how other people will rate it, and wait for an implementation.
+Actions:
+Create an Idea;
+Discuss the Idea;
+Vote for the Idea;
+Create a Solution, a possible Implementation, Answer, or other Resource;
+Discuss a Solution;
+Vote for Solutions;
+A Context team member designates one possible Solution to one Objective, the Idea's status becomes the same as the Objective's.
+Problems
+Report a problem with the Context. A user-friendly interface to complain about an error that the User encountered when working with the Context. The workflow is much simpler, compared to typical bugs trackers, just complain and wait for a fix.
+Actions:
+Create a Problem;
+Discuss the Problem;
+Vote for the Problem;
+Create Solution (proposed fix);
+Discuss a Solution;
+Designate a Release as a possible Solution;
+Vote for a single Solution;
+Vote given by the Problem creator means a fix for the Problem.
+Wiki
+A collection of Wiki pages that use MediaWiki markup language, wikitext. Pages might be represented by a tree of pages. There is always a root page. The idea of having a root page is to make it possible to merge these wiki pages to the standalone MediaWiki server.
+Actions:
+Create a new Wiki page in the hierarchy of pages;
+Upload an arbitrary file in order to place a link to it on Wiki pages.
+Discuss the Wiki topic;
+Vote for the Wiki;
+Todo:
+Modify existing page;
+View the history of modifications.
+Artifact
+A collection of binary objects, of types depending on Context type, associated the the Context. Such artifacts might be, for example, Journal objects created by Sugar Activities.
+Actions:
+Create new Exhibit.
+Discuss the Exhibit;
+Vote the Exhibit;
+Todo:
+Simplify creation of a new Exhibit by having a UI way to quickly share a newly created Activity object, e.g., from within the Naming alert or from the Journal.
+Implementation
+For software Contexts, this Resource is about released versions of this Context software. This is exactly what a User can execute in their instance of Sugar. There might be several implementations with different stability levels. By default, Users execute only the most recent stable version; but it is possible to choose any version.
+Actions:
+Context owners can create a new Implementation;
+Launch.
+Discuss the Release;
+Vote for the Release;
+Todo:
+Support an
+Experiments
+workflow where people can make a copy of an existing Context and start experimenting with the code and use it on a regular basis, e.g., share it in the Sugar Network.
+Provide a convenient method to attach log reports with errors to the particular Release, e.g., "Share the log" button on the Activity fail dialog.
+Objectives
+These are the exact objectives that a Context is trying to achieve. This type of Resource has two faces:
+The view for Users that are not in the role of Context implementer, who will see this Resource, e.g., as a set of features that the Context is trying to provide;
+The fully functional project management interface for people who are owners of the Context and take care of its implementation.
+Actions:
+Create - by Context owners;
+Discuss the Objective;
+Vote for the Objective;
+TODO:
+Context management functionality.
+Comments
+All kinds of resources might be
+commented on by any user
+. The Sugar Network does not provide any restrictions or permissions, the model is
+one of leaving responsibility to the viewer
+.
+Events
+If some Resource has been changed, e.g., as a result of User interaction, the Resource sends out global notifications. The notification might be seen while investigating this particular object or by Following this Resource, in which case, events will go to a followers' queue of global events.
+Events might be personal, e.g., personal invitations or personal messages.
+Workflows
+These are types of workflows that
+Roles
+can take part in. The particular activity might involve several Users and several Roles.
+Roles
+Support
+A need for general help from the local community of supporters.
+You need to be a part of a community with local support, thus, you will have a default place to complain, the Home Context;
+Go to Browser and click Home Context button;
+Try to search if your problem was already reported using text search string or tags;
+If search is not successful, describe your problem in a Problem entry widget as fully as possible (same as for Questions and Ideas);
+The supporters will be notified and will reply with a request for further information, or with an answer;
+On the Network screen, you will be notified about a submitted reply.
+Suppose something goes wrong with the system, and it is not clear where the problem is.
+You need to be a part of a community with local support, thus, you will have a default place to complain, the Home Context;
+Since you have no any idea about what part of the system is affected, there is no way to decide against which Context to complain, go to Browser and click Home Context button;
+Try to search if your problem was already reported using a text search string or tags;
+If the search is not successful, describe your problem in a Problem entry widget as fully as possible (as for Questions and Ideas);
+The supporters will be notified and will reply with a request for further information, or with an answer;
+On the Network screen, you will be notified about a submitted reply.
+Suppose something goes wrong with the system and it is possible to specify the part or place where it occurs.
+Go to the Browser and try to find the Context that is associated with the problem part; use Tags and full text search; after finding it, click its Home button;
+Search to see if your problem has already been reported using text search string or tags;
+If the search is not successful, describe your problem in Problem entry widget as fully as possible (as for Questions and Ideas);
+Any Context Contributor can reply with a request for further information, or with an answer;
+On the Network screen, you will be notified about a submitted reply.
+Provide supporting materials.
+Skilled people, somewhere on the Mothership level, create a set of Wiki pages;
+Since the initial Sugar Network won't support Wiki editing, these wiki pages will be uploaded to the Sugar Network using special tools to some Context, e.g., to the Home Context;
+Teachers/students can always get these materials by going to the Home Context and clicking Wiki.
+Suppose a Sugar Activity fails to start or fails on exit.
+The activity fail dialog should have a complaint field. Describe your problem there as fully as possible;
+If Submit button was clicked (it might be the default action), the repost with text message and activity logs will be attached to the particular Release of the Context;
+A Context Contributor, upon browsing uploaded reports, can reply with a request for further information, or with an answer;
+On the Network screen, you will be notified about a submitted reply.
+Content
+Sharing arbitrary education related media content.
+Teacher (or any other User) creates a new (or reuses an existing) Wiki Context;
+Set Tags and a Context description that is appropriate to the purpose;
+Create an initial Wiki page, populate it, and attach media content;
+Students, using Tags and full-text search, explore the Context in the Browser;
+Once in the Browser, activate the found Context for its transfer to the Wiki page.
+Sharing an Activity object.
+In an after-creation dialog, there should be a button to share a newly created object with the Network;
+The Journal should have a way to share any object with one click.
+Sugar Activities
+Fast launch of an Activity.
+Go to the Browser and explore the Activity you want to start, maybe using the
+Activity
+Tag or full-text search;
+Click found entity.
+Launch a particular Activity version, e.g., to help with testing a non-stable version or revert to a previous one because the most recent version doesn't work for you.
+Go to the Browser and explore the Activity you want to start, maybe using the
+Activity
+Tag or full-text search;
+Click Home button for a found entity;
+You should find the list of Releases with the most recent stable Release chosen, select any version you want;
+Click the Launch button, or run it from the Browser, to run a newly selected Release.
+Networkless
+The Sugar Network is all about being connected to a Sugar Network server someplace on the Internet (on-line case) or in a schoolserver (off-line case). A more limited workflow is supported for the server-less case.
+Suppose one is at school and connected to its Network server to prepare Contexts to work on at home when a Network won't be accessible:
+Go to the Browser and explore the Context you want to work on at home;
+Pick up, select, collect these Contexts (depending on implementation);
+Once at home, where a Network is not accessible, you will see all chosen Contexts in the Browser;
+A limited functionality (depending on implementation) will be supported for these Contexts.
+Teaching
+TODO
+Developing
+Fork me.
+Go to the Browser and explore the Activity you want to start, maybe using the
+Activity
+Tag or full-text search;
+Click Home button for the found entity;
+TODO
+Infrastructure overview
+The whole initiative is tailored by the following decisions:
+The Sugar Network should be useful in off-line environments;
+The scope of provided
+resources
+should cover the full complement of low level collaborative behaviors between Network participants; where
+low level
+means that
+resources
+are shared for all types of collaborative
+contexts
+;
+The scope of provided
+resources
+should be designed so that the Sugar Network is equally useful operating on-line as off-line;
+The software architecture and interfaces are structured to stimulate a "doing" and "sharing" workflow.
+The whole Sugar Network is pictured by the following graphics:
+Where,
+Server
+is shared data and services, in general. It might be a server accessible from the Internet (on-line case) or various distributed servers located, e.g., in schools (off-line case). See
+technical pages
+for more details.
+Conceptual level logic
+The design logic and software code structures that reify the Sugar Network concepts. From a conceptual level, these designs and code standards represent a separate entity that operates inbetween the Clients and Servers. From the technical perspective, this level is represented by the Server
+application programming interface (API)
+and
+objects model
+in particular.
+Client
+is the software that allows Network participants to interact with the Sugar Network. These software components let people get access to the Sugar Network, and define how the Sugar Network should appear to users according to their needs. The user experience provided by the client software will vary from need to need, starting from a couple of elements in the existing software
+GUI
+(when people even don't suspect they are interacting with the Sugar Network), and extending to clients that represent advanced conceptual elements of the Sugar Network as closely as possible.
+Todo
+Support translation workflow for Contexts, it might be different workflow, e.g., for Wikis, and Sugar Activities;
+Class type for Contexts to support regular class behaviour from teachers' pov.
+Support coding workflow for Contexts.
+Getting involved
+Submit
+your bug report or feature request.
+Browse our implementation
+discussions
+, and post your feedback. (You should
+join
+this discussion list in order to avoid having your messages postponed for moderation.)
+See also
+Stack Exchange
+family of Q&A websites.
+Get Satisfaction
+technical support platform.
+IdeaTorrent
+.
+Curriki
+, Open Curricula Community.
+Gamification
+.

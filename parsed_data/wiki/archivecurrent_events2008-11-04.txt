@@ -1,0 +1,83 @@
+Title: Archive/Current Events/2008-11-04
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2008-11-04
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Community jams, meetups, and meetings
+3
+Tech Talk
+4
+Sugar Labs
+Sugar Digest
+1. Lima: Sugar was well represented in Peru this past week. Rafael Ortiz and Sebastian Silva organized a translation sprint at the
+University San Martin de Porres
+. SJ Klein and C. Scott Ananian then joined  them to run a Game Jam. The week culminated with a Freedom and Open Source Day, in which we were joined by many members of the Peruvian Free Software community, including Nicolas Valcárcel from the Ubuntu community. My talk at the conference was titled “What the learning community can learn from Free Software.” One of my slides made the point that sostenibilidad ≠ sustentabilidad. Both words translate into “sustainability” in English, but Dr. Arq. Guillermo E. Gonzolo from CEEMA in Argentina pointed out the subtle distinction to me—one that I find quite interesting: sostenibilidad is static; sustenabilidad is dynamic. Putting XP on laptops is about maintaining the status quo (sostenibilidad), while Linux, which is at the beginning rather than end of its life cycle is where the true “unlimited potential” can be found (sustenabildad). I'll post my slides on the wiki when I get a chance.
+2. What would creating a Sugar Activity require from me and what benefits would it bring? 
+I was asked this two-part question from a software developer. The Sugar Almanac is a good starting point for answering the first part (
+Sugar Almanac
+). The second part is complex and rather than giving a glib answer, I want to take some time to give it some thought. The obvious answer, the chance to touch the lives of hundreds of thousands of children, is OK, but I think we need to develop more of a case.
+3. Deployment roadmap: David Farning is developing a deployment roadmap with the goal to make Sugar and Sugar Activities “freely and readily available to learners everywhere.” Sounds good to me. (See
+Deployment Roadmap
+).
+4. Sugar on a stick: Caroline Meeks has been maintaining a page in the wiki tracking our progress with developing a turnkey USB key solution for schools (See
+School Key
+).
+5. Printing: Printing was hotly debated on the Sugar list (
+Printing
+). There were two discussions: Should Sugar support printing and How should Sugar support printing. It seems that there is not consensus on the first question—it isn't clear that there needs to be. (Printing is not a realistic option in the Peru deployment, but that shouldn't preclude its use in other places, necessarily. To me, the most compelling argument in favor of printing that was put forth is it lets you put the work of the students on display.) As to how to do it, there is the question of what  affordances we should be providing (in which Activities) and whether or not we should be supporting network printing vs the installation of print drivers. The latter question is more of a distribution question than one for Sugar to resolve.
+6. Feedback from Peruvian Ministry of Education: C. Scott Ananian and I made multiple visits to the MEC office in Lima to discuss Sugar 0.82 and the OLPC XO deployment. We got some great feedback, including a healthy list of bugs, one of the most pressing being that audio files are seemingly not importing properly when trying to create a new game in the Memorize Activity. The reason this is important is that Memorize is a nice tool introducing letter and word sounds to new readers. Another bug—or point of confusion—was in regard to how the Record Activity is saved to the Journal. Record sessions and photos created by Record both show up when doing an image search in the Journal. This is fine when in browsing within the Journal itself, but caused confusion when trying to import an image into Write. If you tried to import a session instead of a photo, the import failed.
+It was nice to hear that was there was a distinct impression (from the user perspective) that “it is faster!!” In general the new Home View was well received: One simple idea we explored together was the use of the list view “star” option to restrict the number of Activity icons appearing on the Home View. This lets a teacher focus the class on a small set of Activities related to the goals being set for the students. It may be possible to have different collections of Activities tagged in the Journal for easy maintenance of such a scheme.
+The pedagogical team at the ministry has been developing some beautiful curricula guides for Sugar. They describe projects that encompass multiple activities towards a common goal, such as creating a newspaper or a story about your community. The guides are targeting different skill levels and they beautifully illustrate pedagogical goals without being overly prescriptive. The multi-page guides are intended for teachers. Single-page instructions are also being created for students. As they complete a few more, they will make them available for downloading.
+7. ¿Qué? ¿Cómo? ¿Por qué? ¿Para qui?: We also discussed the role that a portfolio might play in Sugar. What? How? Why? For who? are questions that are part of the teacher/student discourse in Peru. They are also questions that are important to the “select-reflect-perform” cycle of portfolio assessment. Scott, Rafael, Sebastian and I spend quite a bit of time discussion possible approaches to building a Portfolio Activity (we agreed that it makes sense to make it a separate Activity from the Journal for the time being). My hair-brained idea is to make a Turtle-Art-like snap-together programing Activity to create narrative presentations from items selected from the Journal. I'll make some sketches in the coming days and post them to the wiki. The team at the ministry was very upbeat about portfolio tools, regardless of the implementation details.
+8. Thin and fat clients: Brendan R. Powers from
+Resara
+has taken an interest in Sugar. Resara deploys Linux desktop solutions in schools in the United States. Brendon believes that Sugar's collaboration tools, Journal and other features “could be very appealing to younger grade (elementary and middle school) students and teachers.” We'll be exploring how to use Sugar on some of the classrooms already on their thin client desktops.
+9. On collaboration: Juliano Bittencourt has stirred the pot regard the Sugar collaboration model. In a discussion on the developers mailing list (
+On collaboration
+) he raises the issue of synchronous vs asynchronous collaboration, arguing that too much emphasis has been given over to the former, when the latter is generally more useful in a school setting.  I agree with him to a great extent. There are not too many learning scenarios that I am aware of where a tightly coupled synchronous interaction is critical. Exceptions of course include Chat—which can be used as a group storytelling medium and an medium through which other collaborations are staged and organized—and include some of the activities around real-time picture sharing and other data-gathering exercises, such as the use of Measure or Distance. Etoys also has a number synchronous modes that are rich, including the ability to share both objects and a workspace. The peer-to-peer editing in the Write Activity may not require synchrony: children could trade documents, edit, and then pass them back. But the feature has been used creatively for other narrative purposes. And of course, there are lots of great games that require some level of synchrony, so the effort that has gone into this layer of the infrastructure will continue to be of value.
+To some extent, Juliano's point was less in regard to synchrony and more in regard to the lack of any means within Sugar to maintain persistence of a collaboration over a longer time frame than a single interactive session. This omission is will in part be filled by services external to Sugar, such as Moodle or AMADIS. However, some aspects of the yet-to-be-implemented Bulletin Board would also meet these needs. (Better versioning in the Journal/Datastore—in the roadmap for 0.84—will play a role as well.) The Bulletin Board is designed to be a place for the persistent sharing of objects and actions between a group of collaborators. In some sense, one could think of it as a share, persistent clipboard. Bulletin Boards would be created in support of group projects that involve multiple activities and multiple sessions. We should develop a requirements document and architectural description of what is needed in order to both best leverage existing tools and set realistic goals for any Sugar developments.
+10. PlayGo: Paul Barchilon provided some very thoughtful feedback on the PlayGo Activity. What struck me was that he kept returning to how various design decisions impact the opportunity for children to engage in learning (See
+PlayGo feedback
+).
+Community jams, meetups, and meetings
+11. Lima translation sprint: We gathered at the University of San Martin de Porres for two intense days. Through the courtesy of the OLPC foundation, Sugar Labs, and USMP, we had the opportunity to meet for a few days of translation work. Rafael Ortiz and Sebastian Silva provided the logistical support. We worked shoulder to shoulder alongside community volunteers, as well as a team distributed collaborators who made their contributions both at headquarters at the university and via the Internet from different parts of Peru.
+The distance work was made possible by our infrastructure collaboration, IRC, mailing lists, and especially the parallel translation tool available in FLOSS Manuals, which allows you to drag and drop text and images between documents. One challenge we had was to regenerate many of the screenshots of Sugar containing text in English. (There is more work to do.)
+The team would like to take this opportunity to thank Sr. Hernan Pachas and Engineer Waldy Grandez of University San Martin de Porres for all their help in organizing the event, publicity, support, snacks and Peruvian entertainment. See our work in
+Sugar_es
+and please lend a hand in completing the work.
+Tech Talk
+12. NetworkManager 0.7: Marco Pesenti Gritti and Simon Schampijer worked on porting Sugar to NetworkManager 0.7. They made lots of progress and now have something “sort of” functional. They still need to get security handling in shape (e.g., WEP), implement settings persistence and reimplement frame devices. (Someone also need to port our mesh patches to 0.7 before we can add UI for them.)
+13. Developer tools: Marco started writing some release automation scripts and wrote a script to a mock build of sugar-jhbuild for easier testing on the OLPC XO-1 laptop. He switched jhbuild and buildbot away from Fedora 8 and Ubuntu 7.04 as the glib they provide is now too old. And he managed to get new SLiM (a simple login manager) into Fedora Rawhide. We need to build a new LiveCD with selinux enabled. Next week Marco plans to mark existing public API as stable/unstable/deprecated, get activities rpms reviewed, and create a new LiveCD.
+14. Sugar improvements: Marco investigated Browse/Firefox memory issues and posted a summary on the mailing lists. Kernel hackers help needed! He also finished up a zoom-levels refactoring: He got rid of the annoying flickering. He and Tomeu Vizoso have been looking into drawing performance. They plan to start seriously working on performance next week. Marco also did some shell code refactoring.
+15. XOCamp: Marco has written three proposals for the November XOCamp. (I am working on one for the Portfolio as well.)  There are many more being posted on the Sugar and Devel lists.
+16. Gentoo: Aleksey Lim has posted instructions for building Sugar on Gentoo (See [[Community/Distributions/Gentoo
+|Gentoo]]).
+17. Ejabberd: Jonas Smedegaard reports that Ejabberd has had the patches applied for some time now on Debian. In other words, “the next stable release of Debian will support Sugar out of the box.” So will the next release of Ubuntu (Intrepid) due to release this week, as they borrow these patches from Debian (Morgan Collett has written up the much simpler process of getting ejabberd up and running at
+Installing ejabberd on Debian
+).
+18. Gnash: Rob Savoye has new rpms for Gnash available for testing (“for the brave at heart”).
+#!/bin/sh
+# install livna
+sudo yum
+http://rpm.livna.org/livna-release-9.rpm
+# install ffmpeg from livna
+sudo yum install -y ffmpeg
+
+# get rid of the old build of 0.8.3
+sudo rpm -ev gnash gnash-plugin
+
+# install gnash
+sudo rpm -iv \
+http://www.getgnash.org/packages/snapshots/fedora/gnash-20081025-1.i386.rpm
+# install the plugin
+sudo rpm -iv \
+http://www.getgnash.org/packages/snapshots/fedora/gnash-plugin-20081025-1.i386.rpm
+19.  Other software releases this week include:
+TurtleArt-13.xo
+HablarConSara-1.xo
+Sugar Labs
+20. Self-organizing map (SOM): Gary Martin has generated another SOM from the past week of discussion on the IAEP mailing list (Please see
+SOM
+).

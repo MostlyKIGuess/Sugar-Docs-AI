@@ -1,0 +1,95 @@
+Title: Activities/Turtle Art/Extras
+URL: https://wiki.sugarlabs.org/go/Activities/Turtle_Art/Extras
+--------------------------------------------------------------------------------
+Contents
+1
+Extras
+1.1
+Keyboard shortcuts
+1.2
+Copying and Pasting
+1.3
+Speed
+1.4
+Sharing
+1.5
+Running Turtle Art outside of Sugar
+Extras
+Keyboard shortcuts
+Ctrl+q quit (exit Turtle Art)
+Alt+p show/hide the palettes
+Alt+b show/hide the blocks
+Alt+r run the 'start' stack rapidly
+Alt+w run the 'start' stack slowly (and highlight blocks during execution)
+Alt+s stop execution of the stack
+Alt+e erase the screen
+Esc return from full-screen mode
+Ctrl+c copy a stack of blocks or text from a block
+Ctrl+v paste a stack of blocks or text into a block
+cursor (arrow) keys (or h j k l keys) move selected stack of blocks or turtle or move between toolbar items
+Return (Enter) is used to run a stack of blocks or to select a toolbar item
+space selects the next block (in the order in which they were added) (only in version 100+)
+Note for OLPC-XO laptop users: the buttons on the display can also be used.
+The left-hand buttons can be used to move a stack of blocks or turtle
+o button runs the selected stack of blocks or returns the selected turtle to the home position (center of the screen)
+× button deletes the selected stack of blocks
+✓ button runs the 'start' stack
+◽ button selects the next block (in the order in which they were added) (only in version 100+)
+Copying and Pasting
+Did you know that you can copy/paste stacks to/from the clipboard? You type Ctrl-C to copy whatever stack is under the cursor to the clipboard. Ctrl-V will paste from the clipboard onto whatever TA project you have open. Try pasting this code into your Turtle Art project.
+[[0, "clean", 258, 217, [12, 1]],
+ [1, "repeat", 258, 251, [0, 2, 3, null]],
+ [2, ["number", 36], 309, 251, [1, null]],
+ [3, "repeat", 323, 311, [1, 4, 5, 9]],
+ [4,  ["number", 4], 374, 311, [3, null]],
+ [5, "forward", 388, 371, [3, 6, 7]],
+ [6, ["number", 300], 459, 371, [5, null]],
+ [7, "right", 388, 413, [5, 8, null]],
+ [8, ["number", 90], 446, 413, [7, null]],
+ [9, ["vspace", 20], 323, 389, [3, 10]],
+ [10, "right", 323, 463, [9, 11, null]],
+ [11, ["number", 10], 381, 463, [10, null]],
+ [12, "start", 258, 175, [null, 0]]]
+You can also paste text from the clipboard into text blocks.
+Note: You can duplicate individual blocks with copy and paste, when duplicating a text block, deselect the text block after copying if you want to duplicate the block rather than duplicating the text within the block.
+Speed
+Turtle Art has three 'run' buttons:
+The 'rabbit' button will run your program at full screen.
+Note
+: It will highlight blocks during execution, so your program will run much faster if you hide blocks.
+The 'turtle' button will run your program with a slight delay between blocks. Block are highlighted as they are executed and block labels are updated with the current block values.
+The 'debug' button will run your program with a longer delay between blocks. Block are highlighted as they are executed and block labels are updated with the current block values.
+Sharing
+Turtle Art supports a simple sharing model. Whomever joins a shared activity will share turtles with the other participants, e.g., whatever any turtle draws will appear on every screen. While sharing, you can also send stacks of blocks from one user to another. Share can consume a lot of network bandwidth, so it is not recommended to share among more than 2–3 people at a time if the screen is frequently changing. As with all Sugar activities, you can use the Share-with feature of the Journal to share your Turtle Art projects with others.
+A simple application of Turle Art sharing is multimedia chat. Send text using the Show Block; voice using the Speak Block; and images using the Show Block. Lots of fun.
+Note:
+Turtle Art will also share between Sugar and GNOME.
+This (yellow) turtle drew a green star.
+This (blue) turtle drew a blue square.
+This (red) turtle drew a red circle.
+A simple script to broadcast video by sharing.
+Running Turtle Art outside of Sugar
+Turtle Art can be run in the GNOME desktop outside of Sugar.
+PC HARDWARE:
+Download
+Turtle Art
+(as a *.xo archive)
+Extract the TurtleArt.activity directory from the archive, eg drag it to the desktop
+Open directory TurtleArt.activity
+Run turtleart.py (run in terminal is better, you can see error messages there)
+OLPC XO HARDWARE
+The XO1.5 and later software builds for the XO1.0 allow switching between Gnome and Sugar desktops. The following assumes that Turtle Art is already installed in Sugar.
+Switch to the Gnome desktop
+open olpc's home on the desktop
+open Activities
+on later software builds, Activities is both hidden and locked, if so, check show hidden files to unhide, in terminal chmod 777 Activities to unlock
+open TurtleArt.activity
+run turtleblocks.py (run in terminal is better, you can see error messages there)
+COMMAND LINE SWITCHES
+turtleblocks --help
+	turtleblocks.py
+	turtleblocks.py project.tb
+	turtleblocks.py --output_png project.tb
+	turtleblocks.py -o project
+	turtleblocks.py --run project.tb
+	turtleblocks.py -r project

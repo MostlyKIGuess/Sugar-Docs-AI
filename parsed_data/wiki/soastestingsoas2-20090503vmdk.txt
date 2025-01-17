@@ -1,0 +1,28 @@
+Title: SoaS/Testing/soas2-20090503.vmdk
+URL: https://wiki.sugarlabs.org/go/SoaS/Testing/soas2-20090503.vmdk
+--------------------------------------------------------------------------------
+See mailing list thread:
+http://www.mail-archive.com/sugar-devel@lists.sugarlabs.org/msg04011.html
+VirtualBox 2.2.2 on Jackalope64 host
+first boot problem (from /tmp/firstboot-cG892l:)
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/site-packages/firstboot/interface.py", line 102, in _nextClicked
+    self.advance()
+  File "/usr/lib/python2.6/site-packages/firstboot/interface.py", line 147, in advance
+    result = module.apply(self, self.testing)
+  File "/usr/share/firstboot/modules/date.py", line 51, in apply
+    rc = self.scd.firstboot_apply()
+  File "/usr/share/system-config-date/scdMainWindow.py", line 224, in firstboot_apply
+    return self.apply ()
+  File "/usr/share/system-config-date/scdMainWindow.py", line 201, in apply
+    self.timezoneBackend.writeConfig (timezone, utc)
+  File "/usr/share/system-config-date/timezoneBackend.py", line 57, in writeConfig
+    if selinux.is_selinux_enabled() > 0:
+AttributeError: 'module' object has no attribute 'is_selinux_enabled'
+proceeds to automatic login, user=soas
+800x600 pixel window
+bridged networking works
+yum install dkms gcc make binutils glibc-headers glibc-devel kernel-headers kernel-devel succeeds
+VBoxLinuxAdditions-x86.run succeeds (amd64 not supported in VirtualBox without cpu virtualization support)
+Guest Additions reboots to 720x400 pixel screen
+editing Xorg.conf enables 1200x900 display

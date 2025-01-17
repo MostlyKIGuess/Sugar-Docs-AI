@@ -1,0 +1,64 @@
+Title: Development Team/Architecture
+URL: https://wiki.sugarlabs.org/go/Development_Team/Architecture
+--------------------------------------------------------------------------------
+Contents
+1
+Shell description
+2
+Diagram
+3
+The Sugar shell
+3.1
+Frame
+3.2
+Desktop window
+3.3
+The Journal
+3.4
+The control panel
+3.5
+Extensions
+3.6
+Examples
+Shell description
+Diagram
+-----------------------------------------------------------------------
+|              |             |                    |                     |
+|              | Non-Python  |   Sugar shell      |       Python        |
+|              |   Sugar     | (Desktop window,   |        Sugar        |
+|              | Activities  |  control panel,    |      Activities     |
+|   Regular    |  (Etoys,    |     Journal)       |                     |
+|      X       |  Simcity,   |                    |                     |
+|     Apps     |--------------------------------------------------------|
+|              |               Activity Libraries                       |
+|              |              (Python and others)                       |
+|              |--------------------------------------------------------|
+|              |        DataStore         |          Presence           |
+|              |         service          |          service            |
+ -----------------------------------------------------------------------
+|                        Metacity window manager                        |
+ -----------------------------------------------------------------------
+|                                                                       |
+|                    GNOME-ish Linux desktop                            |
+|    X11, HAL, D-Bus, NetworkManager, GConf, Telepathy, etc             |
+|                                                                       |
+ -----------------------------------------------------------------------
+The Sugar shell
+The Sugar shell is divided into the components: Frame, desktop window, Journal, model, control panel and extensions.
+Frame
+The Frame is layered on top of the desktop window so you can access it in all the views. It is a group of gtk-windows technically.
+Desktop window
+The desktop window itself contains the views: Home view, Groups view, Neighbourhood view.
+The Journal
+The Journal once was a self contained activity but has been now moved to the shell, to gain memory usage for example. It is still handled like an Activity in the sense that it is shown in the Frame and can be accessed by tabbing through the list of available activities. There are still ongoing discussions about where it really belongs.
+The control panel
+The control panel (My Settings) is an alert which is modal to the desktop window, so while up you can still access open activities.
+Extensions
+You can change/extend the functionality of the shell by providing different control panel modules, key bindings and device icons in the Frame. Those are loaded dynamically.
+Examples
+Sugar architecture is mostly based in other previous ones like:
+[1]
+(from
+http://www.linuxdevices.com/news/NS6616313390.html
+)
+http://www.gnome.org/mobile/

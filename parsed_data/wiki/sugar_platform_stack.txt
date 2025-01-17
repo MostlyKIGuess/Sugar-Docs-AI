@@ -1,0 +1,152 @@
+Title: Sugar Platform Stack
+URL: https://wiki.sugarlabs.org/go/Sugar_Platform_Stack
+--------------------------------------------------------------------------------
+Note:
+Most of this page was copied from
+OLPC:Developers/Stack#Activity Development Stacks
+, so most of the links refer to pages in the OLPC wiki,
+http://wiki.laptop.org
+.
+The
+Sugar Platform Stack
+describes the core part of the
+Sugar System Stack
+: Between the operating system and the individual activities are the Sugar Framework ("Glucose") and the Sugar Software Stack (the upper part of "Ribose").
+The Sugar Platform Stack is a versioned implementation of
+Development Team/Architecture
+.
+Contents
+1
+Sugar Framework
+2
+Sugar Software Stack
+3
+Interfaces provided to activity developers
+3.1
+Smalltalk/Etoys
+3.2
+Browser
+3.2.1
+Browser Component
+3.3
+Python/PyGTK
+3.3.1
+OLPCGames
+3.4
+Flash
+3.5
+Low Level
+Sugar Framework
+The Sugar Framework ("Glucose") consists of the packages sugar-base, sugar-toolkit, sugar-datastore, sugar-presence-service, sugar-artwork and hulahop. Its latest release is as a part of the Sugar Platform release
+0.121
+.
+Sugar Software Stack
+The Sugar Software Stack (the upper part of "Ribose") is defined by the Sugar Platform release through its external dependencies and their minimum versions—the latest one is
+0.114/Platform Components
+. In late 2009, this is roughly equivalent to GNOME Mobile.
+Interfaces provided to activity developers
+This section attempts to describe the major activity development stacks available in the Sugar environment.
+Smalltalk/Etoys
+Etoys
+is a kids application written in Squeak an open-source Smalltalk development environment. Smalltalk is one of the first object-oriented languages, that is, it has been in use for decades, and as a result has a huge body of components and pre-built content and resources that can be used to create new activities.
+The Etoys environment is easily scripted via GUI interactions, and components have access to all of the special hardware features on the laptop.  You can often create fascinating projects and useful demonstrations with just a few mouse clicks and a bit of simple logic.
+See:
+Smalltalk Development on XO
+to start using Squeak to develop for the OLPC.
+Browser
+Sugar includes a Mozilla-Firefox-derived (Gecko)
+Web Browser
+Activity.  This browser includes HTML, XHTML, Javascript and SVG support.  You can set up simple web-servers on a laptop using Python, or children may  access an application hosted on a public web server (but keep in mind that children often have very poor connectivity).
+You can develop for this platform with no particular hardware or setup, and can test using regular Firefox during initial stages.  It is easy to port work from elsewhere into this stack, and easy to export your work for use outside of the OLPC project.  The environment is, however, rather constrained, without access to most of the special hardware or software components on the laptop.
+Browser Component
+The built-in Browser is actually just a thin wrapper around the Gecko control.  You can use the Gecko control yourself and create web-browser derived activities, either using XUL or Python/PyGTK to instantiate the browser.  This gives your Activity access to system services and hardware, at the cost of considerably more complexity.
+See: ??? to start using XULRunner/Web Control to develop for the OLPC.
+Python/PyGTK
+Python and GTK based activities are the "standard" way to write software for the OLPC.  Using Python and PyGTK is strongly encouraged so that the "View Source" button will normally show the same language wherever the user invokes it.  The use of the same language throughout also means that code can often be factored out of one project to be shared with another.
+The support for writing activities provided by the core Sugar system (which is itself largely written in Python) is almost always exposed first through Python libraries.  On the Sugar platform, PyGTK has access to the following major libraries:
+Cairo
+-- high performance postscript-like library for drawing vector graphics, with the RSVG SVG-rendering library
+Pango
+-- flexible text layout system capable of dealing with complex internationalization issues
+D-BUS
+-- inter-process communications
+Telepathy -- inter-machine RPC and presence management with network traversal and discovery logic (activities are encouraged to use Telepathy's Tubes where practical)
+NumPy
+-- standard high performance numeric analysis and array-handling module
+CSound
+-- acoustically modelled sound-synthesis engine (seen in the
+TamTam
+activity)
+GStreamer
+-- general purpose media streaming platform, used for accessing the video camera and playing media
+IPython
+-- enhanced interactive Python interpreter with syntax highlighting, command-completion and the like
+GTK Controls:
+Browse
+browser Control (
+HulaHop
+) -- Gecko 1.9 web browser as a simple embeddable control with Python DOM access
+AbiWord
+/AbiCollab Control -- AbiWord word processor as an embeddable control with the ability to collaboratively edit with another user
+This version of AbiWord also includes support for syntax-colouring collaborative source-code editing
+Evince
+Control -- PDF and EBook-reading control
+Pygame
+-- game development engine based on SDL (see OLPCGames), not exactly a control, but close...
+in addition to the Python standard library, which includes rather a lot of built-in functionality.  One key standard library module is the SQLite database engine, which provides a basic single-user SQL database which can be used by activities for storage.
+See:
+API reference
+for a more exhaustive set of pointers to libraries available with links to their documentation
+See:
+Activity tutorial
+to develop in Python (with PyGTK) for the OLPC.
+Activities can use common Python extensions which are installed into their Activity directory.  You may also consider rewriting areas that profiling say are problems in your activity as
+C extensions
+.  This can save both processor load and memory depending on the nature of the extension.  Keep in mind, though, that premature optimization is generally not a good idea; code first, optimize later.  You can also use extensions to wrap already-existing activities (those not normally Sugar or Python based) by creating a GTK control wrapping your activity's core.
+See:
+#Low Level
+for a discussion of extensions lower-level programming-language issues
+OLPCGames
+Pygame
+is a high-level wrapper around the C
+SDL
+library, which provides low-level support for developing games.  Pygame allows you to easily create raster (pixel-based) graphics for games with reasonable performance thanks to SDL.
+OLPCGames
+is a Python package which allows you to create Sugar Activities using Pygame with access to the special features of the laptop.  This includes the Telepathy presence and communications infrastructure and the Pango/Cairo graphics capabilities.
+See:
+Game development HOWTO
+to start using Python, Pygame and OLPCGames to develop for the OLPC.
+See:
+Game templates
+for a set of simple templates intended to allow students to create "genres" of games easily
+Flash
+Sugar includes the
+Gnash
+engine by default, and the
+Adobe Flash
+playing engine can be installed.  At the moment we do not have a Flash authoring tool that can be distributed on the laptops, however.  If you have Flash-based content, it may be possible to simply run it on Gnash on Sugar.
+Low Level
+Being a regular Fedora 7 Linux machine, the OLPC-XO can run regular Linux i386 executables.  However, integration with the Sugar shell is currently a non-trivial exercise.  It is often easier to wrap your C/C++/Assembly/Whatever activity in a (normally Python) wrapper than to attempt to implement the entire
+Low-level Activity API
+yourself.
+See:
+Low-level Activity API
+for the most extensive and up-to-date available discussion of how to integrate a low-level activity manually
+See:
+Sugarizing
+for a (somewhat fragmentary) discussion of how to wrap an existing native-code executable/library with a Python wrapper.
+See:
+Sugarize Demo
+for a shared library loader hack that provides much of the X11-level functionality for general X11 activities, allowing them to be run largely unchanged on the XO.  Most of the special features of the laptop will not be available, but this approach allows for quick porting/testing of activities.
+When coding in Python, you will occasionally want access to a C or C++ extension, either one already written, or one written to optimize some part of your activity.  You can build these extensions for use under Sugar by using the normal Python distutils with GCC tool chain.
+Make sure that you are aware (and respect) the
+Geode instruction set
+. It is about the same as the original Athlon instruction set. See the Geode data book linked in the
+Geode instruction set
+page.
+The best (most reliable and compatible) approach is generally to compile on an official image, using Yum to install the tools required.  Doing this on an actual XO, however, is probably
+not
+a good idea, as compilation will tend to cause lots of writes to the disk and reduce the longevity of your flash storage chip.
+See:
+Emulation for Compilation
+for a tip on how to compile using emulation

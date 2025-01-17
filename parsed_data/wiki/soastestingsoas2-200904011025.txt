@@ -1,0 +1,27 @@
+Title: SoaS/Testing/Soas2-200904011025
+URL: https://wiki.sugarlabs.org/go/SoaS/Testing/Soas2-200904011025
+--------------------------------------------------------------------------------
+VirtualBox 2.2.0b2 on Vista64 host
+Boots from iso image into Sugar
+Network OK bridged or NAT
+Terminal prompt: [liveuser@localhost ~]$
+/dev/dm-1 on /media/Soas2-2009040110 (with 0 MB free) shown as resource in Frame
+Live USB on XO-1 with q2e32 firmware
+I used LiveUSB Creator to put this build on 1.90GB USB flash drive with 256 persistent area.
+There's a delay of over a minute delay at a blank screen, after the "hot dog" screen shows boot completed.
+All the known issues with Fedora builds on XO listed at
+olpc:Rawhide-XO#Known issues
+are still present: I have to hold down the check key, no sound, no power management, many OLPC keyboard keys don't work, etc.
+Browse failures
+Browse failed to start.  The first time the globe icon pulsed, I looked away, and after about 30 seconds the Journal displayed and there was no Browse in the frame or Alt+Tab.  The second time the world icon pulsed, I saw the Browse window appear with "File not found", and then the Journal displayed.  Both times I saw nothing relevant in ~/.sugar/default/logs or /var/log/messages. The WebAactivity log showed "Received SaveYourself", "Received SaveComplete".  I had no network connectivity.
+The default home page for Browse is
+/usr/share/library-common/index.html
+which does not exist (see bug 574 and 645).  I created a dummy page here and Browse started fine!
+I tried browsing
+file:///home/liveuser
+and Browse hung, putting up a busy cursor.
+I restarted Browse from Terminal using `sugar-launch org.laptopWebActivity` and tried browsing
+http://sugarlabs.org
+, again with no internet connectivity. That locked Browse, and it eventually died with "Illegal instruction". Since Browse starts at
+http://sugarlabs.org
+if /usr/share/library-common/index.html does not exist, this is probably the same lockup as the first.

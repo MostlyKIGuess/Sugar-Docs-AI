@@ -1,0 +1,115 @@
+Title: Platform Team/Usage Statistics
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Usage_Statistics#Statistics
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Counter types
+3
+Statistics
+4
+Implementation
+5
+See also
+Summary
+Sugar usage statistics might be very useful from, e.g., an educational or research point of view. Statistics might be anonymous or personalized (by taking special efforts to keep information secure and local for use only by a particular deployment).
+Counter types
+Measured
+statistic values might be one of the following types:
+absolute
+value to use as-is, e.g., amount of free disk space;
+uptime
+number of seconds since event start, e.g., how long window is active; if event is not active, value will be reset to zero;
+gauge
+is for things like temperatures or number of people in a room, i.e., value can grow and fall in time;
+counter
+a counter, number of times event was triggered during single time frame; value can be more or equal to zero.
+Statistics
+All types of statistics are identified by IDs in a dot separated hierarchy. This makes it possible to refer to the particular type or level of data.
+shell
+Shell related stats.
+shell.uptime
+uptime
+How long Shell is running.
+shell.active
+uptime
+How long Shell window is on top.
+shell.friends
+absolute
+Number of buddies in the Groups view.
+journal
+Journal related activity.
+journal.uptime
+uptime
+How long Journal is running.
+journal.active
+uptime
+How long Journal window is on top.
+journal.creates
+counter
+Number of create requests sent from the Journal window.
+journal.updates
+counter
+Number of update requests sent from the Journal window.
+journal.deletes
+counter
+Number of delete requests sent from the Journal window.
+activity
+Activities related stats; specified only for the particular activity.
+activity.uptime
+uptime
+How long Activity is running.
+activity.active
+uptime
+How long Activity window is on top.
+activity.instances
+gauge
+How many instances launched.
+activity.new
+counter
+How many running instances with new Journal entity.
+activity.resumed
+counter
+How many running instances with resumed Journal entity.
+activity.buddies
+gauge
+Number of buddies Activity is interacting with for all running instances.
+application
+Applications related stats in non-Sugar mode; specified only for the particular application.
+application.uptime
+uptime
+How long application is running.
+application.active
+uptime
+How long application window is on top.
+network
+Network related stats.
+network.uptime
+uptime
+How long client is connected to the Internet.
+network.school
+uptime
+How long client is connected to school network.
+system
+System related stats.
+system.uptime
+uptime
+System uptime value.
+system.diskfree
+absolute
+How many storage space is free, in kilobytes, for the home directory.
+Implementation
+sugar-stats
+library.
+sugar-client
+starting from 1.2 version, Sugar client complex solution that uses
+sugar-stats
+library.
+See also
+Paraguayan Activity usage
+analysis
+basing on Journal records.
+Australian
+request
+for statistics gathering.

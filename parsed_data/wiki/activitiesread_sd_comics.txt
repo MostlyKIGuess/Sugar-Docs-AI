@@ -1,0 +1,43 @@
+Title: Activities/Read SD Comics
+URL: https://wiki.sugarlabs.org/go/Activities/Read_SD_Comics
+--------------------------------------------------------------------------------
+Contents
+1
+Description & Goals
+2
+Comic Books on the Internet
+3
+Current Features
+4
+Source
+Description & Goals
+Read SD Comics is my second attempt at creating a comic book reading Activity for the XO laptop.  View Slides was the first.  Read SD Comics actually has fewer features than View Slides.  You can't share documents, there are no annotations and no support for multiple bookmarks, and you cannot create and edit slide collections.  It just reads image collections in Zip and .CBZ archives.
+Why create an Activity that does the same thing as View Slides but with fewer features?  The answer is simple: Read SD Comics does not read image archives in the Journal.  Instead, the comic files are kept on an SD card or other external storage, and the Journal only stores a link to the comic file plus metadata like the page you left off on, title, description, etc.
+If you own an XO laptop you should be able to see the advantage of this approach.  Every XO laptop has a place to insert an SD card.  The slot is designed to make the card difficult to remove, so it is essentially internal storage.  You can get a cheap SD card (or a micro SD with an adapter) and easily add up to 8 gigabytes of storage to your XO.
+Unfortunately, the SD card isn't good for much because Sugar works with the Journal and the Journal uses internal storage only.  Since internal storage has to hold the operating system, etc. you have only about 500 megabytes to hold your stuff.  A long comic book can easily be over 60 megabytes you just can't store much of a collection in the Journal.  You can, however, store lots of them on an SD card.
+The Journal Activity makes the SD card
+look
+like part of the Journal, but it is not.  The files are listed in the reverse order of when they were created, not by when you last read them.  You cannot rename the files.  You can launch View Slides to read them, but when you are done you will get a "Keep Error" and the page you left off on will not be saved.
+When you use Read SD Comics the experience is much better.  If you start from the Activity ring you will be prompted to select a CBZ or Zip file using a standard file selection component.  When you make your selection you'll see a preview of the first page of the comic.  Click on the "Read Comic" button at the bottom of the screen, and the path to the file you selected will be stored in the Journal and your comic will be loaded for reading.
+At this point you can treat the comic as if it actually is in the Journal rather than merely linked to it.  You'll have all the advantages of a Journal entry without filling up the all too limited space the Journal on the XO provides.
+The interface to Read SD Comics is similar to the core Read activity. You can use the up and down arrows or the game controller to move from page to page.  Use plus and minus keys to zoom and unzoom the page.
+The Activity should work on all versions of Sugar from .82 on up.  On older versions of Sugar you'll see an old style toolbar instead of the one shown in the screen shots, but the available functions will be the same.
+Comic Books on the Internet
+Some books at Project Gutenberg are already in a suitable format.  Try downloading this file from
+Project Gutenberg
+.  Look for the file format "Raw page images".
+If you want to read some free comic books the Internet Archive has a bunch of them.  Use
+this query
+to see a list of them.  They are mostly in the .cbr format, and those will need to be converted to the .cbz (Zip) format to be used with this Activity.  The program Comix under Linux can do this conversion for you if you have the unrar utility installed, or you can simply unrar the .cbr file to get the images, then package the images in a zip file:
+unrar e LoneRangerDell100.cbr
+zip LoneRangerDell100 *.jpg
+If you use Windows you can use the free
+7zip File Manager
+to extract the files from the .cbr and pack them up again in a zip file.
+Current Features
+Currently you can load a zip file containing images and page through them in sequence like a book.  The images will be resized to best fit in the current screen resolution without scrolling.  If you change the screen orientation the image will be resized to fit the new orientation.
+You can hide the mouse pointer (or make it visible again) by pressing the "square" button to the lower right of the XO screen (or numeric keypad "Home" on any other computer).  This removes a source of distraction when viewing images.
+You can zoom the image to fit the width of the screen and scroll it vertically.  This is handy for reading scanned in books with smaller print.  Also new with version 7 you can hide and show the toolbar by pressing Alt-Enter on the keyboard, giving you the ability to view your slides using the full screen.
+Source
+http://git.sugarlabs.org/projects/read-sd-comics
+Sugar Activity Library page

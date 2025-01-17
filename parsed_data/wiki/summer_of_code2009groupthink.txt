@@ -1,0 +1,73 @@
+Title: Summer of Code/2009/Groupthink
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2009/Groupthink
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+What is your name?
+Benjamin Schwartz
+What is your email address?
+You know my e-mail address; I'm on the mailing list all the time.
+What is your Sugar Labs wiki username?
+bemasc
+What is your IRC nickname?
+bemasc
+What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+English
+Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+Cambridge, MA
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I have worked in open-source before.  For example, I am the author of
+http://dev.laptop.org/git/projects/dobject/
+About your project
+What is the name of your project?
+Decentralized Asynchronous Collision-free Editing with Groupthink
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+To be blunt: Write is awesome, but not as awesome as it could be.  There are three major problems with Write, but really, they're all the same problem.  The first problem is that if the initiating user leaves the shared session (or their battery dies or ...), sharing will simply cease.  Users may continue to edit, but their edits will not be shared over the network, even though Sugar continues to indicate that it is a shared activity session.  The second problem is that Write is not tolerant to network disruptions.  If the mesh network divides the group in two pieces for a few minutes, this will destroy the shared session, at least for those who've lost contact with the initiating node.  Thirdly, Write provides no mechanism for working independently and then later merging changes.  If two students begin editing a report together, then go to their separate homes and keep working, there is no automated way for them to merge their work the next day in school.  Instead, they must use "copy and paste" to manually combine the versions.
+To solve this problem, I will implement a completely decentralized, asynchronous text editing system.  I will do this in [Groupthink
+http://dev.laptop.org/git/projects/dobject/
+], using the [StringTree
+http://dev.laptop.org/git/projects/dobject/tree/groupthink/stringtree.py
+] data structure that I have already written for the purpose.  I still need to write a network serialization format, a disk serialization format, and a widget that is backed by the NetworkedStringTree.
+What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (July 6-13); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Week 1: Write a widget, subclassing gtk.TextArea, that is backed by a StringTree
+Week 2: Extend this widget with callbacks that respond correctly when the StringTree is edited by someone else.  (This is actually surprisingly difficult to do, and attempts to attack this problem often wind up in fields like [Operational Transformation
+http://en.wikipedia.org/wiki/Operational_transformation
+].)
+Week 3: Write a network protocol (using Groupthink's existing high-level network system, which runs over Telepathy's D-Bus tubes).
+Week 4: Write a simple activity containing the SharedTextArea widget over a SharedStringTree, and stress the system to debug live sharing.
+Week 5: Write a disk (i.e. Journal) serialization protocol.  Ideally, this would just be the d-bus network protocol, marshaled into a bytestream, but the dbus-python interface doesn't expose marshaling.  I wrote [a patch
+http://bugs.freedesktop.org/show_bug.cgi?id=19723
+] but demarshaling doesn't work, and smcv's been too busy to help me out with it. Pester smcv.
+Week 6: Figure out and implement the journal semantics necessary to allow users to edit things by themselves, then later join a shared session and have their local copy merged into the shared copy.  (This may actually already be the case.  Test, debug, and submit patches as necessary.)
+Week 7: Write documentation.  Write a simple test suite.  Write a SharedTextAreaWithSyntaxHighlighting and replace the widget in Pippy.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I've already done much of the work, and specifically the hard algorithmic part.  I'm knowledgeable about the field, and about algorithms in general, having a degree in Mathematics with Computer Science.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+This project will be the first big step for Groupthink.  It will establish Groupthink as a way for naive Activity authors to add reliable, robust sharing functionality to their activities just by importing the groupthink library and using the provided widgets and data structures.
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+I live in Cambridge, MA.  A nearby deployment would certainly be appropriate, though I'm not sure where.  One interesting place is the KIPP school in Lynn, MA.  This is a high-intensity charter middle-school for low-income students.  I showed them some XOs last year, and they were ecstatic.
+What will you do if you get stuck on your project and your mentor isn't around?
+I will continue work as before?  I will ask the Gobby people (I found where they hide, and what algorithm they use (it's adOPTed)!).
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I'll send even more traffic than usual to the mailing list, as I produce code that needs review or testing.
+Miscellaneous
+We want to make sure that you can set up a
+development environment
+before the summer starts.
+Oh yeah.
+What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+M.  American M.
+Describe a great learning experience you had as a child.
+When I was about 12 I read Chaos by James Gleick.  In the footnotes he had the equation for generating a Mandelbrot fractal.  I opened up QuickBasic, started typing, and before long had my first mandelbrot generator.  It was super-awesome.
+Actually.  At first it had a bug, and it took me a long time to figure out.  The bug was that I had modified a value and then accessed it again, thinking I was getting the original value.  That bug taught me about the need for temporary variables.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more
+I'm down with O(L)PC (Yeah you know me!).

@@ -1,0 +1,133 @@
+Title: Sysadmin/Migrate virtual machine
+URL: https://wiki.sugarlabs.org/go/Sysadmin/Migrate_virtual_machine
+--------------------------------------------------------------------------------
+Contents
+1
+Importing an existing disk image into libvirt
+2
+Copying LVM volumes across machines
+3
+Importing a VM from existing disk files
+4
+How to migrate a file-based guest to LVM (online method)
+5
+How to migrate a file-based guest to LVM (offline method)
+6
+How to migrate an LVM-based guest to another host
+7
+Alternative to convert file based VM to block based LVM
+Importing an existing disk image into libvirt
+Let's assume you already have a disk file and you want to add it to a pool.
+There doesn't seem to be a direct way to do this with virsh, but you can create a blank disk and then copy your image into it:
+# virsh vol-create-as boot new.img 1G --format raw
+# virsh vol-upload --pool boot new.img existing.img
+Copying LVM volumes across machines
+Create the new volume, format and mount it:
+# virsh vol-create-as nvme-pool new-root 20G
+# mkfs.ext4 -L new-root -O mmp,flex_bg,extent,uninit_bg,sparse_super /dev/nvme-pool/new-root
+# tune2fs -c -1 -i 0 /dev/nvme-pool/new-root
+# mkdir /new-root
+# mount /dev/nvme-pool/new-root /new-root
+Copy the contents of the remote filesystem (this can be done while the VM is online, but you might want to shutdown any running database to get a consistent snapshot):
+# rsync -PHAXphax lightwave:/ /new-root/
+Don't forget to unmount your new filesystem!
+# umount /new-root
+# rmdir /new-root
+Importing a VM from existing disk files
+# virt-install -v --accelerate --nographics --vcpus 2 --ram 1024 --os-type linux --os-variant=ubuntu20.04 --network bridge:br0 --disk vol=boot/NEWVM-boot.img,bus=virtio --disk vol=nvme-pool/NEWVM-root,bus=virtio --name NEWVM --import
+The new VM will boot and probably fail to mount the root because the UUID changed.
+You can fix this by dropping into grub the usual way:
+virsh start --console NEWVM
+press ESC before the kernel starts
+press e to edit a menu entry
+modify the kernel command line (for example, root=/dev/vdb)
+hit ctrl-x to boot
+After booting, remember to update your grub.cfg and test it:
+# update-grub
+# reboot
+How to migrate a file-based guest to LVM (online method)
+First, take a copy of the kernel and initrd:
+treehouse# scp VMNAME:/boot/{vmlinuz,initrd}-2.6.31-22-server /srv/vm/kernel/ubuntu/
+Then, create the logical volume and attach it to the running VM:
+treehouse# virsh vol-create-as treehouse VMNAME-root 10G
+treehouse# virsh attach-disk VMNAME /dev/treehouse/VMNAME-root vdc
+treehouse# virsh console VMNAME
+From within the VM, format the new volume and move things over
+VMNAME# mkfs.ext4 -L VMNAME-root -O flex_bg,extent,uninit_bg,sparse_super /dev/vdc
+VMNAME# tune2fs -c -1 -i 0 /dev/vdc
+VMNAME# mount /dev/vdc /mnt
+VMNAME# rsync -PHAXphax --numeric-ids --delete / /mnt/
+VMNAME# vim /mnt/etc/fstab
+VMNAME# umount /mnt
+VMNAME# ^D
+Then edit the VM configuration to make it boot without GRUB, using externally provided kernel and initrd:
+treehouse# virsh edit VMNAME
+<os>
+   <type arch='x86_64' machine='pc-0.11'>hvm</type>
+   <kernel>/srv/vm/kernel/ubuntu/vmlinuz-2.6.31-22-server</kernel>
+   <initrd>/srv/vm/kernel/ubuntu/initrd.img-2.6.31-22-server</initrd>
+   <cmdline>console=tty0 console=ttyS0,115200n8 vga=normal root=LABEL=VMNAME-root ro</cmdline>
+   <boot dev='hd'/>
+ </os>
+ ...
+ <devices>
+   ...
+   <disk type='block' device='disk'>
+     <source dev='/dev/treehouse/VMNAME-root'/>
+     <target dev='vda' bus='virtio'/>
+   </disk>
+   ...
+ </devices>
+Reboot
+#treehouse virsh destroy VMNAME
+#treehouse virsh start VMNAME --console
+How to migrate a file-based guest to LVM (offline method)
+This method works by taking down the virtual machine during the migration and mounting the
+partition inside the hard drive image. Mounting qcow2 files require a fancier method.
+Determine the offset of the root partition within the raw disk image:
+fdisk -l -u vm.img
+Convert the start offset to bytes:
+mount -o loop,offset=$((63 * 512)) vm.img /mnt/
+Then, create an LV and copy over everything as in the online case
+virsh vol-create-as treehouse VMNAME-root 10G
+virsh attach-disk rt /dev/treehouse/VMNAME-root vdc
+mkfs.ext4 -L rt-root -O flex_bg,extent,uninit_bg,sparse_super /dev/treehouse/VMNAME-root
+tune2fs -c -1 -i 0 /dev/treehouse/VMNAME-root
+mkdir /mnt2/VMNAME-root
+mount  /dev/treehouse/VMNAME-root  /mnt2/VMNAME-root/
+rsync -HAXphax --numeric-ids --delete /mnt/VMNAME-root/ /mnt2/VMNAME-root/
+How to migrate an LVM-based guest to another host
+(untested procedure)
+First, shutdown the VM, then do:
+mount /dev/treehouse/beamrider-root /mnt
+ssh housetree mount /dev/housetree/beamrider-root /mnt
+rsync -PHAXphax --delete --numeric-ids /mnt/ housetree:/mnt/
+rsync -a /etc/libvirt/qemu/beamrider.xml housetree:/etc/libvirt/qemu/
+umount /mnt
+ssh housetree umount /mnt
+Then log to $OTHERHOST and create the domain in virsh.
+Downtime can be reduced to just a few minutes by doing a first rsync
+iteration from within the VM while it's still running.
+Make sure you pass all the fancy switches to rsync or you'll loose
+information on the copy.
+Alternative to convert file based VM to block based LVM
+Stop the VM
+sudo virsh stop
+name_of_vm
+Convert the qcow2 file to a raw file
+sudo qemu-img convert "name_of_vm".qcow2 -O raw "name_of_vm".raw
+Create the LVM - Make sure the "size_of_vm" is equal or greater than the size of your raw image
+sudo virsh vol-create-as treehouse "name_of_vm" "size_of_vm"
+Copy the raw image to the LVM
+sudo dd if="name_of_vm".raw of=/dev/treehouse/"name_of_vm" bs=1M
+Edit the VM configuration
+sudo virsh edit "name_of_vm"
+<devices>
+     ...
+     <disk type='block' device='disk'>      <----- change disk type to block
+       <source dev='/dev/treehouse/"name_of_vm"'/>      <------ note that the source is now dev= and not file=
+       <target dev='vda' bus='virtio'/>
+     </disk>
+     ...
+   </devices>
+Now start your VM and your all set

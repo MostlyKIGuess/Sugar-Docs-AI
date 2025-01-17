@@ -1,0 +1,184 @@
+Title: Mono
+URL: https://wiki.sugarlabs.org/go/Mono
+--------------------------------------------------------------------------------
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Sugar activities are usually written in Python using the
+Python Activity API
+. This page documents how it is possible to use Mono to write a Sugar activity. With Mono, you can use any underlying language like C# or Boo.
+Contents
+1
+Overview
+2
+XO Bundle and Mono Bundle
+3
+How to run a Mono activity
+4
+Step by step Tutorial
+5
+Interfacing with the native subsystem
+5.1
+Creating a new application
+5.2
+Sugarizing an existing application
+6
+Example Activity written in Mono
+7
+Assembly dependency
+Overview
+XO Bundle and Mono Bundle
+To write an OLPC Mono activity, you need to prepare a .xo
+Bundle
+including all required libraries. This is necessary because the Mono runtime is not officially supported by the OS images.
+If you use Mono, you know that the C# compiler does not traslate the source to machine code, but to an IL (Intermediate Language) that requires a runtime to be executed. Since you don't have the runtime installed on the XO, you need to create a Mono bundle so the runtime is packed with the executable.
+To do this, you need to have the program already in binary format and use the mkbundle2 utility to create the stand-alone application.
+mkbundle2 --config /etc/mono/config --deps --static -o MonkeysMemory.exe monkeysmemory.exe
+In this example "monkeysmemory.exe" is the original IL binary file, while "MonkeysMemory.exe" is the binary file that can be run without runtime installed.
+Normally, --static flag means that LGPL code is linked statically with your application.
+A special exception is made for OLPC users where the LGPL restrictions does not apply when you create activities.
+In your bundle you need to put some glue shared libraries that are used by the Mono runtime like this:
+libgdksharpglue-2.so
+libgladesharpglue-2.so
+libglibsharpglue-2.so
+libgtksharpglue-2.so
+libMonoPosixHelper.so
+libpangosharpglue-2.so
+uiX11Util.so
+All these files (except uiX11Util.so) are taken from mono environment. The last one (uiX11Util.so) is
+OLPC specific and allows to setup some X11 atoms needed by the Sugar interface.
+These files are placed in the bin directory of the activity.
+How to run a Mono activity
+I suppose that you are able to install an activity on the OLPC, but how to create a standard activity bundle?
+You can find all documentation you need about the contents of a XO Bundle file
+Bundle
+but here give a look inside the activity luncher script.
+This example of activity launcher is taken from the e-toys launcher with some little adjustment and is placed in bin directory.
+The name of this script is specify in the
+activity-info
+file:
+#!/bin/sh
+# Author: Torello Querci
+# Original Author: Bert Freudenberg
+# Purpose: Run binary application. In this case Monkey's Memory
+#
+# This version of etoys-activity is called only under new Sugar
+# (Joyride/Update.1). There is another one in the bundle's root
+# directory called under old Sugar which was pre-installed on the
+# first mass-produced machines (Trial-3/Ship.1).
+echo "$0" "$@"
+echo
+
+# arguments are unordered, have to loop
+args=""
+while [ -n "$2" ] ; do
+    case "$1" in
+        -b | --bundle-id)   bundle_id="$2"   ; args="$args BUNDLE_ID $2" ;;
+        -a | --activity-id) activity_id="$2" ; args="$args ACTIVITY_ID $2";;
+        -o | --object-id)   object_id="$2"   ; args="$args OBJECT_ID $2";;
+        -u | --uri)         uri="$2"         ; args="$args URI $2";;
+        *) echo unknown argument $1 $2 ;;
+    esac
+    shift;shift
+done
+
+# really need bundle id and activity id
+if [ -z "$bundle_id" -o -z "$activity_id" ] ; then
+  echo ERROR: bundle-id and activity-id arguments required
+  echo Aborting
+  exit 1
+fi
+
+# some debug output
+echo launching $bundle_id instance $activity_id
+[ -n "$object_id"   ] && echo with journal obj $object_id
+[ -n "$uri"         ] && echo loading uri $uri
+echo
+
+export SUGAR_BUNDLE_PATH=`dirname $0`
+export PATH=$SUGAR_BUNDLE_PATH:$PATH
+
+cd $SUGAR_BUNDLE_PATH/..
+export LD_LIBRARY_PATH=$SUGAR_BUNDLE_PATH:$LD_LIBRARY_PATH
+
+# Try to setup the SHARED_DIR
+export MONO_SHARED_DIR=$TMPDIR
+
+# now run the application
+exec MonkeysMemory.exe \
+    -sugarBundleId $bundle_id \
+    -sugarActivityId $activity_id \
+    $args < /dev/null > /dev/null
+If you look inside the code script you can find some specific instruction:
+the home directory is changed from the internal bin directory to the parent one. This is not mandatory but is useful for me;
+it is setup the LD_LIBRARY_PATH environment variable. This is needed because the application need to find the specific shared object;
+it is setup the MONO_SHARED_DIR non-system environment variable. This is needed because Mono normally use a special shared internal repository to track the state of mutex across multiple process and this repository is written on /tmp. Since the normal /tmp directory is not writeble from the application in the OLPC security schema, is necessary to change the default path used to store this repository.
+Obviously MonkeysMemory.exe is a sample activity name and is not necessary that the application have the .exe suffix because is e normal linux application.
+Note: the script is changed from previous version because Rainbow isolation subsystem now not create for the process the the stdin and stdout handles. This is not compatibile with some version of mono runtime.
+Step by step Tutorial
+Following are some Labs to learn step by step how to develop a Sugar activity using Mono. These tutorials could be use in conjonction with a pre-installed VMWare Virtual Machine. This virtual machine is downloadable
+here
+. You will need
+VMWare player
+.
+Lab 1:
+Activity Team/Creating Activity Using Mono
+Lab 2:
+How to store information in the Journal using Mono
+Interfacing with the native subsystem
+Creating a new application
+To create a sugarized application with Mono you can use the Sugar.Window class in place of the common Gtk.Window.
+This class inherits from Gtk.Window and adds all the code necessary to integrate with Sugar's activity interface.
+The constructor of this class expects two parameters that were passed by the startup script.  Therefore, your Main function needs to parse its command-line arguments to isolate:
+activityId
+bundleId
+The Sugar.Window class adds a new event,
+SetActiveEvent
+, generated when Sugar switches between zoom levels.
+Sugarizing an existing application
+TODO
+Example Activity written in Mono
+You can find
+a sample activity
+written using Mono.
+Here (TODO)
+you can find the specific page about this activity.
+Assembly dependency
+To write or migrate your application to OLPC activity you need to use a specific assembly that manager the DBus event and the X property needed to Sugar environment. This assembly use the NDesk.DBus one to manage the DBus message. You can find the NDesk.DBus assembly in your distribution or from the source
+here
+.
+The source code of sugar assembly can be found
+here
+.

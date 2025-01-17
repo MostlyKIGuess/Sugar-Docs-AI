@@ -1,0 +1,53 @@
+Title: Features/GTK3/Desktop Summit activities
+URL: https://wiki.sugarlabs.org/go/Features/GTK3/Desktop_Summit_activities
+--------------------------------------------------------------------------------
+A
+PyGObject hacking/porting day
+will be run on August 10th at the desktop summit. Although it is probably too early to port Sugar (with
+Features/GTK3
+only written and announced a few days before the event), some fundamental important activities could happen:
+Contents
+1
+Engage knowledgeable people
+2
+Theme
+3
+Polish no-hippo work
+4
+Initial PyGI experiment
+5
+Other topics to discuss
+5.1
+Touch support in GNOME
+Engage knowledgeable people
+There will be knowledgeable people at the event - Tomeu, J5, and more. It would be great if Sugar contributors could sit down with them, ask them to read
+Features/GTK3
+, and discuss. Does that look sensible? What considerations have been missed? etc.
+Theme
+Benjamin Berg, the author of Sugar's GTK2 theme, is at the summit. He thinks that Sugar's existing theme won't work with GTK3, because GTK theming got totally rewritten for GTK3 (to be CSS-based). He is "destined" (his words!) to help us with the GTK3 port even though GTK3 theming is a new area for him, so the summit presents a good opportunity to get started.
+Here is a simple experiment that could be used as a starting point:
+Launch sugar-jhbuild under F15, and launch Terminal
+Write a little "hello world" PyGI standalone app (not activity) that has (say) a GtkButton and a GtkEntry.
+Launch that app from the Terminal activity. Since it uses PyGI/GTK3, we expect it to not pick up the Sugar theme.
+See what can be done to start getting the theme working, applied to that application.
+Polish no-hippo work
+Raul and Walter have done a great job eliminating hippocanvas from the whole of Sugar. This work needs to be polished and tested.
+Some of this work is invasive and involves API changes and breaks activities like Chat, but if there are any self-contained changes, could they be upstreamed for 0.94? Particularly in sugar-toolkit. This would help decrease the complexity of the task.
+Repos:
+Raul's Sugar repo
+Walter's Sugar repo
+Walter's Sugar Toolkit repo
+Initial PyGI experiment
+Porting a minimalistic part of sugar-toolkit (along with a minimalistic activity) to PyGI/GTK3 would be a great proof-of-concept and a great way of raising attention to issues that we have not considered.
+Here is an experiment that would be interesting:
+Port the HelloWorld activity to GTK3, and change all imports of "sugar" to "sugar1".
+Copy the "sugar" module (in /usr/lib/python2.7/site-packages) to "sugar1"
+Inside sugar1, use a regular expression to replace all "import sugar" with "import sugar1", and "from sugar import foo" with "from sugar1 import foo"
+Modify /usr/bin/sugar-activity to import sugar1, instead of sugar.
+Launch HelloWorld activity
+HelloWorld will fail inside some certain sugar1 class, where PyGTK is being mixed with PyGI. Port that sugar1 class to PyGI.
+Repeat the above 2 steps until HelloWorld works.
+Hopefully, sugar-toolkit classes are not too intertwined, so this experiment wouldn't eat too much time, due to not having to port too many sugar-toolkit classes (famous last words).
+Other topics to discuss
+Touch support in GNOME
+It would be worthwhile having an informed discussion about touch support in GNOME as it will impact the plans for supporting tablet devices in Sugar (something else we need to face up to in the coming months).

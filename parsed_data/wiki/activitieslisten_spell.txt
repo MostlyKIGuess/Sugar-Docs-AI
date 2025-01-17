@@ -1,0 +1,111 @@
+Title: Activities/Listen Spell
+URL: https://wiki.sugarlabs.org/go/Activities/Listen_Spell
+--------------------------------------------------------------------------------
+Contents
+1
+Idea
+2
+Need
+3
+Use Case Scenario
+4
+Level Description
+5
+Implemented features
+6
+Proposed Features
+7
+Implementation Details
+8
+Dictionary
+8.1
+Structure
+9
+Application Structure
+10
+ScreenShots
+11
+Code
+11.1
+Dependency
+11.2
+File information
+12
+Resources
+Idea
+The idea is to develop an activity which would help children to learn new words, improve their vocabulary and pronunciation of words. The activity would speak out a randomly selected word from a list of words and the user is expected to spell the word correctly. For voice synthesis activity would be using Speech-Dispatcher and for the list of words it will have a custom dictionary. This activity is an extension of TalknType (
+http://wiki.laptop.org/go/Talkntype
+)
+Need
+To learn any language spoken out in any part of this universe we firstly need to learn its building blocks i.e. words, their pronunciation and how they are spelled. By the side, Grammar of course has its preference. This project aims to provide an activity which would help children to learn new words, their pronunciation, the way they are spelled and to some extent its meaning. This activity is very much aligned to the concept constructive learning. The activity pronounces the word which user has entered and user can "Hear" the difference between two sounds.
+Use Case Scenario
+A simple use case scenario of the Test Mode is as follows
+User opens the activity and enters the difficulty level of which he/she would like to hear words.
+A random word would be selected and spoken out from the corresponding level-word list. e.g. "Spell Ocean" would be spoken out.
+User is required to spell the word correctly. (Time limit can be optional)
+The activity would speak out each letter as the user types and the whole word as user submit the word.(This will help user to "feel" the difference between his spelling and the correct one.) This option can be disabled in case of group test (explained further).
+There would be an option to repeat the word and also for the hint.
+The hint option will either give user the meaning of the word or its usage in the sentence or image if possible. E.g. for Ocean it can either speak out its usage "The ocean is full of water" or can print its definition on screen i.e. "One of the five large bodies of water separating the continents".
+User can quit or change the level any time during the game.
+To make user experience more lively, sounds for different events (Like activity start, Correct answer, Wrong Answer) would be used.
+Level Description
+Level of a word is decided by ranking them. The ranking algorithm has been explained in the report. An example of level has been given below.
+Initial level would include three to four letter words
+e.g. cat, dog, tree, cup, bear etc
+Medium level would contain five to six letters words
+e.g. monkey, mouse, earth, plane, toffee etc
+Hard level: Seven or more letters
+e.g. computer, Mississippi, dictionary etc
+Professional level (If included) would have complete sentences.
+Implemented features
+Following are the Implemented features for the activity
+Word source: - Word source is a wordnet dictionary with about 77k words. All words have been ranked and divided into levels so that it is easy to get word list of desired level. This dictionary has been customized to a very high extent removing all the unnecessary data and keeping only the required one. This has made the size of dictionary very small. It has been stored in SQLite data format for easy access.
+Implementation of "Hint": - The hint consists of word meaning, with what part of speech it has been used, its sample usage etc. All these data has been stored with the dictionary itself for easy access.
+Speech-dispatcher: - The voicing has been done using speech dispatcher which would eventually be using espeak for synthesis. Espeak supports more than 30 international languages.
+Voice configuration: Option to edit voice configuration like volume, pitch, rate, language of the words and voice, gender of the voice etc.
+Preferences to choose level of “Hint”: i.e. to select from word usage or word definition or images if possible.
+Save option: The Game can be saved into a configuration file and replayed from the previous state.
+Proposed Features
+User defined word list: - This would facilitate users to add their own word list which can help in conducting a small group test. Option to add words through mesh network would be help in large group/class test.
+Multiplayer game over mesh network: - (Future Work) Users can challenge each other over the network. One XO will then act as a server which would generate the word list for all the clients. All the users would receive same word list with limited retry option for each word after which next word would be given to user. The one who spelled most correct words in limited time wins. Option to speak each letter aloud would be disabled in this case.
+Memory tool (Future Work):- A tutor mode in which activity repeats the word again and again until the spelling is absorbed into child's mind.
+Input Methods :- Input Methods would be exposed externally so that other input methods(Like Handwriting and Speech recognition) could be incorporated
+Implementation Details
+For the word source we have used wordnet dictionary which contains about 1.5 lakh words with their meaning, sample usage, preposition etc properly mapped. The data for “hint” is stored with the dictionary only and is fetched from there.
+Before making the dictionary usable it has been properly formatted. It contains words like 10mm or double words which are not going to be used for our purpose. Also there are many words which are probably unheard of by school children. We have use aspell to do this. The whole dictionary has been passed through aspell which contains most commonly used words only and thus filtering out the unwanted words. After this All the words are ranked based upon their usage on the internet. Using Yahoo BOSS api’s we have stored the number of search result each word has with the corresponding word. Based on these data all the words have been ranked and combining the word length with its length they have been categorized into 15 different levels.
+Speech-Dispatcher: Speech-Dispatcher (
+http://www.freebsoft.org/speechd
+) is a socket-connection based speech server which provides speech APIs in many languages including Python and C. I had a discussion with OLPC developers where considering the need of speech server in XO they agreed to ship this in XO once its RPM is approved by Fedora Package Maintainers. Its RPM is under review process and should get approved soon. I have already got approval for its dependency Dotconf RPM
+Language of implementation: Python
+GUI: All the GUI part would be done in PyGTK and Glade
+Parser for configuration files and dictionary data: OLPC includes many python modules which also include expat xml parser. This module can be used to parse the data and extract the information required
+To have access over mesh network:- PresenceService DBUS API would be used
+Dictionary
+Structure
+File:Database.pdf
+Application Structure
+The application has been designed in a very efficient way. Following diagram will clear all the things:
+Figure 1: Application Structure
+Here we have used the pre-implemented wrapper for espeak that is Speech-Dispatcher. We have designed a wrapper class for managing the dictionary. All the operation performed in the dictionary is through this wrapper only thus maintaining the consistence of the dictionary. The GUI part has been kept as a separate class. All the application logic is preformed in Application Logic. GUI class only looks after updating the GUI.
+Possible extension
+One could be a tutorial for learning languages using this activity like
+The activity would teach basic sounding vowels like a as in cat, e as in bed, air as in hair etc
+Sounds of consonants like b as in bed, ch as in change, d as in day etc
+Teaching the sound of the whole word
+It would be great if children enters the words and get to know how to pronounce
+ScreenShots
+Code
+Source Code can be found
+here
+XO package can be found
+here
+Dependency
+Speech Dispatcher dependency has been removed. clone from git to get the latest version.
+For XO package hosted on Google, Speech Dispatcher is required. Its link can be found below
+File information
+Dict.py – A wrapper class for dictionary
+las.py – Application Logic
+ListenSpell.py – Main class and the GUI class of the aplication
+Resources
+Speech Dispatcher
+Speak & Spell

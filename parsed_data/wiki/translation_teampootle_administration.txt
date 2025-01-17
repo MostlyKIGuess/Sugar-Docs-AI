@@ -1,0 +1,101 @@
+Title: Translation Team/Pootle Administration
+URL: https://wiki.sugarlabs.org/go/Translation_Team/Pootle_Administration
+--------------------------------------------------------------------------------
+This page was moved
+to
+http://wiki.sugarlabs.org/go/Service/Pootle
+. Please keep working there.
+Contents
+1
+Work in progress ....
+2
+Basic info:
+3
+Adding activities
+4
+Creating branches:
+5
+Working in git in the pootle server
+6
+Resolving conflicts
+7
+Pootle scripts:
+8
+Restarting Pootle
+9
+References
+Work in progress ....
+Pootle in Sugar is
+actually
+unmaintained.
+We (godiard / martin_xsa / erikos / dirakx) are trying to resolve the pending issues because we need working translations but need a real maintainer.
+The last maintainer was Sayamindu Dasgupta and we asked he our doubts, i am putting here this information.
+Basic info:
+The pootle directory is:
+/var/lib/pootle
+The translations live in:
+/var/lib/pootle/translations
+Adding activities
+Testing
+2!root@pootle:/var/lib/pootle/maintenance/helpers/admin# sudo -u pootle python ./pootlepopulator.py  honey
+git://git.sugarlabs.org/fototoon/mainline.git
+fototoon
+******** Cloning
+git://git.sugarlabs.org/fototoon/mainline.git
+to /var/lib/pootle/checkouts/honey/fototoon *********
+Running git clone
+git://git.sugarlabs.org/fototoon/mainline.git
+/var/lib/pootle/checkouts/honey/fototoon
+Initialized empty Git repository in /var/lib/pootle/checkouts/honey/fototoon/.git/
+******** Switching to branch master *********
+Running  git checkout --track -b master origin/master
+Running git pull
+Already up-to-date.
+********* Git operation completed, moving to next stage ********
+********* Searching for POT file *********
+********* Found POT file FotoToon.pot *********
+********* Starting to symlink files *********
+ Linking /var/lib/pootle/checkouts/honey/fototoon/po/es.po to /var/lib/pootle/translations/honey/es/fototoon.po
+ Linking /var/lib/pootle/checkouts/honey/fototoon/po/fr.po to /var/lib/pootle/translations/honey/fr/fototoon.po
+ Linking /var/lib/pootle/checkouts/honey/fototoon/po/FotoToon.pot to /var/lib/pootle/translations/honey/templates/fototoon.pot
+********* Done Symlinking *********
+Creating branches:
+Each branch (eg: glucose-0.90) is a directory in the translations directory
+Each project is a subdirectory inside this directory (eg: glucose-0.90/sugar)
+These are actually symlinks to directories /var/lib/pootle/checkouts
+There's a script called pootlepopulator.py[1] It is invoked as
+pootlepopulator.py category GIT_URL checkout_directory [branch]
+So, assuming the directory /var/lib/pootle/translations/sucrose-0.90 exists,
+you can issue a command:
+pootlepopulator.py sucrose-0.90
+git://dev.laptop.org/git/sugar
+sugar sucrose-0.90
+The script can be found in maintainance/helpers directory in /var/lib/pootle
+Once this is done, you need to create project in Pootle admin - go
+to admin->projects and createa project called Sucrose 0.90 with the
+code sucrose-0.90 (same as the directory name)
+Restart Pootle and Apache if the new project does not show up after this...
+Add the new projects to maintenance/helpers/potupdater/project_list.ini
+-sdg-
+[1]
+http://git.sugarlabs.org/pootle-helpers/mainline/blobs/master/admin/pootlepopulator.py
+Working in git in the pootle server
+The git operations must be done by the pootle user:
+sudo -u pootle git log
+sudo -u pootle git push origin  sucrose-0.82
+Resolving conflicts
+If the maintainer did a commit with a file in the po directory we will have a conflict, and Pootle can not do a pull.
+Pootle build the pot file from the sources, if we compare and the translations are updated in pootle 
+we can do a pull preserving the info in pootle:
+sudo -u pootle git pull -s ours
+Pootle scripts:
+http://git.sugarlabs.org/pootle-helpers/mainline/trees/master/potupdater
+Restarting Pootle
+/etc/init.d/apache2 restart
+service pootle start
+References
+*
+http://translate.sourceforge.net/wiki/pootle/installation
+.
+This page is now moved to
+http://wiki.sugarlabs.org/go/Service/Pootle

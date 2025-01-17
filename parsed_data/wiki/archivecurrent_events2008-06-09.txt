@@ -1,0 +1,209 @@
+Title: Archive/Current Events/2008-06-09
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2008-06-09
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Community jams and meetups
+3
+Tech Talk
+4
+Sugar Labs
+Sugar Digest
+1. Software Freedom Conservancy: Sugar Labs is entering discussions
+with the Software Freedom Conservancy (Please see
+http://conservancy.softwarefreedom.org/overview/
+). If we are accepted
+into the Conservancy, we'd join projects such as Inkscape, Samba, and
+Wine. The Conservancy provides member projects with free financial and
+administrative services, but does not involve itself with
+technological and artistic decisions.
+2. Governance: We will be gathering in Milan at the end of the month
+of June to discuss, among other things, possible models of governance
+for Sugar Labs. More details will follow soon.
+3. Linux Foundation: Walter Bender and Jim Zemlin (Executive Director
+of the Linux Foundation) met to discuss ways in which we could work
+together. The Linux Foundation "hosts collaboration events among the
+Linux technical community, application developers, industry, and end
+users", manages a "Technical Fellowships Fund" to ensure key projects
+get accomplished, and helps promote Linux regionally. Obviously lots
+of synergy with the Sugar Labs mission!
+4. UMPC abundance: The success of the OLPC XO and the ASUS Eee PC
+seems to have attracted the attention of the industry: it has been a
+busy week in the world of ultra-mobile PCs. Dell (See
+http://www.engadget.com/2008/05/29/dells-mini-inspiron-eee-pc-killer-revealed/
+),
+Acer (See
+http://www.engadget.com/2008/05/29/first-pics-of-acers-aspire-one-eee-pc-twin/
+),
+Wizbook (
+http://www.theinquirer.net/gb/inquirer/news/2008/05/28/noon-eee-pc-wizbook-hits
+),
+Elonix (See
+http://www.desktoplinux.com/news/NS8294433279.html
+), and
+Kanguru (See
+http://pc.kanguru.pt/Home/
+) were all making headlines.
+Each of these machines represents yet another potential platform for
+running Sugar.
+Community jams and meetups
+5. PyOhio: Catherine Devlin is helping to organize a regional
+miniconference on Python programming Saturday, July 26, in Columbus,
+Ohio (Please see
+http://pyohio.org
+). Ralph Hyre, a Sugar community
+organizer in Cincinnati, suggested that someone might be willing to
+present on Sugar (and OLPC project).  It is just past the date for
+their "call for proposals", but they may be willing to accept a late
+submission. (Please email Mat Kovach <matkovach@gmail.com> or call at
+216-798-3397.)
+Tech Talk
+6. Sugar tip of the week: How to install activities. There a several
+ways to manually install new activities in Sugar:
+(A) You can use xo-get from the Terminal activity (See
+http://wiki.laptop.org/go/Xo-get
+for the details). Find activities by
+typing:
+./xo-get.py list
+Install activities by typing:
+./xo-get.py install <activity-name>
+e.g.,
+./xo-get.py install simcity
+or
+./xo-get.py install /media/<USB stick name>/simcity.xo
+(B) You can also install pre-bundled activities from the Terminal
+activity or, if you have an XO laptop, from a customization key (See
+http://wiki.laptop.org/go/Customization_key
+):
+./sugar-install-bundle /media/<USB stick name>/<Activity name.xo>
+(C) You can install activities from the browser, either over the
+internet or from USB (See
+http://wiki.laptop.org/go/Browse#Install_an_activity
+for details):
+a. open the Browse Activity
+b. point it to an activity bundle, e.g.,
+http://web.media.mit.edu/~jmaloney/scratch-xo/Scratch-5.xo
+or file:///media/<USB stick name>/Scratch-5.xo
+c. When the download is complete, a journal entry will have been created. "Resume" the activity from the journal. Hence forth, it will appear in the list of installed activities.
+7. SocialCalc: Dan Bricklin has been hard at work on the base
+SocialCalc code. In the next few weeks he hopes to have a new build
+for availale. It will include a new tab with "Settings" that shows all
+of the attributes of the current cell and sheet; it provides access to
+all of the formatting options, including custom formats and colors,
+padding, fonts, etc. Also, it should be better suited for localization
+in that it will have a single Constants file with pretty much all of
+the customizable values for the spreadsheet engine (but not the UI
+above the sheet yet). At the point of this new release, Dan thinks we
+should have something very useful for people to try.
+8. Metacity: Sayamindu Dasgupta has been experimenting with replacing
+Matchbox with a Metacity as the window manager that runs behind Sugar.
+Despite the fact that the Sugar UI is different from a standard
+desktop, it is almost completely implemented using standard window
+manager hints and properties, thus a move to a more compliant window
+manager will make it possible to run standard desktop applications
+directly within Sugar (Please follow the discussion at
+http://wiki.sugarlabs.org/go/WindowManagement
+).
+A RPM of Sayamindu's patch is available for download
+(
+http://dev.laptop.org/~sayamindu/sugar_metacity/metacity-2.23.21-2.olpc2.i386.rpm
+),
+however, he warns that you should *not* install this patch on your
+standard desktop machine yet. Things which have not been resolved yet
+include: (1) Some activities tend to go into full screen mode
+automatically; (2) Activity switching does not work yet; (3) Some
+palettes and windows are placed incorrectly; (4) The mouse cursor
+theme switches back to the normal (default??) one; and (5) Memory
+usage with compositing enabled is high.
+9. Rainbow: Michael Stone released rainbow-0.7.13 with a fix for
+6989, a problem that was interfering with the launching of the Browse
+activity.
+10. Automated testing: Michael has offered Xen hosting for Sugar Labs'
+automated testing efforts. (Xen is a FOSS standard for
+virtualization—please see
+http://xen.org
+for details.)
+11. Wikipedia activity: Chris Ball has made the first release of the
+Wikipedia activity, which contains a
+30,000 article offline snapshot of the Spanish Wikipedia with 3,000
+images. The activity is based on code from Patrick Collison's
+"wikipedia-iphone" project; this version was mostly developed by
+community volunteers: thanks to Wade Brainerd (porting from the
+wikipedia-iphone code to a Python activity, fixing parser bugs), Ben
+Schwartz (image download and scaling, bug-fixing) and Madeleine Ball
+(algorithms for article and image selection). Please see
+http://dev.laptop.org/~cjb/eswiki/
+and
+http://wiki.laptop.org/go/WikiBrowse
+for the download and more
+details.
+12. Chat: Morgan Collett worked on private invites for Chat, although
+his final testing was blocked by a palette problem in Sugar. Morgan
+has also filed a patch for Ticket #5767 that uses black text on light
+fill colors to improve legibility.
+13. Browse: Tomeu Visozo has added some more palette options to
+content in Browse, including copy, paste, undo, redo commands to the
+Browse toolbar. (Tomeu also fixed a problem with activity order in the
+activity list and shell.)
+14. Icons: Scott Ananian has added a bit of functionality to his
+(still incomplete) icon-draw-activity; it is on the path to becoming a
+complete "convert SVGs into proper Sugar icons" tool. (Please see
+http://dev.laptop.org/git?p=users/cscott/icon-draw-activity
+for
+details.) Scott also filed bugs with improved icons for scratch
+(#7140), gcompris (#7138), paint (#7139), turtle art (#6836), and
+wikibrowse.
+Sugar Labs
+15. LinuxTag: Simon reports that Members of the Sugar community
+(Please see
+http://wiki.sugarlabs.org/go/Image:LinuxTag-2008-Bernie-Reinier-Marco-Simon-Bert-Tomeu.jpg
+)
+met this weekend at the Linuxtag 2008 (
+http://www.linuxtag.org/2008/
+)
+in Berlin. Besides meeting people in person and the usual putting
+faces to names, they discussed the current situation of Sugar: hot
+topics Sugar on multiple platforms and the structure Sugar Labs.
+Thanks to OLPC Germany and especially to Holger Levsen, there was also
+an opportunity to give an introduction  to Sugar to the winners of an
+Idea Contest (
+).
+Robert Krahn gave a tutorial about using Squeak on the XO and Wolfgang
+Rohrmoser handed out a
+XO-Live CD (
+ftp://rohrmoser-engineering.de/pub/XO-LiveCD/
+) to people
+who were interested in trying out Sugar on their machines.
+16. SOM: Gary Martin has prepared this weeks SOM of the
+its.an.education.project list (Please see
+http://wiki.sugarlabs.org/go/Image:2008-May-24-30-som.jpg
+).
+Organization and governance seem to be hot topics (The list archive
+can be found at
+http://lists.lo-res.org/pipermail/its.an.education.project/
+).
+17. Wiki: David Farning has been very busy organizing the Sugar Labs
+wiki. His focus has been on building a framework to support teams
+within the community:
+Accessibilty Team - Responsible for accessibility issues within Sugar.
+BugSquad - Responsible for locating and fixing bugs.
+Build Team - Responsible for creating daily and release builds.
+Development Team - Responsible for Developing the software modules
+within Sugar.
+Documentation Team - Responsible for writing both user and technical
+documentation.
+Education Team - Responsible for setting the Educational goals for
+the sugar Community.
+Marketing Team - Responsible for marketing the Sugar brand and product.
+Development Team/Release - Responsible for shipping the current release and
+planning for up coming releases.
+Sugar Labs - Responsible for governance and fund raising.
+Wiki Team/Translation - Responsible for the translation needs of the community.
+Design Team - Responsible for the User interface.
+Wiki Team - Responsible for the Sugar Labs wiki.
+The community portal (
+http://wiki.sugarlabs.org/go/Community
+) has a
+link to each teams' section within the wiki.

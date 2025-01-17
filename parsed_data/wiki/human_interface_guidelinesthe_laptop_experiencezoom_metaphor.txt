@@ -1,0 +1,98 @@
+Title: Human Interface Guidelines/The Laptop Experience/Zoom Metaphor
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/The_Laptop_Experience/Zoom_Metaphor#Groups
+--------------------------------------------------------------------------------
+english
+|
+español
+|
+한국어
+HowTo
+[ID# 33723]
++/-
+←
+Introduction
+Zoom Metaphor
+The Frame
+→
+Contents
+1
+Zoom Metaphor
+1.1
+Home
+1.2
+Groups
+1.3
+Neighborhood
+1.4
+Activity
+Zoom Metaphor
+Four distinct zoom levels define the laptop: Neighborhood, Groups, Home, and Activity
+The mesh network is a permanent fixture of the laptop environment  and is represented explicitly in the interface. A zoom is used to relate four discrete views, each of which caters to a particular set of goals: Home, Groups, Neighborhood, and Activity. Using keyboard shortcuts or controls in the
+Frame
+, children may zoom in and out on the mesh community.
+API Reference
+Package sugar.shell.view.home
+Home
+See
+Activity Management
+for new design images.
+The Home view: Each child chooses a dual-tone color scheme for her XO character that is used throughout the interface. Activity icons are color-coded by the child who launched the activity.
+Of all the zoom levels, the Home view relates most closely to the traditional desktop. As the first screen presented to the child at startup, it serves as a starting point for the exploration of both the mesh network and also of  personal activities and objects. From this view, the child may either back up first to their
+Groups
+— such as their Friends or their Class — and beyond that to a view of the entire mesh
+Neighborhood
+, or, instead, zoom in to focus on a particular
+Activity
+.
+The Home view interface is minimalistic. In the center of the screen, the
+XO icon
+—rendered in the child's user-specified colors—represents the child to whom the laptop belongs. The activity ring surrounds the character, indicating all of the currently open activities. Furthermore, the section of the ring that a given activity occupies directly represents the amount of memory that the particular activity requires to run, providing immediate visual feedback about memory constraints and exposing a means for resource management that doesn't require knowledge of the underlying architecture. Most activity management happens here: starting new
+private activities
+, ending current activities, and switching between activities.
+API Reference
+Package sugar.shell.view.home.activitiesdonut
+When used in conjunction with the
+Bulletin Board
+, the Home view becomes the most direct correlate to a typical PC desktop as a place for keeping things handy: tomorrow's homework, a drawing one is working on, a favorite song, a reminder to oneself to do one's chores, etc.
+Groups
+The Groups view: Members of the currently selected group and their current activities are visible from this view. Hovering over a “missing” XO reveals an "away message."
+The Groups view takes a small step back from the child's Home space, opening up to include their circle of friends, their classmates, and any other groups to which a child belongs.  The Friends group essentially represents a spatially viewable and editable buddy list. From here the child can add or remove friends and move individuals around, perhaps arranging them logically.  The Class group is defined dynamically, and includes all others in the same class, and their teachers as well.  This group provides the perfect space for working and sharing with classmates, posting projects for class critique, or for picking up the homework assignment the teacher posted to the class
+Bulletin Board
+.
+In addition to several special classes of groups, children may also generate groups on their own.  This might provide a way for a close group of friends to keep up with each other's activities, or for a group of aspiring photographers to share photos. In a classroom setting, this provides a way for the children to create temporary groups for working on classroom exercises, or long term groups for extended projects.  To create a group, a child can search for or select any number of individuals on the mesh.  Each of these individuals will receive an invitation to join the group, and upon accepting the invitation will have its name added to their list of Groups, where they can see and chat with members, and post to the group Bulletin Board.  Although one person initially creates a group, groups are not managed.  Instead, people may choose to leave a group on their own, and anyone in the group may invite other members into it.  When this happens, all current group members receive introduction
+notification
+, making them aware of the new member.  This open model simplifies the interaction and encourages the learning of natural social dynamics instead of attempting to enforce them via rules and restrictions.
+API Reference
+Package sugar.shell.view.home.FriendsBox
+Groups have several advantages.  First, it allows the children to view their friends, classmates, and other groups, and allows them to freely chat with them as well. Additionally, each group will have its own private Bulletin Board where members can post notes and share Objects.  Finally, all of the members of the selected group — a child's friends, for instance —receive
+invitations
+whenever the child starts an activity from the Groups view, making collaboration implicit. Moreover, this view allows the child to see what activities their class, friends, and other groups are presently engaged in, providing the opportunity to
+join
+any non-private activities. Already, you can see how this view changes the usual method of application launch, allowing one to start new networked activities or join existing ones directly.
+Neighborhood
+The Neighborhood view (or Mesh view): All children visible on the mesh network can be seen clustered around shared activities; Away messages are also accessible from this view.
+Zooming out one more step we reach the Neighborhood view. Here children can see everyone on their local mesh. At this level we intend to support a variety of views, each with a different focus: the individuals; the activities in which they are presently engaged; etc. In the figure, individuals are shown clustered around their currently active activities, providing a direct visual representation of the popularity of an activity, since group size is immediately perceptible.
+While the Neighborhood view doesn't currently provide any true spatial or geographical data, it does provide an at-a-glance social geography of the mesh and its participants. Similar to the Groups view, launching an activity here implicitly opens that activity up for anyone in the Neighborhood to join. While no one receives an
+explicit invitation
+in this case, the newly started activity will appear in the view, with its participants clustered about it, so that anyone who wishes to may join. Of course, this also means that the Neighborhood provides an excellent space for exploration. Here, one can both search for, locate and
+join activities
+of interest using a powerful and adaptable
+search
+technology, and also interact with and make friends with other children in their neighborhood they haven't yet met.
+API Reference
+Package sugar.shell.view.home.MeshBox
+Activity
+Zooming in from the Home view, a child finds the Activity view. This view contains the activities where all of the actual creation, exploration, and collaboration takes place.  This is where you, the developer, come into play, providing new and engaging tools, extending the functionality and encouraging new types of creative exploration.
+Though multitasking has become somewhat of a standard in today's desktop computing world, we've chosen to break away from this model, instead adopting a fullscreen activity view that focuses the children's energies on one specific task at a time. Although one may have several activities open in the activity ring at any given moment, only one can be denoted as the active activity (similar to focus in a window system). Several factors contributed to this decision: first, although the laptops have an extremely high-resolution display—200dpi—the actual viewing area remains quite small—a modest 7.5-inch diagonal—leaving little room for multiple activities on the screen; second, as noted, it naturally focuses efforts on a specific task. The
+Frame
+detailed below serves as the interstitial tissue between activities. As a visual extention of the
+Journal
+, it enables objects to move between activities.
+For extensive detail on the various aspects of the activity interface and their design guidelines, see the
+Activities
+section.
+←
+Introduction
+Zoom Metaphor
+The Frame
+→

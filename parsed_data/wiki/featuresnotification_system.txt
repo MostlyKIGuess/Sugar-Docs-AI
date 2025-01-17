@@ -1,0 +1,73 @@
+Title: Features/Notification System
+URL: https://wiki.sugarlabs.org/go/Features/Notification_System
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Contingency Plan
+11
+Comments and Discussion
+Summary
+This adds a simple messages notification system for sugar that can be used by the system, journal and activities notifications.
+Owner
+Name:
+SAMdroid
+Email: sam.parkinson3@gmail.com
+Name:
+tch
+Email: tch@sugarlabs.org
+Current status
+Targeted release: 0.102
+Last updated: 8th of Feb
+Percentage of completion: 90%
+Detailed Description
+When a notification is received it displays a pulsing icon, that is specified as part of  the notification, at the top left corner of the screen. This icon stays in there for just  a few seconds.
+The received notification can be found at the activities tray. It is represented by a button with a  notification badge.
+The button's palette displays, at the bottom of the palette, all the notifications that are related to the same entity.  Entities can be basically anything, ie., the journal, activities or even scripts running in background.
+Every notification must belong to an entity. If one notification is sent, that notification  should create a new icon if and only if there is not a previous icon for the same entity.
+If one entity receives more than 5 notifications, scrolling will be used to limit the space.
+The notification summary and body are limited in width, only 70 characters will be displayed.
+Benefit to Sugar
+This would be nice for chat, calenders, and any other kind of even that the user should be aware
+of. It would help bring us into line with the other desktop environs.
+Scope
+The current implementation covers most the building blocks that are required for journal, activities
+and system message notifications. At the moment, only system messages are implemented, using these
+same building blocks.
+UI Design
+Design Team/Proposals/Notifications
+How To Test
+For system notifications you can run this script, ie., from Terminal activity:
+import dbus
+   BUS_NAME = 'org.freedesktop.Notifications'
+   OBJ_PATH = '/org/freedesktop/Notifications'
+   IFACE_NAME = 'org.freedesktop.Notifications'
+   bus = dbus.SessionBus()
+   notify_obj = bus.get_object(BUS_NAME,OBJ_PATH)
+   notifications = dbus.Interface(notify_obj,IFACE_NAME)
+   notifications.Notify("Software Update", 0, "", "New activities are available!", "Please check your activities list", [], {'x-sugar-icon-name': 'module-updater'}, -1)
+From activities you can use this simplified method, (Gtk3 is required):
+self.notify_user('This is the summary','This is a much longer body... describing something...')
+User Experience
+These messages notifications should not distract the user, as they are displayed in each notification area.
+Contingency Plan
+WORK HARDER
+Comments and Discussion
+http://lists.sugarlabs.org/archive/sugar-devel/2014-February/047096.html

@@ -1,0 +1,77 @@
+Title: The Undiscoverable/Smalltalk
+URL: https://wiki.sugarlabs.org/go/The_Undiscoverable/Smalltalk
+--------------------------------------------------------------------------------
+This article is a
+stub
+. You can help Sugar Labs by
+expanding it
+.
+The following code is taken from a tutorial that unfortunately does not include every step the beginner needs to have explained.
+BankAccount tutorial
+Object subclass: #NameOfClass
+
+       instanceVariableNames: 'instVarName1 instVarName2'
+
+       classVariableNames: 'ClassVarName1 ClassVarName2'
+
+       poolDictionaries:
+category: 'My Stuff'
+Object subclass: #BankAccount
+
+       instanceVariableNames: 'balance'
+
+       classVariableNames:
+poolDictionaries:
+category: 'My Stuff'
+b _ BankAccount new.
+b inspect 
+b balance.
+message selector and argument names
+       "comment stating purpose of message"
+    
+       | temporary variable names |
+       statements
+balance
+
+      "Return the balance"
+
+      ^ balance
+initialize
+
+       balance _ 0.
+deposit: amount
+
+       balance _ balance + amount.
+withdraw: amount
+
+       amount > balance ifTrue: [
+
+               ^ self inform: 'sorry, not enough funds']. 
+
+       balance _ balance - amount.
+Object subclass: #BankAccount
+
+       instanceVariableNames: 'balance history '
+
+       classVariableNames:
+poolDictionaries:
+category: 'My Stuff'
+initialize
+
+       balance _ 0.
+
+       history _ OrderedCollection new.
+balance: newBalance
+
+       balance _ newBalance.
+
+       history addLast: newBalance.
+withdraw: amount
+
+       amount > balance ifTrue: [
+
+               ^ self inform: 'sorry, not enough funds']. 
+
+       self balance: balance - amount.
+See also
+Squeak Smalltalk: Language Reference

@@ -1,0 +1,446 @@
+Title: 0.88/Notes
+URL: https://wiki.sugarlabs.org/go/0.88/Notes
+--------------------------------------------------------------------------------
+english
+HowTo
+[ID# 81610]
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Please do not edit unless you are part of the Sugar Release Team!
+Contents
+1
+Sucrose 0.88 Release Notes
+1.1
+Introduction
+1.2
+What is new for users
+1.2.1
+Connect to the Internet using a GSM modem
+1.2.2
+Better feedback during activity startup
+1.2.3
+A refactored, new feature rich Turtle Art
+1.2.4
+Share Etoys Projects on Squeakland
+1.2.5
+Track user preferences for opening activities
+1.2.6
+Synchronize changes made to a Journal entry
+1.2.7
+Sugar Activities
+1.3
+What is new for distributors and deployers
+1.3.1
+Customize the Sugar font size
+1.3.2
+Better translation updates
+1.3.3
+Making the name input screen optional
+1.4
+What's new for developers
+1.4.1
+Widgets
+1.4.2
+API
+1.4.3
+Dependencies
+1.4.4
+Activity Authors guidelines
+1.5
+What's new for packagers
+1.6
+Internationalization (i18n) and Localization (l10n)
+1.7
+Compatibility
+1.8
+Update to this version
+1.9
+Getting the sources
+1.9.1
+Core modules (Glucose)
+1.10
+Looking at the release cycle details
+1.11
+Looking Forward to 0.90
+1.12
+Credits
+Sucrose 0.88 Release Notes
+Introduction
+This might be the sweetest Easter egg ever!
+The new shining version of the sweet learning environment is available. Many people from all over the world have been working together over the last six months to make this tooth breaker possible. 0.88 is the latest version of Sugar, consisting of
+Glucose
+, the base system environment; and
+Fructose
+, a set of demonstration activities. This new release contains many new features, performance and code improvements, bug fixes, and translations.
+You can learn more about Sugar itself by studying the
+Sugar definition
+or by reading the
+comic strip
+about the learning platform from
+Dongyun Lee
+. Even better, why not
+try Sugar
+today?
+What is new for users
+Connect to the Internet using a GSM modem
+You can use a GSM modem with Sugar to connect to the Internet. GSM modems are often found in mobile phones but there are also standalone modems that can be connected over USB to a computer. When a GSM modem is attached to the computer, a device is added to the Sugar Frame from which you can connect to the Internet. The settings for the connection—such as service provider and password—can be configured from the Sugar Control Panel. This
+feature
+provides Sugar learners with more ways to access the Internet.
+Developers and educators from
+Plan Ceibal
+and
+Paraguay Educa
+worked together to add the GSM feature to Sugar. Thanks to
+Tomeu Vizoso
+for introducing the new upstream contributors to the development process.
+Sugar Frame device for the GSM modem.
+The Control Panel GSM modem section.
+The Control Panel section to set the connection settings.
+Better feedback during activity startup
+In previous versions of Sugar there was no feedback to distinguish between an activity that failed to start and an activity that is slow to launch. Furthermore, stopping an activity that failed to start was not possible from the user interface. This feature displays a message when an activity fails to start with a button to allow to stop the activity.
+A message is displayed when an activity fails to start.
+Thanks to
+Wade Brainerd
+and
+Aleksey Lim
+for developing this enhancement which is a great start to make developing inside of Sugar more pleasant and which provides better feedback in the activity starting period.
+A refactored, new feature rich Turtle Art
+Turtle Art has undergone a major rewrite for this release. Many new features have found their way into this release including cartesian and polar coordinate grids, support for multiple turtles, resizable blocks, SVG export, and run-time block highlighting.
+Cartesian and polar coordinate grids
+Collapsible stack
+Collapsed stack
+Python function with one, two, or three variables
+Expandable bullet list (two bullets)
+Expandable bullet list (four bullets)
+Enlarged blocks
+Shrunken blocks
+100 Turtles
+SVG output using the save SVG block
+Multi-variable Python blocks
+See
+Turtle Art 0.88 Release Notes
+for more details.
+Turtle Art is a great example of an activity that has been going through several development iterations over the past years and have seen many improvements based on feedback from the field. Thanks to
+Brian Silverman
+for starting this success story and the leading force behind the Turtle Art development and Turtle Art community coordinator
+Walter Bender
+.
+Share Etoys Projects on Squeakland
+The
+Squeakland website
+now has a
+showcase
+section where Etoys users from all over the world can share their projects. There are many excellent projects already!
+The new Etoys version in Sugar 0.88 supports direct publishing from within the activity. To publish a project to the showcase, you need to hold down the "Keep" button and choose "publish" from the little menu.
+Hold down "Keep" button and choose "publish"
+Click "My Squeakland" and log in, then save
+When approved, the project is listed in the showcase
+Other improvements in this new Etoys version include:
+better support for other activities implemented in Squeak
+reduced disk space (the sources file is now compressed)
+new and updated translations
+We want to thank the Etoys and Squeak community who have been contributors since the first Sugar days, and especially
+Bert Freudenberg
+who is coordinating these efforts.
+Track user preferences for opening activities
+An enhancement has been added to Sugar that tracks the most recent choice when opening an object with an activity. A little example should help to outline the new behavior:
+1. Open a PDF file using an activity, say SweetPDFReader.
+2. Further PDF files are opened using SweetPDFReader by default.
+3. Open a PDF file with Read.
+4. Further PDF files are opened using Read by default.
+Thanks to
+Aleksey Lim
+for developing this nice enhancement to an every day workflow.
+Synchronize changes made to a Journal entry
+A long-standing issue with synchronizing changes made to a Journal—originally reported in Sugar 0.84 as described in ticket
+#1358
+—has been fixed. Edits to a Journal entry (e.g. changing the entry name or the description) while an activity is still open were lost when the activity was closed. The patch has also been backported to Sugar 0.84.
+Thanks to the team of the
+Planetarium
+Sugar Pilot
+for fixing this bug.
+Sugar Activities
+While we bundle a small subset of the Sugar Activities within Sucrose, most of the Activity "activity" can be tracked by visiting
+the Sugar Activity Library
+.
+We have recently surpassed
+2.5-million
+Sugar Activity downloads! There are
+hundreds of activities
+available for download in a variety of categories!
+Thanks to
+all
+the activity maintainers and developers
+for making this happen.
+Category
+No. of Activities
+Search & discovery
+34
+Documents
+11
+News
+4
+Chat, mail and talk
+5
+Media creation
+24
+Programming
+10
+Maths & science
+76
+Maps & geography
+4
+Media players
+1
+Games
+61
+Teacher tools
+104
+Recent additions
+include:
+Visual Match
+Erikos
+Sugar Commander
+Jam2Jam
+Quniteti
+Plot
+Club de Othello XO
+GCompris Scalesboard Weight
+GCompris Photo Hunter
+GCompris Memory Word Number
+GCompris Memory Enumerate
+GCompris Erase Double Click
+GCompris Draw
+TuxMath
+Timelapse
+Fileshare
+Escribir Especial
+Distance
+Stopwatch
+XO Olympics
+Kandid
+Fototoon
+Activity
+Description
+Visual Match
+A visual matching game. The object is to find sets of three cards where each attribute—color, shape, number of elements, and shading—either match on all three cards or are different on all three cards.
+Erikos
+A simple audio pattern-matching game. See if you can follow the audio sequence.
+Sugar Commander
+Sugar Commander is a utility for working with the Journal. You can easily add files as Journal entries, view and update title, description, and tags for entries and delete entries you no longer need.
+Jam2Jam
+Jam2Jam XO lets you manipulate musical styles. As a solo or shared activity, users can play in a virtual band easily and with little musical knowledge or experience.
+Quniteti
+QuinTeTi is an add learning game, it's based in a 3x3 cell board in which numbers from 1 to 9 can be located with the objective of making the rows and columns sum fifteen. The game is for two players.
+Plot
+Plot lets you generate plots of mathematical functions.
+Club de Othello XO
+Club de Othello is an educational activity based on the metaphor of a club of game Othello or Reversi players. It is intended for visually impaired children with the intention that these learn spatio-temporal concepts.
+GCompris Scalesboard Weight
+Balance the scales properly
+GCompris Photo Hunter
+GCompris Memory Word Number
+GCompris Memory Enumerate
+GCompris Erase Double Click
+GCompris Draw
+A simple vector-drawing tool
+TuxMath
+TuxMath is an arcade game that helps people practice their math facts. It was packaged by CeibalJAM! (
+http://ceibaljam.org
+).
+Timelapse
+TimeLapse records audio, video, and images based on customizable increments and can play them back.
+Fileshare
+FileShare is an activity that allows the user to share files from their journal to other xo's or to a central server.
+Escribir Especial
+A special writing activity is a text editor with a keyboard on the screen, which works in two ways: by tapping with the mouse pointer (mouse) or by scanning key by key.
+Distance
+Distance is an activity that uses sound to measure the distance between two computers. If you have two laptops with speakers and microphones, Distance can turn them into an acoustic tape measure.
+Stopwatch
+StopWatch is an easy to use software stopwatch for Sugar that supports both simple and advanced timing needs.
+XO Olympics
+Xolympics: a 2 player game where you are the triangle trying to hit the ball to the enemys backboard.
+Kandid
+Kandid is a system to evolve graphical forms. In Kandid a population consist of images looking like abstract art or patterns. These graphical forms are not drawn by hand. Instead new forms can be found using an interactive genetic algorithm.
+Fototoon
+An activity for created narrations using photos and captions
+et al.
+What is new for distributors and deployers
+Customize the Sugar font size
+This
+Feature
+adds the possibility for distributors and deployers to customize the Sugar font size. The proposed solution is one similar to the solutions used in other desktop environments like
+GNOME
+and
+KDE
+: allow customization of the base font size used across the entire desktop platform. This is another important step to bring Sugar more in-line with the desktop world and distributors like
+OLPC
+will be able to select font sizes without ugly hacks. The size of the Sugar font can be set using the GConf key
+/schemas/desktop/sugar/font/default_size
+which is set to
+10
+by default. The Font face can be set using the GConf key
+/schemas/desktop/sugar/font/default_face
+which is set to
+Sans Serif
+by default. In Sugar 0.90 there will be a new control panel section that users will be able to customize the font size to suit their needs, too.
+Thanks to
+Daniel Drake
+for developing this Feature which is a huge improvement for customizing Sugar.
+Better translation updates
+In general the translation process is tightly coupled with the release workflow. In order to get the latest translations for a particular activity, deployments need either to wait for the activity maintainer to provide a new release or to use the language-pack mechanism, which is distribution specific (and at its best an ugly hack). The
+Enhanced Gettext Feature
+adds an extra search path for the translation files of Sugar activities. This allows deployments to add and update activity translations independently of the release process. The alternate search path can be configured using the
+GConf configuration system
+. The GConf key is
+/schemas/desktop/sugar/i18n/langpackdir
+which is unset by default.
+With this feature it should be easier for deployments who rely on a small translator team to accomplish their job since they no longer need to keep pace with the Sugar release cycle. Furthermore, we hope to alleviate activity maintainers from the burden of making a new release whenever a new translation becomes available.
+Thanks to
+Sayamindu Dasgupta
+for his ongoing efforts to make the life of the translators easier!
+Making the name input screen optional
+An option has been added to enable the "enter your name" screen which is displayed when you use Sugar for the first time. The screen is only needed in live environments e.g.
+Sugar on a Stick
+. If Sugar is ran in an installed to disk environment, the user will need to provide a name and password to start the session, so asking for a name again is not needed. In those cases Sugar will use the name provided by the existing UNIX account. The name input screen can be disabled using the
+GConf configuration system
+. The GConf key is
+/schemas/desktop/sugar/user/default_nick
+, the screen is disabled by default and will use the UNIX account name. Set the key to
+disabled
+to display the screen on Sugar startup.
+Thanks to
+Aleksey Lim
+for developing this enhancement.
+What's new for developers
+The following changes are important for developers using the Sucrose 0.88 developer platform.
+Widgets
+No new widgets have been added to the toolkit in the 0.88 development cycle.
+API
+The datastore API has been cleaned up. The dbus_helpers have been killed and all the functionality has been moved to one module
+datastore
+. There has been an extensive effort to complete the documentation from this module, too. Furthermore the toolkit has been seen another round of cleanups using
+pylint
+and to convey the
+PEP 8
+Style Guide.
+Dependencies
+As Sugar has been going back to use simplejson we encourage activity authors to use simplejson in their activities, too.
+Activity Authors guidelines
+There are still many activities that do not use the new activity toolbars introduced in 0.86. We encourage the switch to use the new toolbars as there have been huge improvements in usability (e.g. stopping an activity).
+Jim Simmons has written a guide to writing Sugar Activities (Please see
+Make your own Sugar Activities!
+) which details how to convert your activity to the new toolbars without compromising performance on old Sugar systems.
+What's new for packagers
+sugar: cjson -> simplejson: Sugar moved back to use simplejson instead of cjson. cjson has a big bug dealing with slashes, this is a significant long-term bug and upstream has not been responsive other than acknowledging it. This bug breaks journal entry bundles
+#1553
+.
+sugar-toolkit: the python module dateutil has been added. Please add this to the requires (i.e. in Fedora python-dateutil).
+Internationalization (i18n) and Localization (l10n)
+More than 80% of the core sugar user interface and toolkit has been translated to 23 languages, which are (in order of percent translated):
+Vietnamese
+Spanish
+Portuguese (Brazil)
+Papiamento
+Japanese
+Italian
+Greek
+German
+French
+Chinese (Taiwan)
+Arabic
+Hindi
+Dutch
+Swedish
+Portuguese
+Indonesian
+Tamil
+Sinhala
+Pashto
+Slovenian
+Russian
+Nepali
+Dari
+This work has been made possible thanks to the tireless efforts of the members of the
+translation team
+.
+Compatibility
+Migrating the datastore from learners using Sugar 0.82 was broken in 0.86. A fix has been going into 0.88 to successfully migrate the datastore. There a no known compatibility issues, as of today.
+Update to this version
+Please use the instructions for your distribution (SoaS, Fedora, Ubuntu, Debian etc) of choice to upgrade to this release. Note that it may take a while until the release is packaged for each distribution. Please stay tuned for distribution specific announcements and watch out for updates at
+Get Sugar
+.
+Getting the sources
+If you want to package sugar for your favourite distribution or just want to examine sugar's lovely code ;) you can find all the source code of each module at the links below.
+Core modules (Glucose)
+sugar-toolkit 0.88.0
+sugar 0.88.0
+sugar-datastore 0.88.0
+sugar-artwork 0.88.0
+sugar-base 0.88.0
+sugar-presence-service 0.88.0
+etoys-4.0.2340-2
+Etoys 115
+hulahop 0.7.1
+Looking at the release cycle details
+You can browse the notes of each development release in
+0.114
+. Their respective sources are listed there as well.
+Looking Forward to 0.90
+Planning of the next release cycle has started at
+0.90/Roadmap
+. One of the most interesting goals is the
+refactoring of Collaboration
+on which Tomeu Vizoso and the
+Collabora team
+are working on. Furthermore we hope to finally land Sascha Silbe's work on versions in the datastore and
+the Features that missed the 0.88 release
+.
+Credits
+Many people contributed to this release indirectly, including testing, documentation, translation, contributing to the Wiki, outreach to education and developer communities. On behalf of the community, we give our warmest thanks to the developers and contributors who made this Sugar release possible.
+We want to especially thank:
+the
+Infrastructure team
+which does all this great work in the background without which the development would not be possible at all,
+the
+deployments
+that provide the development team with feedback from the field,
+the
+Design team
+which guided the design of features with UI changes or impact on the workflow,
+the
+Translation team
+which makes sure that Sugar is enjoyable in the local languages of our users,
+the
+developers
+that submit patches for new features and bug fixes,
+the
+maintainers
+that review patches and make sure their code is shippable and which provide packagers with new tarballs,
+the
+packagers
+which provide distributions with new Sugar packages,
+the
+SoaS team
+for providing during the development cycle a Sugar version to test with,
+the
+testers
+for finding the small and bigger issues,
+the
+release team
+and
+Development team
+for coordinating those efforts.

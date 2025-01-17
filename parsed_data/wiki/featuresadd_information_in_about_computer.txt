@@ -1,0 +1,87 @@
+Title: Features/Add Information In About Computer
+URL: https://wiki.sugarlabs.org/go/Features/Add_Information_In_About_Computer
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Computer model
+4.2
+Add other licenses if needed
+4.3
+Last update
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+The deployments need a few pieces of information about the software in the Xos. This feature collect these changes because are small, and are connected to the About Computer section. The actual implementation is only a reference, is not proposed to be included in the actual form.
+Owner
+Name:
+Gonzalo Odiard
+Email: gonzalo at laptop.org
+Current status
+Targeted release: 0.102
+Last updated: Nov 19, 2013
+Percentage of completion: 100%
+Detailed Description
+The information to be added is:
+Computer model.
+Other licenses
+Last update
+Computer model
+For end users is not so obvious what is the hardware model, and is a useful information when support is needed.
+The actual implementation use a lot of tricks to try to get the model. Probably can be simplified,
+and the hardware defined when the image is generated.
+https://github.com/godiard/au1b_rpms/blob/master/sugar/0004-Add-model-information-in-the-about-computer-control-.patch
+Add other licenses if needed
+Deployments can need display more licenses (other than GPL) if include more software or content. In the case of AU,
+the font in use was provided by a third, and the agreement requires display that information. Instead of this 
+hardcoded approach, should be better look in a defined directory for licenses to show, and add as needed.
+https://github.com/godiard/au1b_rpms/blob/master/sugar/0005-Add-School-Fonts-license-in-control-panel.patch
+Last update
+When the deployments implement mechanism to update the computers in a automatic way, need ways to know when was the last update.
+Actual implementation is tricky, need a better way to signal it.
+https://github.com/godiard/au1b_rpms/blob/master/sugar/0006-Add-last-updated-information-in-the-control-Panel.patch
+Benefit to Sugar
+These are pieces of information requested by the deployments (are already implemented in dextrose).
+Scope
+What work do the developers have to accomplish to complete the feature in time for release?  Is it a large change affecting many parts of the distribution or is it a very isolated change? What are those changes?
+UI Design
+Does the feature have a direct impact on the work flow, or does it need a UI? Link here mockups, or add detailed descriptions.
+How To Test
+Features/Add Information In About Computer/Testing
+User Experience
+The information will be available in the "About this computer" control panel section.
+Dependencies
+What other packages (RPMs) depend on this package?  Are there changes outside the developers' control on which completion of this feature depends?  In other words, does your feature depend on completion of another feature owned by someone else or that you would need to coordinate, which might cause you to be unable to finish on time?  Other upstream projects like Python?
+Contingency Plan
+Documentation
+We need document the paths used to make clear to deployments how interact with this feature.
+Release Notes
+Comments and Discussion
+Link to the discussion of this feature on lists.sugarlabs.org
+See
+discussion tab for this feature

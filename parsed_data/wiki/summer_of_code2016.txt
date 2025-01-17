@@ -1,0 +1,401 @@
+Title: Summer of Code/2016
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2016
+--------------------------------------------------------------------------------
+Students
+: See our guide on
+how to participate in Google Summer of Code
+for more information.
+The Sugar Labs Google Summer of Code 2016 projects/students/mentors:
+Project
+Student
+Mentors
+Proposal
+Blog
+IRC nick
+Font Editor Activity
+Yash Agarwal
+Dave Crossland, Eli Heuer
+[1]
+[2]
+yagarwal
+Git Backend
+Vikram Ahuja
+Walter Bender, Tymon Radzik
+Pending
+[3]
+vikram
+Journal Rethink
+Abhijit Patel
+Walter Bender, Sam Parkinson
+[4]
+[5]
+AbrahmAB
+Music Widgets
+Hemant Kasat
+Walter Bender, Devin Ulibarri
+Pending
+[6]
+hemant_kasat
+Sugarizer OS
+Jeremie Amsellem
+Lionel Laské, Michaël Ohayon
+Pending
+[7]
+lp1
+Sugar on the Ground
+Utkarsh Tiwari
+Tony Anderson, Sebastian Silva
+[8]
+[9]
+iamutkarshtiwari
+Contents
+1
+Project candidates
+2
+Sugar Core
+3
+Sugar Activities
+4
+Sugar Activities (and Ports)
+5
+Sugar Technology
+6
+Sugar on the Ground
+7
+Sugarizer
+8
+Subpages
+Project candidates
+In the table below is a list of projects potential participants might contribute to in the GSoC program.
+Note 0
+These are project ideas from Sugar Labs contributors.
+Students, feel free to propose your ideas as well.
+Note 1
+Potential mentors, please feel free to add ideas to this list. Also, feel free to add your name to a project you'd be willing to co-mentor.
+Note 2
+Potential students, more project ideas can be found on our
+Features
+page.
+Note 3
+Accepted projects are in
+Green
+Sugar Core
+Title
+Mentor
+Project
+Internationalization and Localization
+Chris Leonard
+Brief explanation
+A goal of Sugar Labs is to enable our users to experience Sugar in their own native language. See
+Translation Proposal To Do List
+for details.
+Expected results
+Work flow improvements for i18n
+Knowledge prerequisites
+Some knowledge of Pootle; some scripting experience; Python
+Journal Rethink
+Sam Parkinson
+Brief explanation
+The Sugar Journal could be rethought to add more emphasis on collaboration, or adding more organisational support for creating "projects" among other things.
+Expected results
+Working code for the journal and vague ideas (more concrete than this) defined ahead of time.
+Knowledge prerequisite
+Strong background in Python and knowledge of Gtk+.
+Groups Rethink
+Sam Parkinson
+Brief explanation
+Sugar has a buddies/group zoom view, which is very limited.  It could be further integrated with sugar (eg. send to group, share with group, have a shared group journal) and expanded upon (having multiple groups user configured, like: a science prac group, a drama play group, etc.).
+Expected results
+Working code for the Sugar and vague ideas (more concrete than this) defined ahead of time.
+Knowledge prerequisite
+Strong background in Python and knowledge of Gtk+.  Knowledge of telepathy is might be helpful.
+Reflect Activity
+Sam Parkinson and Walter Bender
+Brief explanation
+The Sugar Journal is designed to be a place of reflection. We have the basic stub of a reflection activity that attempts to encourage more reflection and as a vehicle for sharing criticism. This idea needs more thought and coding.
+Expected results
+A solid formulation of how the activity will work in the classroom and working code for the Reflect Activity.
+Knowledge prerequisite
+Strong background in Python and knowledge of Gtk+.
+Git backend
+Martin Abente Lahaye and Walter Bender
+Brief explanation
+The Sugar Journal doesn't do a great job of supporting versioning or forking. This project is to build a backend for the Journal that is based on git, which does support versioning and forking. By building on top of a git hosting site we get the added benefit of network access as well.
+Expected results
+Working code and an integration with Turtle Blocks
+Knowledge prerequisite
+Strong background in Git and scripting languages such as Python, Ruby and JavaScript.
+Performance tuning on machines with limited memory
+Samuel Greenfeld
+Brief explanation
+The newer Sugar builds have performance issues on some old hardware with limited memory. This is keeping some Sugar deployments from upgrading. This project is to look into the performance issues and tune Sugar for low-memory devices.
+Expected results
+build suitable for running on OLPC XO-1 hardware
+Knowledge prerequisite
+Re-design collaboration with web technologies
+Martin Abente Lahaye and Walter Bender
+Brief explanation
+Now that JavaScript has become a first class citizen in the Sugar ecosystem, we must re-design our collaboration model to allow collaboration between web activities regardless of the platform.
+Knowledge prerequisite
+JavaScript, web sockets, web services.
+Make Sugar compliant with Freedesktop standards
+Sebastian
+(
+talk
+) 13:50, 10 March 2016 (EST)
+Brief explanation
+Support Freedesktop.Org Desktop Entry specification for launching non-sugar applications, icon standards, etc. Find other ways to make Sugar useful as Linux desktop. Make it easy to run Sugar Activities in regular Linux desktop.
+Expected results
+Improved user experience for users of regular Linux apps, merged to Sugar mainline.
+Knowledge prerequisite
+Strong background in GTK, Python and GNU/Linux.
+Port Sugar to the Broadwayd HTML5 GTK Backend
+Sebastian
+(
+talk
+) 14:09, 10 March 2016 (EST)
+Brief explanation
+Sugar uses GTK3. Recently GTK3 released support for a HTML5 native backend called Broadwayd.
+Expected results
+Make it feasible to run Sugar and pure gtk3 activities thru a browser (not Sugarizer). Docker container for Sugar on Broadwayd.
+Knowledge prerequisite
+Strong background in GTK, Python and GNU/Linux. Docker.
+Sugar Activities
+Title
+Mentor
+Project
+Beyond Flashcards: Programming to ReadJS
+Walter Bender
+Brief explanation
+Back in the 1980s, IBM had a literacy program, "Writing to Read". The gist was that writing was a great way to spark a child's interest in reading. What if writing code could achieve a similar result? The project is to explore how programming might be incorporated into a literacy program. Like turtle, only simple sentences instead of stacks. It would be a "whole word" approach rather than a "phonics" approach: they can take "sentences" and make paragraphs that result in animations.
+Expected results
+Working prototype
+Knowledge prerequisite
+Strong background in Python or JavaScript
+Covert Record, Clock, Speak and Measure to gstreamer 1.0
+<TBD>
+Brief explanation
+The vast majority of Activities that use gstreamer for sound have been converted to gstreamer 1.0 because the older 0.10 is now End of Life and is no longer being developed. It also adds quite a large set of extra duplicate dependencies to Sugar distributions. There's a lot of good examples of Activities that have been converted to provide excellent examples. The gstreamer 1.0 bindings are provided by gobject-introspection so it also assists in the conversion of Activities to gtk3.
+Expected results
+As many of the above Activities converted to use gst 1.0
+Knowledge prerequisite
+Strong background in Python, gobject-introspection and gstreamer
+Covert TamTam to Csound6
+<TBD>
+Brief explanation
+TamTam makes extensive use of CSound, other Activities like Memorize, Pippy, and TurtleBlocks also can make use of CSound bindings. With the introduction of CSound 6 to a number of distributions TamTam needs migration to use the newer version of CSound.
+Expected results
+Convert TamTam to use CSound6, possibly other Activities
+Knowledge prerequisite
+Strong background in Python, background in CSound
+Music Widgets
+Devin Ulibarri
+Brief explanation
+Development four new widgets to improve the possibilities for music
+learning as well as overall user-experience for Music Blocks. The widgets are 1. Pitch-Staircase 2. Tempo 3. Rhythm Rulers, and 4. Free-Pitch Slider. Widgets will integrate with the current coding environment without disrupting the underlying language in any way (like the current pitch-time matrix).
+Expected results
+Users will use these to explore musical concepts and generate desired
+blocks from their experiments.
+Knowledge prerequisite
+Strong background in JavaScript, Basic knowledge of Music Theory
+and/or physics
+Font Editor Activity
+with Dave Crossland
+Brief explanation
+Typeface design is a cornerstone of literate cultures, with subliminal power: Typefaces carry the emotions of texts, from formal designs that speak with authority to fun designs that are silly or military or ornate. They are both artistic and functional works, and our ability to share and modify them is important for the same reasons as for software programs.  A Sugar font editor activity will empower users to create and modify fonts for their own tastes and needs. Fonts are fun to make, but we need an editor to do it.
+Expected results
+Lots of free software Python and JavaScript libraries already exist so this project offers the possibility to make real progress for users this summer.
+Knowledge prerequisite
+Strong background in JavaScript or Python
+Sugar Activities (and Ports)
+These are existing and new activities we'd like to see enhanced. We expect that the activities will take on new UI features and pedagogical significance.
+Title
+Mentor
+Project
+Music Blocks Challenges
+Devin Ulibarri
+Brief explanation
+Development of the "Power Piece" concept for teaching music and programming. (Power Pieces introduce rich musical ideas that can be studied, analyzed, transformed, and re-imagined, they are ripe for open-ended explorations.)
+Expected results
+A well-documented series of activities for exploring musical and programming concepts using the Music Blocks activity as a foundation.
+Knowledge prerequisite
+Strong background in Javascript, Music Theory
+Nutritional Microworld
+w/Dr. Jessica Early
+Brief explanation
+We have the basic building blocks (Turtle Nutrition) for programming with food as a datatype. What we are missing is a collection of meaningful activities to use with the tool as exemplars. We want to develop a an open-ended, yet
+relevant tool—one that invites learners to explore fundamental concepts of nutrition that are both intrinsic to nutrition yet transcendent of a specific discipline.
+Expected results
+A well-documented series of activities for exploring nutrition that use the nutrition plugin as a basis. A series of workshops to study these ideas with children.
+Knowledge prerequisite
+Strong background in Javascript, some background in Nutrition.
+Turtle Confusion/Flags JS
+Walter Bender
+Brief explanation
+Port of Turtle Confusion and Turlte Flags.
+Expected results
+A framework for creating challenges and a few exemplars.
+Knowledge prerequisite
+Strong background in Javascript
+Tux Math
+Tony Anderson
+The TuxMath activity is popular with deployments. However, the upstream version appears to be abandoned. This task would be to implement a sugar-web-activity math game comparable to TuxMath.
+Sugar Technology
+Sugar is based on the Python programming language and the GTK libraries. We also support some web technologies: HTML5, CSS, and JavaScript.
+Title
+Mentor
+Project
+Unit Testing
+TBD
+Deep dive into unit tests. We have a framework but it provides scant coverage for Sugar core and almost no coverage for Sugar activities.
+Brief Description
+The goal is to develop tests for many more subsystems in Sugar core and to light a fire under the developer community to write tests for Sugar activities.
+Expected Results
+a new test suite and scads of documentation.
+Knowledge Prerequisite
+A strong background in Python.
+Redesign and recreate Sugar Labs webappearance
+Tymon Radzik
+Create new modern and innovative design template for our websites and apply it to all our systems. Consider, how to improve our webappearance. Currently, almost every our website looks different than other and is created in different technology.
+Brief Description
+The goal is to create new template to be used to unify view of our websites (main page, Wiki, Planet, Traslation system, ...) and apply it to our systems. It must include storing all code in one place (like in repositories on Github), reducing number of technologies used, improving SEO, considering other solutions to be used instead of obsolete pages and general design.
+Expected Results
+new, better webappearance of Sugar Labs, basing on innovative template. All code should be placed in one place on Github.
+Knowledge Prerequisite
+Strong skills in HTML5, CSS3, Javascript and other core webtechnologies; experience in creating modern website design.
+Sugar on the Ground
+A number of real-world issues crop up in deployments of Sugar, especially where resources are limited (bandwidth, CPU speed, battery life, local storage, etc.) These tasks are related to making Sugar more usable under such circumstances.
+Title
+Mentor
+Project
+Sugar Journal save option
+Tony Anderson
+The Sugar Journal should provide a 'save/save as' interface which should enable a user to choose whether to save the current document when an activity is closed. The interface should require a name change from 'current.activity' to a user supplied name. If the document is derived from one currently saved in the Journal, the user should be allowed to save (overwrite) or save as (create new document) by giving a new name to the document. This could be accomplished by showing a modal dialog at close time requesting the user to supply a name or not save the document. If the document has a user supplied name, the dialog could request the user to save or to provide a new name to create a new document.
+Note
+this approach satisfies the needs referenced in the git task. Git is a little like a hammer looking for a nail. Using git for this function will likely double the size of the data stored in the Journal (based on normal experience using git). Unfortunately, we don't have this space on the XOs. The standard save/save as gives the user the ability to manage versions by using unique names.
+Sugar Journal as a service
+Tony Anderson
+The Journal activity is currently implemented as an activity. It should be changed to a 'service'. This means the Journal icon on the frame should be to the left of the zoom group icons to match the sequence on the keyboard. The Journal is always running as a service when the Sugar is running. It is accessible by the Journal key on the keyboard and also by the Journal button in the frame. When the view is switched to the Journal, clicking on the activity view (right most key of the zoom group) should switch the screen back to the current activity.
+Sugar Journal backup and restore
+Tony Anderson
+Sugar provides a method to backup and restore the Journal (one method to a USB key and one method to the school server). The Journal also provides a select box to enable an action to be taken for all selected objects. This mechanism should be sufficient for the USB key case. However, the school server backup currently is based on taking a snapshot of the current Journal state. This means the size of the objects in a user's Journal cannot exceed the available local store on an XO (300MB for an XO-1, 1.9GB for other models). A mechanism is needed to save on the school server all documents created by the user and to restore a selected object to the Journal from the school server. Since many documents may represent library objects (e-books, audio, image or video media), the mechanism should recognize these and not save them as user documents. However, the metadata saved should enable the system to download the library items again as needed (and, as available).
+For example
+the mechanism may be to upload Journal documents to an OwnCloud repository. The user could then select an item in the OwnCloud repository to be downloaded to the Journal. The user could also share any item in OwnCloud with other user groups or individuals
+Note
+This would essentially accomplish the intent of the group/buddy task. Further, OwnCloud could be provided on a school server or on the internet. as appropriate.
+Note
+There is a Sugar interface for saving to other cloud services, such as Google Docs, Dropbox, et al. that could be exploited.
+Sugar Journal session data management
+Tony Anderson
+One goal of Sugar is to record information about user sessions. This is currently accomplished by creating statistics from the metadata stored in the Journal.
+Unfortunately, a consequence is that the Journal view fills with essentially meaningless links to this metadata (mine fills with Terminal Activity and Log entries).
+This makes it much harder for the user to identify meaningful Journal objects (documents, images, items from the library, ...). A mechanism is needed to that session data can be logged independently of the Journal view (i.e not shown on the screen). This logged information should be transferred to a backup repository (e.g. school server or USB drive) as soon as possible and deleted from the local store to free up space. The available reporting activities should be modified to use this new mechanism.
+Sugar Journal quota management
+Tony Anderson
+The Journal icon provides information the amount of free space in the user's store. if this amount is less than 50MB, a dialog is shown requiring the user to switch to the Journal view and claiming that the 'Journal is Full'. This message is, at best, misleading. The available storage can arise from several causes - the fact that an activities 'instance' store was not deleted, the space required by installed activities, or space required by data files in /home/olpc/Library, or data stored by activities in 'data', 'instance' or 'temp'. Currently, Sugar provides no guidance or help to enable a user to deal with this problem short of reflashing the image. The goal of this task is to provide a quota management system on storage with a way for the user (e.g. by a special Sugar activity) to analyze the usage of storage and to save by usb key or school server or cloud storage large or currently unneeded items and then delete them. The system should show the user the size of items and provide updates on how much storage has been made free by his/her actions.
+Sugar Journal activity resume feature
+Tony Anderson
+In Sugar's Home View, a click on an activity icon by default resumes the most recent instance of the activity. This capability is designed into the Journal and is redundant in the Home View. A Sugar activity is a tool to enable the user to accomplish some task. If that task is not completed, the user can resume it via the Journal. If the tool is to be used on a new task, the user can launch it from the Home View. The current Home View assumes that the intent of the user is to continue the most recent task with that tool.
+This task should set the Home View default to launch a new instance of the activity. The Alt key should be set to enable resuming a selected instance of the activity.  By serendipity, this also shows the Home View with black and white icons. Icons with color signifying a resumable instance use the colors associated with the laptop. Unfortunately many of these color combinations make the icon much more difficult to distinguish than the black and white version.
+Sugar Activity resume feature
+Tony Anderson
+Sugar provides a 'web services' capability. However, these services are only available to an XO which has connection to the internet. This is not useful to a large number of users who do not have internet access. The school server (e.g. XSCE) provides an alternative to the internet for many deployments. This task is to provide a capability on the school server to support some or all of the Sugar web services (e.g. by OwnCloud or ELGG).
+Sugar offline
+Tony Anderson
+There are a number of Sugar activities which currently require access to the internet (InfoSlicer, GetBooks). These activities should have an option to function with the school server. For example, GetBooks could access books on the school server and InfoSlicer could create slices from Wikipedia on the school server as Journal objects.
+Sugar "on-boarding"
+Tony Anderson
+Sugar users are often new to computers and not familiar with other operating systems. We need a mechanism to allow users to more quickly develop skills in using the capabilities of the XO ('onboarding'). One proposal is to develop scripts which lead the user through a series of interactive steps illustrating common usage of the XO with Sugar (
+[10]
+). This task is to implement an interpretive system that allows 
+deployments or experienced users to create an 'onboard' script that guides the user to carry out a task. The referenced proposal suggests some user tasks where this mechanism could be employed. Since there is no finite list of these tasks, an interpretive approach enables the scripts to be created as necessary.
+For example
+how does a user switch to the Gnome desktop? A script could be created guiding the user through the necessary steps. How does the user make a screen shot, use Gimp in the gnome desktop to crop and resize, and then insert it as an image in a Write document? How does the user initiate or join a chat?
+32bit Sugar on Ubuntu
+Tony Anderson
+Sugar is available on the XO and some other platforms. In particular, Sugar is available for 64-bit systems with Ubuntu 14.04 LTS installed (
+http://wiki.sugarlabs.org/go/Ubuntu
+). Unfortunately, this procedure does not work with 32-bit systems. There exists an opportunity to deploy Sugar 
+with relatively inexpensive or refurbished laptops which do not provide 64-bit support. This task is to create a comparable version of Sugar which can 
+be installed on 32-bit systems as an alternate Ubuntu desktop.
+One to Many Sugar
+Tony Anderson
+The OLPC model is that each user has full possession and is the only user of an XO laptop. Therefore, Sugar assumes a 1-1 correspondence between users and XO serial numbers. However, Sugar is being used on other platforms (e.g. SOAS), where there is no obvious equivalent to a serial number. SOAS and James Cameron [citation?] have created versions of Sugar which do not assume the user is 'olpc', but implement a standard username/password login system. The users storage is allocated to his/her home directory.
+This task is to create a Sugar image for the XO which allows for user's to login by username and password. The basic task is to move the Activities folder to a common space so that only one copy is needed per system. This will support deployments where one set of laptops are shared across multiple classes (and users) or where there one laptop is shared between two students - one in a morning shift and the other in an afternoon shift.
+Sugarizer
+Sugarizer
+is a way to use Sugar on any device using web technologies (HTML5/JavaScript). Strictly speaking, Sugarizer is not a port of Sugar. Sugarizer is based on Sugar Web library, which mimics the Sugar UI using HTML5 and CSS3 and reproduces Sugar views (Home, List, ...). Sugarizer reimplements features of Sugar Core (datastore and journal) in JavaScript and integrates a bunch of activities written for Sugar in Sugar Web.
+Title
+Mentor
+Project
+Sugarizer OS
+Lionel Laské and Michaël Ohayon
+The goal of this project is to create "Sugarizer OS".
+Sugarizer OS is a way to boot directly a device on Sugarizer and allow the user to use both Sugarizer activities and system native applications. Sugarizer OS is not an OS but a way to propose a full Sugar experience on a non-Sugar device.
+On Android, Sugarizer OS will take the form of an Android Launcher so it will be able to replace the standard Android launcher of the device. So the user will be able to launch both Sugarizer Activities and Android application from the Sugarizer home. The Sugarizer List View screen will let you choose which Android application icons will appear in the favorite view.
+Into Sugarizer OS the Neighborhood view will let the user see and connect to a WiFi hotspot as in Sugar. The Sugarizer OS settings will allow to access to Android settings and let the use to switch to the standard Android launcher.
+Prerequisite: Android, Java, HTML5/JavaScript.
+How to start: Clone the
+Sugarizer repository
+, then create your own APK following instructions
+here
+. Think about how to adapt this APK to transform it into an Android launcher.
+Sugarizer Server Dashboard
+Lionel Laské and Michaël Ohayon
+The goal of this project is to create the "Sugarizer Server Dashboard".
+Sugarizer Server Dashboard is a web admin console for Sugarizer Server. The Dashboard will allow to manage and analyze all activity on a Sugarizer Server. Dashboard features will include:
+Users: how many users has been registered on the server, how many users currently connected, top users on the server, last users connection, create/edit/remove an user.
+Journal: how many Journals and how many entries in Journal on the server, last Journal and last entries, size of Journals, top Journals, edit a journal (see/update/remove) entries.
+Application: how many applications are available on the server, change application visibility from Client, update order and way to appear in favorite view.
+Graphic and request: display graphics and report on previous data.
+Technology to use: HTML5/JavaScript, bootstrap, node.js, MongoDB
+How to start: Clone the
+Sugarizer repository
+, then install Sugarizer server using instructions
+here
+, finally explore the
+Sugarizer Server API
+and think about way to implement dashboard features.
+Sugarizer Activity Set
+Lionel Laské and Michaël Ohayon
+The goal of this project is to port some famous Sugar activities into HTML5/JavaScript Sugar Web activities that will be include into the Sugarizer Package. Three activities will be ported:
+Moon: Moon is a Moon phase viewer, includes Lunar phase information and eclipse data.
+Speak: Speak is a talking face. Anything you type will be spoken aloud using the speech synthesizer, espeak.
+Fototoon: Fototoon is an activity that let user create cartoons using pictures from the journal.
+Technology to use: HTML5/JavaScript
+How to start: Download and install Sugar like explain
+here
+and install the existing version of activities to port:
+Moon
+,
+Speak
+,
+Fototoon
+. Clone the
+Sugarizer repository
+, then create an empty Sugarizer activity following instructions
+here
+. Think about how to reproduce features of existing activities.
+Subpages
+Summer of Code/2016/BeyondFlashcardsProgrammingtoReadJS
+Summer of Code/2016/GitBackend
+Summer of Code/2016/Journal Rethink
+Summer of Code/2016/LearnForFun
+Summer of Code/2016/MusicWidgets and MusicBlocksChallenges
+Summer of Code/2016/Nutritional Microworld
+Summer of Code/2016/Redesign and recreate Sugar Labs webappearance
+Summer of Code/2016/Redesign and recreate sugarlabs web appearance
+Summer of Code/2016/Redesign and recreate suugarlabs web appearance
+Summer of Code/2016/Redisgn and recreate suugarlabs web appearance
+Summer of Code/2016/SugarJournalSaveOption UtkarshT
+Summer of Code/2016/SugarLabs Websites Redesign
+Summer of Code/2016/Sugar Journal backup and restore
+Summer of Code/2016/SugarizerActivitySet
+Summer of Code/2016/SugarizerOS
+Summer of Code/2016/Sugarizer Activity Set
+Summer of Code/2016/Sugarizer OS
+Summer of Code/2016/Sugarizer Server Dashboard
+Summer of Code/2016/TeachingKidstoCode
+Summer of Code/2016/TurtleConfusion FlagJS
+Summer of Code/2016/Turtle Confusion/Flags JS
+Summer of Code/2016/beyondFlashCards

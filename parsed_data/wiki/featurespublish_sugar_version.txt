@@ -1,0 +1,63 @@
+Title: Features/Publish Sugar Version
+URL: https://wiki.sugarlabs.org/go/Features/Publish_Sugar_Version
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Benefit to Sugar
+5
+Scope
+6
+UI Design
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Some activities need know what Sugar version is running. The principal case is Browse that need report to ASLO when check for available activities.
+Sugar will publish a env variable SUGAR_VERSION that can be read by the activities.
+Owner
+Name:
+Gonzalo Odiard
+Email: <godiard@gmail.com>
+Current status
+Targeted release: 0.108
+Last updated: July 21, 2015
+Percentage of completion: 100%
+Benefit to Sugar
+Until now, we needed release a new version of Browse with every Sugar release, and with the version harcoded.
+But that Browse activity can run in older Sugar versions, then you can have information mismatched.
+Scope
+The change in Sugar is ready to land
+https://github.com/godiard/sugar/commit/d5fd43b94681e93466a58c0bc81945b578bf33af
+The change in Browse already landed:
+https://github.com/sugarlabs/browse-activity/commit/a6fcd2c4f356b0b008ec41e14dfe0ecb431ccae8
+Would be good add this information to Log activity too.
+Developers should have in account check if the env variable exists or not, because activities can run in older Sugar releases, where this env variable is not available (check the Browse example).
+UI Design
+No UI involved.
+How To Test
+User Experience
+No changes
+Dependencies
+No dependencies
+Contingency Plan
+Documentation
+Release Notes
+Add a note to the developers about this variable.
+Comments and Discussion

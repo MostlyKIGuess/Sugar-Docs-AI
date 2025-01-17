@@ -1,0 +1,35 @@
+Title: Math4Team/Hop-A-Round
+URL: https://wiki.sugarlabs.org/go/Math4Team/Hop-A-Round
+--------------------------------------------------------------------------------
+Contents
+1
+Goal
+2
+Status
+3
+Design
+4
+Development
+5
+Repository
+Goal
+Address curriculum topic 4.N.16 - rounding numbers to 10, 100, 1000, 10000 and 100000.
+Status
+08/30/09: Now at revision 9. Many things have changed; essentially the whole activity has changed since rev 5. Still need to work on the introduction (present how to round numbers as help).
+06/02/09: Officially at revision 5. This revision adds multiple choice functionality.
+05/29/09: First git commit. Currently at revision 4. Revisions 1-3 were not posted on git.sugarlabs.org and involved very early development. This is probably the fist version that could be played.
+Design
+The game progresses in levels. The level is tied to what "decade" the number should be rounded. Level 1 is rounding to 10, Level 2 is rounding to 100 and so on. There are 5 levels in the activity.
+There are three sections inside each level. The section gives the player different ways to enter the answer. The three sections are a slider, 4 multiple choice buttons and a text entry field. The thousands separator corresponding to the particular local is used to present the number to be rounded. The separator may also be included in the text entry section without creating an error. This will help the player keep track of the number of zeros entered.
+The activity uses a random number generator to create the questions.
+Development
+Game play is at a good working level. There probably won't be much more development here.
+We are working on completing the introduction portion of the activity. It will give instructions on how to round numbers.
+I would like to incorporate a little of what Adam Schreiber did with
+deka
+. The number to be rounded would be presented using polygons. Each digit of the number would be presented inside a polygon. The number of sides of each polygon would correspond to the power of 10 for that digit.
+The activity is split into a Model, View, Controller design. The file names are data.py, view.py and hoparound.py. That is what happened in revs 5 and 6. That helped me get organized much better. Thanks to members in my local LUG for introducing me to this architecture.
+Repository
+The project source code is stored at
+http://git.sugarlabs.org/projects/hop-a-round
+.

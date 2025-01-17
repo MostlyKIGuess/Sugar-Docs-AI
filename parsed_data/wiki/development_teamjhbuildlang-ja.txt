@@ -1,0 +1,129 @@
+Title: Development Team/Jhbuild/lang-ja
+URL: https://wiki.sugarlabs.org/go/Development_Team/Jhbuild/lang-ja
+--------------------------------------------------------------------------------
+翻訳された
+Development Team/Jhbuild
+原文
+english
+|
+日本語
+|
+spanish
++/-
+変更
+This is an
+on-going translation
+Sugar
+のインストールで最も簡易な方法のひとつは
+Development Team/Jhbuild
+の使用です。
+Sugar-jhbuild は Sugar の依存関係ならびに Sugar 自体をソースレポジトリから自動的にダウンロードするので、古くなったソースパッケージに頼らないで済みます。次の一般的な方法に従って, sugar-jhbuild で Sugar が構築できます。
+注意:
+いくつかの Linux ディストリビューションは特有な操作が必要です。これらの操作に関しては
+installing Sugar
+を参照して下さい。
+Contents
+1
+sugar-jhbuild をチェックアウトする
+2
+Sugar のベースシステムと依存をビルドする
+3
+Sugar を実行する
+4
+複数のインスタンスの実行
+5
+Run an individual activity
+6
+Configure the mode and resolution of Sugar
+7
+Other commands
+8
+Customize
+8.1
+Write access to the repositories
+9
+External links
+sugar-jhbuild をチェックアウトする
+任意のディレクトリで、次のコマンドを実行する。
+git-clone
+git://dev.laptop.org/sugar-jhbuild
+Sugar のベースシステムと依存をビルドする
+ディレクトリを変えてビルドを始める。
+cd sugar-jhbuild
+git pull
+./sugar-jhbuild update
+./sugar-jhbuild build
+べースパッケージには、ソースからビルドする代わりにお使いの GNU ディストリビューションに含まれるバイナリパッケージか使用可能かもしれません。各ディストリビューションに関しては、
+Installing
+や
+Linux
+のカテゴリを参照してください。
+Sugar を実行する
+次のコマンドで Sugar エミュレータが起動します。
+./sugar-jhbuild run
+エミュレータを終了するには Alt-Q を押します。
+複数のインスタンスの実行
+Sugar の複数のインスタンスを実行するには、次の方法があります。
+SUGAR_PROFILE=2 ./sugar-jhbuild run
+Run an individual activity
+Within the sugar shell (./sugar-jhbuild shell), this command launches an individual activity for testing (from the
+mailing list
+):
+sugar-activity [bundle name]
+Configure the mode and resolution of Sugar
+You can make Sugar run in a window as well as specify a resolution. Within the sugar-jhbuild directory, backup, then edit the python program file
+sugar-emulator
+:
+cp build/bin/sugar-emulator build/bin/sugar-emulator.backup
+nano build/bin/sugar-emulator
+Find this piece of code:
+cmd = [ 'Xephyr' ]
+    cmd.append(':%d' % display)
+    cmd.append('-ac')
+
+     if gtk.gdk.screen_width() < 1200 or gtk.gdk.screen_height() < 900:
+         cmd.append('-fullscreen')
+     else:
+         cmd.append('-screen')
+         cmd.append('%dx%d' % (1200, 900))
+Comment out the
+if
+and
+else
+instructions, and specify the screen resolution and mode you want (it's important to delete 4 spaces behind the "cmd.append" lines):
+cmd = [ 'Xephyr' ]
+    cmd.append(':%d' % display)
+    cmd.append('-ac')
+
+#    if gtk.gdk.screen_width() < 1200 or gtk.gdk.screen_height() < 900:
+#        cmd.append('-fullscreen')
+#    else:
+    cmd.append('-screen')
+    cmd.append('%dx%d' % (800, 600))
+Sugar will now run on a 800x600 window.
+Other commands
+JHBuild has several other commands that can be useful for development. You can get an overview with:
+./sugar-jhbuild --help-commands
+A useful sequence of commands for building Sugar, from the
+Sugar mailing list
+:
+./sugar-jhbuild update
+./sugar-jhbuild build
+./sugar-jhbuild run
+Customize
+To customize the build create a configuration file, named .olpc.jhbuildrc, in your home directory.
+Write access to the repositories
+If you have write access to the repositories you can add:
+repos['gnome.org'] = ':ext:marco@cvs.gnome.org:/cvs/gnome'
+repos['mozilla.org'] = ':ext:marco%gnome.org@cvs.mozilla.org:/cvsroot'
+repos['dev.laptop.org'] = 'git+
+ssh://marco@dev.laptop.org/git/'
+repos['dev.laptop.org/projects'] = 'git+
+ssh://marco@dev.laptop.org/git/projects/'
+External links
+JHBuild manual
+Red Hat Magazine article: Introducing Sugar
+Tinderbox
+(see the "Sugar JHBuild" tab).  The old
+sugar-jhbuild tinderbox
+.

@@ -1,0 +1,315 @@
+Title: Talk:VMware
+URL: https://wiki.sugarlabs.org/go/Talk:VMware#change_networking
+--------------------------------------------------------------------------------
+Contents
+1
+Please maintain these pages
+2
+Updating zyx-liveinstaller
+3
+Sugar on a Stick in VM Player with persistence
+4
+Operating System Notes
+4.1
+Windows XP SP2
+4.2
+Ubuntu 8.04 and 9.04
+4.2.1
+For VMWorkstation HD Installs in Ubuntu
+4.3
+Fedora 12
+4.3.1
+Soas-v2-blueberry.iso Install using zyx-liveinstaller
+4.4
+Fedora12-EDU Spin
+4.5
+Fedora 11
+4.6
+Fedora 10
+4.7
+openSUSE
+4.7.1
+Live CD
+4.7.1.1
+Installation to VMWare hard disk (or Hard Disk)
+4.7.1.2
+add user
+4.7.1.3
+change networking
+4.7.1.4
+wireless networking
+4.7.2
+Mult-User Sugar Appliance
+4.7.3
+Prebuilt Sugar Appliance
+4.7.3.1
+Instructions
+4.7.4
+Image USB/SD Drives
+4.7.4.1
+Typical Imaging Session
+5
+Resources
+5.1
+other SUGAR distributions
+Please maintain these pages
+To those entering alternate installations and experimental images: please try to organize and integrate the page for the new reader.
+Sort the information for readers from beginner to advanced.
+Delete information that is out of date or, if it is significant, link to it on an historical page.
+If you have entered information, please don't abandon it to the confusion of others. Please use your experience to organize and maintain the information so others can rapidly reach a higher level of understanding of the subject matter.
+Updating zyx-liveinstaller
+NOT NECESSARY IN SOAS04.iso**
+Boot soas02.iso or soas03.iso as Burned CD
+in sugar terminal enter:
+rpm -Uvh \
+http://filteredperception.org/downloads/zyx-liveinstaller/zyx-liveinstaller-0.1.16-1.noarch.rpm
+enter command: zyx-liveinstaller.
+do graphical installation
+Sugar on a Stick in VM Player with persistence
+Copy-paste the VMware Player hard disk files to a 2 GB USB stick.
+Advantages;
+Portable (Student can take home and run on home Computer)
+Run it on different Platforms Windows. Mac, linux
+Disadvanage
+runs about 10x slower on a USB stick
+Operating System Notes
+Archive of old information
+Windows XP SP2
+Loads and runs VMware virtual machine in Windows XP SP2 {tested on a Dell 2350 Tower and EeePC1000 }
+Appliance (packaged virtual machine) runs from USB Stick & Hard Disk on VMPlayer or VMWorkstation
+Ubuntu 8.04 and 9.04
+VMware Workstation 6.5.2 can make virtual machine image files in Ubuntu. VMware Player will run these virtual appliances. The appliance can be distributed by copying to a DVD or a 4-GiB SD or USB drive or by downloading prebuilt VMPlayer Appliances from Sugar Labs [
+[1]
+] or other server.
+For VMWorkstation HD Installs in Ubuntu
+(also works for HD installs to PC)
+Ubuntu Installations use sugar-PPAs:
+[2]
+see Trisquel 3.0-Sugar
+[3]
+(based on Ubuntu 9.04)
+Fedora 12
+Soas-v2-blueberry.iso Install using zyx-liveinstaller
+Download link:
+[4]
+Method used for this Install to VMware 4GB IDE(custom)Hard disk /(SCSI will not work):
+<<In sugar terminal as root>>
+* zyx-liveinstaller
+Grapical Installer Starts
+START PARTITIONER
+*4GB unallocated
+*Make new partition (All of it;that just creates the partition scheme, you can create the partitions afterwards)
+=====Create new Partitions=====:
+* 200 MiB  ext2 for /boot
+* 2.93 GiB ext4 for /
+* 902 Mib  linux-swap 
+* Edit-Apply all Operations
+CANCEL PARTITIONER (hit X in Right top corner)
+zyx-live installer behind in window
+select the data and boot partitions and start install.
+Also will write to USB/SD
+Fedora12-EDU Spin
+http://spins.fedoraproject.org/edu/#downloads
+http://spins.fedoraproject.org/edu/
+F12 release 12 (Constantine)
+Use as a Live CD or as a 8-GB Appliance for VMware Player.
+0.86.3 Sugar and Gnome Desktop.
+It installs nicely in the normal manner with liveinst (or anaconda from terminal)
+dd install works (8GB USB) to make non-persistent installer USB for Netbooks
+See the procedure above to make a VMplayer on a USB boot stick run this latest version of the Sugar platform as an Appliance..
+Fedora 11
+VMware Player will not load in Fedora 11 beta or Fedora Preview loaded with shell command; One gets "Unable to modify kernel" error and quits.
+Fedora 10
+VMplayer can be loaded in Fedora 10 and used to run a VMplayer Appliance of Sugar platform based on Fedora 11.
+The Sugar platform included in Fedora 10 is not the current version.
+openSUSE
+Prebuilt .vmx file for Download:
+https://sourceforge.net/projects/opensuse-edu/files/Sugar/
+http://en.opensuse.org/Sugar
+(See: nubae and cyberorg on #irc  #sugar #opensuse-edu for details.)
+SUSE is building and hosting appliances at these sites for downloading.
+Live CD
+http://education.opensuse.org/download/ISOs/
+http://download.opensuse.org/repositories/Education/images/iso/
+Newest versions of live .iso can be installed to USB/SD with dd command:
+Now 2nd partition can be created with a script:
+http://en.opensuse.org/Live_USB_stick
+*(x)be careful to use correct device or you can wipe your hard disk!
+===========unformatted 2GB USB==================
+dd if=openSUSE-Sugar.i686-11.2.0-Build2.1.iso of=/dev/sd(x) bs=4M
+151+1 records in
+151+1 records out
+636485632 bytes (636 MB) copied, 86.862 s, 7.3 MB/s
+Add 2nd Persistent Partition:
+fdisk /dev/sd(x)
+The number of cylinders for this disk is set to 1959.
+There is nothing wrong with that, but this is larger than 1024,
+and could in certain setups cause problems with:
+1) software that runs at boot time (e.g., old versions of LILO)
+2) booting and partitioning software from other OSs
+  (e.g., DOS FDISK, OS/2 FDISK)
+Command (m for help): p
+Disk /dev/sd(x): 2055 MB, 2055019008 bytes
+64 heads, 32 sectors/track, 1959 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Disk identifier: 0x3e698287
+  Device Boot      Start         End      Blocks   Id  System
+/dev/sd(x)1   *           1         607      621568   83  Linux
+Command (m for help): n
+Command action
+  e   extended
+  p   primary partition (1-4)
+p
+Partition number (1-4): 2
+First cylinder (608-1959, default 608): 
+Using default value 608
+Last cylinder, +cylinders or +size{K,M,G} (608-1959, default 1959): 
+Using default value 1959
+Command (m for help): p
+Disk /dev/sd(x): 2055 MB, 2055019008 bytes
+64 heads, 32 sectors/track, 1959 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+ Disk identifier: 0x3e698287
+  Device Boot      Start         End      Blocks   Id  System
+/dev/sd(x)1   *           1         607      621568   83  Linux
+/dev/sd(x)2             608        1959     1384448   83  Linux
+Command (m for help): w
+The partition table has been altered!
+Calling ioctl() to re-read partition table.
+Syncing disks.
+Installation to VMWare hard disk (or Hard Disk)
+Sugar terminal:
+su -
+yast2 live-installer
+add user
+yast2 users
+change networking
+terminal 
+su -
+yast2 lan
+Global Options
+  [X] Traditional Method with ifup
+wireless networking
+yast2 lan
+su -
+yast2 lan
+need to switch networking out of network manager; edit and add wireless wlan wireless wlan0; and enter info on encrypted or open, and if WEP, SSID plus WEP Key information.
+select wired interface>edit>general>activate device>never
+ok
+yast2 lan (2nd time) select manage with Network Manager
+ok
+Reboot USB/SD
+Go to drop down box on network and delete network history. Be sure to have radio box checked.
+Reboot again, On F1 neighborhood should see circles for wireless network connections.
+Mouse over the one you want to use and enter passwords if requested on drop down box
+On reboot, to get wireless connection to connect, you may have to enter the following in terminal:
+su -
+rcnetwork restart
+Mult-User Sugar Appliance
+yast2 users
+Add User  ie: Student1, student2
+advanced>autologon no password (if you want no passwords )
+yast2 lan
+disconnect network manager
+configure interface
+restart
+To switch users (Students) log out from Sugar and you are presented
+with a list of users to connect to.
+Prebuilt Sugar Appliance
+http://education.opensuse.org/download/ISOs/
+(in .zip .vmx and.tar.bz2 formats)
+http://download.opensuse.org/repositories/Education/images/
+(.raw format for USB Sticks)
+Run on VMware Player or VirtualBox after decompressing.
+Instructions
+Important, for all openSUSE Appliances:
+openSUSE-Sugar-0.1.0-Build2.26.1.vmx
+no password req to start
+Password(root)=sugaruser
+====================================
+To reset SUGAR ENTIY:
+(Clear out name, color, and Sugar Journal contents)
+       <sugar terminal>
+	rm -rf ~/.sugar
+	su -
+	password:sugaruser
+	shutdown -h now
+	restart sugar
+
+INSTRUCTIONS ***VERY IMPORTANT!***
+======================================
+when you open this VM Appliance with VMPlayer for first time:
+	use "I moved it"
+	NO NOT click "I Copied it"
+	Doing so generates a 2nd MAC id for the network card and leaves it as eth0
+	not configured  (It will not work)
+	clearing the /.sugar entity (see above) does not affect Mac address
+	Nor does changing the color or name on the sugar control panel.
+
+***** ALSO Do the following Right away after opening sugar for the first time:*****
+*<sugar terminal>
+	su -
+ 	Password:xxx (see above)
+	yast2 sysconfig
+	System>Sysconfig>Enable Sysconfig>(NO)
+		(this locks out network reconfig)
+	exit, shutdown, restart
+ **(This seems to stop the autoconfiguration of openSUSE on restart)**
+IF F1 Neighborhood is not connecting:
+Try this First to start Network Manager:
+<sugar terminal>
+su -
+password:xxx
+rcnetwork restart
+=============
+NETWORKING FIX:
+	(Networking Fix for loss of F1 Neighborhood:)
+	<sugar terminal>
+	su-
+	Password:xxx (see above)
+	yast2 lan 
+	switch to non-Network Manager control
+	Delete other network cards 
+	configure DHCP 4 with hardware and eth0
+	exit 
+
+once you get networking to work;
+	*<sugar terminal>
+	su -
+	Password:xxx (see above)
+	yast2 lan
+	select Network Manager
+	exit
+		(change to network manager for wireless configration)
+then:
+	*<sugar terminal>
+	su -
+ 	Password:xxx (see above)
+	yast2 sysconfig
+	System>Sysconfig>Enable Sysconfig>(NO)
+		(this locks out network reconfig)
+	exit, shutdown, restart
+Image USB/SD Drives
+Details on how to use uncompresses raw file:
+http://en.opensuse.org/Disc_image_howtos
+Latest .raw file:
+http://download.opensuse.org/repositories/Education/images/
+Extract raw file
+Unmount the USB first, then from terminal:
+sudo dd if=/home/suse/"myappliance".raw of=/dev/sdb bs=4k
+Typical Imaging Session
+With raw file on ~/Desktop (BE CERTAIN your USB is sdb (the volume ID). (DO NOT use sdb1, the first partition ID). Change, if different.
+XXXX:~/Desktop/$ sudo dd if=openSUSE-Sugar-liveUSB-unstable.i686-0.0.3-Build4.17.raw of=/dev/sdb bs=4k
+[sudo] password for XXXX:
+ 463360+0 records in
+ 463360+0 records out
+1897922560 bytes (1.9 GB) copied, 195.168 s, 9.7 MB/s
+Resources
+http://www.vmware.com/
+OLPC:VMware
+http://www.pendrivelinux.com/category/virtual-machine/
+other SUGAR distributions
+Live USB
+[5]
+Linux Distributions
+[6]

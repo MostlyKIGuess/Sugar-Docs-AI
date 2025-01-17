@@ -1,0 +1,130 @@
+Title: Development Team/Memory/Usage Analysis
+URL: https://wiki.sugarlabs.org/go/Development_Team/Memory/Usage_Analysis
+--------------------------------------------------------------------------------
+Guppy-pe can give us detailed statistics about which python objects are taking space in the heap, the relationships between them and some more useful data. Particularly useful is the ability to take a snapshot of the current state and later print the diff between both points.
+See
+http://guppy-pe.sourceforge.net/heapy_Use.html#heapykinds.Use.monitor
+.
+The following patch to sugar-shell will periodically print some interesting information about memory usage. It may not apply cleanly, but anybody interested in using it will need anyway to read and understand this code.
+diff --git a/bin/sugar-shell b/bin/sugar-shell
+index b0f66b4..29f130a 100755
+--- a/bin/sugar-shell
++++ b/bin/sugar-shell
+@@ -85,7 +85,117 @@ def _shell_started_cb():
+     hw_manager = hardwaremanager.get_manager()
+     hw_manager.set_dcon_freeze(0)
+ 
++global mem_used, objects, garbage
++mem_used = 0
++objects = 0
++garbage = 0
++
++def _log_mem_usage(): 
++    import analysis, os, gc, logging
++    for i in xrange(3):
++        total = len(gc.get_objects())
++        unreachable = gc.collect()
++        logging.debug('After collection - total before: %r total after: %r unreachable: %r' % (total, len(gc.get_objects()), unreachable))
++
++    global mem_used, objects, garbage
++
++    current_mem = analysis.Analysis(os.getpid()).ApproxRealMemoryUsage()
++    current_objects = len(gc.get_objects())
++    current_garbage = len(gc.garbage)
++    logging.debug('mem: %i increment: %i' % (current_mem, current_mem - mem_used))
++    logging.debug('total objects: %i increment: %i' % (current_objects, current_objects - objects))
++    logging.debug('garbage: %i increment: %i\n' % (current_garbage, current_garbage - garbage))
++
++    mem_used = current_mem
++    objects = current_objects
++    garbage = current_garbage
++
++    return True
++
++global prev_heap
++prev_heap = None
++
++def _log_objects(): 
++    import gc
++    gc.collect()
++
++    global prev_heap    
++    import guppy, logging
++    import view.BuddyIcon
++    h = guppy.hpy()
++
++    heap = h.heap()
++
++    if prev_heap is not None:
++        diff = heap.diff(prev_heap)
++        for i in xrange(6):
++            logging.debug(diff)
++            diff = diff.more
++
++    prev_heap = heap
++    
++    return True
++
++global obj_occurrences
++obj_occurrences = {}
++
++def _get_obj_dict():
++    import gc
++    
++    obj_dict = {}
++    for o in gc.get_objects():
++        t = str(type(o))
++        if t in obj_dict:
++            obj_dict[t] += 1
++        else:
++            obj_dict[t] = 1
++    
++    return obj_dict
++    
++def _calc_diff(dict_a, dict_b):
++    types_a = set(dict_a.keys())
++    types_b = set(dict_b.keys())
++    types = types_a | types_b
++    result = {}
++    
++    for t in types:
++        if t in dict_a and t in dict_b:
++            result[t] = dict_a[t] - dict_b[t]
++        elif t in dict_a:
++            result[t] = dict_a[t]
++        else:
++            result[t] = - dict_b[t]
++        if result[t] == 0:
++            del result[t]
++    return result
++    
++def _log_diff():
++    import logging
++    logging.debug('Heap diff:')
++        
++    current_objs = _get_obj_dict()
++    
++    global obj_occurrences
++    if obj_occurrences:
++        diff = _calc_diff(current_objs, obj_occurrences)
++        for t, freq in diff.iteritems():
++            logging.debug('%s\t%d' % (t, freq))
++            
++    obj_occurrences = current_objs
++    
++    logging.debug('-----------------------------------')
++    
++    return True
++
+ def main():
++    import gc
++    gc.set_debug(gc.DEBUG_LEAK)
++    
++    #_log_objects()
++    #gobject.timeout_add(30000, _log_objects)
++    gobject.timeout_add(5000, _log_mem_usage)
++    #gobject.timeout_add(5000, _log_diff)
++    
+     gobject.idle_add(_shell_started_cb)
+ 
+     logsmanager.setup()

@@ -1,0 +1,84 @@
+Title: Summer of Code/2014/Voice Recognition Engine
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2014/Voice_Recognition_Engine
+--------------------------------------------------------------------------------
+Contents
+1
+ABOUT ME
+2
+ABOUT THE PROJECT
+2.1
+Impact on the Sugar community:
+2.2
+Setting up a development environment
+2.3
+A childhood learning experience
+2.4
+Getting Help
+ABOUT ME
+Name:
+Sambhav Satija
+Email Address:
+Sambhav13085@iiitd.ac.in
+Sugar Labs wiki username:
+DarkRyder
+IRC nickname:
+darkryder (or muso)
+First Language:
+English
+Location and working time:
+I live in New Delhi, India and tend to work from 08:00 UTC to 20:00 UTC
+About me (in general):
+I’m Sambhav Satija, an 18 year old, first year student of B.Tech (Computer Science) at Indraprastha Institute of Information Technology-Delhi (IIIT-D), India. I have spent my previous years being passionate about music and game (level) designing. Coming from a family devoid of engineers, I had no idea what a computer science student would even learn. As soon as I started learning and getting exposed, it was, the best way to put it, invigorating. The most elegant way I can explain what I feel whenever I was exposed to something new, is not a fear of the unknown, not uncertainty nor trepidation, but a chillingly exciting feeling like an adrenaline rush, and a want to keep on learning and simply absorbing more. I have been able to grasp comfortably everything I have come across up until now. I started learning programming about 8 months ago. We were taught python and I absolutely FELL FOR IT. I consider programming an art where you can find an elegant logical solution to a problem, and coding a means of translating your logic to a particular coding language. I pick up fast and am eager and willing to spend hours behind a particularly irritating little bug in a program. Even though I’m in my first semester, I have been picked up for an internship by a teacher over other applicants from the third and final year and have received a positive reply from another, the results of which have not been announced.
+ABOUT THE PROJECT
+Name of my project:
+Building an offline speech recognition engine
+Abstract:
+Since in the coming days, speech recognition in a system is changing from a crowd-puller to a necessity, it is important that we realise the importance of this project. The ease of use and efficiency that could be achieved by building a speech recognition engine using voxforge projects in python which can be used to get an input from a user is immense.The final aim would be to expose a friendly and robust API of a voice recognition engine which future activities can use as an input medium and it would work exactly the way a user would expect it to work. The most benefitted people would be those with problems in operating a physical input device due to some medical issues. People who spend some amount of time in adapting the model to their voice could get a high increase in efficiency while doing routine things. The main focus of this project would be of making this engine efficient, easy to use and tough to break.
+How I am aim to achieve it:
+Considering the fact that it would be integrated as a part of the core means of input, it is essential that the engine be made as robust and efficient as possible. The core engine, that would call the pocketsphinx, would be written in C to avoid the time loss due to interpreted languages. For the first phase of the development, I would begin by writing test cases. It would be inefficient and impossible to make the whole project development test driven, however it will be the most efficient way to get a core base of the engine up and running in the least time.
+After the most basic test cases are passed, I will start finalising the basic architecture of the engine. At this point of time, error handling would not be focused on as much as getting the correct results while making the program modular and program flow streamlined.  One of the things that we will have to fight is noise. For this, I plan to introduce an optional feature which would take 3-5 times the time taken for a single run however would give better performance in a noisier environment. The audio signal would be consecutively passed by a noise reduction filter (such as one by sox) and that the output audio fed into the engine.
+The final output that would be accepted would be the maximum occurrence of words from all the signals combined. This might have an adverse effect when, on cleaning the signal, a word might get split in 2 or combined in 2.  I plan to select those words with the more common occurrence (1/2 words) for the final output.
+The Core Engine would be using the voice enginge pocketSphinx(as suggested in the ideas page) and the voice models from voxforge. This would be the first part of the project.
+After this, in the second part we could then expose the API and make this procedural architecture event driven.  Taking in the input speech via GStreamer and sending the output through the d-bus and connecting them all to the Core Engine would be done in python.
+The third part is the main obstacle I have to yet overcome. How would the voice recognition be made better for personal use? The dialect that the database was trained in might not be suitable for the present dialect. That is a problem that is quite apparent to me as the voice model from voxforge is not really trained for the Indian dialect. I have thought of making a GUI in qt via which a user could adapt the existing model. This has been extensively covered in the documentation.
+TIMELINE
+Dates
+Work
+May 19th - May  23rd
+Making the Test Cases.
+May 24th –June 7th
+Building up the Core Engine in C which calls the PocketSphinx Engine and uses the existing voice  model from voxforge.
+June 8th – June 20th
+Implementing the noisy-environment process. If the performance is acceptable, considering making 2-3 passes by default.
+June 21st – June 31st
+Exposing the engine via the d-bus interface.
+July 1st – July 8th
+Time for finishing up the pending work and ironing out the bugs. Quite some code might have to be refactored
+July 9th – July 15th
+Experimenting with the various ways of adapting the voice model and drawing up a final architecture.
+July 16th – July 26th
+Buidling the decided implementation of adapting the voice model
+July 27th – August 5th
+Gluing together everything and ironing the bugs.
+August 5th - August 18th
+Making final tests, debugging and final integration into the core system.
+What is my interest in the project ?
+Sugar Labs is my one and only option in GSoC. There was no other community that had a project that piqued my interest as much as this did. I don’t mean to say that it is an easy project to do, but it sure seems to be a project for which I’m willing to give everything.  It’s one such idea where I’ll be happy to learn. I had been selected for a dual degree language recognition course (CLD COURSE) in IIIT-Hyderabad.
+Sample Projects
+Chess in python
+Working Habits
+I am willing to work 60-75 hours a week. As long as the project interests me, I have no hesitation in putting in extra time. I have no other commitments during the summer holidays, apart from an internship which requires 2-3 hours of my time daily. Any other family holiday that may crop up will be told to the mentor before-hand and the work will not suffer on any account.
+Future Work required:
+I would love to work more on this project after GSoC finishes, as more bugs would begin cropping up as soon as more people start using it. And I want to keep on improving this engine, so that more or less, the end-users receive a polished and robust version.
+Keeping the mentor informed:
+I will communicate with the mentor regularly via E-mail or over skype. I will publish my progress on a blog I will set up.
+Impact on the Sugar community:
+Being able to be used as an input method, it would have a direct and obvious impact in the way users would interact with the system.
+Setting up a development environment
+I have been focusing more on how to set up a voice engine and integrating it in a normal UNIX environment. Moving into the sugar environment will not be much of a problem for me.
+I was unaware that I had to do this, so I set about building the sugar environment and have modified it as required as soon as possible:
+A childhood learning experience
+As a child, the most memorable projects my dad and I did together were building hot-air baloons and a guitar amplifier.
+Getting Help
+If I run into any problem, I will obviously ask my mentor, or on the mailing list. Most of the projects I'll be using are well documented and can be understood. Moreover, I have the lucky advantage of having a friend who is really comfortable with the sugar environment and can help me out.
+Frankly speaking, if you receive a proposal from a more knowledgeable applicant, which would be probable to a great extent, I won’t mind losing to them. I admit that I may not have spent a great deal of my life programming and I have a lot to learn,but  I’m happy with the way I’m picking up this field. I consider getting into GSoC under SugarLabs more of a learning opportunity that I’d like to get than anything else.

@@ -1,0 +1,78 @@
+Title: Features/Enhanced color selector/Patch-window
+URL: https://wiki.sugarlabs.org/go/Features/Enhanced_color_selector/Patch-window
+--------------------------------------------------------------------------------
+--- src/jarabe/intro/window.py	2009-11-19 15:39:34.000000000 -0500
++++ src/jarabe/intro/window.py	2009-11-12 14:57:25.000000000 -0500
+@@ -125,14 +125,68 @@ class _ColorPage(_Page):
+                                        xalign=hippo.ALIGNMENT_CENTER)
+         self.append(self._label)
+ 
+-        self._cp = colorpicker.ColorPicker(xalign=hippo.ALIGNMENT_CENTER)
+-        self.append(self._cp)
++        self._box = hippo.CanvasBox(orientation=hippo.ORIENTATION_HORIZONTAL)
++
++        self._p = colorpicker.Prev(self)
++        self._box.append(self._p)
++
++        self._pc = colorpicker.ColorPrev(self)
++        self._box.append(self._pc)
++
++        self._cp = colorpicker.ColorPicker(self)
++        self._box.append(self._cp)
++
++        self._nc = colorpicker.ColorNext(self)
++        self._box.append(self._nc)
++
++        self._n = colorpicker.Next(self)
++        self._box.append(self._n)
++
++        self.append(self._box)
+ 
+-        self._color = self._cp.get_color()
+         self.set_valid(True)
+ 
++        self.init_colors()
++        self.set_random_colors()
++
++    def init_colors(self):
++        self._cp._xo_color = XoColor()
++        self._cp._xo.props.xo_color = self._cp._xo_color
++        self._pc._xo_color = XoColor()
++        self._pc._xo.props.xo_color = self._pc._xo_color
++        self._nc._xo_color = XoColor()
++        self._nc._xo.props.xo_color = self._nc._xo_color
++        self._p._xo_color = XoColor()
++        self._p._xo_color.set_color("#808080,#808080")
++        self._p._xo.props.xo_color = self._p._xo_color
++        self._n._xo.props.xo_color = self._p._xo_color
++        
++    def set_random_colors(self):
++        self._cp._xo_color.set_color(self._cp._xo_color.get_random_color())
++        self._cp._xo.props.xo_color = self._cp._xo_color
++        self._pc._xo_color.set_color(self._cp._xo_color.get_prev_color())
++        self._pc._xo.props.xo_color = self._pc._xo_color
++        self._nc._xo_color.set_color(self._cp._xo_color.get_next_color())
++        self._nc._xo.props.xo_color = self._nc._xo_color
++
++    def set_prev_colors(self):
++        self._nc._xo_color.set_color(self._cp._xo_color.to_string())
++        self._nc._xo.props.xo_color = self._nc._xo_color
++        self._cp._xo_color.set_color(self._pc._xo_color.to_string())
++        self._cp._xo.props.xo_color = self._cp._xo_color
++        self._pc._xo_color.set_color(self._pc._xo_color.get_prev_color())
++        self._pc._xo.props.xo_color = self._pc._xo_color
++
++    def set_next_colors(self):
++        self._pc._xo_color.set_color(self._cp._xo_color.to_string())
++        self._pc._xo.props.xo_color = self._pc._xo_color
++        self._cp._xo_color.set_color(self._nc._xo_color.to_string())
++        self._cp._xo.props.xo_color = self._cp._xo_color
++        self._nc._xo_color.set_color(self._nc._xo_color.get_next_color())
++        self._nc._xo.props.xo_color = self._nc._xo_color
++
+     def get_color(self):
+-        return self._cp.get_color()
++        return self._cp._xo_color
+ 
+ class _IntroBox(hippo.CanvasBox):
+     __gsignals__ = {

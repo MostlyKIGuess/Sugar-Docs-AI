@@ -1,0 +1,149 @@
+Title: Activity Team/Getting Involved
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Getting_Involved
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+Install Sugar
+2
+If you want to create your own activity
+2.1
+Start coding
+2.2
+Share your activity
+3
+Join the Activity Team
+4
+Help the Activity Team
+Install Sugar
+The easiest way is installing sugar from
+native packages
+.
+If your favourite GNU/Linux distribution doesn't provide sugar or contains out-of-dated packages(in most cases you don't need latest minor release(like 0.82.1, 0.84.1), the good practise is looking for the last major release(0.82, 0.84)) you could consider possibility to use
+sugar-jhbuild
+- the system used by core developers to build sugar from last git sources.
+As an activity developer in most cases you need only
+glucose
+module(its included to
+sugar-glucose
+or
+sugar
+packages).
+If you want to create your own activity
+What you need to do to create or share your activity.
+Start coding
+Create
+an account on
+git.sugarlabs.org
+and
+log in
+. Add your public SSH key to
+your account
+.
+Create a new project
+(
+http://git.sugarlabs.org
+, projects, new). Make your project name lowercase, e.g. pippy, turtleart, paint. Put it in
+category "activities"
+.
+Initiate
+your project
+You can copy/paste
+Hello World
+activity to get an example of usual files hierarchy.
+Place your activity to ~/Activities/
+activity-name
+.activity directory.
+To test your activity in sugar environment:
+use
+sugar
+command to run sugar as a regular window manager
+use
+sugar-emulator
+command to run sugar in window mode(in Xephyr), could be useful to test your activity in current environment without re-loginning.
+Consult with
+Activity Team/Resources
+to get useful links,
+Development Team/Almanac
+could be a good start page
+Start
+coding :)
+Share your activity
+If you want to share your activity for broad audience:
+Open a ticket on
+bugs.sugarlabs.org
+to create component for your activity e.g.
+#788
+Using
+setup.py
+from activity root directory, create .pot file
+Add
+the
+pootle
+user as a committer (from the "add committer" link on the mainline page) on
+git.sugarlabs.org
+Open a ticket on
+bugs.sugarlabs.org
+to add your activity to
+pootle
+(sugar translation environment) e.g.
+#810
+Upload a xo bundle
+(use
+setup.py
+to create bundle) to
+activities.sugarlabs.org
+.
+Be sure to include a couple of screenshots of your activity in action.
+Nominate
+your activity to the public
+Create activity page
+wiki.sugarlabs.org/go/Activities/<activity-name>
+keep in mind that page on
+activities.sugarlabs.org
+targeted to users and page on wiki targeted to more experienced users and developers
+Join the Activity Team
+The Activity Team is newly formed and we are seeking members.
+If you would like to join:
+Create a User page on wiki.sugarlabs.org if you have not already.
+Copy your SSH public key into your User page.
+Add a link to your User page to
+Activity Team/Contacts
+.
+Subscribe
+, and send an email introducing yourself to sugar-devel@lists.sugarlabs.org.
+If you are an independent developer who is interested in working on a Sugar activity, please introduce yourself and your project in an email to sugar-devel@lists.sugarlabs.org.
+Help the Activity Team
+If you'd rather just start coding
+right now
+, it's easy to do!
+Check
+Activity Team/TODO
+for ideas to work on.  To start small, pick an Activity Feature Request.  If you'd rather work on something harder, try one of the High Impact Tasks.
+If you haven't already set up Sugar, see
+Activity Team/Resources
+.
+Clone the Git repository for the project you picked and register it with Sugar.
+git clone <project_url>
+cd project_name
+python setup.py dev
+(Ctrl-Alt-Erase to restart Sugar)
+Hack on the source code.
+Create a patch file containing your changes.
+git commit
+git format-patch -1
+Email 0001-My-change-description.patch to sugar-devel@lists.sugarlabs.org.

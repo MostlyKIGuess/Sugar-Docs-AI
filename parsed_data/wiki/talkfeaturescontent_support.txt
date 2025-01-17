@@ -1,0 +1,91 @@
+Title: Talk:Features/Content support
+URL: https://wiki.sugarlabs.org/go/Talk:Features/Content_support
+--------------------------------------------------------------------------------
+Note that most of the discussion below refers to parts of the proposed feature which are no longer being proposed now (for the time being at least).
+I'd argue for a somewhat different approach to achieving the same goals. Instead of introducing yet another modal dialog, why not eliminate the list view and replace it with the star function in the Journal itself.
+Any object that is starred will show up on the Home View. (Ideally, there would be multiple stars corresponding to multiple Home Views, e.g., one for school, one for home...)
+Features of this approach:
+No confusing list view
+Media objects in list view
+Utilization of star in Journal view which currently does nothing
+Reutilization of current Journal filters
+--
+Walter
+16:39, 20 July 2010 (EDT)
+Contents
+1
+Home views as Journal favorites views
+2
+(Ab)using the Journal for stuff that the user didn't	do, create, or 	access
+3
+Adding a search interface for non-user-created content
+4
+Browse can handle content bundles directly
+Home views as Journal favorites views
+I imagine the Home view becoming tightly integrated with the Journal through the Journal favorites as Walter suggests.
+The 'List' Home view should be replaced by a Journal icon that would take the learner to a "non-favorite"-limited filter in the Journal view of the currently-selected Home group.  Where "Home group" would be the alternate views such as, School, Games, Music, Photos, etc., created by new Journal tagging features.  (The default Home view, would continue to be the favorite list of installed Activities.)
+A sub-row of Home group icons (which would instantly reveal on hover) would be provided on the Home view Frame button palette to allow the learner to jump to alternate Favorite views.  The Favorites Home view button would gain the same sub-row palette, and the alternate view patterns would be a sub-palette that would reveal only on a persistent hover or right-mouse button click.
+To complement the easy Journal access from the Home view, we should provide a direct Home view button on the Journal toolbar—the Journal Favorites view (aka, Home view). To conserve the valuable toolbar space, this should qualify for one of the corner positions.  (Are we reserving the corners for alert beacons or what?)
+--
+FGrose
+16:33, 21 July 2010 (EDT)
+http://lists.sugarlabs.org/archive/sugar-devel/2010-July/025615.html
+describes a Journal group design to support Activity and content grouping. --
+FGrose
+11:26, 28 July 2010 (EDT)
+(Ab)using the Journal for stuff that the user didn't	do, create, or 	access
+Both of these comments break a pretty core concept of the current journal design, in my opinion.
+http://www.mail-archive.com/sugar-devel@lists.sugarlabs.org/msg07888.html
+Amend the "non-favorite" filter above to include only learner-tagged objects/events. Then we could extend the Journal concept to My Journal and Others' Journals (some higher level filter with appropriate colors and names).  This would accommodate shared Journals and the core content that came with the Sugar image.  --
+FGrose
+17:52, 21 July 2010 (EDT)
+This proposal somewhat exasperates the confusion over things pre-installed in the Journal, but this is a preexisting problem. --
+Walter
+20:55, 21 July 2010 (EDT)
+True, but with the concept of My Journal vs. Others', a System Journal may come to conveniently represent the machine (with appropriate groups, such as event and error logs, that are more closely associated with the system vs. the learner).  We could find a natural way to introduce pre-installed content, which, once activated, become learner Activity instances, such as the e-book with my annotations and last page number, etc.  --
+FGrose
+23:17, 21 July 2010 (EDT)
+It is the "natural way to introduce pre-installed content" part I still struggle with, but as I said, this is a preexisting problem and shouldn't be roadblock to this feature proposal. --
+Walter
+08:22, 22 July 2010 (EDT)
+Adding a search interface for non-user-created content
+I like these suggestions a lot; it seems to me quite important to implement a first pass for use/testing/discussion.
+The idea of making better use of the home screen for finding/accessing content in particular could be enhanced by making good use of the search bar there (currently disabled).
+The results of a search should be an interface for discovering content of all sorts.  It could also replace the current software update interface.  I'd like to see it include (copied in part from
+bug 10244
+):
+Support discovery of local and remote content, including:
+Content available locally on the machine
+Content whose metadata / last known location is on the machine (found by searching a local metadata catalog)
+Content whose metadata / last known location is in a public catalog (found by visiting a URL)
+Support discovery of many types of content:
+activities and content bundles (using .xo/.xol microformats or other)
+individual books (using OPDS data or other)
+journal entries (using standardized journal metadata if searching "others' public journals")
+Support the notion of updates
+Checking for new catalog data and offering to update local catalog data when searches are run
+Checking metalists of available (distributed) catalogs and offering to check new catalogs for more activities/content
+Comparing version IDs or timestamps for activities/content that have it
+Offering hints as to the number of updates available for content already stored locally
+(as the current Activity Update interface offers. the default hint should probably be less bold; rather than a page listing the updates in detail and asking you to click "go!")
+Browse can handle content bundles directly
+The widely-deployed .xol content bundles only have minimal support (they can only be launched from the journal).
+Not true, you can view .xol (or any ZIP file) contents in Browse
+without installing or unpacking
+using the jar: protocol (
+#1258
+).
+Copy and paste the following into your browse bar , including the "jar:" on the front.
+jar:
+http://wiki.laptop.org/images/3/3e/Biology-9.jar!/Biology/index.en.html
+This has some interesting implications.
+Sugar code doesn't have to keep a .xol and a Library directory in sync, installing and uninstalling the latter as .xols are opened and erased.
+The file system determines if a content bundle conflicts with another.
+Instead of making web pages telling readers how great some content is, they can view it for themselves before they download.
+There are limitations to this:
+Some collections have an index.html that does a meta http-equiv refresh to a path in file:///home/olpc/Library , this won't work (and I think breaks anyway in other Sugar environments)
+Some collections (Biology, NatureImages, TranslationDictionary) reference a /usr/share/library-common/css/master.css).  This won't work if you browse them remotely.
+I don't know what the performance implications are.  I know Firefox 3.6 has additional performance boosts as Mozilla moved more files into a single runtime .jar file.
+--
+Skierpage
+06:40, 4 September 2010 (EDT)

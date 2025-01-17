@@ -1,0 +1,71 @@
+Title: BugSquad/Telepathy Debugging
+URL: https://wiki.sugarlabs.org/go/BugSquad/Telepathy_Debugging
+--------------------------------------------------------------------------------
+Contents
+1
+Enabling debug logs for Telepathy
+1.1
+Fedora 20 through Fedora 35/rawhide
+1.2
+Fedora 18
+2
+Capturing core files (XO specific)
+3
+Debugging scenarios
+3.1
+Troubleshooting example
+Enabling debug logs for Telepathy
+When there are certain kinds of problems with collaboration, it is useful to developers to have log files for debugging purposes. Here is how to enable these log files. If you haven't already seen
+BugSquad/Get Logs
+, see that page first.
+Fedora 20 through Fedora 35/rawhide
+Starting with Fedora 20, to enable debug logging of Salut and Gabble:
+Edit the /etc/environment file
+G_MESSAGES_DEBUG="all"
+SALUT_DEBUG="all"
+SALUT_LOGFILE=/home/olpc/salut.log
+GABBLE_DEBUG=all
+GABBLE_LOGFILE=/home/olpc/gabble.log
+Reboot
+Fedora 18
+Edit the ~/.sugar/debug file (default version shown below in the gray box) and uncomment the lines about GABBLE_DEBUG, GABBLE_LOGFILE, SALUT_DEBUG, SALUT_LOGFILE and PRESENCESERVICE_DEBUG by removing the initial '#' character
+For debugging lower level problems in the Telepathy connection managers, enable LM_DEBUG (for telepathy-gabble) or GIBBER_DEBUG (for telepathy-salut). Note that these will produce much bigger log files.
+Reboot (or restart the display manager).
+# Uncomment the following lines to turn on many sugar debugging
+# log files and features
+#export LM_DEBUG=net
+#export GABBLE_DEBUG=all
+#export GABBLE_LOGFILE=$HOME/.sugar/default/logs/telepathy-gabble.log
+#export SALUT_DEBUG=all
+#export SALUT_LOGFILE=$HOME/.sugar/default/logs/telepathy-salut.log
+#export GIBBER_DEBUG=all
+#export PRESENCESERVICE_DEBUG=1
+#export SUGAR_LOGGER_LEVEL=debug
+
+# Uncomment the following line to enable core dumps
+#ulimit -c unlimited
+Telepathy log files are now available at
+~/.sugar/default/logs/telepathy-gabble.log
+and
+~/.sugar/default/logs/telepathy-salut.log
+.
+Be sure to attach these files if you submit a ticket about a Telepathy issue.
+Capturing core files (XO specific)
+Core files are produced when a program crashes and contain useful debugging information. By default, core files are disabled on the XO. Here is how to enable them.
+As root:
+echo /tmp/core-%p-%e > /proc/sys/kernel/core_pattern
+This tells the kernel to put core files into the /tmp directory. This will only be effective until the laptop is rebooted. To make it persistent across reboots, add the following line to /etc/sysctl.conf:
+kernel.core_pattern = /tmp/core-%p-%e
+Add the following line to
+./sugar/debug
+:
+ulimit -c unlimited
+This turns off any limit on core file size.
+Debugging scenarios
+no presence seen on (or of) other machines/laptops
+activity was shared but doesn't appear on other laptops
+invitation was sent but not received
+other sharing problems
+Troubleshooting example
+See this discussion thread,
+http://www.mail-archive.com/devel@lists.laptop.org/msg24799.html

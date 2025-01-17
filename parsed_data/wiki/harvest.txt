@@ -1,0 +1,257 @@
+Title: Harvest
+URL: https://wiki.sugarlabs.org/go/Harvest
+--------------------------------------------------------------------------------
+Contents
+1
+Harvest Project
+1.1
+What it is collecting?
+1.1.1
+Concepts
+1.1.2
+Metadata
+1.2
+How does it work?
+1.3
+When does it collect?
+1.4
+What are the advantages?
+1.5
+What is implemented so far?
+1.5.1
+Harvest server
+1.5.2
+Harvest client
+1.6
+Code
+1.7
+External dependencies
+1.7.1
+Custom Groups
+1.7.2
+Network traffic
+1.7.3
+Spent time
+1.8
+RPMs
+1.8.1
+Install tch's repo
+1.8.2
+Install harvest-server
+1.8.3
+Install harvest-client
+1.8.3.1
+Settings
+1.9
+Development
+1.10
+TODO
+Harvest Project
+Harvest project aims to make learning visible to educators and decision makers. Within the context of the Sugar Learning Platform, this can be achieved by collecting reliable metadata from the Journal. This project proposes a simple and continuous mechanism to obtain metadata from Journal entries, incrementally over time. Metadata can stored in a central repository for further statistical analysis.
+What it is collecting?
+Harvest collects most of the non-sensible journal entry metadata, but also collects anonymous information about the user.
+Concepts
+Activities refers to the sugar applications that are being used.
+Learners refers to the sugar users.
+Instances refers to the different entries of an particular activity, owned by one learner.
+Launches refers to the metadata associated with each time the instance is started.
+Counters refers to the network traffic measurements.
+Metadata
+Data
+Concept
+Attribute
+Description
+Type
+Learners
+serial_number
+Hashed laptop identifier
+String
+birthdate
+Approximate date of birth of the user
+Unix time
+gender
+Gender of the user (either male, female, or unspecified by the user)
+String
+grouping
+Custom group associated with his learner (see
+Custom Groups
+)
+String
+Activities
+bundle_id
+Activity identifier
+String
+Instances
+object_id
+Entry identifier
+String
+filesize
+Size in bytes of the content associated to the entry
+Integer
+creation_time
+Entry creation time
+Unix time
+timestamp
+Entry last modification time
+Unix time
+buddies
+Number of user's associated to the entry
+Integer
+shared_scope
+If entry was exposed through the collaboration service
+Boolean
+title_set_by_user
+If user has set a custom message to the entry
+Boolean
+keep
+If the entry has been explicitly kept in the journal
+Boolean
+mime_type
+Media type associated to the activity instance
+String
+Launches
+timestamp
+Launch time for an particular entry
+Unix time
+spent_time
+seconds that the activity was opened (see
+Spent time
+)
+Integer
+Counters
+timestamp
+Time stamp for the beginning of the day (see
+Network traffic
+)
+Unix time
+download
+Bytes downloaded during that day
+Integer
+upload
+Bytes uploaded during that day
+Integer
+Observation:
+All the metadata names, matches the original names of the journal metadata.
+How does it work?
+The project comprises two pieces of software: a harvest server that can be localed anywhere in the cloud, and a harvest client that runs in the learners machine. The harvest server exposes a service, accessible from the Internet, for metadata storage. The harvest clients collect metadata from the Journal and sends it to server.
+When does it collect?
+Data is collected when Sugar starts and when Sugar successfully connects to a network.
+Once it has successfully collected data, it won't sent another report until the next collecting period, weekly or monthly.
+In order to avoid service peaks, Harvest applies a random chance for executing the collection process.
+Also, if the server is unresponsive, it won't retry for couple hours.
+What are the advantages?
+Learners data are never copied nor transferred out of their machines.
+The collection is being done continuously over time. This means that its sampling is very fine grained.
+It is very lightweight. It can be deployed in a central server.
+Does not require OS customization. The client is based on Sugar's web service framework, and it can be installed on any existing Sugar 0.100+ distribution.
+What is implemented so far?
+Pretty much everything as it concerns for metadata collection.
+Harvest server
+Back-end service for storage.
+SSL data encryption.
+API Key authorization.
+Control scripts based on systemd.
+DB migrations and continuous integration support.
+RPM packaging.
+Harvest client
+Journal metadata collection.
+Web service extension.
+Extension controls from the web service control panel.
+Random selection.
+Exclusive log for debugging.
+Hashed serial numbers.
+Restricted retry policy.
+RPM packaging.
+Code
+https://github.com/tchx84/harvest-client
+https://github.com/tchx84/harvest-server
+External dependencies
+Custom Groups
+In the About Me section of the Sugar control panel (and in the Sugar intro) it is possible set the age of the user.
+However, not every deployment may want to group users by age, e.g., in Australia, they group students by grade.
+Using a configuration file (
+/usr/share/sugar/data/group-labels.defaults
+), it is possible to configure the selection into groups specific to the needs of a deployment. The configuration file is a JSON-encoded Python dictionary that maps ages to labels and icons associated with those labels. There is also an environment variable
+$SUGAR_GROUP_LABELS
+defined in
+sugar.in
+.
+The file that configures the default Sugar behavior is shown here (with added CRs for readability in the wiki):
+Age selector
+{"group-label": "Select age:",
+"group-items": [
+{"female-icon": "female-0", "male-icon": "male-0", "label": "0-3", "age": 3},
+{"female-icon": "female-1", "male-icon": "male-1", "label": "4-5", "age": 5},
+{"female-icon": "female-2", "male-icon": "male-2", "label": "6-7", "age": 7},
+{"female-icon": "female-3", "male-icon": "male-3", "label": "8-9", "age": 9},
+{"female-icon": "female-4", "male-icon": "male-4", "label": "10-11", "age": 11},
+{"female-icon": "female-5", "male-icon": "male-5", "label": "12", "age": 12},
+{"female-icon": "female-6", "male-icon": "male-6", "label": "13-17", "age": 15},
+{"female-icon": "female-7", "male-icon": "male-7", "label": "Adult", "age": 25}
+]}
+The group-label is the prompt that appears in the UI
+Each group-item is represented by a different icon and label in the interface and is mapped to a specific age used to calculate birthdate reported by Harvest. The icons are gender-specific. If no gender is specified, the female icon is used.
+A file that configures grades instead of ages is shown here (with added CRs for readability in the wiki):
+Grade selector
+{"group-label": "Select grade:",
+"group-items": [
+{"female-icon": "female-1", "male-icon": "male-1", "label": "Preschool", "age":  4},
+{"female-icon": "female-1", "male-icon": "male-1", "label": "Kindergarten", "age": 5},
+{"female-icon": "female-2", "male-icon": "male-2", "label": "1st Grade", "age": 6},
+{"female-icon": "female-3", "male-icon": "male-3", "label": "2nd Grade", "age": 7},
+{"female-icon": "female-4", "male-icon": "male-4", "label": "3rd Grade", "age": 8},
+{"female-icon": "female-5", "male-icon": "male-5", "label": "4th Grade", "age": 9},
+{"female-icon": "female-5", "male-icon": "male-5", "label": "5th Grade", "age": 10},
+{"female-icon": "female-6", "male-icon": "male-6", "label": "6th Grade", "age": 11},
+{"female-icon": "female-6", "male-icon": "male-6", "label": "7th Grade", "age": 12},
+{"female-icon": "female-7", "male-icon": "male-7", "label": "High School", "age": 13},
+{"female-icon": "female-7", "male-icon": "male-7", "label": "Adult", "age": 25}
+]}
+Network traffic
+Harvest-monitor is a lightweight daemon which uses custom iptables counters to do measurements on network traffic. These counters are then accumulated in a SQLite database, where each row presents a day. This is an optional feature. If available, harvest-client will collect these measurements and report it to the server.
+The source code can be found at:
+https://github.com/tchx84/harvest-monitor
+The RPM package can be downloaded from:
+http://www.sugarlabs.org/~tch/repos/f18/harvest-monitor-0.2.0-2.noarch.rpm
+Spent time
+This is based on downstream sugar-toolkit and sugar-toolkit-gtk3 patches by Manuel Quiñones and Martin Abente. These patches allow the activities to count the time (in seconds) for when it was opened. Only takes into account the time for when activity is the main screen. This is also a optional feature.
+sugar-toolkit downstream pathches:
+https://github.com/manuq/sugar-toolkit/tree/spent-time
+sugar-toolkit-gtk3 downstream patches:
+https://github.com/manuq/sugar-toolkit-gtk3/tree/spent-time-3
+The precision of the time tracking can be improved by taking into account power management events and other sugar UI events. In order to do so, harvest-tracker must be installed.
+harvest-tracker source code:
+https://github.com/tchx84/harvest-tracker
+harvest-tracker RPM package:
+http://www.sugarlabs.org/~tch/repos/f18/harvest-tracker-0.3.0-1.noarch.rpm
+RPMs
+Install tch's repo
+$sudo vim /etc/yum.repos.d/tch.repo
+[tch]
+ name=tch
+ baseurl=
+http://www.sugarlabs.org/~tch/repos/f19/
+enabled=1
+ metadata_expire=1d
+ gpgcheck=0
+Install harvest-server
+$sudo yum install harvest-sever
+ $sudo service harvest start
+ $sudo systemctl enable harvest.service
+Observation:
+server's RPM installer assumes no password for the root MySQL user, this way it will do absolutely everything for you. Even when updating.
+Observation:
+server's config can be found at /opt/harvest/etc/harvest.cfg. It is recommended to modify the api-key.
+Install harvest-client
+$sudo install harvest-client
+Settings
+Clients can be setup in sugar's control panel "Web accounts" section, or it can be done via terminal:
+$gconftool-2 --set /desktop/sugar/collaboration/harvest_hostname
+https://your.hostname
+--type string
+ $gconftool-2 --set /desktop/sugar/collaboration/harvest_api_key your-api-key --type string
+Development
+If you interested in contributing to this project please contact tch at sugarlabs dot org (Martin Abente Lahaye).
+TODO
+Server-side data visualization
+Client-side (Sugar) modifications to collect run-times and other desired data

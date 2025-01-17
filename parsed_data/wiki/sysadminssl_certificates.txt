@@ -1,0 +1,33 @@
+Title: Sysadmin/SSL Certificates
+URL: https://wiki.sugarlabs.org/go/Sysadmin/SSL_Certificates
+--------------------------------------------------------------------------------
+We use StartCom's StartSSL for our certificates.
+Generate a key and a CSR: (we use
+-batch
+because StartSSL ignores everything but the public key in the CSR)
+openssl req -batch -new -keyout CNAME.sugarlabs.org.key -out CNAME.sugarlabs.org.csr
+Log into the
+StartSSL control panel
+.
+If you need to reconfirm access to the Sugar Labs domain (which is required every 30 days), do the following:
+Go to "Validation Wizard"
+Select **Type**: "Domain Name Validation"
+Choose the validation email for which you have access to. These all go to a RT queue, so you'll need RT permissions to receive these emails.
+Retrieve the authentication code from RT and enter it into the StartSSL site.
+Go to "Certificate Wizard"
+Select "Web Server" as the certificate type
+Skip "Generate Private Key", we already generated one on our own hardware.
+Paste in your CSR into the textarea.
+Select "sugarlabs.org" as the domain
+Enter the subdomain for which you are requesting access
+Your certificate will either be granted instantly, or sometime over the next three hours. You'll get an email notification when that happens, and will be able to retrieve the certificate from *Tool box > Retrieve Certificate*.
+Use the
+SSL validator
+to verify the new certificate and web server configuration (NOTE: the validator doesn't seem to support SNI).
+Sites
+chat.sugarlabs.org
+git.sugarlabs.org
+cas.sugarlabs.org
+obs.sugarlabs.org
+packages.sugarlabs.org
+add sites you maintain

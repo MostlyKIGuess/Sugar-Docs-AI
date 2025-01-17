@@ -1,0 +1,92 @@
+Title: Machine/Discovery One
+URL: https://wiki.sugarlabs.org/go/Machine/Discovery_One
+--------------------------------------------------------------------------------
+Contents
+1
+Design
+2
+Components
+3
+Scaling Stage 1
+3.1
+Considerations
+3.2
+Observations
+3.3
+Compromises
+4
+Scaling Stage 2+
+4.1
+Considerations
+5
+Location
+6
+Admins
+7
+Installation
+Discovery One is the name of the group of machines running activities.sugarlabs.org. Activities.sugarlabs.org is a system for encouraging developers to cooperatively develop, edit, and distribute learning activities for the Sugar Platform.
+This section of the wiki is about setting up and maintaining the infrastructure.  For information about using and and improving activities.sl.o please see
+Activity Library
+.
+Design
+The prime design characteristics of a.sl.o are security, scalability and, availability.  As the a.sl.o user base grows, each component can be scaled horizontally, across multiple physical machines.  The additional physical machines will provide room for VMs to provide redundant services
+As of November 2009 activities.sl.o is serving 500,000 activities per month using two machines located at Gnaps.  The proxy(green) is on treehouse and the rest of the stack(red) is on sunjammer.
+Components
+Proxy
+The Proxy is the public web face portion of a.sl.o. The Proxy both serves static content and acts as a firewall for the rest of the system.
+Web
+The Web nodes serve dynamically generated content and pass requests for activity downloads to the Content Delivery Network.
+Database
+The Database maintains the data for the web nodes.
+Shared File System
+The Shared File System maintains a consistent file structure for the web nodes and the Content Delivery Network.
+Content Delivery Network
+The Content Delivery Network distributes and serves files from mirrors outside of the primary datacenter.
+Scaling Stage 1
+Our first bottleneck in scaling a.sl.o is the cpu load of the web-nodes.  Our first step will be to split the web nodes across multiple physical machines.
+Considerations
+Cloning web nodes.  Each web node is an exact clone of eachother.  The only difference is in assigned IP Address.  Tested
+Load balancing. Add Perlbal loadbalancing and Heartbeat HA monitoring to proxy.  Tested
+Common data base.  Point web nodes to common database. tested.
+Common file system. Point web nodes and CDN to common file system.  In Progress.
+Observations
+As of Nov 2009
+Proxy nodes
+At peak loads catches ~ 20-25% of hits before they reach webnodes
+Limiting factors inodes and memory
+VM has 2G memory.... Starting to swap.
+Web nodes
+A Dual core 2.4 Opteron(Sunjammer) can handle our peak load at ~ 60% cpu
+A Quad core 2.2 AMD(treehouse) can handle ~ 22 transactions per second.
+Estimate less than 4GB of memory required per web node.
+Memcached nodes (part of web nodes)
+~85 hit rate
+1.25G of assigned memory.
+Database Nodes
+Cpu load about 25% of web node -- one Database node should serve 4-5 web nodes.
+Compromises
+This design sacrifices availability for simplicity.  We have several possible single points of failure; Proxy, common file system, and database.
+Scaling Stage 2+
+Sorry Bernie this bit is likely to give you a heart attack.
+As we split the web nodes across multiple physical machines, we we be able to add redundant components for High availability.
+Considerations
+Proxy - Loadbalancers.  2+ proxies on separate physical machines which share an IP.  If a machine fails the other(s) pick up the load.
+Web nodes - Individual nodes will be monitored by Heartbeat HA monitor living on the proxies.  If a web node fails, it is dropped from the Load balancing rotation.
+Memcached - Memcached is designed to be distributed.  If a node fails it is dropped.
+Database - Two machines in a Master-Master configuration.  Under normal operation they operate as master-slave. If the master fails, the other takes over as master.
+File system - TBD
+Location
+Hosted by
+sunjammer
+Hosted by
+treehouse
+Admins
+Stefan Unterhauser
+, dogi on #sugar in Freenode or on
+#treehouse
+in OFTC
+David Farning
+Installation
+This machine is a clone from the VM-Template base904.img on treeehouse and runs
+Ubuntu server 9.04.
+Machine/Discovery One/Node

@@ -1,0 +1,26 @@
+Title: Activity Team/Control Panel
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Control_Panel
+--------------------------------------------------------------------------------
+There are several things to keep in mind when adding a new section to the Sugar Control panel.
+Add you code to sugar/extensions/cpsection in a subdirectory specific to your section
+Make sure to add your new section to sugar/extensions/cpsection/Makefile.am
+Make sure to add your new section to sugar/configure.ac
+Put the icon for your section in sugar/data/icons
+Make sure to add your icon to sugar/data/icons/Makefile.am
+Your section subdirectory should contain a minimum of four files:
+Makefile.am
+__init__.py
+view.py
+model.py
+__init__.py should contain CLASS, ICON, TITLE, and KEYWORDS
+CLASS = 'Touchpad'
+   ICON = 'module-touchpad'
+   TITLE = _('Touchpad')
+   KEYWORDS = ['touchpad']
+If you want to make the appearance of section conditional, for example, for a specific hardware architecture, then simply add a conditional as per:
+if path.exists('/sys/devices/platform/i8042/serio1/ptmode'):
+   CLASS = 'Touchpad'
+   ICON = 'module-touchpad'
+   TITLE = _('Touchpad')
+   KEYWORDS = ['touchpad']
+In the above example, the path only exists for OLPC XO-1 CL1 hardware, which is the only hardware for which this particular section is relevant.

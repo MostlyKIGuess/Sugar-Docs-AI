@@ -1,0 +1,26 @@
+Title: SoaS/Testing/openSUSE-LiveUSB.raw images
+URL: https://wiki.sugarlabs.org/go/SoaS/Testing/openSUSE-LiveUSB.raw_images
+--------------------------------------------------------------------------------
+Compressed USB Images with similar features to openSUSE-Sugar-live-.iso
+Boots from USB/SD
+Over 50 activities
+works well
+.raw images downloaded from:
+http://download.opensuse.org/repositories/Education/images/
+(.raw images built very often, check for latest)
+latest image:
+http://download.opensuse.org/repositories/Education/images/openSUSE-Sugar-liveUSB-unstable.i686-0.0.3-Build4.19.raw.bz2
+How to Image USB/SD Drives
+2GB or larger USB Stick or SD Card
+Details on how to use uncompressed raw file:
+http://en.opensuse.org/Disc_image_howtos
+Extract raw file
+Unmount the USB first, then from terminal:
+sudo dd if=/home/suse/"myappliance".raw of=/dev/sdb bs=4k
+Typical Imaging Session
+With decompresed raw file on ~/Desktop (BE CERTAIN your USB is sdb (the volume ID). (DO NOT use sdb1, the first partition ID). Change, if different.
+XXXX:~/Desktop/$ sudo dd if=openSUSE-Sugar-liveUSB-unstable.i686-0.0.3-Build4.17.raw of=/dev/sdb bs=4k
+[sudo] password for XXXX:
+463360+0 records in
+463360+0 records out
+1897922560 bytes (1.9 GB) copied, 195.168 s, 9.7 MB/s

@@ -1,0 +1,88 @@
+Title: Fedora 21/UEFI recovery
+URL: https://wiki.sugarlabs.org/go/Fedora_21/UEFI_recovery
+--------------------------------------------------------------------------------
+https://fedoraproject.org/wiki/User:Dmossor/uefi-recovery
+Copy of this web page is shown below:
+User:Dmossor/uefi-recovery
+The Problem
+So, I recently was attacked by anaconda, the Fedora installer we all know and love (to hate). While testing out a nightly build of Fedora 21, I installed to a USB hard drive attached to my laptop, with the intention of simply unplugging the USB drive and continuing on my way when I was done. However, one of the steps of the build is to create the boot entry in the UEFI firmware. Here is the log that shows exactly what happened:
+Aug 11 22:48:35 g55-f21 program[2698]: Running... efibootmgr
+Aug 11 22:48:35 g55-f21 program[2698]: BootCurrent: 0004
+Aug 11 22:48:35 g55-f21 program[2698]: Timeout: 0 seconds
+Aug 11 22:48:35 g55-f21 program[2698]: BootOrder: 0000,0004,0003,0005
+Aug 11 22:48:36 g55-f21 program[2698]: Boot0000* Fedora
+Aug 11 22:48:36 g55-f21 program[2698]: Boot0003* Hard Drive
+Aug 11 22:48:36 g55-f21 program[2698]: Boot0004* UEFI: KingstonDT 101 G2 PMAP
+Aug 11 22:48:36 g55-f21 program[2698]: Boot0005* CD/DVD Drive
+Aug 11 22:48:36 g55-f21 program[2698]: Running... efibootmgr -b 0000 -B
+Aug 11 22:48:36 g55-f21 program[2698]: BootCurrent: 0004
+Aug 11 22:48:36 g55-f21 program[2698]: Timeout: 0 seconds
+Aug 11 22:48:36 g55-f21 program[2698]: BootOrder: 0004,0003,0005
+Aug 11 22:48:36 g55-f21 program[2698]: Boot0003* Hard Drive
+Aug 11 22:48:36 g55-f21 program[2698]: Boot0004* UEFI: KingstonDT 101 G2 PMAP
+Aug 11 22:48:36 g55-f21 program[2698]: Boot0005* CD/DVD Drive
+Aug 11 22:48:36 g55-f21 program[2698]: Running... efibootmgr -c -w -L Fedora -d /dev/sdd -p 1 -l \EFI\fedora\shim.efi
+Aug 11 22:48:36 g55-f21 program[2698]: BootCurrent: 0004
+Aug 11 22:48:36 g55-f21 program[2698]: Timeout: 0 seconds
+Aug 11 22:48:36 g55-f21 program[2698]: BootOrder: 0000,0004,0003,0005
+Aug 11 22:48:36 g55-f21 program[2698]: Boot0003* Hard Drive
+Aug 11 22:48:36 g55-f21 program[2698]: Boot0004* UEFI: KingstonDT 101 G2 PMAP
+Aug 11 22:48:36 g55-f21 program[2698]: Boot0005* CD/DVD Drive
+Aug 11 22:48:36 g55-f21 program[2698]: Boot0000* Fedora
+If you are familiar with the efibootmgr command, you see that the fist thing it does is delete entry 0000. According to the folks from Anaconda, it searches for a boot entry labeled "Fedora" (case insensitive) and deletes it - this is not well publicized, so there is a workaround (more on this later). No checks as to the install destination are performed.
+What this effectively does is cripple the system. There are no real easy to find write-ups on editing the boot entry directly in the firmware - if your firmware even gives you the option. I could no longer boot to the internal hard drives.
+The Solution
+Remove the USB hard drive from the system.
+   Boot to a live image, either on disc or via USB thumb drive (I suppose a PXE boot would work, too, if you can do that).
+   If your discs are encrypted, you'll need to unlock them.
+cryptsetup luksOpen /dev/sdXY name
+Mount your disks - you'll need to mount all of them so we can chroot to the system.
+mount /dev/sda3 /mnt
+mount /dev/sda4 /home
+For encrypted disks, or LVMs this is slightly different. That name you gave it when you unlocked it is the device you need to mount:
+mount /dev/mapper/name /mnt
+mount /dev/sda2 /mnt/boot
+mount /dev/sda1 /mnt/boot/efi
+mount -o bind /dev /mnt/dev
+mount -o bind /proc /mnt/proc
+mount -o bind /sys /mnt/sys
+chroot /mnt
+yum reinstall grub2-tools grub2-efi shim
+yum install grub2-efi-modules
+grub2-install /dev/sda
+Part of the grub2 installation creates your boot entry in the EFI firmware. Now your system can at least boot from the hard drive - but there is still more work to do. When grub2 installs, it installs itself with the current kernel, no matter if your chrooted or not. When you boot, you will need to select the rescue kernel, since none of the other options will likely work.
+Once at the command line, check to see what your latest kernel installed is:
+ls /boot/
+With that piece of information, you'll need to directly edit your grub.cfg using your favorite editor (vi, vim, nano, whatever), and edit one of the boot entries to point at an existing kernel version. You'll need to edit three lines - the boot entry line, and the last two lines in the boot entry with the vmlinuz info:
+This is the entry I started with:
+menuentry 'Fedora, with Linux 3.13.3-200.fc20.x86_64' --class fedora --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.3-200.fc20.x86_64-advanced-7c189a71-2f39-434e-a636-7f779b4fe9c1' {
+set gfxpayload=text
+       insmod gzio
+       insmod part_gpt
+       insmod ext2
+       set root='hd0,gpt2'
+       if [ x$feature_platform_search_hint = xy ]; then
+         search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  d34de5bc-e563-46e7-ac48-877fe88095c2
+       else
+         search --no-floppy --fs-uuid --set=root d34de5bc-e563-46e7-ac48-877fe88095c2
+       fi
+       linuxefi /vmlinuz-3.13.3-200.fc20.x86_64 root=UUID=7c189a71-2f39-434e-a636-7f779b4fe9c1 ro rd.lvm.lv=vg_g55/swap rd.luks.uuid=luks-240788df-a9c7-43ab-ac44-38470c6def3c vconsole.font=latarcyrheb-sun16 rd.luks.uuid=luks-ebe74a8e-9c1e-4200-88d6-ed3bc9cb0435  rhgb quiet 
+       initrdefi /initramfs-3.13.3-200.fc20.x86_64.img
+}
+Editing the menuentry line, and the linuxefi and initrdefi lines, I ended up with this:
+menuentry 'Fedora, with Linux 3.15.8-200.fc20.x86_64' --class fedora --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux-3.15.8-200.fc20.x86_64-advanced-7c189a71-2f39-434e-a636-7f779b4fe9c1' {
+set gfxpayload=text
+       insmod gzio
+       insmod part_gpt
+       insmod ext2
+       set root='hd0,gpt2'
+       if [ x$feature_platform_search_hint = xy ]; then
+         search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  d34de5bc-e563-46e7-ac48-877fe88095c2
+       else
+         search --no-floppy --fs-uuid --set=root d34de5bc-e563-46e7-ac48-877fe88095c2
+       fi
+       linuxefi /vmlinuz-3.15.8-200.fc20.x86_64 root=UUID=7c189a71-2f39-434e-a636-7f779b4fe9c1 ro rd.lvm.lv=vg_g55/swap rd.luks.uuid=luks-240788df-a9c7-43ab-ac44-38470c6def3c vconsole.font=latarcyrheb-sun16 rd.luks.uuid=luks-ebe74a8e-9c1e-4200-88d6-ed3bc9cb0435  rhgb quiet 
+       initrdefi /initramfs-3.15.8-200.fc20.x86_64.img
+Once this is done, you can reboot into a working kernel. The first thing you should do here is run grub2-mkconfig to get it to clean up the config file.
+The Workaround
+That workaround I mentioned earlier? It is possible to rename your boot entry to something other than "Fedora", but efibootmgr appears to be incapable of this - or at least my knowledge of it is.

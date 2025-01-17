@@ -1,0 +1,206 @@
+Title: Summer of Code/2014/AnaBalica/Social Help
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2014/AnaBalica/Social_Help
+--------------------------------------------------------------------------------
+Contents
+1
+About me
+2
+About the project
+2.1
+Abstract
+2.2
+Functional requirements
+2.3
+Comparison between Discourse and Sugar Network
+2.4
+Conclusion
+3
+You and the community
+4
+Miscellaneous
+About me
+What is your name?
+Ana Balica
+What is your email address?
+ana.balica@gmail.com
+What is your Sugar Labs wiki username?
+AnaBalica
+What is your IRC nickname on irc.freenode.net?
+ananasova
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+I know 3 languages: Romanian, Russian and English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+Originally I am from Republic of Moldova. My current location (also during the summer) is Prague, Czech Republic (UTC +1). Normal working day starts at 8AM UTC and ends at 7PM UTC.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+Open-source contributions:
+moin2.0 -
+change subscription mechanism and other enhancements
+sugar bugfix -
+Fix #4733 - remove warning on username change
+and
+Manage restart message on reverting to initial username
+About the project
+What is the name of your project?
+Social Help
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+Abstract
+Social Help is a system wide mechanism to access a range of social channels like IRC, forums or social networks (i.e. Sugar Network) within a specific context. Basic implementation is available on
+github branch prototype-social-help
+and the interaction workflow is screencasted and posted on
+youtube
+. The prototype includes a system-wide handling of a keypress combination - <Shift><Alt><c>, which pops up a window that has 2 options: to join IRC or to open the Browse activity. At the moment the following window looks like that:
+Social Help window within Read Activity
+Social Sugar window within TurtleArt activity
+Here is a simple UI design of the window (made in Inkscape). The Discourse button is merely an example (in case the community decides on using a different forum platform).
+Social Help window design
+Update:
+This is just a prototype and there is a better idea how to handle Social Help window (from Sam Parkinson). We can add one extra icon to the static Help dialog, which will display the Social Help interface. In that way we are not overloading the user operation with extra shortcuts and we make it more discoverable, due to the fact that users are already used to static Help window.
+Functional requirements
+Nr
+Description
+Priority
+Time to implement
+Comments
+1
+On a specific keypress bring up a window with a list of available social channels for the specific context
+Major
+4 days
+2
+Create a toolbar button in the sugar toolkit with a palette that contains all available social channels for the following activity
+Major
+4 days
+The priority is set to major, since a visual component to access Social Help is more intuitive and simple to find.
+3
+Include Social Help toolbar button to the main activities included in the standard distribution
+Major
+1 day
+If the button won't be made available from the UI, the whole reason to have it disappears.
+4
+On clicking the IRC button, IRC activity should be opened with the name of the user set from system settings and the respective channel joined.
+Major
+3 days
+In my opinion an IRC channel option should be present along with the forum possibility, because it is the fastest and most straight-forward way to get a quick answer to a short, well-formed question (nevertheless it contains its drawbacks, which are surely covered by forum style help). I am also wondering if there is going to exist a single or multiple help channels.
+5
+Display an error message in case the user has chosen to ask for help via IRC activity and the following activity is not installed. Propose to open the browser to the download page of the IRC activity.
+Medium
+2 days
+6
+On clicking the forum button, resume the Browse activity and open an extra tab that links to the forum address.
+Major
+3 days
+7
+Create an automatic way of registration/authentication to afford users to post questions on the forum/network as quick as possible. The registration and authentication progress is dependent on the platform to be chosen.
+Medium
+2 weeks
+It is quite important to create a flawless workflow to the user, it is especially important in case it is going to be a one time access. If a user will visit the forum/network more than once, than the browser clearly keeps the session data and allow instant access to posting.
+8
+Localize all the components of Social Help
+Major
+2 days
+9
+Create the Code of Conduct for Social Help channels
+Minor
+3 days
+Comparison between Discourse and Sugar Network
+Criteria
+Discourse
+Sugar Network
+Showcase/Example
+http://try.discourse.org/
+http://network.sugarlabs.org/
+UI and UX
+Has a clean, modern UI, contains categories, information about posts, likes, latest activity, suggested topics. It is mobile-friendly. Since it is a general purpose discussion software, it has a decent universal-like design. Discourse is skinnable and themable, therefore can be easily adapted to Sugar needs.
+Follows the Sugar style guidelines, is
+oriented towards low aged students
+. Hence represents a well-known and intuitive tool for users. Contains a grid of activities with sections divided into questions, ideas, problems, reviews, all resources and artifact gallery. Moreover has lists of resources and artifacts.
+Current status
+Late beta
+, approaching version 1.0
+Version 1.0
+Registration and authentication
+Provides access to stand alone registration or using available services (Google, Github, Facebook and others). Respectively authentication is done using forum credentials or external credentials.
+Sugar Network has an RESTful
+API
+and a client side application on top of it, which allows
+authentication and authorization
+.
+At the moment I can find any relevant information regarding the registration process. Is it already integrated with Sugar Environment via users GUID?
+Usability
+It is a discussion software, intuitive and easy to use (sounds like a subjective option, nevertheless it is also based on the community voice and the project scope as a whole). Provides a user profile with some data about the user and his activity on the forum.
+Sugar Network is a content sharing and social activity system for Sugar Learning Environment, which represents a central point for collaboration between
+students, educators, software developers
+. It offers a social network to
+ask questions, propose ideas, complain about problems and express ideas
+. It provides access not only to Internet users, but also to primary and secondary educational institutions including those without Internet connection.
+Conclusion
+Social Help is oriented towards users of Sugar (kids) that for various reasons are in need of social interaction:
+ask a question on how to achieve something within Sugar or an activity
+share knowledge and experience
+propose enhancements
+debug possible problems
+To think about it, today's society is overwhelmed with social networks, forums and chats. Social Help is an easy way to access social channels and get children involved into helping each other. The interaction can give them a headstart in understanding how to use the tools they are offered and even contribute to the project.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Timeline:
+19-25 May - Decide on and code the final UI design of the Social Help window
+26-1 June - Bring on a context-dependent window on a specific keypress to show all available communication channels for the following context and attach callbacks to UI widgets
+2-8 June - Create a toolbar button for social help with a palette listing all available channels for the current context, integrate the toolbar button to main activities
+9-15 June - On IRC channel button press event open IRC activity, set the nickname based on system user and join the help channel
+16-29 June - Set up a forum platform or familiarize with the existing one, create a seamless registration and authentication process for Sugar users
+30-6 July  - On Forum(s) button press event open the respective activity or the Browse activity and point to the context-dependent category to post the question
+7-13 July - Create error message popup windows and offer to download missing components (i.e. IRC activity)
+14-20 July - Write unit and integration tests for the available functionality
+21-27 July - Extensive manual testing, bugfixing, localization
+28-3 August -  Write documentation (docstrings, a wiki page with description, help page to Help activity maybe)
+4-10 August - Extra polishing (small enhancements)
+11-17 August - Merging to main repos, submitting code to melange
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+My exposure to computer science and information technologies began 4 years ago. In that period I have achieved a reasonably solid expertise in clean coding, usage of procedural and OOP paradigms (just the basics of functional), scratched the surface of software design and design patters. My main passion is Python (actively developing using Python for the last 3 years), though I have tried also other tools (JavaScript, PHP, Matlab/Octave, git, a variety of web frameworks, technologies, libraries).
+Some of my pet projects are:
+FAF website (Django),
+github repo
+, currently hosted here
+http://faf.utm.md/
+(the university website might be down) and migrating to
+http://faf.code.md/
+My blog written in Flask,
+Code Speculations
+, available here
+http://www.code-speculations.me/
+My github contains a variety of small university projects: a poll website written in Symfony2, Scrapy spiders, Qt4 apps, semantic web and linked data showcase app, SVG based editing tool.
+Additionally I was employed as software developer for 8 months at
+Red Sky
+(had to quit due to change of geolocation). I have worked on
+CarOcean
+project, which is based on Scrapy framework. My responsibility was to handle about 100 different spiders (the project is available in 9 countries). Consequently I got a lot of experience in crawling the web, using xpath, regular expressions, agile methodology. As well I have worked on small PHP (Zend framework) projects.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My thoughts
+Social Help doesn't have a striking, absolutely vital impact on Sugar Labs community. Nevertheless this small feature will open the borders of communication for so many users on some many topics. Social Help shows a straight-forward way where to ask a question or to share your knowledge. By completing this project, Sugar Labs community will get even closer to its users through IRC and forums, which subsequently leads to a better understanding of what it's users are expecting.
+Moreover Sugar Help will become a channel to find pals all over the world with same interests via reciprocal help.
+In the mid-1970s Alan Kay predicted that, among other things, computers would enhance interpersonal communication. While there remain a few skeptics, it is pretty obvious he was spot on in his prediction. People are inherently social beings and the computer gives us opportunity to exercise that aspect of our nature. Amplifying the social aspects of Sugar for our users is a great way to share best practice, provide support, and mostly have fun while learning. Social Sugar is critical to our future as a community and as a project. --
+Walter
+(
+talk
+) 18:23, 19 March 2014 (EDT)
+Users require a way to provide feedback to the developers so that the platform has a chance to improve. Social Help will enable users to share their issues and help build a good knowledge base for the Sugar doers community. --
+icarito
+(
+talk
+) 23:42, 23 March 2014 (EDT)
+What will you do if you get stuck on your project and your mentor isn't around?
+Research or refocus. Those are the 2 strategies that always work for me. If it is a bug, then there must be a way to solve it. Get a step back and read some documentation - maybe I have missed something important. If the issue involves a collaborative decision and the presence of the mentor is absolutely critical, then I can refocus, checkout to a new topic branch and start doing other tasks.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+Talking from my past experience, weekly meeting are really helpful to keep everybody up-to-date (might be held only with the mentors and co-mentors). Usually I prepare lists of DONE, TODO next week and BLOCKERS. Also I am always online on IRC (using irssi via ssh) and I check it several times a day.
+Miscellaneous
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please do
+one
+of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug.
+Sugar commits:
+Fix #4733 - remove warning on username change
+Manage restart message on reverting to initial username
+Describe a great learning experience you had as a child.
+In childhood I used to do all sorts of trivial experiments related to physics and biology. I was blocking the sunlight from for some plants, managing their watering cycle, filling up washbowls with different temperature water to test how same water temperature is relative to previous heat exposure of some parts of the body, trying to understand how animal communities work and how they communicate.

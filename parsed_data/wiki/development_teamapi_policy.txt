@@ -1,0 +1,43 @@
+Title: Development Team/API policy
+URL: https://wiki.sugarlabs.org/go/Development_Team/API_policy
+--------------------------------------------------------------------------------
+Contents
+1
+Policy
+1.1
+Unstable
+1.2
+Stable
+1.3
+Deprecated
+2
+Current state
+2.1
+Datastore DBus service
+2.2
+Window management protocols
+2.3
+Presence DBus service
+2.4
+jarabe python package
+2.5
+sugar python package
+Policy
+Each interface, being a python module, a service or a protocol can be in one of the following states. The state should be always explicitly documented.
+Unstable
+Changes are possible at any time, except after the feature freeze of each release cycle, but they should be well documented. It should be used for API which requirements are not yet well enough to be able to settle on a stable interface. As Sugar mature we should aim to have as little as possible components in this state.
+Stable
+No *incompatible* change is possible. The API should be well documented and a set of unit tests should prevent breakage. To be able to remove a stable interface it will have to first be deprecated.
+Deprecated
+Interfaces which are not useful anymore or are being replaced by better, incompatible ones should be deprecated and removed in the next *major* version. When deprecating an interface a replacement should be available and the migration to it well documented.
+Current state
+Datastore DBus service
+STABLE.
+Window management protocols
+STABLE.
+Presence DBus service
+UNSTABLE. It was developed in the early Sugar days without a clear idea of the actual requirements. A large part of it is used only by jarabe and will be made internal to it. We have a stable python wrapper which is what most activities uses anyway.
+jarabe python package
+UNSTABLE. We are working on extensibility of the core components provided by jarabe, but we don't have enough resources to maintain a stable API, nor a clear idea of the requirements yet. We will be moving towards stability but since it's not a basic, essential part of the system, we are punting on it for now.
+sugar python package
+The state is different for each module. See the documentation for details.

@@ -1,0 +1,196 @@
+Title: Human Interface Guidelines/The Sugar Interface/Toolbars/lang-es
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/The_Sugar_Interface/Toolbars/lang-es
+--------------------------------------------------------------------------------
+Traducción de
+HIG-Toolbars
+original
+english
+|
+español
+|
+한국어
++/-
+cambios
+←
+Texto y Tipografía
+Barras de Herramientas
+Marquesinas
+→
+Contents
+1
+Barras de Herramientas
+1.1
+Agrupamiento por Contexto
+1.2
+Barra de Herramientas Estándar
+1.2.1
+Barra de Herramientas de Actividad
+1.2.2
+Barra de Herramientas de Edición
+1.2.3
+Barra de Herramientas de Texto
+1.2.4
+Barra de Herramientas de Imagen
+1.2.5
+Barra de Herramientas de Ver
+1.3
+Barras de Herramientas Personalizadas
+1.3.1
+Insertando Objetos
+1.3.2
+Marcadores
+1.4
+Ocultando las Barras de Herramientas
+1.4.1
+Ocultamiento Parcial
+1.4.2
+Ocultamiento Total
+Barras de Herramientas
+Cada actividad tendrá su "Caja de Herramientas" en el borde superior de la pantalla. La caja de herramientas consiste de un conjunto (de por lo menos una) barra de herramientas, seleccionables individualmente por medio de las pestañas debajo de ellas. El posicionamientos de las pestañas por debajo de la barra de herramientas hace que la selección de la herramienta y los botones dentro de cada barra de herramienta más fácil según la Ley de Fitt, ya que permanecerán contra los bordes de la pantalla donde no se les puede "errar". Si bien esto hace que las pestañas sean un poco más difíciles de activar, anticipamos que la frecuencia bajo la cual se deban activar de manera explícita sea mínima, específicamente por su naturaleza contextual descripta más abajo.
+Every activity will have a "Toolbox" at the top edge of the screen.  The Toolbox consists of a set of (at least one) toolbars, individually selectable via the tabs beneath them.  Placement of the tabs beneath the toolbars themselves makes selection of tools and buttons within the toolbars easier according to Fitt's Law, since they will remain against the screen edges where they are "un-missable."  Though this makes the tabs slightly more difficult to activate, we anticipate the frequency with which these toolbars require explicit switching to be minimal, specifically due to their contextual nature as described below.
+Agrupamiento por Contexto
+Cada barra de herramientas contendrá un conjunto lógico de botones y controles, acorde al nombre de cada pestaña. Cada uno de estos conjuntos deben representar un claro y distintivo contexto de edición o control. Por ejemplo, la actividad Escribir (
+Write
+) posee barras de herramientas individuales para texto, imágenes y tablas. Cada uno de ellas tiene un conjunto relevante al contexto con el que se relacionan. A fin de hacer el trabajo fluído, las actividades pueden iniciar un cambio de barra de herramientas cuando el contexto de edición cambiar, seleccionando de forma automática la barra de herramientas para el nuevo contexto. El hacer clic sobre una imagen en un reporte cambiará el foco a la Barra de Herramientas de Imágenes, mostrando sus controles asociados; otro clic sobre el cuerpo del texto devolverá el foco a la Barra de Herramientas de Texto. De este modo, los controles visibles en la pantalla siempre serán los adecuados a la selección, eliminando virtualmente la necesidad de seleccionar las barras de herramientas de modo explícito, exceptuando quizas el botón de "insertar" un elemento para el cual no existe un contexto actual.
+Por supuesto, una relación de uno a uno puede que no exista siempre. Por ejemplo, una selección puede incluir tanto texto como imágenes, o quizás por alguna razón el foco no posee ningún contexto. En estos casos, la actividad deberá decidir el comportamiento apropiado. Una opción de respaldo es cambiar automáticamente a la Barra de Herramientas de Edición, dado que copiar y pegar, así como la mayoría de los comandos de edición, son aplicables entre contextos.
+Each toolbar will contain a logically grouped set of buttons and controls, as the name on its corresponding tab suggests.  Each of these sets will represent a distinct editing or control  context.  For instance, the Write activity contains individual toolbars for Text, Images, and Tables.  Each of these contains a set of controls relevant to the context they relate to.  In order to streamline workflow, activities may initiate a toolbar-switch when the current editing context changes, automatically selecting the toolbar for the newly selected context.  Clicking on an image within a report will automatically focus the Image Toolbar, revealing the associated controls; Clicking back within the body text will automatically re-focus the Text Toolbar.  In this fashion, the controls visible on screen always remain relevant to the selection, virtually eliminating the need to select most toolbars explicitly, except perhaps to locate the "insert" button for an element for which no context currently exists.
+Of course, a one to one relationship may not always exist.  For instance, a selection may include both text and image, or perhaps for some reason focus isn't within any context at all.  In these cases, it is up to the activity to decide the appropriate behavior.  One suggested fallback is to switch automatically to the Edit Toolbar, since copy and paste, as well as most other editing commands, often apply across contexts.
+Barra de Herramientas Estándar
+Como se mencionó anteriormente, cada actividad tendrá por lo menos una barra de herramienta en su caja de herramientas: La Barra de Herramientas de la Actividad. Esta barra de herramientas proveerá la funcionalidad central a la actividad y se incluirá automáticamente en la Caja de Herramientas. Si bien Sugar no requiere de otras barras de herramientas, si provee una serie común así como nombres y controles sugeridos a efectos de homogeneización entre actividades. Estas son sugerencias, no reglas, y como desarrollador uno es libre de ignorar las sugerencias ante situaciones en que no se apliquen o ameriten. Note que las flechas indican la posición relativa de las pestañas, y en aquellas con flechas dobles se pueden intercalar con elementos personalizados siempre y cuando su orden relativo se conserve. En los ejemplos siguientes de los controles en cada barra de herramienta, las flechas deben ser tomadas como el indicador alineación dentro de la barra de herramientas, las flechas dobles indican regiones o zonas de control que se expanden con el fin de ocupar el espacio sobrante.
+< Actividad
+< Editar
+< Texto >
+< Imagen >
+[ Barra de Herramientas Personalizada ]
+Formato >
+Ver >
+As mentioned above, every activity will have at least one toolbar within the toolbox:  The Activity Toolbar.  This toolbar will provide core activity functionality and will automatically be included in the Toolbox.  Though sugar requires no other toolbars, it does provide a short list of potentially common ones along with suggested names and controls for consistency across Activities.  These are suggestions, not rules, and as a developer you should feel free to ignore the suggestions when you find a compelling case to do so.  The following table suggests a standard ordering for some common toolbars.  Note that the arrows indicate the relative position of the tabs, where those with double arrows can be interspersed with custom elements as long as their relative order remains.  In the examples which follow for controls within each toolbar, the arrows should be taken to indicate alignment within the toolbar, double arrows indicate control regions which expand to fill the remaining space.
+< Activity
+< Edit
+< Text >
+< Image >
+[ Custom Toolbars ]
+Format >
+View >
+Barra de Herramientas de Actividad
+Siempre la primera de las pestañas, la barra de herramientas de la Actividad permanecerá constante en todas las actividades, brindando un lugar para nombrar y marcar la instancia, determinar las preferencias, compartirla en la malla, o parar (cerrar) la actividad, entre otras. Esta barra de herramientas siempre tendrá el foco cuando se cree una nueva instancia de una actividad, instando al chico a darle un nombre y marcarla apropiadamente. Una API le permitirá a los desarrolladores asociar varias paletas con algunos de los botones que residen en la barra de herramientas de la Actividad, tal como las preferencias.
+Always the first of the tabs, the Activity toolbar will remain consistent in every activity, providing a place to name and tag the instance, set preferences, share within the mesh, or stop (close) the activity, among others.  This toolbar will always have focus when a new activity instance is created, encouraging the children to provide a name and any related tags.  An API will allow developers to associate various palettes with some of the buttons which reside in the Activity toolbar, such as preferences.
+Barra de Herramientas de Edición
+Si bien no es automáticamente incluída en la Caja de Herramienas, anticipamos que casi todas las actividades tendrán una Barra de Herramientas de Edición, ya que casi todas las actividades deberían permitir el copiar y probablemente pegar también. De modo similar, instamos a todas las actividades para que soporten la funcionalidad de Deshacer/Rehacer, que también debería encontrarse en la Barra de Herramientas de Edición. Finalmente, la barra de herramientas de edición provee también una interfaz común para realizar operaciones de búsqueda en cualquier texto de la actividad. Por supuesto, las actividades solo deben incluir aquellas funciones que le pertenecen, así como herramientas de edición adicionales que se pueden agregar de ser necesario.
+< Deshacer
+< Rehacer
+< Copiar
+< Pegar
+[ Controles Personalizados ]
+Find >
+Though not automatically included within the Toolbox, we anticipate nearly every activity will have an Edit Toolbar, since nearly every activity should at least allow copying if not pasting as well.  Likewise, we are strongly encouraging every activity to support complete Undo/Redo functionality, which should also reside within the Edit Toolbar.  Finally, the edit toolbar will also provide a common interface for performing find operations on any text within the activity.  Of course, activities should only include those functions which pertain to them, and additional editing tools may be added to the toolbar as necessary.
+< Undo
+< Redo
+< Copy
+< Paste
+[ Custom Controls ]
+Find >
+Deshacer / Rehacer
+Las operaciones de deshacer/rehacer son extremadametne importante en las laptops, ya que su presencia permite la exploración creativa sin temor a realizar cambios irreparables. Deben funcionar de un modo acorde con la actividad, y si bien esa manera debe reflejar nuestras expectativas actuales, la naturaleza colaborativa de la mayoría de las actividades complican el problema en cierta medida. Una aproximación amplia para manejar el deshacer colaborativo requiere de la noción de colisiones entre eventos de edición. Las
+herramientas AbiCollab
+que hacen posible la actividad de Escribir (
+Write
+) definen esta idea en detalle en lo relativo a la edición de texto. El concepto general se aplica: Por ejemplo, una colisión en una actividad de dibujar puede resultar en la colisión en los rectángulos contenedores de las formas dibujadas. Las marquesinas secundarias con los botones "deshacer" y "rehacer" también contiene la funcionalidad de "deshacer todo" (de hecho revertir) y el "rehacer todo". De ser soportados, estos controles deben ser los primeros a la izquierda en la barra de herramientas.
+Copiar / Pegar
+Sugar tiene un portapapeles completo dentro del Marco, y por ende queremos incitar al chico a copiar y pegar texto, imágenes, o cualquier cosa libremente, tanto dentro como fuera de la actividad. El copiar/pegar, reusar, reorganizar, modificar y compartir es central a la experiencia educativa y creativa para la cual la laptop ha sido diseñada. Hemos simplificado el paradigma, eliminando el comando de "cortar" del nivel superior de los comandos de edición. La distinción entre "cortar" y "copiar" puede resultar confusa para aquellos que no estén familiarizados con la computación, y por ello hemos decidido incluir la funcionalidad de "cortar" en la marquesina secundaria por debajo del botón de "copiar", llamandolo "copiar y borrar". De estar presentes, estos controles deberán estar alineados a la izquierda, inmediatamente después de los comandos de deshacer/rehacer.
+Buscar / Remplazar
+Donde sea.
+Undo/Redo:
+The undo/redo commands have extremely high importance on the laptops, since their presence encourages creative exploration without the fear of unrecoverable changes.  They should function in a manner chosen by the activity, and although that manner should reflect our current expectations, the collaborate nature of most activities complicates the matter to some extent.  A broad approach to managing collaborative undos requires a general notion of collisions between editing events.  The
+AbiCollab tools
+which make the Write activity possible define this idea in detail in relation to text-based editing.  The overall concept applies generally:  For instance, a collision in a drawing activity could mean the collision of the bounding boxes of two drawn shapes.  The secondary rollovers for the "undo" and "redo" buttons contain "undo all" (essentially revert) and "redo all" functionality.  When supported, these controls should be the left-most item in the toolbar.
+Copy/Paste:
+Sugar has a fully featured clipboard within the Frame, and as such we want encourage children to copy and paste text, images, or anything else both within and between activities freely .  The copy/paste, reuse, reorganize, modify, and share approach is core to the educational and creative experience that the laptops are designed for.  We've simplified the paradigm, eliminating "cut" command from the top level editing commands.  The distinction between "cut" an "copy" can seem unclear to those unfamiliar with computing, and so we've chosen to embed "cut" functionality in the secondary rollover beneath the "copy" button, and called it "copy and erase."  When present, these controls should be left-aligned, immediately following the undo/redo commands.
+Find/Replace
+Wherever
+Barra de Herramientas de Texto
+< Negrita
+< Itálica
+< Subrayado
+< Selector de Color
+Tamaño Letra >
+Tipografía >
+Alineación >
+< Bold
+< Italic
+< Underline
+< Color Selector
+Font Size >
+Font >
+Alignment >
+Barra de Herramientas de Imagen
+< Insertar Imagen
+< Rotar Izquierda
+< Rotar Derecha
+< Ancho
+< Alto
+[Controles Personalizados de Imagen]
+< Insert Image
+< Rotate Left
+< Rotate Right
+< Width
+< Height
+[Custom Image Controls]
+Barra de Herramientas de Ver
+< Zoom Más
+< Zoom Menos
+< Mostrar Grilla
+< Mostrar Reglas
+[ Controles Personalizados de Vista ]
+Ocultar Barra de Herramientas >
+< Zoom In
+< Zoom Out
+< Show Grid
+< Show Rulers
+[ Custom View Controls ]
+Hide Toolbox >
+Barras de Herramientas Personalizadas
+< Insertar Objeto
+[Controles Personalizados]
+Agregar Marcador >
+< Insert Object
+[Custom Controls]
+Add Bookmark >
+Insertando Objetos
+Varias barras de herramientas personalizadas proveerán los controles necesarios para la edición en contextos para los cuales no existe un estándar (
+default
+). La Barra de Herramientas de Tablas dentro de la actividad de Escribir (
+Write
+) es un buen ejemplo de ello: Hasta que una tabla no haya sido insertada en el documento, no existe un "contexto de tabla" dentro del cual editar. Por supuesto, una vez que exista una, la Barra de Herramientas de Tablas será seleccionada automáticamente en cuanto una tabla sea seleccionada. Dado que la acción de insertar el objeto correspondiente crea el contexto al cual se asocia dicha barra de herramientas, este control deberá siempre figurar al principio dentro de la barra de herramientas. Los lineamientos de Iconos proveen mayor información sobre el estilo visual de los botones de inserción.
+Many custom toolbars will provide controls useful in editing contexts which don't always exist by default.  The Table Toolbar within the Write activity is a good example of this: Until a table has been inserted into a document, there is no "table context" within which to edit.  Of course, once there is one, the Table Toolbar will be automatically selected whenever the table is selected.  Since the act of inserting the corresponding object creates the context that the toolbar associates with, this control should always appear first within the toolbar.  The Icon guidelines provide further information on the visual style for insert buttons.
+Marcadores
+Esperamos incitar al debate, iteración y el compartir sobre las laptops, y por lo tanto esperamos incitar la idea de hacer anotaciones entre actividades distintas. Cuando las actividades soportan anotaciones textuales, resaltar, o alguna otra forma más compleja, deberían tener una Barra de Herramientas de Anotaciones que contenga estas funcionalidades. Algunas actividades, particularmente al principio mientras no exista un sistema de anotaciones que abarque a todo el sistema, pueden querer usar un simple marcador (
+bookmarking
+). Si bien esperamos hacer que los 'marcadores' sean un subconjunto del modelo de anotaciones, esta funcionalidad es esencial a ciertas actividades, y puede ser realizado de maneras más simples por el momento. Cuando existan los marcadores como una acción atómica en una actividad, debe encontrarse en el extremo derecho de cualquier barra de herramienta personalizada que sea la apropiada.
+We hope to encourage discussion, iteration, and sharing on the laptops, and so we hope to encourage the idea of annotation across many different activities.  When activities support textual annotations, highlighting, or other complex forms, they should have an Annotation Toolbar containing all of these features.  Some activities, especially early on before a system-wide annotation system exists, may simply like to implement basic bookmarking.  Though we hope to implement bookmarking as a subset of the annotation model, this particular feature is essential to some activities, and can be implemented in simpler ways in the meantime.  When bookmarking exists as a single action within an activity, it should be placed to the far right of any custom toolbar which seems appropriate.
+Ocultando las Barras de Herramientas
+Si bien cada actividad requiere de por lo menos la Barra de Herramientas de la Actividad, los desarrolladores pueden desear ocultarla en la Caja de Herramientas con el fin de proveer una sensación de mayor amplitud, como en un juego de aventuras o una muestra de diapositivas, o simplemente para poder usar toda la pantalla como área de edición. Sin embargo, los desarrolladores de actividades deben considerar estos escenarios de uso cuidadosamente y tener en cuenta los siguiente lineamientos cuando utilicen esta funcionalidad.
+Although every activity requires at least the Activity Toolbar, developers may desire to hide the Toolbox in order to provide an all-encompasing experience, such as in an adventure game or a slideshow, or simply to make use of the full screen as an editing area.  However, activity developers should consider these use cases carefully and take the following guidelines into account when taking advantage of this feature.
+Ocultamiento Parcial
+La mayoría de las actividades deberían usar el ocultamiento-parcial, que quiere decir que si bien la Caja de Herramientas se encuentra oculta completamente, seguirá siendo accesible cuando el cursor se encuentre en el borde superior de la pantalla, resultando en su deslizamiento y exponiendo los controles. Esto funciona muy bien para un uso casual o juegos basados en turnos, así como cualquier juego que no requiera el uso del ratón. En estos casos, la habilidad de acceder a las preferencias, compartir o invitar amigos a la actividad, comenzar un nuevo juego, y por supuesto salir de la actividad se encuentran disponibles en todo momento. Esto es útil también para presentaciones, diapositivas, permitiendo al chico el acceso a la barra para realizar operaciones tales como siguiente, anterior, y también detenerlo, y mostrar la barra de herramientas en modo permanente nuevamente. Cuando una barra de herramientas que se encuentre oculta-parcialmente se desliza para mostrarse, lo hace por sobre la vista de la actividad abajo, eliminando la necesidad de reorganizar el contenido. Cuando el ocultamiento se encuentra deshabilitado, entonces si se procede a insertarse en la vista, y por lo tanto, desplaza el contenido de la vista hacia abajo.
+Cuando el único propósito de ocultar la Caja de Herramientas sea el de aumentar el área de pantalla dedicado a edición o trabajo, un control dentro de la Barra de Herramientas de Ver debería proveer dicha opción. Las actividades no deberían activar el ocultamiento-parcial en forma automática para ello (a no ser que dicho control haya sido configurado como tal en las preferencias en el estado seleccionado). Si bien las laptops tienen una pantalla reducida, la elección de ocultar controles de uso posiblemente frecuente debe ser dejada en manos de los chicos.
+Cuando el ocultamiento-parcial de la Caja de Herramientas se encuentra activado, el presionar la tecla de escape deberá siempre resultar en mostrarla nuevamente, finalizando cualquier modo relacionado con su ocultamiento (como puede ser un
+slideshow
+). De no existir un botón o acción explícito (como "iniciar
+slideshow
+") que reactive el ocultamiento-parcial, las actividades pueden instrumentar un temporizador o cuenta regresiva, que una vez transcurrido activa el ocultamiento-parcial sin intervención del chico. La actividad debe asegurarse que el ocultamiento-parcial jamás se inicie mientras el cursor permanece en el área de la Caja de Herramientas.
+Most activities should use soft-hiding, which means that although the Toolbox will be hidden completely from view, it will still be accessible by moving the cursor to the top edge of the screen, provoking it to slide out and exposing the controls. This works great for casual or turn-based games, as well as any games which don't require the mouse. In these instances, the ability to access preferences, share or invite friends to the activity, start a new game, and of course exit the activity remains available at all times. This is also useful for presentation modes, such as slideshows, allowing the child to access the bar to perform operations such as next, back, and of course stop slideshow, thus showing the toolbar permanently again. When a soft-hidden toolbar slides into view, it slides in on top of the activity view beneath, eliminating the need to reflow the content; When hiding is turned off, it again embeds itself within the view, thus shifting the content downward.
+When the sole purpose for hiding the Toolbox is to provide additional screen area for viewing or editing, a control within the View Toolbar should provide this option.  Activities should not automatically invoke soft-hiding for this purpose (unless the aforementioned toggle is stored as a preference in the selected state).  Though the laptops have a small viewable screen area, the choice to hide potentially frequently used controls should be left to the children.
+When soft-hiding of the Toolbox is in effect, pressing the escape key should always reveal it again, exiting any mode related to its hiding (such as the slideshow).  If no explicit toggle button or action (such as "start slideshow") exists to turn soft-hiding back on, activities may institute a timeout, after which it turns soft-hiding on again without input from the child.  The activity must ensure that soft-hiding is never initiated without explicit interaction whenever the cursor remains within the Toolbox area.
+Ocultamiento Total
+Las actividades que hagan uso de la totalidad de la pantalla, y particularmente aquellas que necesiten del movimiento del cursor sobre su totalidad, pueden querer ocultar la Caja de Herramientas totalmente, eliminando la posibilidad de ser activada posicionando el ratón en los bordes. El ocultamiento-total permite esto. El caso de uso primario para este modo es un juego de acción que puede ser interrumpido accidentalmente durante su desarrollo. Por ello, estos lineamientos estan escritos con respecto a un juego de pantalla completa, pero sus principios se deberían aplicar a otras actividades que los desarrolladores encuentren.
+El ocultamiento-total elimina de manera completa el acceso a la Caja de Herramientas durante un tiempo, y por lo tanto debe ser utilizado solamente dentro de actividades que no tengan sus propias barras de herramientas. Así también, dado que el ocultamiento-total elimina cualquier otro medio de activar la Caja de Herramientas, la actividad deberá proveer cualquiera de las funcionalidades básicas que de otro modo se encuentran dentro de la Barra de Herramientas de la Actividad en sí. Cualquier juego que soporte el juego en la red de malla deberá proveer algún medio por el cual el iniciador le de un nombre.
+Con el fin de ser consistentes con el ocultamiento-parcial y otros usos generales, la tecla de escape deberá siempre proveer un mecanismo para salir del juego, aún cuando otros medios existan. La tecla de escape puede salir inmediatamente del juego, volviendo a una pantalla de presentación, aunque más probablemente pausará el juego y mostrará un menú con una opción para ello.
+Activities which make use of the entire screen, and moreover require active cursor movement across it, may wish to hide the Toolbox completely from view, eliminating the possibility that it could be invoked at the screen edge via the mouse.  Hard-hiding allows activities to do this.  The primary use case for this mode is action games which could be interrupted accidentally during gameplay.  As such, these guidelines are written with respect to a fullscreen game, but their principles should carry over to other uses activity developers may find.
+Hard-hiding removes all access to the Toolbox for an extended period of time, and therefore should only be used within activities which don't have their own toolbars.  Also, since hard-hiding eliminates any means of invoking the Toolbox, the activity must always provide any of the basic functionality otherwise contained within the Activity Toolbar itself.  Any game which supports networked play over the mesh should always provide a way for the initiator to name the instance.
+To remain consistent with soft-hiding mode and with general expectations, the escape key should always provide a mechanism for exiting the game, even if another means exists.  The escape key could immediately exit the game, returning to an intro screen, but it will more likely pause the game and reveal a menu containing an option to do so.
+←
+Texto y Tipografía
+Barras de Herramientas
+Marquesinas
+→

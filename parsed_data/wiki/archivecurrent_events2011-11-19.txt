@@ -1,0 +1,60 @@
+Title: Archive/Current Events/2011-11-19
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2011-11-19
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+1.1
+In the community
+1.2
+Tech Talk
+1.3
+Sugar Labs
+Sugar Digest
+1. I spent most of this week on Turtle Blocks. With the help of Ben Berg and Scott Ananian I managed to get the Cairo graphics conversion finished (Tip of the hat to Alan Aguiar, Tony Forster, and Guzman Trindad for help testing). It seems to run well, even on XO-1 hardware and quality of the graphics is markedly improved, i.e., no more jagged lines. New features include the ability to rotate text and images. I documented the process of
+converting to Cairo
+as this is something we'll have to do with all of our activities as we make the transition from GTK-2 to GTK-3.
+Scott has been working on a module,
+gtkcompat.py
+, that holds the promise of making that transition less painful than we had previously thought. By including this module, we hope to be able to support both GTK-2 and GTK-3 from the same codebase, making activity maintenance easier. Once we have it working for Turtle Blocks, I'll experiment with it on the other activities that I maintain.
+2. Scott has
+a compelling demo
+of one reason we are moving to GTK-3: Sugar activities running in a browser. This is just one of many reasons for this effort. See
+Features/GTK3
+for a more detailed discussion.
+3. While I wasn't wrestling with Cairo, I let me self get distracted by another Turtle Blocks project that had been on my mind for quite some time. I wrote a new plugin for a Physics palette. This palette lets you create Box2d databases to be used with the Physics activity. You can use Turtle Blocks to create precision models. I also expose a number of Box2d object attributes that are not available with the standard Physics activity, including: density, friction, restitution (bounciness), variable torque and speed for motors, and filled polygonal objects. Details can be found on the
+Turtle Blocks plugin page
+.
+Tony has written detailed instructions on
+how to install a Turtle Blocks plugin
+. But I find the mechanism too clumbsy for the typical user. I am tempted to create Turtle Physics as a separate activity. Please let me know what you think of the idea. Meanwhile, a decent plugin mechanism is sorely needed.
+4. The Learning Team discussion about Journal enhancements in support of assessment continue. Gonzalo Odiard and I have put together a
+feature page
+as a collection point for these ideas. Please comment as work is beginning on many of these ideas.
+In the community
+5. Only a few days left to announce your candidacy (See
+candidate list
+) for one of the SLOB positions coming up for election later this month. It is important that we have a plurality of voices on the oversight board, so if you feel you represent a constituency within the community that is not being heard, please consider running for one of the open positions.
+6. Sugar Camp in Peru is this week (18-19 November). Details are available at
+http://sugarcamp.somosazucar.org
+.
+7. Hilaire Fernandes has prepared some
+English-language video tutorials
+on DrGeo features. DrGeo is a powerful geometry engine written in Etoys.
+Tech Talk
+8. Peter Robinson has announced the release of
+Sugar on a Stick
+Version 6 (codename Pineapple). It is available for both i686 and x86_64 platforms and it features
+Sugar 0.94.1
+on a base of
+Fedora 16
+. It includes a lot of new and updated Activities as well as improved support for booting on Apple Intel-based devices. Download from
+http://spins.fedoraproject.org/soas
+9. Anish Mangal has announced the availability of an Alpha release of Dextose 3 for testing. For XO-1 hardware, please download from
+http://download.sugarlabs.org/dextrose/testing/dx3/xo1/dx3g055.img
+Sugar Labs
+Gary Martin has generated SOMs from the past few weeks of discussion on the IAEP mailing list.
+2011 Nov 5th - Nov 11 (80 emails)
+Visit our
+planet
+for more updates about Sugar and Sugar deployments.

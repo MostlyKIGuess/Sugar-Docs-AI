@@ -1,0 +1,88 @@
+Title: Features/Multiple schoolserver registration
+URL: https://wiki.sugarlabs.org/go/Features/Multiple_schoolserver_registration
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Comments and Discussion
+Summary
+Sugar will be able to register to multiple school servers easily, without the need of clearing the registrations or configuring server ssh identity manually.
+Owner
+Name:
+Manash Pratim Das
+Email: mpdmanash@gmail.com
+Current status
+Targeted release: 0.110
+Last updated: 18 April 2016
+Status: Being discussed in sugar-devel and
+pull requested
+.
+Percentage of completion: 90%
+Detailed Description
+When a user wants to register to a new school server, they must first manually clear the previous registration details (if present). Then they have to create new registration even if they are returning back to an school server where their laptop has been registered before. For non-XO laptops, every new registration changes the random serial number of the laptop and serial number is used in backup url and backup paths for that laptop in the school server. Hence registering multiple times with the same school server leads to unnecessary change in backup path on non-XO laptops.
+Also from the various field reports where a user (generally a teacher) has to register to multiple XS servers on move, it becomes difficult to keep clearing the registration details manually. (reported
+bug
+and
+discussion
+). In most of the deployments, the server address is same. As discussed
+here
+The present system for registering a Sugar laptop with an school server is depicted below.
+This feature is aimed to enhance the Sugar-Server interaction that would include:
+Automated management of registration data so that a user can connect to an school server with only one click regardless of the server being new or previously registered, hence enabling quick hop between multiple servers.
+The ssh identity for the servers where registration was successfully done will be added to ~/.ssh/known_hosts so that users (teachers) would not have to face identity errors while trying to establish ssh communication.
+Creating a new control panel section named "Server" to house the server related settings and provide a reorganized place for future settings to come.
+Retain the registration data required for ds-backup if present in the system so that it can maintain its functionality.
+The following is the proposed flow being developed for the feature:
+The main advantages of the above flow are:
+Manual clear of previous registration and ssh configuration is not required.
+Each laptop will have same backup url and backup path (in XSCE:/library/users) for a particular XSCE as it was created on first registration with the server. As registration will be done only once. The "Register" button would rather say "Connect to Server". When user connects to an XSCE where it has registered previously (identified by the presence of pubkey), it would simply set its serial number, uuid and backup-url with the pre-registration data. This would enable better and advanced management of backups. (This is only supported in XSCE due to the presence of xs-authserver)
+No extra input is required from the user. The user just has to connect to the school server network, specify the jabber-server address and click on "Connect to server"
+Benefit to Sugar
+This feature has emerged from a
+bug
+.
+The feature is supposed to bring Sugar closer to school server and improve the user experience.
+Scope
+What work do the developers have to accomplish to complete the feature in time for release?  Is it a large change affecting many parts of the distribution or is it a very isolated change? What are those changes?
+The changes only affect use of Sugar with compatible school servers, such as XS or XSCE.
+Also no change is required on the school server side.
+Use of Sugar without a school server shall not be affected.
+UI Design
+The user does not have to provide any extra input. The user is to provide the jabber server url and click on the button to register to it as before. So no change of UI is required to achieve the functionality. But as discussed in the developer mailing list (
+link
+), it has been emphasized that a new control panel section named "Servers" should be created. This section will as of now only have two user inputs "Jabber Server" and "Collaboration Server" which will be moved in from its present location of the "Network" control panel section.
+How To Test
+Connect to XSCE network. Enter its server_address in the "Server" entry present in "Network" section of control panel and click "Connect to server" from the desktop.
+If registration was successful, use Terminal activity for the command: ssh xsce-admin@server_address . Expected behavior: It will prompt for server password.
+Connect to a different XSCE network and register to it as above.
+Try doing ssh again for this XSCE. Expected behavior: It will still prompt for password, without showing identity mis-match error in case the server_address of both XSCE are same.
+User Experience
+The user experience is believed to increase quite significantly as it can be judged from the problems that are being faced now in this
+bug
+and
+discussion
+Dependencies
+None
+Comments and Discussion
+Your comments are very welcome.  Please discuss through the mailing list.
+First discussion on the mailing list:
+http://lists.sugarlabs.org/archive/sugar-devel/2016-April/051805.html

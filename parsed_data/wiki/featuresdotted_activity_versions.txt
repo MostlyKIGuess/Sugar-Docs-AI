@@ -1,0 +1,90 @@
+Title: Features/Dotted Activity Versions
+URL: https://wiki.sugarlabs.org/go/Features/Dotted_Activity_Versions
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+Extend the activity version numbering scheme to allow major and minor releases.
+Owner
+Name:
+Simon Schampijer
+Email: simon AT sugarlabs DOT org
+Current status
+Targeted release: 0.92
+Last updated: Fri, 05 Nov 2010
+Percentage of completion: 90%
+Detailed Description
+The new numbering scheme is more flexible and allows you to do major and minor releases. This is useful when you want to do for example a bug fix release. The new version number will consist of N integers separated by dots (e.g., 1, 1.2, 1.4.5, 2.5.7.4). You can still use an integer number only for your releases.
+There is as well the ability to use a suffix for a local indicator (e.g., Peru wants to release a slightly modified version for their deployment 1.3-peru). The local indicator is a string, appended to the version. The local indicator does not apply alpha ordering, which means that 1.3-peru is equal to 1.3-argentina.
+Valid:
+1
+1.2
+1.2.3
+2.4.6.7
+2.3-peru
+Not valid:
+1.2peru        # must be separated with a '-'
+1.2.           # can't end with '.'
+1.02.5         # can't have a leading zero
+Comparisons:
+12 == 12
+0.9.9 < 1
+1 == 1.0.0
+1.2 < 1.2.3
+1.2-arg == 1.2
+1.2-arg == 1.2-peru
+Benefit to Sugar
+The new scheme gives activity developers more control on their releases. The separation between a major release and a minor (bugfix) release is more clearly visible. Since developers can still use just integer numbers the simplicity of the old scheme is kept.
+This scheme also enables developers who maintain older versions of Sugar, building activities with intermediate versions, in cases where it is not possible to use the latest changes because are not compatible.
+Scope
+This feature does add a new class to the toolkit that is used to verify the correctness of the numbering string. The bundlebuilder and the activitybundle are adjusted accordingly (
+current toolkit patch
+). In the shell the activity list and the bundleregistry has to change accordingly (
+current shell patch
+).
+Furthermore the activity updater has to adopt to the new scheme.
+UI Design
+The new activity version is only visible in the activity list and the activity updater.
+How To Test
+User Experience
+If this feature is noticeable by its target audience, how will their experiences change as a result?  Describe what they will see or notice.
+Dependencies
+Regular glucose dependencies.
+Contingency Plan
+None necessary, revert to previous release behavior.
+Documentation
+The activity.info file documentation
+will be adjusted accordingly once this feature lands. The discussion about this feature has been taking place at this
+thread
+on the sugar-devel mailing list.
+Release Notes
+Comments and Discussion
+See
+discussion tab for this feature

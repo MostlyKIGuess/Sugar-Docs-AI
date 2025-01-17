@@ -1,0 +1,611 @@
+Title: Fedora 24
+URL: https://wiki.sugarlabs.org/go/Fedora_24#Fedora_Media_Writer
+--------------------------------------------------------------------------------
+Fedora
+®
+version page:
+17
+|
+18
+|
+19
+|
+20
+|
+21
+|
+22
+|
+23
+|
+24
+|
+25
+|
+26
+|
+27
+|
+28
+|
+29
+|
+30
+|
+31
+|
+32
+|
+Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+some of the older versions listed here ^ may be security risks- for archive purposes only
+Contents
+1
+fedora 24
+1.1
+Upgrade to f25 in Gnome Software
+1.2
+Download f24
+1.3
+Here are some ways to get .108 sugar:
+1.4
+sugar-runner only works in GNOME on Xorg
+1.5
+How to list available Desktop Environments
+1.6
+DNF System Upgrade
+1.7
+dd to write USB
+1.8
+win32 Disk Manager
+1.9
+Fedora Media Writer
+1.9.1
+Bugs
+1.10
+livecd-creator
+1.10.1
+f24 soas remix with mediawriter added to livecd-creator
+1.11
+livemedia-creator
+1.11.1
+Install files
+1.11.2
+ksflatten
+1.11.3
+warning
+1.11.4
+Make a remix
+1.11.5
+Retrieve finished live.iso
+1.11.6
+Clean Up
+1.11.7
+f24 soas remix with mediawriter added to LMC
+1.12
+How to create a Fedora install ISO
+1.13
+f25 multboot USB
+1.14
+recordmydesktop-0.3.8.1-16.fc24.x86_64
+1.14.1
+Session
+1.15
+Virtual Machine Manager
+1.16
+VirtualBox
+1.17
+copr update to 0.109 sugar
+2
+Developer Portal
+2.1
+Download
+2.2
+wayland in rawhide
+2.3
+How to debug Wayland
+2.4
+Fedora Package Information search
+2.5
+Available environment groups
+2.6
+Common Bugs
+2.7
+Assigning a USB in Virtual Manger
+2.8
+dnf api
+2.9
+Network manager and wifi-scans
+3
+Offical Fedora Spins
+fedora 24
+f24 goes EOL August 8
+Fedora 24 changed to end-of-life (EOL) status on 2017-08-08. Fedora 24 is
+no longer maintained, which means that it will not receive any further
+security or bug fix updates.....
+updated 2017-08-08
+Tutorial: Install f25 soas to hard disk
+Upgrade to f25 in Gnome Software
+Upgrade is now offered to go to f25 in Gnome Software
+With Message:
+"Fedora 25 Ready to be Installed"
+If the banner is Black and White
+Do not Proceed.
+Update will fail
+WARNING:  do dnf update first
+Fully updated Gnome Software has a BLUE Banner in Gnome Software
+With Message:
+"Fedora 25 Now Available"
+[Learn More]     [Download]
+WARNING:  do dnf update first
+Back up your files
+Download f24
+Multiboot USB.iso
+F24-Multiboot-20161108.iso
+http://dl.fedoraproject.org/pub/alt/live-respins/F24-Multiboot-20161108.iso
+bios boot only;requires 16 GB USB
+write with fedora mediawriter; dd or gnome-disks-restore
+Has multiple lives selectable from menu.
+Everything netinstall
+http://dl.fedoraproject.org/pub/fedora/linux/releases/24/Everything/x86_64/iso/Fedora-Everything-netinst-x86_64-24-1.2.iso
+https://getfedora.org/
+https://spins.fedoraproject.org/soas/
+now work
+refresh your browser
+06/21/2016 update
+SoaS did not build in Final.
+It was decided to release a working nightly in
+http://dl.fedoraproject.org/pub/alt/unofficial/releases/24/
+It was fault in the builders that caused this to occur.[1]
+[1]
+https://bugzilla.redhat.com/show_bug.cgi?id=1315541
+f24 soas
+:
+http://archive.fedoraproject.org/pub/alt/unofficial/releases/24/
+needed fixed at last moment of release
+x86_64
+http://dl.fedoraproject.org/pub/alt/unofficial/releases/24/x86_64/Fedora-SoaS-Live-x86_64-24-20160614.n.0.iso
+https://kojipkgs.fedoraproject.org//work/tasks/2164/14522164/Fedora-SoaS-Live-x86_64-24-1.2.iso
+i386
+http://dl.fedoraproject.org/pub/alt/unofficial/releases/24/i386/Fedora-SoaS-Live-i386-24-20160614.n.0.iso
+https://kojipkgs.fedoraproject.org//work/tasks/2165/14522165/Fedora-SoaS-Live-i386-24-1.2.iso
+torrents
+https://torrent.fedoraproject.org/torrents/
+https://getfedora.org/
+Boot.iso
+http://mirror.cc.vt.edu/pub/fedora/linux/development/24/Everything/x86_64/os/images/
+Used for install of any DE to Hard Disk as networkinstall (Including Sugar-Desktop)
+webkitgtk3 is required for sugar to work in f24
+Here are some ways to get .108 sugar:
+You can also use the everthing netinstall to install sugar-desktop
+https://kojipkgs.fedoraproject.org/compose/24/Fedora-24-20160504.0/compose/Everything/x86_64/iso/Fedora-Everything-netinst-x86_64-24_Beta-1.6.iso
+look for Software selection in installer then choose sugar desktop environment
+Checksum:
+https://kojipkgs.fedoraproject.org/compose/24/Fedora-24-20160504.0/compose/Everything/x86_64/iso/
+or use  in another f24 Desktop Environment:
+"dnf groupinstall sugar-desktop-environment"
+"dnf install sugar-runner webkitgtk3
+(webkitgtk3 is required for sugar to work in f24)
+https://bugzilla.redhat.com/show_bug.cgi?id=1363915#c18
+sugar-runner only works in GNOME on Xorg
+sugar-desktop works in GNOME as separate login
+How to list available Desktop Environments
+sudo dnf group list hidden -v
+DNF System Upgrade
+update f23 to f24 Beta
+worked for Soas f23 to f24
+05/05/2016
+https://fedoraproject.org/wiki/DNF_system_upgrade
+dd to write USB
+https://fedoraproject.org/wiki/QA:Testcase_USB_stick_Live_dd
+https://fedoraproject.org/wiki/How_to_create_and_use_Live_USB#dd
+Dangerous if pointed to wrong device BE CAREFULL
+win32 Disk Manager
+writes to USB in windows 10
+EFI
+Bios-boot
+https://sourceforge.net/projects/win32diskimager/
+https://sourceforge.net/projects/win32diskimager/files/latest/download
+Fedora Media Writer
+<--Return to Tutorial using the
+older LUC interface
+Revised installer
+Updated 12/04/2016
+NOTE persistence is no longer offered
+see below [ 1 ]
+Destined to be Primary installer in linux; Windows; Mac
+Downloads f23/24/25 iso's
+Use
+Custom OS
+for testing .iso's you have already downloaded
+iso selection Starts in / ; go to Home/(user)/Downloads to find them (select with double click)
+Main Screen (note Fedora Spins - Including KDE - are accessed from [ : ] at bottom
+Custom OS
+Fedora Spins [ : ]
+LiveUSBCreator as Primary Downloadable
+https://bugzilla.redhat.com/show_bug.cgi?id=1310542
+[1]
+RPMS
+http://koji.fedoraproject.org/koji/packageinfo?packageID=6691
+Test Day
+https://fedoraproject.org/wiki/Test_Day:2016-04-19_Fedora_Media_Writer
+Bugs
+https://bugzilla.redhat.com/show_bug.cgi?id=1320279
+https://bugzilla.redhat.com/show_bug.cgi?id=1310542
+https://bugzilla.redhat.com/show_bug.cgi?id=1324600
+https://bugzilla.redhat.com/show_bug.cgi?id=1328369
+https://bugzilla.redhat.com/show_bug.cgi?id=1328457
+https://bugzilla.redhat.com/show_bug.cgi?id=1288080
+tracking bug
+f24 Common Bugs:
+https://fedoraproject.org/wiki/Common_F24_bugs
+[ 1 ] use live-iso-to-disk for persistence
+livecd-iso-to-disk --format --reset-mbr --overlay-size-mb 2000 --home-size-mb 2000 --delete-home --unencrypted-home Fedora-Workstation-Live-x86_64-24_Beta-1.4.iso /dev/sdb*
+USB must have: fat format, boot flag, label=LIVE
+CAUTION use "mount" (in terminal) to get correct name for USB
+/dev/sdb /dev/sdc /dev/sdd etc
+livecd-creator
+simpler way to remix live cd's
+livecd-creator \
+--config=/home/(user)/Downloads/pagure/flat-fedora-live-soas-mediawriter.ks \
+--fslabel=Soas-f24-mediawriter --cache=/var/cache/live --verbose
+f24 soas remix with mediawriter added to livecd-creator
+Source file:
+https://wiki.sugarlabs.org/go/File:Flat-fedora-live-soas-mediawriter.ks
+https://wiki.sugarlabs.org/go/File:Livecd-tools_flat-fedora-live-soas-mediawriter.txt
+livemedia-creator
+https://fedoraproject.org/wiki/Livemedia-creator-_How_to_create_and_use_a_Live_CD
+Newer method to create live cd.isos in f24
+https://jbwillia.wordpress.com/2014/10/29/how-to-build-updated-fedora-live-iso-for-yourself/
+Older post
+https://www.brianlane.com/creating-live-isos-with-livemedia-creator.html
+Examples in f24 root terminal:
+Install files
+livemedia-creator and ksflatten are part of lorax
+# dnf install lorax virt-install libvirt-daemon-config-network
+
+Last metadata expiration check: 2:48:39 ago on Sun Jun 19 14:06:08 2016.
+Package lorax-23.21-1.fc23.x86_64 is already installed, skipping.
+Package libvirt-daemon-config-network-1.2.18.3-1.fc23.x86_64 is already installed, skipping.
+--snip--
+Downloading Packages:
+virt-install-1.3.2-2.fc23.noarch.rpm                                                                                                              219 kB/s |  92 kB     00:00
+--snip--
+Installed:
+  virt-install.noarch 1.3.2-2.fc23
+Must be done first:
+You must be in the same fedora version (f24) first.
+setenforce 0
+ksflatten
+build works: 05/26/2016 tg
+ksflatten
+bash: ksflatten: command not found...
+Install package 'pykickstart' to provide command 'ksflatten'? [N/y] y
+Link:
+https://pagure.io/fedora-kickstarts/tree/f24
+<dgilmore> satellit: I suggest that you tell people to git clone the repo and not get each piece manually
+Kickstarts need to flattened before use:
+hit raw tab and
+save-page-as
+to a local directory (/home/(user)/Downloads/pagure/)
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-live-soas.ks
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-live-base.ks
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-live-minimization.ks
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-repo.ks
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-repo-not-rawhide.ks
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-repo-rawhide.ks
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-soas-packages.ks
+switch root terminal to the local directory with the kickstart files (/home/(user)/Downloads/pagure/)
+ksflatten -v, --config fedora-live-soas.ks -o flat-fedora-live-soas.ks --version F24
+livemedia-creator --ks /home/(user)/Downloads/pagure/flat-fedora-live-soas.ks  --logfile /tmp/lmc-logs/livemedia-out.log --no-virt --resultdir /tmp/lmc --project Fedora-soas-Live --make-iso --volid Fedora-SoaS-flat-live --iso-only --iso-name Fedora-SoaS-flat-live.iso --releasever 24 --title Fedora-SoaS-flat-live --macboot
+warning
+12/14/2016
+There is a problem using LMC this way:
+<adamw> satellit: you really *really* shouldn't be running lmc directly on the system with --no-virt anyway
+<adamw> it's a fundamentally risky thing to do
+Make a remix
+edit the bottom of the flat-fedora-live-soas.ks
+that you produce with ksflatten  (above)
+in this section of the flattened.ks:
+%packages
+add a program   (add name)
+-
+delete a program ( put - in front)
+put
+#
+in front of listed program to not install it
+See this page for more details on remixes
+https://wiki.sugarlabs.org/go/Build_Your_Own_Remix_with_Fedora
+:
+Build takes a long time wait for completion
+ends with:
+..........clip........
+..........clip........
+2016-05-17 16:16:16,110: Disk Image install successful
+2016-05-17 16:16:16,110: working dir is /var/tmp/lmc-work-rilyz2bm
+2016-05-17 16:27:38,448: Rebuilding initrds
+2016-05-17 16:27:38,448: dracut args = ['--xz', '--add', 'livenet dmsquash-live convertfs pollcdrom qemu qemu-net', '--omit', 'plymouth', '--no-hostonly', '--debug', '--no-early-microcode']
+2016-05-17 16:27:38,449: rebuilding boot/initramfs-4.5.3-300.fc24.x86_64.img
+2016-05-17 16:29:15,724: Building boot.iso
+2016-05-17 16:29:15,784: running x86.tmpl
+2016-05-17 16:29:48,959: Disk image erased
+2016-05-17 16:29:49,377: SUMMARY
+2016-05-17 16:29:49,377: -------
+2016-05-17 16:29:49,377: Logs are in /tmp/lmc-logs
+2016-05-17 16:29:49,377: Results are in /tmp/lmc
+Retrieve finished live.iso
+"Results are in /tmp/lmc"
+start files application
+click on
+Files system
+open  temp folder
+open lmc folder
+click on  the
+.....iso
+you just built
+copy to
+(mouse right click)
+Home
+with files application
+Check that it is in Home
+Clean Up
+delete the instance in /tmp
+delete the /tmp directory  (cannot run new build unless this is done?)
+[root@localhost lmc]# 
+[root@localhost lmc]# cd ..
+[root@localhost tmp]# rm -r lmc
+rm: descend into directory 'lmc'? y
+rm: remove regular file 'lmc/Fedora-LUCwks-20160524.iso'? y
+rm: remove directory 'lmc'? y
+[root@localhost tmp]#
+f24 soas remix with mediawriter added to LMC
+Source files:
+terminal command and output
+https://wiki.sugarlabs.org/go/File:Flat-fedora-live-soas-mediawriter.txt
+flattened kickstart to use
+https://wiki.sugarlabs.org/go/File:Flat-fedora-live-soas-mediawriter.ks
+How to create a Fedora install ISO
+http://fedoraproject.org/wiki/How_to_create_a_Fedora_install_ISO_for_testing
+mock - Builds packages inside chroots
+https://fedoraproject.org/wiki/Building_a_custom_kernel
+f25 multboot USB
+su -c './multiboot-media-creator.py --clean\
+      -i {Fedora-Workstation-Live-x86_64-25-1.3.iso,Fedora-Server-dvd-x86_64-25-1.3.iso,Fedora-KDE-Live-x86_64-25-1.3.iso,Fedora-Cinnamon-Live-x86_64-25-1.3.iso,Fedora-MATE_Compiz=Live-x86_64-25-1.3.iso,Fedora-SoaS-Live-x86_64-25-1.3.iso,Fedora-Jam_KDE-Live-x86_64-25-1.3.iso} \
+     --bootdefault Fedora-Workstation-Live-x86_64-25-1.3.iso \
+     --target Fedora-25-Multi-Boot.iso \
+     --targetname Fedora-25-Multi-Desktop'
+contains:
+Fedora-Workstation-Live-x86_64-25-1.3.iso
+Fedora-Server-dvd-x86_64-25-1.3.iso
+Fedora-KDE-Live-x86_64-25-1.3.iso
+Fedora-Cinnamon-Live-x86_64-25-1.3.iso
+Fedora-MATE_Compiz-Live-x86_64-25-1.3.iso
+Fedora-SoaS-Live-x86_64-25-1.3.iso
+Fedora-Jam_KDE-Live-x86_64-25-1.3.iso
+recordmydesktop-0.3.8.1-16.fc24.x86_64
+Only works in gnome-xorg  
+does not work in (wayland Gnome)
+saves file in .ogv format
+# dnf install recordmydesktop
+Last metadata expiration check: 0:26:42 ago on Wed Nov 23 18:49:04 2016.
+Package recordmydesktop-0.3.8.1-16.fc24.x86_64 is already installed, skipping.
+Dependencies resolved.
+Nothing to do.
+Complete!
+Session
+[root@localhost satellit]
+# recordmydesktop
+Initial recording window is set to:
+X:0   Y:0    Width:1600    Height:900
+Adjusted recording window is set to:
+X:0   Y:2    Width:1600    Height:896
+Your window manager appears to be Mutter (Muffin)
+Detected compositing window manager.
+Reverting to full screen capture at every frame.
+To disable this check run with --no-wm-check
+NOTE Fails to stop in gnome3.10.2 in f20'
+(though that is not advised, since it will probably produce faulty results).
+Initializing...
+Buffer size adjusted to 4096 from 4096 frames.
+Opened PCM device default
+Recording on device default is set to:
+1 channels at 22050Hz
+Capturing!
+^C
+Cached 12 MB, from 393 MB that were received.
+Average cache compression ratio: 96.9 %
+Shutting down.Saved 821 frames in a total of 819 requests
+....
+STATE:ENCODING
+Encoding started!
+This may take several minutes.
+Pressing Ctrl-C will cancel the procedure (resuming will not be possible, but
+any portion of the video, which is already encoded won't be deleted).
+Please wait...
+Output file: out.ogv
+[100%] 
+Encoding finished!
+Wait a moment please...
+Done.
+Written 6388001 bytes
+(5829888 of which were video data and 558113 audio data)
+Cleanning up cache...
+Done!!!
+Goodbye!
+[root@localhost satellit]#
+Virtual Machine Manager
+Install with gnome-software
+search with kvm
+launcher
+virtual machine manager
+Select QEMU/kvm user session
+VirtualBox
+Download
+https://www.virtualbox.org/wiki/Linux_Downloads
+https://www.virtualbox.org/wiki/Downloads
+Install rpm with software installer
+Click on rpm.
+Terminal:
+#
+dnf install gcc dkms kernel-devel 
+Last metadata expiration check: 2:08:49 ago on Sat Jul 16 14:14:34 2016.
+Package gcc-6.1.1-3.fc24.x86_64 is already installed, skipping.
+Dependencies resolved.
+================================================================================
+ Package          Arch       Version                          Repository   Size
+================================================================================
+Installing:
+ dkms             noarch     2.2.0.3-34.git.9e0394d.fc24      updates      82 k
+ kernel-devel     x86_64     4.6.3-300.fc24                   updates      10 M
+Instructions to prepare kernel:
+http://www.virtualbox.org/manual/ch02.html#idm883
+#
+rcvboxdrv setup
+vboxdrv.sh: Starting VirtualBox services.
+vboxdrv.sh: Building VirtualBox kernel modules.
+#
+copr update to 0.109 sugar
+copr installed in f24 workstation with a sugar-desktop installed (0.108)
+I see sugar 0.109 after dnf update and reboot. (satellit 06/05/2016)
+Install of sugar 0.109:
+12/20/2016
+https://da.gd/zUg8D
+Log of install ^
+I will be doing the release management for the 0.110 cycle.  Please see the timeline [1].  I would appreciate any comments on the timeline.
+I've also setup a COPR for sugar, which I hope to maintain throughout this cycle.  Are there any other packaging services that we should have to push testing releases to?
+Is there a service for automatic building of live SoaS images?  XO images?  Let's make this the most tested sugar release ever!
+Thanks,Sam"
+[1]
+https://wiki.sugarlabs.org/go/0.110/Roadmap
+url =
+https://copr.fedorainfracloud.org/coprs/samtoday/sugar/
+works with sugar-runner install as 2nd Desktop Environment in f24 cinnamon/gnome
+Developer Portal
+https://developer.sugarlabs.org/dev-environment.md.html
+Download
+Matix of successful builds: f24 and f25 rawhide
+https://www.happyassassin.net/testcase_stats/24/Installation.html
+https://www.happyassassin.net/nightlies.html
+Alpha :
+https://kojipkgs.fedoraproject.org/compose/24/Fedora-24-20160314.1/compose/Spins/x86_64/iso/
+Branched :
+https://kojipkgs.fedoraproject.org/compose/branched/
+http://dl.fedoraproject.org/pub/fedora/linux/development/24/Workstation/x86_64/iso/
+http://mirrors.rit.edu/fedora/fedora/linux/development/24/Spins/
+http://mirrors.rit.edu/fedora/alt/development/24/Labs/
+http://koji.fedoraproject.org/koji/tasks?method=livemedia&state=all&view=tree&order=-id
+http://dl.fedoraproject.org/pub/fedora/linux/development/24/Workstation/x86_64/iso/
+http://mirrors.rit.edu/fedora/fedora/linux/development/24/Spins/
+http://mirrors.rit.edu/fedora/alt/development/24/Labs/
+http://koji.fedoraproject.org/koji/tasks?method=livemedia&state=all&view=tree&order=-id
+05/13/2016
+https://kojipkgs.fedoraproject.org/compose/
+updated 05/13/2016
+https://fedoraproject.org/wiki/Workstation/Tasklist
+wayland in rawhide
+Workstation now is using wayland by default
+Users will be able to disable wayland by setting WaylandEnable=false
+in /etc/gdm/custom.conf but there will no longer be two separate menu
+update:
+GDM Menu updated to:
+gnome (wayland
+gnome-classic
+x-gnome
+Wayland By Default
+https://fedoraproject.org/wiki/Changes/WaylandByDefault#Scope
+https://bugzilla.redhat.com/show_bug.cgi?id=1214655
+https://ask.fedoraproject.org/en/question/75924/fedora-23-wayland-gnome-terminal-mouse-middle-click-paste/
+WARNING
+Do not use any fedora 24 (rawhide) installs for anything but testing.
+This works in f23 virtual manager:
+https://kojipkgs.fedoraproject.org/mash/rawhide-20151111/rawhide/x86_64/os/images/boot.iso
+https://kojipkgs.fedoraproject.org/mash/rawhide/
+For latest builds:
+https://apps.fedoraproject.org/releng-dash/
+All
+http://koji.fedoraproject.org/koji/tasks?start=0&state=all&view=flat&method=createLiveCD&order=-id
+Alternate: (Still f23)
+http://koji.fedoraproject.org/koji/tasks?owner=ausil&state=all&view=flat&method=createLiveCD&order=-id
+http://koji.fedoraproject.org/koji/tasks?owner=pbrobinson&state=all&view=flat&method=createLiveCD&order=-id
+How to test if you are using wayland
+1) You can check if you're on wayland by running
+$ ls -l $XDG_RUNTIME_DIR/wayland-0
+if it returns a socket you're probably using wayland.
+2)'xrandr' is easier to type... Output names have WAYLAND in them under wayland.
+How to debug Wayland
+https://fedoraproject.org/wiki/How_to_debug_Wayland_problems
+Fedora Package Information search
+https://apps.fedoraproject.org/packages/
+Available environment groups
+Updated 05/18/2016
+example command line
+dnf groupinstall workstation-product-environment
+sudo dnf group list -v
+sudo dnf group list hidden -v
+dnf grouplist hidden
+Available environment groups:
+Minimal Install (minimal-environment)
+  Fedora Custom Operating System (custom-environment)
+  Fedora Server Edition (server-product-environment)
+  Fedora Workstation (workstation-product-environment)
+  Fedora Cloud Server (cloud-server-environment)
+  KDE Plasma Workspaces (kde-desktop-environment)
+  Xfce Desktop (xfce-desktop-environment)
+  LXDE Desktop (lxde-desktop-environment)
+  Hawaii Desktop (hawaii-desktop-environment)
+  LXQt Desktop (lxqt-desktop-environment)
+  MATE Desktop (mate-desktop-environment)
+  Sugar Desktop Environment (sugar-desktop-environment)
+  Development and Creative Workstation (developer-workstation-environment)
+  Web Server (web-server-environment)
+  Infrastructure Server (infrastructure-server-environment)
+  Basic Desktop (basic-desktop-environment)
+  Cinnamon Desktop (cinnamon-desktop-environment)
+Available groups:
+Administration Tools (admin-tools)
+  Ansible node (ansible-node)
+  Audio Production (audio)
+  Authoring and Publishing (authoring-and-publishing)
+  Books and Guides (books)
+  C Development Tools and Libraries (c-development)
+  Cloud Infrastructure (cloud-infrastructure)
+  Cloud Management Tools (cloud-management)
+  Container Management (container-management)
+  D Development Tools and Libraries (d-development)
+  Design Suite (design-suite)
+  Development Tools (development-tools)
+  Domain Membership (domain-client)
+  Fedora Eclipse (eclipse)
+  Editors (editors)
+  Educational Software (education)
+  Electronic Lab (electronic-lab)
+  Engineering and Scientific (engineering-and-scientific)
+  FreeIPA Server (freeipa-server)
+  Games and Entertainment (games)
+  Headless Management (headless-management)
+  LibreOffice (libreoffice)
+  MATE Applications (mate-applications)
+  MATE Compiz (mate-compiz)
+  Medical Applications (medical)
+  Milkymist (milkymist)
+  Network Servers (network-server)
+  Office/Productivity (office)
+  Robotics (robotics-suite)
+  RPM Development Tools (rpm-development-tools)
+  Security Lab (security-lab)
+  Sound and Video (sound-and-video)
+  System Tools (system-tools)
+  Text-based Internet (text-internet)
+  3D Printing (3d-printing)
+  Window Managers (window-managers)
+Common Bugs
+https://fedoraproject.org/wiki/Common_F24_bugs
+Assigning a USB in Virtual Manger
+http://www.linux-kvm.org/page/USB_Host_Device_Assigned_to_Guest
+dnf api
+https://dnf.readthedocs.io/en/latest/api.html
+Network manager and wifi-scans
+https://blogs.gnome.org/dcbw/2016/05/16/networkmanager-and-wifi-scans/
+Offical Fedora Spins
+https://fedoraproject.org/wiki/Releases/24/Spins#Official_Fedora_Spins
+Needs to be filled in or spin may be dropped
+https://lists.fedoraproject.org/pipermail/devel/2013-August/188004.html

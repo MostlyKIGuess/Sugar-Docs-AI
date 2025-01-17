@@ -1,0 +1,263 @@
+Title: Dextrose/2/Merge Plan
+URL: https://wiki.sugarlabs.org/go/Dextrose/2/Merge_Plan
+--------------------------------------------------------------------------------
+Dextrose
+·
+Get Involved
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Moved and died at
+http://sugardextrose.org
+This is a summary of all Sugar patches in Dextrose as of 2010-09-27. Most of these patches
+have been submitted to sugar-devel@ or attached to tickets. Some have already
+found their way upstream, others still have quality issues. All of them have been
+integrated and tested in Dextrose to produce a better overall Sugar environment.
+Refer to the
+rpms directory
+in git
+for the actual patches.
+See also
+Dextrose/TODO/Patches
+.
+Contents
+1
+Upstreamed bug fixes
+2
+Upstreamed new features
+3
+Unreviewed bugfixes
+4
+Unsubmitted bugfixes
+5
+Rejected new features
+6
+Unreviewed new features
+7
+Unsubmitted new features
+8
+Unreviewed cleanups
+9
+Experimental Patches
+10
+Disabled and obsolete patches
+Upstreamed bug fixes
+sugar-datastore/sl2132-reduce-_FLUSH_TIMEOUT-to-5sec.patch
+ sugar-datastore/sl2132-set-index_updated-flag-on-ds-shutting-down.patch
+ sugar-datastore/sl2095-invert-datastore-clean-logic.patch
+These plug a serious journal data loss condition that was observed
+repeatedly in the field.
+sugar/sl2064-always-listen-for-NameOwnerChanged-DBus-message.patch
+It turns out that this patch does not really fix #2064, but it
+doesn't hurt either.
+sugar/fix-duplication-of-OLPC-mesh-icons.patch
+Three or more mesh icons were being added after every suspend/resume.
+sugar/journal-xobundle-removal-wont-remove-installed-one.patch
+Quite surprising behavior: removing a bundle from the journal would uninstall
+activity too.
+sugar/sl2062-catch-network-errors-when-trying-to-register-to-the-xs.patch
+ sugar/sl1940-register-session-failed-fix.patch
+These two help make registration to schoolserver less painful.
+sugar/add-button-frame.patch
+Add frame and journal keybindings to F5/F6 (for XO1.5-HS)
+sugar/indicate-inactive-state-in-mesh-device-icon.patch
+Not sure how this interacts with the switch from mesh to ad-hoc, but
+we applied it long ago.
+sugar/restore-sugar-launch-by-bundle-id-substring-fixes-89.patch
+ sugar/improve-activity-updater-icon.patch
+ sugar/disconnect-icon-in-wifi-palette-1736.patch
+ sugar-toolkit/use-set_toolbar_box-in-example-code.patch
+ sugar-toolkit/set-default-accelerators-for-Copy-and-Paste-buttons.patch
+ sugar-toolkit/sl1861-remove-unneeded-debug-logs.patch
+These are not really important, but safe and nice to have.
+sugar/sl1842-journal-show-error-on-write-failure.patch
+ sugar-toolkit/sl1842-notify-red-alert.patch
+ sugar-toolkit/add-ErrorAlert.patch
+The version that went upstream lacks the fancy red alert part.  For the sake
+of staying closer to upstream, we could rebase Dextrose on this version.
+I don't particularly care.
+sugar-artwork/sugar-artwork-gtkdep.patch
+ sugar-artwork/revert-to-GTK_WIDGET_IS_SENSITIVE.patch
+Small build fixes.
+Upstreamed new features
+sugar/sizelist-0000-cover-letter.patch
+ sugar/sizelist-0001-Journal-Retrieve-filesize-from-the-datastore.patch
+ sugar/sizelist-0002-Add-a-filesize-column-to-the-journal-list-model.patch
+ sugar/sizelist-0003-Journaltoolbox-Add-add_separator-method-for-convenie.patch
+ sugar/sizelist-0004-Add-a-ListViewButton-to-the-journal-search-toolbar.patch
+ sugar/sizelist-0006-Display-the-sorting-property-in-the-last-column.patch
+ sugar/sizelist-0005-Rename-the-date-column-to-sort_column.patch
+ sugar/sizelist-0007-Expandedentry-Try-to-use-the-filesize-property.patch
+ sugar/sizelist-0008-Implement-sorting-for-removable-devices.patch
+ sugar/sizelist-0009-Add-sort-by-creation-time-option-to-the-ListViewButt.patch
+ sugar/sizelist-0010-Add-ctime-property-to-the-journal-model.patch
+ sugar-artwork/sizelist-0001-add-icons-for-the-sorting-options-in-the-Journal.patch
+ sugar-datastore/sizelist-0002-Add-migration-code-from-DS-v0-for-the-filesize-prope.patch
+ sugar-datastore/sizelist-0006-Implement-migration-from-DS-v0-for-ctime-property.patch
+ sugar-datastore/sizelist-0000-cover-letter.patch
+ sugar-datastore/sizelist-0005-Check-ctime-on-index-rebuild.patch
+ sugar-datastore/sizelist-0004-Add-ctime-property-to-the-index-and-datastore.patch
+ sugar-datastore/sizelist-0003-Check-filesize-property-on-index-rebuild.patch
+ sugar-datastore/sizelist-0001-Add-filesize-property-to-the-index.patch
+ sugar-datastore/sizelist-0007-Increment-CURRENT_LAYOUT_VERSION-to-trigger-an-index.patch
+Andres' series for sorting the journal by file size:
+http://wiki.sugarlabs.org/go/Features/Journal_Sort
+THIS IS NOT A GEEK TOY! If the filesize is not exposed, users are
+unable to figure out how to free up space when the journal becomes
+full.
+sugar/sl1610-default-ad-hoc-networks.patch
+ sugar-artwork/ad_hoc_artwork.patch
+http://wiki.sugarlabs.org/go/Features/Sugar_Adhoc_Networks
+sugar/bundle-Delete-profile-data-only-when-erased.patch
+ sugar-toolkit/bundle-Delete-activities-profile-data-when-uninstall.patch
+This is sl#2074. Merged after a very long struggle.
+sugar/caacupe-Protected-activities-list.patch
+A variation of this went upstream. Formadores like this feature very much.
+Unreviewed bugfixes
+sugar/sl1673-fix-network-disconnect-and-discard-history-v2.patch
+An upstream maintainer wants this split in 4 patches and submitter is waiting for consensus,
+so this useful patch remains stuck in review. There's a newer patch attached
+to sl#1673, someone should check it out.
+sugar/fix-for-file-list-sorting-for-FAT32-formatted-flash-drives-in-journal.patch
+This one seems to have fallen through the cracks. Need to resubmit.
+sugar-toolkit/sl1876.patch
+Review stuck in sl#1876.
+sugar-toolkit/fix-two-trivial-shell-log-warnings.patch
+Reviewed on sugar-devel, should be merged. Someone should ping Quozl.
+sugar/avoid-popping-an-empty-list-in-the-software-updater.patch
+Works, but Quozl posted a better counter-patch. Merge that one.
+Unsubmitted bugfixes
+sugar/jasg-register-rename.patch
+ sugar/prevent-multiple-XS-icons-when-re-register.patch
+After first registeration with the schoolserver, the "Register"
+menu item disappears. If the schoolserver gets replaced or the
+user changes school, there's no way to repeat the registrarion
+process. This patch provides a crude solution to this problem.
+sugar-artwork/journal-reindex-icon.patch
+ sugar/journal-0002-reindex.patch
+ sugar/journal-0003-reindex-translations.patch
+The journal index sometimes gets corrupted or out of sync with data.
+This can happen at the hardware, filesystem or datastore level and
+there's not much we can do about it. This patches provide a workaround for
+users. No, it's not a geek toy.
+sugar/reverse-sort-order-of-activities-list.patch
+Jorge or someone should post this to sugar-devel@.
+Rejected new features
+sugar/backup-translations.patch
+ sugar/backup-0001-Volumes-Backup-and-Restore.patch
+ sugar/backup-0002-Journal-XS-backup-and-restore.patch
+ sugar/backup-0005-save-lease.patch
+ sugar/journal-0001-Processdialog-prerequisite-check-support.patch
+ sugar-artwork/gmartin-School-Server-Icon.patch
+This series implements easy backup and restore of the journal to
+removable media and schoolservers. It has been submitted for review,
+but upstream found it unacceptable for various reasons. Uruguay and
+Paraguay like this feature the way it is, so these patches remain
+off-tree.
+sugar/use-the-spanish-verb-quitar-for-unmounting-devices.patch
+Better-than-nothing patch, but the real fix would require a gettext
+kludge in the code (see
+http://bugs.python.org/issue2504
+)
+sugar/cpu-and-memory-resource-indicator.patch
+ sugar-artwork/cpu-and-memory-indicator-icons.patch
+See sl#2141. This is seen as another geek's toy, but geeks could simply
+cat /proc/meminfo... users really need a simple way to see why the XO
+isn't performing well with too many open activities.
+sugar/dynamically-set-number-of-control-panel-columns.patch
+The approach to compute the column width is wrong, but it produces better
+results than the current fixed number of columns. So, for now, I'm keeping
+this better-than-nothing fix.
+Unreviewed new features
+sugar/restart-option.patch
+We're doing good progress in sl#1206.
+Unsubmitted new features
+sugar/accessibility_0001_cp_accessibility_keyboard.patch
+ sugar/accessibility_0002_magnifier_extension.patch
+ sugar/accessibility_0003_cp_accessibility_contrast.patch
+ sugar/accessibility_0004_cp_accessibility_mouse.patch
+ sugar/accessibility_0005_cp_accessibility_capital_letters.patch
+ sugar/accessibility_0006_virtualkeyboard.patch
+ sugar/accessibility_0007_cp_translations.patch
+ sugar/accessibility_0008_cp_show-virtualkeyboard-for-accessibility.patch
+ sugar/accessibility_0009_cp_show-virtualkeyboard-for-accessibility-traslate.patch
+ sugar-artwork/accessibility_0001_contrast.patch
+ sugar-artwork/accessibility_0002_virtualkeyboard_icon.patch
+ sugar-toolkit/accessibility_0001_style-contrast.patch
+Accessibility features developed in Uruguay. These have not been submitted
+for review yet.
+http://wiki.sugarlabs.org/go/File:Dextrose_teclado_virtual.png
+sugar/microformat-updater.patch
+This is a backend for the new Sugar activity updater, implementing the
+olpc microformat protocol which is used by several deployments.
+sugar/gsm-errors-palette.patch
+Improves diagnostic messages for GSM dongles.
+sugar/sl2006-touchpad-device-on-frame.patch
+ sugar-artwork/sl2006-icons-for-touchpad-panel.patch
+Walter's XO-1 touchpad control panel. It would be nice to add a global
+shortcut such as alt-shift-T.
+Unreviewed cleanups
+sugar/simplify-the-definition-of-UpdateModel._bundles_to_check..patch
+Should be merged.
+sugar-toolkit/remove-incomplete-MANIFEST-support.patch
+The incomplete design and implementation of MANIFEST files has been laying
+around for 3 years. We can choose to clean it up now, or let it bitrot for
+another 3 years. Posted some time ago to sugar-devel, nobody reviewed it.
+Experimental Patches
+sugar-toolkit/change-keep-string-to-keep-a-copy.patch
+ sugar-toolkit/keep_a_copy_translation_missing.patch
+Several alternatives have been suggested on the list, but nobody implemented
+them, so this one still stands.
+sugar-toolkit/kill-the-delayed-menus-for-good.patch
+This change has been at the center of a huge design / UX / testing flame war a
+while ago. I've merged it to observe user reactions, so
+hopefully we can have a polite discussion based on some real data.
+sugar-toolkit/sugar-toolkit-dont-configure-fonts.patch
+sugar/sugar-enable-settings-manager.patch
+We had to temporarily exclude these because sugar-settings-manager does
+not play well with xulrunner in F11.
+sugar/add-font-dpi-schema.patch
+This is a companion patch of a fix sugar-settings-manager which has
+already landed in git. It's needed by xulrunner (Browse).
+sugar/set-default-scaling-to-100.patch
+This is only required on the XO. We should really autodetect this.
+Disabled and obsolete patches
+sugar-toolkit/sl1948-Race-condition-with-name-widget-in-the-activ.patch
+Erikos came up with a better fix in sl#1948. Should test it.
+sugar/sl1814-consolidate-activity-launch-entry-point.patch
+This also fixes sl#1719, which I've definitely seen happen in Dextrose.
+I don't know why this patch is disabled in our spec file, it should probably
+be retested.
+sugar/click-on-journal-icons-with-a-exclusive-time-frame.patch
+Requested by the Waveplace folks. This should be dropped once we get the
+proper fix for sl#1719 (see above).
+sugar/backup-0003-Journal-documents-volume-button.patch
+We no longer need this feature since we decided to disable Gnome, other
+deployments may find it useful. (but journal crashes when you drop files on
+the icon)
+sugar/pe558-modify-volumnestoolbar-to-mount-a-directory.patch
+This makes it possible to easily exchange documents with Gnome.
+Since we don't ship Gnome any more, we dropped this feature.h
+sugar/pe558-backup-restore-front-end-for-control-panel.patch
+ sugar/pe558-add-option-to-mount-any-user-directory-to-journal.patch
+ sugar/pe558-journal-management-control-panel-feature.patch
+This patch series has been replaced by Tincho's Journal-based backup/restore
+functionality. Keeping them around in case someone else prefers the control
+panel UI.
+sugar/fix-name-clash-set_state.patch
+This isn't strictly needed on 0.88, but it's confusing

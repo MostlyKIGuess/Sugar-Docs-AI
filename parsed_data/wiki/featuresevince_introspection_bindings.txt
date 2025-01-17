@@ -1,0 +1,98 @@
+Title: Features/Evince Introspection Bindings
+URL: https://wiki.sugarlabs.org/go/Features/Evince_Introspection_Bindings
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Initial information
+4.1
+Implementation plan
+4.2
+More information
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+Dependencies
+10
+Release Notes
+11
+Comments and Discussion
+Summary
+The pygtk bindings used until F14 to use the evince backend in Read activity, are no longer present in F16.
+We need use the new gi based bindings
+Owner
+Gonzalo Odiard
+Current status
+Targeted release: 0.96
+Last updated: 31 Jan 2012
+Percentage of completion: 100%
+Initial information
+This feature depends on evince  3.4 (shipped in F17)
+The bindings are already fixed and packaged in Fedora Rawhide
+Implementation plan
+The first step is port this simple demo to gtk3:
+e = evince.View()
+docmodel = evince.DocumentModel()
+doc = evince.document_factory_get_document('file:///path/to/file/example.pdf')
+docmodel.set_document(doc)
+e.set_model(model)
+With gtk 3 is:
+from gi.repository import Gtk, Gio
+from gi.repository import EvinceDocument
+from gi.repository import EvinceView
+class HelloWorldApp(Gtk.Application):
+   def __init__(self):
+       Gtk.Application.__init__(self, application_id="apps.test.helloevince",
+                                flags=Gio.ApplicationFlags.FLAGS_NONE)
+       self.connect("activate", self.on_activate)
+       
+   def on_activate(self, data=None):
+       window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
+       window.set_title("Evince Gtk3 Python Example")
+       window.set_border_width(24)
+scroll = Gtk.ScrolledWindow()
+       window.add(scroll)
+EvinceDocument.init()
+       doc = EvinceDocument.Document.factory_get_document('file:///home/gonzalo/Desktop/AjedrezyLeyendas-Postmortem.pdf')
+       view = EvinceView.View()
+       model = EvinceView.DocumentModel()
+       model.set_document(doc)
+       view.set_model(model)
+       scroll.add(view)
+window.show_all()
+       self.add_window(window)
+   
+if __name__ == "__main__":
+   app = HelloWorldApp()
+   app.run(None)
+More information
+Not directly related. Evince developers have a request to support epub format
+[1]
+.
+We are implementing our own epub reader displaying it with webkit. If implemented in evince, we can simplify our code a lot.
+Benefit to Sugar
+Have a working Read activity. Evince does not include the old bindings anymore.
+Scope
+What work do the developers have to accomplish to complete the feature in time for release?  Is it a large change affecting many parts of the distribution or is it a very isolated change? What are those changes?
+UI Design
+Does the feature have a direct impact on the work flow, or does it need a UI? Link here mockups, or add detailed descriptions.
+How To Test
+Need be tested in a F17 based image
+Dependencies
+Evince 3.4
+Release Notes
+This change is a internal implementation issue. To the users should be almost equal than the previous version.
+Comments and Discussion
+See
+discussion tab for this feature

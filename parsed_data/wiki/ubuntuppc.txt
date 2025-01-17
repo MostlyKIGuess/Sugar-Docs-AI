@@ -1,0 +1,45 @@
+Title: Ubuntu/PPC
+URL: https://wiki.sugarlabs.org/go/Community/Distributions/Ubuntu/PPC
+--------------------------------------------------------------------------------
+See
+https://wiki.ubuntu.com/PowerPC
+.
+Note
+: The following has been tested on a Mac iBook G4 (mid 2005)
+Contents
+1
+Ubuntu 10.10 PowerPC
+1.1
+USB device installation
+1.1.1
+Install Yaboot boot loader
+1.2
+Dual Boot with Mac OS X Leopard version 10.5
+Ubuntu 10.10 PowerPC
+https://wiki.ubuntu.com/PowerPCFAQ
+Ubuntu 10.10 (Maverick Meerkat)
+USB device installation
+Use 'Startup Disk Creator' from the System > Administration menu from an i386/x86-64 Ubuntu installation (as the PowerPC version of Ubuntu doesn't support SYSLINUX, but the install CD contains the yaboot bootloader that is required, and it will be transferred to the USB).
+Choose the downloaded Ubuntu Desktop 10.10 PPC .iso file or burned CD-ROM as the Source.
+Install Yaboot boot loader
+Read the precautions
+at this page,
+Boot PowerPC Macs via USB 2.0 drives
+Power on while holding four keys down, option+Apple+o+f.  This takes you into Openfirmware.
+Enter
+devalias
+at the
+0 >
+prompt (See step 4 in the above reference.)
+Note the exact usb device addresses.
+By experimentation, I found that my USB device would boot after setting the boot-device with this command:
+setenv boot-device /pci@f2000000/usb@1b/disk@1:1,\install\yaboot
+If the USB disc is not around, the default boot-device will boot your regular Mac installation.
+Check your setting with this command:
+printenv boot-device
+Your system may have different addresses, so it may take a while to discover the proper address.
+Dual Boot with Mac OS X Leopard version 10.5
+Use the Mac install DVD to resize and create partitions (including swap) for Ubuntu
+Burn the Ubuntu installation CD and install Ubuntu into the new partition by booting the CD-ROM.
+Use System > Administration > Additional Drivers to install the Broadcom B43 wireless driver.
+Use Ubuntu Software Center to search for Sugar. Install Sugar, the emulator for the Sugar Desktop Environment, plus dependencies and Activities suitable for Sugar 0.88

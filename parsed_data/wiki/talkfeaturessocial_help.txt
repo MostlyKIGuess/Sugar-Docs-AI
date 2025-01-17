@@ -1,0 +1,71 @@
+Title: Talk:Features/Social Help
+URL: https://wiki.sugarlabs.org/go/Talk:Features/Social_Help
+--------------------------------------------------------------------------------
+Contents
+1
+Missing content
+2
+How to add help to an activity?
+3
+No URL entry box, URL spoofing
+4
+Right-click menu
+Missing content
+This feature page does not mention:
+that an account must be created by the learner,
+that the learner must have an e-mail account,
+whether a cookie for the account remains on the device,
+a privacy policy,
+--
+Quozl
+20 May 2015
+Cookies are stored in the user's sugar profile directory.  It is persistent between usages.
+As for your other comments, they are 100% dependent on the user's or deployment's configured server.
+On socialhelp.sugarlabs.org (the default server):
+We use discourse, and email and accounts are very central to discourse.  Discourse is a very good piece of software and I suppose this is a compromise I am willing to make.
+Accounts could be pre-created by deployments or kids could ask questions using a teachers account
+We have a very stock standard
+privacy policy
+, it is very simple to understand and I recommend reading it.  It does have a bad policy on COPPA, which is an issue to fix.
+--
+SAMdroid
+21 May 2015
+Okay, thanks.  I think the feature page should mention these things (done).  Other things it could mention are:
+there is no support for deleting the cookies, (re: european union right to forget and cookie legislation),
+how to disable the feature for deployments who do not have a configured server (done),
+the requirements for the web application on the server, (e.g. it will be used in an embedded web browser that is unable to fill the display, unable to be dismissed without losing context, has no bookmark or URL entry capability, and has no HTTP AUTH capability),
+--
+Quozl
+(
+talk
+) 19:13, 25 May 2015 (EDT)
+How to add help to an activity?
+Activity developers need to know how to add help in a way that will work with Alt-Ctrl-H, where is this documented? --
+Quozl
+(
+talk
+) 20:31, 25 May 2015 (EDT)
+Not possible in an activity, apparently.  This is done in the
+Help
+activity, and the mapping from bundle id to HTML file is also held there. --
+Quozl
+(
+talk
+) 22:09, 25 May 2015 (EDT)
+No URL entry box, URL spoofing
+The embedded browser used by this feature does not show an entry box for the URL.  This removes one of the critical security features of web browsers; the ability to verify that the site you are visiting is the right one, and you haven't been redirected to another.
+References:
+http://www.infoworld.com/article/2923879/security/urlspoofing-bug-in-safari-could-enable-phishing-attacks.html
+http://en.wikipedia.org/wiki/Spoofed_URL
+On Sugar 0.105.1 it is possible to escape the configured server; log in, click on search icon, click on help, a search via Google entry box is shown, and the Google search results can be navigated.  There is no back button, so if you reach a page that has no links you must close help and open it again.
+Should the browser be restricted to the configured server? --
+Quozl
+(
+talk
+) 21:31, 26 May 2015 (EDT)
+Right-click menu
+There's a right-click menu that offers open link in new window or download linked file.  Neither work.  --
+Quozl
+(
+talk
+) 21:43, 26 May 2015 (EDT)

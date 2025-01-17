@@ -1,0 +1,245 @@
+Title: Human Interface Guidelines/Design Fundamentals/lang-es
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/Design_Fundamentals/lang-es#Know_Your_Audience
+--------------------------------------------------------------------------------
+Traducción de
+OLPC-HIG-Design Fundamentals
+original
+english
+|
+español
+|
+한국어
++/-
+cambios
+←
+Ideas Centrales
+Fundamentos del Diseño
+Experimentando la Laptop
+→
+Fundamentos del Diseño
+←
+Ideas Centrales
+Conocer la Audiencia
+Principios Claves del Diseño
+→
+Conocer la Audiencia
+Inexperimentados
+El objetivo de la OLPC es proveer a los chicos con las oportunidades de explorar, experimentar y expresarse. Muchos chicos que carecen de dichas oportunidades han tenido poco o ningún acceso a computadoras, y por lo tanto no tendran familiaridad con la laptop ni sabrán como interactuar con ella. Esto sin duda tendrá un impacto en algunos aspectos de desarrollo de las actividades. Por un lado, implica que los desarrolladores deben enfocar sus energías en lograr interfaces descubribles, totalmente intuitivas, y en construir metáforas que refuercen y clarifiquen la interfaz.  Por otro lado, dado que la laptop será la primera experiencia con computadoras para muchos chicos, las actividades no necesitan ser copias fieles de comportamientos o expectativas anteriores. Esto permite a los desarrollares ser libres de innovar.
+The goal of OLPC is to provide children with new opportunities to explore, experiment, and express themselves. Many children in need of such opportunities have previously had little or no access to computing, and so will be unfamiliar with the laptop and how to interact with it. This will undoubtedly have effects on some aspects of activity development. On the one hand, it means that developers must focus energy into making interfaces discoverable, wholly intuitive, and building metaphors that strengthen and clarify the interface. On the other hand, since the laptop will be the first experience of computing for many children, activities do not have to be overly true to legacy behaviors or expectations. This frees developers to innovate.
+Jóvenes
+Muchos de los chicos que recibirán las laptops tendrán apenas cinco o seis años; otros estarán en plena adolescencia. Además, aquellos que las reciban a una temprana edad continuarán usándolas a lo largo de su educación. Por lo tanto es importante desarrollar las actividades en manera tal de que sirvan bien para varias edades.
+Many of the children receiving laptops will be as young as five or six; others will be in their mid teenage years. Additionally, those that receive them at a young age will continue to use them throughout their education.  Therefore, it is important to develop activities in ways that scale well across age levels.
+Internacional
+La iniciativa de la OLPC, por su naturaleza, requiere del compromiso y participación internacional. Los desarrolladores deben mantener en mente un amplio rango de culturas e idiomas que las laptops deben abarcar. En particular, las actividades no deben depender de íconos y formas de pensamiento occidentales ,sino que, dentro de lo posible, deberán abstraerse a un nivel familiar para la humanidad en general. Por ejemplo, consideremos el botón de la cámara del teclado. Aunque uno tenga la tentación de etiquetar dicha tecla con una pequeña imagen de una cámara y un lente, el gráfico de un ojo remite directamente a nuestra capacidad visual humana, proveyendo así un icono multi-cultural que representa la capacidad de la computadora de capturar aquello que ve.
+The OLPC initiative, by its nature, requires international involvement and participation.  Developers must keep in mind the broad range of cultures and languages that the laptops must transcend.  In particular, activities should not depend on western icons and modes of thinking, but should abstract ideas to a level that would be familiar to humankind in general, where possible.  For instance, consider the camera button on the keyboard.  Though one might be inclined to label this key with a small image of a camera and lens, the eye graphic speaks directly to our human capacity for vision, providing a cross-cultural icon that represents the computer's ability to capture what it sees.
+←
+Ideas Centrales
+Conocer la Audiencia
+Principios Claves del Diseño
+→
+←
+Conocer la Audiencia
+Principios Claves del Diseño
+Introducción
+→
+Contents
+1
+Fundamentos del Diseño
+1.1
+Conocer la Audiencia
+1.1.1
+Inexperimentados
+1.1.2
+Jóvenes
+1.1.3
+Internacional
+1.2
+Principios Claves del Diseño
+1.2.1
+Performance
+1.2.2
+Usabilidad
+1.2.3
+Simpleza
+1.2.4
+Confiabilidad
+1.2.5
+Seguridad
+1.2.6
+Adaptabilidad
+1.2.7
+Recuperabilidad
+1.2.8
+Interoperabilidad
+1.2.9
+Movilidad
+1.2.10
+Transparencia
+1.2.11
+Accesibilidad
+Principios Claves del Diseño
+Piso bajo, sin techo:
+este mantra deberá guiar todos los esfuerzos de desarrollo para la OLPC. Todas las actividades e interfaces deben ser diseñadas de modo tal de ser lo más simple e intuitivas posible para usuarios de todas las edades, nacionalidades y niveles de experiencia con computadoras. Al mismo tiempo, tampoco deseamos imponer limitantes innecesarias en el software. En cambio, esperamos crear una plataforma adecuada para cualquier tipo de expresión creativa que provea un piso bajo al no experimentado, pero que al mismo tiempo no imponga un techo para los que lo sean. Esta es una meta digna, pero que requerirá de un esfuerzo genuino por parte de los desarrolladores, que deberán incorporar muchos aspectos al momento de diseñar. Los siguientes puntos, es una lista (incompleta) que provee puntos iniciales para dichas consideraciones.
+Low floor, no ceiling:
+this mantra should guide your development efforts for OLPC.  All activities and interfaces should be designed in such a way as to be simple and intuitive to users of all age groups, nationalities, and levels of computer experience.  At the same time, we don't wish to impose unnecessary limitations on the software either.  Instead, we hope to create a platform suitable for all kinds of creative expression which provides a low floor to the inexperienced, but doesn't impose a ceiling upon those who are.  This is a worthy goal, but will require a genuine effort on the part of developers, who must take many aspects of design into account.  The following list, while certainly not comprehensive, provides a starting point for such considerations.
+Performance
+La laptop de la OLPC rompe con la tendencia de "más, más rápido, más pesado"; apuntamos a proveer una computadora diseñada para satisfacer las necesidades de los chicos dentro del contexto de su aprendizaje, no las necesidades de hiper-juegos o aplicaciones de oficina. Si estamos, sin embargo, trabajando dentro de las restricciones del costo de componentes, robustez, y consumo energético. Para satisfacer dichas restricciones, hemos optado por memoria flash NAND en vez de un disco rígido y unos modestos 256MiB (Por favor vean
+Especificacion de hardware
+). Por lo tanto, los desarrolladores deben hacer todos los esfuerzos posibles para que el código que escriban resulte en el menor consumo de memoria.
+Dada la inexistencia de espacio de memoria virtual (
+swap
+) en la laptop, solo un número limitado de actividades podrán correr simultáneamente; la IU de Sugar presenta éstos detalles a los chicos. La pantalla o vista del
+Hogar
+muestra un anillo de actividades que contiene los íconos que representan cada instancia de una
+actividad
+en curso. El tamaño que una dada actividad ocupa en el anillo representa su consumo de memoria; cuando el anillo se llena, será imposible comenzar otra actividad hasta que los recursos necesarios sean liberados. Estas limitaciones deben ser tenidas en cuenta al momento de desarrollar actividades, dado que tendrá un mayor impacto en la performance del software en la laptop que en otras plataformas.
+The OLPC laptop bucks the trend of "more, faster, fatter"; we aim to provide a computer tailored to the needs of children in the context of their learning, not to the needs of frantic video games or office applications. We are, however, working within constraints of component cost, robustness, and power consumption. To satisfy these constraints, we have opted for NAND flash rather than a hard disk and a modest 128MB of memory (Please see
+hardware specifications
+). Thus, developers must make every effort to write efficient code while minimizing memory usage.
+Since there is no swap space on the laptop, only a limited number of activities can run concurrently; the Sugar UI exposes these details directly to the children. The
+Home
+screen features an activity ring that contains icons representing each instance of an open
+activity
+. The size of the ring segment that a given activity occupies represents its overall memory usage; when the ring fills up, no additional activities may be launched until some resources have been freed. Take these limitations into account as you develop activities, since they will have a greater impact on the performance of your software on the laptop than on other platforms.
+Usabilidad
+La OLPC pone un énfasis en la capacidad de descubrir y usabilidad (de la interfaz) dada
+nuestra audiencia
+. La usabilidad es intrínseca al comportamiento de las actividades, la diagramación de los botones y herramientas, y las respuestas y estímulos que la interfaz provea al chico cuando interactúan con ella. En última instancia, las decisiones de diseño que harán a la actividad usable o no dependerán enormemente del tipo de actividad desarrollada, y dependerá de Uds. el considerar cuidadosamente los tipos de interacciones que los chicos esperan de ella. Como regla general, si la interfaz provista hace lo que el chico espera de ella, es un buen comienzo. Sin embargo, dado que es bastante difícil saber que es lo esperado—y en la práctica no todos los chicos esperan las mismas cosas—no hay sustituto como las pruebas con usuarios.
+OLPC places an emphasis on discoverability and usability due to our
+target audience
+. Usability has everything to do with the actual behavior of the activities, the layout of the buttons and tools, and the feedback that the interface provides to the children when they interact with it.  Ultimately, the design decisions that make your activities usable will depend greatly on the type of activity you are developing, and it will be up to you to consider carefully the kinds of interactions that the children will expect when presented with it. As a general rule, if the interface provided does what the child expects it to, you are off to a good start.  However, since it is quite difficult to know what they will expect—and in practice not all children will expect the same things—there is no substitute for user testing.
+Simpleza
+Hemos diseñado la totalidad de la interfaz de la laptop con el objetivo de la simplicidad. Puede ser muy tentador—y bastante fácil—el agregar una sobre-abundancia de funcionalidades al software: la disponibilidad de MIPS y memoria usualmente agudizan el problema de software-pesado. Las
+limitaciones
+del hardware de la laptop nos guían hacia soluciones más concisas y diseñar cosas simples.
+Simple no es sinónimo de limitado. La OLPC aspira demostrarle al mundo que los controles simples—casi mínimo—tienen un enorme poder expresivo. Evitemos interfaces sobrecargadas que hacen demasiadas cosas, y limitemos los controles a esas tareas inmediatamente relevantes a la tarea en cuestion. En vez de crear la "cortaplumas suiza" como actividad, pensemos en la laptop en si como la cortaplumas, y desarrollemos una herramienta particular que hace una cosa para esa cortaplumas, y que lo haga bien. Cuando todas las actividades se adhieran a esta idea, el verdadero poder de la laptop será evidente.
+We designed the entire laptop interface with a goal of simplicity. It can be tempting—and also quite easy—to add an overabundance of features to software: the abundance of MIPS and memory often exacerbate the software-bloat phenomenon. The laptop hardware "limitations" lead toward a more concise direction and aid in designing for simplicity.
+Keep in mind that simple doesn't necessarily mean limited. OLPC hopes to demonstrate to the world that simple—even minimal—controls can have great expressive power. Avoid bloated interfaces that do too much, and limit the controls to those immediately relevant to the task at hand. Rather than creating a "Swiss Army knife" of an activity, think of the laptop itself as the knife, and instead develop a particular tool for that knife that does one thing, and does it very well.  When all the activities on the laptop embrace this idea, the true power of the laptop will emerge.
+Confiabilidad
+Es obvio que queremos evitar situaciones donde las cosas vayan mal; ésta sería la meta de todo el software. Nuestro compromiso es asegurar que el framework de la IU evite que una actividad arruine al sistema. Los desarrolladores deberán considerar el incorporar alternativas de tipo "fallo-suave" (
+fail-soft
+) en sus diseños, tal como incorporar un comportamiento apropiado ante la terminación espontánea de una actividad.
+Of course we want to avoid instances where things go wrong; this should be a goal for every piece of software. We are committed to ensuring that the UI framework prevents activities from causing system crashes; Developers should consider a "fail-soft" approach to their designs, such as incorporating a suitable behavior for the spontaneous termination of an activity.
+Seguridad
+La seguridad se detalla en otras partes del wiki (ver
+olpc:Bitfrost
+). Nuestro objetivo es protegerse de cinco tipos de "cosas malas" que el software puede hacer:
+dañar la laptop;
+comprometer la privacidad;
+dañar los datos de los chicos;
+hacer cosas malas a otras personas; y
+suplantar o personificar al chico.
+Es importante la inclusión de medidas anti-robo y mecanismos estándar de filtrado de contenido objetable.
+Desde la perspectiva de la interfaz del usuario, es importante que estos objetivos se logren sin la utilización de menús, diálogos, contraseñas, etc., ya que son incomprensibles o carecen de sentido para la mayoría de la gente.
+Security is detailed elsewhere in this wiki (See
+olpc:Bitfrost
+). Our goal is to protect against five categories of "bad things" software can do:
+damaging the laptop;
+compromising privacy;
+damaging the children's data;
+do bad things to other people; and
+impersonate the child.
+It is important to include anti-theft measures and common mechanisms for objectionable-content filtering.
+From the perspective of the user interface, it is important that these goals be achieved without the use of menus, pop-up boxes, passwords, etc., as these approaches are meaningless to most people.
+Adaptabilidad
+Existen varias condiciones de uso que deben ser tomadas en cuenta para diseñar actividades: la laptop puede operar en modo de escala de grises (solar) o color (interior); la malla—siempre disponible—puede o no estar conectada a la internet cuando la actividad este activa; la laptop puede estar configurada en modo laptop (tanto el teclado y la pantalla están accesibles) o en
+modo consola
+(controles de juego, cámara, micrófono y parlantes únicamente). Niveles de señal, y por ende ancho de banda, pueden fluctuar, y por momentos los participantes en una actividad pueden desaparecer momentáneamente. Las actividades deberán manejar estas situaciones con cuidado. Ej: perdida temporal de conectividad debería ser manejado silenciosamente, y la reconexión de un individuo a una actividad en la que estaban participando con anterioridad debería ocurrir de modo que ningún efecto colateral sea evidente tal como lo detalla la guía sobre la
+robustez de las actividades
+.
+There are several use conditions that should be taken into consideration in designing activities: the laptop has both a grayscale (sunlight) mode and a color (backlight) mode; the mesh—while always available—may or may not be connected to the Internet at the time the activity is active; the laptop may be configured in either laptop mode (keyboard and touchpad exposed) or
+handheld mode
+(game controller, camera, microphone and speakers only). Signal strengths, and therefore bandwidth, may fluctuate, and at times activity partipants may even drop off temporarily. Activities should handle all of these cases with care. E.g., temporary loss of connectivity should be handled silently, and reconnection of an individual to an activity they were previously participating in should happen with no noticeable side-effects as outlined in the guidelines for
+activity robustness
+.
+Recuperabilidad
+La
+recuperabilidad
+es una característica fundamental para permitir la exploración. Siendo la exploración creativa una de las metas principales de la OLPC, esta capacidad es de máxima importancia para la laptop. Cuando un chico sabe que tiene un plan alternativo—un modo de volver al estado actual—será mucho mas propenso a explorar más allá de sus fronteras, experimentando con nuevas herramientas y medios más creativos de expresión.
+El
+diario
+provee una noción parcial de recuperabilidad, dado que de algún modo representa una copia de respaldo (
+backup
+) incremental. La habilidad de un chico de elegir "mantener" cualquier cosa sobre la que están trabajando en su estado actual refuerza esta idea.
+Recoverability is fundamental to encouraging exploration.  With creative exploration among OLPC's main goals, it therefore becomes an issue of high importance on the laptops.  When a child knows they have a fallback plan — a way back to the current state of things — they will much more frequently go beyond their comfortable boundaries and experiment with new tools and new creative means of expression.
+The
+journal
+provides a partial notion of recoverability, since its auto-journaling amounts to maintaining an automatic incremental backup. The ability for a child to choose to "keep" anything they're working on in its current state furthers this idea.
+Sin embargo, el medio primario y esencial de recuperabilidad sigue siendo la habilidad de deshacer sus acciones. Por supuesto, la noción de des-hacer/re-hacer se torna complicada en el contexto de una edición colaborativa, ya que impone un límite al alcance sobre lo que es posible deshacer, puesto que los conflictos son muy probables entre lo que un chico quiere deshacer y las cosas que otro chico ha cambiado desde entonces. Sin embargo, estamos dedicados a proveer ésta funcionalidad en la medida que sea posible, y las
+actividades
+deben esmerarse en soportarla al máximo de sus capacidades.
+(Revisiones futuras del
+teclado
+pueden incluso tener una tecla de des-hacer/re-hacer con el objetivo de reforzar ésta idea.)
+However, the primary and essential means of recoverability remains the ability to undo one's actions.  Of course, the notion of undo/redo becomes complicated in the realm of collaborative editing, which imposes a limitation on the extent to which undos are possible, since collisions could often occur between the things one child wants to undo and the things another child has already changed since those were done.  Nonetheless, we are dedicated to providing this functionality to every extent possible, and
+activities
+should strive to support this to the best of their ability.
+(Future revisions of the
+keyboard
+may even have an undo/redo key to further strengthen this idea.)
+Interoperabilidad
+This article is a
+stub
+. You can help Sugar Labs by
+expanding it
+.
+Movilidad
+Por supuesto, como con todas las computadoras portátiles, una cierta noción general de movilidad es intrínseca a la laptop. Sin embargo, en manos de los chicos, el nivel de movilidad llega a nuevos niveles, ya que podemos esperar que no solo las lleven hacia y desde la escuela, sino también en caminatas, al parque, o un número elevado de lugares donde puedan aprender y experimentar al mundo. Las características físicas han sido diseñadas con la durabilidad en mente. Lo importante a considerar es el efecto que dicha movilidad puede, y debería tener sobre las actividades mismas. El lente de la cámara incorporada cobra otra dimensión cuando se lo trata no como una simple cámara-web, sino como un medio para capturar al mundo que nos rodea, tanto en el interior como al aire libre.
+Of course, as with all portable computers, a general notion of mobility is intrinsic to the laptops.  However, in the hands of children, this mobility rises to a new level, since we can expect that they will carry them not only to and from school, but on a hike, onto the playground, or to any number of other locations where they can learn and experience the world.  Their physical form has been designed with ruggedness in mind.  The important thing to consider is the effect such mobility can, and should have on the activities themselves.  The lens of the built-in camera looks a lot different when it's treated not as a simple webcam, but as a way to capture the world around them, both indoors and out.
+Transparencia
+La OLPC también espera poder incitar a los chicos a usar las laptops para explorar la tecnología bajo la superficie. Con éste objetivo, es que la tecla para
+ver código fuente
+fue agregada al teclado de la laptop, proveyendo así la capacidad de acceder al código que hace posible las actividades que usan a diario. Dicha tecla permitirá a aquellos que les interese investigar las capas de abstracción, sumergiéndose cada vez más en el código a medida que aprenden.
+Para permitir la exploración por capas es que la OLPC está escrito lo más posible en
+olpc:Python
+, un lenguaje interpretado, permitiendo así al chico ver el código fuente. Esto quiere decir que, aparte de las prácticas habituales del buen código, el código debe ser claro y estar bien documentado. Los lineamientos de estilo
+PEP 8
+para Python proveen un excelente recurso para ello, y la OLPC recomienda que los desarrolladores se adhieran a dichas prácticas salvo razones excepcionales.
+OLPC also hopes to encourage the children using the laptops to explore the technology under the surface.  Towards this end, a
+view source
+key has been added to the laptop keyboards, providing them with instant access to the code that enables the activities that they use from day to day.  This key will allow those interested to peel away layers of abstraction, digging deeper into the codebase as they learn.
+To enable such layered exploration, OLPC has written much of what can be in
+olpc:Python
+, a scripting language, to enable children to view the source code.  This means, aside from general good practice, code should be both readable and well commented.  The
+PEP 8
+style guidelines for Python provide an excellent resource, and OLPC recommends that developers follow the practices laid out therein unless a compelling reason not to exists.
+Accesibilidad
+Existen multiples aspectos relacionados con la accesibilidad en unos lineamientos de interfaz humana. Recién hemos comenzado a explicitar los aspectos generales en la página de
+Accesibilidad
+.
+Usar la interfaz sólo con el teclado (sin ratón o
+trackpad
+)
+Usar la interfaz sin necesidad de poder distinguir colores (un porción significativa posee algún grado de daltonismo)
+Proveer iconos y tipografías grandes para aquellos que no tienen una visión perfecta (pero que todavía ven cosas agrandadas - ej: tipografías de 18 puntos)
+Usar el teclado sin necesitar el apretar dos teclas al mismo tiempo (todos los modificadores deben funcionar con la funcionalidad de AccessX)
+Soportar el acceso programático a la GUI (que en términos prácticos implica soportar
+ATK
+en Sugar y todas las actividades)
+Ya sea distribuir con un conjunto de aplicaciones de asistencia (sería un lector de pantalla una "actividad"?), o hacer trivial su descarga
+Proveer algún mecanismo que permita al usuario descubrir el soporte de accesibilidad y habilitar lo necesario (Windows XP & Vista tienen un
+wizard
+a tal fin; no disponemos de buena tecnología proveniente de GNOME que podamos utilizar desafortunadamente; la gente de accesibilidad de Ubuntu son quizás los que más avanzado están en esto)
+There are lots of things to think about relating to accessibility in a set of human interface guidelines. We've just started hashing out general accessibility issues at the
+olpc:Accessibility
+page.
+Broadly speaking, the user interface of the GUI shell and of activities must address the following accessibility issues:
+Using the interface only from the keyboard (without a mouse or trackpad)
+Using the interface without requiring the ability to distinguish color (a significant portion of the population has some level of color blindness)
+Providing an enlarged print/icon option for folks whose vision is less than 20/20 (but who still can see things that are somewhat enlarged - e.g. 18 point fonts)
+Using the keyboard without needing to press more than one key at a time (all modifiers must work with AccessX functionality)
+Supporting programmatic access to the GUI (which for us will mean supporting
+ATK
+in Sugar and all activites)
+Either shipping with some number of assistive technology applications (is a screen reader an "activity"?), or making them easy to download
+Providing some way for a user to discover accessibility support and enable what they need (Windows XP & Vista offer an "accessibility wizard" for this purpose; we don't have good upstream technology from GNOME we can take for this unfortunately; the Ubuntu accessibility folks are perhaps furtherest along in thinking about this)
+←
+Conocer la Audiencia
+Principios Claves del Diseño
+Introducción
+→
+←
+Ideas Centrales
+Fundamentos del Diseño
+Experimentando la Laptop
+→

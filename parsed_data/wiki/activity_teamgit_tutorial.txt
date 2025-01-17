@@ -1,0 +1,339 @@
+Title: Activity Team/Git Tutorial
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Git_Tutorial#Initialize_git_global_settings
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+Contributing
+2
+Activity Repositories
+3
+Modifying Sugar
+4
+Open an Issue
+5
+GitHub
+5.1
+Create an Account
+5.2
+Create SSH Key on Windows
+5.3
+Create SSH Key on GNU/Linux
+5.4
+Setup Git Desktop for Windows 7 or later
+5.5
+Add SSH Key
+5.6
+Identify Yourself to Git
+6
+GitHub Workflow
+6.1
+Create a Project
+6.2
+Fork A Repository
+6.2.1
+Propose changes to someone else's project
+6.3
+Sending a pull-request
+6.4
+Create Local Repository (Clone)
+6.5
+Keep your fork synced
+6.5.1
+Note:
+6.6
+Branches
+6.6.1
+Using GitHub Website
+6.6.2
+Using the Terminal
+6.6.3
+Tip
+6.7
+Commits
+6.8
+Request Review
+6.9
+Testing
+6.10
+Push Changes
+6.11
+Close Issue
+7
+Other Notes
+7.1
+Tags
+Contributing
+We use the pull-request model, see
+github's help on pull-request
+.
+In short, you will:
+file an issue about what you plan to change
+do your changes in a new branch
+push your branch and submit a pull-request for it
+go through the review process until your pull-request is merged
+close your issue
+Activity Repositories
+To request a new activity repo, email the
+http://lists.sugarlabs.org/listinfo/systems
+list with the name of the repo and the github usernames who should have access.
+We recommend using the same process as below to develop your own Activities.
+Modifying Sugar
+Before going through the details on how to submit changes, let's look at the useful tools we provide to assist contributors in the process of modifying Sugar.
+If you are hacking on sugar-web, run the testsuit with the karma command inside a osbuild shell:
+karma start sugar-web/test/karma.conf.js
+We encourage writing new unit tests for new features.
+After you do the changes, run:
+check
+It will run all the code checks and the unit tests making sure you won't break the build when your changes are pushed. If the checks doesn't succeed because of coding style, see the coding style guide
+for web
+or
+for Python
+. If a test doesn't pass either your code needs to be fixed or the test need to be adapted.
+Open an Issue
+We track issues in
+http://bugs.sugarlabs.org
+Generally, each improvement to Sugar should start with an issue discussion, to ensure that work to fix a bug isn't wasted.
+GitHub
+Sugar Labs uses GitHub as its primary server for git repositories. While you are welcome to use other servers, it is on GitHub where you will find the master branches of the core modules and core activities.
+Getting started with GitHub
+You will learn to do the following:
+Create an account, which you do once.
+Create and add an SSH key, which you do once or if you change system.
+Create a project, a local repository, and identify yourself to git, which you do once per project.
+Add source files, change existing source files, commit changes, push changes, and pull changes, which you do regularly.
+Create an Account
+Create an account
+here
+Create SSH Key on Windows
+To create an SSH Key on Windows, download the latest
+PuTTY
+installer
+.
+Run the puttygen.exe utility to generate a pair of private/public keys.
+Click on the
+Generate
+button (Make sure SSH-2 RSA parameter is checked)
+Move the mouse around to generate your key.
+Once you have accumulated enough "heat", the application will generate your key pair.
+Make sure you enter a lengthy passphrase in the Key passphrase field and confirm it in the Confirm passphrase field.
+Click on the Save private key button to save your private key in a file.
+Congratulations! With your mouse, select the content of the box labelled Public key and press Control-C to copy your public SSH key.
+This key can now be used on GitHub to access Git on Windows. Good luck!
+Create SSH Key on GNU/Linux
+Skip this section if you already have an SSH key in
+.ssh
+directory that you trust.
+(An easy-to-read tutorial for generating an ssh key can be found
+here
+.)
+To create a key use
+ssh-keygen
+. The following command will create a “dsa” key:
+ssh-keygen -t dsa
+For creating a “rsa” key use:
+ssh-keygen -t rsa
+The key will be stored as two files in the hidden
+.ssh
+directory.
+id_dsa.pub
+is your public key.
+id_dsa
+is your private key.  Only you should have access to this private key.  Access to the key will grant access to GitHub in your name.  For example, here is a list of files in the
+.ssh
+directory of user strom:
+ls -al ~/.ssh
+-rw-------   1 strom strom  668 2009-12-17 21:51 id_dsa
+-rw-r--r--   1 strom strom  603 2009-12-17 21:51 id_dsa.pub
+You should only need to create a key once, unless you change to another system, or a different Sugar-on-a-Stick drive, or you think your private key was compromised.  If you do it again, you must also add the new key to GitHub as described in the next section.
+Setup Git Desktop for Windows 7 or later
+You can either directly download and install git from
+here
+Or you can set up github desktop, which gives you a GUI to do a lot of things. You can download it from
+here
+Add SSH Key
+Log in to GitHub at
+http://github.com
+and go
+here
+click on 'Add Ssh Key'. Choose a title. Open your public key in a text editor, web browser, or even
+cat
+command, and then copy and paste the key into the text entry field.  Click on
+Save
+.
+Once you do this, GitHub trusts SSH connection from your system because your system has the private key, and GitHub has the public key.  You should only need to do this once, unless you change to another system.
+(With ssh-keygen you can specify the name of your key file. Using this feature is not a good idea, because we haven't tested it. Keys should generally be located in
+~/.ssh/id_rsa.pub
+or
+~/.ssh/id_dsa.pub
+.)
+Identify Yourself to Git
+Git on your local system must know your email and name.  It uses this when you commit a change, so that when you push or mail it others will know who did it.
+If you do not use git on your system for any other project, you can configure git:
+git config --global user.email "your_email@example.com"
+git config --global user.name "Your name"
+You should only need to do this once on a system.
+Otherwise, configure git in the repository:
+cd ${SLUG}.git
+git config user.email <email-you-used-for-registering-project>
+git config user.name <your-name>
+You should only need to do this once in a repository.
+GitHub Workflow
+Create a Project
+You will create a project if you want to create a new activity or other feature which already has no related code. In case you want to make changes to the already present code, you will have to fork the repository(see the next heading)
+Log in to GitHub at
+http://github.com
+and go
+here
+. Choose a repository name, and write a description.
+Fork A Repository
+A fork is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.
+Most commonly, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea.
+You should fork the repository first. This step is needed only once. See
+complete help in github
+. Brief instructions follow using
+sugar component
+as example.
+Navigate to the sugar repository, press Fork button, then
+git clone
+https://github.com/YOUR-NAME/sugar.git
+cd sugar
+git remote add upstream
+https://github.com/sugarlabs/sugar.git
+git fetch upstream
+Propose changes to someone else's project
+A great example of using forks to propose changes is for bug fixes. Rather than logging an issue for a bug you've found, you can:
+1. Fork the repository.
+2. Make the fix.
+3. Submit a pull request to the project owner.
+4. If the project owner likes your work, they might merge your fix and add it to the original repository!
+Sending a pull-request
+In order to request the repository's owner to consider the changes that you made in your repository and include them in the main code, you will need to make a pull request. In order to do this, just open up your repository page, `
+https://github.com/yourUserName/RepoName`
+, now you will a line just above the contents saying something like `This branch is 1 commit ahead of walterbender:master.` and you will also thus be able to see a button to create a New Pull Request for the same, then you can review the changes made and the commits to be added in that request and also a message box for the message you would want others to read, describing the changes you made. Then you can proceed to successfully creating a pull request, which will then be reviewed by others. And you can discuss on the very same page regarding whatever needs to be done. And if all is perfect, your pull request will be merged into the main code!
+Create one branch per topic
+git checkout -b topic1
+Make one or more commits and push the branch
+git push origin topic1
+Submit a pull request for the branch. Navigate to your repository page in github, switch to the branch you made, and then press the Pull Request button.
+After that, the review process will happen in the pull-request page on github. The process ends with one of this:
+1. A reviewer merges your request.
+2. A reviewer rejects your request providing reasons (and closes the request)
+3. A reviewer requires changes (and closes the request)
+In case they ask you for changes, make them using
+interactive rebase
+git rebase -i master
+Submit the changes to another remote branch
+git push origin topic1:topic1-try2
+Finally submit the new pull request through the github site as you did before.
+Make sure to add "Fixes #1234" to the commit message, being #1234 the number of the issue ticket related to your changes. This way, the ticket will be closed automatically.
+Create Local Repository (Clone)
+Clone it from GitHub:
+git clone git@github.com:username/${SLUG}.git ${SLUG}.git
+Replace
+${SLUG}
+with your project slug value.
+Once you do this, you will have a local repository directory named ${SLUG}.git that shares the same history of changes (if any) of the repository at Sugar Labs.  You should only need to do this once for each project and system.  You can do it again if you need a fresh copy that has no changes.
+Keep your fork synced
+You might fork a project in order to propose changes to the upstream, or original, repository. In this case, it's good practice to regularly sync your fork with the upstream repository.
+Don't forget to pull in changes from the master repository that is 'upstream.' To pull in upstream changes:
+git fetch upstream
+git merge upstream/master
+Note:
+1. If your local branch didn't have any unique commits, Git will instead perform a "fast-forward":
+2. Syncing your fork only updates your local copy of the repository. To update your fork on GitHub, you must push your changes.
+Branches
+When you're working on a project, you're going to have a bunch of different features or ideas in progress at any given time – some of which are ready to go, and others which are not. Branching exists to help you manage this workflow.
+When you create a branch in your project, you're creating an environment where you can try out new ideas. Changes you make on a branch don't affect the master `branch`, so you're free to experiment and commit changes, safe in the knowledge that your branch won't be merged until it's ready to be reviewed by someone you're collaborating with.
+It is highly recommended that all work you do, should be done in a new branch so that even in case your changes break the code(which happens quite frequently for beginners), you can always easily just remove that branch and start again, and also it helps you to work on two different features simultaneously as you can do that in separate branches.
+Using GitHub Website
+You can create a new branch in a repository's branch selector menu. Just start typing the name of your branch; if it doesn't exist, GitHub will offer to create it for you:
+Likewise, if you go to the Branches page on your repository, you have the option of deleting a branch, provided you have appropriate access to the repository, and that there isn’t an open pull request that depends on it:
+Using the Terminal
+The `git branch` command lets you create, list, rename, and delete branches. It doesn’t let you switch between branches or put a forked history back together again. For this reason, git branch is tightly integrated with the `git checkout` `and git merge` commands.
+List all of the branches in your repository:
+git branch
+Create a new branch called <branch>. This does not check out the new branch:
+git branch <branch>
+Delete the specified branch. This is a “safe” operation in that Git prevents you from deleting the branch if it has unmerged changes:
+git branch -d <branch>
+Force delete the specified branch, even if it has unmerged changes. This is the command to use if you want to permanently throw away all of the commits associated with a particular line of development:
+git branch -D <branch>
+Rename the current branch to <branch>:
+git branch -m <branch>
+Check out the specified branch, which should have already been created with git branch. This makes <existing-branch> the current branch, and updates the working directory to match:
+git checkout <existing-branch>
+Create and check out <new-branch>. The -b option is a convenience flag that tells Git to run git branch <new-branch> before running git checkout <new-branch>:
+git checkout -b <new-branch>
+Same as the above invocation, but base the new branch off of <existing-branch> instead of the current branch:
+git checkout -b <new-branch> <existing-branch>
+Merge the specified branch into the current branch. Git will determine the merge algorithm automatically:
+git merge <branch>
+Merge the specified branch into the current branch, but always generate a merge commit (even if it was a fast-forward merge). This is useful for documenting all merges that occur in your repository:
+git merge --no-ff <branch>
+Tip
+There's only one rule: anything in the master branch is always deployable.
+Because of this, it's extremely important that your new branch is created off of master when working on a feature or a fix. Your branch name should be descriptive
+For detailed explanation, look at the
+atlassian git tutorial
+Commits
+Once your branch has been created, it's time to start making changes. Whenever you add, edit, or delete a file, you're making a commit, and adding them to your branch. This process of adding commits keeps track of your progress as you work on a feature branch.
+Commits also create a transparent history of your work that others can follow to understand what you've done and why. Each commit has an associated commit message, which is a description explaining why a particular change was made. Furthermore, each commit is considered a separate unit of change. This lets you roll back changes if a bug is found, or if you decide to head in a different direction.
+In your local repository, find out from git what files you changed:
+git status
+Add any files that are new or changed:
+git add <file path>
+or too add all the files
+git add --all
+Tell git to collect the changes into a commit:
+git commit
+You should do this for every meaningful set of changes you make.
+Note
+git commit
+commits your changes to your local repository only.
+Request Review
+Before you publish changes widely, you can ask others to review your work and comment on it.
+git format-patch -1
+or
+git send-email
+You may do this for every set of changes you make.
+Testing
+We encourage testing before merging a pull-request.
+So instead of merging directly with the "merge" button on github UI, we do a local merge, then test, then push.
+See
+github help on merging a pull-request
+The github page for the pull-request will provide you the right commands to do the local merge, similar to the following.
+Get the changes from that branch to a new local branch:
+git checkout -b SOME-USER-topic1 master
+git pull
+https://github.com/SOME-USER/sugar.git
+topic1
+Test! If everything is fine, merge:
+git checkout master
+git rebase SOME-USER-topic1
+git push origin master
+Push Changes
+Your changes have to be pushed from your local repository to the repository at github so that others can see them there.
+git push
+You must do this for every set of changes you make, when you want to synchronise with other developers or prepare for a release.
+Close Issue
+Once your changes are merged, you should close your issue. Be sure to thank everyone who helped you out along the way :)
+Other Notes
+Tags
+alsroot taught me about another git feature: tags
+git tag -m "Release 36" v36 HEAD
+git push --tags

@@ -1,0 +1,20 @@
+Title: Translation Team/Add language
+URL: https://wiki.sugarlabs.org/go/Translation_Team/Add_language
+--------------------------------------------------------------------------------
+N.B.  Langpacks are not currently available
+New languages can be easily added by following the steps below.
+First download the setup file for your langpack from
+pootle
+You can download directly in XO or copy it from your computer to your XO.
+After this open terminal(I prefer virtual terminal by pressing Alt+Ctrl+F2).
+Run the setup file with sudo.
+For example to add missing Hindi language I'd download
+http://pootle.sugarlabs.org/langpacks/0.94/hi_lang_pack_v2.sh
+and run the command
+sudo hi_lang_pack_v2.sh
+After this open the file /usr/share/sugar/extensions/cpsection/language/model.py for edit.
+Under the function read_all_languages() you'll find some lines like "locales.append(('Pashto','Afganistan','ps_AF.utf8'))
+Add similar line for your language. For Hindi it would be locales.append(('Hindi','India','hi_HI.utf8'))
+Note that 'Hindi' and 'India' can be anything you want it to be displayed in language drop down menu. 'hi_HI.utf8' must be the correct code for your langpack.
+Now save the file and restart sugar.
+You should find your new language in settings -> Language.

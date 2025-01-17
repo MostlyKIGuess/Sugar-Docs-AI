@@ -1,0 +1,83 @@
+Title: Teacher Reporting/4.N.10
+URL: https://wiki.sugarlabs.org/go/Teacher_Reporting/4.N.10
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+1.1
+Known Limitations
+2
+Who is working on this objective?
+3
+What sugar activity satisfies this objective?
+4
+Information passed from the activity?
+5
+What information does the reporter need to determine?
+6
+Ouput to the teacher
+7
+How do we know the student understands?
+Description
+Select and use appropriate operations (addition, subtraction, multiplication, and division) to solve problems, including those involving money.
+Known Limitations
+At this point, no method for determining understanding of division and multiplication is in place, only addition and subtraction.
+At least in terms of understanding with money, I am unaware of any other activities which could be used for multiplication and division.
+Who is working on this objective?
+Gcompris
+What sugar activity satisfies this objective?
+GCompris Money 11
+GCompris Money Cents 11
+Information passed from the activity?
+.student_id
+.question_id <- [associative element]
+correct_sum
+submitted_sum
+num_incorrect_submissions (calculated)
+num_correct_submissions <- could be addressed by "student_[question_id].length()" (calculated)
+What information does the reporter need to determine?
+question_identification
+.cache_when_incorrect
+Ouput to the teacher
+Student
+Total Questions answered
+Correct Submissions
+Incorrect Submissions
+% Correct Submissions
+Addition
+Subtraction
+Multiplication
+Division
+Billy
+100
+82
+18
+82%
+Yes
+No
+?
+?
+...
+...
+...
+...
+...
+...
+...
+...
+...
+Entire Class
+1000
+800
+200
+80%
+Yes
+No
+How do we know the student understands?
+Since this activity only involves money (not raw numbers), and money independent of any actual real-world currency all results here allow us to conclude that the user understands the mathematical operation within the scope of currency.
+In this activity, the user has the option of presenting the computer with infinite responses, until the correct one is presented, at which point the activity moves on to the next "level." While this is sufficient for not discouraging the student, and allowing them to continue through the activity start to finish. It is NOT sufficient for determining a student's understanding of this particular curriculum requirement.
+In order to get around this, perfectly reasonable, fail-proof design of the game we need to record information each time the user hits the submit button. We do this because the steps the student takes to correct an incorrect answer is extremely valuable.
+addition can be determined if a student gets > 70% of the questions correct on their first attempt.
+subtraction can be determined if for > 70% of the questions the student initially over-paid, they immediately follow up with a correct payment.
+If a student overpays and then increases their payment, or underpays, followed by an even lower payment it can be inferred the student does not understand the concepts of addition or subtraction with money.
+If for > 10% of the questions the student makes this mistake. He or she gets a "no" for addition and subtraction.

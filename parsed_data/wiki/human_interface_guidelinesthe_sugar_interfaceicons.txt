@@ -1,0 +1,99 @@
+Title: Human Interface Guidelines/The Sugar Interface/Icons
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/The_Sugar_Interface/Icons#Active_vs._Inactive_Icons
+--------------------------------------------------------------------------------
+english
+|
+español
+|
+한국어
+HowTo
+[ID# 91240]
++/-
+←
+Layout Guidelines
+Icons
+Colors
+→
+Contents
+1
+Icons
+1.1
+Categories of Icons
+1.1.1
+The XO
+1.1.2
+Activity Icons
+1.1.3
+Object Icons
+1.1.4
+Action Icons
+1.2
+Active vs. Inactive Icons
+1.2.1
+Active
+1.2.2
+Inactive
+1.3
+Icon Design Guidelines
+1.3.1
+Icon Format
+1.3.2
+Icon Sizes
+1.3.3
+Strokes & Fills
+Icons
+Categories of Icons
+The XO
+The icons which represent People have special status on the laptops.  Referred to generally as the XOs, they represent the children and their laptops on the mesh Neighborhood, and furthermore represent the OLPC project and its goals to place a laptop in the hands of every child.  Each child will select a stroke and fill color for their XO, and their chosen colors will then apply to the icons of any Activities or Objects they create.
+Activity Icons
+Object Icons
+Action Icons
+Active vs. Inactive Icons
+Many instances may arise in which some elements of the interface are inactive.  Sugar specifies a consistent visual style to represent the concepts of absence and inactivity.  Inactive elements are buttons that are not currently actionable, or controls that are temporarily disabled.  Absent elements are object icons that represent people or things which aren't actually present at the moment; for instance, an incomplete download, or an invited friend who hasn't yet joined the activity.
+Generally, interfaces represent such inactivity through grayed out imagery.  Of course, since the laptop also operates in grayscale mode, such a color distinction
+must not
+be used under any circumstances.  Instead, Sugar will take advantage of the vector graphics used for rendering objects and buttons by rendering inactive ones as a white outlined stroke, with no fill color.
+Active
+Inactive
+Icon Design Guidelines
+Icon Format
+All icons designed for use in Sugar must be provided in
+SVG format
+.  Since all icons exist as vectors, dynamic scaling and coloring of the icons occurs without any degradation.  This allows variably sized representations of particular icons to exist depending on context in the interface.  Additionally, this provides support for dynamic coloring of activity and object icons based upon a child's chosen XO colors.
+Icon Sizes
+Icons should be developed and saved at Standard (S) size, though their actual size and appearance in the interface may change dynamically.  When developed at standard size, icons should fit loosely within the 3 x 3 icon-safe subcell of a standard 75px grid cell, as specified in the
+layout section
+.
+Notice that when the interface scales your icons, strokes do not necessarily scale proportionally to the overall icon size.  This ensures that the stroke weight remains visible enough at all sizes to convey its weight and color, but it may also limit the granularity with which you use strokes, which could begin to blend together at smaller sizes.  The following chart relates the various icon sizes to their corresponding scale factors and stroke weights.  We strongly suggest that you try rendering your icons at XS, S, and M sizes in order to tweak their appearance for optimal legibility.
+Icon Size Comparison Chart
+Icon Size
+Scaling Factor
+Stroke Weight
+XS
+0.5
+2.25px
+S
+1.0
+3.5px
+M
+1.5
+4.0px
+L
+2.0
+4.5px
+XL
+2.75
+6.0px
+Strokes & Fills
+API Reference
+Module: sugar.shell.view.stylesheet
+All icons render in two colors: stroke and fill.  The actual stroke and fill colors that an icon renders in are determined by the children, since they correspond to the colors they have chosen for their XOs.  As such, the colors in which you choose to save your icon are arbitrary.  However, note that any fills that have the same color as your strokes will dynamically take on their color when rendered.
+All strokes within an "S" activity icon must have a line weight of 3.5px. All icons should have a primary fill which represents its overall shape.  In addition, any number of supplemental strokes and fills may be used; not all strokes within an icon must have fills, and not all fills must have strokes.
+See these
+detailed instructions for making icons
+.
+←
+Layout Guidelines
+Icons
+Colors
+→

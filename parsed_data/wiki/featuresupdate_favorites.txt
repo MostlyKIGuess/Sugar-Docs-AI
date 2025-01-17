@@ -1,0 +1,72 @@
+Title: Features/Update Favorites
+URL: https://wiki.sugarlabs.org/go/Features/Update_Favorites
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Add dbus service to update favorites.
+Owner
+Name:
+Walter Bender
+Email: <walter AT sl.o>
+Current status
+Targeted release: (1.02)
+Last updated: (5 November 2013)
+Percentage of completion: 100%
+See
+[1]
+Detailed Description
+Since
+Features/Multiple home views
+landed in Sugar 100, it would be nice to enable user-space updates to the Home views.
+This requires a new dbus service. The idea is that Sugar activities, e.g.,
+Activities/Share Favorites
+, could share favorites without requiring a reboot. So, for example, a teacher could share a desktop specific to a lesson plan.
+Benefit to Sugar
+More ways to share configuration information in the classroom or among buddies w/o requiring a reboot.
+Scope
+In jarabe/view/service.py
+@dbus.service.method(_DBUS_SHELL_IFACE,
+                         in_signature='ssb', out_signature=
+)
+def SetBundleFavorite(self, bundle_id, version, favorite):
+        bundleregistry.get_registry().set_bundle_favorite(
+            bundle_id, version, favorite)
+How To Test
+User Experience
+The direct impact on the user will be that they don't have to reboot when receiving favorites from buddies.
+Dependencies
+No new dependencies
+Contingency Plan
+None.
+Documentation
+Release Notes
+Comments and Discussion
+http://lists.sugarlabs.org/archive/sugar-devel/2013-November/045588.html
+See
+discussion tab for this feature

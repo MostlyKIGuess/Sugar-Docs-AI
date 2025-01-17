@@ -1,0 +1,497 @@
+Title: Ubuntu/Previous
+URL: https://wiki.sugarlabs.org/go/Ubuntu/Previous
+--------------------------------------------------------------------------------
+Contents
+1
+OLPC Ubuntu Sugar 14.04 Trusty LTS
+1.1
+Installing a system
+1.2
+Adding to a system
+1.3
+Upgrading a system
+2
+Ubuntu 12.04.2 LTS - Dextrose Sugar Live
+2.1
+Screenshots
+2.2
+Download
+2.3
+Install to Hard Disk
+2.4
+Install KDE
+2.5
+Install GNOME
+2.6
+Notes
+2.7
+What's new
+2.8
+What fails
+2.9
+Old Releases
+2.10
+Problems
+2.10.1
+ubuntu_12.04-20130815_i686.iso
+2.10.2
+ubuntu_12.04-20130814_i686.iso
+2.10.3
+ubuntu_12.04-20130730_i686.iso
+2.10.4
+ubuntu_12.04-20130712_i686.iso
+2.11
+Collaboration testing (brief)
+2.11.1
+Chat 78
+2.11.2
+Speak 44
+2.11.3
+Turtle Art 169
+2.12
+Create.img files with dd for Duplication of USB's
+2.12.1
+Persistent 4 GB USB built with ubuntu startup-disk creator
+2.12.1.1
+Make .img file with dd
+2.12.1.2
+Use .img to write 2nd USB
+2.12.2
+Install to 8 GB USB from booted burned DVD
+2.12.2.1
+Make .img file with dd
+2.12.2.2
+Use .img to write 2nd USB
+3
+Sweets Distribution
+3.1
+How to install Sweets on Ubuntu
+3.2
+How to install a virtual appliance
+3.3
+sweets-sugar 0.94 works in Ubuntu 12.10 (unity and cinnamon)
+3.4
+Ubuntu-gnome 13.10 (Saucy Salamander)
+4
+How to install Sugar 0.90 on Ubuntu
+5
+Sugar versions available in Ubuntu Software Center
+5.1
+How to install Sugar on Ubuntu 12.04
+5.2
+How to install Sugar on Ubuntu 11.10
+5.3
+How to install Sugar 0.87.2 on Ubuntu 10.04.4 LTS
+5.4
+How to install Sugar 0.90.1 on Ubuntu 11.04
+5.5
+USB-Creator
+OLPC Ubuntu Sugar 14.04 Trusty LTS
+One Laptop per Child was curating Sugar and Activities on the Ubuntu 14.04 Trusty operating system, but support for this version has since ended.
+Installing a system
+How to install Ubuntu with Sugar 0.106:
+you must already be familiar with how to install Ubuntu, if not, see
+Download Ubuntu Desktop
+, and
+Install Ubuntu Desktop
+,
+download
+our installer image
+(1.2 GB)
+md5
+,
+package list
+boot our image and install in the
+usual way
+,
+log out of the Unity desktop, and then log in with the Sugar desktop selected.
+Adding to a system
+Note: only available for 64-bit systems, check that
+uname -i
+shows x86_64.
+How to add Sugar 0.107 to an Ubuntu 14.04 Trusty system:
+edit
+/etc/apt/sources.list
+to add the OLPC archive,
+deb [trusted=yes arch=amd64] http://dev.laptop.org/pub/us trusty main
+update the package lists, and install Sugar,
+sudo apt update && sudo apt install olpc-ubuntu-sugar
+log out of the Unity desktop, and then log in with the Sugar desktop selected.
+Upgrading a system
+How to upgrade to Sugar 0.107 on an existing Ubuntu 14.04 Trusty system with an earlier version of Sugar already installed:
+update the package lists, and apply all pending updates,
+sudo apt update && sudo apt dist-upgrade
+log out, and then log in with the Sugar desktop selected.
+Ubuntu 12.04.2 LTS - Dextrose Sugar Live
+DXU-Dextrose on Ubuntu
+revised Sept 5,2013
+Sugar 0.98.8
+Ubuntu 12.04.02
+Journal Backup/Restore
+Operations on multiple journal entries
+Accessability support with integrated control panel
+Announcement:
+https://docs.google.com/document/d/1qtW08brJSXpfAAY-67QUb8s3gtWca9yIa9XmhYsLHbA/edit?pli=1
+Initial HD or VirtualBox install runs Full Screen Sugar.
+NOTE click on the screenshot to enlarge it; click on browser
+<= back
+to return.
+Screenshots
+Boot Screen
+Background set - Register selected
+Error copying to Documents from journal
+For info on XSCE schoolserver:
+http://schoolserver.org/
+https://sugardextrose.org/projects/xsce/
+Dextrose  running in KDE Ubuntu 12.04.2
+Note KDE has to be installed after sugar is installed to get to this view.
+Download
+NEW  see notes section below
+http://people.sugarlabs.org/Tgillard/ubuntu_12.04-20130712_i686.iso
+Install to Hard Disk
+Ubuntu Startup-disk-creator will create a USB installer
+Boot from Live DVD
+"Username is "ubuntu", with empty password."
+Either method will run as a live CD or Install to Hard Disk
+Note: Choose lightdm as desktop manager
+Install KDE
+Sugar terminal:
+sudo su
+password
+apt-get install kde-full
+- Select lightdm for desktop manager when asked
+- Select remote (none)
+logout/login
+- Click on the round icon in the right top corner to display the
+D
+esktop
+M
+anagers available in the lightdm drop-down menu and select one:
+    GNOME Classic
+    GNOME Classic (no effects)
+    KDE Plasma Workspace
+    Sugar
+It appears that lightdm which is added when KDE is installed picks up Gnome also (used by Sugar)
+Install GNOME
+To complete the install of GNOME
+Sugar terminal:
+sudo su
+password
+apt-get install gnome
+- Select lightdm for desktop manager when asked
+Notes
+From IRC Aug 3 2013
+<dfarning> You can download the new alpha image from
+<dfarning>
+http://ubuntu.activitycentral.com/makeiso/iso/ubuntu_12.04-20130730_i686.iso
+<dfarning> (md5 a91fb1e3b8bdc1c8bdea701702ef807c)
+<dfarning> In this release all control panel sections should work:
+<dfarning> - The keyboard section was failing because of libxklavier lacking the...
+...
+<dfarning> satellit_e:  Dextrose on Trisquel, the new toast, should be coming out this week or later for those who prefer 100% free :)
+From Lists: support-gang@laptop.org 07/15/2013
+
+I just wanted to give everyone a heads about something coming down the pipe:)
+On of the primary frustrations that I have been hearing from the
+community is their inability to easily get hardware for their
+deployments.
+In response, we have released of an iso running Sugar on Ubuntu at
+http://ubuntu.activitycentral.com/makeiso/iso/ubuntu_12.04-20130712_i686.iso
+* Username is "ubuntu", with empty password.
+As alway, AC's code is 100% free and open source.
+What's new
+* Tuned up python-dbus clears the last bug that made most activities
+fail to start.
+* Logs in into Sugar automatically.
+* Most activities work (some will need some work, but it should not be
+caused by problems in Sugar dependencies anymore, but things specific
+to the activity). To be precise they start,  didn't test them in deeply
+ Didn't test collaboration yet.
+* General polish to make it look closer to a final product.
+What fails
+* Some quirks with the tamtam activities as usual, probably already
+fixed in newer bundles.
+* Write does not work as the gtk3 version of pyabiword or the gtk2
+version of libabiword are not available in Ubuntu, so both gtk2 and
+gtk3 versions of the activity are missing half of the dependencies.
+* Etoys and Scratch fail, probably because squeak-vm is not the proper
+version, so I'll be packaging that later as well.
+* The keyboard and network sections of the CP fail, the code makes
+some assumptions about being run in a xo or under fedora, resulting in
+unhandled exceptions.
+* Sometimes activities may fail to start if you open them right after
+logging in, because something with dbus is not yet fully running.
+
+David Farning
+Activity Central:
+http://www.activitycentral.com
+--
+From IRC 07/19/2013:
+"We are interested in creating a community around the project which AC supports but does not control...."
+"We are trying to create a community like XSCE to support sugar on ubuntu."
+:Discussions on #schoolserver / freenode IRC
+Old Releases
+http://old-releases.ubuntu.com/releases/
+Problems
+ubuntu_12.04-20130815_i686.iso
+Sugar 0.98.8
+Time Zone in cp does not store settings.
+Save to Doucuments from journal works (Photo)
+latest  (Has some Plan Cebal activities):
+Do Not Start:
+Biblioteca ceibal; CeibalNotifica; Portfolio; Scratch; Tux Paint; Write
+No Sound from TamTam Apps (VirtualBox test)
+Tam Tam edit is not full screen
+ubuntu_12.04-20130814_i686.iso
+sugar 0.98.7
+Time Zone in cp does not store settings.
+Save to Doucuments from journal does not work (Photo) 'gi.repositorySugarExt'object has no attribute 'fat_set_hidden_attrib'
+latest
+Do Not Start:
+Write;Scratch;
+No Sound from TamTam Apps (VirtualBox test)
+Tam Tam jam and edit are not full screen
+ubuntu_12.04-20130730_i686.iso
+08/03/2013
+Time Zone in cp does not store settings.
+Save to Documents from journal Fails.
+http://bugs.sugarlabs.org/ticket/4600
+ubuntu_12.04-20130712_i686.iso
+07/22/2013 satellit
+Drag-Drop of item from journal to a mounted USB shown in the bottom left of frame fails.
+Clipboard is not available for journal items to paste to documents folder or external USB.
+"save to" fails to save to Documents folder or external USB.
+Network in cp fails to start in live boot but works if installed to HD?
+Time Zone in cp does not store settings.
+Keyboard fails in cp
+"copy to clipboard" of record picture crashes sugar
+Record 97 does not save picture to journal on exit
+Collaboration testing (brief)
+All on Jabber.sugarlabs.org all activities started and shared from Dextrose Sugar 0.98.7
+NOTE click on the screenshot to enlarge it; click on browser
+<= back
+to return.
+Chat 78
+4 Participants
+Dextrose Sugar 0.98.7
+HD install on ext USB HD system76 i7; Gazelle laptop
+f18 Sugar 0.98.8
+f18 HD install on intensePC i3; fanless PC
+Sugar Network Sugar 0.94
+XO-1.5 (1 Hexokinase hf6.2d)
+plus visitor
+Speak 44
+Turtle Art 169
+Create.img files with dd for Duplication of USB's
+Persistent 4 GB USB built with ubuntu startup-disk creator
+Format USB Fat16
+Start ubuntu startup-disk creator
+choose Dextrose-sugar.iso from "other" (1.2 GB )
+select USB Target
+Move slider to left to (1.8GB)
+Write USB
+Boot from USB and select try without installing
+Changes to USB will be saved on reboot.
+Make .img file with dd
+NOTE
+Use mount command to confirm device name for mounted USB eg: /dev/sdb; /devsdc; /dev/sdd...etc
+This is very imporant as you can distroy your hard disk if you use the wrong device name.
+dd if=/dev/sdb of=Dextrose-sugar4p3.img bs=2M
+1850+1 records in
+1850+1 records out
+3880452096 bytes (3.9 GB) copied, 224.698 s, 17.3 MB/s
+Use .img to write 2nd USB
+This can be repeated as many times as needed for duplication of USB's
+dd if=Dextrose-sugar4p3.img of=/dev/sdb bs=2M
+Download:
+http://people.sugarlabs.org/Tgillard/Dextrose-sugar4p3.img
+3.6G
+NeW 8/15/2013
+Use a 4 GB USB or larger
+Install to 8 GB USB from booted burned DVD
+Note
+Ubuntu will make changes in your grub boot settings. It is preferred to remove the Laptop Hard Disk and boot from DVD of .iso
+This will be a robust ext4 install of Dextrose-sugar on a USB
+Boot DVD
+Format USB as / 6GB ext4 plus (1.8GB) swap
+Install to USB
+Make .img file with dd
+dd if=/dev/sdb of=Dextrose-sugar83.img bs=2M
+3817+1 records in
+3817+1 records out
+8006074368 bytes (8.0 GB) copied, 678.706 s, 11.8 MB/s
+Use .img to write 2nd USB
+This can be repeated as many times as needed for duplication of USB's
+dd if=Dextrose-sugar83.img of=/dev/sdb bs=2M
+Sweets Distribution
+Sugar 0.94
+As of 2012-03, Ubuntu does not have a complete, stable version of Sugar in the Ubuntu repositories.  In particular, there is no compatible web browser.
+Until this is fixed, try one of these options:
+use
+Sweets
+on Ubuntu, see
+below
+,
+use a virtual appliance, compatible with any version of Ubuntu, see
+below
+,
+use the incomplete version that Ubuntu provide, see the last section below, or
+install from Sugar source.
+your ubuntu release
+your best options for trying Sugar
+Ubuntu 12.10
+use Sweets Distribution
+or
+use a virtual appliance
+Ubuntu 12.04 LTS
+use Sweets Distribution
+or
+use a virtual appliance
+Ubuntu 11.10
+use Sweets Distribution
+or
+use a virtual appliance
+Ubuntu 11.04
+use Sweets Distribution
+or
+use a virtual appliance
+Ubuntu 10.10
+use Sweets Distribution
+or
+use a virtual appliance
+Ubuntu 10.04 LTS
+use Sweets Distribution
+or
+use a virtual appliance
+How to install Sweets on Ubuntu
+Install packages on an Ubuntu system so that you may run Sugar.
+See
+How to install Sweets Distribution
+.
+Map of Supported Distributions
+How to install a virtual appliance
+Install a virtual appliance based on Ubuntu:
+the
+Ubuntu 11.04 Sweets Distribution Sugar 0.94 virtual appliance
+,
+a tutorial on
+How to import a virtual appliance into VirtualBox
+.
+There are other virtual appliances based on other distributions, which can be imported into virtualization software on Ubuntu.
+see
+Emulator image files
+.
+sweets-sugar 0.94 works in Ubuntu 12.10 (unity and
+cinnamon
+)
+Ubuntu-gnome 13.10 (Saucy Salamander)
+Release Announcement::
+http://ubuntugnome.org/ubuntu-gnome-13-10-is-released/
+Dowwnload::
+http://cdimage.ubuntu.com/ubuntu-gnome/releases/13.10/release/
+How to install Sugar 0.90 on Ubuntu
+NOT Recommended
+There were many problems with Sugar on Ubuntu (see
+a list for 0.90
+), many of which have been fixed in a later version of Sugard.
+In particular, there is no compatible web browser included, though there is a
+workaround
+.
+However, if you wish to to install Sugar on Ubuntu:
+click on Ubuntu Software Center,
+search for Sugar,
+click on sugar-emulator or sugar,
+click on Install,
+if asked about other required applications, click to install.
+Sugar will be downloaded and installed.
+To start Sugar, click on Applications, then Education, then Sugar.
+See
+how to create a desktop icon that runs Sugar full screen
+.
+Sugar versions available in Ubuntu Software Center
+Search for "sugar"
+How to install Sugar on Ubuntu 12.04
+ubuntu-12.04-beta1-desktop-i386.iso
+12e04b6893802d3b1935296bfbfe0910
+installed
+as usual
+, versions offered are Sugar 0.84, 0.86, 0.88, and 0.90.
+--
+Quozl
+21:49, 5 March 2012 (EST)
+How to install Sugar on Ubuntu 11.10
+Ubuntu has updated Software Center and now only 0.88.1 sugar is offered. Tested  14:44, 4 March 2012 (EST)
+--
+User:Satellit
+This is not reproducible.  Tested 6th March, ubuntu-11.10-desktop-i386.iso md5sum c396dd0f97bd122691bdb92d7e68fde5 on VirtualBox, with "apt-get update && apt-get dist-upgrade" to install all updates.  Result was that Sugar versions 0.84, 0.86, 0.88, and 0.90 were all offered by Ubuntu Software Centre.  A user would naturally install 0.90 as the latest.
+--
+Quozl
+20:38, 5 March 2012 (EST)
+There are many problems with Sugar on Ubuntu, many of which have been fixed in a later version, so we recommend the
+Sweets
+or
+virtual appliance
+methods instead.
+There is only firefox offered as a browser and it is not fully "sugarized" and will not install .xo files correctly as it cannot access the sugar-journal
+To install Sugar on Ubuntu 11.10:
+click on Ubuntu Software Center,
+search for Sugar,
+click on sugar-emulator
+click on Install.
+click and install other required applications
+Sugar will be downloaded and installed.
+To start Sugar,: Applications/Education/
+Sugar
+Recommended:
+right click on sugar and add to desktop
+right click on XO Sugar Avatar on Desktop
+Properties: change command to sugar-emulator
+-f
+(full screen)
+How to install Sugar 0.87.2 on Ubuntu 10.04.4 LTS
+To install Sugar 0.87.2 on Ubuntu 10.04:
+click on Ubuntu Software Center,
+search for Sugar,
+click on sugar-emulator
+click on Install.
+click and install other required applications
+To start Sugar,: Applications/Education/
+Sugar
+Recommended:
+right click on sugar and add to desktop
+right click on XO Sugar Avatar on Desktop
+Properties: change command to sugar-emulator
+-f
+(full screen)
+How to install Sugar 0.90.1 on Ubuntu 11.04
+There are many problems with
+Sugar 0.90 on Ubuntu
+, many of which have been fixed in a later version, so we recommend the
+Sweets
+or
+virtual appliance
+methods instead.
+Note: The Ubuntu Sugar Remix; sugar 0.88 and sugar 0.90 are offered but 0.90 is default install with sugar-emulator.
+Sugar 0.88 does not install- (missing dependencies)
+1-) Ubuntu terminal:
+RECOMMENDED
+sudo su
+password:_______
+apt-get install sugar-session-0.90
+Also Installs 32 Applications
+OR
+2-) click on Applications, then Ubuntu Software Center,
+search for Sugar
+click on Install.
+Sugar will be downloaded and installed.
+To start Sugar, click on Applications, then Education, then Sugar.
+About my computer:
+Build: Ubuntu 11.04
+Sugar: 0.90.1
+Install Browser
+Surf-115
+to Ubuntu Desktop.
+USB-Creator
+http://activities.sugarlabs.org/en-US/sugar/addon/4216/
+Activity for Ubuntu only
+This is Startup Disk Creator (usb-creator-gtk) on Ubuntu System Administration menu

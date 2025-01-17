@@ -1,0 +1,268 @@
+Title: Talk:Features/SoaS Remixability
+URL: https://wiki.sugarlabs.org/go/Talk:Features/SoaS_Remixability
+--------------------------------------------------------------------------------
+Contents
+1
+Build Your Own Remix
+1.1
+Introduction
+1.2
+Instructions
+1.2.1
+Install the necessary software
+1.2.2
+Set up your environment
+1.2.3
+Create
+/Modify
+the kickstart file
+1.2.3.1
+More Information
+1.2.4
+Example Terminal Command to Build .iso
+1.2.5
+Build the image
+1.3
+Share your Custom.ks File
+1.4
+References/Links
+1.4.1
+Fedora
+1.4.1.1
+Detailed KS Links
+1.4.1.2
+Options provided by the livecd-creator command
+Build Your Own Remix
+THIS SHOULD BE LOOKED AT FIRST:
+http://download.sugarlabs.org/soas/docs/customization-guide
+NOTE: this content will be used to enhance above link - 08/03/2010 satellit
+CAUTION: DO NOT TRY DOING THIS FROM A SOAS USB STICK or CD. A MINIMUM OF 8GB IS REQUIRED TO BUILD A CUSTOM-REMIX.ISO
+8GB is a minimum size requirement.
+A 120GB or larger external USB Hard Drive is recommended. Install fedora on it.A Gnome Desktop install seems to work best.
+Download Links F13:
+[1]
+[2]
+A related project SugarCreationStation is being developed.
+A Prebuilt Installer Disk
+[3]
+This will be a Custom Remix CD  with livecd-tools and spin-kickstarts installed.
+Requires installation to a Hard Disk to allow Building .iso's.
+This CD will Provide the tools, including detailed instructions, for creating a custom Soas-remix
+The following is Modified/Adapted from:
+https://fedoraproject.org/wiki/Talk:How_to_create_and_use_a_Live_CD
+Introduction
+NOTE THAT THESE REMIXES ARE NOT SUPPORTED BY FEDORA
+You may find some volunteer support on IRC freenode #sugar however.
+This page explains how to make a  custom-content Live CD or DVD on Fedora-based systems including derived  distributions such as RHEL, CentOS and others.
+If you simply want to burn a pre-made  ISO to a disc, visit
+http://fedoraproject.org/en/get-fedora
+to download a LiveCD or LiveDVD,  then see the
+install guide
+or
+burning how-to
+for further  instructions.
+Instructions
+The basic workflow for creating a  remix is:
+Create
+/ Modify
+a kickstart file that specifies the packages you want installed  on your remix, along with special settings you want to tweak.
+Run that  kickstart file through livecd-creator, which will pull in the  packages  and compose an .iso, which you can then burn to CD.
+...that's it! We will walk you through these steps  below.
+Install the necessary software
+To create a live image, the
+livecd-creator
+tool is used. Super user privileges are needed. The tool is more or less self-documenting, use the
+--help
+option to see options.
+The
+livecd-creator
+tool is part of the
+livecd-tools
+package.  If it is not installed on your system, add it with:
+su -c 'yum install livecd-tools spin-kickstarts'
+If you are interested in localized live cd files, install also
+l10n-kickstarts
+.
+su -c 'yum install l10n-kickstarts'
+Note the spin-kickstart files that download are specific for the version of fedora you are using
+The version of sugar will also be different for each version of fedora:
+f12 0.86.-
+f13 0.88.-
+f14(rawhide) 0.89.- (0.90.-?)
+Set up your environment
+Now we'll set up the place you'll be building your remix's image file in. We assume you're running a recent version of Fedora.
+We will use the /home/(user*)/Desktop to do our builds
+Note: If you use the Kickstart files in the default installed location in /usr/share/spin-kickstarts you will have permission problems editing the files.
+Set SELinux in permissive mode:
+su -c ‘setenforce 0’
+Copy the fedora-livecd-soas kickstart file you've Downloaded to your Desktop:
+(user*)= your user name
+mkdir /home/liveuser//home/liveuser/Desktop/spin-kickstarts
+cp -r /usr/share/spin-kickstarts/*.ks /home/liveuser/Desktop/spin-kickstarts/
+Edit one of the .ks files you just copied to your Desktop/spin-kickstarts directory
+gedit
+Create
+/Modify
+the kickstart file
+Open the kickstart file you chose from the spin-kickstart folder you copied to your Desktop in the editor of your choice.:
+Create the package manifest section  and add your favorite packages:
+%packages
+foo
+baz
+bar
+%end
+More Information
+%packages
+Add and or remove programs
+Any Program with a minus sign (-) will be removed; any program without a minus will be added
+%post
+Manipulate files that have been installed
+%post command are done in
+cheroot
+(the commands are only run against the new file system created for the live CD)
+To change repository: (eg: enable rawhide)
+Edit the fedora-live-mini.ks
+Put # in front of repos you do not want to use
+(remove # )from The repos you want to use
+EXAMPLE
+: repo --name=rawhide --mirrorlist=
+http://mirrors.fedoraproject.org/mirrorlist?repo=rawhide&arch=$basearch
+Look at this .ks for usage examples:
+http://people.sugarlabs.org/Tgillard/Mirabelle-Remix-plain.ks
+Congrats -- you're done!
+Example Terminal Command to Build .iso
+You must be connected to a fast Internet connection for this to work
+f14(rawhide)build system using fedora-livecd-soas.ks
+(This example also works with a f13 Build System)
+In terminal /home/(user)/Desktop:
+su
+"#"
+livecd-creator \
+--config=/home/(user)/Desktop/spin-kickstarts/fedora-livecd-soas.ks \
+--fslabel=Soas-v(2-3-4)-mmddyear-Remix --cache=/var/cache/live --verbose
+KEY
+--fslabel=Soas-v(2-3-4)-mmddyear-xxxx-Remix = (The name you specify for the CD remix)
+Explanation of format for name:  (preliminary layout pending approval by Soas)
+v(2-3-4)= the sugar version v(2-3-4)
+v2= Fedora 12 sugar 0.86-
+v3= Fedora 13 sugar 0.88-
+v4= Fedora 14 sugar 0.89-0.90
+dd/mm/year= The Creation Date
+-xxxx = custom name
+Remix is REQUIRED for naming if Soas is used
+--config=/home/(user*)/Desktop/spin-kickstarts/  * (path to your Desktop/spin-kickstarts folder and .ks file)
+Build the image
+The build process will take some  time, as well as space and bandwidth.
+Success is indicated by message:
+"Setting supported flag to 0"
+your new remix CD.iso is located in your Home Folder.
+Credits
+Parts of this page were based on Rahul Sundaram's article
+Roll Out A Fedora Remix
+. And the References listed below:
+Share your Custom.ks File
+we plan to have a listing of Customized kickstart.files to share on the WIKI
+We will list them here so others can try them out and learn from them.
+Please send e-mail to:
+To: soas@lists.sugarlabs.org
+Subject: [Custom KS]-{Name of your kickstart file}
+*Attach your Custom.ks file*
+PLEASE INCLUDE THE FOLLOWING INFORMATION in e-mail:
+Sugar Version                    :
+(0.82; 0.86.x; 0.88.x; 0.89.x)
+Country / Deployment             :                      
+Build system fedora version      :                    
+Number of USB's in Deployment    :  
+PC/Netbooks used                 :             
+Notes and Any Bug No's submitted :
+Name
+Kickstart.file
+Sugar Version
+Country / Deployment
+Build system fedora version
+Number of USB's in Deployment
+Used with PC/Netbooks Types
+CD.iso (if available), Notes, Comments, Bug No's submitted.
+satellit
+Mirabelle-remix
+[4]
+Sugar 0.86.3
+USA / Testing
+f13
+Testing
+EeePC900; Acer Aspire One
+[5]
+Works fine, CD, liveinst, zyx-liveinstaller, USBscr,dd, Liveusb-creator all work  Read(bug)
+[6]
+satellit
+soas-v4-0725-Remix
+[7]
+Sugar 0.89.1
+USA /Testing
+f14(rawhide)
+Testing
+EeePC900; Acer Aspire One
+[8]
+Works fine, CD, zyx-liveinstaller, USBscr,dd
+Liveinst Fails on firstboot
+cannot log on  Read(bug)
+[9]
+–
+–
+–
+–
+–
+–
+References/Links
+Fedora
+http://docs.fedoraproject.org/en-US/Fedora/13/html/Installation_Guide/index.html
+http://mirrors.ibiblio.org/pub/mirrors/sugar/soas/docs/customization-guide/index.html
+https://fedoraproject.org/wiki/Talk:How_to_create_and_use_a_Live_CD
+https://fedoraproject.org/wiki/How_to_create_and_use_a_Live_CD
+http://www.linuxforu.com/how-to/roll-out-a-fedora-remix/
+http://www.ibm.com/developerworks/linux/library/l-fedora-livecd/
+http://www.faqs.org/docs/Linux-HOWTO/KickStart-HOWTO.html#s4
+Detailed KS Links
+NOTE: This Part Under Construction...Info may be out of date or not applicable
+http://www.redhat.com/docs/manuals/enterprise/RHEL-5-manual/Installation_Guide-en-US/s1-kickstart2-options.html
+http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/index.html
+http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/s1-kickstart2-howuse.html
+http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/s1-kickstart2-file.html
+http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/s1-kickstart2-options.html
+http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/s1-kickstart2-packageselection.html
+http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/s1-kickstart2-postinstallconfig.html
+http://www.ibm.com/developerworks/linux/library/l-fedora-livecd/index.html
+http://forums.fedoraforum.org/showthread.php?t=231281
+http://fedoraproject.org/wiki/FedoraLiveCD
+Bugs
+:
+https://bugzilla.redhat.com/buglist.cgi?component=livecd-tools&product=Fedora
+Options provided by the livecd-creator command
+f14(rawhide)
+livecd-creator --help
+Options:
+ -h, --help            show this help message and exit
+ Image options:
+   These options define the created image.
+   -c KSCFG, --config=KSCFG
+                       Path or url to kickstart config file
+   -b BASE_ON, --base-on=BASE_ON
+                       Add packages to an existing live CD iso9660 image.
+   -f FS_LABEL, --fslabel=FS_LABEL
+                       File system label (default based on config name)
+   --compression-type=COMPRESS_TYPE *
+Note: NEW TO F14(rawhide)
+Compression type recognized by mksquashfs (default
+                       zlib, lzma needs custom kernel)
+ System directory options:
+   These options define directories used on your system for creating the
+   live image
+   -t TMPDIR, --tmpdir=TMPDIR
+                       Temporary directory to use (default: /var/tmp)
+   --cache=CACHEDIR    Cache directory to use (default: private cache
+ Debugging options:
+   These options control the output of logging information during image
+   creation
+   -d, --debug         Output debugging information
+   -v, --verbose       Output verbose progress information
+   --logfile=FILE      Save debug information to FILE

@@ -1,0 +1,241 @@
+Title: Platform Team/Server Kit/Guide/Usage Statistics
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Server_Kit/Guide/Usage_Statistics
+--------------------------------------------------------------------------------
+Contents
+1
+RRD (Round Robin Database) file data types
+2
+Factors affecting network bandwidth
+3
+Factors affecting database size on the client side
+4
+Notes on reading/interpreting the RRD databases
+4.1
+Dumping all information
+5
+Notes on usage of the actual server/client system
+5.1
+Server side packages
+5.2
+Client side packages
+5.3
+The configuration files
+5.3.1
+Client side config file: /etc/sugar-client.conf
+5.3.2
+Server side config file: /etc/sugar-stats.conf
+5.4
+Notes on using SSL auth
+RRD (Round Robin Database) file data types
+There is a standard set of rrd databases containing stats for journal, system, shell. For each activity there is an independent rrd database which tracks a standard set of parameters, the details for which are listed below.
+database files conform
+Statistics identifiers list
+;
+database file name for non-activities is in format
+<TOP-LEVEL-STAT-ID>.rrd
+;
+database file name for activities is in format
+activity.<BUNDLE-ID>.rrd
+;
+the set of database fields conform second level stat identifiers for particular stat.
+Factors affecting network bandwidth
+The only factor that really affects the network bandwidth usage is the resolution at which the data is being stored. Currently, the default step-size is 60 seconds.
+Factors affecting database size on the client side
+The factor that affects the database size on the client is the RRAs (Round Robin Archives) being cached on the Client XO.
+The default RRA configuration on the client side reads something like
+RRA:AVERAGE:0.5:1:4320
+RRA:AVERAGE:0.5:5:2016
+This means that there is one RRA (Round robin archive) within the DB that stores one value every minute for 4320 samples. This makes the total length of this 1 minute resolution RRA to be 4320 minutes = 3 days
+The other RRA stores an average of 5 samples, for a total of 2016 samples. Thus its total duration is 5x2016 min= 10080 min= 7 days.
+Thus the default duration of high resolution samples is 3 days and lower resolution samples is 7 days. Tweaking these values will affect both the database size on the client size and the network usage.
+For locations with very intermittent connectivity, having bigger-duration databases might be advisable. sample RRA's could be
+RRA:AVERAGE:0.5:1:43200 (30 days)
+RRA:AVERAGE:0.5:5:20160 (70 days)
+The above sample values will not be having any impact on network usage, since we're not increasing their resolution, frequency or adding/removing more RRA's
+Notes on reading/interpreting the RRD databases
+Dumping all information
+To dump all the information contained in an rrd file, one could use 'rrdtool dump' command.
+To dump the same info in a more pretty print format (tabular), you may use
+dsreport
+. You'll need to install rrdtool-perl to make the script work.
+Notes on usage of the actual server/client system
+Update: The following version numbers have been tested to work. Previous versions were buggy. Subsequent versions may be good. These are the upstream
+Fedora
+,
+Ubuntu
+and
+Debian
+package repository paths.
+This
+is the upstream git repository. The Dextrose-3 operating system will ship the latest stable sugar-client side packages.
+Server side packages
+active-document-0.1-3.1
+restful-document-0.1-4.1
+sugar-client-1.2-16.1
+sugar-stats-client-0.1-6.1
+sugar-stats-server-0.1-6.1
+gevent
+Client side packages
+sugar-client-1.2-16.1
+sugar-stats-client-0.1-6.1
+Note: as you may have noticed, the package sugar-stats-client is needed to be installed on both the Client and the Server. The name is a bit misleading as it is more of a library that provides common functionality.
+This name has/will be changed in future releases
+.
+The configuration files
+There should be configuration files both on the client and the server. Here are the sample configurations:
+Client side config file: /etc/sugar-client.conf
+[main]
+# url to connect to school server's RESTfull API
+api-url = http://schoolserver:8000
+# process auto-registeration on a school server on startup; multiple argument,
+# if mentioned more than once and previously registered server's IP is different
+# from "schoolserver"'s one, process re-registrtion
+auto-register = 0
+# if, after registration, there are backups to restore on the server, process
+# restore automatically
+auto-restore = False
+# if more than 0, do regular backups with specified delay in seconds
+backup-timeout = 0
+# rsync url to backup/restore Journal
+backup-url = 
+# debug logging level; multiple argument
+debug = 0
+# jabber server for Sugar collaboraiton
+jabber-url = 
+# specify machine's serial number instead of detecting it
+machine-sn = 
+# specify machine's UUID instead of detecting it
+machine-uuid = 
+# specify user's nickname instead of detecting it
+nickname = 
+# school server's FQDN, will be auto-set after registration
+schoolserver = 
+# CA certificates file to get access to --stats-url via HTTPS
+stats-ca-certs = /home/anish/Documents/openssl/server.crt
+# if more than 0 and --stats-url specified, ping stats server with specified
+# delay in seconds to coordinate stats gathering work
+stats-timeout = 60
+# stats server's http(s) url to interact with; if omited, any stats related
+# functionality is disabled
+stats-url = https://192.168.1.55:8000
+# current user's unique identity; needs to be set only from profile
+# configuration file; will be auto-created on initial registration
+uid = 
+# optional command-line arguments to pass to a packager while updating the
+# system
+update-args = 
+# if more than 0, do regular unattended updates with specified delay in seconds
+update-timeout = 0
+Important paramerters to configure are
+stats-ca-certs
+: Path of the SSL certificate in case SSL auth is being used.
+stats-url
+: The url of the server. This needs to be prefixed with
+http://
+or
+https://
+to work without/with SSL.
+stats-timeout
+: The sync frequency of the collected statistics between the client and the server. Note, changing this wouldn't typically affect bandwidth consumption, which is actually determined by the RRAs.
+machine-sn, machine-uuid, nickname
+: Specify these values explicitly if you want them to be automatically determined. Might be useful in making stats anonymous by setting common machine-sn and/or nickname.
+Server side config file: /etc/sugar-stats.conf
+[stats]
+# enable stats collecting
+stats = True
+# path to SSL certificate to serve stats server via HTTPS
+stats-certfile = /home/anish/Documents/openssl/server.crt
+# space separated list of RRAs for RRD databases on client side
+stats-client-rras = RRA:AVERAGE:0.5:1:4320 RRA:AVERAGE:0.5:5:2016
+# path to SSL certificate keyfile to serve stats server via HTTPS
+stats-keyfile = /home/anish/Documents/openssl/server.key
+# path to the root directory to place stats
+stats-root = /var/lib/sugar-stats/rrd
+# space separated list of RRAs for RRD databases on a server side
+stats-server-rras = RRA:AVERAGE:0.5:1:10080 RRA:AVERAGE:0.5:5:8928 RRA:AVERAGE:0.5:15:35040
+# step interval in seconds for RRD databases
+stats-step = 60
+
+[active-document]
+# path to the root directory to place documents' data and indexes
+data-root = /var/lib/sugar-stats/users
+# limit the resulting list for search requests
+find-limit = 32
+# flush index every specified changes
+index-flush-threshold = 32
+# flush index index after specified seconds since the last change
+index-flush-timeout = 60
+# for concurent access, run index writer in separate thread; this option
+# specifies the writer's queue size; 0 means not threading the writer
+index-write-queue = 256
+
+[main]
+# debug logging level; multiple argument
+debug = 0
+# hostname to listen incomming connections
+host = 192.168.1.55
+# path to the directory to place log files
+logdir = /var/log/sugar-stats
+# port number to listen incomming connections
+port = 8000
+# path to the directory to place pid files
+rundir = /var/run/sugar-stats
+# switch off user credentials check; disabling this option will require
+# OpenSSH-5.6 or later.
+trust-users = True
+Important paramerters to configure are
+stats
+: Must be true for stats collection to be enabled
+stats-certfile
+: Path of the SSL certificate on the server (if SSL auth is being used)
+stats-keyfile
+: Path of the SSL private key on the server (if SSL auth is being used)
+stats-client-rras
+: Configuration of Round Robin Archives on the client. See
+#Factors affecting database size on the client side
+stats-server-rras
+: Configuration of Round Robin Archives on the server. See
+#Factors affecting database size on the client side
+. This will
+NOT
+affect network bandwidth, but merely space consumed on the server.
+stats-step
+: Step size of
+ALL
+RRAs. This
+WILL
+affect bandwidth consumption. See
+#Factors affecting database size on the client side
+trust-users
+: Set this to True if using openSSH version lower than 5.6
+Notes on using SSL auth
+The steps broadly involved are:
+Generating private key, and self-signed certificates (for test env).
+The certificate should be without a passphrase.
+Copying the certificate on the client, and configure
+sugar-client
+accordingly.
+Copying the certificate and private key on the server, and configure
+sugar-stats-server
+accordingly.
+Notes on debugging the SSL auth system
+Check the
+stats-url
+in
+sugar-client
+configuration is
+https://
+and not
+http://
+.
+Check that the certificates are valid or have not expired.
+To check the SSL side of things, following commands maybe run on the client and the server.
+Server:
+openssl s_server -cert server.crt -key server.key -accept 8000
+Client:
+openssl s_client -connect 192.168.1.55:8000 -CAfile server.crt
+(Replace the ipaddress with the correct server-machine url or IP address.
+If the process runs smoothly, you should see
+Verify return code: 0 (ok)
+at the end on the client side terminal. Fails will accompany an error code which maybe looked up
+here

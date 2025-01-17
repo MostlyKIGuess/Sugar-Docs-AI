@@ -1,0 +1,109 @@
+Title: Content bundles
+URL: https://wiki.sugarlabs.org/go/Content_bundles
+--------------------------------------------------------------------------------
+Sugar supports
+content bundles
+, a distributable archive of content to be made available under Sugar.
+Contents
+1
+Rationale
+2
+Creating a content bundle
+3
+library.info specification
+4
+Localization
+Rationale
+The most popular use for content bundles is to provide an easy way for deployers to pre-install content (e.g. textbooks) on all the Sugar installations in a deployment. The content is either provided as HTML documents and images, or an HTML index to other media is provided.
+Another option here would be for deployers to create an activity that provides a browseable index to the content being distributed. However, technically, this is a major step up in complexity. Content bundles have simplicity on their side, and basic HTML is a widespread skill. Python is not.
+So, as Sugar does not provide a better answer for the frequently asked deployer question "how can I ship a load of textbooks on all these Sugar installations?", content bundles have actually become rather popular in the field.
+Creating a content bundle
+Currently, the "launcher page" for your content bundle must be a HTML document.
+In a new directory for the files to be included in the bundle:
+Create an index.html file that acts as the front page of your content, or that provides an index to the content you wish to make available
+Add all the content to the directory structure (i.e. the things you link to from index.html and any resources that they require)
+Create a library subdirectory and place a library.info file there
+Now zip up the directory structure from one level up, and rename the zip file to have a .xol extension. Content bundle complete!
+If you were to examine the contents of the zip file for a content bundle named Dictionary, you would now see the following directory structure:
+Dictionary/                     (directory)
+Dictionary/index.html           (index page)
+Dictionary/page1.html           (content linked from index)
+Dictionary/page2.html           (content linked from index)
+Dictionary/grammar.png          (an image resource shown in page1)
+Dictionary/library/             (directory)
+Dictionary/library/icon.svg     (icon image)
+Dictionary/library/library.info (detailed below)
+library.info specification
+The most complex part of creating a content bundle is creating a metadata file that gives Sugar some basic information about your content (title, etc). This is done in a .ini style format, in a file that
+must
+be placed at location
+library/library.info
+inside your content bundle.
+On the first line, place the section name which must be:
+[Library]
+The remaining lines are used as key-value pairs, in the format:
+key = value
+The available keys, some of which are required, are:
+name
+(required)
+The (localized) name of your content bundle.
+global_name
+(required)
+This is the unique content bundle identifier. It's as if you were to write a domain name backwards, perhaps with more specific information at the end. Think of it as something like this:
+If your email address is
+yourname
+@
+somemailhost
+.com, then you could use
+com.somemailhost.yourname
+.
+YourContent
+.
+You could set up a web page on a free hosting service with information about your content, and use a name derived from its URL.  For example, if you create a page at
+http://www.geocities.com/xotumusica
+for your content, then com.geocities.www.xotumusica is a reasonable global_name.
+If nothing else is available, even org.sugarlabs.wiki.
+Your Activity Page Title
+is probably a reasonable global_name, provided that you create the 'Your Activity Page Title' page.  Remember, global_names should be unique, so you should double check that the 'Your Activity Page Title' page doesn't already exist (and then create it) before using this as your global_name.
+Tech talk: The name should conform to the
+D-Bus spec
+- in particular, hyphens are not allowed. It is recommended that
+Java package naming conventions
+are used when chosing bundle identifiers, to ensure uniqueness. The reversed domain name part is supposed to be rooted in some actual DNS-rooted namespace.  You don't need to own this domain; you just need to have a reasonable claim on some
+unique
+name at that domain.
+library_version
+(required)
+The version is a single positive integer that refers to the version of the collection. Larger numbers are considered "newer".
+host_version
+(required)
+The host version is a single positive integer that refers to the version of Sugar which the collection is compatible with. For now, the version is 1. Do not use a different value.
+icon
+(required)
+The filename of the icon within the 'library' directory of your content bundle. SVG is the recommended format, but PNG and JPEG will work as well.
+license
+This field names the license used for the content bundle.  The contents of this field should conform to the same guidelines as the
+License:
+field
+of an RPM package; consult the
+Fedora Licensing Guidelines
+for more information.  A 'license' field naming an entry or entries in the "Good Licenses" table for Content Licenses at
+Fedora's Licensing list
+is required for any content distributed by OLPC.
+locale
+This is the ISO code for the language of the collection, in lowercase, followed by an underscore, and then its localization information (also represented in ISO code). For example, US-localized English is represented as en_US. UK-localized English, for example, would be represented as en_UK.
+It is possible to indicate language but not localization information. An example would be:
+locale = es
+It is also possible to indicate multiple languages and/or locales. An example would be:
+locale = en_US;en_UK;es_PE;es_AR;
+Note that values are separated by semi-colons, and that the final value must end with a semi-colon as well.
+For a list of ISO 639 language codes, see
+http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+. For a list of ISO country codes, see
+http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements
+activity_start
+This refers to the start page of your content bundle. The default is
+index.html
+.
+Localization
+Collections tend to rely much more heavily on text than code, and the usual way to localize content is to make a separate bundle for each language. Indicate the language of your collection in the locale field of the library.info file.

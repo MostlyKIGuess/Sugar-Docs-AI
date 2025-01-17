@@ -1,0 +1,59 @@
+Title: Quilt
+URL: https://wiki.sugarlabs.org/go/Quilt
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+Protocol
+3
+Project Setup
+4
+Dependencies
+4.1
+Core
+4.2
+Unit tests
+5
+TODO
+6
+Core contributors
+7
+Links
+Description
+Quilt is a chat system designed for mesh networks. It was written in python and uses zeromq as a way to pass data between nodes. Each node connects to other nodes and allows a user to chat. The end goal is to have a resilient chat network that auto discovers nodes on a mesh network.
+Protocol
+The Quilt protocol is a simple text based protocol over zeromq. zeromq can send multi-part messages and quilt takes advantage of that as a separate between different sections of a message.
+Current protocol:
+join -- [routing, destination, "join," user, channel]
+part -- [routing, destination, "part", user, channel]
+message -- [routing, destination, "message", user, channel, message]
+ping [routing, destination, "ping", server]
+pong [routing, destination, "pong", server]
+server_connect [routing, destination, "server_connect", our_address, our_port]
+Project Setup
+The project has 2 main folders and several other sub folders.
+tests
+Unit tests for Quilt are located here
+quilt
+This folder holds the source code for quilt it has 1 sub folder
+__init__.py stores the core quilt code for threading and running the server
+protocol.py holds the protocol implementation
+models
+Models holds classes for storing data in a way that will be accessible beyond the QuiltProtocol object in protocol.py
+Dependencies
+Core
+pyzmq-static
+Unit tests
+nose
+TODO
+The current todo list is as follows:
+Rewrite the routing implementation to be much smarter
+Hook the avahi node discovery code into the core system
+Improved UI
+rewrite documentation
+Core contributors
+Ross Delinger
+Will Dignazio
+Links
+Quilt Github

@@ -1,0 +1,39 @@
+Title: Sugar on a Stick/USB format
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/USB_format
+--------------------------------------------------------------------------------
+THIS IS A PROPOSAL AND IS NOT IMPLEMENTED AT THE CURRENT TIME!
+Partitions should be set up as follows to maintain uniformity and compatability with all BIOSes, both those who support USB_HDD and USB_ZIP booting.
+Partitions are to be aligned on 4MB blocks by using 32 sectors/track and 64 heads and using odd start numbers (counting from 1!)
+MBR: syslinux MBR bootloader
+partition 1: FAT16 (0x06), 32MB, standard layout, syslinux setup + kernel, marked bootable
+partition 4: copy of partition 1 (yes, in front of part2!)
+partition 2: ext3 remaining part of disk
+Using fdisk, the above can be expressed as a session of:
+d *
+n
+p
+1
+a
+1
+
++32M
+n
+p
+4 
+
++32M
+n
+p
+2
+
+w
+Followed by:
+mkfs.vfat
+device
+1
+mkfs.vfat
+device
+4
+mkfs.ext3
+device
+2

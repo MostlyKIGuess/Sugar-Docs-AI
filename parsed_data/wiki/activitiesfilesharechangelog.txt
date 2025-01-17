@@ -1,0 +1,75 @@
+Title: Activities/FileShare/ChangeLog
+URL: https://wiki.sugarlabs.org/go/Activities/FileShare/ChangeLog
+--------------------------------------------------------------------------------
+2009-12-14: FileShare-2.xo
+Added Localization Support
+Server notifies client when new file is added
+Server notifies client when file is removed
+Client ignores remove request when transfer is in progress or completed
+Server now deletes file bundle for removed files
+Files are now refered to by a sha1 hash instead of int count
+Server will attempt to prevent duplicate shared entries
+By activity id in datastore metadata
+If no activity id in metadata, sha1 file given by get_file_path
+If file path is empty, no check can be done, create random sha1 no duplicate check can be done at this time
+2009-12-15: FileShare-3.xo
+Moved tmp to instance directory
+Tmp is kept in ram where instance is kept in flash memory and deleted on close.
+Keep/Resume Activity
+On resume, only shows what files they got if they closed as a client
+Keeps a COPY of each file being shared.  This allows it to have the files even if they were removed from jorunal.
+If was server and now client, doesn't allow download of files they added when they started.
+Install files back to journal
+Useful if it is a resumed activity.
+This allows the activity to also be shaired and they will have copy of all files which they can install to the journal if they wish.
+INTRODUCES BUG:
+client downloads file, disconnects, server removes file, re-adds file (after changing it), client re-connects (resumes), the client will not know that the file changed and not allow them to download the new one. Work around: close the activity and delete it's entry in the journal when re-connecting, it will allow all downloads as expected.
+2009-12-18: FileShare-4.xo
+Fixed bug with removing files added in last release
+Activity now asks if files should be saved in the activity entry inside the journal
+This is because there is no way to prevent a save, so if the user doesn't want  to keep a copy of all the files transfered with the activity they don't have to. Otherwise it would just be a waste of space.
+Fixed bug with formated debug strings due to new id system
+2009:12-26: FileShare-5.xo
+Added ability for multiple selections.
+Fixed Bug: Fixed bug on client side when server adds file after join.
+2010-01-07:
+Improved how the system holds file records internally by now using a FileInfo class instead of arrays.
+Improved the way the GUI internally handled the records.
+Added file fail notice to the file list when it failed to download and install. This now allows the user to try to re-download and install the file.
+New Feature:
+The file share activity supports uploading files to a basic server. If the server is running on the jabber server (which hopefully is the school server) then it will prompt the user if they want to use the server instead of sharing with a peer. See
+http://gitorious.org/jlew/xo-file-distro/trees/master/FileShare.server
+for the server script if you wish to try it on your own school server.
+2010-01-12: FileShare-7.xo
+Improved gui response.
+Gui is now dispatching threads for long blocking calls.
+Throbber is shown while gui is running a blocking call.
+Improved server interaction when in "Server Mode"
+Basic permission system
+Admin view to change user permissions
+Fixed hang (added 10 second timeout) when server is set but offline
+Fixed "Keep Error" bug with empty file list
+2010-01-19: FileShare-8.xo
+Button Changes
+Sugar toolbar with svg icons instead of buttons
+Instead of "File", now using "Object" terminology
+Deactivate buttons that require selection when no files are selected
+Throbber Changes
+Mouse now turns into watch when throbber invoked
+Disables window while working
+System Behavoir Changes
+Check for server starts in new thread during startup (no delay for ui)
+If server is found, icon is enabled that allows the user to connect.
+Scrollbars disappear when not needed.
+Tree View Changes
+Description is the only thing that by defualt expands
+Treeview code condensed
+NEW BUG:
+Add files from normal mode, switch to server, try to upload file
+2010-01-29: FileShare-9.xo
+New activity icon
+Action toolbar now default toolbar.
+2010-05-18: FileShare-10.xo
+Fixes ObjectChooser always on top bug (
+http://bugs.sugarlabs.org/ticket/2005
+)

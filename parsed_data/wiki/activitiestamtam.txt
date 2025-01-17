@@ -1,0 +1,55 @@
+Title: Activities/TamTam
+URL: https://wiki.sugarlabs.org/go/Activities/TamTam
+--------------------------------------------------------------------------------
+Contents
+1
+Overview
+2
+Build from sources
+3
+Bundling from Sweets
+4
+Resources
+Overview
+TamTam is a suite of four music and sound related activities for the XO. TamTam is written in python with some C functions for speed-critical services. The audio engine for TamTam is Csound.
+Build from sources
+In Terminal activity, install some necessary software:
+sudo yum install git csound-devel alsa-lib-devel python-devel make gcc-c++
+If you are building a development environment on Ubuntu or Linux Mint, install the following packages instead:
+sudo apt-get install git libcsound64-dev python-dev make g++
+libcsound64-dev is not actually sufficiently up to date in the Ubuntu repository, so it may be necessary to build
+csound
+from source on Ubuntu or Mint before building TamTam.
+Clone the sources and build binaries:
+mkdir -p ~/Activities
+git clone --depth 1
+https://github.com/godiard/tamtam.git
+~/Activities/tamtam
+git fetch
+git checkout -b sugar-0.94 sugar-0.94
+cd ~/Activities/tamtam/common/Util/Clooper
+make
+Branch sugar-0.94 have the gtk2 version, master branch have a unfinished port to Gtk3.
+If make was successful, create symlinks to all TamTam activities:
+cd ~/Activities/tamtam
+./setup.py dev
+Bundling from Sweets
+If you are using
+Sweets
+you can bundle your changes with the following command line:
+sweets bind sdk/sugar ./setup.py dist_xo
+This can be done in the root of tamtam sources.
+Resources
+Tam Tam Resources
+- Learner resources
+Sources
+Sugar Activity Library pages:
+TamTam Edit
+TamTam Jam
+TamTam Mini
+TamTam SynthLab
+TamTam on OLPC wiki
+Trac tickets:
+OLPC
+,
+Sugar Labs

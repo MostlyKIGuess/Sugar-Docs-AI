@@ -1,0 +1,85 @@
+Title: Improve Sugar on a Stick
+URL: https://wiki.sugarlabs.org/go/To_do_to_improve_Sugar_on_a_Stick
+--------------------------------------------------------------------------------
+The hard work of making a simple solution
+Sugar on a Stick has tremendous potential. Kids love it, teachers see the possibilities.
+To scale, we need to make it SIMPLE.
+Inspiration
+Amy Smith, "Do the hard work needed to find a simple solution. As Leonardo da Vinci said, “Simplicity is the ultimate sophistication”—and it is the key to this type of design work."
+Get inspired by the design process of her coal creation device:
+http://www.youtube.com/watch?v=LqI63IEg3MM
+There is background in her TED talk:
+http://www.ted.com/talks/amy_smith_shares_simple_lifesaving_design.html
+Where we need to simplify
+Make it work to both boot and to run on the computers' current operating systems.
+This is clearly possible, LinuxliveUSB has a this working for Windows.
+We need a Mac and Linux VirtualBox or other VM Solution.
+We need a simple, elegant, Sugar specific UI that is presented to the user when they insert a stick into a running Windows machine.
+Suggestion-1: (not for XO-1)
+Put 2 files for VirtualBox import/export on a 2nd USB stick
+On insertion; the contents of the USB stick pop up
+An example:
+f16-live-RC4-Desktop-sugaruser-disk1.vmdk
+ f16-live-RC4-Desktop-sugaruser.ovf
+<==click on this file and it immediately imports into VirtualBox (less than 2 Minutes)
+(Only the .ovf file icon is highlighted in the USB stick contents)
+Suggestion-2: (not for XO-1)
+Export the VirtualBox .vdi hard drive to a 2nd USB and create a new machine that uses the .vdi to run
+/home/(user)/VirtualBox VMs/ (copy all three files to USB-stick)
+Create a new appliance
+use pre-existing hard disk
+Look for .vdi (on USB-stick)
+Suggestion-3 (works for XO-1 and PC's)
+Use "Sneakernet" Downloadable CD/DVD.isos
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit#introduction_to_the_sugar_interface_CD.iso
+7.4M
+A CD/USB-stick with .html files that will open with a click in the XO-1 or PC's Browser
+Contents:
+Introduction_to_Sugar_Interface.html
+Connecting_to_the_Internet.html
+Drag-Drop.html
+How_to_use_IRC.html
+How_to_use_Chat.html
+Terminal.html
+Downloaded .html from:
+Manuals
+--
+Satellit
+18:49, 24 December 2011 (EST)
+http://download.sugarlabs.org/images/SugarCreationKit-123.iso
+a 3.2 GB DVD.iso with most of the tools needed to install and use sugar
+Needs updating
+only goes to Mirabelle SoaS-v3
+Make it work with Macs.
+It kinda works sometimes now. Some macs reboot if you do magic incantations. Some don't.  A VirtualBox "boot helper" VM that started the boot in VirtualBox, then looks to the stick was created by Dave Bauer, but it doesn't work on all Macs yet.
+Set up MacBook to Open items automatically when you log in
+click link ^
+Make New Virtual Appliance for USB containing .vdi files
+VirtualBox/New/(Continue)
+Name..... Operating System...linux..  Version ...Ubuntu (Continue)
+Memory ....1024...(Continue)
+[x] Start-up Disk
+(O) Use existing disk  Click on the folder icon on right side
+Select the USB-stick in Devices: select the .vdi file listed (Open)
+Virtual Hard Disk
+Has (O) Use existing hard disk filled out with your .vdi (Continue)
+Summary (Create)
+VirtualBox Manager
+Pointed to new VM (at bottom of list) ==> Start
+Now when the MacBook is booted it will boot up in VirtualBox pointed at this Virtual Appliance on the USB-stick
+This Procedure can be used on multiple Macs to use the same USB-stick containing the Virtual Appliance of Sugar
+XS integration needs to work simply and elegantly.
+Backup and Restore
+A simple UI for recreating a lost or broken stick
+Give teachers the power of Moodle - We need tools for teachers to manage student work on the XS and to push files to students sticks.
+Understand Stick failure and how to reduce it.
+See Notes:
+Cautions with using Live USB devices
+,
+LiveOS image
+, &
+Stick Layout
+Make it simple and elegant to create sticks for your whole class.
+Not a lot of steps for drivers, etc., and it works on most of the computers in the kids' houses.
+Teacher decides what files and activities are included
+No command line usage, an enjoyable, Sugarish experience.

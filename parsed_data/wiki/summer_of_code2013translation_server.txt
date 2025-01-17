@@ -1,0 +1,78 @@
+Title: Summer of Code/2013/Translation Server
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/Translation_Server
+--------------------------------------------------------------------------------
+Contents
+1
+Links
+2
+Contacts
+3
+About
+3.1
+Description
+3.2
+Proposed Development Timeline
+The project is currently named only "Translation Server" or "translate", which is a pretty useless name. A more official name will be given at some later time. Suggestions are welcome.
+Links
+Github repository
+Bug/TODO tracker
+documentation
+Contacts
+Student:
+User:Erik Price
+IRC: boredomist / bdmst on freenode
+Email: <my first name>@erikprice.net
+Mentor:
+User:Aneesh Dogra
+Co-mentor:
+User:Walter
+About
+Description
+Very short version: Server that provides machine translations using multiple backend plugins with a client API to access it from XOs (or wherever else)
+As a global project, internationalization is a central tenet of Sugar and OLPC. The aim of this project is to establish a server program and client API that can be used in activities to introduce a way to reliably access quality machine translations of arbitrary strings.
+Since accurate machine translation is a computationally and memory expensive operation, it is not reasonable to expect good results from running directly on an XO. A server to supply these translations to a larger network of XOs is therefore a preferable solution to create these translations.
+As not all translators are created equal for all possible language pairs, or may not be possible in a given situation (due to hardware, software, monetary, etc. limitations), it is advantageous to give our translation server program the ability to access multiple services, via a plug-in architecture.
+For example, Google Translate will likely offer very high quality translations for many language pairs, but the associated cost of $20 USD/1 Million translated characters through the API means that it is irresponsible to require it. Likewise, a FOSS project such as Apertium may well provide good es<->en translations, but has no way of translating e.g. de->ru, which limits the global usefulness.
+To overcome these obstacles, pooling all possible translation sources into a single server allows a convenient and consistent means of providing reliable machine translation for any purpose.
+After creating the server, a pair of translation backend plugins, and the client API, I will create a simple translation Activity using the service to guarantee the viability of the server/client.
+This project will be built entirely in Python, using minimal dependencies on the server (a suitable web library is essentially all that is needed) and no external dependencies on the client. In an effort to be as general and broadly applicable as possible, the server will operate using HTTP requests and JSON, which should allow the server to be usable from essentially any other programming language that a client API could be written for. All components of this project will be developed using copious tests and continuous integration testing to identify issues quickly and ensure quality.
+The first order of business for this project is to establish a minimal-dependency Python HTTP server application with a plug-in architecture to facilitate any interested developer to add machine translator backends later on in the project.
+Along with this, some initial backends will of course need to be created. I plan to add one that would run on the same server, and one that would use a web service, to ensure the robustness and generality of the server architecture.
+The first of these plug-ins would be using Apertium, the FOSS project already used by Sugar through the #meeting-es irc channel on freenode. Next, Bing Translate will likely be added, due to it being one of the major web translators that provides a free API key.
+Google Translate is another high priority service due to its quality, but will not be added initially because its API has no free tier for usage.
+Some of these other plugins will be considered for any remaining time left at the end of the project, but these are of course far lower priority than the initial two systems, and will only be added during GSoC if possible. (If not, I'll likely just add some other systems after GSoC has finished)
+The next leg in the project will involve creating a Python client API to request and receive translations from a given server. This will of course be designed before any coding starts on the server, and will be designed to be as generic and straightforward to use as possible, so it can be used easily and efficiently even outside of the sugar environment.
+From the point of view of the client API, the backend the server is using to actually translate the text is unimportant. it will just send a call to the server, specifying the language pair and source text, and receive a resultant string, or appropriate error. The server will handle selecting the appropriate translator and any fallbacks that may be needed.
+The API user need only specify the source text and the language pair to translate in order to interact with the server.
+A new Translate activity will be developed in addition. This activity will be very, very simplistic, and while functional, essentially a demo of how to use the client API and server. This will also allow me to give some additional real world testing to the programs, so that any potential issues can be caught while there's still time to fix them.
+Proposed Development Timeline
+Week
+Plan
+June 17 - June 24
+Begin creating the server application. I'll have a skeleton of the server by the end of the week which while returning fake data, should at least have the basic structure and functionality of the end product.
+June 25 - July 1
+Do any finalizing that needs to be done for the server architecture, this means establishing the plugin system that will be used as well as any outstanding functionality.
+July 2 - July 8
+This week, I'll begin working on some translation backends. I will create a plugin for Apertium and a web based service (yet undecided, possibly Bing Translate) to test the server. Any issues that are found with the server should also be fixed this week.
+July 9 - July 15
+This week I will finish up any work remaining on the first two translation backends or the server in general, and will begin working on the client API.
+July 16 - July 22
+This week will be dedicated to establishing the primary functionality of the client API, along with relevant tests and fixes to the server, as needed.
+July 23 - July 29
+Before midterm evaluations, I want to polish the client API by writing more tests, examples, and documentation, as well as fleshing out any functionality that was not finished in the previous week.
+Midterm Evaluations
+July 30 - August 5
+This week I will begin work on the translation Activity for Sugar using the client API and server. Any issues identified during the midterm evaluations should also be addressed this week.
+August 6 - August 12
+I will continue working on the translation activity, hopefully completing functionality by the end of this week and testing thoroughly.
+August 13 - August 19
+This week will be dedicated to finishing up any loose ends left in the project, tidying up source code, writing more tests, fixing outstanding bugs, and so on.
+August 20 - August 26
+Similar to the previous week, I aim to work on refactoring any code that requires it and writing documentation. This will be the last week I will be able to dedicate full time to the project, so I will try to get to a point where something could be considered done as is, working only to polish and improve functionality from here on.
+August 27 - September 2
+I will be relocating back to my university during this week, so any changes made this week and later will focus on documentation or bug fixes.
+September 3 - September 9
+This week I begin my fall semester, and as such will not have time to dedicate to the project full time, for the next two weeks, I will write more test cases, documentation, respond to any issues or bugs that are found, and so on.
+September 10 - September 16
+Ditto.
+End of Summer of Code

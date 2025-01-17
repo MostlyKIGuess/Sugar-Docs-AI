@@ -1,0 +1,152 @@
+Title: 0.100/Notes
+URL: https://wiki.sugarlabs.org/go/0.100/Notes
+--------------------------------------------------------------------------------
+Sucrose 0.100 Release Notes
+Contents
+1
+Introduction
+2
+What is new for users
+2.1
+Web Sevices
+2.2
+Multiple Home Views
+2.3
+Multiple Selection in the Journal
+2.4
+Enable the change of the Home Icon
+2.5
+Improved Content Bundle Support
+2.6
+Background image in Home View
+2.7
+Database Support in 3G Modems control panel
+2.8
+Improved Activities Updater
+3
+What's new for developers
+3.1
+Web activities
+3.2
+Extending Sugar
+4
+How to contribute with testing
+5
+Credits
+Introduction
+Sugar 0.100 is the new version of the
+Sugar learning platform
+. It was released the October the 30th 2013.
+The main addition in this cycle, is the possibility of create Javascript/Html activities, but there are many exciting features too.
+What is new for users
+Web Sevices
+Web Services make easier for the users share their work in online services, like Facebook, Twitter or Google+/Drive.
+This feature adds a new section to the Sugar Control Panel to manage online accounts and some interventions to the Sugar Journal toolbars and palettes in order to expose any installed online services.
+We have implemented one example of using this feature:
+support specific to Facebook: to share Journal entries on Facebook and to retrieve comments on those entries from Facebook.
+We are working with community members on Twitter and Google Drive extensions based on the framework in #0002 and #0003 and encourage other community members to work with us on additional services.
+We also have a web service to improve the way the teachers collect students work, using the Journal Share activity.
+This Feature was developed by Walter Bender, Martin Abente and others.
+More information:
+Features/Web_services
+Multiple Home Views
+Option to have different collections of activities on the Home View for formal (classroom) and informal (home) use.
+By default, only one Home is configured, but the user can add more.
+This Feature was developed by Daniel Francis with the mentoring of Walter Bender, in the Google Code In contest.
+More information:
+Features/Multiple_home_views
+Multiple Selection in the Journal
+A recurrent request from teachers and kids is to be able to operate on a group of entries.
+This feature allows the users to perform operations on multiple journal entries at once, making it very efficient if the user has to perform repetitive tasks like copying/deleting journal entries for many entries. The users can also filter journal entries by using the already existing search facilities and perform operations on those.
+Two ways of selecting multiple journal entries have been provided. The user can either click the checkbox next to individual journal entries or use the select/deselect all buttons provided on the toolbar (which only shows up if the feature is being used). This UI takes some ideas from the standard gmail interface in how it allows users to select multiple entries and perform operations on them.
+Another interesting and useful side-effect of this feature is that a user can insert a pen-drive with many activity bundles, select 'all' and copy them to journal. The resulting operation will install all bundles on the XO laptop!
+Many developers worked in this Feature, with implementation, improvements, testing, reviews, and design. Thanks to Martin Abente, Anish Mangal, Simon Schampijer, Gary Martin, Ajay Garg and Gonzalo Odiard.
+More information:
+Features/Multi_selection
+Enable the change of the Home Icon
+The user can change the XO icon used in the Home View. A activity was created to make the configuration easier.
+Change Icon activity
+This Feature is the work of Ignacio Rodriguez and Walter Bender.
+More information:
+Features/Icon_Change
+Improved Content Bundle Support
+Content bundles
+have long been both a crucial part of the OLPC-Sugar offering (see
+http://wiki.laptop.org/go/Creating_a_collection
+), and a pain through having some deficiencies.
+They are important because it is the only easy way for a deployment to add pre-made content to Sugar (e.g. books). The strong point of the design here is that beyond a not-too-strange library.info metadata file, you do not have to interact with anything too technical (e.g. python) beyond the HTML content itself. It is something that seems to fall within capabilities of deployment teams without much difficulty, whereas activity development is often a painful step up.
+However they are a pain because Sugar never really supported them very well. Sugar can launch them from the Journal, but shipped content that the user has never opened before does not exist in the Journal, so there was something missing here.
+To fill the gap, OLPC added a system (olpc-library) to produce a HTML index of content bundles and this is the Browse homepage, but that isn't great either - it's not part of Sugar where it should be, and users have to open the web browser as if they are going online when they are just looking to open some preinstalled content.
+Now, Content Bundles appear alongside activities, in the list and favourites views. They are launched as expected with a click. Can be accessed as in the past using Browse home page, but that will not be needed in the future.
+This Feature was developed by Daniel Drake.
+More information:
+Features/Content_support
+Background image in Home View
+Add the ability to set a background image to the Home View.
+This Feature was developed by Agustin Zubiaga with mentoring of Walter Bender in the Google Code-IN 2012.
+More information:
+Features/Background_image_on_home_view
+Database Support in 3G Modems control panel
+The 3G connectivity availability was only the first step. Next step is to provide a UX for easy configuration of 3G modems. Gnome allows users to enter details such as 'Country', 'Plan' and 'Provider' in a drop-down box fashion. This feature brings that functionality into Sugar.
+This Feature is the work of Andrés Ambrois, Ajay Garg, Anish Mangal and Miguel Gonzalez.
+More information:
+Features/3G_Support/Database_Support
+Improved Activities Updater
+The Activity Updater received many improvements, is more robust, can do automatic updates and can get the activities from activities.sugarlabs.org or from wiki.laptop.org depending of a configuration.
+Thanks to Daniel Drake for this work.
+What's new for developers
+Web activities
+With Sugar 0.100, is possible create activities using web technologies, like JavaScript, HTML 5 and CSS.
+A detailed step by step tutorial can be found
+| here
+, and some examples are already created like
+| Gears
+or
+| Clock Web
+This huge improvement was the work of Manuel Quiñones, Daniel Narvaez, and others
+Extending Sugar
+Now is possible use extensions in the user home directory, then you can add your own control panel panels, or icons to the frame. Simply place your extensions in ~/.sugar/default/extensions and they will be added to the system extensions in /usr/share/sugar/extensions
+This is particularly useful for installing
+WebServices
+.
+This feature was added by Walter Bender with much help from Daniel Narvaez.
+How to contribute with testing
+Testing and reporting issues is a big help for the developing team.
+Instructions are here
+0.100/Testing
+Credits
+Many people contributed to this release indirectly, including testing, documentation, translation, contributing to the Wiki, outreach to education and developer communities. On behalf of the community, we give our warmest thanks to the developers and contributors who made this Sugar release possible.
+We want to especially thank:
+the
+Infrastructure team
+which does all this great work in the background without which the development would not be possible at all,
+the
+deployments
+that provide the development team with feedback from the field,
+the
+Design team
+which guided the design of features with UI changes or impact on the workflow,
+the
+Translation team
+which makes sure that Sugar is enjoyable in the local languages of our users,
+the
+developers
+that submit patches for new features and bug fixes and do review other's patches,
+the
+maintainers
+that make sure their code is shippable and which provide packagers with new tarballs,
+the
+packagers
+which provide distributions with new Sugar packages,
+the
+SoaS team
+for providing a Sugar version to test with during the development cycle,
+the
+testers
+for finding the small and bigger issues,
+the
+release team
+and
+Development team
+for coordinating those efforts.
+This time, Daniel Narvaez took the responsibility of manage the release. We want thank him and specially to Simon Schampijer, who did that work the last years.

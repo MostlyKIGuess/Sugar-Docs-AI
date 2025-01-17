@@ -1,0 +1,10 @@
+Title: Service/translate/Pootle2.5
+URL: https://wiki.sugarlabs.org/go/Service/Pootle2.5
+--------------------------------------------------------------------------------
+We ported our ancient instance to a shinny new Pootle 2.5. This page was to document the changes in Pootle 2.5 the maintainers needed to care about.
+Porting Pootle 2.0.6 to 2.5
+Our old Pootle instance was running 2.0.6 with an SQLITE3 stats database, and a MySQL users database. Pootle upstream merged stats.db and users database into one database in Pootle 2.1.6. So, we first had to migrate 2.0.6 to 2.1.6, run the migration script (which merges stats.db and users database) and get a database dump.
+We then loaded the database dump into 2.5 and let Pootle's migration script do its magic.
+Configuration Files
+are in /srv/www-sugarlabs/pootle/src/pootle/settings. Any file ending with ".conf" will be picked up by settings.py and settings will be loaded from them.
+are loaded in alphabetical order. eg: 10-abc.conf will be read before 20-abc.conf, and settings in 20-abc.conf will take priority.

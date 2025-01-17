@@ -1,0 +1,35 @@
+Title: Development Team/Jhbuild/Ubuntu
+URL: https://wiki.sugarlabs.org/go/Development_Team/Jhbuild/Ubuntu
+--------------------------------------------------------------------------------
+Contents
+1
+Supported versions
+2
+Prerequisites
+3
+Installing dependencies
+4
+Significant bugs
+5
+Potential pitfalls
+Supported versions
+Ubuntu is currently unsupported
+because all recent versions lack at least one important package (
+python-xpcom
+).
+Prerequisites
+In order to install sugar-jhbuild, you need git-core and subversion.
+Installing dependencies
+After installing and updating sugar-jhbuild according to the
+common instructions
+, you can use this invocation to install all dependencies automatically:
+./sugar-jhbuild depscheck -s | sudo xargs aptitude -y install
+Significant bugs
+broken D-Bus security configuration
+that prevents sugar-emulator from working (because Xephyr cannot work).
+sugar-emulator doesn't work properly if the X server uses evdev as keyboard driver
+(because of a Xephyr bug).
+python-xpcom missing
+(and thus Browse cannot work)
+Potential pitfalls
+gtk-recordmydesktop may prevent sugar-emulator from working properly

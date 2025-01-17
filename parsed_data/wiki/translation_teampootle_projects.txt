@@ -1,0 +1,197 @@
+Title: Translation Team/Pootle Projects
+URL: https://wiki.sugarlabs.org/go/Translation_Team/Pootle_Projects#Replacing_Textbooks
+--------------------------------------------------------------------------------
+Contents
+1
+Terminology
+2
+The Sugar core, Sucrose equals Glucose plus Fructose
+2.1
+Glucose (and related versioned projects)
+2.1.1
+Glucose 0.96
+2.1.2
+Glucose 0.94
+2.2
+Fructose (and related versioned projects)
+3
+Honey
+4
+Honey2
+5
+Dextrose
+6
+Sweets Distribution
+7
+Etoys
+8
+OLPC Software
+9
+OLPC PR Website
+10
+Upstream POT templates
+10.1
+AbiWord
+10.2
+GNASH
+11
+Upstream L10n tracking
+12
+Content Projects (locally hosted)
+12.1
+Waveplace Lessons
+13
+Other software projects of interest (not locally hosted)
+13.1
+Scratch
+13.2
+GCompris
+13.3
+Pootle
+14
+Content Projects of interest (not locally hosted)
+14.1
+FLOSS Manuals
+14.2
+Replacing Textbooks
+Localizers working on a new language project often want to know which project(s) they need to complete to make Sugar user interface (UI) usable in their own language.  This page attempts to give a little background on the projects as they are organized on the Pootle server.  For a more authoritative description of how Sugar is structured, you should also read other pages on this wiki, including
+Taxonomy
+and others.
+Since the questions of "What are the most important PO files?" or "In what order should we complete the translation work?" are closely related, this page will list the projects on the Pootle server in a recommended order of completion along with some of the reasoning behind those recommendations.  They are just guidance and any localizer can decide for themselves which proejcts they think are most important.  For instance, the e-toys project localization is hosted on the Sugar Labs / OLPC Pootle server and someone interested only in etoys (but not necessarily on a Sugar-based system might want to work on that project first, but it is to be hoped that they would also consider contributing some of their skills to other projects hosted here as well.
+The really short version of this is in the FAQ
+here
+.
+Terminology
+It is strongly recommended that language teams begin by working on the Terminology project glossary.po file.  This project consists of commonly occuring strings gathered from other projects that appear multiple times across projects (e.g. Copy, Stop, Cancel, Edit, etc.).  It is this project that will populate the translation suggestions in the right hand sidebar of the Pootle interface.
+One important reason to complete this project first is to gain consensus on terms used in Sugar (Activity, Journal) as well as some common computer terms that may or may not exist in languages that do not yet have a rich technical vocabulary.  Please note that the fact that the TamTam suite of activities is broken up into 4 activities in the Honey project causes musical terms to be somewhat over-represented in the Terminology project.
+The Sugar core, Sucrose equals Glucose plus Fructose
+Hopefully you've read the
+Taxonomy
+page and all of this will make sense to you already.  If you want an XO laptop to run Sugar (or to use SoaS), you will need to translate matched pairs of Glucose and Fructose projects (i.e. Glucose/Fructose or Glucose 0.82/Fructose 0.82).
+Selecting a matched pair of Glucose and Fructose projects to start working on should be done carefully and with a clear understanding of what Sugar version will be used in the deployment.  For many XO deployments, Sugar version 0.84 may be the latest stable version that loads easily on the XO (although work continues on porting/adapting newer versions of Sugar to run on the XO 1.0 and 1.5 laptops).
+The good news is that while some strings have moved around with restructuring of the code, many, many of the Sugar UI strings remain the same from release to release.
+Glucose
+(and related versioned projects)
+This is the most current (development) version of Glucose.  It will eventually be frozen and numbered like the versions below.
+Glucose 0.96
+Current stable release of the Glucose project.  Released September 2011.  See 0.96 timeline
+here
+. This is used in the OLPC 12.1.x builds.
+As this is the version currently being packaged and distributed in various ways (OLPC builds, SOAS, Linus distro packages, etc.), this is a good place to start, the strings in this project largely overlap with Glucose (the development version) and finishing one of these two projects will result in many strings that can be easily transferred to the other.
+Glucose 0.94
+Previous stable release of the Glucose project.  Released September 2011.  See 0.94 timeline
+here
+. This is used in the OLPC 11.3.x builds.
+Fructose
+(and related versioned projects)
+This is the most current (development) version of Fructose. Fructose contains a number of activities that are considered core to the use of the Sugar UI as a learning tool.
+Honey
+Honey is the name given to the collection of independently developed Sugar Activities.  These offer many different functions, but all of them are essentially optional, although they are collectively an important part of the Sugar learning environment.
+Honey2
+Honey2 contains additional Honey activities.
+Dextrose
+These are strings that are added in Activity Central's Dextrose release of the modified Glucose project.  Completion of the corresponding Glucose project is also required for full Dextrose L10n.
+Sweets Distribution
+PO files related to Sweets.  You will probably want the latest Glucose and Dextrose completed first.
+Etoys
+This is a rather large project.
+eToys
+is a tool for learning programming concepts.
+OLPC Software
+These are strings related to switching between the Sugar GUI desktop and the GNOME GUI desktop.  Do not mistake this as being the only project needed to run an XO laptop.   Glucose and Fructose are essential for any XO laptop deployment.
+See
+Translation_Team/Upstream_localization
+for more information on localizing the GNOME boot UI of OLPC builds.
+OLPC PR Website
+These are strings related to an OLPC effort to develop some multi-language PR materials.  This is definitely optional for XO laptop function.
+Upstream POT templates
+AbiWord
+The Sugar word processor activity "Write" is a derivative of AbiWord.  Contributions to L10n of the upstream project are a nice "thank you" for their work.  AbiWord is also included in the GNOME boot on OLPC builds, so work on their strings will directly benefit XO users of more recent dual-boot builds.
+http://abisource.com/contribute/translate/
+In general, localization should be done on the development branch PO file as the AbiWord Team does not necessarily update the stable PO file versions.  In addition, the stable version is typically a subset fo the development version strings, os they are easily "backported".
+We now host copies of the AbiWord PO files on our local Pootle server for the convenience of both teams of locaizers.
+http://translate.sugarlabs.org/projects/upstream_POT/
+Committing these files involves submitting them to the AbiWord dev list for action by their developers.  At this point, we do not have a direct "Commit to CVS" link from Pootle established.
+GNASH
+We now host a local copy of the GNASH PO files, but when they are completed, they need to be sent to the gnash-dev list to be committed.
+Our local copies are in this project:
+http://translate.sugarlabs.org/projects/upstream_POT/
+If you don't see this project (or a GNASH PO file in it) for your language, just ask on the localization list and it will be created.  If you are a language admin, you can "Update from templates" if you already have this project.
+PO / POT files found here:
+http://git.savannah.gnu.org/gitweb/?p=gnash.git;a=tree;f=po
+Mail completed PO files to the gnash-dev list
+http://lists.gnu.org/mailman/listinfo/gnash-dev
+Report errors to bug-gnash@gnu
+http://lists.gnu.org/mailman/listinfo/bug-gnash
+Upstream L10n tracking
+See
+Translation_Team/Upstream_localization
+Content Projects (locally hosted)
+Waveplace Lessons
+These are outlines and materials for Waveplace lessons using eToys.
+There are two very important elements of *context* that should be kept in mind when localizing these materials.
+1.  Each PO file is only part of an overall 10-week lesson plan.  You should familiarize yourself with the entire set of materials related to the module you are localizing by reviewing it at the link below.
+http://wiki.waveplace.org/display/wp/Courseware
+2.  Many of the directions in these lessons use terms that are that have specific meaning in eToys or refer to commands / menu items in eToys.  You should make sure that the translation of those terms is consistent with the way they are localized in eToys itself to avoid confusion.  This can easily be done by searching those terms in the eToys Pootle project.
+Other software projects of interest (not locally hosted)
+Scratch
+Scratch localization used to be hosted by Sugar Labs / OLPC and they are still are vibrant part of our community, but they have decided to host their own localization infrastructure.  Learn more about it here:
+http://info.scratch.mit.edu/Translation
+Their Pootle server is here:
+http://translate.scratch.mit.edu
+If your language is not present on that server, please write to help at scratch.mit.edu and request that it be established.  They will need language code, number of plurals and the plural equation to set it up, ask on the Localization lsit if you need information on those for your language.
+GCompris
+Over one hundred GCompris games have been packaged as Actvities and they are featured on
+ASLO
+GCompris localization is hosted here:
+http://l10n.gnome.org/module/gcompris/
+Pootle
+The Pootle server that hosts the Pootle UI strings is:
+http://pootle.locamotion.org/
+The Translate project team that develops Pootle uses the following e-mail list in the same way we use the Sugar Labs / OLPC Localization list.
+http://sourceforge.net/mailarchive/forum.php?forum=translate-pootle
+We have in the past hosted a set of pootle.po files locally and sent locally translated Pootle UI strings to the upstream.  In general, we believe that new language projects should work directly on the Pootle hosting instance for localizing the Pootle UI itself.
+This Pootle server also hosts a number of other projects for the
+ANLoc project
+in African languages and the
+Decathlon project
+.  One example is the
+TuxPaint
+activity which is localized on
+this server
+and available as a
+.xo bundle
+from ASLO.
+Content Projects of interest (not locally hosted)
+FLOSS Manuals
+A number of helpful guides for Sugar / OLPC efforts have been written.  Translating FLOSS Manuals is somewhat different than using Pootle, but these books stay fairly static so they are well worth the effort of localizing. FM began using a new Free Software suite, called booki, that they developed for collaborative authoring, editing, translation, and publication. The older site is
+http://en.flossmanuals.net/
+with translations at
+http://translate.flossmanuals.net/
+and the newer site is
+http://booki.flossmanuals.net/
+If you would like to translate any of these manuals, please join the
+FM-Discuss mailing list
+and introduce yourself and your interests.
+Mokurai
+is recruiting translators, particularly to Spanish to begin with, but to every language needed in the long term.
+Replacing Textbooks
+Sugar Labs is in the process of setting up a project for
+Replacing Textbooks
+with
+Open Education Resources
+(OERs), that is, digital e-learning materials under Creative Commons Sharealike licenses.
+The XO-1 cost much less than textbooks in developed countries. This has led to the proposal to replace all textbooks with Open Education Resources (OERs), with the aim of both improving education and saving money that could then be applied to such necessities as electricity and Internet for the XOs.
+Mokurai
+has started a project at Sugar Labs to do just that. In April 2011 the booki software from FLOSS Manuals went live, and Sugar Labs set up a testing server to prepare the way for rolling out the project, which is to be opened up to all users as soon as we can manage it.
+The use of OERs means that teachers and students can engage in continuous improvement, rather than being completely dependent of commercial publishers and school boards for occasional updates of textbooks. It further means that materials can be translated into the language of any community that wishes to undertake the work, with the more advanced students translating from the official language of instruction (often English or French) to the official languages of the country (Swahili in Kenya, for example), and to their own local languages (Maa among the Maasai, for example). However, Spanish will be our first priority, to support Uruguay, Perú, and other countries of Latin America.
+Initial tests will include projects in Calculus by and For Young People, language teaching, discovery learning, the economics of education and ending poverty, and other subjects. Ultimately, we will need textbooks for every school subject in every country for every age in every required language, plus teacher training, versions of a subject (such as health, civics, history or geography) specific to each country, and more. Please look at the OLPC and Sugar manuals at
+FLOSS Manuals
+to get an idea of how this can work, and the first set of titles to be translated using FM's booki software.
+UNESCO takes this idea very seriously, and has asked
+Mokurai
+to
+open a discussion
+on it on their WSIS Web site. He has also created a
+CrowdRise fundraiser
+for this project.

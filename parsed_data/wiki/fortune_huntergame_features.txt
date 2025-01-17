@@ -1,0 +1,279 @@
+Title: Fortune Hunter/Game Features
+URL: https://wiki.sugarlabs.org/go/Fortune_Hunter/Game_Features
+--------------------------------------------------------------------------------
+Home
+|
+Developer's Corner
+|
+Game Mechanics
+|
+Game Elements
+|
+Game Features
+|
+Fortune Maker™
+|
+Dungeon Guide
+|
+Education
+|
+Media
+Contents
+1
+LAN Cooperative Play
+2
+Region Based Game Progression
+3
+Explorer's League - Networking Around the World
+4
+XOME™ - Avatar Customization Feature
+5
+Training Mode
+5.1
+Battle
+5.2
+Merchant
+6
+Fortune Maker™ (Custom User Game Creation Feature)
+7
+Developer Dungeon Creation
+8
+Awards
+8.1
+Merciless Merchant
+8.2
+No Backsies!
+8.3
+All Sales Final!
+8.4
+It's A Deal!
+8.5
+Fortune Hunter - Easy
+8.6
+Fortune Hunter - Normal
+8.7
+Fortune Hunter - Hard
+8.8
+Consumer!
+8.9
+Trader!
+8.10
+Merchant!
+8.11
+On the Road to Fortune
+8.12
+I Can Do It Myself!
+8.13
+Adventurer (novice)
+8.14
+Adventurer (advanced)
+8.15
+Dungeon Tourist
+8.16
+Fortune Maker
+8.17
+Sharing is Caring
+8.18
+Fortune Hunters Unite!
+8.19
+Better Together
+8.20
+Ties That Bond
+8.21
+Friends Forever
+8.22
+Can't Catch Me!
+8.23
+Puzzle Master
+8.24
+The Key to Victory
+8.25
+A Strange Glow
+8.26
+Light the Path
+8.27
+Illuminate the World
+8.28
+Fortune Seeker
+8.29
+Fortune Gatherer
+8.30
+Fortune Collector
+8.31
+Well Traveled
+8.32
+Survivor
+8.33
+Problem Solved!
+8.34
+Crowd Control
+8.35
+I Am Math!
+8.36
+Sticks and Stones
+8.37
+Not Afraid
+LAN Cooperative Play
+Tired of exploring alone? Share the Fortune Hunter™ activity running on your XO with a friend and let them take control of your legendary partner, Lytic. Together, players can explore the dungeons and face challenging foes, doubling the odds for survival. Players may also help each other out and work together to solve problems and find the hidden treasures. Two is better than one.
+This feature is coming at some point in the future and as such, details are currently unavailable. More information will be presented when development is further along.
+Region Based Game Progression
+Choosing a region at the start of a game play through will change the progression of the game. Depending on which region is chosen, the game will take the player down different paths, altering the natural order of dungeon progression. Regardless of the region, however, the player will always end up at the same final dungeon. The player will be able to travel to all of the regions during a game and visit many areas around the world. Regions are also divided into very large areas, as to not cause any tensions among countries or areas where being specific may prove offensive. The entire earth is covered in the game. Regions will be described in the game during selection so the player knows which region they belong to, should they want to choose it.
+Explorer's League - Networking Around the World
+The Explorer’s League is a term referring to the online network database for Fortune Hunter™. Players can connect online to see how other classrooms and schools are progressing in Fortune Hunter™ and may also talk about the game with people from all over the world! The more we share, the more fun we have.
+This is a future development goal and is not currently implemented. More information and details will become available upon progression of this feature.
+XOME™ - Avatar Customization Feature
+XOME™ (pronounced as English ‘home’) is an avatar customization feature that lets the player have a customized avatar to represent them in the game. The avatar is comprised of the XO logo symbol, but can be dressed up with various costumes and paraphernalia to add a personal touch to the player’s persona. These avatars will also be shown online in the Explorer’s League as well as be visible to friends when playing together.
+It is planned that there will be a light version of this feature so that it does not expand the game’s physical memory size too drastically. The light version will have fewer choices of customizable parts and the heavier version of this feature is always an option, providing there is enough room on the hard disk drive where the game directory is installed to.
+More information and details will become available when this feature is in production.
+Training Mode
+Training Mode is a custom game consisting of multiple series of task completions. Completing tasks in this mode will earn the player money and other unique items to give them an edge in the main game. The intent for this mode is classroom training without all of the additional game elements to slow things down. Teachers and students alike can choose specific skills to work on.
+This is a future development goal and not currently implemented in the game.
+Battle
+Battle training focuses on the game's battle mechanic. Players fight a series of enemies of a chosen type to focus on specific skills. If the selected topics encompass that of a certain boss battle, they will be present as well in the mix of enemies.
+Merchant
+Merchant training mode focuses on the skills required to be a more effective consumer. Players are presented with a series of transactions in which they must calculate quickly and efficiently for more points.
+Fortune Maker™ (Custom User Game Creation Feature)
+Make your own fortune with Fortune Maker™! This feature is a separate XO activity and will give teachers and students the ability to create and manipulate their own version of the game, choosing such things as level layout, problem enemy types, and game difficulty. This activity is an easy to use graphical interface creation tool that works hand in hand with the game to inspire creativity in all users up for the task.
+When opening Fortune Maker™, you will come to the main screen. Fill out the form with a dungeon name, width and height, and description. Then click on the ‘create’ button. The next screen will show a grid layout of the dungeon. From here, you will be able to specify room conditions by dragging and dropping items from the toolbar. You can add doors, enemies, and items to each room as well as specify any special conditions for the room such as puzzles or adding a shop. Once you are happy with the room, you can back out and do the same with every other room. From here, you can edit the properties of each element. When you are happy with your dungeon, you can click on the ‘save dungeon’ button. Fortune Maker™ will then generate an output file that the game itself can read and interpret. You will then be able to play your own custom maps or stories!
+Visit our
+Fortune Maker™
+page to learn more and see all there is to know in detail!
+Developer Dungeon Creation
+This work-in-progress feature allows developers to easily create custom maps using a flagged input string method into a text (.txt) document. Each dungeon is represented by a separate file. The 21 digit per room string is broken up into input flags and are labeled as follows. Also note that quotation marks “” are not used in the actual input file.
+In order to explain the string, it will be broken up into segments. The final string will have no indicators of these different segments and will be written as one continuous entity.
+Segment A – Door declaration:
+01234567
+Doors locations and conditions are declared here. They are always handled in the order of North, South, West, and East, and are defined in specific string character positions. Position 0, 2, 4, and 6 can either be a value of ‘0’ for “no door” or ‘N’, ‘S’, ‘W’, or ‘E’, respectively for “a door” at the given direction. A string with a basic door on each wall would look like “N0S0W0E0”. The flags for each door are specified to give the door special properties. These flags fill the remaining positions of the string in positions 1, 3, 5, and 7. Each flag pertains only to the door preceding it. A door must always be specified with a following flag. The flags are as follows. Use ‘u’ for an unlocked door (this is the default), ‘l’ for a locked door, ‘p’ for a puzzle door, ‘b’ for a locked puzzle door, ‘e’ for a dungeon entrance door, or ‘x’ for a dungeon exit door. A basic unlocked door on each wall would look like “NuSuWuEu”. Note that rooms must be capitalized and flags must be lower cased.
+Segment B – Special conditions:
+8
+Special conditions for the room are specified with this character. Use ‘M’ to have a merchant present in the room or ‘P’ for a puzzle room. Note that this character must be capitalized.
+Segment C – Enemy declaration:
+9ABC
+Enemies will be declared in this portion of the string using given identification numbers to represent each one. Each character represents an enemy position in the battle, with a maximum of four enemies. To have an enemy in positions A and B, the string would look like “0110”. The list of enemy identification numbers will be available in the future.
+Segment D – Item declaration:
+DEFGHIJK
+Item declaration is noted in the last 8 characters of the room input string. The items will also have identification numbers (like the enemies). There may be a maximum of four items in a room and they are declared in positions D, F, H, and J of the string. The remaining positions of E, G, I, and K are flags for whether or not the preceding item is visible or a hidden item. This is done with a ‘v’ for visible or a ‘h’ for hidden. Note that these flags must be lower cased. A string with two visible items and one hidden item would look like “1v1v1h00”.
+The full string compiles as follows: “0123456789ABCDEFGHIJK”
+Sample null string, also used for an empty room: “000000000000000000000”
+The very first line of the text file is the name of the level. This can be anything.
+The second line is the level ID number. (found in XO metadata, auto-generated by Fortune Maker™)
+The third line of the text file is where the room dimensions are written in the format of column by row (CxR).
+The fourth line is the theme ID number. ‘0’ is the default level theme type.
+The fifth line is the next-level ID number. The exit to this level will link to the entrance of the next level.
+Finally, each additional line represents the rooms contained in the level. Each room will be listed in the text file on a separate line. Rooms are represented from left to right, top to bottom in order.
+Here is a quick reference for writing these strings. ‘( )’ indicates one string element as each option is contained within. Remember that ‘0’ is used as a default and placeholder and ‘#’ represents an enemy / item ID tag.
+(N) (ulpbex) (S) (ulpbex) (W) (ulpbex) (E) (ulpbex) (MP) (#) (#) (#) (#) (#) (vh) (#) (vh) (#) (vh) (#) (vh)
+To see what a full dungeon input text file looks like, here is a modified input to Dungeon 1 of Fortune Hunter™.
+My Dungeon
+ae27872adf6123e023f89a650a6b3c7b96e85fca
+3x5
+0
+edee9402d198b04ac77dcf5dc9cc3dac44573782
+Nx0000Eu000001v000000
+0000WuEu0110000000000
+00Su00Eu000001h000000
+00Su0000000001v000000
+000000000000000000000
+NuSb0000000001h1h0000
+Nu0000Eu0100000000000
+00SpWuEu000001v000000
+Nb00Wu000000000000000
+000000000000000000000
+NpSu0000000001v000000
+000000000000000000000
+000000000000000000000
+NuSe00000000000000000
+000000000000000000000
+Awards
+Fortune Hunter™ features an award system for achieving specific tasks during your adventure. Awards and their status (locked or unlocked) will be viewable from inside of the game. Here is a list of the current awards associated with the game.
+Merciless Merchant
+→ Complete 100 transactions with the merchant.
+No Backsies!
+→ Accept 20 good deals with the merchant.
+All Sales Final!
+& rarr; Accept 20 bad deals with the merchant.
+It's A Deal!
+→ Accept 20 fair deals with the merchant.
+Fortune Hunter - Easy
+→ Clear the game on the easy difficulty setting.
+Fortune Hunter - Normal
+→ Clear the game on the normal difficulty setting.
+Fortune Hunter - Hard
+→ Clear the game on the hard difficulty setting.
+Consumer!
+→ Clear the game with the merchant set to consumer mode.
+Trader!
+→ Clear the game with the merchant set to trader mode.
+Merchant!
+→ Clear the game with the merchant set to merchant mode.
+On the Road to Fortune
+→ Clear your first dungeon.
+I Can Do It Myself!
+→ Clear your first non-tutorial level.
+Adventurer (novice)
+→ Clear 5 dungeons.
+Adventurer (advanced)
+→ Clear 10 dungeons.
+Dungeon Tourist
+→ Clear 20 dungeons.
+Fortune Maker
+→ Create and save your own level using Fortune Maker!
+Sharing is Caring
+→ Create and save your own dungeon (5 levels) using Fortune Maker!
+Fortune Hunters Unite!
+→ Clear a level with a friend (cooperative).
+Better Together
+→ Clear a dungeon with a friend (cooperative).
+Ties That Bond
+→ Clear 5 dungeons with a friend (cooperative).
+Friends Forever
+→ Clear the final dungeon with a friend (cooperative).
+Can't Catch Me!
+→ Escape 50 puzzle rooms.
+Puzzle Master
+→ Solve 50 puzzle doors.
+The Key to Victory
+→ Unlock 50 doors with small keys.
+A Strange Glow
+→ Unveil 50 hidden items.
+Light the Path
+→ Unveil 100 hidden items.
+Illuminate the World
+→ Unveil 200 hidden items.
+Fortune Seeker
+→ Collect a total of 1,000 akhal.
+Fortune Gatherer
+→ Collect a total of 5,000 akhal.
+Fortune Collector
+→ Collect a total 10,000 akhal.
+Well Traveled
+→ Conquer all different types of enemies.
+Survivor
+→ Conquer 50 enemies.
+Problem Solved!
+→ Conquer 100 enemies.
+Crowd Control
+→ Conquer 250 enemies.
+I Am Math!
+→ Conquer 500 enemies.
+Sticks and Stones
+→ Clear a level without healing yourself.
+Not Afraid
+→ Clear a dungeon boss without healing yourself.
+Home
+|
+Developer's Corner
+|
+Game Mechanics
+|
+Game Elements
+|
+Game Features
+|
+Fortune Maker™
+|
+Dungeon Guide
+|
+Education
+|
+Media

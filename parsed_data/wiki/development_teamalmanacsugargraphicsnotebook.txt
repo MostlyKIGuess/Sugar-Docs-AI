@@ -1,0 +1,65 @@
+Title: Development Team/Almanac/sugar.graphics.notebook
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/sugar.graphics.notebook
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Class: Notebook(
+gtk.Notebook
+)
+Sugar has its own notebook class that is built on top of gtk.Notebook. Use the sugar version so that you can access specialized methods as needed.
+How do I create a new notebook and populate it with pages?
+The simple example below creates three pages, each with different types of containers. You can make anything a page in your notebook as long as it is a valid gtk container.
+from sugar.graphics.notebook import Notebook
+...
+        top_canvas = Notebook()
+        
+        #Create pages for the notebook
+        first_page = gtk.VBox()
+        second_page = gtk.VBox()
+        third_page = gtk.Frame()
+
+        #Add the pages to the notebook. 
+        top_box.add_page('First Page', first_page)
+        top_box.add_page('Second Page', second_page)
+        top_box.add_page('Third_Page', third_page)
+
+        #Set the canvas for this activity's UI to be the notebook object just created. 
+        self.set_canvas(top_canvas)
+How do I do other standard operations on a sugar Notebook?
+Most other work with the sugarized notebook can be done by using the
+gtk.Notebook
+interface

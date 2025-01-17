@@ -1,0 +1,684 @@
+Title: Activity Team/Git Activity Maintainer Walkthrough
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Git_Activity_Maintainer_Walkthrough
+--------------------------------------------------------------------------------
+Cast of this drama:
+bernie is advisor,
+godiard is new maintainer of paint activity,
+Quozl is contributor who has a repository with edits to be merged.
+godiard has to merge the contributions and then push.
+<bernie>
+godiard: then, regarding your second question, you'll need some git-fu. let me know when you're ready
+<bernie>
+godiard: I'll guide you through the process
+<godiard>
+bernie: ok
+<godiard>
+bernie: from comandline or from git.slo ?
+<bernie>
+godiard: cmdline
+<bernie>
+godiard: first of all, clone the mainline repo. perhaps you've done this already
+<bernie>
+godiard: if you did use the git:// url for the initial checkout, you may have to update your configuration to use the ssh url
+<bernie>
+godiard: otherwise, you won't be able to push
+<godiard>
+bernie: sorry, where is the ssh url?
+<bernie>
+godiard: you can see it in the repo page
+<godiard>
+bernie: i do git clone
+git://git.sugarlabs.org/paint/mainline.git
+<bernie>
+godiard: it's the third one
+<bernie>
+godiard: ok, if you did "git clone git://...", you can't push. the git:// protocol is unauthenticated and hence read-only
+<godiard>
+git push gitorious@git.sugarlabs.org:paint/mainline.git ?
+<bernie>
+godiard: the url can be fixed afterwards by editing .git/config or, if you prefer to go by the rules, with the "git remote" command
+<bernie>
+godiard: oh, this is another way to achieve it
+<bernie>
+godiard: it's more inconvenient, though... you'd have to type the url every time you want to push.
+<godiard>
+bernie: trying
+<godiard>
+bernie: but i need to do the clone before the git remote
+<godiard>
+?
+<bernie>
+godiard: oh, I thought you had done a clone already... I was trying to save you time by changing the url in the existing repo
+<godiard>
+bernie:ok
+<bernie>
+godiard: to answer your question: yes, git remote works from within an existing repo (which may be also a totally empty repo created with "git init")
+<godiard>
+bernie: ok
+<bernie>
+godiard: ok, once you have a repo checked out and the url is the ssh one, we may proceed.
+> Quozl:< git is so hard for newbies...
+<godiard>
+bernie: i started again in another directory
+<godiard>
+bernie : i cloned mainline with git clone
+git://git.sugarlabs.org/paint/mainline.git
+<godiard>
+bernie: in the page i don't found any ssh url
+<bernie>
+godiard: odd... do you see your name on the right?
+<bernie>
+godiard: are you logged in?
+<godiard>
+bernie:yes
+<bernie>
+godiard: you only see "Public clone url" and "HTTP clone url" ?
+<bernie>
+godiard: are you looking here?
+http://git.sugarlabs.org/projects/paint/repos/mainline
+<godiard>
+bernie: yes and push url
+<bernie>
+godiard: aha! that's the ssh url
+<godiard>
+ouch
+<bernie>
+godiard: (sorry, I don't see what you see because I don't have commit access to paint)
+<godiard>
+but when i do "git remote add origin gitorious@git.sugarlabs.org:paint/mainline.git"
+<bernie>
+godiard: so, since you checked out the git:// again, you'll have to edit .git/config and replace the url with this one
+<godiard>
+i have "fatal: Not a git repository (or any of the parent directories): .git"
+<bernie>
+godiard: odd
+<godiard>
+bernie: i must do git init before git remote?
+<bernie>
+godiard: are you into the checkout dir?
+<bbellmyers>
+hey, re: standard cursors
+<bernie>
+godiard: if you did git clone .../mainline.git, your repo is probably in a dir called "mainline"
+<godiard>
+ok
+<godiard>
+cd mainline
+<bernie>
+godiard: i have a feeling that "git remote add ..." will fail again because you already have an origin configured now
+<bernie>
+godiard: for this case, new versions of git offer a command: "git remote set-url origin gitorious@git.sugarlabs.org:paint/mainline.git"
+<godiard>
+try git remote in mainline?
+<Quozl>
+bernie: don't forget the opportunity to have godiard show you his .git/config
+<bernie>
+godiard: git remote is kind of hard to use... this is why I was suggesting editing .git/config instead :-)
+<godiard>
+ok
+<Quozl>
+"git remote" is another interface to the file .git/config
+<bernie>
+godiard: all the command does is change that file
+<godiard>
+ok, i am editing the file
+<godiard>
+i see a url parameter
+<bernie>
+git has plenty of UI sugar commands nowadays. the intent was to make it easier to use, but in my mind they made it more obfuscated.
+<godiard>
+bernie:i must change "git" by "gitorious"  ?
+<bernie>
+like the "friendly" error messages with a dozen lines of justification for not doing what you wanted to do :-)
+<bernie>
+godiard: you've got to change the entire url to  gitorious@git.sugarlabs.org:paint/mainline.git
+<godiard>
+bernie: ok
+<bernie>
+godiard: note, it's easy to miss that this url has a ":" where the old one had "/".
+<bernie>
+godiard: a few days ago someone wasted a day because of this :-)
+<godiard>
+:)
+<Quozl>
+godiard: here is my .git/config where i commit to a non-mainline paint repo.
+[core]
+       repositoryformatversion = 0
+       filemode = true
+       bare = false
+       logallrefupdates = true
+[remote "origin"]
+       fetch = +refs/heads/*:refs/remotes/origin/*
+       url =
+git://git.sugarlabs.org/paint/mainline.git
+[remote "quozl"]
+       fetch = +refs/heads/*:refs/remotes/origin/*
+       url = gitorious@git.sugarlabs.org:paint/quozl.git
+[branch "master"]
+       remote = origin
+       merge = refs/heads/master
+[push]
+       default = matching
+<godiard>
+can i acomment with # ?
+<bernie>
+godiard: yep
+<Quozl>
+godiard: just so you see how other paint users use it.
+<Quozl>
+godiard: in my case i fetch from mainline and push to quozl.git
+<walterbender>
+bernie: why are we suddenly having this / vs : problem?
+<bernie>
+godiard: now you should be able to do "git pull"... it will tell you that there's nothing new in the remote
+<godiard>
+quozl: thanks
+<bernie>
+walterbender: one is a real url (
+git://host/path
+)
+<bernie>
+walterbender: the other is an ssh address in the form  user@host:path
+<Quozl>
+bernie: isn't there a URL form of the SSH address?
+<godiard>
+bernie: git pull ok!
+<bernie>
+walterbender: for symmetry, git also supports an
+ssh://user@host/url
+syntax similar to svn... but it's rarely used
+<bernie>
+Quozl: yep ^
+<bernie>
+godiard: ok, now I'll let you see around your repo so you gain confidence
+<bernie>
+godiard: first of all, I recommend looking at the history: git log
+<godiard>
+bernie: ok, i see the same
+<bernie>
+godiard: for each commit, it will tell you who did it, when and hopefully also why
+<bernie>
+godiard: to see even the patches, try "git log -p"
+<Quozl>
+godiard: by the way, you can also test the effects of what you are about to do to mainline on git.sugarlabs.org ... by cloning that repository to your system, e.g. /tmp, and then pushing your changes to it and examining the effect.
+<bernie>
+godiard: oh yeah, this is a good way to experiment without breaking anything in the server
+<Quozl>
+(e.g. pushing changes from your local clone that you want to keep, to a local clone that you have only for testing a push).
+<bernie>
+godiard: an important concept to grasp in git is that your repo is only yours and you can mess it as much as you like. all your commits will remain local.
+<bernie>
+godiard: until you do a "git push", or course.
+<godiard>
+bernie: ok
+<godiard>
+bernie : i can do a rollback?
+<bernie>
+godiard: every time you do a clone, it's an entire copy of the other repo and you can use it as the url for another clone and so on
+<bernie>
+godiard: yes, git has very powerful commands for undoing changes in many ways
+<bernie>
+godiard: "git reset", "git commit --amend"... it's almost unconfined because... the repo has only one user: you.
+<godiard>
+bernie:ok
+<bernie>
+godiard: ok, now look at what branches you have: git branch -a
+<bernie>
+godiard: you'll see a * next to the current one
+<bernie>
+godiard: it will probably be "master"
+<Quozl>
+godiard: instead of rollback (as a concept), you can just checkout the hash before your commit, make your changes again, and commit again.
+<godiard>
+ok
+<Quozl>
+git repo is a series of alternate realities.
+<Quozl>
+sometimes those alternate realities merge back together, but they don't have to unless you want them to.
+<bernie>
+godiard: now it's time for some rock & roll. add another remote: git remote add quozl
+git://git.sugarlabs.org/paint/quozl.git
+<godiard>
+ok
+<bernie>
+godiard: now you can fetch the stuff that quozl did in his repo
+<bernie>
+godiard: are you planning to merge everything?
+<godiard>
+quozl: i think so, any problem?
+<Quozl>
+i suggest you consider rewriting some of the commit messages before you push.
+<Quozl>
+some of the commit messages are unduly brief and don't include what we learned in mail threads.
+<bernie>
+Quozl: good idea... we'll use it as an excuse to show godiard how to do these advanced things too
+<bernie>
+godiard: ok, now the easiest and most non-destructive thing you could do is "fetch" from quozl repo
+<bernie>
+godiard: like so: git fetch quozl
+<Quozl>
+i'll do what godiard is doing too, so that i can learn.
+<bernie>
+godiard: "fetch" is a bit like clone, but you use it in an existing repo and it downloads only the objects that you don't already have.
+<godiard>
+bernie: ok, now i have the quozl remotes when i do "git branch -a"
+<Quozl>
+works for me.
+<bernie>
+godiard: hehe, you anticipated me this time!
+<bernie>
+godiard: ok, now you could look at what quozl has done in his repository: git log quozl/master
+<bernie>
+godiard: I'm assuming that quozl also had a branch called "master", like you do
+<bernie>
+godiard: because "master" is the name for the main branch in git, many repositories have it. but it's not obligatory
+<godiard>
+bernie: yes, i see my changes
+<Quozl>
+godiard: here ... shows me cloning mainline, adding my repo, fetching from my repo, and checking remote.
+$ cd /tmp
+$ git clone
+git://git.sugarlabs.org/paint/mainline.git
+paint.git
+Initialized empty Git repository in /tmp/paint.git/.git/
+remote: Counting objects: 1480, done.
+remote: Compressing objects: 100% (599/599), done.
+remote: Total 1480 (delta 832), reused 1409 (delta 789)
+Receiving objects: 100% (1480/1480), 503.23 KiB | 108 KiB/s, done.
+Resolving deltas: 100% (832/832), done.
+$ cd paint.git
+$ git remote add quozl
+git://git.sugarlabs.org/paint/quozl.git
+$ git fetch quozl
+remote: Counting objects: 66, done.
+remote: Compressing objects: 100% (48/48), done.
+remote: Total 48 (delta 26), reused 0 (delta 0)
+Unpacking objects: 100% (48/48), done.
+From
+git://git.sugarlabs.org/paint/quozl
+* [new branch]      master     -> quozl/master
+ * [new branch]      trial-3    -> quozl/trial-3
+$ git remote -v
+origin
+git://git.sugarlabs.org/paint/mainline.git
+(fetch)
+origin
+git://git.sugarlabs.org/paint/mainline.git
+(push)
+quozl
+git://git.sugarlabs.org/paint/quozl.git
+(fetch)
+quozl
+git://git.sugarlabs.org/paint/quozl.git
+(push)
+$
+<bernie>
+godiard: aren't the first commits different from the ones in mainline?
+<Quozl>
+godiard: e430f2742f910d16a59318060bd39fc80e37822b for example has wrong author.
+<bernie>
+Quozl: hehe, we can fix that :)
+<Quozl>
+bernie: there are two lines of descent ... there were a few patches that Gonzalo sent before e-mail address was correct, such as 125a5dc57ab03bb8ac22cbcf259ede6b6857a338.
+<godiard>
+yes
+<bernie>
+Quozl: ah I see
+<bernie>
+godiard: ok, let me know when you feel ready for the next wave of distributed version control theory :)
+<godiard>
+tell me
+<godiard>
+my wife is calling me to dinner :)
+<Quozl>
+godiard: after cloning mainline.git and fetching quozl.git, the result is a repo that contains the patches but is currently showing files representing mainline.git's status.  fetch doesn't change the files, it only grabs patches.
+<Quozl>
+ah, bad time.
+<bernie>
+godiard: ok, now normally one would do (don't do it!): git merge quozl/master
+<Quozl>
+always pre-empt git with wife.  long learning.
+<bernie>
+godiard: this would do a so-called merge between your history and his history
+<bernie>
+godiard: it would look like this:
+A---B---C topic
+                     /         \
+                D---E---F---G---H master
+<bernie>
+godiard: (the line between C and H is what  the merge does)
+<godiard>
+ok
+<bernie>
+godiard: this is very stupid and even cvs and svn could do it
+<bernie>
+godiard: but we want to do more
+<bernie>
+godiard: we want to do something called a "rebase"
+<Quozl>
+the problem with doing "git merge quozl/master" at this point is that all of my mistakes in history are simply copied into mainline.
+<bernie>
+Quozl: exactly!
+<godiard>
+quozl: aha
+<Quozl>
+copying my bad history into mainline makes mainline history harder to read.
+> walterbender:< are you enjoying the git class too? :-)
+<bernie>
+godiard: the rebase would take the old history that looked like this:
+A---B---C topic
+                     /
+                D---E---F---G master
+<Quozl>
+godiard: the history of change to code is almost as valuable as the code itself, sometimes.
+<bernie>
+godiard: and change it to a new history that looks like this:
+A´--B´--C´ topic
+                             /
+                D---E---F---G master
+<Quozl>
+(quozl.git is topic?)
+<bernie>
+godiard: take your time to see what is happening :)
+<bernie>
+Quozl: yep
+<godiard>
+bernie: ok
+<bernie>
+Quozl: and yep, the history is important... maybe not in a small activity, but it's very important in a project the size of sugar
+<godiard>
+bernie: i will to print this and read many times :)
+<Quozl>
+godiard: you must go to dinner now?
+<bernie>
+godiard: ok, git can do this almost automatically. sometimes it will need your help because A, B, C changed the same lines of E, F, G...
+<bernie>
+godiard: I can suggest some cool git tutorials and docs
+<godiard>
+bernie: this time is easy, mainline didn change
+<bernie>
+godiard: anyway, after all the theory, all you need to do is: git rebase quozl/master
+<bernie>
+godiard: WHAM! you have rebased
+<godiard>
+bernie: yes, i need read more
+<godiard>
+bernie: i can do it now?
+<bernie>
+godiard: you could, but you would make a small mistake. I did it... so you can do it too and I'll show you how to remedy
+<godiard>
+First, rewinding head to replay your work on top of it...
+<godiard>
+Fast-forwarded master to quozl/master.
+<Quozl>
+works for me too, but it looks the same in gitk.  what is the difference?
+<bernie>
+godiard: ok, now look at the history... you have all the changes that quozl had done!
+<godiard>
+yes
+tinker-f595 has quit (Quit: tinker-f595)
+<Quozl>
+(including that double line of descent around #931 #1902 and #1015)
+<bernie>
+Quozl: now all of your changes are also on the local master branch
+<godiard>
+then i must do push?
+<bernie>
+godiard: ok, here's the mistake: we forgot to change all the commits to adjust the author and logs!
+<godiard>
+aha
+<godiard>
+i can do it in the local repo?
+<bernie>
+Quozl: oh yeah, I see it. fixing it would require a little more work
+chrowe has quit (Quit: chrowe)
+<bernie>
+godiard: yes, first we need to undo the rebase
+<bernie>
+godiard: I promised git can undo anything, but how can this be done?
+<godiard>
+bernie and quozl: sorry can we continue in 1 hour?
+<bernie>
+godiard: if you remember what the first commit was before the rebase, you can return to it with "git reset --hard <commit-ish> "
+<bernie>
+godiard: sure
+<bernie>
+godiard: see you later
+<bernie>	godiard: ok, so... where were we?
+<godiard>	bernie: we need to correct old commits
+<bernie>	godiard: oh yes. first, we'd better undo the mistake of rebasing with no change
+<bernie>	godiard: I mean, the mistake of rebasing without editing the interim commits
+<godiard>	bernie: ok git reset ?
+<bernie>	godiard: in order to do this, meet the multiple-undo log of git: git reflog
+<bernie>	godiard: this will show you the last operations that changed the repo
+<godiard>	bernie: ok
+<godiard>	bernie: i have one checkout and one clone
+<Quozl>	i have a clone of mainline.git to which i did a fetch of quozl.git then a rebase quozl/master.
+<Quozl>	i see, yes, reflog shows one checkout (most recent) and one clone (least recent).
+<bernie>	Quozl: reflog sometimes does not show the exact operation you did. in this case, the checkout is the rebase
+<Quozl>	here is the reflog output.
+e4e1d7a HEAD@{0}: checkout: moving from master to e4e1d7a25550594f6c8d745203f1c110da400c26^0
+3fb9bd6 HEAD@{1}: clone: from
+git://git.sugarlabs.org/paint/mainline.git
+Jun 09 14:07:40 <bernie>	Quozl: the fact is that this rebase was kind of a fake rebase because nothing happened on mainline after you created your branch
+Jun 09 14:08:52 <godiard>	bernie: ok
+Jun 09 14:14:16 <bernie>	godiard: so, are you back to a history in which the rebase was not done?
+Jun 09 14:15:16 <godiard>	bernie: i don think so
+Jun 09 14:15:20 <godiard>	i have
+Jun 09 14:15:20 <bernie>	godiard: you can ensure about it by doing: git log --pretty=oneline
+Jun 09 14:16:15 <godiard>	bernie: i see the commits to quozl repo
+Jun 09 14:16:46 <godiard>	when i do "git reflog"
+Jun 09 14:16:48 <godiard>	i have
+Jun 09 14:16:51 <Quozl>	bernie: you only got us to do git reflog.
+Jun 09 14:16:56 <godiard>	e4e1d7a HEAD@{0}: checkout: moving from master to e4e1d7a25550594f6c8d745203f1c110da400c26^0
+Jun 09 14:16:56 <godiard>	3fb9bd6 HEAD@{1}: clone: from git://git.sugarlabs.org/paint/mainline.git
+Jun 09 14:17:01 <Quozl>	bernie: you didn't say to do anything after that.
+Jun 09 14:17:29 *	Quozl imitates an obedient puppy
+Jun 09 14:17:38 <godiard>	:)
+Jun 09 14:18:27 <bernie>	godiard: ah, ok you need to reset
+Jun 09 14:18:37 <bernie>	godiard: like this: git reset --hard  HEAD@{1}
+Jun 09 14:18:53 <bernie>	Quozl: you're right :)
+Jun 09 14:19:02 <godiard>	ok!
+Jun 09 14:19:17 <godiard>	HEAD is now at 3fb9bd6 Commit from Sugar Labs: Translation System by user Clytie.: 57 of 57 messages translated (0 fuzzy).
+Jun 09 14:19:19 <Quozl>	so, a "reset" doesn't change files, but does change the repository's belief in historic position.
+Jun 09 14:19:43 <Quozl>	ah, the --hard is different.
+Jun 09 14:19:53 <bernie>	godiard: the HEAD@{1} is a special syntax meaning "whatever was at HEAD, but 1 step back in time (i.e. undo one thing from the reflog)
+Jun 09 14:20:12 <godiard>	bernie: ok, --hard change files?
+Jun 09 14:20:20 <bernie>	Quozl: yeah, hard does both the repository and the files. so you keep things consistent
+Jun 09 14:20:31 <Quozl>	bernie: why would you not "git checkout HEAD@{1}" instead?
+Jun 09 14:20:53 <bernie>	Quozl: sometimes you want to do only the repo and not the files, so you can keep the changes and redo your commit in a different way
+Jun 09 14:21:19 <Quozl>	bernie: how different is "git checkout HEAD@{1}" from "git reset --hard HEAD@{1}" ?
+Jun 09 14:21:24 <bernie>	Quozl: if you did "git checkout HEAD@{1}" you'd get your files to the previous state, but the history would remain unaltered
+Jun 09 14:21:42 <bernie>	Quozl: checkout changes local files, not the repository
+Jun 09 14:22:17 <Quozl>	bernie: but isn't the history still there in the repository and reachable with a "git checkout HEAD@{1}" now?
+Jun 09 14:23:21 <bernie>	Quozl: you're not thinking quadrimensionally, marty!
+Jun 09 14:24:02 <Quozl>	bernie: so "git reset --hard HEAD@{1}" actually destroyed history?
+Jun 09 14:24:05 <bernie>	Quozl: there are 3 distinct things:
+Jun 09 14:24:21 <bernie>	Quozl: 1) the files in your sandbox. they can be the same of any revisions, or they can be changed by you with a text editor
+Jun 09 14:24:53 <Quozl>	1) the files in your sandbox ... would have been changed by "git checkout HEAD@{1}" and by "git reset --hard HEAD@{1}", right?
+Jun 09 14:24:57 <bernie>	Quozl: 2) the revisions in your history... the current branch, other branches and all the remote branches you like
+Jun 09 14:25:29 <Quozl>	2) the revisions in your history ... both commands appear to move current point in history to a point that omits the revisions that were previously there, right?
+Jun 09 14:26:04 <bernie>	Quozl: 3) this is the magic: the repository can contain any number of revisions which don't even show up in any branch! these may have become unreachable as a result of a "destructive" operation such as reset or rebase
+Jun 09 14:26:24 <Quozl>	bernie: unreachable unless you know the hash, or read reflog, right?
+Jun 09 14:26:46 <bernie>	Quozl: to answer your (1), yes, both commands would have changed the regular files in your sandbox
+Jun 09 14:27:38 <bernie>	Quozl: to answer (2), both move your sandbox in time, but one (reset) also *changes* the timeline: -)
+Jun 09 14:28:09 <bernie>	Quozl: you can rewrite history in git in such a way that some commits no longer exist, or even happen in different orders!
+Jun 09 14:28:51 <Quozl>	bernie: i can't see the difference between reset and checkout ... change the timeline ... you mean the log of patches, or something else?
+Jun 09 14:29:18 <bernie>	Quozl: to answer your last question about reachability: yes, if you remember the hash you can recover any odd revision... and the reflog helps you remember the last N hashes where your HEAD was pointing to
+Jun 09 14:29:57 <bernie>	Quozl: yes, the log... you would no longer see the same stuff in the log after a reset
+Jun 09 14:30:20 <bernie>	Quozl: a checkout, insteead, will just... check-out the stuff from a particular point in the log and not touch the log itself
+Jun 09 14:30:36 <bernie>	godiard: I hope we have confused you enough by now :-)
+Jun 09 14:31:04 <godiard>	bernie: i am trying to understand :)
+Jun 09 14:31:07 <cjb>	bernie: you can only push those things if your remote isn't configured to deny non-fastforwards though
+Jun 09 14:31:12 <cjb>	(as most remotes are starting to be)
+Jun 09 14:32:51 <bernie>	cjb: in the general case of history reweite, you'd be right... but I won't make godiard change anything before origin/master so the remote git won't notice any anomaly in the space-time continuum
+Jun 09 14:33:07 <bernie>	godiard: I hope this is perfectly clear :-)
+Jun 09 14:33:14 <Quozl>	bernie: i've just done a test ... clone, remote add, fetch, rebase ... and in one repo i did reset --hard HEAD@{1} and in the other i did checkout HEAD@{1} ... and looking at both repos with gitk i can't see any difference in history or sandbox.
+Jun 09 14:34:09 <bernie>	godiard:  if not, cfr. On The Electrodynamics of Moving Bodies, Albert Einstein
+Jun 09 14:34:12 <Quozl>	bernie: so please proceed with godiard and i'll do the same actions godiard does but in two repos; one with reset, one with checkout, so i can understand.
+Jun 09 14:34:46 <bernie>	Quozl: k
+Jun 09 14:35:10 <godiard>	bernie: it is too simple to quozl :) , but for me its ok
+Jun 09 14:35:10 <bernie>	godiard: ok, did you reset your tree?
+Jun 09 14:35:17 <godiard>	yes
+Jun 09 14:35:47 <bernie>	godiard: now you can happily do the "usual" thing a maintainer would do to merge someone else's repo: git merge quozl/master
+Jun 09 14:36:08 <bernie>	godiard: this will show pretty stats... even in color if you enabled it in your ~/.gitconfig
+Jun 09 14:37:18 <bernie>	Quozl, godiard: this is my ~/.gitconfig in case someone wants to beautify their git environment: http://people.sugarlabs.org/bernie/.gitconfig
+Jun 09 14:37:40 <bernie>	Quozl: there's a record 78 from dsd?
+Jun 09 14:37:44 <bernie>	Quozl: is it in aslo?
+Jun 09 14:38:31 <godiard>	bernie: git log show all the changes again
+Jun 09 14:38:35 <Quozl>	bernie: http://dev.laptop.org/~dsd/record/Record-78.xo ... i don't know if it is in aslo, i don't know how to get a list of what is in aslo, sorry.
+Jun 09 14:39:09 <godiard>	bernie: the changes are in my local repo or in the remote repo now?
+Jun 09 14:39:19 <bernie>	godiard: ok, now we start editing them one by one
+Jun 09 14:39:33 <godiard>	bernie: ok, how?
+Jun 09 14:39:40 <Quozl>	godiard: they are only local, you can verify that by comparing "git log" locally with git.sugarlabs.org via web browser.
+Jun 09 14:39:42 <bernie>	godiard: to do this, we use rebase again... but this time we make it.... INTERACTIVE!
+Jun 09 14:39:45 <bernie>	ta-da!
+Jun 09 14:40:24 <bernie>	godiard: and we do the rebase against origin/master, so that our history will look nice against it, with no merges and no crap in the middle. only good patches.
+Jun 09 14:40:32 <Quozl>	but how?
+Jun 09 14:40:36 <godiard>	bernie: you are enjoying it ...
+Jun 09 14:40:45 <Quozl>	while we must suffer.  ;-)
+Jun 09 14:41:00 <bernie>	dsd_: is Record-78 in aslo? and is the code in the same repo where m_anish_ has been working?
+Jun 09 14:41:33 <bernie>	godiard: yup :)
+Jun 09 14:41:57 <bernie>	godiard: so, the exact command should be:  git rebase --interactive origin/master
+Jun 09 14:42:50 <bernie>	godiard: this is a very common comand for the contributor workflow. it's even available as a shortcut when you pull: git pull --rebase
+Jun 09 14:44:03 <bernie>	godiard: after you issue that command, git will bring up your favorite text editor. don't exit yet, look at it for a while
+Jun 09 14:44:28 <godiard>	bernie: i look
+Jun 09 14:44:46 <godiard>	bernie: one line by commit, first word its a cvommand
+Jun 09 14:45:39 <bernie>	godiard: exactly. you can replace the "pick" with "edit" for each commit you'd like to change
+Jun 09 14:46:02 <bernie>	godiard: you could do crazy things with this, but we'll just change the authors here and there
+Jun 09 14:46:15 <godiard>	bernie: the comment must be in the same line?
+Jun 09 14:46:28 <bernie>	Quozl: there might be a conflict at some point due to your branch & merge
+Jun 09 14:46:37 <godiard>	bernie: i don't see the authors
+Jun 09 14:47:03 <bernie>	godiard: oh, that comes later. now you just say "edit" where you want to make a change..
+Jun 09 14:47:28 <bernie>	godiard: you can also swap some commits. this will make the commits appear in that order in the final log
+Jun 09 14:47:50 <bernie>	godiard: if you remove a line, then that commit will be lost
+Jun 09 14:47:55 <Quozl>	(bernie: the branch and merge were *caused* by doing an interactive rebase where authors were changed.  i think my mistake was to include the whole set in a push.)
+Jun 09 14:48:28 <bernie>	godiard: it would be useful if some of quozl patches were crap you didn't want to merge. but it'snot the case.
+Jun 09 14:48:51 <bernie>	Quozl: git is forgiving
+Jun 09 14:49:22 <Quozl>	87aa is a rewrite of a59d.
+Jun 09 14:49:36 <bernie>	Quozl, godiard: now it's up to you two to decide which patches need editing... which ones to drop, etc. I don't know the code.
+Jun 09 14:50:04 <godiard>	bernie: ok, i selected one to change the author
+Jun 09 14:51:08 <godiard>	bernie: i must select all now?
+Jun 09 14:51:22 <bernie>	godiard: yes... and no
+Jun 09 14:51:33 <Quozl>	bernie: how can one patch at a time be done?
+Jun 09 14:51:35 <bernie>	godiard: if you forget some, you'll always be able to do another rebase later
+Jun 09 14:52:04 <bernie>	Quozl: hehe, you'll see... it's a multi-step process.
+Jun 09 14:52:10 <Quozl>	so i'm dorpping a59d, 125a and 76e7.
+Jun 09 14:52:15 <Quozl>	so i'm dropping a59d, 125a and 76e7.
+Jun 09 14:52:41 <bernie>	Quozl: and also editing a few others?
+Jun 09 14:53:34 <Quozl>	godiard: e430 is really yours and mine together; your idea, my rewrite.
+Jun 09 14:53:50 <godiard>	quozl: it's ok
+Jun 09 14:54:11 <Quozl>	some of the commits don't have bug number in commit first line.
+Jun 09 14:54:45 <Quozl>	50d3 and b476 need author e-mail fixed.
+Jun 09 14:55:51 *	bernie sits back and enjoys
+Jun 09 14:56:48 <godiard>	quozl: its true
+Jun 09 14:57:04 <godiard>	bernie: can i change the commment here?
+Jun 09 14:57:18 <Quozl>	godiard: you change comment by using the word "reword".
+Jun 09 14:57:48 <bernie>	godiard: it's useless, you'll be able to change the comment at a later step
+Jun 09 14:57:48 <Quozl>	the two "changing cursors" commits could be squashed.
+Jun 09 14:58:11 <bernie>	godiard: comments are usually multiline... the comment here is just a reminder to identify the patch
+Jun 09 14:58:32 <godiard>	berni: ok
+Jun 09 14:58:35 <bernie>	godiard: just mark the patches you'd like to edit as "edit" now
+Jun 09 14:58:44 <godiard>	bernie: ok
+Jun 09 14:58:59 <bernie>	Quozl: when you're done, please send a pastebin with your final status
+Jun 09 14:59:43 <Quozl>
+
+ edit b47608b fix #1015
+ edit 50d3f86 fix #1902
+ pick 87aabba fix #931
+ pick 04a9bd1 turn off activity sharing #1863
+ pick 92a83e5 move free form tool
+ pick e430f27 use cursors from Sugar theme
+ pick fde3dae changed cursors
+ squash 4a60d01 changed cursors
+ pick 0516bbb fix OLPC #296
+ pick e4e1d7a fix OLPC #3695
+
+Jun 09 15:01:08 <godiard>	quozl: ok
+Jun 09 15:01:32 <bernie>	Quozl: no edits needed?
+Jun 09 15:01:37 <bernie>	yama: hola
+Jun 09 15:01:46 <Quozl>	bernie: there were edits there, missed them?
+Jun 09 15:02:29 <bernie>	Quozl: oh yeah, now I see them
+Jun 09 15:03:25 <Quozl>	bernie: so when should godiard and i exit this editor of interactive rebase?
+Jun 09 15:03:34 <bernie>	godiard, Quozl: ok, I think we're all on the same page now. I'll save and exit
+Jun 09 15:03:50 <bernie>	(my vim nicely colors the git rebase syntax, I'm amazed)
+Jun 09 15:04:43 <godiard>	bernie: ok, and now?
+Jun 09 15:04:50 <Quozl>	but how to change author?  git commit --amend --author?
+Jun 09 15:05:03 <bernie>	godiard: ok, now git will apply the first few patches and stop at the first "edit" patch
+Jun 09 15:05:27 <godiard>	bernie: with git commit ?
+Jun 09 15:05:34 <Quozl>	Stopped at b47608b... fix #1015
+Jun 09 15:05:42 <bernie>	godiard: this is your special opportunity to edit _anything_ you want: move files around, change the content of files, etc...
+Jun 09 15:06:06 <Quozl>	git commit --amend --author "Gonzalo Odiard <godiard@gmail.com>"
+Jun 09 15:06:26 <Quozl>	oh, so you can make other changes as well and commit?
+Jun 09 15:06:35 <Quozl>	fascinating.
+Jun 09 15:06:38 <bernie>	godiard: because we don't want to do any of this crap, we'll simply say: git commit --amend --author "Gonzalo Odiard <gonzalo@example.com>"
+Jun 09 15:07:00 <bernie>	Quozl: hehe you can even split a commit in two this way
+Jun 09 15:07:26 <Quozl>	bernie: people who don't take the time to review patches often need them split up ... it's like serving porridge.
+Jun 09 15:07:27 <bernie>	Quozl: (by doing two commits before issuing the "git rebase --continue"
+Jun 09 15:07:50 <bernie>	Quozl: I think git is one of the most amazing development tools ever created
+Jun 09 15:08:01 <Quozl>	Stopped at 50d3f86... fix #1902
+Jun 09 15:08:09 <bernie>	Quozl: calling it a version control system is diminutive
+Jun 09 15:08:47 <Quozl>	# This is a combination of 2 commits.
+Jun 09 15:09:07 <bernie>	Quozl: this is giving you the opportunity to choose which log message you like the most
+Jun 09 15:09:13 <bernie>	Quozl: or merge them
+Jun 09 15:09:14 <Quozl>	indeed.  rebase all done.
+Jun 09 15:09:51 <Quozl>	bernie: and, for your correction, both repos (one that was reset and one that was wound back with checkout) still look identical even after this history rewrite.
+Jun 09 15:10:11 <Quozl>	bernie: so i contend that advising checkout is more straightforward than advising reset.
+Jun 09 15:10:29 <bernie>	Quozl: next time you're in the middle of a rebase, for some additional fun try: git commit --amend --interactive
+Jun 09 15:10:38 <bernie>	Quozl: you can drop individual hunks from patches
+Jun 09 15:11:23 <godiard>	bernie: i have a problem
+Jun 09 15:11:32 <Quozl>	aha, there is a different.  gitk says i'm on master for your reset repo, but gitk says yellow icon on the checkout repo, i'm not on master.
+Jun 09 15:11:37 <bernie>	Quozl: you mean the files look identical? 'cause the histories should look different
+Jun 09 15:11:50 <Quozl>	bernie: the history is identical.  the tagging is not.
+Jun 09 15:12:00 <bernie>	Quozl: ah, I got it
+Jun 09 15:12:04 <godiard>	bernie: when i do git rebase --continue
+Jun 09 15:12:18 <godiard>	Automatic cherry-pick failed.  After resolving the conflicts,
+Jun 09 15:12:18 <godiard>	mark the corrected paths with 'git add <paths>', and
+Jun 09 15:12:18 <godiard>	run 'git rebase --continue'
+Jun 09 15:12:18 <godiard>	Could not apply 76e76d9... fix #1015
+Jun 09 15:12:29 <bernie>	Quozl: because "git log" will show you the history FROM WHERE YOU ARE down... but in the checkout case there's more history *after* where you are.
+Jun 09 15:12:46 <bernie>	godiard: strange, I did not get this
+Jun 09 15:13:01 <bernie>	godiard: probably you forgot to remove one of the double patches.
+Jun 09 15:13:04 <Quozl>	bernie: you mean because master in that repo is tied to a commit on another branch of the history.
+Jun 09 15:13:14 <bernie>	godiard: that's easy to solve: git rebase --skip
+Jun 09 15:13:30 <Quozl>	godiard: i did not get this either.  perhaps you had different set of patches chosen.
+Jun 09 15:13:58 <bernie>	godiard: normally you'd look what needs to be adjusted, fix the conflicts, then "git add" the files you fixed
+Jun 09 15:14:14 <bernie>	godiard: this time we don't want the patch so we can simply skip
+Jun 09 15:14:35 <godiard>	bernie: how?
+Jun 09 15:14:59 <bernie>	godiard: git rebase --skip
+Jun 09 15:15:11 <Quozl>	godiard: the error you posted says 76e76d9 ... this patch i removed by deleting the line in the rebase editor.
+Jun 09 15:15:22 <Quozl>	godiard: so just skip it.
+Jun 09 15:15:31 <Quozl>	godiard: you may get the same for 125 and a59.
+Jun 09 15:15:40 <bernie>	Quozl: yeah, 76e76d9 is one of those we wanted to delete
+Jun 09 15:16:12 <godiard>	quozl: ok
+Jun 09 15:16:19 <Quozl>	bernie: so, how do i bring the "master" tag down to my current revised history (in the repo that i used checkout in, unrelated to what godiard is doing)
+Jun 09 15:16:27 <godiard>	quozl: Could not apply 125a5dc... fix #1902
+Jun 09 15:16:33 <Quozl>	godiard: skip 125.
+Jun 09 15:16:50 <bernie>	Quozl: with reset.
+Jun 09 15:16:57 <Quozl>	bernie: bwahahah.
+Jun 09 15:16:58 <godiard>	quozl: i think git did it
+Jun 09 15:17:05 <Quozl>	godiard: check history with gitk or git log
+Jun 09 15:17:06 <bernie>	Quozl: reset is used to... reset where branches point
+Jun 09 15:18:01 <godiard>	quozl: i see
+Jun 09 15:18:14 <Quozl>	"Successfully rebased and updated detached HEAD." is the subtle message I got in my alternate alternate reality.
+Jun 09 15:18:19 <bernie>	Quozl: btw, I recommend this excellent article to anyone who wants to work with git beyond svn emulation: http://www.newartisans.com/2008/04/git-from-the-bottom-up.html
+Jun 09 15:18:29 <Quozl>	i've read it.
+Jun 09 15:19:47 <bernie>	godiard: when you're done, you may want to admire the result with: gitk --all
+Jun 09 15:20:09 <godiard>	bernie: i did a mistake porbably
+Jun 09 15:20:40 <Quozl>	bernie: in my alternate reality, "git reset master" was all that was required.  by switching master from what it was to this revised history, i've effectively and intentionally lost the old history as far as tagging is concerned.  naturally i could get it back with reflog.
+Jun 09 15:20:44 <godiard>	bernie: but it s 2 am here
+Jun 09 15:21:34 <godiard>	bernie: i will try again tomorrow
+Jun 09 15:21:37 <bernie>	godiard: here 1am
+Jun 09 15:21:51 <bernie>	godiard: you know how to reset, revert, rebase, retry... :-)
+Jun 09 15:21:53 <Quozl>	nope, "git reset master" wasn't the right thing to do.
+Jun 09 15:22:25 <bernie>	Quozl: no, it's git reset <commit of where you are now>
+Jun 09 15:22:27 <godiard>	bernie: i know who knows :)
+Jun 09 15:22:36 <Quozl>	so there's this willow tree, and i've split a frond half way up, and want to band aid it back on.
+Jun 09 15:23:04 <Quozl>	bernie: that too does not move master.
+Jun 09 15:23:19 <bernie>	Quozl: damn
+Jun 09 15:23:25 <bernie>	Quozl: oh, I know why
+Jun 09 15:23:27 <godiard>	bernie, quozl: thanks, i see you
+Jun 09 15:23:31 <Quozl>	godiard: bye.
+Jun 09 15:23:37 <bernie>	Quozl: now you're in a weird limbo called "detached head"
+Jun 09 15:23:41 <Quozl>	godiard: come back for more tomorrow ... for the push.
+Jun 09 15:23:50 <--	godiard has quit (Quit: Ex-Chat)

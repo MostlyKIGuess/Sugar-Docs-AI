@@ -1,0 +1,93 @@
+Title: FileShare/Server
+URL: https://wiki.sugarlabs.org/go/FileShare/Server
+--------------------------------------------------------------------------------
+This is a simple python script that allows the file share activity to save files on the jabber server.
+This optional server is for the
+FileShare
+Activity.
+Contents
+1
+Code
+2
+Features
+3
+Future Plans
+4
+Network Policy
+4.1
+Connecting
+4.2
+Downloading
+4.3
+Uploading/Removing
+4.4
+Administer Users
+Code
+The code can be found in the FileShare Activity's
+git repo
+Features
+Maintains a file list
+Files can be uploaded to the server
+All users can view file list and download any file they wish.
+Maintains user list
+Keeps user key (hash of public key), Nickname, and access level.
+Users can be given 3 access levels.
+Level 0: Download only
+Level 1: Download, Upload and Remove
+Level 2: Download, Upload and Remove, Administer User Levels
+Future Plans
+Allow users to have private upload/download files.
+Would allow user to upload file to a private folder for them/admins to access (example, student turning in an assignment)
+Network Policy
+This is the network policy in place by the FileShare system.
+Connecting
+All clients must check version and announce themselves if they with to have more then download rights
+When the client first connects it sends a GET request to
+/version
+.
+Version must return the protocol version.  The current version is 2.
+Then if the version is 2 or greater, it makes a POST request to
+/announce_user
+Announce user expects
+id
+and
+nick'
+This tells the server about the user list.
+Returns the permission string (0 download only, 1 add/remove, 2 administer)
+Downloading
+Any user can GET request
+/fileList
+.
+File list returns a JSON object in the format the xo is expecting.
+To download a file a GET request of the file id will return the file.
+Uploading/Removing
+To upload a file, just POST the file to
+/upload
+.
+Expects
+id
+,
+jdata
+, and
+file
+To remove a file, POST file id to
+/remove
+Expects
+id
+and
+fid
+Administer Users
+Admin can request user list by POST to
+/user_list
+.
+Expects id (must have admin permission)
+Modify User level by POST to
+/user_mod
+.
+Expects
+id
+,
+userId
+, and
+level
+.

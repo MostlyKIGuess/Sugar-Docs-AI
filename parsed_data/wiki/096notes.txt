@@ -1,0 +1,249 @@
+Title: 0.96/Notes
+URL: https://wiki.sugarlabs.org/go/0.96/Notes#API
+--------------------------------------------------------------------------------
+english
+HowTo
+[ID# 79055]
+Development Team
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Please do not edit unless you are part of the Sugar Release Team. Comments are welcome on the
+Discussion page
+.
+Sucrose 0.96 Release Notes
+Contents
+1
+Introduction
+2
+What is new for users
+2.1
+Write to Journal anytime
+2.2
+Global Text to Speech
+2.3
+Browse
+2.4
+Read
+2.5
+TurtleArt
+2.6
+Measure
+2.7
+Etoys
+2.8
+Other changes in activities
+3
+What's new for developers
+3.1
+Activity Authors guidelines
+3.2
+Widgets
+3.3
+API
+3.4
+Tutorials
+4
+What's new for packagers
+5
+Internationalization (i18n) and Localization (l10n)
+6
+Compatibility
+7
+Getting the sources
+7.1
+Glucose modules
+7.2
+Fructose modules
+8
+How to contribute with testing
+9
+Credits
+10
+Looking forward to 0.98
+Introduction
+Sugar 0.96 is the new version of the
+Sugar learning platform
+. It was released the 30th of April 2012 (see
+0.96/Roadmap#Schedule
+for details).
+The main changes in this cycle was the introduction of the new sugar-toolkit-gtk3 which is the sugar-toolkit ported to use GTK+ 3 and Pygobject3. Currently Browse, Read, Help, the HelloWorld activity and Abacus have been ported to the new toolkit.
+The Read activity has been ported to use the new toolkit.
+Besides moving to the new toolkit Browse and related components have been switching to WebKit as its back-end technology.
+What is new for users
+Write to Journal anytime
+This Feature has a long history and many thinking has been going into this for a few cycles. You can now edit the description of your current activity session from within the activity. The main goal is to be able to take notes within the activity context while the activity is still running. To take notes you can reveal the description palette from a button in the activity subtoolbar, it is the same description field that is used in the Journal detail section. You can edit the description in both places, as well from within the detail view while the activity is still running, the description will be updated accordingly.
+The naming alert that prompted the learner for taking notes about the activity session when closing the activity has been removed.
+Thanks to everyone involved in this great feature, the design team and especially to Walter Bender for his constant effort over several release cycles to make this happen.
+Global Text to Speech
+The global text to speech feature gives the learner the ability to let Sugar speak out any selected text in the user interface. It can be accessed by the speech frame device which has the start/pause and stop controls. There are options in this palette to adjust the pitch and rate as well which are restored over boots. For power users the "alt+shift+s" shortcut has been added to control the speak-back.
+Thanks to Gonzalo Odiard for bringing this great Feature to us.
+Browse
+Manuel Quiñones did a lot of work on making inline pdf viewing in Browse possible using the Evince backend. If the learner clicks on a pdf file it will open inside the Browse activity in a new tab. At the bottom of the page there are controls to navigate in the pdf, to change the view and to save the pdf to the Journal.
+Read
+Read was ported to Gtk3 and the last version of evince and webkit libraries. With this change, we now can open links in PDF files, and will be enabled to implement more features in the future.
+TurtleArt
+Turtle Art advanced from Version 116 to Version 139 over the past release cycle. Along with many minor bug fixes:
+Cairo conversion, enabling much improved graphics (anti-aliasing, rotating images and text) and an eventual port to GTK-3
+Overhaul of the plugin mechanism and new plugins for Physics, Nutrition, Butia, WeDo, NXT, et al.
+Overhaul of the help mechanism to make help more readily available
+New blocks for speak, mouse, and audio
+Improved touch support
+Many thanks especially to the Butia team that has done stress-testing of the plug-in mechanism and as a result led to many improvements.
+Measure
+Measure underwent a major refactoring to enable stereo capture of analog audio and digital data.
+Etoys
+This Sugar release includes Etoys 5.0, which has many new features, including:
+a “single-step” feature in the scriptor
+a scriptable calendar
+a scriptable “sector” object, allowing you to create slices of a pie of any angle
+a “key press” object, which reports whether, and for how long, a specific key is pressed
+“attached” watchers, which always appear near the object they watch
+number lines, and a “graph paper” tool to make graph-paper-like backgrounds
+new languages: Armenian, Dansk, Papiamentu, Polish
+See
+Etoys Release Notes
+for further details.
+Other changes in activities
+Jukebox activity can open many files and create a play list, thanks to Manuel Quiñones work.
+A few activities when change the font used, can preview the font to select, thanks to work done in part for Flavio Danesse.
+What's new for developers
+The following changes are important for developers using the Sucrose 0.96 developer platform:
+Activity Authors guidelines
+The most important change is that the GTK+ 2 based sugar-toolkit has been deprecated. Newly written activities should use sugar-toolkit-gtk3, which is based on GTK+ 3 and Pygobject3, now. There will be only bug fixes being available in the future for the old toolkit no new features will be made available for it and it will probably go away at one point completely. Detailed guidelines for porting existing activities can be found at
+Features/GTK3/Porting
+.
+Widgets
+The Keep button has been removed completely from the API later; please adjust existing activities accordingly.
+API
+In sugar-toolkit-gtk3 API that has been deprecated for several development cycles have been removed:
+Remove support for the old deprecated toolbar
+removed deprecated imports from the activity module, use the widgets module instead
+removed the ActivityToolbox class
+removed the Stop button from the ActivityToolbar
+removed set_toolbar/get_toolbar API from the window module
+Datastore: remove deprecated API
+ObjectChooser: remove deprecated parameters
+The objectchooser had the 'title', 'flags' and 'buttons' parameters deprecated for a long time, remove them now completely. The only parameters allowed are now the 'parent' and the 'what_filter'.
+Bundlebuilder: remove deprecated bundle_name argument
+Activity: remove deprecated _shared_activity member
+ActivityBundle: clean from deprecated code
+removed deprecated mime type 'application/vnd.olpc-x-sugar'
+activity.info file: removed deprecated field 'service_name' use 'bundle_id' instead
+activity.info file: removed deprecated field 'class' use 'exec' instead
+Tutorials
+There is a brand new
+step-by-step guide
+for developing Activities under Fedora 17.
+What's new for packagers
+the sugar-toolkit-gtk3 repository has been added
+the Browse activity depend webkitgtk3 instead of xulrunner and hulahop, the hulahop module has been deprecated
+etoys 5.0 needs a new Squeak VM plugin for camera access. The
+source
+has been submitted to the vm developers but is not in the
+latest release
+(4.4.7) yet
+Internationalization (i18n) and Localization (l10n)
+For the Sucrose 0.96 release, 16 languages are 100% complete (with respect to the core Glucose module).
+Armenian, Chinese (China), Chinese (Taiwan), Danish, Dutch, English (United Kingdom), English (US), French, German, Huastec (Tének), Nepali, Polish, Portuguese, Sinhala, Spanish, Thai.
+An additional 8 languages are greater than 80% complete.
+Arabic, Bengali, Greek, Hindi, Japanese, Kinyarwanda, Tamil, Vietnamese.
+With some localization done on a total of 86 languages.
+Compatibility
+Activities that has been ported to sugar-toolkit-gtk3 will not run on older Sugar versions where the new toolkit is not available. Which means latest Browse and Read will not run on Sugar versions < 0.96. This is reflected in the activity providing backend ASLO where the activities are marked 0.96 only.
+Getting the sources
+If you want to package Sugar for your favorite distribution or just want to examine Sugar's lovely code here are the released bundles. If you are interested in the full changelog you can use the
+Sugar git repositories
+.
+Glucose
+modules
+sugar 0.96.2
+sugar-datastore 0.96.0
+sugar-toolkit 0.96.3
+sugar-toolkit-gtk3 0.96.3
+sugar-base 0.96.0
+sugar-artwork 0.96.3
+etoys 5.0.2403
+Fructose
+modules
+Pippy 46
+Browse 138
+Calculate 40
+Etoys 116
+Chat 76
+TurtleArt 139
+Jukebox 23
+Log 28
+ImageViewer 20
+Write 79
+Terminal 36
+Read 99
+How to contribute with testing
+Sugar 0.96 has been released. We are still stabilizing the areas that have seen major changes like the new stugar-toolkit-gtk3 the new GTK+ 3 Sugar theme and the Browse activity that has been ported to use Webkit. It is very important to get feedback from and that you report the bugs you find. The order of stability depends among other things as well on
+you
+.
+If you find bugs please report them into the
+Sugar Labs bug tracker
+indicating the 0.96.x version in the ticket version field. If you have hardware from OLPC you can use the
+12.1.0 builds
+for the i686 architecture (XO 1 and XO 1.5) and the ARM architecture (XO 1.75). Those builds include the latest Sugar 0.96.x. Hardware specific bugs especially with the new 1.75 hardware please report at the
+OLPC bug tracker
+. The current development version is as well available in
+Fedora 17
+and
+sugar-jhbuild
+(sugar* master branches).
+Credits
+This cycle we want to espacially thank the contributors to the GTK+ 3/pygobject3 port of the toolkit! All the attendees of the
+Marketing_Team/Events/Gtk3_Hackfest_2011
+in Praha and the Rosario meetup our warmest "thank you". Kudos go to the Palette people!
+Many people contributed to this release indirectly, including testing, documentation, translation, contributing to the Wiki, outreach to education and developer communities. On behalf of the community, we give our warmest thanks to the developers and contributors who made this Sugar release possible.
+We want to especially thank:
+the
+Infrastructure team
+which does all this great work in the background without which the development would not be possible at all,
+the
+deployments
+that provide the development team with feedback from the field,
+the
+Design team
+which guided the design of features with UI changes or impact on the workflow,
+the
+Translation team
+which makes sure that Sugar is enjoyable in the local languages of our users,
+the
+developers
+that submit patches for new features and bug fixes and do review other's patches,
+the
+maintainers
+that make sure their code is shippable and which provide packagers with new tarballs,
+the
+packagers
+which provide distributions with new Sugar packages,
+the
+SoaS team
+for providing a Sugar version to test with during the development cycle,
+the
+testers
+for finding the small and bigger issues,
+the
+release team
+and
+Development team
+for coordinating those efforts.
+Looking forward to
+0.98
+In the
+0.98
+development cycle the porting of the Shell to GTK+ 3 and pygobject3 is a major task. Furthermore the remaining bugs in the new sugar-toolkit-gtk3 should be fixed. We encourage activity developers to port their activity to the new toolkit and GTK+ 3 and pygobject3.

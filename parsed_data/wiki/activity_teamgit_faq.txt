@@ -1,0 +1,336 @@
+Title: Activity Team/Git FAQ
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Git_FAQ#How_do_I_create_a_new_project.3F
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Post new questions here
+.
+Contents
+1
+Using GitHub (github.com)
+1.1
+Help! I suddenly can't connect to GitHub!
+1.2
+How do I create an account on github.com?
+1.3
+How do I migrate a project to GitHub?
+1.4
+How do I create a new project?
+1.5
+How do I add an additional committer to my project?
+1.6
+How do I create a fork of an existing project?
+1.7
+How do I request a merge?
+1.8
+What is the difference between a branch and a repository?
+1.9
+How do I select which branch I am working on?
+1.10
+How do I merge changes from master into a branch?
+1.11
+How do I push my branch to GitHub?
+2
+Patches
+2.1
+How do I generate a patch?
+2.2
+How do I apply a patch?
+2.2.1
+Appying a patch from thunderbird
+2.3
+How do I send a patch to a maintainer?
+2.4
+How do I send a patch to the Sugar developers?
+2.4.1
+How do I set up git-send-email?
+2.5
+How do I amend a commit message?
+2.6
+How do I revert a commit?
+2.7
+As a maintainer, how do I merge a patch?
+2.8
+What is the community protocol for submitting patches?
+3
+Internationalization work flow
+3.1
+How do I get translations for my project?
+3.2
+How do I stay in sync with translations being pushed from the Pootle server?
+3.3
+How do my string changes get into Pootle?
+4
+Misc.
+4.1
+What if my project has a binary blob?
+4.2
+How do I update the Tag field in GitHub?
+4.3
+How do I list tags ?
+4.4
+How do I checkout specific tags?
+4.5
+How do I delete specific tags?
+4.6
+How can I get commit access behind firewall?
+4.7
+Why are my commits not visible on git.sugarlabs.org event pages?
+4.8
+New activity maintainer walkthrough
+Using GitHub (github.com)
+Help! I suddenly can't connect to GitHub!
+Please contact to
+GitHub support
+, or look at
+GitHub FAQ
+How do I create an account on github.com?
+Join
+using the link on the upper right menu on the Home Page.
+How do I migrate a project to GitHub?
+Please follow the
+instructions here
+to first set up your project's entry in GitHub.
+How do I create a new project?
+First set up the project in GitHub as per above.
+Go to your project directory and type:
+git init
+
+git add .
+git commit -a
+git remote add origin git@github.com:username/[your project name].git
+git push origin master
+Hence forth, just use:
+git commit
+git push
+You can also use
+git commit -a -m "I am the commit message"
+to avoid opening an editor.
+How do I add an additional committer to my project?
+Go to: https://github.com/USERNAME/PROJECTNAME/settings/collaboration . Type a username in the box and click "add collaborator"
+How do I create a fork of an existing project?
+Go to project page, and click the "Fork" button in the top
+Note: if you (as maintainer) are making a clone to replace a corrupted mainline on your local machine, you'll need to:
+git clone
+git://github.com/username/yourproject.git
+and update [remote] section
+git config remote.origin.url git@github.com:username/project.git
+in the .git/config file, you may have to change:
+[remote "origin"]
+    url =
+git://github.com/username/yourproject.git
+to:
+[remote "origin"]
+    url = git@github.com:username/yourproject.git
+How do I request a merge?
+Go to your GitHub fork page and follow the steps of the images
+Click on the Pull Request button
+You will get something like that
+If you used another branch for changes, just change it in the image
+Click on Create Pull request
+Edit the title/description of the pull request, and click on Create pull request. Now the commiter will review it]]
+What is the difference between a branch and a repository?
+When you make a clone of a project on GitHub, it creates a "repository". You can see the list of repositories associated with a project by clicking on the Repository Tab. Branches are clones within a repository (created with git branch and accessed through git checkout). Git merge commands refer to branches, not repositories, so in order to merge a repository back into mainline, you need to pull (fetch followed by merge) it as if it were a patch.
+git merge [your repository name]   # This won't work
+git pull
+[your project name
+/[your repository name].git master  # This will work
+How do I select which branch I am working on?
+git checkout master
+git checkout sucrose-0.84
+How do I merge changes from master into a branch?
+git checkout sucrose-0.84
+git rebase master
+How do I push my branch to GitHub?
+Use
+git push origin <your branch name>
+, e.g.,
+git push origin sucrose-0.84
+See
+Development_Team/Release#Branching
+for more details as to when and why you branch.
+Patches
+How do I generate a patch?
+git diff > blah.patch
+or
+diff -rup [old] [new]
+or
+git format-patch HEAD^
+It is preferable that you generate your patch from the root directory of your project.
+How do I apply a patch?
+First, take a look at what changes are in the patch. You can do this easily with
+git apply
+f.e:
+git apply --stat sugar_fixes.patch
+Note that this command does not apply the patch, but only shows you the stats about what it’ll do. After opening the patch file with your favorite editor, you can see what the actual changes are.
+Next, you’re interested in how troublesome the patch is going to be. Git allows you to test the patch before you actually apply it.
+git apply --check sugar_fixes.patch
+If you don’t get any errors, the patch can be applied cleanly. Otherwise you may see what trouble you’ll run into. To apply the patch, we can  use
+git am
+instead of
+git apply
+. The reason for this is that git am allows you to sign off an applied patch. This may be useful for later reference.
+git am --signoff
+Taken from:
+[1]
+Appying a patch from thunderbird
+Right click save as
+* cat <save-as>  | git am --signoff
+How do I send a patch to a maintainer?
+First, you may need to install git-mail:
+sudo yum -y install git-email
+An easy way to send a complete patch is to commit in git, then do:
+git format-patch -s -1
+git send-email --to <maintainer> --cc <mailing-list> <filename>
+For example, you can do:
+git send-email --to <maintainer> --subject=mail-subject  0003-service-name-deprecated.patch
+git send-email --to <maintainer> --cc <mailing-list> --subject=new-patch --cover-letter --annotate 0001-*.patch
+git send-email --to <maintainer> --cc <mailing-list> --subject=new-patch --cover-letter --annotate --no-validate 0001-*.patch
+You can also generate a
+merge request
+on GitHub from your forked repository to mainline.
+How do I send a patch to the Sugar developers?
+git send-email --to=sugar-devel@lists.sugarlabs.org 0001*.patch
+How do I set up git-send-email?
+1. Install git-email
+2. Configure your ~/.gitconfig file
+[user]
+   email = foo@sugarlabs.org
+   name = Foo Bar
+[sendemail]
+   smtpserver = smtp.gmail.com
+   smtpserverport = 465
+   smtpuser = foo@sugarlabs.org
+   smtpencryption = ssl
+   suppresscc = author
+3. In the directory where patch is present use:
+git send-email HEAD^..HEAD --to "sugar-devel@lists.sugarlabs.org" patchname.patch
+You can configure the destination address so you don't need to specify
+it manually every time:
+git config sendemail.to "sugar-devel <sugar-devel@lists.sugarlabs.org>"
+You need to do this for each of the repositories you are working on (e.g. sugar + sugar-toolkit).
+For more git send-email options please see
+man git send-email
+How do I amend a commit message?
+If you have "dirty" history (i.e., other patches that are not in mainline
+yet) please create a branch carrying only those two patches and push
+that branch:
+git checkout -b to-push origin/master
+git cherry-pick <commit ID of first patch>
+git commit --amend
+(fix summary)
+git cherry-pick <commit ID of second patch>
+git commit --amend
+(fix summary)
+git push origin to-push:master
+You can remove the branch afterwards:
+git checkout master
+git branch -d to-push
+How do I revert a commit?
+Again, best to do this on a branch as per
+above
+Find the commit id and then:
+git revert <commit ID>
+As a maintainer, how do I merge a patch?
+git-pull does a combination of fetch and merge, so to merge a patch...
+git pull
+git://github.com/username/myproject-clone.git
+master
+What is the community protocol for submitting patches?
+Introduce yourself to the community.
+Don't leave questions without a reply.
+Whenever you take a task that someone else was doing, mention it explicitly so others aren't concerned about wasting efforts.
+Ask when you don't understand.
+Answer other people's questions when you can.
+Internationalization work flow
+This section is for Gitorious only
+The following does not apply to GitHub.
+The i18n work flow involves an interplay between the Pootle server, where translations are maintained and Gitorious, where the master POT files are updated.
+Note
+: As a maintainer, you may update the .pot file associated with your project, but never update .po files. These are updated for you in the i18n work flow.
+How do I get translations for my project?
+Use the gettext mechanism for your stings.
+Use
+python setup.py genpot
+to generate a .pot file for your project.
+Fill a ticket requesting that your POT file be added to Pootle. Assign the ticket to "Localization".
+Add User Pootle to the list of committers on your project.
+How do I stay in sync with translations being pushed from the Pootle server?
+Periodically—in my experience, on Fridays—updates to the project .po files are pushed from the Localization team.
+Use
+git-pull
+to periodically pull these updates to the local copy of your project.
+Also, run
+python setup.py fix_manifest
+to update the .mo files after updating the .po files
+Note:
+After every major release, a new branch is created on the Pootle server, e.g., Fructose-0.82 and Fructose-0.84. The Localization team may push translations to any or all of the corresponding branches of your project. Changes to your master branch are not necessarily intended for the release branches.
+How do my string changes get into Pootle?
+Any changes to your project's .pot file are daily pulled into Pootle from git. All you have to do as a developer is make to regenerate your pot file whenever you make string changes.
+setup.py genpot
+git commit po/Myproject.pot -m "new strings"
+git push
+Misc.
+What if my project has a binary blob?
+You may have to use the --force flag.
+git push -fv
+How do I update the Tag field in GitHub?
+git tag -m "Release 36" v36 HEAD
+git push --tags
+How do I list tags ?
+git tag -l
+How do I checkout specific tags?
+git checkout <tag_name>
+How do I delete specific tags?
+git tag -d <tag_name>
+git push origin :refs/tags/<tag_name>
+How can I get commit access behind firewall?
+If you are behind a firewall and need only
+Read-Only
+access to git.sugarlabs.org, you can use HTTP links, like
+https://github.com/username/
+<project>.git
+But if you need commit access, you'll have to set up an SSH proxy tunnel. One option is using
+Tor
+. So, install all requirements:
+Tor
+to make tunnel via Tor network,
+connect
+to let SSH use this tunnel.
+You don't need any special configs for this software (in case of Tor, if your distribution makes some smart pre-configurations, just remove /etc/tor/torrc).
+Setup your tunnel in SSH. Add the following lines to your ~/.ssh/config
+Host github.com
+    User git
+    ProxyCommand /usr/bin/connect -S 127.0.0.1:9050 github.com 22
+Then start
+Tor
+, you can just run it on behalf of your account
+tor
+Then do the regular stuff you can do without any firewalls.
+NOTE:
+If you use
+Tor
+on a regular basis, please consider the possibility of
+helping
+Tor by donating your bandwidth.
+Why are my commits not visible on git.sugarlabs.org event pages?
+Check that your email address on git.sugarlabs.org account page is the same like in
+global git settings
+or in local repository setting (if you set user.email once):
+git config user.email
+New activity maintainer walkthrough
+Here's an IRC session recording the very first steps of new activity maintainer learning how to merge patches:
+Activity_Team/Git_Activity_Maintainer_Walkthrough

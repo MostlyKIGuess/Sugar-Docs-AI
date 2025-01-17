@@ -1,0 +1,136 @@
+Title: SoaS/Testing/Soas2-200904231400
+URL: https://wiki.sugarlabs.org/go/SoaS/Testing/Soas2-200904231400
+--------------------------------------------------------------------------------
+Contents
+1
+Vista32 using Fedora liveusb-creator 3.6.5
+2
+VirtualBox 2.2.0 on Ubuntu 9.04 (64-bit) host
+3
+kvm/qemu on Ubuntu 8.10 64-bit host
+4
+kvm/qemu on Ubuntu 9.04 64-bit host
+Vista32 using Fedora liveusb-creator 3.6.5
+liveusb-creator reported successful creation of liveUSB, but image failed to boot (later learned from livecd-iso-to-disk.sh verify in Linux that the iso image was corrupted.
+VirtualBox 2.2.0 on Ubuntu 9.04 (64-bit) host
+iso image boots to Sugar
+livecd-iso-to-disk install to VBox disc succeeds
+bridged networking works
+VirtualBox Guest Additions install
+Speak fails to complete launch
+Some Etoys panels fail to update screen on dragging
+kvm/qemu on Ubuntu 8.10 64-bit host
+Command:
+$ kvm -M pc -m 512 -cdrom /home/mokurai/dev/ISOs+imgs/Soas2-200904231400.iso \
+     -usb -net nic,vlan=0 -net user,vlan=0,hostname=emu -boot d
+Boots into Fedora, runs Sugar.
+Accesses Internet in Browse, IRC, with no problems.
+In Terminal, yum install works.
+Copy and paste works between Sugar Activities, but not between Sugar in kvm and Ubuntu apps. This could be a qemu problem.
+(The two problems above combine to make editing this page difficult. I will have to save more often than normal.)
+UI bug: Top bar of frame is displayed squashed, at half height. Icons appear correctly on mouseover. The rest of the bar does not.
+Except for the cases noted below, all Activities start and exit correctly, and appear to display correctly.
+TamTamMini crashed Sugar once.
+Turtle Art does not start.
+/usr/lib/python2.6/site-packages/sugar/util.py:25: DeprecationWarning: the sha module is deprecated; use the hashlib module instead
+ import sha
+Traceback (most recent call last):
+ File "/usr/bin/sugar-activity", line 21, in <module>
+   main.main()
+ File "/usr/lib/python2.6/site-packages/sugar/activity/main.py", line 105, in main
+   module = __import__(module_name)        
+ File "/usr/share/sugar/activities/TurtleArt.activity/TurtleArtActivity.py", line 21, in <module>
+   import tawindow
+ File "/usr/share/sugar/activities/TurtleArt.activity/tawindow.py", line 38, in <module>
+   from talogo import *
+ File "/usr/share/sugar/activities/TurtleArt.activity/talogo.py", line 39, in <module>
+   from tajail import *
+ File "/usr/share/sugar/activities/TurtleArt.activity/tajail.py", line 25, in <module>
+   from numpy.oldnumeric import *
+ File "/usr/lib/python2.6/site-packages/numpy/__init__.py", line 130, in <module>
+   import add_newdocs
+ File "/usr/lib/python2.6/site-packages/numpy/add_newdocs.py", line 9, in <module>
+   from lib import add_newdoc
+ File "/usr/lib/python2.6/site-packages/numpy/lib/__init__.py", line 13, in <module>
+   from polynomial import *
+ File "/usr/lib/python2.6/site-packages/numpy/lib/polynomial.py", line 18, in <module>
+   from numpy.linalg import eigvals, lstsq
+ImportError: No module named linalg
+Speak does not start
+/usr/lib/python2.6/site-packages/sugar/util.py:25: DeprecationWarning: the sha module is deprecated; use the hashlib module instead
+ import sha
+Traceback (most recent call last):
+ File "/usr/bin/sugar-activity", line 21, in <module>
+   main.main()
+ File "/usr/lib/python2.6/site-packages/sugar/activity/main.py", line 105, in main
+   module = __import__(module_name)        
+ File "/home/liveuser/Activities/Speak.activity/activity.py", line 40, in <module>
+   import mouth
+ File "/home/liveuser/Activities/Speak.activity/mouth.py", line 29, in <module>
+   import numpy.core
+ File "/usr/lib/python2.6/site-packages/numpy/__init__.py", line 130, in <module>
+   import add_newdocs
+ File "/usr/lib/python2.6/site-packages/numpy/add_newdocs.py", line 9, in <module>
+   from lib import add_newdoc
+ File "/usr/lib/python2.6/site-packages/numpy/lib/__init__.py", line 13, in <module>
+   from polynomial import *
+ File "/usr/lib/python2.6/site-packages/numpy/lib/polynomial.py", line 18, in <module>
+   from numpy.linalg import eigvals, lstsq
+ImportError: No module named linalg
+View slides does not start
+/usr/lib/python2.6/site-packages/sugar/util.py:25: DeprecationWarning: the sha module is deprecated; use the hashlib module instead
+ import sha
+Traceback (most recent call last):
+ File "/usr/bin/sugar-activity", line 21, in <module>
+   main.main()
+ File "/usr/lib/python2.6/site-packages/sugar/activity/main.py", line 105, in main
+   module = __import__(module_name)        
+ File "/home/liveuser/Activities/ViewSlides.activity/viewslides.py", line 27, in <module>
+   import pygame, pygame.display
+ File "/usr/lib/python2.6/site-packages/pygame/__init__.py", line 188, in <module>
+   try: import pygame.sndarray
+ File "/usr/lib/python2.6/site-packages/pygame/sndarray.py", line 73, in <module>
+   import pygame._numpysndarray as numpysnd
+ File "/usr/lib/python2.6/site-packages/pygame/_numpysndarray.py", line 38, in <module>
+   import numpy
+ File "/usr/lib/python2.6/site-packages/numpy/__init__.py", line 130, in <module>
+   import add_newdocs
+ File "/usr/lib/python2.6/site-packages/numpy/add_newdocs.py", line 9, in <module>
+   from lib import add_newdoc
+ File "/usr/lib/python2.6/site-packages/numpy/lib/__init__.py", line 13, in <module>
+   from polynomial import *
+ File "/usr/lib/python2.6/site-packages/numpy/lib/polynomial.py", line 11, in <module>
+   import numpy.core.numeric as NX
+AttributeError: 'module' object has no attribute 'core'
+Story Builder does not start.
+/usr/lib/python2.6/site-packages/sugar/util.py:25: DeprecationWarning: the sha module is deprecated; use the hashlib module instead
+ import sha
+Traceback (most recent call last):
+ File "/usr/bin/sugar-activity", line 21, in <module>
+   main.main()
+ File "/usr/lib/python2.6/site-packages/sugar/activity/main.py", line 105, in main
+   module = __import__(module_name)        
+ File "/home/liveuser/Activities/StoryBuilder.activity/activity.py", line 10, in <module>
+   from olpcgames import PyGameActivity
+ File "/home/liveuser/Activities/StoryBuilder.activity/olpcgames/__init__.py", line 32, in <module>
+   from olpcgames.canvas import *
+ File "/home/liveuser/Activities/StoryBuilder.activity/olpcgames/canvas.py", line 14, in <module>
+   import pygame
+ File "/usr/lib/python2.6/site-packages/pygame/__init__.py", line 188, in <module>
+   try: import pygame.sndarray
+ File "/usr/lib/python2.6/site-packages/pygame/sndarray.py", line 73, in <module>
+   import pygame._numpysndarray as numpysnd
+ File "/usr/lib/python2.6/site-packages/pygame/_numpysndarray.py", line 38, in <module>
+   import numpy
+ File "/usr/lib/python2.6/site-packages/numpy/__init__.py", line 130, in <module>
+   import add_newdocs
+ File "/usr/lib/python2.6/site-packages/numpy/add_newdocs.py", line 9, in <module>
+   from lib import add_newdoc
+ File "/usr/lib/python2.6/site-packages/numpy/lib/__init__.py", line 13, in <module>
+   from polynomial import *
+ File "/usr/lib/python2.6/site-packages/numpy/lib/polynomial.py", line 11, in <module>
+   import numpy.core.numeric as NX
+AttributeError: 'module' object has no attribute 'core'
+kvm/qemu on Ubuntu 9.04 64-bit host
+Same command as for Ubuntu 8.10
+Same things work, same things fail in the same way.

@@ -1,0 +1,81 @@
+Title: Activity Team/Activity Microformat
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Activity_Microformat
+--------------------------------------------------------------------------------
+The definitive source for this document is the documentation for the 'bitfrost.update.microformat' package, which can be found at
+http://dev.laptop.org/git?p=users/cscott/sugar-update-control;a=blob;f=bitfrost/update/microformat.py
+and by running
+pydoc bitfrost.update.microformat
+on an XO.
+Overview
+Activity information is embedded in HTML/XHTML/XML pages using a
+semantic
+microformat
+.
+Utilities such as
+olpc:Software update
+in the
+olpc:Sugar Control Panel
+can parse this information to determine that a newer activity version is available and download it.
+CSS for microformat
+The following
+CSS rules pull out the desired information.
+Repository/group information for related activities is denoted by the
+CSS
+selector:
+#olpc-activity-group-name
+which provides a "short name" for the group, and:
+#olpc-activity-group-desc
+which provides a slightly longer description.  As indicated by the fact
+that these are matches on the 'id' attribute, they should match exactly
+once.  These attributes are optional, and are not expected to be included
+in pages describing updates for an individual activity.
+Each block of activity information is denoted by the selector:
+.olpc-activity-info
+All information within that block describes a single available
+version of an activity, so the following selectors should match
+at most once within the block.
+The activity id, which should be unique among all activities, is denoted
+by the contents of the element identified by the selector:
+.olpc-activity-info .olpc-activity-id
+The version number is denoted by the contents of the element identified by
+the selector:
+.olpc-activity-info .olpc-activity-version
+The version URL is denoted by the contents of the href attribute of the
+element identified by the selector:
+.olpc-activity-info .olpc-activity-url *[href]
+An example:
+<table class="olpc-activity-info">
+  <tr>
+  <td>Browse</td>
+  <td class="olpc-activity-id"
+      style="display:none;">org.laptop.WebActivity</td>
+  <td class="olpc-activity-version">54</td>
+  <td class="olpc-activity-url"><a href="Browse-54.xo">download!</a></td>
+  </td>
+  </table>
+Another example can be found at:
+http://dev.laptop.org/~cscott/bundles/firefox.html
+Activity microformat on this wiki
+olpc:Software updater
+consults
+olpc:activity group
+pages on this wiki, such as
+olpc:Activities/G1G1
+and
+olpc:Activities/G1G1/8.2
+and reads the activity microformat information in them to determine if newer versions of activities are available.
+Activity maintainers should use the template
+{{
+Activity-oneline
+}}
+to provide information for these activity group pages.
+This template presents information about your activity using the correct CSS for this microformat.
+You can either embed the template directly in an activity group page, or put the information in a fragment such as
+olpc:Activities/Browse (latest)
+and transclude this on activity group pages using
+Other templates such as
+{{
+Project-summary
+}}
+also generate the correct CSS for this microformat.
+olpc:Category:Activity installation

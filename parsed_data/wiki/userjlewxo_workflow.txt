@@ -1,0 +1,105 @@
+Title: User:Jlew/XO Workflow
+URL: https://wiki.sugarlabs.org/go/User:Jlew/XO_Workflow
+--------------------------------------------------------------------------------
+This is a jump-start/summery to the
+Activity tutorial
+with also some workflow suggestions.  Reading the activity tutorial could be beneficial to you as well.
+Contents
+1
+Git Directory Setup
+2
+Files
+2.1
+setup.py
+2.2
+activity.info
+2.3
+activity-icon.svg
+2.4
+ActivityMain.py
+2.5
+MANIFEST
+3
+Work Flow on the XO
+3.1
+Setup Git folder
+3.2
+Coding
+3.3
+Building XO Release
+Git Directory Setup
+ProjectRoot/
+In this top level directory, I put files like Documentation, Builds, and other files that do not need to be in the activity but could be useful to other developers.
+ActivityName.activity/
+(Name must contain no spaces and end in .activity)
+activity/
+activity.info
+activity-icon.svg
+(any name works)
+MANIFEST
+setup.py
+ActivityMain.py
+(any name, this is your main activity file, must extend Activity)
+Files
+setup.py
+The setup.py file allows you to easily build your manifest and xo bundles.
+To build manifest files or xo builds, just type in
+python setup.py
+on your xo (or a computer that has the python sugar.activity module.  It will provide you with a usage information message.
+I have provided a copy of the basic setup.py file here:
+from sugar.activity import bundlebuilder
+	
+if __name__ == "__main__":
+         bundlebuilder.start()
+activity.info
+This file is found in the activity folder of your activity.  Here is a minimum activity.info file.
+See
+Development_Team/Almanac/Activity_Bundles#.info_file_format
+for more documentation.
+[Activity]
+name = ACTIVITY_NAME
+service_name = org.laptop.sugar.ACTIVITY_NAME
+activity_version = 1
+icon = activity-icon
+class = ActivityMain.ActivityMain
+show_launcher = yes
+Every time you release a new build, increment the activity_version by one (this is the sugar standard)
+activity-icon.svg
+More info coming soon.  See
+Making Sugar Icons
+ActivityMain.py
+This can be named anything, but to keep it simple, have it the name of the activity, inside should be a python class with the same name (without the extension) that extends the Activity class found in sugar.activity.activity
+MANIFEST
+The manifest file can be built with the setup.py file
+Work Flow on the XO
+There are two or three work flows that I have been working with on the xo, which one you use is up to you.
+Setup Git folder
+First start off by opening terminal and making a directory, I'll call it
+git
+.
+In this directory clone from your git repo using your push url.
+If you haven't started coding yet, now would be a good time to build all the files mentioned above and get a skeleton activity set up.  I suggest looking at the
+Activity tutorial
+for more detailed instructions.  Once you have the activity set up, continue.
+You should see your git directory structure in the git folder.  Something like git/ProjectRoot/ActivityName.activity
+Next cd into the activity folder (cd ~/Activities/)
+Make a simlink to your activity in your git folder in the activity folder
+ln -s ~/git/ProjectRoot/ActivityName.activity ActivityName.activity
+Reboot your xo.
+When the xo has returned, you should see your activity on the wheel (or it may be in the list as it is not a favorite)
+Coding
+Now that git has been set up, you simply have to work in your git folder and because of the simlink, every time you run your activity it will be working with your newest code.  This is the easiest setup.
+Because it is using git, you can also write your code on another system and use git to share your files.  The disadvantage to this is you get a lot of bug fix commits.  If you do this and you are familiar with git, then I would recommend you using branches or cloned repositories and merge with the main when you have finished working out bugs and the feature is stable.
+I personally use the same setup except I don't use git to transfer the files.  Because I work in a linux environment, I use git on my primary computer and then just pull it over to the xo using scp.  The advantage to this is you don't need to use git to transfer test commits which means my git repo is always in a fairly stable state.
+Building XO Release
+When you are ready to package your activity into an xo release.
+From your activity folder, run
+python setup.py fix_manifest
+If you have set your system up for localization, next run
+python setup.py genpot
+If this is a new xo release, update the activity version in your activity.info file.
+You only need to update the activity version if you have released an xo file to the public.
+When testing, it can be useful to build activity bundles every now and then to test on other xo's.
+Finally build the file running
+python setup.py dist_xo
+Your xo file will be build and put into a dist directory with a name like ActivityName-1.xo.

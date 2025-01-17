@@ -1,0 +1,44 @@
+Title: Activity Team/How to migrate from Gitorious
+URL: https://wiki.sugarlabs.org/go/Activity_Team/How_to_migrate_from_Gitorious
+--------------------------------------------------------------------------------
+Migrate the code
+If you are not the author of the activity,
+query
+the author to let them know about the move.
+Create
+an account on
+http://github.com
+and
+log in
+. Add your public SSH key to
+your account
+.
+Create a new project
+(
+http://github.com
+, Your repositories, New repository).
+Clone
+your activity from
+github.com
+.
+git clone
+git://github.com/
+username
+/pippy.git
+If
+you want to migrate a non-master branch...
+git remote show origin
+git checkout -b sucrose-0.82 origin/sucrose-0.82
+Push
+to git.sugarlabs.org with something like:
+git push git@github.com:
+username
+/pippy.git --mirror
+Clone
+the project from the new repository in order to be able to push your changes.  You'll need to do a git clone into an empty directory, using the same URL you used with your previous push:
+git clone git@github.com:
+username
+/pippy.git
+If you're getting a message saying
+fatal: The remote end hung up unexpectedly
+that probably means that this URL is incorrect.

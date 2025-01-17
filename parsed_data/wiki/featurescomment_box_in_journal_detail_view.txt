@@ -1,0 +1,74 @@
+Title: Features/Comment box in journal detail view
+URL: https://wiki.sugarlabs.org/go/Features/Comment_box_in_journal_detail_view
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+This feature adds a new section to the Sugar Journal Detail View to display comments associated with a journal entry.
+Owner
+Name:
+Walter Bender
+Name:
+Raúl Gutiérrez Segalés
+Email: <walter AT sugarlabs DOT org> <rgs AT itevenworks DOT net>
+Current status
+Targeted release: 1.0
+Last updated: 18 Feb 2013
+Percentage of completion: 100% (under review)
+Detailed Description
+We try to encourage discussion and reflection among and by students Sugar. Towards that goal, we have a number of mechanisms (Journal detail view and Portfolio activity) that enable a student to write about their work and to share the writing with others. As of Portfolio v27, there has been the ability to share comments from other Sugar users. These comments have been appended to the Description field of the journal entry metadata as plain text. This proposed feature maintains comments in a separate, structured, metadata field that can be displayed in both the Portfolio activity and in the detail view of the Journal (and in any other activity that chooses to take advantage of these data).
+The structure itself is a json-encoded list of Python dictionaries, one for each comment, where the dictionary contains three optional entries: 'from' (the nick of the commenter); 'message' (the comment itself); and 'icon' (in the case of comments from a Sugar user, these are the user's XO colors, but they could be replaced by any Sugar icon).
+[{"message": "This comment feature is really cool", "from": "Walter Bender", "icon": ["#FFC169", "#FF2B34"]}]
+Whenever the detail view is updated, the comments metadata is rescanned and parsed into a series of liststore entries, which are displayed in a scrollable tree view. If there are no comments, the treeview is empty.
+There is also a mechanism for deleting comments: a delete button is displayed at the end of each liststore entry. If that button is pressed, a confirmation alert is shown. If deletion is confirmed, the comment is removed from both the treeview and the comments metadata.
+Benefit to Sugar
+The idea of comments was discussed in detail by the Sugar learning team and implemented in Portfolio during a 2012 summit meeting of the team, where the topic of discussion was ways in which to enhance assessment. This feature extends those benefit more broadly (e.g., you can make use of the comments mechanism even when using activities other than Portfolio.)
+Scope
+The change is specific to src/jarabe/journal/expandedentry.py
+There are some changes to the code above and beyond the addition of the comments box in an attempt to consolidate and reduce redundancy when introducing this new feature.
+UI Design
+There are no required UI/workflow interventions due to the introduction of this feature, but it does make more clear the distinction between comments and descriptions in both the Journal and Portfolio.
+The comment box in the detail view.
+FWIW, comments in the Portfolio activity
+How To Test
+Features/Comment box in journal detail view/Testing
+User Experience
+If you use the Portfolio or Detail view, you will see a new box for comments near the bottom of the display. This box makes it more apparent that comments are distinct from descriptions and where they come from, since the Sugar colors and nick are displayed. The user also has the ability to delete individual comments.
+Dependencies
+No new dependencies
+Contingency Plan
+No impact as this is a new feature.
+Documentation
+Some discussions with the design team, where it was decided to put the comments in a box below the Tags box.
+Release Notes
+The Sugar Journal has a new mechanism for displaying comments on entries. When viewing the expanded detail view of a journal entry, a comment box is displayed, showing a list of comments.
+Comments and Discussion
+See
+discussion tab for this feature

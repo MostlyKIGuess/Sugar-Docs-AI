@@ -1,0 +1,316 @@
+Title: Sugar on a Stick/Strawberry
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Strawberry#Download_locations
+--------------------------------------------------------------------------------
+Project Home
+·
+Get Involved
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+released 22 June 2009
+Strawberry
+Sugar on a Stick - Strawberry
+a Sugar environment you can carry in your pocket
+Sugar on a Stick v1
+Strawberry
+has been superseded by the
+v2 Blueberry release
+as of 8 December 2009. See
+Sugar on a Stick/Downloads
+for the current release.
+Release Notes - last software update: 24 June 2009
+This document provides instructions for preparing a Sugar on a Stick (SoaS) installation. It also contains a list of known issues and sources of further information, for example how to use a Boot Helper CD for very old PCs. For more detailed information, please check the
+SoaS wiki page
+. For more general information, please see the
+Frequently Asked Questions (FAQ) page for Sugar on a Stick
+.
+The Sugar on a Stick Strawberry release is based on Fedora 11 with the latest updates as of June 22. It also features a recent Sugar learning environment, namely
+version 0.84
+, including 40 Activities to enrich the learning experience. Hundreds of Activities are available for download from the
+Sugar Activity Library
+. This release includes Fedora updates, new Sugar features like
+View Source
+and file transfer, supplementary sample content, which is available in the Journal, and usability improvements. Apart from the default
+Fructose
+activities, the following table of additional Activities are included in this release.  (See the Sugar
+Taxonomy
+for an explanation of these codenames.)
+Contents
+1
+Sugar on a Stick - Strawberry
+1.1
+Get it!
+2
+Sugar on a Stick/Downloads
+2.1
+Windows Users
+2.2
+GNU/Linux Users
+2.3
+Mac Users
+2.4
+XO-1 & Virtual Machines
+2.5
+Boot it
+2.5.1
+Helper CD
+2.6
+Use it
+2.7
+Help Us
+2.7.1
+Known Issues
+2.7.2
+Beta Builds
+2.7.3
+Custom Builds
+Fructose Activity
+Honey Activity
+Honey Activity
+Browse
+CartoonBuilder
+Memorize
+Calculate
+Colors
+Moon
+Chat
+FlipSticks
+Paint
+Etoys
+FreeCell
+Physics
+Image Viewer
+InfoSlicer
+Poll
+Jukebox
+IRC
+Record
+Log
+JigsawPuzzle
+SliderPuzzle
+Pippy
+JokeMachine
+Speak
+Read
+Labyrinth
+StoryBuilder
+Terminal
+Library
+ViewSlides
+Turtle Art
+Write
+Get it!
+Note:
+The contents of this section have been transcluded from another page,
+Sugar on a Stick/Downloads
+:
+Sugar on a Stick/Downloads
+Sugar on a Stick
+is a
+Fedora
+®
+Spin
+operating system featuring the award-winning
+Sugar Learning Platform
+.
+Sugar on a Stick will run on
+any 64-bit Notebook, Laptop, or Desktop computer,  with a minimum of 1GB RAM, that can run Linux, Windows or macOS, using a USB thumbdrive or stick, as a
+Live USB
+,
+a 32-bit computer with the TOAST version of Sugar (Trisquel on a Sugar Toast).  See
+Trisquel On A Sugar Toast
+.
+a Raspberry Pi 2 or 3, using a microSD card, or;
+any computer as a virtual machine.
+You can use Sugar on a Stick to demo Sugar almost anywhere without disturbing the contents of the computer you use, and if people like what they see, you can
+install
+Sugar on a Stick to their hard drives or other sticks from the demo stick.
+x86_64 (64-bit)
+armhfp Raspberry Pi 2 or 3, see
+How to install
+.
+How to quickly demonstrate: (
+English
+), (
+en español
+)
+Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+Windows Users
+Download the latest version of Fedora
+LiveUSB Creator
+from
+http://fedorahosted.org/liveusb-creator/
+and extract it;
+Plug a target USB flash drive into your computer (minimum 1-gigabyte);
+Launch
+LiveUSB Creator
+;
+Select
+Sugar on a Stick (Strawberry)
+in the drop-down menu on the upper-right side of the
+LiveUSB Creator
+window;
+Set the
+Persistent Storage
+slider to the maximum so you can save your Sugar work onto the USB device;
+(You may allocate as much storage as there is capacity on your device.  You may allocate less than the maximum, if you want to use some of the device storage when not booting Sugar.)
+If you repeat this installation on a device after having saved some Sugar work or changes, all Sugar work and changes will be lost.
+Select your USB flash drive as the target;
+Click the
+Create Live USB
+button and then wait for the process to finish (the time required will depend mostly on your download speed);
+Close the
+LiveUSB Creator
+program;
+When ejecting the USB flash drive from the computer, first stop the device with the
+Safely Remove Hardware
+dialog.
+More information is available
+here
+.
+GNU/Linux Users
+Download the SoaS iso image from
+http://download.sugarlabs.org/soas/releases/soas-1-strawberry.iso
+,
+Install these three packages:
+syslinux
+,
+isomd5sum
+, and
+cryptsetup
+(
+details here
+),
+Download this script:
+http://download.sugarlabs.org/soas/releases/livecd-iso-to-disk.sh
+Change mode to make the script executable,
+chmod +x livecd-iso-to-disk.sh
+Plug your target USB flash drive into your computer,
+Unmount the USB flash drive (e.g.,
+sudo umount /dev/sdb1
+),
+Execute the script with the following command:
+sudo ./livecd-iso-to-disk.sh --overlay-size-mb 300 --home-size-mb 160 --delete-home --unencrypted-home soas-1-strawberry.iso /dev/sdb1
+Note:
+In this example, your USB device node is assumed to be sdb. Verify this before confirming the command. Also, you might want to increase the home or overlay size if you have more than 1 GB of space.
+More detailed information is available
+here
+.
+Mac Users
+Apple Macintosh users will need to have access to a GNU/Linux or Windows machine to prepare their USB flash drive.
+Create your SoaS as described above;
+Download the boot helper disk:
+http://download.sugarlabs.org/soas/releases/soas-1-boot.iso
+Put both the CD and the USB flash drive into the machine;
+Turn the Mac on and press at the chime the "C" key;
+It should boot from the CD and continue to use the USB flash drive from this point.
+Note:
+This is an experimental method to run SoaS on a Mac. Not all hardware configurations might be supported, as it is also noted in the
+#Known Issues
+section below. If you run into issues, you might want to consider using a virtual machine. See
+#XO-1 & Virtual Machines
+section below.
+More information is available
+here
+.
+XO-1 & Virtual Machines
+The use of SoaS on the OLPC XO-1, as well as in virtual machines, is currently in an experimental state. Instructions for both categories are being developed here for
+XO-1
+,
+VirtualBox
+, &
+VMware
+. In the meantime, you might want to refer to the information on the general SoaS
+wiki page
+.
+Boot it
+Insert the USB drive into a USB port on your computer. Ports directly connected to the motherboard (usually on the back of the computer) are more likely to recognize the device at boot time.
+Set the option to boot from USB in your machine's BIOS and then start up the computer. This can be done in a number of ways and will VARY from machine to machine. What you are looking for is the term "Boot Loader" or "Boot Order" or something to that effect. You may have to play around with the settings quite a bit to achieve success. The BIOS in not a graphical user interface. Your mouse will not work, generally, in the BIOS. Use the arrow keys. Read the help lines for each BIOS option. If you've not gone into the BIOS before, don't be afraid, you can't do too much damage there if you pay attention.
+Here's a video of the BIOS on my
+compac tc4400
+.
+You should see the Sugar logo if the drive is booting. Proceed to the
+Use it
+section.
+Helper CD
+If your machine doesn't support booting from USB devices, then download the following soas-1-boot.iso and burn it to a CD.
+ImgBurn
+and
+DVD flick
+are some freeware, .iso burning tools for Windows.
+Download the boot support helper CD image at
+http://download.sugarlabs.org/soas/releases/soas-1-boot.iso
+.
+Use
+Windows Explorer
+to name your USB flash drive FEDORA (from the Properties dialog for your device), otherwise it won't be recognized by the boot-support CD.
+Put both the boot-support CD and the USB flash drive in your computer and let it boot from the CD.
+Use it
+Once you have successfully launched Sugar on a Stick, you should explore the Sugar Learning Platform. There is a
+guide to Sugar
+with help pages dedicated to most activities.
+Do try running Sugar on more than one machine, so you can enjoy its collaboration features.
+Sugar on a Stick uses by default the
+English (USA)
+keyboard layout.
+If you need to change this, you need to use the Terminal activity.
+Terminal is not in the default Home View ring (Favorite activities), to reach it,
+Switch to 'List view' (the far right switch button on the Home View toolbar),
+Find the Terminal Activity (more than half-way down in the list, or use the Search box on the left of the toolbar),
+Click on the Terminal icon to launch the activity,
+Enter
+system-config-keyboard
+at the command-line prompt and press the <Enter> key,
+Select your keyboard choice in the new window that appears and click the 'OK' button.
+Help Us
+Please share your feedback with us; it will help us to improve Sugar in subsequent versions of SoaS. Join the
+Sugar on a Stick (SoaS)
+mailing list:
+http://lists.sugarlabs.org/listinfo/soas
+, or you can always join the
+It's an Education Project
+mailing list:
+http://lists.sugarlabs.org/listinfo/iaep
+.  See all our
+communication channels
+and our
+Getting Involved
+pages.
+If you encounter any hardware-related issues besides the ones
+listed below
+, please consider joining our
+hardware effort
+. Please submit the specifications of your hardware so that we work together with 'upstream' to resolve any issues.
+Finally, you might also consider submitting bug reports at our
+bug tracker
+(you would need to create an account).
+Known Issues
+Sugar on a Stick Strawberry is based on
+Fedora 11
+, the latest release. Consequently, it contains a number of known issues with Fedora images that should be mentioned.
+Recently, problems with ATI graphics hardware, as well as various Mac models have been reported. This was resolved by adding the
+nomodeset
+parameter to the kernel arguments.
+If you encounter image flickering or are not able to get past a black screen, it might be worth pressing the <Escape> key at the blue screen, which appears for a second before the normal boot process starts. You'll be presented a short menu, at which you can directly press tab, then just add the
+nomodeset
+argument in the appearing line, and then boot by pressing the <Enter> key.
+For more information, please refer to the
+list of common F11 bugs
+.
+Beta Builds
+Developers and testers can help us debug the next version. See
+Sugar on a Stick/Beta
+.
+Custom Builds
+Preliminary instructions how to customize and compose an image can be found
+here
+.

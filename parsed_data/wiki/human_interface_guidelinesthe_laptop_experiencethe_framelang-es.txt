@@ -1,0 +1,157 @@
+Title: Human Interface Guidelines/The Laptop Experience/The Frame/lang-es
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/The_Laptop_Experience/The_Frame/lang-es#Actions
+--------------------------------------------------------------------------------
+Traducción de
+HIG-The Frame
+original
+english
+|
+español
+|
+한국어
++/-
+cambios
+←
+Metáfora de Zoom
+El Marco
+Carteleras
+→
+Contents
+1
+El Marco
+1.1
+Siempre Disponible en la Periferia
+1.2
+Componentes del Marco y su Organización
+1.2.1
+Personas
+1.2.2
+Lugares
+1.2.3
+Objetos
+1.2.4
+Acciones
+1.3
+Métodos de Activación
+1.3.1
+Esquinas Activas
+1.3.2
+Tecla de Función
+1.3.3
+Notificaciones de Excepciones Específicas
+El Marco
+El Marco: los bordes izquierdo, superior y derecho representan los sustantivos: personas, lugares y cosas. El borde inferior representa aquellos elementos que requieren de una acción: actividades, invitaciones y notificaciones.
+The Frame: The left, top, and right sides of the frame represents nouns: persons, places, and things. The bottom of the frame represents those elements that require action: activities, invitations, and notifications.
+Siempre Disponible en la Periferia
+Si observan en las imágenes anteriores, pueden haber notado la ausencia de una barra de menú o elemento similar permanente en la interfaz. Un elemento así reduce el espacio de la pantalla disponible para las actividades; y dado que la pantalla es un bien escaso, hemos optado por usar un marco—siempre en la periferia y fuera del campo visual—que contenga toda la información periférica que pueda necesitar un chico, en cualquier vista. Dado que el Marco permanece en todos los niveles de zoom, provee un espacio consistente para aquellos elementos de la interfaz que se apliquen en todas las vistas, incluyendo la búsqueda, recepción de invitaciones y notificaciones, un portapeles (
+clipboard
+), y los amigos con los cuales se está interactuando.
+Glancing at the previous screen shots, you might have noted the absence of a menu bar or other form of persistent interface element. Such a persistent element reduces the screen space available for activities; since screen is at a premium, we have opted to use a frame—always on the periphery and just out of sight—to contain all of the peripheral information that a child might need, across all views. Since the Frame persists at all zoom levels, it provides a consistent place for those interface elements which apply to all views, including search, incoming invitations and notifications, a clipboard, and buddies you are currently interacting with.
+Cuando es
+activado
+, el Marco se desliza sobre la vista actual, proveyendo acceso a la funcionalidad deseada, desapareciendo rápidamente de la vista una vez que la acción solicitada finaliza. Si bien estas transiciones ocurren rápidamente, un parámetro de perdón previene el ocultamiento no intencionado del Marco con la intención de hacer la interacción con este elemento de la interfaz algo totalmente natural.
+When
+activated
+, the Frame slides in atop the currently visible view, providing access to needed functionality, yet quickly retracting from view once the task for which the child invoked it ends. Although these transitions happen quickly, a forgiveness parameter prevents unintentional Frame retraction in hopes of making interaction with this interface element completely natural.
+Componentes del Marco y su Organización
+API Reference
+Package sugar.shell.view.frame
+El Marco esta organizado en distintos grupos lógicos.
+A vuelo de pájaro, uno puede considerar al marco en dos partes: la izquierda, arriba y derecha son usados para representar los sustantivos: cosas, lugares y personas. La parte inferior del marco representa aquellos elementos para los cuales se requiere de alguna acción: actividades, invitaciones y notificaciones. Más puntualmente, cada borde del marco está dedicado a personas, lugares, objetos y acciones.
+At a high level, one can consider the frame in two parts:  The left, top, and right sides of the frame represent nouns: things, places, and persons. The bottom of the frame represents those elements that require action: activities, invitations, and notifications.  More specifically, each edge of the frame is dedicated to one of people, places, objects, or actions.
+Personas
+API Reference
+Module: ...frame.FriendsBox
+Module: sugar.shell.model.BuddyModel
+Como fue mencionado con anterioridad, la presencia de otros en la malla define mucho de lo que es la experiencia de la laptop. Para que esto surja en la interfaz constantemente, es que el borde derecho del Marco provee una lista fácilmente accesible de todos los individuos con los cuales el chico esta colaborando en la actividad activa, representados por sus
+XOs
+bicolor. Esto tiene varios beneficios. Primero, provee un referencia rápida a la gente con la cual el chico esta trabajando, y que es actualizada a medida que las personas se suman o van. A medida que nuevas personas se suman, aparecen en la esquina superior derecha, y cuando se van, simplemente liberan el espacio. Adicionalmente, la
+marquesina
+(
+rollover
+) secundaria para estos objetos XO revelan información biográfica acerca de ellos: nombre, edad, clase, intereses, hasta una pequeña foto. Esto quiere decir que el marco es un gran recurso para conocer nuevos amigos, ya que qué mejor lugar para conocerlos que en las actividades que comparten?
+As previously mentioned, the presence of others on the mesh defines much of the laptop experience.  In order to surface this at all times in the interface, the right-hand edge of the Frame provides an easily accessible list of all the individuals a child is collaborating with in the currently active activity, represented by their colored
+XOs
+.  This has a number of benefits.  First, it provides a quick reference of the people the child is working with, which updates as new people join and others leave.  As new people arrive, they appear in the upper right corner, and as they leave they simply vacate their current location.  Additionally, the secondary rollovers for these XO objects reveal biographical information about them: name, age, class, interests, and even a small photo.  This makes the frame a great resource for meeting new friends, for what better place to meet them than in the activity shared with them?
+Lugares
+API Reference
+Module: ...frame.ZoomBox
+De todos los componentes del marco, el de Lugares es el más abstracto. Sin embargo, refuerza las metáforas sobre las que se basa el zoom. En la esquina superior izquierda residen los botones de zoom, que permiten al usuario pasar instantáneamente entre las vistas de Actividad, Hogar, Grupos o Vecindario. Por claridad, los botones en la parte superior izquierda del teclado tienen íconos y funcionalidades idénticas.
+Of the various frame components, the Places category is the most abstract. However it also emphasizes the metaphors that the zoom levels build upon.  In the upper left-hand corner reside the zoom buttons, which can instantly transition the user among the Activity, Home, Groups, and Neighborhood views.  For clarity, the upper left-hand function buttons on the keyboard have identical icons and functionality.
+En el otro extremo del borde de Lugares es que reside el botón de la Cartelera de Anuncios. Nuevamente, este botón tiene su análogo en la parte derecha de las teclas de función del teclado. Detallado más adelante, este botón funciona como un interruptor para una capa auxiliar que puede proveer un chat contextual y un lugar donde compartir objetos. Este botón funciona dentro de la barra de Lugares porque actúa como un modificador en cualquier vista. En cierto sentido, agrega una capa adicional contextual a cualquier otro "lugar" en la laptop.
+On the other side of the Places edge resides the Bulletin-Board button.  Again, this button has an analogous key on right-hand side of the keyboard's function keys.  Discussed later, this button acts as a toggle for an auxiliary layer which can provide contextual chat and a place to share objects.  This button functions within the Places bar because it acts as a modifier to any view.  In a sense, it adds an additional layer of context to any other "place" on the laptop.
+Finalmente, y no por ello menos importante, esta sección del Marco contiene el
+campo de búsqueda global
+.
+Finally, though not less importantly, this section of the Frame contains the
+global search field
+.
+Objetos
+API Reference
+Module: ...frame.clipboardpanelwindow
+El portapapeles (
+clipboard
+) se ha convertido en algo indispensable para cualquier sistema operativo moderno. A pesar de ello, sus encarnaciones han cambiado poco, o nada, en décadas. El portapapeles tiene una "página", a la cual se puede copiar, cortar y pegar, y en muchos casos esta página hipotética permanece invisible: para ver su contenido, se debe pegar su contenido. Si bien esto no es estrictamente cierto (en Mac OSX, por ejemplo, un ítem al final del menú de 'Editar' que permite 'Ver el Contenido del Portapapeles'), la mayoría de los usuarios lo olvidan ya que tienen que buscarlo de manera explícita. Este modelo básico, si bien simple, usualmente se queda corto. Por lo tanto, la OLPC ha extendido el portapapeles tradicional, permitiendo al usuario acceder a una mayor funcionalidad sin aumentar la complejidad.
+The clipboard has become a staple in any modern operating system.  Nonetheless, its implementations have changed little, if at all, in decades. The clipboard has one "page", to which you can copy  to, cut  to, and paste from, and in most cases this hypothetical page remains invisible: to see what's on it, you've got to paste its contents.  While this isn't strictly true (On Mac OSX, for instance, an item at the bottom of the 'Edit' menu allows you to 'View Clipboard Contents'), most users are oblivious about viewing its contents, as one must explicitly seek it out.  This basic model, while simple, often falls short of many use cases.  Thus, OLPC has extended the traditional clipboard, empowering the user with added functionality without increasing complexity.
+En las laptops, el portapapeles toma la forma del borde izquierdo del marco. Esta región sirve como depósito temporal para objetos - un escrito, una imagen, una oración, un URL - facilitando así su transferencia entre las distintas actividades y, quizás más importante, entre los distintos niveles de zoom. Cualquier tipo de objeto que pueda ser almacenado en el Diario puede de forma similar ser transportado vía el portapapeles. Un chico puede poner un objeto en el portapapeles de varias formas. Primero, atajos de teclado proveen una interfaz simple para copiar y pegar igual que a lo habitual para nosotros. Adicionalmente, y dado que los objetos soportan una manipulación directa, el chico puede simplemente arrastrar la foto, el escrito, o la selección sobre el marco y así copiarlo, y posteriormente lo puede arrastrar fuera y pegarlo en otro lugar, tal como otra actividad, en un amigo, o en la
+Cartelera de Anuncios
+. A medida que los ítems son agregados al portapapeles, son organizados temporalmente como una pila, estando los mas recientes los que figuran en la parte superior izquierda del marco.
+On the laptops, the clipboard takes the form of the left-hand edge of the frame.  This region serves as temporary storage for objects - a paper, an image, a sentence, a URL - facilitating their transfer among activities and, perhaps more importantly, among the various zoom levels.  Any type of object that can be stored in the Journal can likewise be transported via the clipboard.  A child may place an object on the clipboard in a couple of convenient ways.  First, keyboard shortcuts will provide an interface for simple copy and paste functions in the way already familiar to us.  Additionally, since objects support direct manipulation, the child may simply drag a photo, file, or selection onto the frame in order to copy it, and may then drag it out to paste it in another location, such as within another activity, on a friend, or to a
+Bulletin Board
+.  As items are placed on the clipboard, they are arranged temporally in a push-down stack, the most recent clipping appearing in the upper-lefthand corner of the frame.
+Con la existencia de un portapapeles que contiene múltiples ítems, surge la necesidad de poder seleccionar el ítem activo para pegar. Dada la facilidad con la cual se aprenden los típicos atajos de teclado con los cuales copiar/pegar, cualquier operación de copiar posicionará automáticamente dicho objeto al tope de la pila, siendo éste tope el usado por cualquier comando de pegado subsiguiente como es de esperarse. Cuando no se estén utilizando estos atajos tradicionales, un simple clic sobre un objeto en el portapapeles lo seleccionará e indicará visiblemente como la nueva fuente. Adicionalmente las operaciones de copiar (incluyendo por arrastre—
+drags
+) continuarán agregando elementos a la pila del portapapeles. Una vez que el portapapeles llegue a un limite predefinido, los elementos al final de la pila comenzarán a caerse fuera liberando lugar para los nuevos. Los elementos pueden ser eliminados explícitamente por el usuario por medio de su marquesina contextual, y un atajo modificado de pegado para usuarios avanzados servirá tanto para pegar el ítem como eliminarlo de la pila al mismo tiempo.
+With the presence of a clipboard which contains multiple items, it becomes necessary to add a means for selecting an active clipping as the source for any paste command.  Since the usual copy/paste keystrokes will quickly become familiar to all, any invocation of the copy shortcut will automatically place the resulting clipping at the top of the stack, selecting it as the source. Additional copy commands (or drags) will continue to add elements to the clipboard stack. Once the clipboard reaches a predefined limit, the elements at the bottom of the stack will begin to drop off making room for the new ones. Elements may also be removed explicitly by the user via their contextual rollover, and a modified paste shortcut for advanced users will serve to both paste an item and pop it from the stack at the same time.
+El portapapeles resultante tendrá un comportamiento idéntico a aquellos presentes en otros sistemas operativos, al mismo tiempo que provee soporte para
+drag and drop
+, historia del portapapeles, y vistas previas, así como funcionalidad avanzada para usuarios avanzados.
+The resulting clipboard will behave identically to those on current operating systems, while at the same time providing drag and drop support, clipboard history, and previews, as well as advanced functionality for advanced users.
+Acciones
+API Reference
+Module: ...frame.ActivitiesBox
+El borde inferior del marco funciona principalmente como un
+iniciador de actividades
+, pero también acumula
+invitaciones
+recibidas así como
+notificaciones
+. Como el punto de partida para comenzar las actividades, esta parte del marco es relativamente simple. Siempre que se haga clic sobre una actividad, una instancia aparecerá dentro del anillo de actividades coloreada con el esquema bicolor del chico, y las invitaciones serán enviadas automáticamente según corresponda. Por otro lado, en cualquier momento que un chico reciba una invitación, aparecerá como un ícono de actividad (con el esquema bicolor del XO que invita), claramente distinguible de los iconos monocromáticos de las actividades que residen en la máquina del propio chico. Dado que una invitación a unirse en una actividad no difiere en nada de comenzarla, las invitaciones las muestran apropiadamente de forma similar. El estado de la marquesina (
+rollover
+) para estas invitaciones permite a un chico aceptar o no la invitación, brindando la posibilidad de dar una razón.
+The bottom edge of the frame functions primarily as an
+activity launcher
+, but it also accumulates both incoming
+invitations
+and
+notifications
+.  As a starting point for instantiating activities, this part of the frame is fairly straightforward.  Whenever an activity receives a click, a colored instance of that activity appears within the activity ring in the child's own colors, and invitations are automatically sent as appropriate.  On the other hand, anytime the child receives an invitation it appears as a colored activity icon (in the color of the inviting XO, of course), clearly distinct from the uncolored outlines of the activities which reside on the child's own machine.  Since an invitation to join an activity has no functional differences from starting, the invitations appropriately indicate this by their similar form.  The rollover state for these invitations allows the child to accept or decline the invitation, optionally providing a reason for declining.
+Las notificaciones, el tercer aspecto del borde de Acciones del marco, funcionan de un modo sutilmente diferente. Si bien no representan una actividad a la cual el chico se pueda unir, llegan como mensajes de las actividades o del sistema, transmitiendo información importante sobre el estado de la actividad o el sistema en sí, como la carga de la batería o la potencia de la señal de red. Aunque difieren en poco de las actividades e invitaciones, estas notificaciones aún requieren alguna acción por parte del chico, y son una adición razonable al marco que provee un modo conveniente para accederlas desde cualquier vista. Así como en otros bordes del marco, las invitaciones y notificaciones son organizadas cronológicamente, siendo las mas recientes aquellas en la esquina inferior izquierda, para ser atendidas por el chico en su momento apropiado.
+Notifications, the third aspect of the Actions edge of the frame, function slightly differently.  While they don't represent an activity that the child can join, they do come as messages from activities or from the system, conveying important information about the state of the activity or system status such as battery strength or wireless signal.  Though slightly different from activities and invitations, these notifications still require some action on the child's part, and are an appropriate addition to the frame which provides a convenient way to access them from within any view. Just as in the other edges of the frame, invitations and notifications organize by time, the most recent always in the lower left-hand corner, so that the child may handle them in a timely manner.
+Métodos de Activación
+El Marco tiene múltiples métodos de activación.
+The Frame has multiple activation methods.
+Esquinas Activas
+Las esquinas activas son el método primario para la invocación del Marco. Como la
+Ley de Fitts
+implica, las esquinas son la parte mas fácil de activar con un cursor en una pantalla. Moviendo el cursor a cualquiera de las esquinas de la pantalla invocará de forma instantánea al marco. Desde una esquina, uno puede fácilmente desplazarse por el borde en búsqueda del elemento deseado. Dado que los recién llegados al borde tales como personas, objetos e invitaciones se insertan a partir de las esquinas, la última invitación, objeto, o participante siempre se encontrará a mano.
+Hot corners serve as the Frame's primary invocation method.  As
+Fitts' Law
+implies, the corners are the easiest part of the screen to hit with a cursor. Moving the cursor to any corner of the screen will instantly invoke the frame. From a corner, one can readily scroll along an edge in search of a desired element. Since newly added people, objects, and invitations insert from the corners, the latest invitation, clipping, or participant is always close at hand.
+Tecla de Función
+Además de una activación basada en el
+trackpad (o touchpad)
+, la información en el Marco es fácilmente accesible desde el teclado. Una tecla dedicada tiene dos modos de funcionamiento: (1) una activación momentánea resulta en una activación o desactivación del Marco con cada pulsación; y (2) manteniendo presionada la tecla, el Marco aparece en la pantalla hasta que sea liberada la tecla. Este último método permite una vista rápida de las invitaciones entrantes y otros elementos visuales del estado del sistema por un breve período de tiempo y volver rápidamente a la vista activa y su actividad.
+In addition to trackpad-based activation, the information within the Frame lies just one keystroke away. A dedicated key has two modes of functionality: (1) momentary presses act as a toggle, turning the Frame on and off with each press; and (2) holding the key down, the Frame will appear on screen until release of the key. This latter method provides a quick way to glance at incoming invitations or other system status elements for a brief moment and then return full focus to the activity view itself.
+Notificaciones de Excepciones Específicas
+Aunque raras, algunas
+notificaciones
+urgentes tales como niveles bajos de batería pueden activar al Marco sin necesidad de la intervención del usuario. Estas excepciones sólo provienen del sistema; ya que las aplicaciones no tienen los privilegios necesarios para ello, aunque puedan notificar o alertar al usuario por medio de notificaciones estándar.
+Though rare, some urgent
+notifications
+such as low battery levels may override the Frame, automatically bringing it into view without user interaction.  These overrides come from the system only; applications do not have privileges for override, although they may alert the user via standard notifications.
+←
+Metáfora de Zoom
+El Marco
+Carteleras
+→

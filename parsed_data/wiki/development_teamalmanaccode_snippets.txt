@@ -1,0 +1,249 @@
+Title: Development Team/Almanac/Code Snippets
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/Code_Snippets
+--------------------------------------------------------------------------------
+english
+|
+日本語
+HowTo
+[ID# 78459]
++/-
+The
+Sugar Almanac
+also has lots of code snippets.
+Contents
+1
+Smooth animation
+2
+WebKit WebView
+3
+Toolbar
+3.1
+Toolbar icons
+4
+Files
+5
+Images
+6
+Audio
+7
+Processes
+8
+Not yet sorted
+9
+Performance Tips
+10
+Old snippets which need to be overhauled
+10.1
+Toolbar
+Smooth animation
+PyGTK/Smooth_Animation_with_PyGTK
+WebKit WebView
+from gi.repository import WebKit
+from gi.repository import Gtk
+
+WINDOW_WIDTH, WINDOW_HEIGHT = 700, 500
+
+# create window:
+
+def _destroy_cb(widget, data=None):
+    Gtk.main_quit()
+
+window = Gtk.Window()
+window.resize(WINDOW_WIDTH, WINDOW_HEIGHT)
+window.connect("destroy", _destroy_cb)
+window.show()
+
+# create and add scrolled window:
+s = Gtk.ScrolledWindow()
+window.add(s)
+s.show()
+
+# create and add webview:
+v = WebKit.WebView()
+s.add(v)
+v.show()
+
+# load google page:
+v.load_uri('
+http://wiki.laptop.org'
+)
+
+Gtk.main()
+Toolbar
+Toolbar icons
+Setting a standard Sugar toolbar.
+from sugar.activity import activity
+...
+class MyActivity(activity.Activity):
+...
+   toolbox = activity.ActivityToolbox(self)
+   self.set_toolbox(toolbox)
+   toolbox.show()
+Adding a custom toolbar and icons.
+from sugar.graphics.toolbutton import ToolButton
+from sugar.activity import activity
+...
+class MyActivity(activity.Activity):
+...
+   mytoolbox = gtk.Toolbar()
+   helpbut = ToolButton('help') #Stock help icon
+   helpbut.set_tooltip(_("Get help"))
+   helpbut.connect('clicked', self.help_button_pressed)
+   mytoolbox.insert(helpbut, -1)
+   helpbut.show()
+   mytoolbox.show()
+
+   toolbox = activity.ActivityToolbox(self)
+   toolbox.add_toolbar("mytoolbar",mytoolbox)
+   self.set_toolbox(toolbox)
+   toolbox.show()
+In addition to the standard icons in /usr/share/icons/sugar/scalable/ (eg, "go-next"), you can create additional icons by putting an svg in your activity's icons/ directory.  E.g.,
+icons/my-icon.svg
+And then use it.
+mybut = ToolButton('my-icon')# without extension
+Files
+This snippet shows how to get a
+path to files in the running Activity
+:
+from sugar.activity import activity
+bundle_path = activity.get_bundle_path()
+This snippet shows how to get
+a path to an activity's writable directories
+(i.e. the SUGAR_ACTIVITY_ROOT environment variable; see also
+the activity DBus API
+):
+class WebActivity(activity.Activity):
+    def __init__(self, handle):
+        activity.Activity.__init__(self, handle)
+        temp_path = os.path.join(self.get_activity_root(), 'instance')
+Images
+Loading an SVG file onto a surface with a transparent background
+:
+target = ctx.get_target()
+buf = target.create_similar(cairo.CONTENT_COLOR_ALPHA, w, h)
+ctx.set_source_surface(buf, x, y)
+ctx.paint()
+Measuring an SVG file's original dimensions
+width, height = handle.get_dimension_data()
+Loading a JPEG file onto a surface:
+pixbuf = gtk.gdk.pixbuf_new_from_file("foo.jpg")
+ctx = # a cairo context
+ctx.set_source_pixbuf(pixbuf, 0, 0)
+ctx.paint()
+libjpeg is said to be an alternative to using pixbuf.  Which is better?  Perhaps Sugar/
+HippoCanvas
+provides an easier way to do this?
+Cairo
+image expansion is good quality, but expensive.  Shrinking is fine and notably faster.  So for images rendered large (ie, screen-size), you might want to start with a big image, rather than expanding a small one.  A speed/space tradeoff.  And use SVG instead if appropriate, of course.
+MitchellNCharity
+10:37, 10 May 2007 (EDT)
+Audio
+Playing a sound via csound
+:
+import sys
+sys.path.append('/usr/share/activities/Pippy.activity/sound')
+from sound import *
+playWave(sound='triangle')
+audioOut()
+Processes
+Starting an external process
+Use Python's
+subprocess module
+.
+Starting a binary activity instead of a Python activity
+Set the "exec" property of the
+activity.info
+file to your binary.
+Not yet sorted
+Getting a unique ID for the XO user
+:
+from sugar import profile
+
+key = profile.get_pubkey()
+
+# If you want a shorter key, you can hash that like:
+
+from sugar import util
+
+key_hash = util._sha_data(key)
+hashed_key = util.printable_hash(key_hash)
+Avoid memory exhaustion from large dead pygtk objects by using
+import gc
+gc.collect()
+Not all trash pygtk objects are garbage collected promptly.  If you are throwing away large pixmaps, for instance, this can be deadly.  gc.collect() forces a garbage collection pass.
+Performance Tips
+This section belongs on a different, as yet non-existent page.  But a good organization for software development tips is currently unclear to me, so I'll stash this here for now.
+MitchellNCharity
+14:05, 10 May 2007 (EDT)
+ctx.stroke() several lines at once.  stroke() currently has significant overhead.  So it is faster to stroke several, than to stroke them individually.  They need not be contiguous.
+MitchellNCharity
+14:05, 10 May 2007 (EDT)
+Old snippets which need to be overhauled
+Toolbar
+This snippet shows how an activity would have a toolbar with a button and a gtk.TextView widget embedded in a hippo Canvas:
+import logging
+import hippo
+import gtk
+
+from gettext import gettext as _
+
+from sugar.activity import activity
+from sugar.graphics.toolbar import Toolbar
+from sugar.graphics.iconbutton import IconButton
+from sugar.graphics.entry import Entry
+from sugar.graphics.optionmenu import OptionMenu
+from sugar.graphics.menu import MenuItem
+
+class FooActivity(activity.Activity):
+
+    _ACTION_ANYTHING = 1
+    _ACTION_APPLES = 2
+    _ACTION_ORANGES = 3
+
+   def __init__(self, handle):
+        activity.Activity.__init__(self, handle)
+
+        vbox = hippo.CanvasBox()
+        self.set_root(vbox)
+
+        toolbar = Toolbar()
+        vbox.append(toolbar)
+
+        button = IconButton(icon_name='theme:stock-close')
+        button.connect("activated", self._button_activated_cb)
+        toolbar.append(button)
+
+        entry = Entry()
+        button.connect("activated", self._entry_activated_cb)
+        toolbar.append(entry)
+
+        option_menu = OptionMenu()
+        option_menu.add_item(MenuItem(self._ACTION_ANYTHING, _('Anything')))
+        option_menu.add_item(MenuItem(self._ACTION_APPLES, _('Apples'),
+                                      'theme:stock-close'))
+        option_menu.add_item(MenuItem(self._ACTION_ORANGES, _('Oranges')))
+        option_menu.add_separator()
+        toolbar.append(option_menu)
+
+        text_view_widget = hippo.CanvasWidget()
+        vbox.append(text_view_widget, hippo.PACK_EXPAND)
+
+        text_view = gtk.TextView()
+        text_view.get_buffer().set_text('Write here!', -1)
+        text_view_widget.props.widget = text_view
+
+    def _button_activated_cb(self, button):
+        logging.debug('FooActivity._button_activated_cb')
+
+    def _entry_activated_cb(self, entry):
+        logging.debug('FooActivity._entry_activated_cb')
+In build 443 (June '07),
+from sugar.graphics.entry import Entry
+yields
+ImportError: No module named entry
+.
+MitchellNCharity
+19:52, 15 June 2007 (EDT)
+And obsolete, now deleted code like sugar.graphics.toolbar is being used. Snippet needs to be overhauled.
+MitchellNCharity
+18:04, 21 June 2007 (EDT)

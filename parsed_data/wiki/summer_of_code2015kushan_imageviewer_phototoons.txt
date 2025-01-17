@@ -1,0 +1,130 @@
+Title: Summer of Code/2015/Kushan ImageViewer Phototoons
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2015/Kushan_ImageViewer_Phototoons
+--------------------------------------------------------------------------------
+About me
+What is your name?
+Kushan Joshi
+What is your email address?
+0o3ko0@gmail.com, ikushan@me.com
+What is your Sugar Labs wiki username?
+Kushan2020
+What is your IRC nickname on irc.freenode.net?
+kepta
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+English
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+India,
+8:30am - 12:30pm (UTC) & 3:30pm- 7:30pm (UTC)
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I have been contributing to open source frequently. Below is my profile of bugzilla at Mozilla Foundation.
+Bugzilla profile
+https://bugzilla.mozilla.org/user_profile?user_id=500998
+Adding touch action regions
+[1]
+:
+This bug involved declaring candidate regions for default touch behaviours as set by w3 consortium.[
+http://www.w3.org/TR/pointerevents/#declaring-candidate-regions-for-default-touch-behaviors
+[2
+        ]].Firefox as of yet hasn't implemented pointer events for default touch action regions, this bug required me to create touch action regions, and forward them to composter. The regions were further divided into no_Action_Region, horizontal_Pan_Region and vertical_Pan_region , which had to be processed separately. This bug was quite interesting as it had me working on the components of CSS implementation of the browser.
+Use of new xpcshell test cases
+[3]
+:
+The use of new globally available xpcshell tests, required change in the code of calendar and lighting app of mozilla suite. In this bug I am upgrading the unit testing code of the suite to follow the changes in Assert.jsm.
+Using getters/setters
+[4]
+:
+This was fairly simply bug which required upgradation of existing firefox code to use getters/setters method.
+About your project
+What is the name of your project?
+Image Viewer + Phototoons
+Describe your project in 10-20 sentences.
+Brief
+Image viewer JS is a simple port of image viewer written in python. But for this project I plan to to propose, the merging of Image Viewer and Phototoons. 
+Most of the modern Image viewers have some basic editing features. The phototoons activity is a very good example of fun photo bombing. The use of various exclamations and catchy phrases can make the plain Image viewer app quite interesting. With those fun features added, I also intend to add some basic photo filters to this activity.
+Application
+Below is a working screenshot of the image viewer app that I made for demonstration purposes.
+There is a big toolbar at the top.
+The toolbar will have most of the  basic tools in the front and other misc tools categorised as dropdowns.
+In the screenshot above, I am demonstrating the photo bombing effects similar to phototoons, albeit a bit rudimentary as it is still in production stage.
+The various "boom" effects can be added to the current photo and then can be  dragged resized to the desired level. The user will be able to change the colors of these effects and also be able to stylized text to them.
+The best part about this activity is, that I wouldn't be using any external APIs (no jQuery). To reduce the total size and increase the speed of the app. As you can see in the prototype all the transitions are smooth and responsive, due to CSS3.
+Early stage version of the app
+To actually show the working of my idea, I created this very early prototype of the app.
+http://kepta.github.io/Image-Viewer-Phototoons/
+]
+Who are you making it for, and why do they need it?
+This project would be a port of Image viewer and phototoons merged in a nice package. It is minimum requirement for a platform to have an Image viewer and with some basic functionality in it. And with photo filters and basic retouching of photographs, its going to be really awesome for everyone.
+What technologies (programming languages, etc.) will you be using?
+I have used javascript, HTML, CSS and no external Javascript library (besides the one in the web template)
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it 's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Before May 19:
+Discuss everything with the mentor, put in his ideas, my ideas.
+Take a look at other projects similar to this. Practical implementation and strategising
+19th May - 1st June:
+Start coding. Start the work on the application. Add the basic zoom-in
+zoom-out, fit to screen and related features.
+1st June - 15 June
+Bug hunting and fixing. Start working on the phototoons part of my
+project. Implementing the complete phototoons set. And adding more features
+to make the experience rich and entertaining.
+15th June - 26th June
+Adding photo filters, most of the famous photo filters in the market will
+be implemented, but I plan not to fill the app will hundreds of filters. The basic
+meters for photo
+Exposure
+White Balance
+Gamma correction
+Color correction
+Red eye removal
+Spot Fixing
+Automatic phtoo retouching
+I plan to make it very simple and not bombard the user with technical jargon, Most of the correction meters will have a tiny icon and will be intuitive as to what it does. The app would now be 90% complete.
+.
+28th June - 15th July
+In this case I would like to cover up the stuff that has been lagging, being
+realistic there would be plenty of stuff that would be out of sync. And of course a
+lot more bug hunting.
+15th July - 31st July
+Testing of this application, thinking about long term sustainibility of the app.
+How to make it more connected with the XO, and how to improve the stability
+and security of the application.
+1st August - 15th August
+Documentation of the entire application. Adding various help/tutorials to make new users home.
+Miscellaneous and clean ups.
+15th August - Final Evaluation
+Buffer time, to catch up with any pending stuff.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I have already started working on this activity and as I mentioned above it can be found at this link
+http://kepta.github.io/Image-Viewer-Phototoons/
+]
+I implemented the touch action features as per the w3 rules in the mozilla source code. It was a lenghty project, and I got to learn a lot from it. One of the important thing I learned from it, the way open source communities work.(
+On a side note: I must mention my mentor was very humble, cheers to open source community.
+Also developed my college's annual cultural website (
+http://synapse.daiict.ac.in
+). It was a new thing in my college, as it marked a move from static front end websites to dynamic website like this.
+I am one of those creative people who put art first. If the design is bad no matter how good the product be, it wont sell. I have designed a lot of graphics for various organizations. I really would like to make a statement here. Even though this application is for a technical project,creativity has no bounds and can come in any form. Graphic work must also be equally treated to convinve you of my candidature. Here are a few links I would like to show
+https://www.dropbox.com/s/i3pu7v64t71pgci/synapse%201.m4v?dl=0
+This is a teaser video, created by using the stop motion technique. It involved thousands of pictures. And since it was a budget project, I didnt have enough money for professional studio like setup for proper lightning.
+This was my first attempt at animation, created for a homegrown startup called collegestore.
+https://www.dropbox.com/s/ppqh9dit314hy04/colstr.mp4?dl=0
+This is the brochure I designed for my college fest.
+https://dl.dropboxusercontent.com/u/35525804/brochure_final_draft.pdf
+These are few of the various posters I have designed.
+https://www.dropbox.com/s/vchvw5oas72pmz4/poster.jpg?dl=0
+https://www.dropbox.com/s/j4ow61n00tc1gaq/guitar.jpg?dl=0
+https://www.dropbox.com/s/dkfd87fjv6b3a5l/niki.jpg?dl=0
+https://www.dropbox.com/s/9v3a8im5t693p42/SYNAPSE.jpg?dl=0
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My answer
+:Adding more feature set to image viewer is a very good thing in my opinion. I remember having to install photoshop back in windows Xp days, for just a retouching of my photo. I wish the default app had some simple and intuitive editing features. This app will fix this problem in the XO
+Tch
+The more quality tools we provide the better, image processing can be an interesting tool for expression, it has been proven with many commercial tools for the general public, why would it be different for kids
+Gonzalo Odiard
+The impact on SugarLabs community would be to have better tools to understand how the images are processed by the computer, and increase the possibilities of expression of kids.
+What will you do if you get stuck on your project and your mentor isn't around? How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+There will be times when the mentor wouldn't be available. Firstly, I would try to tackle the problem I am facing again, because sometimes in the second go the solution strikes. I am regular at the #sugar channel at IRC and also keep my self updated in the community mailing list and ofcourse the good old books(
+Sometimes very basic stuff is clearly given in books but we just go through stackexchange and get spoon feeded
+). In short I wont leave any stone unturned when I am stuck.
+We want to make sure that you can set up a development environment before the summer starts. Please do one of the following: Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout". Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Describe a great learning experience you had as a child. Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+This question is pretty tough. At first when I got to know nothing can travel faster than light, I was shocked. My whole thinking used to revolve around considering information can travel instantaneously. And other things like big bang didnt happen at a particular place but the very notion of place(space) was created at that moment still surprises me. These are some of the very few things that still make me  rethink the way I look around the world and are in a way a very  different kind of learning experiences.

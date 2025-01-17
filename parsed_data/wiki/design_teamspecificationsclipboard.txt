@@ -1,0 +1,101 @@
+Title: Design Team/Specifications/Clipboard
+URL: https://wiki.sugarlabs.org/go/Design_Team/Specifications/Clipboard
+--------------------------------------------------------------------------------
+Contents
+1
+Visual Spec
+1.1
+Clippings
+1.1.1
+Kinds
+1.1.2
+Titles
+1.1.3
+Icons
+1.1.4
+Previews
+1.1.5
+Selection
+2
+Interaction Spec
+2.1
+Copying
+2.2
+Selecting a source
+2.3
+Pasting
+2.4
+Actions
+Visual Spec
+The clipboard lives within the left edge of the frame, and as such has all the associated visual characteristics of the tray control.  The visual spec below indicates the appearance of clipping icons and their palettes.
+Clippings
+The clipboard may contain both Clippings and Objects, the distinction between which should be understood as provided blow.  I'll use lowercase "clippings" to refer to both types in general.
+Clippings:
+are temporary objects that result from copying image, text, or any other data from within another larger context such as a paint or write activity.  These temporary clippings have no associated activity ID, no name/title, and no permanence on the system beyond the clipboard. As such, they will receive one of the standard clipping icons (and titles) provided by the system, according to their mime type.
+Objects:
+have some amount permanence, in varying levels, and more specifically represent a notion of
+wholeness.
+Examples of several forms of Objects are an image copied from Browse (it is a whole image), an instrument copied from within TamTam (the entire instrument sound, not just an audio clipping from it), or an instance of an activity object (copied from the Journal).  Objects will
+always
+have a title, and may additionally have an associated icon.  In some cases the icon will be directly associated with the Object, such as when it comes from the Journal; in other cases, an activity may have to provide an icon when the copy is performed.  The important distinction of objects is that they have a name/title.
+Kinds
+The following list indicates the 6 "primitive types" of data in Sugar, with data of course being the most generic.
+Text
+Image
+Video
+Audio
+URL
+Data
+Titles
+Clippings, which don't have an associated title, will be titled with the name of the clipping type itself eg. "Text clipping", "Image clipping" etc.  Objects, of course, have their own associated titles eg. "A drawing of my house", "Family Photo", etc.  The API for the clipboard should allow an activity to provide a title for a clipping when appropriate.  The title of a clipping appears as the primary text of it's palette.
+Icons
+Clippings have generic icons as provided by the system.  Clipping icons, which are of course created by the child on his/her own laptop, should always be rendered in the child's chosen XO colors.
+Objects may have a specific icon associated with them, and the clipboard API should allow activities to specify one when appropriate.  This icon should always be colored, but may not be colored in the child's own XO colors. If the Object comes from the Journal, from a BBoard, or even from within an activity having an identity associated with another XO, the colors of the original creator should be reflected in the clipboard.  On the other hand, any Object which has no associated owner should take on the child's own XO colors.  The visual style of these icons will match that of all Object icons.
+Note that some Objects may not actually have a specific icon.  For instance, an image copied from Browse has a title but no particular icon.  When no icon is specified, the standard clipping icon will be used, regardless of the association of a title with the Object.
+Previews
+Since the Sugar clipboard can contain multiple clippings, previews should be used whenever possible to make locating the desired clipping easy.  The appropriate preview will depend upon the type of the clipping.  For each type we will define a default preview, and in all cases it will be possible for the activity to provide an image and/or a string to override the default.
+The default previews follow:
+Text:
+The head of the string up to the nearest word boundary  beneath
+n
+characters.  When the preview does not represent the entire copied string it should end with an ellipsis, and the string should be quoted to indicate that it was taken from the clipping. Text previews should appear as the secondary text of the palette, for quickest access.
+Image:
+A thumbnail of the image will appear in the secondary palette, with maximin dimensions of
+w
+x
+h
+.
+Video:
+In the short term, we'll use a thumbnail still from the video at some time
+t
+from the beginning of the clip.  Ideally, we'll provide live video previews via a small embedded player.  This should appear just as the image thumbnail.
+Audio:
+A visual of the waveform for the audio clip, and/or a live audio preview, to be shown within the secondary palette.
+URL:
+The URL string, shortened in the
+middle
+with an ellipsis when too long, should appear as the secondary title of the palette.
+Data:
+For data which we cannot otherwise display, we'll simply provide the icon and name of the activity the clipping was created from to give it context eg. "Copied from TamTam".  The "copied from..." string should appear as the secondary text of the palette, while the icon appears within the secondary palette.
+Selection
+Exactly one clipping may be selected at any given time.  The clippings should thus be implemented as a radio button set, the selected item of which will appear with the standard gray rounded-rectangle.
+Interaction Spec
+The clipboard is specified in such a way that it will behave identically to those on current operating systems, while at the same time providing additional support for advanced users including drag and drop support and history.
+Copying
+A child may place an object on the clipboard in a couple convenient ways. First, the traditional CTRL-C shortcut will copy the current selection to the clipboard; both the ctrl-X and ALT-C shortcuts will provide "copy and erase" functionality, placing the selection on the clipboard in the same manner, and removing it from the context from which it was "cut".  Additionally, since objects support direct manipulation, the child may simply drag a photo, file, or selection onto the clipboard edge of the frame in order to copy it.  Any activity which supports copy and paste operations should also provide an "Edit" toolbar containing buttons for this functionality.
+As items are placed on the clipboard, they are arranged temporally in a "push-through" stack, with the most recent clipping appearing at the top of the stack (the upper end of the clipboard) and becoming the current selection. Once the clipboard reaches a predefined limit (as many as will fit in the left edge of the frame), the elements at the bottom of the stack will begin to drop off, making room for the new ones and preventing the clipboard from growing indefinitely in size and memory consumption.
+Selecting a source
+With the presence of a clipboard which contains multiple clippings, it becomes necessary to add a means for selecting an active clipping as the source for any paste command. Any invocation of a copy  or copy-and-erase shortcut will automatically place the resulting clipping at the top of the stack, selecting it as the source, so that a subsequent paste command behaves as expected. Likewise, any item dragged to the clipboard will become the newly selected source.  This maintains consistency with current single-item clipboards.
+An alternate source may be manually selected as desired, via a single click on the clipping.
+Pasting
+Paste will be supported with CTRL-V in the usual manner.  The paste operation will not change the selected source, such that subsequent pastes will repeatedly paste the same clipping, again retaining the behavior of common single-item clipboards by default. Drag'n'drop support will allow the child to drag any clipping out of the clipboard to paste it in another location which supports its type, such as within another activity, on a friend, or to a Bulletin Board.  The clipping that is chosen as the source for a drag need not be first selected as the source, nor should the dragged item become the source as a result of the drag operation.
+The clipboard will also support an alternate paste-and-remove operation, attached to the ALT-V shortcut.  This will paste the currently selected source and remove the source clipping from the clipboard in one step.  When the clipping is removed, the previous clipping (the one that was below it in the stack) will become the new source, essentially popping the clipping of the stack (if the selected source is at the top).  In this manner, one could copy three items in one activity and subsequently paste all three in a row into another.
+Elements may also be removed explicitly by the user via their secondary rollover palette.
+Actions
+The following actions should be available on all clippings.
+Paste:
+Paste & remove:
+Open with >:
+Keep in Journal:
+Remove:
+Send to >:

@@ -1,0 +1,74 @@
+Title: Activity Library/Editors/Testing
+URL: https://wiki.sugarlabs.org/go/Activity_Library/Editors/Testing
+--------------------------------------------------------------------------------
+NOTICE:
+This page is a draft in active flux...
+Please contribute to these contents and discuss issues on the
+discussion page
+.
+Contents
+1
+Testing Activities
+1.1
+Setting up the environment
+1.2
+Testing Extensions
+1.3
+Testing Themes
+Testing Activities
+Setting up the environment
+Using a test user for testing activities is a good idea. So add two shortcuts which you will often need:
+"path\to\application.exe" -no-remote -P
+This starts the profile manager where a profile called "Test" should be created. You also can use this if you have wasted your test profile and want do delete it and add it new.
+-no-remote
+allows you to run it with other Firefox processes (in which you can have the approval queue open). This is only working for Firefox and Thunderbird 2.0 and higher. For older versions, you have to set an environment with
+MOZ_NO_REMOTE
+in a batch file like this:
+SET MOZ_NO_REMOTE=1
+drive letter which contains the application:
+cd "drive letter which contains the application:\path\to\application\directory\"
+start application.exe -P
+The second shortcut starts the application with the profile "Test"
+"path\to\application.exe" -no-remote -P "Test"
+Set
+javascript.options.showInConsole
+in
+about:config
+to true so you can watch the error console for problems if something isn't working as expected.
+It is recommended to hang out in
+#addons
+while testing for finding people who can confirm problems or test a part that you are not able to test.
+OK, now you can install the add-on. It is recommended to test it with newest stable version (if it is in version range). If there are many addons to test, you can test it with only one application (i.e. Firefox) if you want. Restart your application. If it doesn't come back, then you have a problem.
+It's a good idea to check out the addons and author's homepage to see how things have been going with the add-on (changelogs, known issues, planned features, etc.) Also have a look to see if there are problems with it in the comments of the item overview page and if the add-on has a topic on
+MozillaZine
+, if anyone has started a topic asking for support or if anyone has filed bug reports regarding the add-on. If any of these pages mention bugs, investigate them in the current version - how severe are they?
+If you are testing add-ons around the time of a new FF/TB/SM version release, pay special attention to the maxVersion specified by the extension author. New releases often come with changes to the way the program handles add-ons. A minVersion should look like
+2.0
+,
+2.0.0.*
+would be wrong and has to be denied. For the maxVersion,
+2.0.0.*
+is a correct maxVersion,
+2.0
+should be approved if the newest version would be 2.0.0.0 with a hint to change it to 2.0.0.* (available in the drop down). If the newest version is higher than 2.0.0.0 but less than 2.0.1, you should deny and ask for changing the maxVersion because the users would get annoyed if they couldn't install it after they have seen that it is compatible with 2.0.
+Things to watch out for:
+If the extension is designed for Mozilla or Seamonkey earlier than 1.1, check the root of the submitted XPI file for the presence of a (working)
+install.js
+file. If this doesn't exist then the extension is not compatible with Mozilla Suite or with (non-SuiteRunner versions of) SeaMonkey.
+Testing Extensions
+Once you've restarted, test what the extension is supposed to do.  If it adds a new tool, it may be sitting in the Tools menu, under Tools -> Extensions -> Options, filling up your context menu, or under View -> Sidebars. Check for new buttons in the status bar or under in your navigation toolbar (needs often to customize the toolbar).
+Check the Add-ons Manager to see if it has any options.  If it does, test them out.
+Use your application normally making sure there are no adverse side-effects caused by the extension.
+Uninstall the extension and restart your application.  Are you still able to surf the web, check email, etc?
+It is also a good idea to request preview images for extensions that add icons or make changes to the application's menus. This helps users to know what to expect and therefore improve their experiences using AMO.
+Testing Themes
+Start up with the new theme. Browse away for a while and make sure nothing temperamental happens. Then go through
+all
+menus to check that the theme is complete. Add a livebookmark to your bookmarks toolbar if you don't have one. Go to a secure site. Block a popup. Download an old version of an add-on and then check for updates through Tools -> Options -> Advanced -> Software Update. Check all the icons are there under View -> Toolbars -> Customise. Make sure all icons are present in Help.
+Make sure the theme looks good. Text should be easy to read and buttons should be clear and concise. As well as just looking stylish,
+make sure it all looks stylish in the same way
+. The colours and shapes should be the same across the whole theme. Without consistency, it wouldn't be a theme!
+Another important aspect of a theme is to make sure it "fits." This is relevant for menus and dialogs - check to make sure that all the UI elements fit within the default boundaries and do not appear "clipped". If anything's clipped and/or if resizing is required to see it completely, make a note of it and request the author to change it - clipped dialogs/menus are an annoyance to users and could lower the impression of quality that the theme makes on the user - in such cases, it's better to deny the theme and request the author to correct these.
+While testing a theme, don't forget to check that the author has included a suitable preview image -
+this is mandatory
+.

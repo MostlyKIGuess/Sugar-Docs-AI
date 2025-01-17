@@ -1,0 +1,82 @@
+Title: Development Team/Almanac/Shared Sugar Activities
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/Shared_Sugar_Activities
+--------------------------------------------------------------------------------
+Contents
+1
+Overview
+2
+Advertisements and invitations
+3
+Tubes
+3.1
+Using tubes in Sugar activities
+3.2
+Who's who?
+4
+Interactions
+4.1
+Presence Service ⟷ connection manager
+4.2
+activity ⟷ Presence Service
+4.3
+activity ⟷ connection manager
+Overview
+Collaboration in Sugar activities works using a set of services that run on the laptop, and APIs in the Sugar Python modules that wrap those services. The main services are the
+Telepathy
+connection managers
+and the
+olpc:Presence Service
+that coordinates them.
+Telepathy
+is a system describing a generic interface for various kinds of communication. It is the underlying infrastructure used by Sugar for collaboration. Currently, two Telepathy implementations are used:
+Gabble
+, for Jabber, and
+Salut
+for serverless Jabber (a.k.a. link-local XMPP). The former is used when the school server is reachable; the latter in the simple mesh case.
+Advertisements and invitations
+Shared sugar activities are discovered in two different ways: through broadcast advertisements, and through invitations.
+Advertisements are made when the user tells the activity to share itself with the entire network. Anybody on the network can see the activity.
+Invitations are send to particular users. Only those users who are sent an invitation see the activity (unless the activity has also been advertised). When Sugar receives an invitation, it asks the user whether they want to accept or reject it.
+Tubes
+olpc:Tubes
+are a means for shared activities to exchange data. There are currently two types of tubes:
+D-Bus Tubes
+provide a D-Bus bus service that is shared between the participants in a shared activity, providing signals to all participants, and methods called on a particular participant.
+Stream Tubes
+provide a socket-like connection set up via XMPP, for data streaming like HTTP, between two participants.
+Using tubes in Sugar activities
+The
+olpc:Presence Service
+creates connection manager objects (Gabble and/or
+Salut). It gets a Connection object (to the
+Jabber server
+in the case of
+Gabble). PS creates or gets a Tubes channel. For Python Activities, Sugar
+creates or joins a D-Bus tube automatically.
+The initiator of the activity should then call Tubes.OfferDBusTube to offer a Tube with a specific service name. When a buddy joins an activity, he will try to figure out which Tubes are available by calling Tubes.ListTubes() on the tubes channel (which he doesn't have to create anymore). Both OfferDBusTube and ListTubes result in a callback when the Tube becomes really available. Only then a working Tube is handed to the (shared) activity and it is possible to export objects on that bus and subscribe to signals etc.
+See
+olpc:Collaboration Tutorial
+for more on using Tubes.
+Who's who?
+Buddies/nodes within an activity are currently identified with different handles by different components. The following handles can be distinguished:
+Dbus name. If you have a Dbus related function with the “sender” argument specified, this is what you'll get. To buddy object:
+sugar.presence.PresenceService.get_buddy(buddy's public key)
+Telepathy handle. To buddy object:
+sugar.presence.PresenceService.get_buddy_by_telepathy_handle(tp_conn, tp_conn_path, handle)
+Interactions
+How the various components interact.
+Presence Service ⟷ connection manager
+org.freedesktop.Telepathy.ConnectionManager
+RequestConnection
+org.freedekstop.Telepathy.Connection
+RequestChannel
+org.laptop.Telepathy.BuddyInfo
+org.laptop.Telepathy.ActivityProperties
+activity ⟷ Presence Service
+org.laptop.Sugar.Presence
+org.laptop.Sugar.Presence.Buddy
+org.laptop.Sugar.Presence.Activity
+activity ⟷ connection manager
+org.freedesktop.Telepathy.Channel.Type.Tube
+OfferDBusTube
+OfferStreamTube

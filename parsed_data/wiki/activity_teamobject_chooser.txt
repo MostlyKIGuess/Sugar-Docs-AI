@@ -1,0 +1,46 @@
+Title: Activity Team/Object Chooser
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Object_Chooser
+--------------------------------------------------------------------------------
+The Sugar Object Chooser
+The following example is modified from the FileMix activity. Note that it invokes the Chooser to select objects of mime type GENERIC_TYPE_AUDIO.
+from sugar.graphics.objectchooser import ObjectChooser
+from sugar import mime
+self.path = "0"
+self.jobject = None
+# Determine which version of Sugar you are running
+try:
+    from jarabe import config
+    version = [int(i) for i in config.version.split('.')][:2]
+except ImportError:
+    version = [0, 82]
+if version >= [0, 84]:
+    # Insert here code relevant to Sugar 0.84 and higher
+    # I use this to only display Object Chooser callback buttons only for >= 0.84
+    # Clicking one of the displayed buttons calls the choose method
+def choose(self, widget):
+    chooser = ObjectChooser(parent=self, what_filter=mime.GENERIC_TYPE_AUDIO)
+    result = chooser.run()
+    if result == gtk.RESPONSE_ACCEPT:
+        self.jobject = chooser.get_selected_object()
+        self.path = str(self.jobject.get_file_path())
+    else:
+        self.jobject = None
+        self.path = "0"
+Random observations:
+I exclude Sugar 0.82 for two reasons (which means, unfortunately, "no user soundfiles for 0.82"):
+its version of Object Chooser does not allow filtering for the audio mime type;
+Sugar 0.82's Csound (5.08) - or more specifically its version of libsndfile - does not handle ogg vorbis soundfiles, the type that the Record activity (later versions) creates. Record is the most likely/accessible means that children would use to create their own soundfiles. (The whole idea behind using Object Chooser here is to select user files that have been placed in the Journal [as Record does by default] for performance in FileMix.)
+In addition,
+earlier
+versions of Record (<v76, except for v61-64)  create ogg
+speex
+soundfiles; even the recent versions of Csound (actually, libsndfile) do not handle this (lo-fi) format. (Unfortunately,
+no
+versions of Record [as of 12/10] produce any audio,
+except
+ogg speex, in Sugar > 0.84.)
+self.path stores the soundfile name (complete path); self.jobject stores the object itself. This is key to being able (in Csound) to locate and load the selected soundfile. self.path is then a channel opened to send the named soundfile to Csound.
+If the user closes the Object Chooser box instead of clicking on a sound object, the result is not accepted, and self.path reverts to "0" - which is a flag (in Csound) to revert to the default soundfile included in FileMix.
+The str() cast for self.path converts the filename to the usual path format readable by Csound (this too is required). Otherwise, the file_path is a dbus string object; maybe we need to cast this type in sugar-toolkit code (though in most cases this casting should happen implicitly).
+The above code is included in FileMix-4.xo, in filemix.py (where there are 4 Object Chooser methods triggered by 4 callback buttons). Source for this activity has been made visible online.
+Art Hunkins and Aleksey Lim

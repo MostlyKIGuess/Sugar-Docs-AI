@@ -1,0 +1,208 @@
+Title: Activity Team/FAQ
+URL: https://wiki.sugarlabs.org/go/Activity_Team/FAQ
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+About the Activity Team
+1.1
+Who is on the Activity Team?
+1.2
+How can I get in contact with you?
+2
+Activity Development questions
+2.1
+How can I create a Sugar Activity?
+2.2
+Where do I find information about implementing X in Sugar?
+2.3
+How do I get my activity to install an external dependency?
+2.4
+I have a question about Git, or Gitorious.
+2.5
+How do I upload my new activity to the Activities Library?
+2.6
+How do I get my activity in the hands of students?
+2.7
+How do I adopt an orphaned Activity, or become an Activity co-maintainer
+2.8
+Is there a Commits mailing list?
+2.9
+How do I get a trac component associated with my project?
+2.10
+How do I analyze my activity's memory usage?
+2.11
+How does one bundle an activity?
+2.12
+How can I find out what version of Sugar I am running?
+2.13
+How do I know if my activity is running on an OLPC XO laptop?
+2.14
+How do I tell Sugar that my activity does not write any data to the Journal?
+2.15
+How do I run Sugar in a way that matches the proportions of the OLPC XO?
+2.16
+How do I use debugging output and how do I set the debug level?
+2.17
+How do I use the Gtk+ Inspector?
+Post questions here
+for the
+Activity Team
+.
+About the Activity Team
+Who is on the Activity Team?
+See
+Activity Team/Contacts
+for a list of team members.
+How can I get in contact with you?
+Feel free to write messages on our talk pages, or just drop in on one of our
+meetings
+.
+Activity Development questions
+How can I create a Sugar Activity?
+Documentation is available from
+Activity Team/Resources
+.
+Where do I find information about implementing X in Sugar?
+Check
+Activity Team/Resources
+for a comprehensive list of developer documentation, tutorials and support channels.
+How do I get my activity to install an external dependency?
+You don't! Activity bundles are supposed to be self-contained, and not depend on anything else other than the standard
+Sugar platform
+. If you need additional dependancies, you will need to include them within your activity bundle. If your additional dependancies are binary, please be aware Sugar can be run on different machine architectures.
+I have a question about Git, or Gitorious.
+See
+Activity Team/Git FAQ
+for a specific FAQ about Git and Gitorious.
+How do I upload my new activity to the Activities Library?
+The best guide is
+Activity Team/How_to_migrate_from_OLPC
+, since that's where activities are coming from.  As the infrastructure stabilizes and we get more new activities, we will post a new page.
+How do I get my activity in the hands of students?
+The absolute best way to get your activity out into the world is to attend a deployment meeting and suggest it to the deployment representatives.  They can test your activity and offer feedback, and will ultimately decide whether it ships within their deployment.
+Another good way is to post and promote your activity on
+activities.sugarlabs.org
+.
+How do I adopt an orphaned Activity, or become an Activity co-maintainer
+If you want to take on a maintainer-ship role for an Activity, try making contact and emailing the current maintainer first, they may be busy with other projects, or genuinely missing in action. If you get no response, ask the Activity Team on the
+Sugar developers mail list
+, they will try to make a decision within seven days and make contact the Infrastructure Team to change ownership for resources like the
+bug tracker
+,
+git repository
+,
+ASLO
+.
+Is there a Commits mailing list?
+No.
+How do I get a trac component associated with my project?
+File a
+ticket
+with the request. Please assign the ticket to the trac component, mark it as a task and don't forget to mention the name of your project and the default owner for the tickets.
+Or use GitHub issues feature.
+How do I analyze my activity's memory usage?
+Please refer to these pages for assistance in understanding the memory usage patterns of activities and the shell and for detecting leaks:
+http://wiki.laptop.org/go/MemoryUsageAnalysis
+and
+http://wiki.laptop.org/go/Memory_leak_testing
+How does one bundle an activity?
+Save the
+setup.py
+file in the top directory of your activity development tree. To make an activity bundle, run the following code:
+python setup.py dist_xo
+An output bundle will be saved in the
+dist/
+subdirectory. See also
+Activity bundles specification
+.
+How can I find out what version of Sugar I am running?
+You can go into the Sugar Control Panel; it is listed on the about-computer panel (which accesses jarabe.config.version).
+From the Terminal, you can type:
+rpm -q sugar
+or you can:
+grep version jarabe/config.py
+or:
+python -c "from jarabe import config; print config.version"
+How do I know if my activity is running on an OLPC XO laptop?
+You can test for the existence of '/etc/olpc-release':
+if os.path.exists('/etc/olpc-release'):
+     ...
+Or, check the in /sys/class/dmi/id for the 'product_name' and 'product_version':
+def get_hardware():
+    """ Determine whether we are using XO-1, XO-1.5, or "unknown" hardware """
+    if _get_dmi('product_name') != 'XO':
+        return 'unknown'
+    version = _get_dmi('product_version')
+    if version == '1':
+        return 'XO1'
+    elif version == '1.5':
+        return 'XO1.5'
+    else:
+        return 'unknown'
+
+
+def _get_dmi(node):
+    path = os.path.join('/sys/class/dmi/id', node)
+    try:
+        return open(path).readline().strip()
+    except:
+        return None
+Some activities have a hw.py file that explains further and supports later models.
+How do I tell Sugar that my activity does not write any data to the Journal?
+One of my activities is a game that does not produce any document in the journal. How do I inform Sugar?
+You cannot do this; there was a way to do it, but it was removed.
+How do I run Sugar in a way that matches the proportions of the OLPC XO?
+Running the emulator with
+sugar-runner --resolution 832x624
+or, on older versions,
+sugar-emulator -i 832x624
+will give a close match to the XO screen proportions, i.e., the toolbar will be a close match.
+How do I use debugging output and how do I set the debug level?
+You need to import logging:
+import logging
+_logger = logging.getLogger('your-activity-name')
+and then insert logging statements in your code:
+_logger.debug('some debugging output')
+_logger.error('some error output')
+See
+http://docs.python.org/library/logging.html
+for more details.
+To set the level of the debugging output that appears in your log file, edit:
+~/.sugar/debug
+Typically, you will want to uncomment this line:
+#export SUGAR_LOGGER_LEVEL=debug
+by removing the leading #
+export SUGAR_LOGGER_LEVEL=debug
+How do I use the Gtk+ Inspector?
+For Gtk+ 3.0 activities, an interactive inspector is available.
+On Debian or Ubuntu distributions, install the libgtk-3-dev package;
+sudo apt install libgtk-3-dev
+Set the GTK_DEBUG environment variable to
+interactive
+before running an activity, like this;
+cd Activities/HelloWorld.activity
+GTK_DEBUG=interactive sugar-activity .
+Or, request the feature from your activity, like this;
+self.canvas.get_toplevel().set_interactive_debugging(True)
+Because Sugar Gtk+ activities are full screen, use Alt+Tab or Alt+Shift+Tab to switch between the inspector and the activity.
+It can help with debugging to set the
+name
+property of widgets using program-specific names, so that the widget tree shown by the inspector can be related to the widget tree in the source code.
+See also
+https://developer.gnome.org/gtk3/stable/gtk-running.html
+https://wiki.gnome.org/Projects/GTK+/Inspector

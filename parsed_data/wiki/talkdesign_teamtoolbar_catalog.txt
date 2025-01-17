@@ -1,0 +1,216 @@
+Title: Talk:Design Team/Toolbar Catalog
+URL: https://wiki.sugarlabs.org/go/Talk:Design_Team/Toolbar_Catalog
+--------------------------------------------------------------------------------
+Contents
+1
+Gonzalo and Manuel's review at 2011-09-26
+2
+Notes from 2011-08-15 meeting
+3
+Notes from 2011-08-10 meeting
+3.1
+Variations on previous
+3.2
+Proposal for consistency in toolbar elements order and grouping
+4
+Notes from 2011-08-03 meeting
+5
+Notes from 2011-04-10 meeting
+6
+TamTam refactoring
+6.1
+Proposed toolbar for TamTamMini
+6.2
+Proposed toolbars for TamTamSynthLab
+6.3
+Proposed toolbars for TamTamJam
+6.4
+Proposed toolbars for TamTamEdit
+7
+Finance refactoring
+Gonzalo and Manuel's review at 2011-09-26
+Finance:
+Add an Edit button and implement copy/paste.
+Move the transactions buttons to the right of the view button.
+Observation: Help text is too verbose.
+Observation: "Period" label is text in toolbar, not good.
+Fototoon:
+Redesing activity icon, looks smaller than the others. [DONE]
+GetBooks:
+Add the Browse icon to both the Feedbook and Internet Archive menu items. [DONE]
+Move the language combo to a configuration (spanner) subtoolbar [DONE]
+ImageViewer:
+We should standarize rotate buttons in ImageViewer, Paint and FototToon.  Paint seem to have the nicest, move the final selection to Sugar artwork. #3350, #3351
+Move fullscreen button at the rigth of Zoom buttons, add a separator and next the rotate buttons. #3352
+Implode:
+The buttons in the main toolbar should be left aligned (Manu has a patch, sent to maintainer and sugar-devel).
+New and Replay icons need work #3353
+Infoslicer:
+The icon used in Publish button, is the Keep button icon and should be replaced
+by a export icon.
+DONE
+by Walter
+Jukebox:
+We can replace the sound icon, by a icon with a plus sign because is a add sound button.
+We can add another button with to add video, opening the object chooser filtering video files.
+Can we improve the volume control? May be use the same icons than the frame and a more conventional palette?
+Try to standarize the icon with other sound activities, like TamTamSuite.
+Labyrinth:
+Replace the export icons with the icons with the journal badge (Manuel will improve the icons from Write)
+There changesin the toolbar in git, without packaging.
+Need a help button (for example is difficult discover the move of objects with the right button)
+There are mode buttons in a subtoolbar? May be should be in the main toolbar.
+Log:
+Remove separators, there is one before the Copy button [DONE]
+Drop Delete log feature?
+The wrap button is using a left align icon and is not the proper metaphore, use the save to journal icon instead. [DONE]
+Remove gear, move Delete log where the gear is, move 'log collector' into the Activity icons secondary toolbar  [DONE]
+The log collector icon should not be the loupe. Change to standard export/save icon.
+DONE
+by Agustin Zubiaga
+Maze:
+Move the activity name entry to the main toolbar.
+Move the share button after the activity name entry like in the other activities.
+Measure:
+Replace the lips icon, with the microphone like in Record.
+DONE
+by Walter
+Read:
+Use paired icons for Next/Previous, like in Browse
+The index button can use a RadioMenuButton to show the options in the combo,
+and avoid use a subtoolbar only to this combo.
+Remove the invisible separator before the star icon.
+Record:
+May be replace the combos with the icons by RadioMenuButtons?
+Speak:
+Replace the last icon (robot) by the spanner.
+Improve the mode icons, the lightbulb icon should be a robot.
+Change invisible separator after the Activity icon to visible separator.
+TamTamEdit
+The Record button cen be removed, and move the Save to ogg button to the activity toolbar,
+changing the icon to a export sound icon.
+What is the function of the save keyboard button.
+The volumen/tempo button in the configuration subtoolbar can be moved to the main toolbar.
+The palette in the spanner in the configuration subtoolbar, can be moved to the spanner
+in the main toolbar, then we can remove the subtoolbar and avoid duplicating the icon.
+TamTamJam:
+The "Mute loops" icon is not very intuitive. Looks like mute speakers icon.
+We should unify the design of the volume/tempo palettes with TamTamEdit:
+no strings, put icons on the left of the Adjustement widgets.
+The collections should be left aligned.
+TamTamSynthLab:
+The rounded clear icon to clear the desktop, should be the rectangular clear icon, like in Paint
+DONE
+by Walter
+Terminal:
+Use the same style in the tabs as Browse. #3354
+Notes from 2011-08-15 meeting
+From the Design Team meeting
+discussion
+:
+Walter will make the load/save icons all clockwise
+Walter will use simplified folder icon
+Walter will fill in the shell
+A new emblem-view-source icon that is simply a single path:
+Notes from 2011-08-10 meeting
+From the Design Team meeting
+discussion
+:
+before:
+1st pass at after
+Play new game...
+radio buttons...
+Create new game...
+Variations on previous
+Journal load/save: straight line arrows that go from/to the right side of the opened journal:
+I like the square arrows. However, I think we can make the changeable part of the icon larger, e.g., a larger turtle. Maybe the position of the arrow has to change depending upon whether the changeable part is vertically or horizontally oriented? --
+Walter
+09:54, 12 August 2011 (EDT)
+Collections:
++1 to the smaller box and square arrows, but as per above, I think the changeable graphic needs to be larger.
+Proposal for consistency in toolbar elements order and grouping
+1. Group the following buttons at the left of the toolbar: Activity, Edit and View buttons, in that order, adding a separator after them.  Edit and View buttons may not be present for a given activity.
+2. Follow the previous group with tool widgets that are custom for the given activity (buttons, combo boxes, labels, etc).  They may be separated in groups adding separators.  Put the more important tools at the beggining, on the left (for example the radio buttons in Record that change the recording mode).  (TODO: put buttons with subtoolbars on the left?)
+3. Put the Close button on the right.  There might be a space between the Close button and the previous tool widgets, or an element may expand to fill the space (for example the URL input in Browse).
+A schema of the above looks like this:
+A [E] [V] | [C C | C C ... C] ________ X
+I'm avoiding BNF writing in behalf of simplicity :)
+Not sure that the | between the A [E] [V] and [C C ...] really serves any purpose and whereas space can be at a premium (especially at smaller screen sizes, separators can make the difference between whether or not the icons all fit. I'd argue we should restrict separators to logical groupings and to move the Close button to the far right. --
+Walter
+09:58, 12 August 2011 (EDT)
+Notes from 2011-08-03 meeting
+From the discussions in
+Design Team meeting
+:
+Agreed:
+The gear icon is for when use creates content; the spanner icon is for simple parameter adjustments. For example, the toolbar icon for creating a custom Abacus would use the gear; the toolbar icon for adjusting temperature and humidity in Distance would use the spanner.
+The "sparkle" star should be used as a badge on the activity icon to indicate new.
+The five-pointed star is for favorites
+We will use a box icon with a badge to indicate collections of things on submenues.
+We will make more use of the combo box with embedded icon (see Record) for lists when appropriate.
+Action items
+walter to replace star icon in Abacus with badged activity icon
+walter will use a box icon with a badge for that toolbar
+walter will move all the Abacus sample buttons to radio buttons on the secondary toolbar
+manuq will do the abacus activity icon smaller
+manuq will move the title and sharing button to the standard activity secondary toolbar in distance.
+gonzalo will replace the smiley face with the standard insert image icon in fototunes
+manuq will try an isometric box for "samples"
+The isometric is already done, so I'm trying another design that allows elements inside:
+manuq replace the cards icon in Get Books with something better
+manuq will do a smaller icon for maze
+walter will move the title, sharing and stop buttons in minitamtam to the main toolbar
+walter will use a box button with a badge for the presets in synthlab
+walter will rethink the tamtam edit secondary toolbar: perhaps breaking it up into multiple toolbars
+walter reworks Distance toolbars
+Notes from 2011-04-10 meeting
+From the discussions in
+IRC
+and email:
+If we could quickly reach consensus on some outstanding issues
+regarding standard icons for things like the camera and user-created
+content, perhaps we could incorporate these icons in all the
+activities?
+About icons, I think we need a agreement with:
+New items (for example Implode use the star, and the star is our icon for bookmarks)
+Save to journal / export (turtle art use the transfer style icons)
+Load from journal
+View icon (the eye is used for sensors in turtle art, maybe  use the sensors icon in Measure?)
+Photo / Camera / mic  icons
+Sensor input (is the Measure icon OK?)
+The lips (i am trying to use them for text to speech, but is used in Measure)
+User created content -- when use the gear? or spanner (wrench)? We have a spectrum from creating new content to modifying parameters to modifying the activity itself.
+A search icon (we use the loupe, but can be confusing with the zoom icons?)
+The loupe icon was not designed for the toolbar and have a different size
+A standard icon (and way of handling) examples (code, projects, etc.)
+Help icon (Finance and other activities have one)
+TamTam refactoring
+Proposed toolbar for TamTamMini
+Proposed toolbars for TamTamSynthLab
+Note:
+using a box for the list of presets and the standard erase button for erase
+Proposed toolbars for TamTamJam
+Note:
+It has been proposed to move the play/mute buttons to the main toolbar so as to make the Beat buttons fit on smaller displays. --
+Walter
+16:13, 31 July 2011 (EDT)
+The new Beat Toolbar icon:
+New preset icons:
+Proposed toolbars for TamTamEdit
+Note:
+Might make sense to move the playback / record buttons to the main toolbar. --
+Walter
+16:13, 31 July 2011 (EDT)
+Note:
+More consolidation
+Note:
+Breaking it up into multiple toolbars: one for record, one for generate; one for settings; editing and playback on the main toolbar
+Finance refactoring
+An alternative to the Transaction subtoolbar buttons, reusing the icons "row-insert" and "row-remove":
+Considerations:
+I have converted the view buttons to radio buttons
+The sensitivity of the buttons in the Transaction toolbar depend on list view selected, maybe we can trigger a change to list view when Transaction toolbar is selected
+The context help strings may need to be changed because of the toolbars change, I will check
+The help icon may be a good addition to Sugar
+Change the Period label for icons inside the combo box, like in Record?
+I tested other placements for the elements in the Transaction icon, with one and two arrows, I'm open to critics

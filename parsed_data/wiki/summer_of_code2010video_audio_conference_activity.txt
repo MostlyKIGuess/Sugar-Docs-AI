@@ -1,0 +1,86 @@
+Title: Summer of Code/2010/Video Audio Conference Activity
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2010/Video_Audio_Conference_Activity
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+What is your name?
+Anu M
+What is your email address?
+anum.mec@gmail.com
+What is your Sugar Labs wiki username?
+Anu_m
+What is your IRC nickname?
+anu_m on freenode
+What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+English
+Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+Time zone: Indian Standard IST
+Location : Kerala,India
+Time of work : 8.00am-6.00pm
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I have been working in open source environment and always had wanted to contribute to the free and open source community.I've been really impressed by the olpc project.It is a really inspiring open source endeavour.I had installed Sugar and have been playing around with the activities.
+About your project
+What is the name of your project?
+Talkie-a generic audio/video conferencing tool
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+Sugar window manager is being used in various laptops which are connected in the local network.It misses an Activity that can be used to perform audio-video conferencing between the users of local machines conneted via wired LAN or wifi.The project aims at introducing audio and video conferencing tool.It can be done using the telepathy.Telepathy helps to provide idea of communication as a desktop service. It uses D-Bus to separate components running in separate processes. Telepathy clients use this D-Bus API to share connections between multiple clients.Telepathy-salut is an XMPP link-local serverless connection manager which is used for activity sharing and presence. Salut uses avahi which shows a real-time graphical browse list for mDNS/DNS-SD network services running on the local LAN using the avahi-discover. Telepathy-python is a python package containing base classes for use in connection managers, and proxy classes for use in clients.
+Telepathy-python has support for audio and video streaming and has recently gained support for using gstreamer, which means that we could easily do efficient audio and video conferencing.As most of the applications in OLPC software,this tool can also be implemented using python programming language.To protect users security and privacy,only users given permission by the owner can share videos with the owner.So the tool will be a similiar to a chat client where neighbouring pcs in the mesh network will be used instead of the email-ids of users.The owner will have choice to accept or reject the share requests of neighbouring owners.The users have options for audio or video conferencing.
+Following technologies can be used to implement this project:
+Python
+XMPP
+Telepathy-salut
+Dbus
+Gstreamer
+The development of the Talkie activity can be stated in following sequence.
+Write a python lib/module that implements basic functionalites like connection, streaming, disconnecting, authorization, logging and debug options. It will act as an API for Talkie.A Dbus service like org.talkie.widgets will be coded and all the methods of the above written python module will be exported into it.Hence it can be used as generic API for any other sugar Activities. Many Activities can share the audio/video conferencing and code new applications based on that. The above written python class will serve as base class for the audio/video conferencing.
+Telepathy-python will be used as backend to the video conferenceing since telepathy salut can make local link xmpp service. In the case of normal xmpp connection, it requires an xmpp/jabber server. Here since its a local network, it is hard to maintain a server. Hence peer-peer connection should be implemented. For that each user should know ip addresses of other systems in the network. This can be resolved using Avahi. Avahi can be used to auto discover other devices available in the network. Hence we can easily provide a combobox or liststore object into which we populate the hostames of other machines to uniquely identify each of them. A user who wants to communicate can select the host and start video conference.Telepathy-salut handles this connetion establishment using xmpp protocols.Telepathy-python support for Gsteamer python can be utilised for audio-video conferencing.The record option can be included in the Talkie activity.
+Once the backend python library is developed frontend can be used to link all of them. PyGTK development approach, which is the standard in developing activities for OLPC, can be used as frontend for Talkie Activity. UI part can be built with glade.The project can be split into Activity UI, device discovery with avahi,Telepathy,telepathy connection/ and libs method,gstreamer video/audio handling, Dbus service, methods exporting.
+The project actually would be a great help for teachers who use presentations and videos to teach as the teacher can share it with all the students in the class.Students and teachers can also use this tool to communicate with the each other in large class rooms with hundereds of children.
+3. What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (July 6-13); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+By the beginning of May,familiarise fully with the concepts of implementing Talkie.Talking with the mentors and deciding on all the issues regarding the project.
+May 23-30
+Create a user friendly activity ui for the Talkie using PyGTK and Glade.The ui should include provisions for authentification and also forms for senting share requests.
+May 30-Jun 6
+Solving security related issues by introducing user authentification into the tool and using avahi daemon for device discovery.
+June 6-13
+Getting D-Bus bus and Telepathy Connection & Contact,finding the handle for that contact,getting a Telepathy Channel,wraping it into Telepathy-Python and Request streams .
+June 13-20
+Implement the audio-video conferencing by using telepathy-python and using the channel for communication of audio-video  conferencing. Utilising the telepathy support for gstreamer for video conferencing.By the end of  Interim evaluation,the main modules of the activity are complete.
+June 20-27
+Final developments in the Talkie.The audio and video record options can be included.
+June 27-Aug 4
+Integrating the whole project and running it as a module.This involves the last modifications in the gui part so as to include all the options.
+Aug 4-10
+Further testing and error corrections.Final improvements for the Talkie.Documentation for the project
+4. Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+As i had recently done a project on developing an xmpp based chat messenger which implements transliteration,i'm familiar with the xmpp features.It was a python based project and the experiance gained would help me in the successful completion of this project.The screenshots of that project is available in the following link.
+http://code.google.com/p/sanschat/
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+The completion of this project would give teachers more dedicated to traditional, presentation-based curriculum a new means to share multimedia such as lecture slides, live lab demonstrations, live demonstrations on software usage, or other multimedia. The project helps to reduce teachers' dependence on projectors, and even replace the need for expensive projectors, would also make it attractive financially for any budget-limited schools considering participation in the olpc program.The audio conferencing feature will facilitate better communication between teachers and students.
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+Though I would like a pilot to be set up near my locality,I cannot propose a good target as I'm not directly involved with any schools
+What will you do if you get stuck on your project and your mentor isn't around?
+I would utilize the IRC channel and mailing lists to get help from others
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+For documenting general progress and milestones achieved, I will be using a page on the Sugar Wiki which can be watched by any interested members. For any problems or questions I encounter, I will be sending email to the appropriate mailing lists, so those subscribed to them would be informed about it
+Miscellaneous
+Replaced logout with my email-id..
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "Restart." See the image on the right for an example. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+The sugar 0.88 version do not have Restart.Hence made the changes in the Logout option.
+What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+M
+Describe a great learning experience you had as a child.
+I was a quick learner from childhood and i think self study is the best method of study.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+No

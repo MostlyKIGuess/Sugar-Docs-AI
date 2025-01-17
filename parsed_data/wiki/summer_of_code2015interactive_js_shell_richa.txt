@@ -1,0 +1,112 @@
+Title: Summer of Code/2015/Interactive JS Shell Richa
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2015/Interactive_JS_Shell_Richa
+--------------------------------------------------------------------------------
+Contents
+1
+About Me
+2
+About my Project
+3
+Me and the Community
+4
+Miscellaneous
+About Me
+What is your name?
+My name is Richa Sehgal.
+What is your email address?
+My email address is richasehgal2908@gmail.com and my university email address is rsehgal2@illinois.edu.
+What is your Sugar Labs wiki username?
+My Sugar Labs wiki username is: Richa Sehgal.
+What is your IRC nickname on irc.freenode.net?
+My IRC nickname on irc.freenode.net is “richashi”.
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My first languages are English and Hindi. My language of communication is English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I live in Champaign, Illinois, USA. The time zone is Central Time Zone (UDT - 5). I tend to work in the mornings and then from afternoon till evenings. It makes it 2 pm to 6pm and then 7pm to 11pm (UTC), but it is adjustable. As I have no other commitment during summers, I will try to be active when the mentors are available for IRC chat.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I have always wanted to contribute to the open source community since I transitioned from Windows to Ubuntu, and realized that there are a lot of Free and Open Source Softwares (FOSS) like Apache, etc that are being developed by the community. Becoming a part of a community which involves hundreds of developers in different time zones, working together in a coordinated fashion to develop a sophisticated piece of software such as Linux which is used by millions of people, is something that has immensely fascinated me. While my prior summers went in internships to complete my school degree requirements, this year I wanted to start contributing to FOSS. While applying for GSoC, I have already gained experience talking to people over IRC or on mailing lists, and have enjoyed it thoroughly. I therefore want to dive into some real coding and work on an open-source project this summer.
+A small note: During the proposal making days, I developed a working prototype as a proof-of-concept. The prototype code is on Github:
+https://github.com/richaseh/Interactive-JavaScript-Shell-Prototype
+About my Project
+What is the name of your project?
+Interactive Javascript Shell.
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+I am making an interactive JavaScript shell, a tool that a user, typically student, can open in his browser through Browse Activity on Sugar and can use to run his own JavaScript, HTML and CSS code.
+For a student beginning to learn a new language, there are three things that are essential:
+A good theoretical resource, ideally in the form of a course.
+A tool that can show “what wonders the theory can do”, i.e., give him a feel of the practical applications.
+Given that many students who use Sugar do not potentially have access to internet, it would be very useful if we can provide these in offline mode too.
+Keeping these 3 goals in mind, the current project aims to provide an offline-enabled integrated development environment to learn JavaScript.
+The project’s mentor Tony Anderson is currently working on converting an awesome book in JavaScript, Eloquent JavaScript, into HTML based course which can reside in school’s server using Zen Desktop Wiki. There are existing tools like jsfiddle but these need internet access. My GSoC project is to develop an interactive JavaScript shell wherein a student can write any HTML, CSS and JavaScript code and easily run it, and have it work in offline mode. This would enable a student to open the course and this tool in 2 tabs in the Browse Activity on Sugar, and check the output of the course’s code simultaneously which would be very helpful for the student to understand the concepts and appreciate the language.
+Then we have to add functionalities to the online course which would let us export and save the course’s html pages locally for offline mode. My tool would also reside on the student’s laptop. Students may also download libraries such as jquery, etc too. I had a discussion with my mentor and a part of this project is to explore where these would reside. One idea is to save it in home/olpc/Documents/web folder, other is to include in Journal Activity. For the latter, we would need to modify existing code for Journal and Sugar. Another thing is to determine how to package the tool - would it be a plugin in the browser, separate Sugar Activity (The user would get the option to download the tool and save it locally for offline access), or just local files? These things would be scoped out during the project.
+For the effective usage of the course and the tool, it is important that there is a seamless integration between the two. Tony and I came up with some ideas that we learnt while exploring different tutorials like w3 schools, code academy, Pocket HTML, etc. These include a “Try Now” button near the code in the course, clicking which the code would automatically get copied in the tool’s input sections; “See More” which would take the user to more advanced code pieces; code labs for testing purposes, etc. The Eloquent JavaScript book employs heavy use of console functions like console.log and console.error, and the tool should also have a console window to display the output for such code. The tool would also expose functionalities to open local files and to save one’s work.
+The following screenshot shows the "Try Now" and the console functionality - There is a block of code in Tony's JS course which calculates power of an integer raised to an integer and we print that on console. When the student clicks "Try Now" button, the code would automatically get copied to JavaScript section of the shell, and after clicking "Run", the output comes on the console of the tool:
+Finally, we need to test the tool with the examples in the Eloquent Javascript books, and also study if there are any performance issues related to using heavy weight CSS like animations, SVG, etc on the XO platform. The tests would go hand-in-hand with various developments. I also aim to make a very intuitive and appealing User Interface so that students enjoy playing with JavaScript.
+Technologies to be used: JavaScript, HTML and CSS for implementation of the Interactive Shell. I would also need Python to integrate this with Journal and Sugar in general.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Week
+Task
+27 April-19 May
+Explore existing tutorials that teach JavaScript, HTML and CSS. Talk to the mentors to decide how to integrate the tool with Sugar: would it be a plugin in the Browse Activity or would it be HTML files in the student’s local folder? Develop a clear outline of the project and discuss other technicalities relevant for the project.
+19 May-25 May
+Begin coding for Interactive JavaScript Shell tool.
+25 May-2 June
+Complete the basic version of the tool. Use examples from Eloquent JavaScript book as test cases for the tool.
+2 June-9 June
+In the pre-GSoC period, it would have been decided where to save user's files, and also how the tool would be packaged. Complete these 2 functionalities.
+9 June-16 June
+Buffer Week if we chose to modify Journal Activity for storage else start working on features like “Try Now”, etc to integrate JavaScript Course with the tool.
+16 June-23 June
+Finish storage, packaging and features to integrate with the JS course.
+At this point, the following would be completed: functioning JavaScript Shell tool tested with Eloquent JavaScript book's examples, integration of Tony's course with the tool (features like Try Now, etc), storage for the files of the tools and libraries like jquery, etc, and packaging of the tool. This would complete almost 90% of the work as required.
+26 June-3 July
+Mid-Term Evaluation
+3 July -17 July
+Analyzing the feedback and making adjustments and correcting any issues. Testing round 2: try different examples using libraries like jquery, etc. In parallel, start designing a cool User Interface that student's would love.
+17 July-24 July
+Add Save and Open existing files functionalities to the tool. Test it. Continue iteration on the UI. Take feedback from mentors and other members of the Sugar Labs community. Ask some of the students living around my house about the UI - this would be a part of a small user study.
+24 July-31 July
+Complete the User Interface. Start working on basic performance testing of various CSS functionalities.
+31 July-7 August
+Host the tool on a server and send the link to the Sugar Labs community for feedback and bugs. Address all the feedback and fix relevant bugs.
+7 August-14 August
+Buffer Week.
+14 August-21 August
+Polish up the tests and the UI. Update the wiki page of the project with knowledge base on how to best use this tool. Add documentation and polish the UI.
+21 August-28 August
+Firm pencil down and Final Evaluations.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I completed my Bachelor’s from Indian Institute of Technology - Delhi, India and am currently a Master’s student in University of Illinois at Urbana Champaign, USA. Being a part of such prestigious institutes famous for their strong competitive environment, I have excellent skills to manage time and deliver quality work within the prescribed deadline. I have done various projects.
+I am very passionate about educating children using modern technology and am a firm believer in “Actions speak more than words”. So, when I saw the Interactive JavaScript Shell project, I immediately mailed the community expressing my interest and came in contact with my awesome mentor Tony Anderson. During these pre-GSoC days, I have worked closely with him to develop a proof-of-concept (POC) for the final tool.
+The first step was to develop a tool where students can write and execute HTML, CSS and JavaScript code. I made a small prototype for this purpose. The following is its screenshot:
+Then we realized that the book “Eloquent JavaScript” employs heavy use of console, especially the functions console.log and console.error, and we discussed that it would be good if we can display console within the tool as the Browse Activity’s console is very inconvenient to checkout. I modified my prototype, and put in some code that would intercept calls to browser’s console and would display within my tool. The following is the screenshot:
+Finally, to demonstrate how this tool would work in the Browse Activity in Sugar in offline mode, I integrated my prototype with the Sugar platform. I used the Browse.Activity/data folder to put my code files. The following screenshot shows the power of this tool for students using Sugar. Here Sugar is running on Ubuntu VM on VirtualBox and the prototype is opened in the Browse Activity.
+This proof-of-concept demonstrates my computer science skills and my ability to work with the community on complex problems to deliver the results in a very systematic, step-by-step fashion. After developing this prototype, I asked Tony, “What should be my next step?” to which he replied, “The last is a superb question. You have already accomplished what I feel is needed.” I am confident that I would be able to complete this project in the given timeline.
+Note:
+The above prototype is an actual implementation and not just a design-on-paper, and was developed to demonstrate the core of the tool. The prototype uses primitive JavaScript functions and APIs, and has no dependency on any external library like jquery, etc. Although we can have these external libraries stored locally, but I felt this might be an overhead, and hence my decision for the prototype. The code can be found on Github:
+https://github.com/richaseh/Interactive-JavaScript-Shell-Prototype
+Me and the Community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My answer:
+The integration of the course with the tool would easily help students to learn the modern web technologies (HTML, CSS and JavaScript) in a very practical manner - they can just try out what they read and start using that theory for real applications. Not only that, this easy-to-use tool would give them the power to experiment - they can try different colors, styles, shapes, change iteration counters, attach events to their objects - basically they can try as much as their imagination can take them to, and this creates an environment to learn and innovate. The potential impact of this project can be judged by how successful jsfiddle is, and to have something like that for the students on the Sugar platform would be very useful. Nothing excites and motivates students more than his code running and producing wonderful output.
+The tool also helps them to develop applications from scratch - they would learn how to include libraries, etc. The Eloquent JavaScript books starts with basic JavaScript and then teaches advance projects on Node.js etc. Once the students learns about these, he can work on improving Sugar itself - like different Activities, creating useful plugins, etc. Thus this project would spark interests in students to learn web technologies which they can eventually use to contribute to Sugar itself.
+Tony Anderson (GSoC Mentor):
+The integration of the course with the tool would easily help students to learn the modern web technologies (HTML, CSS and JavaScript) in a very practical manner - they can just try out what they read and start using that theory for real applications. Not only that, this easy-to-use tool would give them the power to experiment - they can try different colors, styles, shapes, change iteration counters, attach events to their objects - basically they can try as much as their imagination can take them to, and this creates an environment to learn and innovate. The potential impact of this project can be judged by how successful jsfiddle is, and to have something like that for the students on the Sugar platform would be very useful. Nothing excites and motivates students more than his code running and producing wonderful output.
+The tool also helps them to develop applications from scratch - they would learn how to include libraries, etc. The Eloquent JavaScript books starts with basic JavaScript and then teaches advance projects on Node.js etc. Once the students learns about these, he can work on improving Sugar itself - like different Activities, creating useful plugins, etc. Thus this project would spark interests in students to learn web technologies which they can eventually use to contribute to Sugar itself.
+A mantra of the Sugar project is a low floor and no ceiling. By providing the users a chance to learn HTML, CSS, and Javascript they will be using the same technologies as professionals all over the world. To a 10 year old, that is meaningless. However, the beauty of learning from a computer is that it reacts immediately and without a frown. Children appreciate the consistency of the computer response. HTML and CSS are great examples since a child can build an 'Hello World!' webpage in minutes and see it displayed on the browser.
+The challenge which Richa Sehgal is addressing is to keep them going into the deep waters of javascript with the same kind of immediate response which tells them when they understand a concept or when they need to do some more trial and error to get the result they want. At this point, I believe students will continue without end as long as they receive success and feel they are progressing.
+The available text is Eloquent Javascript by Marijn Haverbeke. This is not written to a juvenile audience but it covers programming at a very modern, professional level.
+If Richa's work can help some of our students delve into this text and to understand some of the concepts fundamental to computer science, they will not only have fun growing in their skills but be building an intellectual basis for continuing their education to an advanced level.
+Walter Bender (GSoC Mentor):
+Regarding why I think this is an important project for the community, it is quite straightforward: We provide the source code to all of Sugar and we provide a FOSS license so that the learner has the right to make changes, but it is only by giving the learner the means to make changes that the impact is realized. This project is about giving the means.
+What will you do if you get stuck on your project and your mentor isn't around?
+One thing in which I have developed a real proficiency over the past few years is how to use Google effectively. So this would be the first place where I would look for the answers. This would cover the technology part like frameworks and languages like JavaScript, etc. In case my problem is related to Sugar platform, like getting some error while using my code or not understanding how one module interacts with another and so on, I would reach to the community through mailing lists and IRC. While discussing the project ideas, in addition to my mentor, I also had helpful discussions with Sam and Sebastian, so I am sure the community would help me. In the worst case, which seems unlikely, I will try to take help from my professors and a few friends who have guided me in the past, or use online resources like stack overflow, Quora, etc to get the solutions.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I am planning to write a blog on Wordpress each week under topic GSoC 2015 Diary. For each milestone of the project, I will send a message on the mailing list as well as IRC to read the blog post and also try out the demo, if applicable. For problems and questions, I would contact my mentor and the community on IRC and mailing list.
+Miscellaneous
+We want to make sure that you can set up a development environment before the summer starts. Please do one of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Describe a great learning experience you had as a child.
+I was having chat with Walter on IRC when he referred to the Lego movie. The reference to Lego brought back a great memory which I would like to share here. When I was a child, I loved to play with Lego blocks. Once, I had a complex task to accomplish - it was to build a small car. I put several hours and completed it. I was feeling really happy, when I suddenly dropped it and it broke. My father looked at me and said, "Reputation, honor and trust are like these Lego blocks - they take years to build, but one wrong move, and everything vanishes in an instant." I looked back with determination to build it again, and put few hours to assemble the car. My father then said, "All of these can be build again. But depending on your wrong move, you may have to start from step 0." I have always kept his words in my mind as a guiding principle ever since.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+During my bachelors, I used to teach underprivileged students during the evenings. One thing I realized was that it is very difficult to keep them motivated to come to class regularly, student retention was a major problem. While they were excited at first, but slowly the excitement turned into boredom, primarily because they could not see the scope of what they were learning, and the regular black-board teaching was not helping. Once I showed them my smartphone and a game, they became crazy. At that point, I realized how technology can be an effective medium to develop applications that can help students learn. While going through the various organizations, I came across Sugar Labs and how it was developed for One Laptop Per Child netbook. And when I read about the current project, I could feel students enjoying and playing with web technologies. My interests and thoughts match closely with the project, and I feel that the project itself has a lot of potential.

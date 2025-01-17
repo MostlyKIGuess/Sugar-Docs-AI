@@ -1,0 +1,64 @@
+Title: Activities/Turtle Art/Under the hood
+URL: https://wiki.sugarlabs.org/go/Activities/TurtleArt/Under_the_hood
+--------------------------------------------------------------------------------
+Looking under the hood
+Turtle Art projects are stored as a .ta file contains a
+json-encoded
+serialization of the project.
+The json encoding of a repeat 4 forward 100 right 90 project:
+[
+ [0,"repeat",331,158,[null,1,2,null]],
+ [1,["number","4"],417,167,[0,null]],
+ [2,"forward",426,207,[0,3,4]],
+ [3,["number","100"],500,216,[2,null]],
+ [4,"right",426,246,[2,5,null]],
+ [5,["number","90"],500,255,[4,null]],
+ [-1,"turtle",0,0,0,0,50,5]
+]
+The basic structure of the encoding is a list of lists, where each block has these elements:
+block number
+block name or [block name, block value]
+x position (deprecated)
+y position (deprecated)
+list of connections to other blocks
+Turtles are encoded at the end of the list:
+-1
+turtle or [turtle, turtle name]
+x position
+y position
+heading
+pen color
+pen shade
+pen width
+Modifying Turtle Art
+Turtle Art is under the MIT license. You are free to use it and learn with it. You are also encourage to modify it to suit your needs or just for a further opportunity to learn.
+Much of the motivation behind the Version 83 refactoring of the code was to make it easier for you to make changes. Most changes can be confined to two modules: taconstants.py and talogo.py. The former defines the blocks and palettes; the latter defines what code is executed by a block.
+Note:
+As of Version 106, there is also support for plugins. If you can use the plugin mechanism to add support for additional devices, e.g., Arduino, or for making modifications such as are described below without making changes to the standard code base. (The advantage to the latter is that your changes will remain intact even after you upgrade to a newer version.)
+The tabasics.py file contains the constants that by-in-large determine the behavior of Turtle Art. Notably, the block palettes are defined
+below. If you want to add a new block to Turtle Art, you could simply add a block of code to that file or to turtle_block_plugin.py,
+which contains additional blocks. (Even better, write your own plugin!!)
+Adding a new palette is simply a matter of:
+palette = make_palette('mypalette',  # the name of your palette
+                          colors=["#00FF00", "#00A000"],
+                          help_string=_('Palette of my custom commands'))
+For example, if we want to add a new turtle command, 'uturn', we'd use the
+add_block method in the Palette class.
+palette.add_block('uturn',  # the name of your block
+                     style='basic-style',  # the block style
+                     label=_('u turn'),  # the label for the block
+                     prim_name='uturn',  # code reference (see below)
+                     help_string=_('turns the turtle 180 degrees'))
+Next, you need to define what your block will do. def_prim takes 3 arguments: the primitive name, the number of arguments—0 in this case—and the function to call—in this case, the canvas.seth function to set the heading.
+self.tw.lc.def_prim('uturn', 0,
+       lambda self: self.tw.canvas.seth(self.tw.canvas.heading + 180))
+That's it. When you next run Turtle Art, you will have a 'uturn' block on the 'mypalette' palette.
+You will have to create icons for the palette-selector buttons. These
+are kept in the icons subdirectory. You need two icons:
+mypaletteoff.svg and mypaletteon.svg, where 'mypalette' is the same
+string as the entry you used in instantiating the Palette class. Note
+that the icons should be the same size (55x55) as the others. (This is
+the default icon size for Sugar toolbars.)
+How to write a plugin
+In Spanish:
+http://valentinbasel.fedorapeople.org/pdfs/turtle_art.pdf

@@ -1,0 +1,534 @@
+Title: Build Your Own Remix with Fedora
+URL: https://wiki.sugarlabs.org/go/Build_Your_Own_Remix_with_Fedora#Create.2FModify_the_kickstart_file
+--------------------------------------------------------------------------------
+Contents
+1
+Build Your Own Remix
+2
+livemedia-creator
+2.1
+ksflatten
+2.2
+Make a remix
+2.3
+Retrieve finished live.iso
+2.4
+Clean Up
+3
+Fedora Remix Info
+4
+Introduction
+4.1
+Instructions
+4.1.1
+Install the necessary software
+4.1.2
+Set up your environment
+4.1.2.1
+ksflatten
+4.1.2.1.1
+Examples
+4.1.2.2
+git spin-kickstarts
+4.1.3
+Masher .ks files
+4.1.4
+Add a xxx.ks file in Anaconda
+4.1.5
+Example Terminal Command to Build .iso
+4.1.6
+Create
+/Modify
+the kickstart file
+4.1.6.1
+More Information and Examples of Usage
+4.1.6.2
+How to add autostart apps to your Fedora Remix
+4.1.7
+Build the image
+4.2
+Build your own Remix with git
+4.3
+References/Links
+4.4
+Using the Anaconda Kickstart file
+4.4.1
+Older Anaconda Kickstart Links
+4.5
+Fedora
+4.5.1
+spin-kickstarts.git
+4.6
+Dextrose XO-1 & XO-1.5
+4.7
+Licensing
+4.8
+Using KIWI with openSUSE to Customize
+4.9
+Customizing-Trisquel
+4.10
+DebianCustomCD
+4.11
+Mandriva Custom CD
+4.12
+Notes/Links
+4.12.1
+Building Boot Images
+Build Your Own Remix
+Return to
+Sugar Creation Kit
+Fedora only
+CAUTION: DO NOT TRY DOING THIS FROM A SOAS USB STICK. A MINIMUM OF 8GB IS REQUIRED TO BUILD A CUSTOM-REMIX.ISO
+A 8GB USB is a minimum requirement.
+It is usually Cheaper to buy a 120GB or larger external USB Hard Drive and install fedora on it.
+THIS SHOULD BE LOOKED AT FIRST:
+http://download.sugarlabs.org/soas/docs/customization-guide
+NOTE: this content should be used to enhance above link - 08/02/2010 satellit
+NOTE: also look at SugarClone:
+(SugarClone duplicates a customized live USB to 2nd USB.)
+Sugar Clone,
+Sugar on a Stick/Sugar Clone
+, is a
+short-cut method to customize a SoaS installation that works with a
+single-word command.  It would probably serve the targeted-project,
+special-focus case.
+livemedia-creator
+Newer method in f24
+https://jbwillia.wordpress.com/2014/10/29/how-to-build-updated-fedora-live-iso-for-yourself/
+Older post
+https://www.brianlane.com/creating-live-isos-with-livemedia-creator.html
+Examples in f24 root terminal:
+Must be done first:
+You must be in the same fedora version (f24) first.
+setenforce 0
+ksflatten
+build works: 05/26/2016 tg
+Link:
+https://pagure.io/fedora-kickstarts/tree/f24
+<dgilmore> satellit: I suggest that you tell people to git clone the repo and not get each piece manually
+Kickstarts need to flattened before use:
+hit raw tab and
+save-page-as
+to a local directory (/home/(user)/Downloads/pagure.ks/)
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-live-soas.ks
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-live-base.ks
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-live-minimization.ks
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-repo.ks
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-repo-not-rawhide.ks
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-repo-rawhide.ks
+https://pagure.io/fedora-kickstarts/blob/f24/f/fedora-soas-packages.ks
+switch root terminal to the local directory with the kickstart files (/home/(user)/Downloads/pagure.ks/)
+ksflatten -v, --config fedora-live-soas.ks -o flat-fedora-live-soas.ks --version F24
+livemedia-creator --ks /home/(user)/Downloads/pagure.ks/flat-fedora-live-soas.ks  --logfile /tmp/lmc-logs/livemedia-out.log --no-virt --resultdir /tmp/lmc --project Fedora-soas-Live --make-iso --volid Fedora-SoaS-flat-live --iso-only --iso-name Fedora-SoaS-flat-live.iso --releasever 24 --title Fedora-SoaS-flat-live --macboot
+Make a remix
+edit the bottom of the flat-fedora-live-soas.ks
+in this section
+%packages
+add a program   (add name)
+-
+delete a program ( put - in front)
+put
+#
+in front of listed program to not install it
+Build takes a long time wait for completion
+ends with:
+..........clip........
+..........clip........
+2016-05-17 16:16:16,110: Disk Image install successful
+2016-05-17 16:16:16,110: working dir is /var/tmp/lmc-work-rilyz2bm
+2016-05-17 16:27:38,448: Rebuilding initrds
+2016-05-17 16:27:38,448: dracut args = ['--xz', '--add', 'livenet dmsquash-live convertfs pollcdrom qemu qemu-net', '--omit', 'plymouth', '--no-hostonly', '--debug', '--no-early-microcode']
+2016-05-17 16:27:38,449: rebuilding boot/initramfs-4.5.3-300.fc24.x86_64.img
+2016-05-17 16:29:15,724: Building boot.iso
+2016-05-17 16:29:15,784: running x86.tmpl
+2016-05-17 16:29:48,959: Disk image erased
+2016-05-17 16:29:49,377: SUMMARY
+2016-05-17 16:29:49,377: -------
+2016-05-17 16:29:49,377: Logs are in /tmp/lmc-logs
+2016-05-17 16:29:49,377: Results are in /tmp/lmc
+Retrieve finished live.iso
+"Results are in /tmp/lmc"
+start files application
+click on
+Files system
+open  temp folder
+open lmc folder
+click on  the
+.....iso
+you just built
+copy to
+(mouse right click)
+Home
+with files application
+Check that it is in Home
+Clean Up
+delete the instance in /tmp
+delete the /tmp directory  (cannot run new build unless this is done?)
+[root@localhost lmc]# 
+[root@localhost lmc]# cd ..
+[root@localhost tmp]# rm -r lmc
+rm: descend into directory 'lmc'? y
+rm: remove regular file 'lmc/Fedora-LUCwks-20160524.iso'? y
+rm: remove directory 'lmc'? y
+[root@localhost tmp]#
+Fedora Remix Info
+https://fedoraproject.org/wiki/Remix
+Important Info and links
+"A Fedora Remix is a combination of Fedora software, with or without third-party software,
+that any community member can create at any time..."
+The following is Modified/Adapted from:
+https://fedoraproject.org/wiki/Talk:How_to_create_and_use_a_Live_CD
+AND
+FedoraQA Creating_a_Test_Day_Live_Image:
+https://fedoraproject.org/wiki/QA/Test_Days/Live_Image#Creating_a_Test_Day_Live_Image
+Other Important links:
+3/11/2014
+https://fedoraproject.org/wiki/How_to_create_and_use_a_Live_CD?rd=How_to_create_and_use_Fedora_Live_CD
+https://fedoraproject.org/wiki/How_to_create_a_Fedora_install_ISO_for_testing?rd=How_to_build_a_Rawhide_ISO_image_for_testing#Build_a_boot.iso
+Introduction
+Complete Reference on Fedora
+Anaconda Kickstart
+Fedora 18 is shifting to using Anaconda with kickstart files
+Notes on f18 Customization of installs using Anaconda and kickstart files:
+Fedora#Customize_with_kickstart_files
+This page explains how to make a  custom-content Remix of Live CD or DVD on Fedora-based systems including derived  distributions such as RHEL, CentOS and others.
+NOTE THAT THESE REMIXES ARE NOT SUPPORTED BY FEDORA
+You may find some volunteer support on IRC freenode #sugar however.
+click on this link to join #sugar on IRC Chat
+If you simply want to burn a pre-made  ISO to a disc, visit
+http://fedoraproject.org/en/get-fedora
+to download a LiveCD or LiveDVD,  then see the
+install guide
+or
+burning how-to
+for further  instructions.
+Instructions
+Fedora Spins_Process
+The basic workflow for creating a  remix is:
+Create
+/ Modify
+a kickstart file that specifies the packages you want installed  on your remix, along with special settings you want to tweak.
+Run that  kickstart file through livecd-creator, which will pull in the  packages  and compose an .iso, which you can then burn to CD.
+...that's it! We will walk you through these steps  below.
+Install the necessary software
+To create a live image, the
+livecd-creator
+tool is used. Super user privileges are needed. The tool is more or less self-documenting, use the
+--help
+option to see options.
+The
+livecd-creator
+tool is part of the
+livecd-tools
+package.  If it is not installed on your system, add it with:
+su -c 'yum install livecd-tools spin-kickstarts'
+https://git.fedorahosted.org/git/spin-kickstarts.git
+latest spin.ks files
+If you are interested in localized live cd files, install also
+l10n-kickstarts
+.
+su -c 'yum install l10n-kickstarts'
+Note the spin-kickstart files that download are specific for the version of fedora you are using
+The version of sugar will also be different for each version of fedora:
+f12 0.86.-
+f13 0.88.-
+f14 0.90.-
+f15 0.92.-
+f16 0.94.-
+f17 0.96.-
+f18 0.98.-
+f19 0.98.7-
+f20 0.99. -
+f21 0.102.x -
+f22
+f23
+f24 0.108.x -
+Set up your environment
+Now we'll set up the place you'll be building your remix's image file in. We assume you're running a recent version of Fedora.
+We will use the /home/(user*)/ directory to do our builds
+Note: If you use the Kickstart files in the default installed location in /usr/share/spin-kickstarts you will have permission problems editing the files.
+Set SELinux in permissive mode:
+Remix build will fail if this is not done
+su -c ‘setenforce 0’
+Copy the kickstart files you've Downloaded to a new spin-kickstarts directory:
+As noted above; copying changes the file permissions so it is easier to use them.
+(user*)= your user name
+In terminal $:
+mkdir /home/(user*)/spin-kickstarts
+cp /usr/share/spin-kickstarts/*.ks /home/(user*)/spin-kickstarts/
+cd /home/(user*)/spin-kickstarts/
+ksflatten
+program to convert kickstart files into one file
+install:
+dnf install /usr/bin/ksflatten
+KSFLATTEN(1)                           General Commands Manual                          KSFLATTEN(1)
+NAME
+ksflatten — flatten a kickstart file
+SYNOPSIS
+ksflatten [-c | --config INFILE]  [-o | --output OUTFILE]  [-v | --version VERSION]
+DESCRIPTION
+ksflatten is a program that takes an input kickstart file potentially containing includes and
+      generates an output file with all the includes inlined.
+EXIT STATUS
+ksflatten returns 0 on success, and 1 if INFILE does not exist or there is an  error  parsing
+      the kickstart file.
+OPTIONS
+-c, --config INFILE
+                The name of the input kickstart file.
+-o, --output OUTFILE
+                Write the flattened kickstart file to OUTFILE, or stdout if no filename is given.
+-v, --version VERSION
+Examples
+# /Downloads/spin-kickstarts
+ksflatten -v, --config fedora-livecd-soas.ks -o flat-fedora-livecd-soas.ks --version F21
+git spin-kickstarts
+Updated 11/09/2014
+https://git.fedorahosted.org/cgit/spin-kickstarts.git/
+https://git.fedorahosted.org/cgit/spin-kickstarts.git/tree/?h=f21
+Recommended for most up to date xxx.ks
+Latest spin-kickstarts used for composes of live cd's
+Downloaded spin-kickstarts usually are not up to date.
+These are more up to date kickstart files-(used for builds)
+Index:
+http://git.fedorahosted.org/cgit/spin-kickstarts.git/
+Unzip latest file
+Use these kick-start files as shown in the above example.
+Be sure to not mix them with the files we added to /spin-kickstarts
+Suggest copying them to /home/(user)*/ to keep them apart.
+Edit one of these .ks files with the
+gedit
+Text Editor
+see (section below for details of what you can do)
+Masher .ks files
+use the flattened (one file) .ks file for the latest koji builds:
+http://koji.fedoraproject.org/koji/tasks?start=0&state=all&view=flat&method=createLiveCD&order=-id
+Click on the green (successful) build listed on this page and download the xxxx.ks listed below the xxxx.iso link
+Save this to  /home/(user)/spin-kickstarts/
+Link to this after you adjust the xxx.ks for your needs (see below)
+Add a xxx.ks file in Anaconda
+"This test will verify that anaconda can load a kickstart file from a file:// path. This is a typical case for when the kickstart file is located in the initrd.img."
+Example Terminal Command to Build .iso
+You must be connected to a fast Internet connection for this to work
+In root terminal:
+livecd-creator \
+--config=/home/(user)/spin-kickstarts/fedora-livecd-soas.ks \
+--fslabel=Soas-v(2-11)-Remix-mmddyr --cache=/var/cache/live --verbose
+KEY
+--fslabel=Soas-v(2-14)-Remix-mmddyr = (The name you specify for the CD remix)
+Explanation of format for name:  (preliminary layout pending approval by Soas)
+v(2-11)= the sugar version
+v2= Fedora 12 sugar 0.86-
+v3= Fedora 13 sugar 0.88-
+v4= Fedora 14 sugar 0.89-0.90
+v5= Fedora 15 sugar 0.92
+v6= Fedora 16 sugar 0.94.x
+v7= Fedora 17 sugar 0.95.x
+v8= Fedora 18 sugar 0.98.x
+v10=Fedora 20 sugar 0.99.x
+v11=Fedora 21 sugar 0102.x
+v12=Fedora 22 sugar 0102.x
+v13=Fedora 23 sugar 0104.x
+v14=Fedora 24 sugar 0106.x
+mmddyr= The Creation Date
+Remix is REQUIRED for naming if Soas is used
+--config=/home/(user*)/spin-kickstarts/  * (path to your spin-kickstarts folder and .ks file)
+the flattened .ks files from koji are preferred kickstarts to use:
+http://koji.fedoraproject.org/koji/tasks?start=0&state=all&view=flat&method=createLiveCD&order=-id
+Create
+/Modify
+the kickstart file
+Open the kickstart file you chose from the spin-kickstart folder you copied to your Desktop in the editor of your choice.:
+Create the package manifest section  and add your favorite packages:
+# %include spin-kickstarts/(your).ks  (See :
+[1]
+)
+
+#redefine repo to some local mirror  (See below and :
+[2]
+)
+
+%packages
+#provide list of packages (normal, wildcarded, @comps) to be added or removed - dependencies are handled
+#packageYouWant
+#wildcardedPackagesYouWant*
+#@CompYouWant
+#-packageYouDontWant
+%end
+
+%post
+#put any shell commands here
+%end
+More Information and Examples of Usage
+In the worst case you can base the whole livecd on Fedora 12 packages with this definition:
+# not really rawhide, overriden with F12 'released' repo
+repo --name=rawhide --mirrorlist=
+http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-12&arch=$basearch
+repo --name=updates --mirrorlist=
+http://mirrors.fedoraproject.org/mirrorlist?repo=updates-released-f12&arch=$basearch
+%packages
+Add and or remove programs
+Any Program with a minus sign (-) will be removed; any program without a minus will be added
+%post
+Manipulate files that have been installed
+%post command are done in
+cheroot
+(the commands are only run against the new file system created for the live CD)
+EXAMPLE
+edit the boot parameters
+delete "quiet" and "rhgb"
+%post --nochroot 
+sed -i -e '/ *append / { s/quiet// ; s/rhgb//;  }'  "${LIVE_ROOT}"/isolinux/isolinux.cfg
+EXAMPLE
+disable screensaver locking
+%post
+# disable screensaver locking
+cat >> /home/liveuser/.xscreensaver << FOE
+lock:	False
+FOE
+EXAMPLE
+Isolinux and most other bootloaders let you edit the boot parameters;
+just delete "quiet" and "rhgb" there at boot time. None of the above
+is livecd specific.
+If you want to make this the default on images you build
+then just add the following line in the %post --nochroot section:
+sed -i -e '/ *append / { s/quiet// ; s/rhgb//;  }'  "${LIVE_ROOT}"/isolinux/isolinux.cfg
+The SED Command
+http://www.grymoire.com/Unix/Sed.html
+EXAMPLE
+Include Documents in Books directory
+%post --nochroot
+# Mel's Example starts  (thanks to Mel Chua)
+# pull and include sample content
+WD=$PWD
+CACHE_DIR=$WD/../cache/books
+CONTENT_DIR=$INSTALL_ROOT/home/liveuser/Desktop/books
+mkdir -p $CACHE_DIR
+mkdir -p $CONTENT_DIR
+cd $CONTENT_DIR
+PDF="$PDF
+http://people.sugarlabs.org/Tgillard/ReadMeFirst-How-to-build-a-remix.pdf
+"
+PDF="$PDF
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit
+"
+PDF="$PDF
+http://people.sugarlabs.org/sdz/ForwardPages5-6.pdf
+"
+PDF="$PDF
+http://people.sugarlabs.org/sdz/Sugar_on_a_Stick-3-Creation_Kit-en-US.pdf
+"
+PDF="$PDF
+http://people.sugarlabs.org/sdz/Sugar_on_a_Stick-3-Customization_Guide-en-US.pdf
+"
+PDF="$PDF
+http://en.flossmanuals.net/ActivitiesGuideSugar/FM_25Apr10.pdf
+"
+PDF="$PDF
+http://en.flossmanuals.net/Sugar/FM_Sugar_28Oct08.pdf
+"
+for pdf in $PDF ; do
+ remote_file=$(basename $(curl -4 -s -L -w %{url_effective} -I $pdf | tail -1))
+ file=$CACHE_DIR/$remote_file
+ if [ ! -f $file ] ; then
+   curl -s -4 -L $pdf > $file
+ fi
+ cp -p $file $CONTENT_DIR
+done
+%end
+To change repository: (eg: enable rawhide)
+Edit the fedora-live-mini.ks
+Put # in front of repos you do not want to use
+(remove # )from The repos you want to use
+EXAMPLE
+: repo --name=rawhide --mirrorlist=
+http://mirrors.fedoraproject.org/mirrorlist?repo=rawhide&arch=$basearch
+Good example of a very complicated remix-Maintained by the Fusion Linux
+EXAMPLE
+Desktop with customizations to fit in a CD sized image
+How to add autostart apps to your Fedora Remix
+Posted on February 7, 2012 by valent | Leave a comment
+http://fusionlinux.org/2012/02/07/how-to-add-autostart-apps-to-your-fedora-remix/
+If you want to add autostart apps to your Fedora remix there is one quick and easy way to do it.
+Open your kickstart file and find section that starts with “%post”.
+Any command that you issue in %post section run with root privileges in build environment before iso image is created.
+Any application that you add to ~/.config/autostart folder start up in GNOME 3 when user logs on. To make this system wide you need to put your application shortcuts in /etc/skel/.config/autostart directory
+so here is one example how your kickstart could look like:
+
+# add synapse to autostart directory
+mkdir -p /etc/skel/.config/autostart
+cp /usr/share/applications/synapse.desktop /etc/skel/.config/autostart/
+
+Now you can add any app that you want to start every time users log on.
+Congrats -- you're done!
+Build the image
+The build process will take some  time, as well as space and bandwidth.
+copy paste the commands to a root terminal:
+In terminal /home/(user)/Desktop:
+su
+#
+cd Desktop
+(This is an Example do not use)
+livecd-creator \
+--config=/home/(user)/Desktop/spin-kickstarts/fedora-livecd-soas.ks \
+--fslabel=Soas-v(2-3-4-5-6)-yearmmdd-Remix --cache=/var/cache/live --verbose
+Success is indicated by message:
+"Setting supported flag to 0"
+your new remix CD.iso is located in your Desktop Folder.
+Credits
+Parts of this page were based on Rahul Sundaram's article
+Roll Out A Fedora Remix
+. And the References listed below:
+Build your own Remix with git
+Build Your Own Remix with Fedora with git
+test Digest, Vol 97, Issue 3 Comment (by adamwill)
+I can build live images if needed. Actually, you probably could too, it's actually very simple to do. You basically just need a git checkout of spin-kickstarts:
+References/Links
+Using the Anaconda Kickstart file
+Modify the Anaconda Installer Kickstart file for a Customized install
+An alternative approach
+Sugar on a Stick/Customization
+http://fedoraproject.org/wiki/Anaconda/Kickstart
+Older Anaconda Kickstart Links
+http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/index.html
+http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/s1-kickstart2-howuse.html
+http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/s1-kickstart2-file.html
+http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/s1-kickstart2-options.html
+http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/s1-kickstart2-packageselection.html
+http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/s1-kickstart2-postinstallconfig.html
+Fedora
+http://mirrors.ibiblio.org/pub/mirrors/sugar/soas/docs/customization-guide/index.html
+https://fedoraproject.org/wiki/Talk:How_to_create_and_use_a_Live_CD
+https://fedoraproject.org/wiki/How_to_create_and_use_a_Live_CD
+http://www.linuxforu.com/how-to/roll-out-a-fedora-remix/
+http://www.ibm.com/developerworks/linux/library/l-fedora-livecd/
+http://www.ibm.com/developerworks/linux/library/l-fedora-livecd/index.html
+http://forums.fedoraforum.org/showthread.php?t=231281
+http://fedoraproject.org/wiki/FedoraLiveCD
+http://fedoraproject.org/wiki/FedoraLiveCD/USBHowTo#How_to_Make_a_bootable_USB_Drive_to_Install_Fedora_instead_of_using_a_physical_DVD
+http://spins.fedoraunity.org/team-documentation/composing-spins/doing-the-work
+spin-kickstarts.git
+https://pagure.io/fedora-kickstarts/tree/f24
+New
+http://git.fedorahosted.org/git/?p=spin-kickstarts.git;a=tree;hb=HEAD
+Older depreciated
+Dextrose XO-1 & XO-1.5
+Dextrose/Building
+Licensing
+http://fedoraproject.org/wiki/Licensing
+http://opensource.org/licenses/lgpl-license
+How to label the license for your VirtualBox exports and Remixed .iso's
+Using KIWI with openSUSE to Customize
+http://en.opensuse.org/SDB:KIWI_Cookbook_Live_USB-Stick
+Customizing-Trisquel
+Customizing-Trisquel
+DebianCustomCD
+Debian-Custom-CD
+Mandriva Custom CD
+Draklive:Mandriva Custom-CD
+pclinuxos:
+http://www.pclinuxos.com/forum/index.php/board,3.0.html
+Notes/Links
+http://marcopg.org/2011/06/12/html-activities/
+Building Boot Images
+(Very Advanced)
+http://66.35.62.162/wiki/Install_and_configure_AutoQA

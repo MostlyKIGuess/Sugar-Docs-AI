@@ -1,0 +1,103 @@
+Title: Machine/aslo-web
+URL: https://wiki.sugarlabs.org/go/Machine/aslo-web
+--------------------------------------------------------------------------------
+Contents
+1
+Hostnames
+2
+Hardware
+3
+Location
+4
+Admins
+5
+Backups
+6
+Setup
+6.1
+Install required php modules
+6.2
+Create user to run scripts
+6.3
+Switch to activities user
+6.4
+Set up NFS mount points
+6.5
+Clone ASLO repository
+6.6
+Checkout dependencies
+7
+ASLO configuration
+8
+Update ASLO repository
+Hostnames
+http://aslo-web.sugarlabs.org
+(host not found --
+Quozl
+(
+talk
+) 03:11, 9 August 2018 (EDT))
+Hardware
+KVM VM
+Location
+Housetree
+Admins
+Aleksey Lim
+Backups
+Setup
+Install required php modules
+pear config-set preferred_state beta 
+pear install Archive_Zip
+Create user to run scripts
+Make sure that all files in /srv/activities
+has apache(web-data) user
+activities
+group
+group write access
+umask is 002
+Switch to activities user
+sudo -i -u activities
+Set up NFS mount points
+Create directories
+mkdir -p ~/files
+mkdir -p ~/staging
+Add the following lines to the end of `/etc/fstab'
+sunjammer.sugarlabs.org:/srv/nfs/activities/files /srv/activities/files nfs rsize=8192,wsize=8192,timeo=14,intr
+sunjammer.sugarlabs.org:/srv/nfs/activities/staging /srv/activities/staging nfs rsize=8192,wsize=8192,timeo=14,intr
+Clone ASLO repository
+git clone
+git://git.sugarlabs.org/slo-activities/mainline.git
+-b production .
+Checkout dependencies
+cd ~/site/vendors/
+svn co
+http://svn.mozilla.org/libs/product-details
+svn co
+http://svn.mozilla.org/libs/fizzypop.mozdev
+fizzypop
+svn co
+http://svn.mozilla.org/libs/phorms
+svn co
+http://svn.mozilla.org/libs/zxtm-api
+ASLO configuration
+Using
+~/aslo/config.php
+as template, setup ASLO settings in file
+~/site/app/config/config.php
+. Template file was configured for
+dev
+environment, switch it to production by  setting
+SITE_STATE
+variable to
+production
+.
+Setup other env defines in file
+~/site/app/config/config-local.php
+define('DEBUG', 0);
+define('DEV', false);
+define('QUERY_CACHE', true);
+All local configuration should happen in files
+~/site/app/config/config.php
+~/site/app/config/config-local.php
+Update ASLO repository
+git pull origin production

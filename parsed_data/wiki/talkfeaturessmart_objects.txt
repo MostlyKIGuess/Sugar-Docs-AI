@@ -1,0 +1,69 @@
+Title: Talk:Features/Smart Objects
+URL: https://wiki.sugarlabs.org/go/Talk:Features/Smart_Objects#Mokurai_.26_alsroot_discussion
+--------------------------------------------------------------------------------
+Mokurai & alsroot discussion
+2011 June 08
+(16:57:12) ***alsroot is waiting..
+(16:57:21) tch: alsroot: for?
+(16:58:18) alsroot: ..when useful ideas make a pleasure to come to his mind
+(17:00:12) Mokurai: alsroot: Would you like to consider some of my useful ideas?
+(17:00:43) alsroot: Mokurai: if it is about
+http://wiki.sugarlabs.org/go/Features/Smart_Objects
+, then for sure :)
+(17:02:01) Mokurai: alsroot: One of the problems I have thought about for a long time.
+(17:02:25) Mokurai: I would like to see an option in the session end dialog to not make a Journal entry.
+(17:02:47) Mokurai: I would like to have the ability to set a name, a description, and tags while saving.
+(17:03:23) Mokurai: I need to write some lessons on Journal usage in my Discovering Discovery tutorial.
+(17:04:25) Mokurai: We need to describe the problem on The Undiscoverable page, and point to the other discussion.
+(17:05:28) alsroot: Mokurai: "to not make a Journal entry." but how it relates to
+http://wiki.sugarlabs.org/go/Features/Smart_Objects#The_problems_teachers_complain
+(except, no object not problems :)
+(17:05:50) Mokurai: alsroot: Alan Kay's original Dynabook idea included enough storage for keeping a lifetime of work. Considering that I just bought a 1T hard drive for $50, that day will come for the children, too.
+(17:07:05) Mokurai:  "Students remove useful journal object to free the space " so let us not save useless entries in the first place.
+(17:08:16) Mokurai: alsroot: There should be a way to back up the Journal without making multiple copies of entries, and a way to restore only selected entries.
+(17:08:54) alsroot: Mokurai: but problem won't vanish, people will still save many objects (useful for them) and at some time will remove objects useful from teacher pov
+(17:09:03) Mokurai: Something like how backup-pc works.
+(17:09:56) Mokurai: alsroot: Teachers should then have their own storage area for what they want to save, and should be able to mark important lesson entries in student journals.
+(17:10:21) Mokurai: Moodle deals with these problems.
+(17:10:50) alsroot: Mokurai: my idea was not having such explicit backup functionality, but having more implicit and objevious (from regular workflows pov) idea - having special teaching related mode/view/etc when people will kepp all objects created in this mode/view/etc in cloud by design
+(17:11:21) Mokurai: alsroot: Exactly, as I was saying Moodle can do.
+(17:12:45) alsroot: Mokurai: you mean having all teaching related stuff on moodle?
+(17:13:24) alsroot: *teaching and learning
+(17:14:28) Mokurai: alsroot: Everything related to a course can be in Moodle, including submitted classwork and homework sessions. We can then provide a way to resume a session from Moodle.
+(17:15:06) Mokurai: alsroot: Download Journal entry to Journal, and click.
+(17:17:23) alsroot: Mokurai: but how the process might look, is it the same like uploading jobjects manually to the server and restore them from the server (but having for it only two clicks)?
+(17:30:11) tch: alsroot: the smart_object idea?
+(17:30:29) tch: alsroot: as it is described in
+http://wiki.sugarlabs.org/go/Features/Smart_Objects
+?
+(17:31:04) alsroot: tch: nope, as we were talking before, the minimal work - having checkboxes in the journal, people select what objects will be stored on server
+(17:31:15) tch: alsroot: ahh
+(17:33:41) tch: alsroot: the only part of that idea that is not clear yet is how the user see the files that are stored at the XS but not in local DS
+(17:34:40) tch: alsroot: i still believe that having a nfs-like solutions could be the best approach (specifically) for entry-level backups.
+(17:35:02) alsroot: tch: pretty clean, sugar way - each jobject has progress bar UI in joiurnal, so if journal is represented in local env only by a phantom jobject, activation this jobject will launch fetching and progress bar will be used
+(17:35:20) alsroot: tch: nfs like might be is too fragile
+(17:36:25) alsroot: tch: ..for activation process, everything will be under the hood for the rest of sugar (though we need to recheck if timeout from activation and getting real object might affect some workflows)
+(17:36:26) tch: alsroot: how i.e?
+(17:36:54) tch: alsroot: btw, i am just talking about backup, not protecting, those are different problems
+(17:37:35) alsroot: tch: shared jobjects are backed up and protected at the same time, they are in the cloud
+(17:39:03) alsroot: tch: "how i.e", because we need to do low level stuff like like having real users on the server, quotas for them, mount on clients, having perms on server, etc - ie, too many admin work for dumb black boxes that XS should be
+(17:42:18) alsroot: Mokurai: btw
+http://wiki.sugarlabs.org/go/Features/Smart_Objects#Pages's
+link is broken
+(17:44:30) tch: alsroot: shared objects seems a decently good (faster) solution for protection, but as a backup solution, (IMHO) it seems incomplete.
+(17:45:08) alsroot: tch: why incomplete?
+(17:46:08) alsroot: tch: you backup only what you need and all time see what you backup up, thus can change it (for the rest of cases there is regular backup)
+(17:47:15) alsroot: tch: btw nfs like way is tied to admin stuff at all, ie, having such feature in upstream is mostly impossible (ie, we need to have some ugly deps)
+(17:51:41) tch: alsroot: you are right about that, but i am just thinking from the user pov (not sure anymore though) maybe seeing hundreds of ghost entries that are not reachable anywhere but in the school seems awkward
+(17:52:40) tch: alsroot: is a good discussion though :) haha
+(17:52:53) alsroot: tch: user might see such ghost object only if he can connect to the server, or even on separate view
+(17:55:44) tch: alsroot: probably is not the best technical solution (considering all the backend requirements) but the thing that most attract me from something like nfs-like solutions is that there is actually nothing to upstream
+(17:56:00) tch: alsroot: and it does not differs from backing up to a pendrive
+(17:56:14) tch: alsroot: it all the same from user pov
+(17:58:01) alsroot: tch: if I got right your idea, the only difference w/ shared object (from users pov) is that users need to click "Backup" button after selecting objects
+(17:58:27) alsroot: because w/ shared object case they need only select objects
+(17:58:37) tch: alsroot: well, actually they need to click on "copy to"
+(18:04:00) alsroot: tch: ie, "copy to" might be renamed to "share" and both ways will be the same for users pov
+(18:04:09) ***walterbender_ needs to read more about how these shared objects will work...
+(18:04:12) tch: alsroot:  haha
+(18:04:19) tch: alsroot: it could be hehe

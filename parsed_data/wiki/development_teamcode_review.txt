@@ -1,0 +1,165 @@
+Title: Development Team/Code Review
+URL: https://wiki.sugarlabs.org/go/Development_Team/Code_Review#Patch_submission
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+Phases
+2.1
+Preliminary discussion
+2.2
+Proposal
+2.3
+Patch submission
+2.4
+Discussion
+2.5
+Acceptance
+3
+Dependencies
+4
+Internal process (maintainers only)
+Introduction
+Because Sugar is an open source project, anyone can contribute to it and thus improve the learning experience of children all around the world.
+Once you have fixed a bug or implemented a new feature, you
+must
+send it to the current maintainers of Sugar by following the code review process.
+This process allows the maintainers to feel confident about taking the responsibility of delivering your code to children. This means applying it to the current code base, fixing any bugs that are later discovered in your code or as consequences of it, modifying your code to gain new features, assisting packagers, deployers and translators, etc.
+It is strongly recommended that you read about the review process and
+Code guidelines
+before starting to code.
+The process is composed by the following phases, explained below: preliminary discussion, proposal, discussion and acceptance.
+Phases
+Preliminary discussion
+Except when the patch will be trivial, it's a good idea to discuss your idea and possible approaches on
+sugar-devel
+. This avoids duplicated work and will give you an idea of what is considered a good idea by others (maintainers,
+Design Team
+, etc.) before you commit substantial work in the patch itself.
+This is especially important if you're going to make large changes. You will probably be asked to split up your changes in reasonably small, but logically independent parts that can be reviewed somewhat independently.
+Proposal
+If your patch addresses a bug which is not registered on the
+bug tracker
+yet, please open a new ticket for it.
+Check your code follows the
+code guidelines
+.
+Automated style checkers
+can be quite helpful.
+Reflect on and explain what your patch does by coming up with a patch description (see
+commit message guidelines
+).
+Send your patch to
+sugar-devel
+(see
+below
+for details).
+Add a testcase in a ticket comment. You need to mark it with |TestCase|. This adds better readability and our script that pulls together the test cases for each release is able to find it as well. For example:
+|TestCase|
+
+Click on Browse, Read, Pippy icons in the homepage and make sure all of them starts correctly.
+Patch submission
+We follow the
+Linux patch submission process
+for the most part. Some points specific to Sugar Labs are:
+the affected module (e.g. sugar-toolkit) should be mentioned in the subject prefix
+all patches get sent to
+sugar-devel
+you need to clearly note all new dependencies in the patch description (see also
+below
+)
+If you have revised your patch, addressing review comments, please:
+add a version number to the subject prefix (e.g.
+git send-email --subject-prefix="PATCH v2 sugar"
+)
+mention your changes in a changelog below the marker line (the one with just
+---
+on it). E.g.:
+v1->v2: break up _recurse_dir into smaller functions
+You will first need to set up
+git send-email
+so it can send emails through your mail provider. The manual page contains an
+example for Gmail users
+. You can use the
+sugarlabs.org SMTP server
+if you have a
+shell account
+. Feel free to ask for help with setting up
+git send-email
+in
+#sugar
+or on
+sugar-devel
+.
+Recommended git user configuration:
+git config --global diff.renames copies
+git config --global sendemail.confirm always
+git config --global 'url.gitorious@git.sugarlabs.org:.pushInsteadOf'
+git://git.sugarlabs.org/
+git config --global alias.send-to-ml-single '!git send-email --stat'
+git config --global alias.send-to-ml-series '!git send-email --cover-letter --summary --annotate --stat'
+If you agree to publish your changes under the same license as the software you are changing, please add
+-s
+to the two aliases above (send-to-ml-single and send-to-ml-series). If you don't agree, don't post the patch! The reason this is mentioned as a separate step instead of adding it to the examples above is so you need to make a conscious decision and can't sue us for copyright infringement.
+Recommended per-repository git configuration, e.g. for sugar-datastore:
+cd ~/sugar-jhbuild/source/sugar-datastore
+git config format.subjectprefix "PATCH sugar-datastore"
+git config sendemail.to "sugar-devel <sugar-devel@lists.sugarlabs.org>"
+Git configuration options that might come in handy:
+git config --global merge.conflictstyle diff3
+git config format.headers "Mail-Followup-To: <sugar-devel@lists.sugarlabs.org>"
+git config sendemail.envelopesender sascha-ml-sugar-devel@dev.null
+Examples (assuming the above configuration, including the aliases):
+git send-to-ml-single HEAD^..HEAD
+after doing the code changes requested during review:
+git commit -a --amend
+git send-to-ml-single --annotate --subject-prefix="PATCH v2 sugar"
+add the changelog during this step
+adjust the subject prefix to use the name of the module you're modifying instead of
+sugar
+Discussion
+Maintainers and other developers will review your patch as their time permits. Please allow for a few days, but feel free to "ping" (by either asking on
+#sugar
+or replying to your patch) if you haven't received any reply within a week.
+Everyone (including you!) is invited to review patches. Not only does this free up time of the maintainers (they can wait until someone else did a first round of review), but also ensures we make the best use of our collective knowledge (no, the maintainers are neither perfect nor omniscient ;) ).
+If a reviewer thinks your patch is good (and revelant) enough to be included in the upstream version of the software, (s)he will grant his or her
+Reviewed-By:
+tag (see the
+Linux patch submission process
+for details).
+Similarly, everyone is encouraged to try out your patch and give their
+Tested-By:
+tag if it worked well for them.
+After you addressed review comments, you can submit a new version of your patch (see
+above
+for how to note what you changed). Please make it a reply to your original patch by using the
+--in-reply-to
+option to
+git send-email
+. E.g.:
+git send-to-ml-single --in-reply-to=<1290857483.723474@twin.sascha.silbe.org>
+Acceptance
+After your patch has been acknowledged by a maintainer, (s)he will push your code to the repository, including any tags (
+Reviewed-By:
+,
+Tested-By:
+, etc.) your patch got.  From now on your code is part of the Sugar code base and the community (which includes you ;) ) will maintain it for you.
+If you are a developer with commit access, a maintainer may ask you to commit it with the tags above.  On the other hand, there may be temporal restrictions that the maintainer may want to mention.
+Dependencies
+Dependencies need to be fulfilled on all platforms running Sugar (i.e., they need to be available at all and need to be installed which means occupying disk space), so think twice before introducing new ones. Please discuss them on
+sugar-devel
+in advance and clearly state them in the ticket. It's a always a good idea to check whether sufficiently recent versions of your proposed dependencies are already packaged for all (stable releases of the) major distributions, on
+all
+of their (semi-)supported architectures (e.g., ARM and PowerPC). If not, start requesting them (at the distribution bug trackers) ASAP and also mention it on sugar-devel and the ticket.
+Internal process (maintainers only)
+You can get a ready-to-push version of the patch (including
+Reviewed-By:
+etc.) by downloading it in mbox format from
+Patchwork
+.
+After pushing a patch, please change its state in
+Patchwork
+to Accepted + Archived and mark all previous versions (if any are remaining) as Superseded + Archived. If the patch fixes a ticket in
+our bug tracker
+please close it, too.

@@ -1,0 +1,108 @@
+Title: Features/Activity specific metadata in Journal
+URL: https://wiki.sugarlabs.org/go/Features/Activity_specific_metadata_in_Journal
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Old description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+The idea is to record metadata related to the use of an activity and display it in the detail view of the Journal.
+Owner
+Name:
+Walter Bender
+Email: <walter at sugarlabs dot org>
+Current status
+Targeted release: 0.96
+Last updated: 2012-01-12
+Percentage of completion: 95% (patch submitted, awaiting review)
+counter patch
+Detailed Description
+For 0.96, we've agreed to capture some addtional metadata to be used for assessment, but not display it by default in the Journal. Specifically, we are interested in how many times the instance of an activity has been run. This is captured in a new metadata field, 'activity count', which is incremented every time an activity is launched. This requires a small addition to widgets.py.
+Old description
+The Journal has a fixed set of metadata entries that are displayed in the Journal detail view for all entries, e.g., 'description', 'tags', 'preview', et al. It is proposed that we also include activity-specific metadata. For example, when assessing student work, it is of interest to teachers to know what tools a student may have used and, perhaps how many iterations a student made in creating an artifact. These data may vary from activity to activity, hence it is proposed to enhance the Journal Expanded View in a way that enables activities to specify which metadata fields would be useful to display.
+The proposed mechanism is two-fold: (1) a special metadata field, 'public' is used to list those metadata fields that should be displayed; and (2) a new text field is added to the Expanded View to display these data. In the illustration above, two fields are displayed: Iterations and Block Types. These fields were set by the Turtle Art program. Other activities may set other fields (or no fields, in which case, the new text field would not be shown.)
+The Hippo version of the code is shown below:
+# In the Turtle Art activity write_file method, the public metadata entry is set
+self.metadata['public'] = data_to_string([_('activity count'),
+                                           _('turtle blocks')])
+
+# In expandedentry.py, the public fields are displayed
+
+        activity_box, self._public_data = self._create_public_data()
+        second_column.append(activity_box)
+    ...
+
+    if 'public' in self._metadata:
+        public_data = self._public_data.text_view_widget
+        activity_list = simplejson.loads(self._metadata['public'])
+        text = ''
+        for tag in activity_list:
+            text += '%s: %s\n' % (tag, str(metadata.get(tag, '')))
+        public_data.props.buffer.props.text = text
+
+    def _create_public_data(self):
+        vbox = hippo.CanvasBox()
+        vbox.props.spacing = style.DEFAULT_SPACING
+
+        text = hippo.CanvasText(text=_('Activity Data:'),
+                                font_desc=style.FONT_NORMAL.get_pango_desc())
+        text.props.color = style.COLOR_BUTTON_GREY.get_int()
+
+        if gtk.widget_get_default_direction() == gtk.TEXT_DIR_RTL:
+            text.props.xalign = hippo.ALIGNMENT_END
+        else:
+            text.props.xalign = hippo.ALIGNMENT_START
+
+        vbox.append(text)
+
+        text_view = CanvasTextView('',
+                box_height=style.GRID_CELL_SIZE)
+        vbox.append(text_view, hippo.PACK_EXPAND)
+
+        text_view.text_view_widget.props.accepts_tab = False
+        text_view.text_view_widget.connect('focus-out-event',
+                self._tags_focus_out_event_cb)
+
+        return vbox, text_view
+Benefit to Sugar
+This feature will enable activities to post structured data to the Journal that is visible to the student and teacher. It is hypostatized to be of utility for both self and formal assessment.
+Scope
+The intervention is limited to expandedentry.py and any activity that chooses to add public metadata.
+How To Test
+Features/Activity specific metadata in Journal/Testing
+User Experience
+The user will see additional data displayed in the Expanded View of some Journal entries.
+Dependencies
+No new dependencies
+Contingency Plan
+There is no adverse impact on activity development if these fields are not displayed. They will be searchable even if hidden.
+Documentation
+Release Notes
+Comments and Discussion
+See
+discussion tab for this feature

@@ -1,0 +1,64 @@
+Title: Development Team/Almanac/Sugar.presence.buddy
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/Sugar.presence.buddy
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Class: Buddy(
+gobject.GObject
+)
+How do I get a list of the activities that a particular buddy has shared with me?
+The sugar.presence package includes tools to get a list of activities that a buddy. In the class Buddy, there is specifically a method called
+get_joined_activities()
+that will "retrieve the set of all activities which this buddy has joined". It returns these activities as a list of sugar.presence.activitiy.Activity objects. The code below shows a method that prints out the list of activities that the user's XO has joined with another specified user (in this case, someone named 'olpc').
+from sugar.presence import presenceservice
+...
+class AnnotateActivity(activity.Activity):    
+    #### Method: __init__, initialize this AnnotateActivity instance
+    def __init__(self, handle):
+        ...
+        self._print_buddy_activities('olpc')
+        ...
+
+    #### Method: _print_buddy_activities, which takes the name of a buddy and prints
+    # out the name of the activities that this buddy is sharing with you. 
+    def _print_buddy_activities(self, name):
+        #self._find_buddy_by_name returns a sugar.presence.buddy.Buddy object whose nickname matches the given name
+        buddy = self._find_buddy_by_name(name)
+        activities = buddy.get_joined_activities()
+        
+        for buddyActivity in activities:
+            print buddyActivity.get_property('name')

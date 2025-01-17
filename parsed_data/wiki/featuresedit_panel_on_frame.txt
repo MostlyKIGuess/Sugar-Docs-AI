@@ -1,0 +1,61 @@
+Title: Features/Edit panel on Frame
+URL: https://wiki.sugarlabs.org/go/Features/Edit_panel_on_Frame
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+It would useful to be able to have a consistent text editor available to all activities as part of the Frame. It could be used for making small modifications to things like style sheets in Browse, Python code in Turtle Art, etc.
+Owner
+Name:
+Walter Bender
+Email: walter@sugarlabs.org
+Name: Lucian Branescu
+Email: lucian dot braNOSPAMnescu at gmail dot com
+Current status
+Targeted release:
+Last updated:
+Percentage of completion: 10%
+Detailed Description
+We plan to add a panel that is associated with a clipboard entry to enable small text edits. We are considering SourceEditor class that inherits gtk.Widget. It would use gtktextview2 internally for syntax coloring.
+Benefit to Sugar
+Many Activities would be able to support small inline modifications, whether it be in regard to style and appearance or function. Letting these changes be made on clipboard objects as opposed to Journal objects saves a step and some context for the user.
+Scope
+It requires changes in the clipboard code... haven't looked into detail yet as to how best to make the intervention.
+How To Test
+Open an activity that can export text to the clipboard. Edit that text in the clipboard extension. Paste it back to see it the change was accepted.
+User Experience
+Small edits can be handled more directly.
+Dependencies
+Contingency Plan
+None necessary, revert to previous release behavior.
+Documentation
+None other than this page.
+Release Notes
+Comments and Discussion
+See
+Talk:Features/Edit panel on Frame

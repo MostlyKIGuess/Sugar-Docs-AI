@@ -1,0 +1,132 @@
+Title: Sugar on a Stick Ubuntu
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick_Ubuntu
+--------------------------------------------------------------------------------
+Proposed for Archive
+.
+It has been proposed that this page be regarded as an archive. It could be marked
+"Archive"
+or it could be moved to an
+Archive location.
+--
+Inkyfingers
+21:20, 4 March 2012 (EST)
+Please contribute to the discussion on the
+talk page
+.
+See
+Ubuntu
+for other Sugar in Ubuntu options.
+This page has been marked as important but in need of updating as of May 2016.
+See all dated pages
+There may be relevant discussion on the
+talk page
+.
+Note: this procedure works for these circumstances
+Taken from
+http://dev.laptop.org/~probono/sbuntu/
+Contents
+1
+For latest Info for
+U
+buntu
+S
+ugar
+R
+emix:
+2
+How to make a Ubuntu 8.10 Sugar Live USB system
+3
+How to make a Ubuntu 8.10 Sugar Live USB system from Windows
+4
+Done
+5
+Acknowledgments
+5.1
+Author
+For latest Info for
+U
+buntu
+S
+ugar
+R
+emix:
+updated 07/10/2010 satellit
+Talk:Sugar_on_a_Stick_Ubuntu#USR-experimental
+* Ubuntu 8.10 Intrepid Ibex
+* Built November 29, 2008
+* Browse activity works
+How to make a Ubuntu 8.10 Sugar Live USB system
+Download the stock
+ubuntu-8.10-desktop-i386.iso
+and burn it
+Create a Live USB system using the built-in Live USB installer (In Ubuntu 8.10 and later: System --> Administration --> Create a USB startup disk). If you choose "Stored in reserved extra space", do
+NOT
+use up the entire available space, but leave at least 100 MB so that we can add sugar in the next step.
+Add the file
+sugar.squashfs
+to the directory casper/ on the USB stick
+How to make a Ubuntu 8.10 Sugar Live USB system from Windows
+(Note that these instructions can be used to make a Fedora-based Sugar Live USB, or can be run from Linux as well)
+Download the stock
+ubuntu-8.10-desktop-i386.iso
+Download
+UNetbootin
+for Windows
+(or
+Linux
+) and run the application
+Supply the Ubuntu 8.10 desktop ISO file in the "Diskimage" option, select your target USB drive, and press "OK" to make an Ubuntu Live USB
+Add the file
+sugar.squashfs
+to the directory casper/ on the USB stick
+Done
+The file sugar.squashfs is kept separate from the Ubuntu system itself, which stays unmodified. This way, sugar can easily be updated without having to download the entire Ubuntu system. Just replace sugar.squashfs with the updated version.
+The instructions below are only interesting if you want to make your own sugar.squashfs instead of the one provided for download here.
+How to make your own sugar.squashfs
+First, create a stock Ubuntu 8.10 live USB system as described above and boot from it. Next, we need to fix a bug the initrd so that /cow is shown when we use the "show-cow" boot option by executing
+this
+script. Now, we add "show-cow" to the boot arguments in syslinux.conf. Then, boot the system using the fix initrd, and do the following in the running system:
+sudo su
+echo "deb
+http://archive.ubuntu.com/ubuntu
+intrepid universe" >> /etc/apt/sources.list
+echo "deb
+http://ppa.launchpad.net/sugarteam/ubuntu
+intrepid main" >> /etc/apt/sources.list
+apt-get update
+apt-get --force-yes -y  install sugar-* squashfs-tools
+Then do
+cat > exclude <<\EOF
+etc
+casper
+cdrom
+cow
+home
+media
+rofs
+tmp
+var/cache
+var/log
+var/run
+var/tmp
+var/lock
+var/mail
+EOF
+It is important to exclude etc because otherwise permissions are mixed up
+mount /cdrom -o remount,rw
+time mksquashfs /cow/ /cdrom/casper/sugar.squashfs -ef exclude
+If you want the system to boot straight into Sugar (instead of Gnome) during boot, do:
+mkdir -p add/etc/skel/
+cat > add/etc/skel/.dmrc <<\EOF
+[Desktop]
+Session=sugar
+EOF
+mksquashfs add/ /cdrom/casper/sugar.squashfs
+Acknowledgments
+OLPC Foundation
+Sugar Labs
+Debian Edu Developers and Debian OLPC
+Ubuntu sugarteam
+Author
+Simon Peter
+http://wiki.laptop.org/go/User:probono

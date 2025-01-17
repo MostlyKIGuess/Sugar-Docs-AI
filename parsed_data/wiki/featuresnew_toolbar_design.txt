@@ -1,0 +1,143 @@
+Title: Features/New Toolbar Design
+URL: https://wiki.sugarlabs.org/go/Features/New_Toolbar_Design
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Toolbar
+4.2
+ToolbarButton
+4.3
+Example
+5
+Benefit to Sugar
+6
+Scope
+6.1
+Implementation
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Redesign the activity toolbar to not use tabs and use toolbar buttons that can reveal secondary functionality instead.
+Owner
+Name:
+Aleksey Lim
+Email:
+send an email
+Current status
+Targeted release: 0.86
+Last updated: 19 Sep 2009
+Percentage of completion: 100%
+Detailed Description
+sugar.graphics.toolbar module consists of 2 widgets:
+Toolbar
+main widget which represents toolbar itself
+ToolbarButton
+tool button to insert to
+Toolbar
+, which could be expanded to sub-widget
+NOTE: Toolbar was designed to have only one level of sub-widgets.
+Toolbar
+sugar.graphics.toolbar.Toolbar extends gtk.VBox:
+top
+property to access to gtk.Toolbar interface
+padding
+horizontal padding for
+top
+toolbar and all sub-widgets
+modify_bg
+method to modify background color of toolbar itself and all sub-widgets
+ToolbarButton
+sugar.graphics.toolbar.ToolbarButton extends sugar.graphics.toolbutton.ToolButton:
+toolbar
+RO property, if parent of button is sugar.graphics.toolbar.Toolbar
+page
+RW GObject property, sub-widget to expand
+expanded
+RW property, if
+page
+expanded
+If sugar.graphics.toolbar.Toolbar.palette property wasn't set manually it will contain palette with
+page
+.
+Example
+from sugar.graphics.toolbar import Toolbar, ToolbarButton
+
+toolbar = Toolbar()
+
+tollbarbutton_1 = ToolbarButton(
+       page=gtk.Button('sub-widget #1'),
+       icon_name='computer-xo')
+toolbar.top.insert(tollbarbutton_1, -1)
+
+tollbarbutton_2 = ToolbarButton(
+       page=gtk.Button('sub-widget #2'),
+       icon_name='button_cancel',
+       tooltip='with custom palette instead of sub-widget')
+toolbar.top.insert(tollbarbutton_2, -1)
+Benefit to Sugar
+Make process of switching between toolbars more clear, use tool buttons that are showing all the time (in main toolbar), i.e., having Close/Help buttons visible all the time could be very useful.
+Scope
+implementation in sugar-toolkit
+provide API in sugar.activity.activity for new toolbars
+One option for new API is supporting bunch of methods to create most useful toolitems/sub-toolbars. (see
+[1]
+for example usage).
+activity.toolbar()
+toolbutton with activity sub-toolbar
+activity.stop_button()
+activity.undo_button()
+activity.redo_button()
+activity.copy_button()
+activity.paste_button()
+Implementation
+sugar-toolkit
+Example implementation in
+Write
+Example implementation in
+Terminal
+Example implementation in
+Log
+Example implementation in
+Read
+How To Test
+Features/New Toolbar Design/Testing
+In progress..
+User Experience
+If this feature is noticeable by its target audience, how will their experiences change as a result?  Describe what they will see or notice.
+Dependencies
+only sugar-toolkit
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+Gary's
+Design_Team/Proposals/Toolbars/Activity-wide_Toolbar_mock-ups
+proposal.
+Eben's initial
+Design Team/Designs/Toolbars
+mockups.
+Release Notes
+Solution for the stop activity issue, pointed out at
+http://dev.sugarlabs.org/ticket/452
+Comments and Discussion
+See
+discussion tab for this feature

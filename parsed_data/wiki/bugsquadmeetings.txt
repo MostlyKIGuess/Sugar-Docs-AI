@@ -1,0 +1,279 @@
+Title: BugSquad/Meetings
+URL: https://wiki.sugarlabs.org/go/BugSquad/Meetings
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+In 2009 we held several sessions on Wednesdays and Thursdays before the Development Team meeting.  In 2010 we are looking for a new schedule, so for now, join the
+Development Team/Meetings
+on Mondays at 14:00 UTC (09:00 EDT) to learn more.
+Failure Testing
+:
+Wednesdays at 14:00 - 16:00 UTC (10:00 - 12:00 EDT)
+(join at any time)
+Bug Triaging
+:
+Thursdays at 14:00 - 16:00 UTC (10:00 - 12:00 EDT)
+(join at any time)
+Both on irc.freenode.net (channel: #sugar-meeting)
+Please add to the agenda below and please join in with your ideas.
+Hint: You can use an
+online time calculator
+to convert from UTC to your local time zone or back. Help:
+Using IRC
+The Sugar Labs Meetings calendar is available in a variety of formats at these links:
+.
+01 March 2010 14:00 UTC
+New Release Testing
+Note:
+The contents of this section have been transcluded from another page,
+0.88/Testing
+:
+0.88/Testing
+Install testing environment
+SoaS
+See
+Sugar on a Stick/Beta
+.
+Also see:
+Sugar on a Stick/Installation/Variations
+Fedora 13
+See
+Fedora
+.
+Ubuntu 9.10 (Karmic)
+Follow
+instruction
+to install latest sugar packages and keep them up-to-date.
+Testing plans
+0.88 Features
+For instructions how to test the Features listed below please have a look at the section "How to test" of each Feature page. Please add yourself with your test result to the table of each Feature.
+Enhanced Gettext
+Enhanced Gettext Testing plan
+- Enhanced Gettext adds an extra search path for translation files for Sugar activities. This allows deployments to add and update activity translations independently of the release process.
+Name
+Works
+Comment
+Juan Pérez
+no
+None
+Allow the Sugar user to connect to 3G networks
+3G Support Testing plan
+- This Feature allows the Sugar user to connect to 3G networks using a device in the frame.
+Name
+Works
+Comment
+Jane Doe
+yes
+None
+Font configuration
+Font configuration
+- Distributors/deployers can use a GConf preference to customize the Sugar font size.
+Name
+Works
+Comment
+Marko Marković
+yes/no
+None
+Language Tests
+Test your own native language (can be set using the Control Panel).
+is the 3G Feature listed in the section above fully translated?
+Name
+Language
+Works
+Comment
+Max Mustermann
+German
+yes/no
+None
+Backwards compatibility tests
+Migrate the Journal
+Please verify that the Journal is migrated fine after an update. For example from 0.82 to 0.88.
+Name
+Versions
+Works
+Comment
+Pierre-Paul-Jacques
+0.82-0.88
+yes/no
+None
+Connectivity: Different internet connections
+You should test here if you can connect with a WEP and WPA/WPA2 network, if a wired connection is possible and the 3G connection test can be logged here, too.
+Name
+Connectivity Type
+Works
+Comment
+Pierre-Paul-Jacques
+WEP
+yes/no
+None
+Bug Fix testing
+For particular bugs you can indicate your test results in this section. This can be done by more than one person, just separate name and result by a column.
+Bug
+Description
+Works?
+Tester
+Comment
+#1
+Example
+yes, no, yes
+Walter Bender, Tomeu Vizoso, Gary C. Martin
+None
+#1358
+Synchronize changes made to a Journal entry
+yes/no
+Name
+None
+#330
+Several Access Points with the same essid
+yes/no
+Name
+None
+#1497
+Name input screen is deactivable
+yes/no
+Name
+None
+#1602
+Can't connect to WEP shared key networks
+yes/no
+Name
+None
+#1601
+Intro screen doesn't unfreeze dcon
+yes/no
+Name
+None
+How to write a good bug report
+You should note the following in the bug report:
+the version you are using
+steps to reproduce
+In most cases it is of interest to the developers to look at the Sugar logs. Instructions how to get the logs can be seen
+here
+.
+Meetings
+Where
+Meetings are held online using IRC,
+Internet Relay Chat
+. You can read here more how to use
+IRC
+to join the meeting. The meeting will be taking place on the channel #sugar on the irc.freenode.net server,
+irc://irc.freenode.net#sugar
+, or
+webchat client
+.
+01 March 2010
+When:
+14:00 UTC (9 EST)
+Testing Day February the 16th
+This will be an asynchronous effort, hence "Testing day" :). However we will do two kickstart meetings. One at 14:00 UTC and one at 19:00 UTC. In these meetings we will give a short introduction to what to test and answer questions about how to get the image on a usb-key and of course how to gather the results.
+When
+Kickoff-Meeting 1: 14:00 UTC
+Kickoff-Meeting 2: 19:00 UTC
+Attendees
+Are you planning to attend?  Add your name and your expertise below!
+Name
+Tester
+Feature owner
+Coordinator
+Special skills
+Simon Schampijer
+yes
+yes
+yes
+Sebastian Dziallas
+yes
+no
+soas
+Ryan Kabir
+yes
+no
+no
+Mel chua
+yes
+no
+soas pilot
+community QA, SMW-based test case systems
+Satyaakam Goswami
+yes
+no
+Hindi Translation
+testing
+Gary Martin
+yes
+no
+no
+Testing image
+Soas Testing day build
+(This is the
+latest soas nightly build
+. At the moment starting activities is broken in that build. As this is a daily snapshot it will not be fixed in time for the meeting, hence use the build from the link above.)
+Testing
+Some call it failure testing some stress testing. We want to meet next Wednesday to find the bugs left in Sucrose 0.84 to be able to fix them for 0.85.1 We will use the latest Sugar on a Stick for those efforts. Please watch here for announcements.
+Triaging
+I still wonder how we can handle the Soas component in trac best. We would need different versions and milestones for each component. We could add things like: ‘Sucrose 0.84′, ‘Soas-1′… But this would not be optimal. Idealy, when we have a ticket in the component Soas we would only have the milestones available to select which belongs to that component. If anyone knows how to do that in trac - please comment.
+See
+http://trac.edgewall.org/wiki/TracFaq#can-i-manage-multiple-projects-from-a-single-installation-of-trac
+and
+http://trac.edgewall.org/wiki/TracMultipleProjects
+We have been started last week to give a
+homework
+assignment from Trac. This week we want to verify the Soas bugs. Do they belong into this component? Or do they describe a bug that is actually in one of the Sucrose components? Do we have enough information from the reporter? Is the severity set correctly? And of course the favorite one - is it a duplicate?
+Blog
+Simon recaps the weekly work in his blog
+Sugar Beets
+Archives
+Note:
+The contents of this section have been transcluded from another page,
+Collaboration Testing
+:
+Collaboration Testing
+Special Collaboration Testing Sessions
+NOTE the special time and location:
+Time: Wednesday 24? June 2009 19:00 - 21:00 UTC (15:00 - 17:00 EDT Timezone: Eastern Daylight Time)
+Where:
+irc://irc.freenode.net#sugar-collaboration
+and jabber.sugarlabs.org
+(join the session at any time)
+Current SoaS snapshot image:
+http://download.sugarlabs.org/soas/snapshots/2/?C=M;O=D
+17 June 2009 Session
+Solicitation thread:
+http://www.mail-archive.com/sugar-devel@lists.sugarlabs.org/msg05214.html
+Report thread:
+http://www.mail-archive.com/iaep@lists.sugarlabs.org/msg05022.html
+10 June 2009 Session
+Solicitation post:
+http://www.mail-archive.com/iaep@lists.sugarlabs.org/msg04709.html
+Report post:
+http://www.nubae.com/collaboration-session-sugar-june10
+Triaging
+27 May 2009
+,
+log
+See
+BugSquad/Meetings/Agendas
+, and
+BugSquad/Meetings/Minutes
+for archives.
+Subpages
+BugSquad/Meetings
+BugSquad/Meetings/Agendas
+BugSquad/Meetings/Agendas/2008-12-10
+BugSquad/Meetings/Agendas/2008-12-17
+BugSquad/Meetings/Minutes
+BugSquad/Meetings/Minutes/2008-12-10
+BugSquad/Meetings/Minutes/2008-12-17
+BugSquad/Meetings/Minutes/2009-02-12

@@ -1,0 +1,288 @@
+Title: 0.90/Testing
+URL: https://wiki.sugarlabs.org/go/0.90/Testing
+--------------------------------------------------------------------------------
+Contents
+1
+Install testing environment
+1.1
+Fedora 14
+1.2
+SoaS
+1.3
+Ubuntu 10.04 (Lucid Lynx)
+2
+Testing plans
+2.1
+Mesh network
+2.1.1
+Autoconnect
+2.1.2
+Connect both machines to the same channel
+2.1.3
+Share an activity
+2.2
+Ad-hoc network
+2.2.1
+Autoconnect
+2.2.2
+Connect both machines to the same channel
+2.2.3
+Share an activity
+2.2.4
+Population
+2.3
+Collaborate between XO-1.0 and XO-1.5 without infrastructure
+2.4
+0.90 Features
+2.5
+Language Tests
+2.6
+Backwards compatibility tests
+2.7
+Connectivity: Different internet connections
+2.8
+Bug Fix testing
+3
+How to write a good bug report
+4
+Meetings
+4.1
+Where
+4.2
+01 March 2010
+4.3
+Testing Day February the 16th
+4.3.1
+When
+4.3.2
+Attendees
+5
+Current Testing image
+Install testing environment
+Fedora 14
+See this testing request for
+Sugar 0.90
+See also
+Fedora
+.
+SoaS
+See
+Sugar on a Stick/Beta
+.
+Also see:
+Sugar on a Stick/Installation/Variations
+Testing Suggestions for v4:
+Talk:0.90/Testing
+Up to Date Testing Results:
+Talk:Sugar_on_a_Stick_release_process#Test_Matrix
+Ubuntu 10.04 (Lucid Lynx)
+Follow instructions at the
+Ubuntu wiki
+to install the latest Sugar packages and keep them up-to-date.
+Testing plans
+Mesh network
+Flash at least two XOs with the latest version of Sugar and the latest version of NetworkManager.
+Autoconnect
+connect to an Access Point on one machine and restart the machine
+->
+the machine does autoconnect with the AP
+start the machine without having connected to an AP before
+->
+the machine should autoconnect to a mesh network
+Connect both machines to the same channel
+->
+the buddies should be present on the neighborhood view of the other machine
+Share an activity
+->
+the shared activity is displayed correctly in the neighborhod view and the sharing does work
+Ad-hoc network
+Flash at least two XOs with the latest version of Sugar and the latest version of NetworkManager.
+Autoconnect
+connect to an Access Point on one machine and restart the machine
+--->
+the machine does autoconnect with the AP
+start the machine without having connected to an AP before
+--->
+the machine should autoconnect to Ad-hoc network 1
+start machine A and connect to the Ad-hoc network 6, start machine B without having been connected to an AP before
+--->
+machine B should autoconnect to the Ad-hoc network 6
+Connect both machines to the same channel
+--->
+the buddies should be present on the neighborhood view of the other machine
+Share an activity
+--->
+the shared activity is displayed correctly in the neighborhod view and the sharing does work
+Population
+The Ad-hoc icons in the neighborhood view do indicate whether the network is "populated" or not, whether it is used by more than one person. It does not indicate the number of people that are connected though. If the fill color of the Ad-hoc icon is set then there is at least one person listening.
+On machine A connect to an Ad-hoc network. Start machine B which has been connected to an access point before.
+--->
+On machine B it should automatically connect to the access point and the icon representing the Ad-hoc network machine A is connected to should be colored, the fill color is set.
+Shut down machine A.
+--->
+after 10-15 minutes the icon representing the Ad-hoc network machine A is connected to should be uncolored, the fill color is NOT set. This is indicates that the network is not populated.
+Collaborate between XO-1.0 and XO-1.5 without infrastructure
+The XO-1.5 and XO-1.0 will see adhoc networks in his neighborhood view, so it the XO-1.0 can connect to an adhoc network that has been created by a learner on the XO-1.5.
+0.90 Features
+For instructions how to test the
+Features
+listed below please have a look at the section "How to test" of each Feature page. Please add yourself with your test result to the table of each Feature.
+Enhanced Gettext
+Enhanced Gettext Testing plan
+- Enhanced Gettext adds an extra search path for translation files for Sugar activities. This allows deployments to add and update activity translations independently of the release process.
+Name, result, comments
+Juan Pérez, no, none
+Allow the Sugar user to connect to 3G networks
+3G Support Testing plan
+- This Feature allows the Sugar user to connect to 3G networks using a device in the frame.
+Name
+Works
+Comment
+Jane Doe
+yes
+None
+Font configuration
+Font configuration
+- Distributors/deployers can use a GConf preference to customize the Sugar font size.
+Name
+Works
+Comment
+Marko Marković
+yes/no
+None
+Language Tests
+Test your own native language (can be set using the Control Panel).
+is the 3G Feature listed in the section above fully translated?
+Name
+Language
+Works
+Comment
+Max Mustermann
+German
+yes/no
+None
+Backwards compatibility tests
+Migrate the Journal
+Please verify that the Journal is migrated fine after an update. For example from 0.82 to 0.88.
+Name
+Versions
+Works
+Comment
+Pierre-Paul-Jacques
+0.82-0.88
+yes/no
+None
+Connectivity: Different internet connections
+You should test here if you can connect with a WEP and WPA/WPA2 network, if a wired connection is possible and the 3G connection test can be logged here, too.
+Name
+Connectivity Type
+Works
+Comment
+Pierre-Paul-Jacques
+WEP
+yes/no
+None
+Bug Fix testing
+For particular bugs you can indicate your test results in this section. This can be done by more than one person, just separate name and result by a column.
+Bug
+Description
+Works?
+Tester
+Comment
+#1
+Example
+yes, no, yes
+Walter Bender, Tomeu Vizoso, Gary C. Martin
+None
+#1358
+Synchronize changes made to a Journal entry
+yes/no
+Name
+None
+#330
+Several Access Points with the same essid
+yes/no
+Name
+None
+#1497
+Name input screen is deactivable
+yes/no
+Name
+None
+#1602
+Can't connect to WEP shared key networks
+yes/no
+Name
+None
+#1601
+Intro screen doesn't unfreeze dcon
+yes/no
+Name
+None
+How to write a good bug report
+You should note the following in the bug report:
+the version you are using
+steps to reproduce
+In most cases it is of interest to the developers to look at the Sugar logs. Instructions how to get the logs can be seen
+here
+.
+Meetings
+Where
+Meetings are held online using IRC,
+Internet Relay Chat
+. You can read here more how to use
+IRC
+to join the meeting. The meeting will be taking place on the channel #sugar on the irc.freenode.net server,
+irc://irc.freenode.net#sugar
+, or
+webchat client
+.
+01 March 2010
+When:
+14:00 UTC (9 EST)
+Testing Day February the 16th
+This will be an asynchronous effort, hence "Testing day" :). However we will do two kickstart meetings. One at 14:00 UTC and one at 19:00 UTC. In these meetings we will give a short introduction to what to test and answer questions about how to get the image on a usb-key and of course how to gather the results.
+When
+Kickoff-Meeting 1: 14:00 UTC
+Kickoff-Meeting 2: 19:00 UTC
+Attendees
+Are you planning to attend?  Add your name and your expertise below!
+Name
+Tester
+Feature owner
+Coordinator
+Special skills
+Simon Schampijer
+yes
+yes
+yes
+Sebastian Dziallas
+yes
+no
+soas
+Ryan Kabir
+yes
+no
+no
+Mel chua
+yes
+no
+soas pilot
+community QA, SMW-based test case systems
+Satyaakam Goswami
+yes
+no
+Hindi Translation
+testing
+Gary Martin
+yes
+no
+no
+Soas Testing day build
+Very old see below:
+Current Testing image
+Weekly Test Image:
+http://download.sugarlabs.org/soas/test/
+latest soas nightly build
+http://alt.fedoraproject.org/pub/alt/nightly-composes/soas/
+currently f14 sugar 0.90.0  (10/08/2010)

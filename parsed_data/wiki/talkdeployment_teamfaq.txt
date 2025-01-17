@@ -1,0 +1,29 @@
+Title: Talk:Deployment Team/FAQ
+URL: https://wiki.sugarlabs.org/go/Talk:Deployment_Team/FAQ
+--------------------------------------------------------------------------------
+Static IP
+Instructions for setting a static IP address
+Before you begin, get you need the static ip address; a gateway ip address; and a DNS server ip address. On a Windows XP machine, go to the Control Panel and select network connections. Select the connection you are interested in, click on the Support tab and then the Details button, where these data will be listed.
+1. Open the Terminal Activity
+2. Click on the Tab tab
+3. Click on the Root icon (upper right) to start a root process
+4. Type:
+ifconfig
+take note of the eth or wlan device: it will eth0 or eth1 or wlan0 or something similar
+5. Type:
+/etc/init.d/NetworkManager stop
+6. Type:
+ifconfig eth0 static-ip-address
+e.g.,
+ifconfig eth0 192.168.18.140
+(or the eth device seen at Step 4)
+7. Type:
+route add default gw gateway-ip-address
+e.g.,
+route add default gw 192.168.18.1
+8. Edit:
+/etc/resolve.conf
+and add your DNS server as per:
+nameserver DNS-ip-address
+e.g.,
+nameserver 192.168.16.15

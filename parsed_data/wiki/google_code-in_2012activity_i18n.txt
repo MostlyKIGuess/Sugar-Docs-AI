@@ -1,0 +1,40 @@
+Title: Google Code-In 2012/Activity i18n
+URL: https://wiki.sugarlabs.org/go/Google_Code-In_2012/Activity_i18n
+--------------------------------------------------------------------------------
+The following activities are in need of being re-factored to include internationalization (i18n).  What this means is modifying the code so that strings that appear in the user interface are specially marked for recognition by the gettext tools allowing them to be extracted into a POT (portable object template) file.
+POT files are the uploaded to the translation server (Pootle) by a process that results in linking the code repository to the Pootle server so that additional changes in the UI strings are automatically incorporated into a refreshed POT file and when translations are completed on the Pootle server, the PO files are committed to the repository in it's /po directory where they are used during the build process to create MO files that present the translated strings to users.
+Activities developed in Spanish
+The task mentor will provide help with the Spanish to English translation of the Ui strings.
+JAMedia (flavio)
+[1]
+CucaraSims  (flavio)
+[2]
+Conozco Elementos Químicos (ChristoferR)
+[3]
+CantaBichos  (flavio)
+[4]
+Ecomundo (gonzalo)
+[5]
+Domino (gonzalo)
+[6]
+Conozco Peru (javier2dc)
+[7]
+Activities developed in English
+StarChart (davewa, cRiSgOd)
+[8]
+ConstellationsFlashCards (davewa)
+[9]
+Theorie (frasene)
+[10]
+Free Cell (bertf)
+[11]
+The modification process:
+1) Find the code repository in git
+2) Create a branch with an easily recognized name (e.g. i18n branch).
+3) Modify the code to mark the UI strings for getext extraction, call the gettext function.
+See
+http://en.flossmanuals.net/make-your-own-sugar-activities/going-international-with-pootle/
+for a description of the i18n process.
+4) Generate the POT file and place it in the /po directory.  If being ported from Spanish, create an es.po file containing the original Spanish language strings.
+5) File a merge request with the repository maintainer.  Request that they make gituser: pootle a commiter on the repository
+6) File a ticket in the bug tracker with component = "localization" requesting that the activity be set up in Pootle.  Be sure to include a link to the main repository page.

@@ -1,0 +1,191 @@
+Title: 0.98/Notes
+URL: https://wiki.sugarlabs.org/go/0.98/Notes
+--------------------------------------------------------------------------------
+english
+HowTo
+[ID# 103043]
+Development Team
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Please do not edit unless you are part of the Sugar Release Team. Comments are welcome on the
+Discussion page
+.
+Sucrose 0.98 Release Notes
+Contents
+1
+Introduction
+2
+What is new for users
+2.1
+Touch support
+2.2
+New frame behaviour
+2.3
+New hover feedback in the Views
+2.4
+Alphabetical ordering in the Home View
+2.5
+Search in all Views
+3
+What's new for developers
+3.1
+sugar-build replaces sugar-jhbuild
+3.2
+Activity Authors guidelines
+3.3
+Widgets
+3.4
+API
+3.5
+Tutorials
+4
+What's new for packagers
+5
+Internationalization (i18n) and Localization (l10n)
+6
+Compatibility
+7
+Getting the sources
+7.1
+Glucose modules
+7.2
+Fructose modules
+8
+How to contribute with testing
+9
+Credits
+10
+Looking forward to 1.0
+Introduction
+Sugar 0.98 is the new version of the
+Sugar learning platform
+. It was released on November 29th 2012 (see
+0.98/Roadmap#Schedule
+for details).
+The main changes in this cycle will be the ported Shell to use GTK+ 3 and Pygobject3 and the touch support in the UI.
+What is new for users
+Touch support
+The main feature this cycle was the support for touch screen devices. First of all the icons in the Views that do not have a clear primary action have been changed to reveal the Palette on left click or touch. A good example are the Ad-hoc icons. Since hovering over icons to explore their actions is not possible in a touch screen based UI the decision was to change that behaviour. The same is true for the shared activity icons or the buddy icons in the Neighbourhood and Group View.
+New frame behaviour
+The Frame interaction has been modified, the learner can use three actions to reveal and hide the Frame: move the mouse into one of the corners, use the frame key on the keyboard and a swipe gesture from the top of the screen towards the centre of the the screen.
+New hover feedback in the Views
+While working on the feedback for a long press on the icons in the Views (Home-, Neighbourhood and Group View) we changed the hover feedback to one coherent style in all Views: if you hover over one icon you get a light grey rectangle in the background of the icon indicating the hover over state. When you click or touch the icon it has a dark grey background.
+Alphabetical ordering in the Home View
+The icons in the Home View are now ordered alphabetically. This change has been applied to the favourites view and the activities list view.
+Search in all Views
+There is now the possibility to search in all the Views, the Home, the Group and the Neighbourhood View.
+What's new for developers
+sugar-build replaces sugar-jhbuild
+Thanks to the work from Daniel Narvaez we have a new tool for building Sugar from the sources:
+sugar-build
+. This has replaced our previous tool
+sugar-jhbuild
+. sugar-build does currently support several distributions out of the box Fedora 17, Fedora 18, Ubuntu 12.10, Debian Wheezy in both 32-bit and 64-bit. And adding a new distributions is possible and
+documented
+as well. Try it out, you will love the ease and reliability of this new tool.
+Activity Authors guidelines
+The most important change is that the GTK+ 2 based sugar-toolkit has been deprecated since Sugar 0.96. Newly written activities should use sugar-toolkit-gtk3, which is based on GTK+ 3 and Pygobject3, now. There will be only bug fixes being available in the future for the old toolkit no new features will be made available for it and it will probably go away at one point completely. Detailed guidelines for porting existing activities can be found at
+Features/GTK3/Porting
+.
+Widgets
+API
+The RadioTooolButton expects the "icon_name" property instead of the "named_icon". The API of ToolButton, RadioToolButton and ToggleToolButton has been adjusted to override the icon-name property and add an Icon instance with the set_icon_widget method.
+This change
+brings consistent behaviour for all those widgets.
+Please see as well the
+0.96/Notes#API
+for which API has been removed during the switch from toolkit-gtk2 to toolkit-gtk3, notably is for example the removal of the deprecated _shared_activity member in the activity base class, collaboration might be broken if you do not port that over.
+Tutorials
+There is a brand new
+step-by-step guide
+for developing Activities under Fedora 17.
+What's new for packagers
+python-cjson is no longer a dependency of Sugar
+latest
+libxklavier
+is a soft dependency
+Internationalization (i18n) and Localization (l10n)
+Compatibility
+Activities that has been ported to sugar-toolkit-gtk3 will not run on older Sugar versions where the new toolkit is not available. Which means latest Browse and Read will not run on Sugar versions < 0.96. This is reflected in the activity providing backend ASLO where the activities are marked >= 0.96 only.
+Getting the sources
+If you want to package Sugar for your favorite distribution or just want to examine Sugar's lovely code here are the released bundles. If you are interested in the full changelog you can use the
+Sugar git repositories
+.
+Glucose
+modules
+sugar 0.98.3
+sugar-toolkit-gtk3 0.98.3
+sugar-artwork 0.98.2
+sugar-datastore 0.98.1
+sugar-toolkit 0.98.0
+sugar-base 0.98.0
+etoys 5.0.2408
+Fructose
+modules
+Browse 149
+Read 106
+TurtleArt 167
+Pippy 51
+Calculate 41
+Chat 78
+Paint 53
+Jukebox 29
+Log 32
+ImageViewer 54
+Write 84
+Terminal 41
+Etoys 116
+How to contribute with testing
+Credits
+This cycle we want to especially thank the contributors to the GTK+ 3/pygobject3 port of the shell! Thanks to Daniel Narvaez for all his help here.
+Many people contributed to this release indirectly, including testing, documentation, translation, contributing to the Wiki, outreach to education and developer communities. On behalf of the community, we give our warmest thanks to the developers and contributors who made this Sugar release possible.
+We want to especially thank:
+the
+Infrastructure team
+which does all this great work in the background without which the development would not be possible at all,
+the
+deployments
+that provide the development team with feedback from the field,
+the
+Design team
+which guided the design of features with UI changes or impact on the workflow,
+the
+Translation team
+which makes sure that Sugar is enjoyable in the local languages of our users,
+the
+developers
+that submit patches for new features and bug fixes and do review other's patches,
+the
+maintainers
+that make sure their code is shippable and which provide packagers with new tarballs,
+the
+packagers
+which provide distributions with new Sugar packages,
+the
+SoaS team
+for providing a Sugar version to test with during the development cycle,
+the
+testers
+for finding the small and bigger issues,
+the
+release team
+and
+Development team
+for coordinating those efforts.
+Looking forward to
+1.0
+In the
+1.0
+we want to focus on the API and fix all the little Todos and Fixmes we never got around to.

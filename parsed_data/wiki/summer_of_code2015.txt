@@ -1,0 +1,310 @@
+Title: Summer of Code/2015
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2015
+--------------------------------------------------------------------------------
+Students
+: See our guide on
+how to participate in Google Summer of Code
+for more information.
+Contents
+1
+Project candidates
+2
+Sugar Core
+3
+Sugar Activities
+4
+Sugar Activities (Ports)
+5
+Web Technology
+6
+Subpages
+Project candidates
+In the table below is a list of projects potential participants might contribute to in the GSoC program.
+Note 0
+These are project ideas from Sugar Labs contributors. Students, feel free to propose your ideas as well.
+Note 1
+We are focusing on the Javascript components within Sugar this summer. It means that you've got to write activities for Sugar Web and Sugarizer. More information: on Sugar Web
+[1]
+[2]
+and on Sugarizer
+[3]
+Note 2
+Potential mentors, please feel free to add ideas to this list. Also, feel free to add your name to a project you'd be willing to co-mentor.
+Note 3
+Potential students, more project ideas can be found on our
+Features
+page.
+Note 4
+Accepted projects are in
+Green
+Sugar Core
+Title
+Mentor
+Project
+Git backend
+Martin Abente Lahaye and Walter Bender
+Brief explanation
+The Sugar Journal doesn't do a great job of supporting versioning or forking. This project is to build a backend for the Journal that is based on git, which does support versioning and forking. By building on top of a git hosting site we get the added benefit of network access as well.
+Expected results
+Working code and an integration with Turtle Blocks
+Knowledge prerequisite
+Strong background in Git and scripting languages such as Python, Ruby and JavaScript.
+Cordova/PhoneGap container for Sugar
+Puneet Kaur and Lionel Laské
+Brief explanation
+Making cordova plugins for sugar and demonstrating the working plugins via sugar activities, incooperating cordova plugins with the existing sugar activities visit :
+http://sugarcordova.blogspot.com/
+for more info
+Expected results
+Working Demonstration of new plugins and new activities based on implemented plugins
+Knowledge prerequisite
+Strong background in JavaScript,python
+Performance tuning on machines with limited memory
+Samuel Greenfeld and James Cameron
+Brief explanation
+The newer Sugar builds have performance issues on some old hardware with limited memory. This is keeping some Sugar deployments from upgrading. This project is to look into the performance issues and tune Sugar for low-memory devices.
+Expected results
+build suitable for running on OLPC XO-1 hardware
+Knowledge prerequisite
+Re-design collaboration with web technologies
+Martin Abente Lahaye and Walter Bender
+Brief explanation
+Now that JavaScript has become a first class citizen in the Sugar ecosystem, we must re-design our collaboration model to allow collaboration between web activities regardless of the platform.
+Knowledge prerequisite
+JavaScript, web sockets, web services.
+Sugar Activities
+Title
+Mentor
+Project
+Turtle Blocks 3D Javascript
+Tony Forster and Walter Bender
+Brief explanation
+The Python version of Turtle Blocks 3D is based on GTK since Sugar uses GTK and GTK is largely incompatible with OpenGL. In a Javascript version, we could use OpenGL and take advantage of many more graphics libraries, such as 3D lighting models and texture mapping.
+Expected results
+A new Turtle Blocks spin that adds basic 3D transforms to Turtle Blocks (e.g., setxyz, pitch, roll, yaw); camera and lighting models; surface texture mapping; and a rich set of example projects.
+Knowledge prerequisite
+Strong background in Javascript
+Turtle Blocks export as Javascript
+Walter Bender
+Brief explanation
+The Python version of Turtle Blocks allows the user to export their project as Python code. We need an equivalent Javascript export for the Javascript version.
+Expected results
+Working code integrated into Turtle Blocks JS
+Knowledge prerequisite
+Strong background in Javascript
+Turtle Blocks inline Javascript
+Walter Bender
+Brief explanation
+There are several block-based programming environments that allow the user to extend the language in line, such as Blocky and Pencil Code. (Turtle Blocks uses plugins for this, but they are imported). The goal of this project is to write an in-line block editor for Turtle Blocks (Javascript version).
+Expected results
+Working code integrated into Turtle Blocks JS
+Knowledge prerequisite
+Strong background in Javascript
+Turtle Blocks debugging tools
+Cynthia Solomon and Walter Bender
+Brief explanation
+There are several debugging tools in Turtle Blocks: the ability to set breakpoints, step through code, and inspect variables. But we could use a more comprehensive approach, including a mechanism for tracking progress over time.
+Expected results
+Working code integrated into Turtle Blocks JS
+Knowledge prerequisite
+Strong background in Javascript
+Turtle Blocks for in-line programming
+Gonzalo Odiard and Walter Bender
+Brief explanation
+Often we'd like users to be able to extend or modify an activity. Rather than doing this by writing Python or Javascript, why not let them use the block language of Turtle Blocks as an in-line editor. For example, in the Turtle Pond activity, the user can upload Python code representing search algorithms for the turtle as it tries to find its way out of the pond. Why not use a block editor to write the search algorithm? Using the Turtle Blocks engine as an editor inside existing activities would be the preferred mechanism, as oppose to constantly extending Turtle Blocks itself. This would (1) let the editor be more specific to the needs of the individual activity; (2) lessen the burden on the user for installing plugins and extensions; (3) circumvent situations where there are barriers to sharing data between activities -- e.g., running outside of Sugar; and (4) perhaps encourage more developers to incorporate more programmatic elements in their activities.
+Expected results
+Integration into the Physics Activity
+Knowledge prerequisite
+Strong background in Javascript/Python
+Music Blocks
+Devin Ulibarri
+Brief explanation
+Using a framework similar to Turtle Blocks Javascript, build a suite of music tools for introducing the basic concepts of scale, beat, chord, phrasing, sequencing, transformations, etc. See some of Devin's sketches at
+[4]
+.
+Expected results
+Working code
+Knowledge prerequisite
+Strong background in Javascript
+Beyond Flashcards: Programming to ReadJS
+and Walter Bender
+Brief explanation
+Back in the 1980s, IBM had a literacy program, "Writing to Read". The gist was that writing was a great way to spark a child's interest in reading. What if writing code could achieve a similar result? The project is to explore how programming might be incorporated into a literacy program. Like turtle, only simple sentences instead of stacks. It would be a "whole word" approach rather than a "phonics" approach: they can take "sentences" and make paragraphs that result in animations.
+Expected results
+Working prototype
+Knowledge prerequisite
+Strong background in Javascript
+Covert Record, Clock, Speak and Measure to gstreamer 1.0
+<TBD>
+Brief explanation
+The vast majority of Activities that use gstreamer for sound have been converted to gstreamer 1.0 because the older 0.10 is now End of Life and is no longer being developed. It also adds quite a large set of extra duplicate dependencies to Sugar distributions. There's a lot of good examples of Activities that have been converted to provide excellent examples. The gstreamer 1.0 bindings are provided by gobject-introspection so it also assists in the conversion of Activities to gtk3.
+Expected results
+As many of the above Activities converted to use gst 1.0
+Knowledge prerequisite
+Strong background in python, gobject-introspection and gstreamer
+Covert TamTam to Csound6
+<TBD>
+Brief explanation
+TamTam makes extensive use of CSound, other Activities like Memorize, Pippy, and TurtleBlocks also can make use of CSound bindings. With the introduction of CSound 6 to a number of distributions TamTam needs migration to use the newer version of CSound.
+Expected results
+Convert TamTam to use CSound6, possibly other Activities
+Knowledge prerequisite
+Strong background in python, background in CSound
+Modernise Etoys Activity
+<TBD>
+Brief explanation
+Etoys hasn't been updated for some time to newer Sugar APIs and design. Improve the Sugar Etoys Activity to no longer depend on the long obsolete sugar-presence-service and generally update it to more modern Sugar design and APIs.
+Expected results
+Modernise Etoys Sugar Activity
+Knowledge prerequisite
+Strong background in python
+Sugar Activities (Ports)
+These are existing Python activities we'd like to see ported to JavaScript. In porting we expect that the activities will take on new UI features and pedagogical significance.
+Title
+Mentor
+Project
+Sugar Web Basic Activity Set
+Lionel Laské
+Using Sugar Web Framework - the JavaScript Framework for Sugar - you will have to develop and enhance basic Sugar activity set including activities: Calculate, Paint, Memorize and Record. All activities should use Sugar features (specific UI, journal and collaboration) and should work both on Sugar/Fedora and Sugarizer/Web.
+Pre-requisite:
+Good level on HTML5/JavaScript and knowledge of frameworks to handle Canvas objects.
+Knowledge of PhoneGap/Cordova
+Understanding of Python
+Good capacity to do reverse engineering on existing code.
+More information: Sugar Web
+[5]
+[6]
+, Sugarizer
+[7]
+, Calculate
+[8]
+, Paint
+[9]
+[10]
+, Memorize
+[11]
+[12]
+and Record
+[13]
+.
+Abacus JS
+Walter Bender
+Brief explanation
+Port of the Abacus activity.
+Expected results
+Knowledge prerequisite
+Strong background in Javascript
+Fototoons JS
+Gonzalo Odiard
+Brief explanation
+Port of Fototoons.
+Expected results
+Knowledge prerequisite
+Strong background in Javascript
+Physics JS
+Walter Bender
+Brief explanation
+Port of Physics.
+Expected results
+Knowledge prerequisite
+Strong background in Javascript
+Dimensions JS
+Walter Bender
+Brief explanation
+Port of Dimensions.
+Expected results
+Knowledge prerequisite
+Strong background in Javascript
+Spirolaterals JS
+Walter Bender
+Brief explanation
+Port of Spirolaterals.
+Expected results
+Knowledge prerequisite
+Strong background in Javascript
+Turtle Flags JS
+Walter Bender
+Brief explanation
+Port of Turtle Flags.
+Expected results
+Knowledge prerequisite
+Strong background in Javascript
+Turtle Confusion JS
+Walter Bender
+Brief explanation
+Port of Turtle Confusion.
+Expected results
+Knowledge prerequisite
+Strong background in Javascript
+Image Viewer JS
+Walter Bender
+Brief explanation
+Port of Image Viewer (including image processing package)
+Expected results
+Knowledge prerequisite
+Strong background in Javascript
+Web Technology
+Sugar is based on the Python programming language. A major new emphasis is on web techologies: HTML5, CSS, and Javascript. There is a need to help 
+our users learn these technologies.
+Title
+Mentor
+Project
+Web Confusion
+Tony Anderson
+Create a representative set of web pages as challenges to learners who are developing skills in HTML and CSS. The idea is comparable to Turtle Confusion 
+which provides a set of figures to be created using TurtleBlocks. The web pages should not require Javascript. Creative use of images, audio and video should be encouraged (users have access to a camera and microphone and so can create media).
+Pre-requisite:
+Good knowledge of HTML and CSS and creative design skills
+Title
+Mentor
+Project
+Interactive Javascript Shell
+Tony Anderson
+There are many online tools that allow the user to type in javascript and then immediately run it. This is very useful in teaching a language.
+Research available tools and their design, create an open source tool which can be run from an offline host (e.g. school server) or on the XO to support user learning of Javascript.
+Pre-requisite:
+Good knowledge of javascript
+Subpages
+Summer of Code/2015/Abacus JS
+Summer of Code/2015/Abhishek
+Summer of Code/2015/Anindya:WebConfusion
+Summer of Code/2015/Beyond Flashcards Programming to Read JS
+Summer of Code/2015/GIT.JR
+Summer of Code/2015/ImageViewerJS
+Summer of Code/2015/ImageViewerJSshrey
+Summer of Code/2015/Image Viewer JS
+Summer of Code/2015/Interactive JS Shell
+Summer of Code/2015/Interactive JS Shell Richa
+Summer of Code/2015/Ishan:Turtle Blocks 3D JavaScript
+Summer of Code/2015/Javascript Shell
+Summer of Code/2015/Kiran P S/Developing Cordova Plugins for Sugar Cordova Container
+Summer of Code/2015/Kushan ImageViewer Phototoons
+Summer of Code/2015/Kushan Javascript
+Summer of Code/2015/Li Sichen/Music Blocks
+Summer of Code/2015/MusicBlocks
+Summer of Code/2015/Objective Question Module
+Summer of Code/2015/Pointy
+Summer of Code/2015/RedesignWebCollaboration
+Summer of Code/2015/Sugar JS Ports
+Summer of Code/2015/TurtleBot
+Summer of Code/2015/Turtle Blocks 3D Javascript
+Summer of Code/2015/Turtle Blocks export as Javascript
+Summer of Code/2015/Turtle Blocks for in-line programming
+Summer of Code/2015/WebCollaboration Redesign
+Summer of Code/2015/WebConfusion
+Summer of Code/2015/WebConfusion.danyl
+Summer of Code/2015/Web Confusion
+Summer of Code/2015/Web Confusion/Nii Lante
+Summer of Code/2015/Web Confusion Mandeep
+Summer of Code/2015/Web Confusion Rajdeep
+Summer of Code/2015/Web Confusion Sanchit
+Summer of Code/2015/YOUR-PROPOSAL-TITLE
+Summer of Code/2015/game using pygame
+Summer of Code/2015/git backend alex
+Summer of Code/2015/git backend shaifali
+Summer of Code/2015/kvasnyk Turtle Blocks 3D Javascript
+Summer of Code/2015/mohayon.SugarWebBasicActivitySet
+Summer of Code/2015/n0x3u5:WebConfusion
+Summer of Code/2015/nilmadhab
+Summer of Code/2015/none
+Summer of Code/2015/webconfusion Roshan

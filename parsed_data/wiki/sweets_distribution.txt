@@ -1,0 +1,173 @@
+Title: Sweets Distribution
+URL: https://wiki.sugarlabs.org/go/Sweets_Distribution#Add_repository
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+This was a sort of "Sugar LTS" project by
+User:alsroot
+that has been abandoned
+Sweets Distribution
+repositories: |
+0.88
+|
+0.94
+|
+0.94:SugarNetwork
+|
+Factory
+|
+These are overview and usage pages regarding the
+Sweets Distribution
+. Read
+technical pages
+for getting detailed information.
+Contents
+1
+Summary
+2
+Repositories
+3
+Installation
+3.1
+Add repository
+3.2
+Install packages
+4
+Usage
+4.1
+Sweets Desktop session
+4.2
+Run Sugar in a window
+4.3
+Run Sugar full screen
+4.4
+Sugar Activities
+5
+Testing
+6
+See also
+7
+Feedback
+Summary
+This is a set of 3rd party repositories with Sugar Learning Platform packages for major GNU/Linux
+distributions
+.
+The major reasons to support all these repositories are:
+Let people to try new functionality which is not available from the regular sources;
+Support GNU/Linux distributions that lack of Sugar Learning Platform from official repositories;
+Bring recent Sugar Learning Platform versions to systems initially released with older Sugar.
+Repositories
+Sweets Distribution is formed as a
+list of repositories
+that can be added to the system. Only one repository can be registered in the system at the same time. Repositories are identified by names and might be in stable or development stage. Different repositories might be available on different platforms from the
+supported platforms list
+.
+Installation
+The installation occurs in two phases:
+add
+one of Sweets Distribution repositories to local system;
+install
+packages from added Sweets Distribution repository.
+Add repository
+Experienced users might follow
+manual instructions
+to add Sweets Distribution
+repositories
+to the system.
+For easy attaching Sweets Distribution repositories, use
+sweets-distribution
+command.
+If
+sweets-distribution
+is not yet installed, download the
+sweets-distribution.sh
+install script and run it from the
+root
+user, e.g., 
+type the following commands in a terminal:
+wget
+http://download.sugarlabs.org/packages/sweets-distribution.sh
+sudo sh sweets-distribution.sh
+To get the status information about currently selected and all available repositories:
+sweets-distribution status
+To add chosen, here
+0.94
+, repository in the system
+sudo sweets-distribution select 0.94
+Install packages
+When the
+sweets-distribution select
+command finishes, the local system will be aware of the Sweets Distribution repository and it will be possible to install packages.
+In the regular way for your operating system (such as with
+apt-get install
+or
+yum install
+), from a local system terminal, console, or via SSH, install one of the following packages:
+sweets-desktop
+The full set of packages from Sweets Desktop.
+Sometimes, it may be required to downgrade packages while switching to another repository. The easy way to do so is with the
+sync
+command:
+sudo sweets-distribution sync
+Most of the Sweets Distribution packages will be placed in the
+/opt/sweets
+directory; thus, it will be possible to use Sugar from the Sweets Distribution and from official packages at the same time.
+Usage
+Below are instructions on how to use the Sweets Distribution after
+installing
+packages.
+Sweets Desktop session
+If
+sweets-desktop
+package was installed, it will be possible to log in to a Sweets Desktop session. Choose the
+Sweets Desktop
+session type in a login manager.
+Run Sugar in a window
+To run Sugar in a window without logging out from the current desktop environment, select the
+Education/Sugar
+application menu item or enter the following command in a terminal:
+sweets-sugar-emulator
+Run Sugar full screen
+Run this command in a terminal or edit the properties of the menu item for
+Sugar
+sweets-sugar-emulator -f, --fullscreen
+Sugar Activities
+For stable 0.94 and 0.88 repositories, the following points are assumed:
+Fructose activities need to be used only from Sweets Distribution packages, at least for ones that have external dependencies, i.e., they should not be upgraded from the
+Activity Library
+;
+The rest of activities need to be handled manually, e.g., manual installing missed dependencies.
+All other repositories should bring
+Sugar Network
+integration, a different design solution for handling Sugar Activities.
+Sugar Network
+is assumed to improve the process of launching Sugar Activities to make it more reliable and smooth. By default, Sugar Network integration might be switched off,
+enable
+it after installation.
+Testing
+Latest
+Test results for Sweets Distribution
+on various platforms, such as Ubuntu, Trisquel, and Fedora 14.
+Older
+Test results for Sweets Distribution on Ubuntu
+.
+See also
+Announcement post
+,
+Feedback
+Submit
+your bug report or feature request.
+Subscribe to the
+sugar-devel
+mailing list and email with the subject prefixed with
+[SWEETS]
+.
+Ask your question on IRC channels,
+#sugar
+(not logged) or
+#sugar-newbies
+(logged).

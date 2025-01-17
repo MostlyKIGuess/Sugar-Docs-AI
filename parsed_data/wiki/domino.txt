@@ -1,0 +1,36 @@
+Title: Domino
+URL: https://wiki.sugarlabs.org/go/Domino
+--------------------------------------------------------------------------------
+Domino
+Domino es un juego en el que debemos jugar con fichas de valores equivalentes. 
+Las fichas pueden tener sumas y restas simples, multiplicaciones, fracciones o tambien podemos jugar con fichas tradicionales.
+Actualmente se puede jugar contra la computadora, pero a futuro se planea implementar el juego en red.
+Guarda la cantidad de partidos ganados y perdidos.
+Soporta internacionalizacion, con mensajes en castellano e ingles.
+Se puede jugar con las teclas laterales a la pantalla
+Se puede descargar aqui
+[1]
+El repositorio con los fuentes esta en git
+[2]
+Desarrollo
+Si se quiere implementar un nuevo tipo de piezas, solo se debe implementar una clase con tres métodos.
+En el paquete
+dominopieceproccessor
+están todas las clases processor.
+El método
+get_name
+devuelve un string con la descripcion que se verá en el combo de tipo de pieza.
+En el método
+alter_labels
+se alteran las propiedades textA y una textB de cada objeto piece, que nos indican que es lo que se va a ver en cada una de las mitades de la ficha. Estas propiedades se modifcan al inicar el juego.
+Las propiedades a y b son los valores que tienen las fichas que se utilizan para realizar las comparaciones y no se alteran.
+En el metodo
+draw_label
+se dibuja en un contexto de cairo una parte de la ficha (se llama dos veces por cada ficha). Se puede escribir o realizar dibujos, como en el caso de las fracciones o las fichas tradicionales.
+Por ultimo, para hacer que se pueda seleccionar el tipo de ficha creado, hay que agregar en la clase
+Domino
+, del paquete
+dominoactivty
+, en el método __main__ a la coleccion
+list_processors
+la nueva clase processor implementada.

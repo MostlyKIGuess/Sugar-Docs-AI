@@ -1,0 +1,41 @@
+Title: Build Your Own Remix with Fedora Samples
+URL: https://wiki.sugarlabs.org/go/Build_Your_Own_Remix_with_Fedora_Samples
+--------------------------------------------------------------------------------
+Desktop with customizations to fit in a CD sized image
+remixes@lists.fedoraproject.org Re: Copy files from local system into liveCD?
+On Thu, Jun 7, 2012 at 3:02 AM, Jacek Furmankiewicz  wrote:
+Thanks for all your help.
+I managed to get it to work with the --nochroot option.
+Hope to have some results to show soon.
+I am trying to create an XFCE-based remix, but with all the extra goodies like in Fusion/Kororaa, etc.
+Cheers
+Jacek
+> I am trying to copy some default user settings from my local folder to the
+> /etc/skel folder on the live CD, e.g.:
+>
+> %post
+>
+> # set default user config
+> cp -r $PWD/config/.config $INSTALL_ROOT/etc/skel
+>
+> %end
+>
+> But it doesn't work...
+>
+> cp: cannot stat `/home/jacekf/src/remix/config/.config': No such file or
+> directory
+
+> Is there some trick for bringing in custom files from your local filesystem
+> into the live CD?
+> Thank you
+> Jacek
+It is a bit tricky, you need to do it outside of root environment,
+hence do this in "--nochroot" part of kickstart file, but you need to
+know which temp directory is used for root.
+You can check out my kickstart file for inspiration:
+https://github.com/valentt/Fusion-Linux/blob/master/kickstarts/fusion-17/fusion-live-extras.ks
+you should specify which temp folder to use when starting
+livecd-creator with --temp= option
+Hope this helps.
+valent.turkovic
+fusion-live-extras.ks

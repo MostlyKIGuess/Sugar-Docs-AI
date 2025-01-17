@@ -1,0 +1,188 @@
+Title: Web Services
+URL: https://wiki.sugarlabs.org/go/Web_Services
+--------------------------------------------------------------------------------
+As of Sugar 0.100, there is a mechanism for using web services from Sugar.
+There is new section to the Sugar Control Panel to manage online accounts and some interventions to the Sugar Journal toolbars and palettes in order to expose any installed online services, adding Copy-to and Refresh capabilities to the Sugar Journal.
+We have implemented several examples:
+support specific to Facebook: to share Journal entries on Facebook and to retrieve comments on those entries from Facebook (walter and rgs);
+support specific to Twitter: to share Journal entries as tweets and to retrieve comments on those entries from Twitter (tch);
+support for uploading text to Pastebin (tch);
+support for uploading Journal entries to a local server (tch).
+support for uploading files to PutLocker
+(ignacio)
+support for uploading files to Google Drive
+(ignacio)
+support for accessing the Sugar shell from Sugar activities
+(walter and tch)
+A new controlpanel widget for managing services
+An extra icon appears in "My Settings"; Example, configuring Pastebin
+The Journal menu now allows you to copy an entry to your web service e.g. Pastebin
+We are working with community members on other extensions based on the framework and encourage other community members to work with us on additional services.
+For now, web services implementations are welcome to handle their retrieval of tokens on their own. In the future we might want to delegate that to Gnome Online Accounts or a similar auth/token provider.
+Contents
+1
+Installing web services
+1.1
+Using a Sugar activity
+1.2
+Using git
+1.3
+Using gunzip and tar
+2
+Web services
+2.1
+Facebook
+3
+PutLocker
+4
+Sugar Google Drive
+5
+Proposals
+6
+See also
+Installing web services
+We don't yet have a simple installer for web services, so for the time being:
+Using a Sugar activity
+See
+http://activities.sugarlabs.org/en-US/sugar/addon/4723
+Using git
+cd ~/.sugar/default
+git clone <MY WEBSERVICE>.git
+Demonstration
+Using gunzip and tar
+cd ~/.sugar/default
+wget <MY WEBSERVICE>
+gunzip <MY WEBSERVICE>.tar.gz
+tar xvf <MY WEBSERVICE>.tar
+Web services
+Facebook
+tar file:
+[1]
+git repo:
+[2]
+You should end up with the following directory structure:
+~/.sugar/default/extensions/webservice/
+├── __init__.py
+└── facebook
+    ├── __init__.py
+    ├── account.py
+    ├── facebook
+    │   ├── __init__.py
+    │   └── facebook.py
+    └── icons
+        ├── facebook-like-insensitive.svg
+        ├── facebook-like.svg
+        ├── facebook-refresh-insensitive.svg
+        ├── facebook-refresh.svg
+        ├── facebook-share-insensitive.svg
+        └── facebook-share.svg
+
+~/.sugar/default/extensions/cpsection/
+├── __init__.py
+└── webaccount
+    ├── __init__.py
+    └── services
+        ├── __init__.py
+        └── facebook
+            ├── __init__.py
+            └── service.py
+PutLocker
+tar file:
+[3]
+git repo:
+[4]
+You should end up with the following directory structure:
+~/.sugar/default/extensions/webservice/
+├── __init__.py
+└── sugarupload
+    ├── account.py
+    ├── icons
+    │   └── sugarupload.svg
+    ├── __init__.py
+    └── sugarupload
+        ├── grestful
+        │   ├── decorators.py
+        │   ├── errors.py
+        │   ├── helpers.py
+        │   ├── __init__.py
+        │   └── object.py
+        ├── __init__.py
+        └── sugarupload.py
+
+~/.sugar/default/extensions/cpsection/
+├── __init__.py
+└── webaccount
+    ├── __init__.py
+    └── services
+        ├── __init__.py
+        └── sugarupload
+            ├── __init__.py
+            └── service.py
+Sugar Google Drive
+tar file:
+[5]
+git repo:
+[6]
+~/.sugar/default/extensions/webservice/
+├── apiclient
+│   ├── channel.py
+│   ├── discovery.py
+│   ├── errors.py
+│   ├── http.py
+│   ├── __init__.py
+│   ├── mimeparse.py
+│   ├── model.py
+│   ├── sample_tools.py
+│   └── schema.py
+├── httplib2
+│   ├── cacerts.txt
+│   ├── __init__.py
+│   ├── iri2uri.py
+│   └── socks.py
+├── __init__.py
+├── oauth2client
+│   ├── anyjson.py
+│   ├── appengine.py
+│   ├── client.py
+│   ├── clientsecrets.py
+│   ├── crypt.py
+│   ├── django_orm.py
+│   ├── file.py
+│   ├── gce.py
+│   ├── __init__.py
+│   ├── keyring_storage.py
+│   ├── locked_file.py
+│   ├── multistore_file.py
+│   ├── old_run.py
+│   ├── tools.py
+│   ├── util.py
+│   └── xsrfutil.py
+├── sugargdrive
+│   ├── account.py
+│   ├── icons
+│   │   └── sugargdrive.svg
+│   ├── __init__.py
+│   └── sugargdrive
+│       ├── __init__.py
+│       └── sugargdrive.py
+└── uritemplate
+    └── __init__.py
+
+~/.sugar/default/extensions/cpsection/
+├── __init__.py
+└── webaccount
+    ├── __init__.py
+    └── services
+        ├── __init__.py
+        └── sugargdrive
+            ├── __init__.py
+            └── service.py
+Proposals
+Translation service
+WebServices/translation
+See also
+See also
+features/Web_services
+There is a Sugar activity for installing web services:
+[7]
+by ignacio.

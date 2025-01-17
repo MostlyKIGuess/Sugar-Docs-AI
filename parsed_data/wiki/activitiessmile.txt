@@ -1,0 +1,72 @@
+Title: Activities/Smile
+URL: https://wiki.sugarlabs.org/go/Activities/Smile
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+Playing Media from the Journal Activity
+3
+Selecting Media from the Toolbar
+4
+Supported Media
+5
+Application/x-smile (.smxo) Bundles
+6
+To Do
+6.1
+Video playback
+6.2
+Controls
+6.3
+Media
+7
+Links
+Description
+Smile is an implementation of the open source Ambulant SMIL 3.0 player. It is capable of playing a wide variety of media including text, images, 
+audio and video clips. More importantly, it can play complex multimedia presentations defined by a W3C standard SMIL 3.0 file. One important application 
+is to 'read aloud' children's picture stories with a controlled vocabulary. The SMIL3 script will show an illustration, play the recorded audio track reading the text, and display highlighted text synchronized with the audio track.
+Playing Media from the Journal Activity
+Select from Journal activity
+Next, select Smile from menu
+It is possible to play media files directly from the Journal Activity. However, Smile is not the default player for any of the media 
+formats. Therefore it is necessary to click on the arrow to the right of the media entry to see the properties page. It is then necessary to 
+select Smile on the drop down menu of the toolbar.
+This does not apply to smxo bundles. The Smile activity is the default in this case. Bundle entries are shown with the Smile icon. It is 
+only necessary to double-click on the entry to play the bundle.
+Selecting Media from the Toolbar
+Choosing from the toolbar
+Image (png) displayed on the playerscreen
+If the Smile activity is launched from the home view, the toolbar default to the Select tab. Click on the journal icon for a list of 
+media files which can be played by Smile. Double-click on an entry to play it. If a usb pendrive is mounted, it's icon will also show on 
+the Select toolbar. Click on it to show a list of playable files on that drive. Double-click on an entry to play it.
+Supported Media
+text: text/plain
+images: png jpg bmp gif tiff svg
+audio: ogg mp3 wav wma
+video: ogg mpg avi wmv
+Application/x-smile (.smxo) Bundles
+The Smile activity supports a bundle (mime_type: applicaton/x-smile) with the extension .smxo. The bundle is a zip file containing a .smil 
+file defining the presentation and the media files needed by the presentation. The bundle can be played from the Journal or by selection from 
+the toolbar.
+To Do
+Video playback
+The current version does not play video back correctly. The playback freezes and then advances when the mouse is moved. This appears to 
+be a problem with the redraw request in the gtk event loop. This also applies to playback of multimedia bundles (e.g. showing images with an 
+audio background).
+Controls
+In the current version, the stop control does not work. The pause control stops play but play cannot be restarted. Once a playback has begun,
+it can only be replayed by selecting the media again.
+Media
+The current version does not support mp4 or mov (Quicktime).
+Links
+Smile activity
+source
+project
+For more information about Ambulant, see the
+the Ambulant
+website.
+Ambulant has already been incorporated in the DAISY project's
+Amis 3
+,
+news

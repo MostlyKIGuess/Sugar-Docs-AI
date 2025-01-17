@@ -1,0 +1,34 @@
+Title: Platform Team/Activity Library/5
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Activity_Library/5
+--------------------------------------------------------------------------------
+Roadmap
+The upstream is in process of switching to new AMO code base, django based (python based framework). We need to do the same. So, the plan is:
+Reimplement current ASLO patch to do the exactly the same in new AMO
+Add new but not breaking current behaviour:
+Upload by one click
+Experimental support of
+bundle-less
+activities
+The plan is having new ASLO ready for broad, pre-production testing,
+until
+2011-04-06
+.
+Upload by one click
+The only that will be required is just uploading a .xo to the server.
+All needed metadata will be fetched from the bundle:
+activity.info, activity metadata in sweets recipe
+specification
+NEWS, release notes
+po/, translation of activity.info fields
+Bundle-less activities
+Excluding network-less environments, the only thing anyone should know
+about any activity, to run it from anywhere, is an unique Web url.
+It is based on
+0install
+project. Network based nature, though, does
+not mean the it will be useless w/o the net. It will be possible
+to make selfcontained bundle by packaging activity itself and all its
+dependencies to one .xo.
+This is an initial support of
+Sweets
+on ASLO.

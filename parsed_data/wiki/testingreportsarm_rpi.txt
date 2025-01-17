@@ -1,0 +1,520 @@
+Title: Testing/Reports/ARM RPi
+URL: https://wiki.sugarlabs.org/go/Testing/Reports/ARM_RPi
+--------------------------------------------------------------------------------
+<- Back to
+ARM RPi
+Contents
+1
+Test report rpfr-f18-final.img
+1.1
+Write to SD card
+1.1.1
+dd write SD
+1.2
+Insert SD Card
+1.3
+Boot SD Card
+1.4
+Install sugar-desktop
+1.5
+Sugar
+1.5.1
+Create and read wiki-page.pdf files in LDXE and Sugar
+1.6
+Introduction to the sugar Interface
+1.7
+Duplicating a RPi SD Card
+1.8
+Notes
+2
+Test report rpfr-17-xfce-r2.img
+2.1
+Write to SD card
+2.2
+Boot DC Card
+2.3
+Install sugar-desktop
+2.4
+Sugar
+2.4.1
+Activities
+3
+Test report raspberrypi-fedora-remix-17-test-004.img
+3.1
+Write to SD Card
+3.2
+Boot SD Card
+3.3
+Update firmware
+3.4
+Install Sugar 0.96.2
+3.5
+Start Sugar
+3.6
+About my Computer
+3.7
+Wireless Networking
+3.8
+Disable Screen Saver
+3.9
+Shutdown
+4
+Test report Raspbian-PiscesMATE.img
+4.1
+Download
+4.2
+Write to SDXC Card
+4.3
+Boot SDXC Card
+4.4
+Test#1 Install Sugar-0.96 in Wheezy
+4.5
+About my Computer
+4.6
+Notes
+4.6.1
+Install More Activities in Sugar
+4.6.1.1
+Mount/Unmount USB
+4.7
+Activities
+4.8
+Test #2 Install sugar 0.88.1
+4.9
+Install sugar-emulator-0.88
+4.9.1
+About my Computer
+4.9.2
+Activities
+5
+Test Report: rpi_pisces_r3.zip
+5.1
+Install sugar 0.96
+5.1.1
+About my Computer
+5.1.2
+Activities
+6
+Test Report 2012-07-15-wheezy-raspbian.zip
+7
+Test report debian6-19-04-2012.img
+7.1
+Install sugar-0.88
+7.2
+About my Computer
+7.3
+Notes
+7.3.1
+Resize SD Card with gparted
+Test report rpfr-f18-final.img
+Updated Mar 17 2013
+Download:
+NEW:
+http://scotland.proximity.on.ca/raspberrypi/raspberrypi-fedora-remix/18/images/rpfr-f18-final.zip
+http://scotland.proximity.on.ca/raspberrypi/raspberrypi-fedora-remix/18/images/rpfr-f18-rc1.zip
+Older version that also works
+Write to SD card
+http://elinux.org/RPi_Easy_SD_Card_Setup
+Detailed options for writing SD card.
+Unzip rpfr-f18-rc1.zip
+dd write SD
+Using an SD adapter in a USB socket:
+# dd if=rpfr-f18-rc1.img of=/dev/sd(x)  or /dev/mmcblk(x) 
+6144000+0 records in
+6144000+0 records out
+3145728000 bytes (3.1 GB) copied, 717.468 s, 4.4 MB/s
+/dev/sd(x) or /dev/mmcblk(x)
+Use command "mount" in terminal to get correct device name eg: /dev/sdb /dev/sdc /dev/sdd etc.
+If you are using a SD slot, you may see /dev/mmcblk(x)
+# dd if=rpfr-f18-final.img of=/dev/mmcblk0
+6144000+0 records in
+6144000+0 records out
+3145728000 bytes (3.1 GB) copied, 1001.65 s, 3.1 MB/s
+CAUTION
+the device name has to be correct or you can damage your computers drives with no warning.
+Insert SD Card
+Insert SD in RPi and plug in the power supply mini usb
+Unplug this mini usb to shutdown RPi
+Connections
+Picture
+Boot SD Card
+Note this takes several minutes to do reach the first boot.
+Be Patient
+Firstboot
+TimeZone and Language
+user name and password
+root password
+select type of HDMI output
+resizes the SD /
+swap settings  -  increase to 1024
+Log in
+Recommended: turn off screensaver
+Applications/settings/screensaver
+Mode "Disable Screensaver"
+File-Quit
+Install sugar-desktop
+yum groupinstall sugar-desktop
+633kb | 133MB  138 files
+yum install sugar-emulator
+To start
+SUGAR
+: Applications Menu: Education/Sugar
+sugar emulator running on RPi
+rpfr-f18-rc1-a-sd.img file created with
+disk utility
+from working 8 GB SD card
+and then restored with
+disk utility
+to a 16 GB SD Card and booted on RPi 512 "b"
+This screenshot added 03/18/2013
+Sugar
+Build: Fedora remix release 18 (Raspberrypi Fedora Remix)
+Sugar: 0.98.2
+Create and read wiki-page.pdf files in LDXE and Sugar
+You can Create wiki-page.pdf files in LDXE using the RPi to load on a USB for access in sugar-read :
+See:
+Tutorials/Tutorials.iso
+Browser in LDXE can print Wiki pages to a .pdf file
+yum install evince
+evince is added so .pdf files can be read in LDXE
+Read in sugar already can open the .pdf files on a 2nd USB
+Evince reading Tutorials USB on LDXE Desktop
+Introduction to the sugar Interface
+A tutorial to introduce the sugar-desktop to new users
+Duplicating a RPi SD Card
+Duplicate a working SD Card
+Notes
+To run sugar: log-out/log-in then choose sugar in switcher after you enter your user name.
+Information;
+http://zenit.senecac.on.ca/wiki/index.php/Raspberry_Pi_Fedora_Remix
+Sugar IRC-10 in RPi "B" 512 on rpfr-f18-rc1 (arm) and rpfr-17-xfce-r2 use IP6 ...all my other devices use IP4
+...
+In general newer versions of Fedora will try and autodiscover IPv6 networks.
+If it finds one with a non-local (not fe80::) IP address it will get on it, and used the IPv6 routers spotted if present
+Given a DNS name with both IPv4 & v6 addresses set, it's mostly up to the application to see if asks the OS to do v4, v6,
+or just generically whichever the OS thinks makes the most sense
+How to write the SD in a MAC:
+http://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/
+Warning a fee is charged for download
+Test report rpfr-17-xfce-r2.img
+Feb 12 2013
+http://zenit.senecac.on.ca/wiki/index.php/Raspberry_Pi_Fedora_Remix
+Download:
+http://scotland.proximity.on.ca/raspberrypi/f17-releases/v5/latest/rpfr-17-xfce-r2.zip
+Information:
+http://zenit.senecac.on.ca/wiki/index.php/Raspberry_Pi_Fedora_Remix
+Write to SD card
+Unzip file
+# dd if=rpfr-17-xfce-r2.img of=/dev/sdc
+6144000+0 records in
+6144000+0 records out
+3145728000 bytes (3.1 GB) copied, 1056.07 s, 3.0 MB/s
+Boot DC Card
+Firstboot
+select type of HDMI output
+resizes the SD /  and
+swap settings
+Install sugar-desktop
+yum groupinstall sugar-desktop
+38 packages (+93 Dependent packages)
+Download size 120 M
+Installed size 282 M
+Log out/Log In to XFCE or Sugar
+Sugar
+Build: Fedora remix release 17 (Raspberrypi Fedora Remix)
+Sugar: 0.96.2
+Activities
+DO NOT DO SOFTWARE UPDATE - Some activities will "Failed to start" if updated from My Settings/Software update
+Test report raspberrypi-fedora-remix-17-test-004.img
+RECOMMENDED
+http://scotland.proximity.on.ca/raspberrypi/test-releases/rpfr17/
+Changes in this release:
+
+- Image resize/swap space creation is now more reliable (note, however,
+that it will take several minutes after the firstboot setup before the
+resize/swap takes effect - the system may be used during this time). I
+think we've probably nailed the last of the significant
+firstboot/resize/swap issues.
+
+- The image is now 1.852G in size and will fit a 2GB card (4GB or larger
+card is recommended to allow plenty of space for data/extra
+software/swap). The download is 665MB.
+
+Next week we'll start performance tests with armv6 rebuilds (sfp & hfp)
+and continue work on image size reduction and boot cutdown.
+
+Chris Tyler 08/03/2012
+Write to SD Card
+Outside of RPi
+zcat raspberrypi-fedora-remix-17-test-004.img.gz >/dev/mmcblk0
+Boot SD Card
+Insert the SD Card in the RPi
+Connect all cables
+Plug in power cord
+This starts Boot
+Firstboot
+Use Network time
+there is no realtime clock on RPi (errors will occur if time is not set correctly)
+root password
+User and Password
+[x]user is part of administrator group
+[x]resize with swap 1024 MB  - (move slider)
+[x] Graphical Boot
+Use default desktop config (XFCE)
+Change memory split:
+between the ARM CPU and the GPU,
+"The 004 test image defaults to 224/32 MB memory split - it is not necessary to change this split to use yum.
+The 240/16 firmware is now included in the image.
+Resize of File System and Creation of swap
+"The SD card will be resized during the second boot.
+"this will appear as the file /swap0 and will appear in both /etc/fstab and swapon -s "
+ ctyler on #seneca
+Test SDXC Card
+A 64 GB SDXC card resizes to:
+fat 16 /boot  51.00 MB    boot, lba
+ext4   rootfs 59.43 GiB
+Update firmware
+Terminal:
+su
+(password)
+#yum update
+38 Pkgs/29M
+raspberry firmware and kernel included
+Change memory split:
+Required on this image to avoid out of memory condition when using yum to install
+"This image uses a  224/32 MB memory split between the ARM CPU and the GPU,
+instead of the more useful240M/16M. To change this, run this command:"
+In Terminal:
+sudo su
+Password
+cp /boot/arm240_start.elf /boot/start.elf
+reboot
+Install Sugar 0.96.2
+#yum install sugar*  77M  220M installed
+Start Sugar
+Application Menu/education/sugar
+sugar-emulator starts
+Note the Raspberry Pi board on the right bottom of screenshot.
+The 1 AMP 5 Volt USB powersupply is marginal
+To insure that RPi gets adequate power, use a  powered 4 port USB Hub[1] for the USB Keyboard and USB Mouse
+[1] (Belkin)
+About my Computer
+Build:  Fedora remix release 17 (Raspberrypi Fedora Remix)
+Sugar:  0.96.2
+Wireless Networking
+Verified Peripherals:
+http://elinux.org/RPi_VerifiedPeripherals
+RPi USB Port 1: Powered 4 port USB Hub to run USB Mouse and USB keyboard.
+RPi USB Port 2 :
+D-link DWL-122 USB wireless adapter
+on a 12" USB extension cable.
+Connects to a WEP wireless AP
+Shows AD-HOC and wirelss AP's in sugar (f1) Network Neighbourhood.
+Disable Screen Saver
+The screen still blanks after a while even with the screen saver disabled.
+to Fix:
+Terminal:
+xset s
+xset -dpms
+Shutdown
+only log off is offered in this test software
+To Shutdown the RPi:
+Terminal:
+ su
+ (password)
+ shutdown -h now
+Unplug the mini power Connector from RPi board (on the cable coming from the 1,0Amp 5 Volt power supply)
+Reboot occurs on re-plugging in this connector
+Test report Raspbian-PiscesMATE.img
+07/26/2011
+MATE is a fork of GNOME 2
+http://mate-desktop.org
+Download
+http://www.raspbian.org/PiscesMATEImages
+http://archive.raspbian.org/images/rpi_pisces_mate_r1.zip
+Write to SDXC Card
+Unzip
+# dd if=rpi_pisces_mate_r1.img of=/dev/mmcblk0
+Boot SDXC Card
+Cards tested:
+SanDisk Ultra SDXC 64 GB 30 MB/s
+SanDisk SDHC 8 GB 15 MB/s
+Do resize of SD Card here in another computer with gparted - (See section below)
+Use SD card to USB adapter if needed
+Boot RPi with the resized card.
+The following two user accounts are created on this image:
+Username         Password
+root             raspbian
+raspbian         raspbian
+Login to raspbian
+Startx
+boots to
+MATE Desktop Environment 1.2.0
+apt-get update
+dpkg-reconfigure tzdata -  Be sure it is correct
+apt-get upgrade - 226 files
+apt-get synaptic
+Test#1 Install Sugar-0.96 in Wheezy
+synaptic:
+search for sugar
+Select:
+sugar-session-0.96 - 315 files
+About my Computer
+Caution Keyring password is asked at start
+This password required to be used to start Jabber.sugarlabs.org
+Build Debian GNU/Linux testing/unstable
+Sugar 0.96.1
+Notes
+1 Amp Power Supply is marginal with a Dell USB Keyboard and Dell USB Wheel-Mouse connected to the 2 supplied connectors on RPi
+Use a 4-Port Powered Desktop Hub  to connect them instead
+(Belkin 4-port Powered Hub F4U20-8830-06939 Rev A00) worked
+Install More Activities in Sugar
+Download the Activities you want to a USB from
+http://activities.sugarlabs.org/
+USB's do not Automount on insertion on the RPi
+Mount/Unmount USB
+Mount USB
+Terminal:
+sudo su
+(password)
+root@pisces:/home/raspbian# mount -t vfat /dev/sda1 /home/raspbian/USB
+USB appears on Desktop and in Sugar Frame when clicking on Journal
+Drag Drop install xxxx.xo files
+from USB to the Sugar Journal
+Unmount USB
+root@pisces:/home/raspbian# unmount /dev/sda1
+Activities
+Pippy        46
+Turtle Art   98
+Test #2 Install sugar 0.88.1
+continue but use
+apt-get dist-upgrade
+apt-get update
+dpkg-reconfigure tzdata -  Be sure it is correct
+apt-get dist-upgrade  -  Very Large update
+Install sugar-emulator-0.88
+apt-get install sugar-emulator-0.88 - Pulls in large set of gnome files
+About my Computer
+Build:       Debian GNU/Linux testing/unstable
+Sugar:       0.88.1
+Activities
+Pippy            45
+Turtle Art       98
+Log              24
+Terminal         28
+Write            70
+Calculate        40
+Chat             76
+Note: extra Activities added when installed
+apt-get install sugar-emulator-0.86
+then
+apt-get install sugar-emulator-0.88
+Installed activities from 0.86 remained
+Test Report: rpi_pisces_r3.zip
+D/L:
+http://www.raspbian.org/PiscesImages
+r3 Image
+"Mike Thompson has produced a publicly available SD image of Raspbian that is bootable on Raspberry Pi hardware.
+This is called the "pisces" image as that is what Mike's Raspberry Pi system is named on his LAN.
+This image is a little newer and includes a more complete installation of Raspbian and LXDE than the more minimal Hexxeh image.
+This image was created using the Debian installer so it reflects a minimal Debian installation with the LXDE packages added for a desktop."
+Once booted, log into one of the two existing accounts:
+Username       Password
+root           raspbian
+raspbian       raspbian
+This version has a fake hardware clock as the RPi has no clock
+Install sugar 0.96
+apt-get install sugar-session-0.96
+About my Computer
+Build               Debian GNU/Linux testing/unstable
+Sugar               0.96.1
+Starts at sugar: name - color selection screens
+Keyring password is set
+Jabber works.
+Activities
+Pippy         46
+Turtle Art    98
+Still testing--
+Satellit
+17:22, 17 August 2012 (EDT)
+Test Report 2012-07-15-wheezy-raspbian.zip
+D/L:
+http://downloads.raspberrypi.org/images/raspbian/2012-07-15-wheezy-raspbian/2012-07-15-wheezy-raspbian.zip
+D/L: Minimal Image:
+http://www.linuxsystems.it/2012/06/raspbian-wheezy-armhf-raspberry-pi-minimal-image/
+UnZip and write to 8 GB SDHC Card with dd
+Boot SDHC Card
+Text mode Configuration screen:
+values tested
+Raspi-config                                            
+
+info                information about this tool
+expand_rootfs       Expand root partition to fill SD card    [x]
+overscan            Change overscan
+configure_keyboard  Set keyboard layout                      en-us
+change_pass         Change password for 'pi' user            [x]
+change_locale       Set locale                               [x]
+change_timezone     Set timezone
+US-CA
+memory_split        Change memory split
+224/32
+(default=192MB/64MB  (arm/videocore)
+ssh                 Enable or Disable ssh server
+boot_behavior       Start desktop on boot?                   [x]
+update              Try to upgrade raspi-config
+
+   {Select}                      {Finish}
+Reboot
+resize occurs
+swap file is created
+RPi Desktop appears
+STILL TESTING
+--
+Satellit
+18:09, 5 August 2012 (EDT)
+Test report debian6-19-04-2012.img
+Debian info:
+https://wiki.debian.org/Sugar
+http://www.raspberrypi.org/downloads
+D/L:
+http://downloads.raspberrypi.org/images/debian/6/debian6-19-04-2012/debian6-19-04-2012.zip
+UnZip and write to 64 GB Ultra SDXC Card with dd
+Boot SDXC Card
+login pi
+password raspberry
+startx
+Install sugar-0.88
+LXTerminal:
+Root password is not known but "sudo su" goes to root terminal
+sudo su
+apt-get install sucrose-0.88
+apt-get update
+apt-get install sugar-emulator-0.88
+Start Education/Sugar from menu
+Activities loaded:
+Browse
+Read
+Jabber does not work
+About my Computer
+Build:  Debian GNU/Linux 6.0.4 (squeeze)
+Sugar:  0.88.1
+Notes
+Activities that work D/L from ASLO (Browse)
+IRC-10.xo 
+Turtle Art Mini-147
+Turtle Art 147 (very slow)
+edit-8
+Activities that are too large to run:
+GetBooks 11
+Tried loading synaptic but it freezes loading catalogues.
+apt-get remove synaptic
+Resize SD Card with gparted
+Get Sugar Journal full messages after several uses
+Fix:
+Remove SDXC card - Insert in Laptop and start gparted
+resize-move /dev/sdg2 to 20 GiB
+Reboot in RPi
+No longer get journal full messages
+Activities that are too large to run:
+Turtle Art 147
+GetBooks 11

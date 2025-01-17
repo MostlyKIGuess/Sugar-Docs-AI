@@ -1,0 +1,77 @@
+Title: Features/Teacher Buddy
+URL: https://wiki.sugarlabs.org/go/Features/Teacher_Buddy
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+This feature provides a new field in the presence server buddy mechanism for identifying teachers.
+Owner
+Name:
+Walter Bender
+Name:
+Gonzalo Odiard
+Email: <walter AT sugarlabs DOT org> <gonzalo AT sugarlabs DOT org>
+Current status
+Targeted release: 1.0
+Last updated: 29 July 2013
+Percentage of completion: 90% (sugar3/presence/buddy.py, jarabe/model/buddy.py, and jarabe/view/buddyicon.py are finished. Need to finalize the teacher icon design and test.)
+Detailed Description
+For several different applications in the
+Features/Classroom management
+feature, we need to be able to identify the classroom teacher. We are proposing adding a new field to the buddy presence system to mark a buddy as a teacher. This will be used in the GUI to make it easier to find the teacher in the neighborhood view and also in some of the automated classroom management processes where activities share information with the teacher.
+Benefit to Sugar
+By adding a mechanism for identifying a teacher, we can automate many of the
+Features/Classroom management
+features, such as handing in assignments, sharing stats, etc.
+Scope
+The feature requires:
+adding a new field to sugar3/presence/buddy.py
+adding a new field to jarabe/model/buddy.py
+a new icon for a teacher XO
+a test in jarabe/view/buddyicon.py for the teacher buddy
+UI Design
+As a placeholder, we are using an upside-down XO icon for teacher-xo.svg
+How To Test
+Features/Teacher Buddy/Testing
+User Experience
+If the feature is not exploited, there is no change to the user experience.
+The basic change to the user experience is simply a different icon to represent a teacher in the UI. The auto-detection of teachers will be exploited in the
+Features/Classroom management
+systems.
+The exact mechanism for setting the teacher boolean (in gconf) is to be determined.
+Dependencies
+No new dependencies
+Contingency Plan
+No impact as this is a new feature.
+Documentation
+Release Notes
+Comments and Discussion
+See
+discussion tab for this feature

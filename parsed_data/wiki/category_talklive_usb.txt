@@ -1,0 +1,91 @@
+Title: Category talk:Live USB
+URL: https://wiki.sugarlabs.org/go/Category_talk:Live_USB#Sugarize_an_application_for_use_in_a_SoaS_USBHow_To_Sugarize_a_Program
+--------------------------------------------------------------------------------
+A Fedora 'Live USB' device uses
+LiveOS image
+technology. This technology may be used on Live SD cards, Live CDs or Live DVDs as well.
+Contents
+1
+Sugarize an application for use in a SoaS USB
+1.1
+How To Sugarize applications on a liveusb-creator USB with persistence
+1.2
+Preliminary
+1.3
+References
+1.4
+Source
+Sugarize an application for use in a SoaS USB
+modified 02/08/2011 satellit to reflect new repo for files
+How To Sugarize applications on a liveusb-creator USB with persistence
+DO this when running a live USB SOAS
+Note: you have use "yum install liveusb-creator" first to create the USB from the Soas-v( ).iso
+Preliminary
+the script "sug" needs to be edited to reflect the location of activities in different versions of SUGAR:
+Edit the line :"CREATEPATH"= at begining of script "sug"
+/bin/sh
+CREATEPATH=/home/robert/Activities/
+ACTIVITYFILE=activity/activity/activity.info
+Locations of activities in sugar versions:
+soas-v2-Blueberry :         /home/liveuser/Activities
+soas-i386-Nightly composes: /usr/share/sugar/activity
+F12-EDU-spin:               /home/xxxx/Activities
+Instructions:
+copied from:
+http://www.catmoran.com/olpc/#sugxterm--------23-Feb-2010
+with permission from author[1]
+-------------------------
+References
+Running_Linux_Applications_Under_Sugar
+Sugarize an X terminal program
+http://dev.laptop.org/git?p=users/albert/sugarize
+http://lists.laptop.org/pipermail/devel/2008-January/009387.html
+Source
+http://olpcnews.com/forum/index.php?topic=1555.msg11676#msg11676,http://olpcnews.com/forum/index.php?topic=1555.msg12054#msg12054
+and CatMoran)
+I know that this works for firefox, I can't vouch for any other program. I know that it does not work for mc. It also doesn't work for roto's current mplayer configuration,
+because only programs that use the same command every time (ie, no input file name, in this case) can be set up to run this way.
+To setup (one time):
+Start a Terminal activity. Enter the following commands.
+......
+>(Note: these files are in this repo:
+http://people.sugarlabs.org/Tgillard/sugarize/
+)<
+: Modified to reflect the new repo
+......
+su
+wget
+http://people.sugarlabs.org/Tgillard/sugarize/libsugarize.so
+chmod 755 libsugarize.so
+wget
+http://people.sugarlabs.org/Tgillard/sugarize/sug
+chmod 755 sug
+Optional, if you want to use the icons I've already 'created':
+wget
+http://people.sugarlabs.org/Tgillard/sugarize/plain.svg
+wget
+http://people.sugarlabs.org/Tgillard/sugarize/ff.svg
+wget
+http://people.sugarlabs.org/Tgillard/sugarize/l.svg
+To run:
+Locate an icon you want to use/reuse. You can copy any .svg file located in /usr/share/activities/*.activity/activity/*.svg >(SEE NOTE AT TOP OF PAGE)<
+Or you can use one of the icons I've created. (wget commands above.) plain.svg is a plain circle, ff.svg is a circle with FF (for firefox) inside, l.svg is a circle with L
+inside. ff.svg and l.svg can easily be edited for any two or one character(s). Open the file in any text editor. Each letter is in plain text just before the </tspan> tags,
+replace them and save the file.
+Enter the following commands, to log in as root and execute the sug script. >(SEE NOTE AT TOP OF PAGE and edit script for your version of sugar)<
+su ./sug
+You'll be prompted for an activity name. Enter a short, descriptive name with no spaces or punctuation, such as BibleTime or Firefox.
+You'll be prompted for an icon file to copy into the new task. You can enter the full path and filename of any .svg file. If the icon is in the same directory as the sug file,  
+you can enter just the filename.
+You'll be prompted for the command to start the program. This is the command you entered from Terminal to start the program, such as firefox.
+You'll be prompted for an organization path, such as org.mozilla If you don't know what this is, just enter org.x
+(If at any of the prompts you want to quit the script, just enter nothing at the prompt.)
+The script will give you a success message. Reboot sugar to see the new task in the sugar taskbar."
+--------------------------------------
+[1] 02/09/2011
+http://www.catmoran.com/olpc/#sugxterm
+When the folks at sugerlabs.org asked if they could copy my cheat sheet to their wiki, I told them they could under a few conditions.
+One of those conditions was that they host the files on their own server, specifically because I wasn't planning to keep hosting them much longer.
+Unfortunately, it seems that they didn't keep up their end of the bargain.
+If I happen to find a copy of the original files (doubtful, I don't have the OLPCs anymore) I'll post the source here. If that happens, make copies because this domain is going
+away when the current registration expires!

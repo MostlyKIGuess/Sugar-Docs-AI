@@ -1,0 +1,274 @@
+Title: Dextrose/Server/Building
+URL: https://wiki.sugarlabs.org/go/Dextrose/Server/Building
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Dead
+Mothership Dextrose Server Build
+We are using a 2 tier system whereby a Master server (rhelmaster) and a client school server (schoolserver1) are built as VMs for the testing platform. The rhelmaster builds the schoolserver1 and any subsequent schoolservers through a kickstart based network installation. The rhelmaster is basically an iso that can be easily replicated or installed from DVD/USB. As an added bonus in my test environment I built a Debian 6 master for installing clients via FAI (Fully Automated Install), though this is not what we are focusing on, it was interesting to see that one could do this from the same environment. The rhmaster can/will also be built using the same kickstart+configuration scripts procedure, albeit housing everything on a cdrom and automatically detecting whether the dextrose mothership hardware has 1 or 2 drives and installing the necessary partitioning scheme accordingly. I just outline the creation of the rhmaster and how it then creates the schoolserver clients via network boot. The avid reader will no doubt realise that this outline is the set of steps that would take place automatically within the cdrom based kickstart iso.
+[note - I am currently using the rhel 6 epel, repol, atid, rpmforge, and dag repositories for some of the packages not found on the CD, though fortunately most items are found directly on the CD. When centos 6 is released we can use those repos instead, or respin our own from src.]
+To begin with the master server is built as a generic RHEL 6 server install with the following additions:-
+-
+NFS server
+for serving the packages and system environment (yum install nfs-utils; system-config-nfs) - read only access to 10.0.0.1/24 from /kickstart/rhel6
+-
+TFTP server
+for serving the pxe and boot image, including custom message files related to kickstart environments.
+verify tftpserver is installed:
+rpm -q tftp-server
+If not installed:
+yum install tftp-server syslinux; 
+mkdir /tftpboot/linux-install; 
+cp /usr/share/syslinux/pxelinux.0 /tftpboot/linux-install; 
+mkdir /tftpboot/linux-install/msgs; 
+cp /kickstart/rhel-6/isolinux/*msg /tftpboot/linux-install/msgs; 
+mkdir /tftpboot/linux-install/rhel6; 
+cp /kickstart/rhel-6/images/pxeboot/initrd.img /tftpboot/linux-install/rhel6; 
+cp /kickstart/rhel-6/images/pxeboot/vmlinuz /tftpboot/linux-install/rhel6; 
+cp /usr/share/syslinux/menu.c32 /tftpboot/linux-install
+mkdir /tftpboot/linux-install/pxelinux.cfg; touch /tftpboot/linux-install/pxelinux.cfg/default;
+We edit the default pxe file to include our kickstart choices, defaulting to label 1 (3 choices, regular, update, and raid):-
+default menu.c32
+timeout 100
+prompt 1
+MENU TITLE PXE Dextrose Server network boot Menu
+display msgs/boot.msg
+Label 1
+ MENU LABEL Regular dextrose server install
+ kernel rhel6/vmlinuz
+ append noapic initrd=rhel6/initrd.img ramdisk_size=10000 ip=dhcp \
+ ks=nfs:10.0.0.1:/kickstart/rhel6/rhel6-dextrose-kickstart.cfg
+Label 2
+ MENU LABEL Update dextrose server - HTTP - some public ip
+ kernel rhel6/vmlinuz
+ append ks initrd=rhel6/initrd.img ramdisk_size=100000 ip=dhcp  \
+ ksdevice=eth1 url --url
+http://10.0.0.1/mirrors/dextrose-server-update/i386/
+Label 3
+ MENU LABEL Dextrose server install - Raid 10 - 2 disks
+ kernel rhel6/vmlinuz
+ append rhel/vmlinuz
+ append initrd=rhel6/initrd.img ramdisk_size=10000 ip=dhcp \
+ ks=nfs:10.0.0.1:/kickstart/rhel6/rhel6-dextrose-raid-kickstart.cfg
+- Enable xinetd and tftp to run at runlevels 3-5: chkconfig --level 345 xinetd on; chkconfig --level 345 tftp on; /etc/init.d/xinetd restart
+-
+DHCP server
+for handing out initial IPs to TFTP server (yum install dhcp; )
+We then edit /etc/dhcp.conf (dynamic addresses fed for 100 clients - this can be the _only_ dhcp server for eth1):
+authoritative;
+option dhcp-max-message-size 2048;
+subnet 10.0.0.0 netmask 255.255.255.0 {
+ range 10.0.0.2 10.0.0.102;
+ option broadcast-address 10.0.0.255;
+ option routers 10.0.0.1;
+ option domain-name "dextrose.local";
+ option domain-name-servers 10.0.0.1;
+}
+ddns-update-style ad-hoc;
+allow booting;
+allow bootp;
+class "pxeclients" {   
+  match if substring(option vendor-class-identifier, 0, 9) = "PXEClient";   
+  next-server 10.0.0.1;
+  filename "linux-install/pxelinux.0";
+}
+-
+Networking
+is setup with 2 network cards (currently this is a VM, so one is a bridge to the internet pointing eth0, and the other (eth1) is handed an ip by the internal dhcp server (10.0.0.1)) Naturally, in a physical environment this setup still needs to be ammended slighlty, probably inline with the XS server settings.
+-
+Custom repositories
+for installing extra packages not found on initial installation media. We may not need the rhel-beta repositories at this point, they are just mentioned for informational purposes:
+[rhel-beta]
+name=Red Hat Enterprise Linux $releasever Beta - $basearch
+baseurl=
+ftp://ftp.redhat.com/pub/redhat/rhel/beta/6/$basearch/os/
+enabled=1
+gpgcheck=0
+#gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta-2
+priority=1
+exclude=*release
+[rhel-beta-optional]
+name=Red Hat Enterprise Linux $releasever Beta (Optional) - $basearch
+baseurl=
+ftp://ftp.redhat.com/pub/redhat/rhel/beta/6/optional/$basearch/os/
+enabled=1
+gpgcheck=0
+#gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta-2
+priority=1
+exclude=*release
+[epel]
+name=RHEL 6 - epel - $releasever - $basearch
+baseurl=
+ftp://ftp-stud.hs-esslingen.de/pub/epel/beta/6/$basearch/
+gpgcheck=0
+enabled=1
+priority=1
+exclude=*release
+[atrpms-stable]
+name=RHEL 6 - atrpms-stable - $releasever - $basearch
+baseurl=
+http://dl.atrpms.net/el6-$basearch/atrpms/stable/
+gpgcheck=0
+enabled=0
+priority=3
+exclude=*release
+[atrpms-testing]
+name=RHEL 6 - atrpms-stable - $releasever - $basearch
+baseurl=
+http://dl.atrpms.net/el6-$basearch/atrpms/testing/
+gpgcheck=0
+enabled=0
+priority=4
+exclude=*release
+[elrepo]
+name=ElRepo.org Community Enterprise Linux Repository - el6 - $basearch
+baseurl=
+http://elrepo.org/linux/elrepo/el6/$basearch/
+enabled=1
+gpgcheck=0
+#gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org
+protect=0
+priority=1
+exclude=*release
+[elrepo-testing]
+name=ElRepo.org Community Enterprise Linux Repository - el6 - $basearch
+baseurl=
+http://elrepo.org/linux/testing/el6/$basearch/
+enabled=0
+gpgcheck=0
+#gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org
+protect=0
+priority=3
+exclude=*release
+[rpmforge]
+name = RHEL $releasever - RPMforge.net - dag
+baseurl =
+http://apt.sw.be/redhat/el6/en/$basearch/rpmforge
+mirrorlist =
+http://apt.sw.be/redhat/el6/en/mirrors-rpmforge
+#mirrorlist = file:///etc/yum.repos.d/mirrors-rpmforge
+enabled = 1
+protect = 0
+#gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag
+gpgcheck = 1
+[rpmforge-extras]
+name = RHEL $releasever - RPMforge.net - extras
+baseurl =
+http://apt.sw.be/redhat/el6/en/$basearch/extras
+mirrorlist =
+http://apt.sw.be/redhat/el6/en/mirrors-rpmforge-extras
+#mirrorlist = file:///etc/yum.repos.d/mirrors-rpmforge-extras
+-
+Setup Installation tree
+:-
+mkdir -p /kickstart/rhel-6/; cp -Rp /media/RHEL_6.0_cdrom/* /kickstart/rhel-6/;
+-
+Extra software
+to be installed from rpm: Puppet, Nagios, system-config-kickstart:
+rpm -Uvh puppet; rpm -Uvh nagios; rpm -Uvh system-config-kickstart;
+-
+Firewall
+- The rhmaster system is built with NFS and SSH exceptions in the firewall. We also add exceptions of Nagios, ejabberd and Puppet. Iptables looks like this (edit /etc/sysconfig/iptables and restart iptables with
+service iptables restart
+:-
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:RH-FIREWALL-1-INPUT - [0:0]
+-A INPUT -j RH-FIREWALL-1-INPUT
+-A FORWARD -j RH-FIREWALL-1-INPUT
+-A RH-FIREWALL-1-INPUT -i lo -j ACCEPT
+-A RH-FIREWALL-1-INPUT -p icmp --icmp-type any -j ACCEPT
+-A RH-FIREWALL-1-INPUT -p 50 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -p 51 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -p udp --dport 5353 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A RH-FIREWALL-1-INPUT -p udp -m udp --dport 631 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -p udp -m tcp --dport 631 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -m state --state NEW -m tcp -p --dport 22 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -m state --state NEW -m tcp -p --dport 80 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -m state --state NEW -m tcp -p --dport 443 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -m state --state NEW -m tcp -p --dport 5666 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -m state --state NEW -m tcp -p --dport 5222 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -m state --state NEW -m tcp -p --dport 5269 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -m state --state NEW -m tcp -p --dport 5280 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -m state --state NEW -m tcp -p --dport 8140 -j ACCEPT
+-A RH-FIREWALL-1-INPUT -j REJECT --reject-with icmp-host-prohibited
+COMMIT
+- The
+kickstart file
+is created with various customisations (the system-config-kickstart is a visual tool for doing this, save the result as anaconda-ks-custom.ks), and then copied to the relevant directory:
+cp /root/anaconda-ks-custom.ks /kickstart/rhel6-dextrose-install.ks
+- We modify the kickstart file to give various other options (update, raid system) and copy those to /kickstart/ too, which will be chosen from a startup menu. The first example kickstart file is pasted below and was created with the visual tool. Later versions are always easier to create by simple search and replace.:
+[A#platform=x86, AMD64, or Intel EM64T
+#version=DEVEL
+# Firewall configuration
+firewall --enabled --http --ssh
+# Install OS instead of upgrade
+install
+# Use NFS installation media
+nfs --server=10.0.0.1 --dir=kickstart/rhel6
+# Root password
+rootpw --iscrypted $1$qx3BGJ1t$boTGmbtFhwf97FCtZZmmX1
+#  Network information
+network  --bootproto=dhcp --device=eth0 --onboot=on
+# System authorization information
+auth  --useshadow  --passalgo=sha256
+# Use graphical install
+graphical
+# Run the Setup Agent on first boot
+firstboot --reconfig
+# System keyboard
+keyboard us
+# System language
+lang en_US
+# SELinux configuration
+ selinux --disabled
+# Installation logging level
+logging --level=info
+# Reboot after installation
+reboot
+# System timezone
+timezone  America/Montevideo
+# System bootloader configuration
+bootloader --append="rhgb quiet" --location=mbr
+# Clear the Master Boot Record
+ zerombr
+# Partition clearing information
+clearpart --all --initlabel
+# Disk partitioning information 
+part swap --asprimary --fstype="swap" --size=1024
+part / --asprimary --fstype="ext4" --grow --size=1
+%packages
+@additional-devel
+@base
+@compat-libraries
+@console-internet
+@emacs
+@fonts
+@input-methods
+@internet-browser
+@legacy-unix
+@legacy-x
+@mysql
+@mysql-client
+@network-file-system-client
+@network-server
+@network-tools
+@nfs-file-server
+@performance
+@php
+@server-platform-devel
+@spanish-support
+@system-admin-tools
+@system-management-messaging-client
+@system-management-messaging-server
+@web-server
+@x11
+crypto-utils
+%end

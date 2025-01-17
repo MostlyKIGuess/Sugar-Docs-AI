@@ -1,0 +1,70 @@
+Title: Talk:BugSquad/Bug Triage
+URL: https://wiki.sugarlabs.org/go/Talk:BugSquad/ContentToEdit/Triage
+--------------------------------------------------------------------------------
+Certainly areas of potential improvement is in regard to defining appropriate tags for Milestones and Components, and coming up with a list of keywords that we can agree to the meaning of.
+Contents
+1
+Questions
+1.1
+Milestones/Versions
+1.2
+Keywords/Components
+1.3
+Priorities
+1.4
+Verify
+Questions
+Milestones/Versions
+Would it make sense to have a Sugar
+milestone
+(e.g., Sugar 0.82) that is distinct from the OLPC milestones? Or would it make more sense to have a Sugar
+version
+that maps to an OLPC milestone?
+The way this is normally handled by linux projects is to have two separate tracking system, one for the distribution (
+http://bugzilla.redhat.com
+) and one for the project itself (
+http://bugzilla.gnome.org
+). Distribution maintainers usually encourage to file bug upstream unless they are distribution specific, and they tend to move them upstream when they are misfiled. This is not very satisfactory because it involves a lot of manual work. In our case it might get a lot worst because we are hopefully going to have *lots* of users not trained to the open source development processes, which will not be able to make a distinction between distribution and upstream project. I'm not sure what's the best solution here. I think clarifying which kind of support and to whom Sugar Labs is going to provide will help evaluating our options here. I'm planning to start a thread about, but I'll give you some time to deal with more urgent issues before :) -- Marcopg
+Keywords/Components
+Would it make sense to consistently add
+keywords
+that map to the Sugar modules or should these be
+components
+?
+sugar
+sugar-base
+sugar-datastore
+sugar-presence-service
+sugar-toolkit
+sugar-artwork
+sugar-activity
+journal-activity
+chat-activity
+et alia
+The main advantage of using components is that they get assigned automatically to the default component owner -- Marcopg
+I'll guess that it might be straightforward to auto-notify someone on tag changes for specific tags.
+--
+Mstone
+18:27, 15 May 2008 (UTC)
+What are the advantages of using tags? (I never thought about it) --
+Marcopg
+Priorities
+The assignment of
+priorities
+is the difficult one. We need to come up with definitions and a process. A first pass:
+Blocker: catastrophic failure—Sugar will not run or user experience severely impaired (new features would rarely, if ever, fall into this category)
+High: important to Sugar user experience—either in terms of performance or usability (these would typically be coupled with the "task" ticket type)
+Med: enhancements to non-core features (or enhancements that impact individual activities)
+Low: odds and ends
+This is an excellent starts. I would probably go as far as saying that new features should never be blockers. One problem that I see in many bug systems is that priorities are rarely assigned consistently. Not only because of lack of clarity of the meaning but often just because no one triaged priority. Who is in charge of priority triaging? Reporter, maintainer, release manager? -- marco
+In my experience, bug priorities in dev.laptop.org have meant little more than 'I want you to read this bug soon' or 'Read this at your leisure'. In particular, there has been little correlation between bug priorities and release priorities and between bug priorities and the state of individual developer's work queues. Also, displays of bug priorities fail to record higher-order project state information like the derivative (rate of change) of the priorities function and the interference rate (i.e. how much work is being done which is not recorded in the bug tracker). We should strive to do better.
+--
+Mstone
+18:36, 15 May 2008 (UTC)
+Verify
+Would it be possible to assign teams to each ticket, where we identify up front someone who agrees to
+verify
+a ticket, and someone who agrees to test a fix? Maybe we can accumulate a list of volunteers who'd be willing to be assigned in a work-wheel-like system?
+http://developer.gnome.org/projects/bugsquad/
+presents an interesting model.
+The verification process we used for Update.1 gave us huge issues. I think the main problems was that 1 there was no good way to get fixed but not yet verified bugs out of developers rather (which immensely complicated management) 2 it was completely on the developers shoulders which I don't it's acceptable. it should be handled by the volounteer QA team. So, yeah, I think your ideas are very much in the right direction here. -- Marcopg

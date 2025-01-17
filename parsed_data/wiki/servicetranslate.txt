@@ -1,0 +1,334 @@
+Title: Service/translate
+URL: https://wiki.sugarlabs.org/go/Service/translate
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Replaced by
+Service/Weblate
+Contents
+1
+Hostnames
+2
+Hosted on
+3
+Administrative contact
+4
+Sysadmins
+5
+Language Administrators
+6
+Notes
+7
+Upgrade notes
+8
+Mantainance Notes
+9
+Migrated to Pootle 2.5.0
+10
+Files
+11
+Tools
+12
+Tips
+12.1
+Create new Pootle project
+12.2
+Adding activities
+12.3
+Working with git in the pootle server
+12.4
+Resolving conflicts
+12.5
+Checking that pootle is working
+12.6
+Etoys .pot update
+12.7
+Tips
+13
+References
+Hostnames
+http://translate.sugarlabs.org/
+Hosted on
+Machine/pootle
+Administrative contact
+translate AT sugarlabs DOT org
+Sysadmins
+For non-emergency calls, preferably send email to the administrative contact.
+Sebastian Silva
+has assumed maintainership tasks
+Chris Leonard
+has Pootle administrator privs, and heads the localization efforts.
+Bernie Innocenti
+has system admin and Pootle administrator privs, but takes care only of OS-level administration.
+Sayamindu Dasgupta
+is the former admin. He still has an emeritus sysadmin account and he can be very helpful if contacted by email.
+Language Administrators
+Language administrators are typically native speakers of a given language that take on responsibility (granted by a Pootle administrator after a request to the Localization list) for reviewing and committing PO files for a given language.  Contacting language administrators is generally done by posting to the Localization list.
+More information on language administrator duties can be found on
+this page
+Notes
+Home
+/var/lib/pootle
+Daemon
+/etc/init.d/apache2
+/etc/init.d/pootle
+Logs
+/var/log/apache2
+Config
+/etc/apache2/sites-enabled/000-default
+/etc/cron.d/pootle
+/var/www/pootle/sugarlabs/pootle.conf
+Ports
+80
+HTTP server
+Upgrade notes
+A backup of the DB and pootle localsettings.py must be done also.
+Backup of the /var/lib/pootle structure
+New versions of Django and Translate toolkit must be installed first
+Restore localsettings and DB backup
+Mantainance Notes
+Pootle in Sugar is maintained. (icarito has step-up to be maint)
+Migrated to Pootle 2.5.0
+Notes on the process were recorded here:
+Service/translate/Pootle2.5
+Files
+Important files and directories in the root directory,
+/var/lib/pootle
+.
+checkouts
+Sources are checked out in this directory and being used to keep final
+.pot
+and
+.po
+files. The hierarchy is:
+checkouts/
+pootle-project
+/
+pootle-po-filename-without-po-suffix
+/
+sources
+translations
+Pootle uses this directory as a sources of files to translate, it contains symlinks to files from the
+checkouts
+directory. The hierarchy is:
+translations/
+pootle-project
+/
+lang
+/
+symlinks-to-po-files
+maintenance
+Contains some sugar-specific scripts to help maintain our Pootle instance, they are managed in
+http://git.sugarlabs.org/projects/pootle-helpers
+.
+maintenance/helpers/potupdater/project_list.ini
+This is an Ini file that contains configuration for all used sources repositories. Each section describes one sources repository, where section name is full path, in form of
+/var/lib/pootle/checkouts/
+pootle-project
+/
+pootle-filename
+/
+some-path-within-sources
+/
+pot-file
+, to the
+.pot
+file, and contains following options:
+project
+required, meaning-less project name;
+vcs
+required, the type of VCS for; supported values are:
+git
+;
+method
+required, the method how to generate
+.pot
+files from sources; supported values are:
+bundlebuilder
+for activities,
+intltool
+for intltool based projects;
+layout
+required, ?;
+ignore-files
+optional, the semicolon separated list of file paths that are relative to the sources root; if
+method
+is
+bundlebuilder
+this value will be used to ignore while producing
+.pot files
+;
+Tools
+potupdater/pogenerator.py
+pulls from git and svn so we have updated sources, then it generates a new .pot file from them. Translated strings get reflected in the .po files in each module, and when the language maintainer clicks the Commit to VCS link, get pushed back to the upstream module.
+admin/pootlepopulator.py
+checkout sources.
+misc/pootle.cron
+all daily basis routines.
+...
+Tips
+Create new Pootle project
+Create new project in Pootle admin menu,
+admin->projects
+;
+Add all needed langs;
+Checkout all sources using command:
+sudo -u pootle -i python maintenance/helpers/admin/pootlepopulator.py
+pootle-project
+git-clone-url
+pootle-filename-wo-po-suffix
+git-branch
+Example:
+To checkout the sugar in the branch sucrose-0.94 (in pootle is in the project glucose94) we sshould do:
+cd /var/lib/pootle/
+sudo -u pootle -i python maintenance/helpers/admin/pootlepopulator.py glucose94 gitorious@git.sugarlabs.org:sugar/mainline.git sugar  sucrose-0.94
+Add new sections to the
+project_list.ini
+file to describe new
+.pot
+locations;
+Run
+misc/pootle.cron
+script from
+pootle
+user to generate all sufficient files;
+Click
+rescan the project files
+in
+Templates->Project->Files
+to reveal newly created
+.pot
+files;
+Click
+Update from templates
+for all languages in newly created project to peek up
+.po
+files symlinked by
+misc/pootle.cron
+script.
+Adding activities
+Before registering new activity on
+http://translate.sugarlabs.org
+, make sure that:
+New activity is being hosted on
+http://git.sugarlabs.org
+;
+The
+pootle
+user was added to the repository with commit access rights;
+You have a proper
+GIT_URL
+to clone repository from with commit permissions, e.g.,
+gitorious@git.sugarlabs.org:cartoon-builder/mainline.git
+; that might be found on home page in Gitorious, e.g.,
+http://git.sugarlabs.org/cartoon-builder
+, in
+Clone & push urls
+field with selector
+SSH
+;
+You know the proper
+CATEGORY
+name to register the project in;
+There is an unique
+NAME
+of activity, this name will be used as a name of project in Pootle and directory name;
+You know the proper
+BRANCH
+in Git repository to use for translation; by default, it is
+master
+.
+To process the registration, login to translate.sugarlabs.org and enter:
+sudo -u pootle python /var/lib/pootle/maintenance/helpers/admin/pootlepopulator.py
+<CATEGORY>
+<GIT_URL>
+/var/lib/pootle/checkouts/
+<CATEGORY>
+/
+<NAME>
+[
+<BRANCH>
+]
+After that, for
+pootle-helper
+project in
+potupdater/project_list.ini
+, add the following strings:
+[/var/lib/pootle/checkouts/
+<CATEGORY>
+/
+<NAME>
+/po/
+<.pot-filename>
+]
+project =
+<NAME>
+vcs = git
+method = bundlebuilder
+layout = gnu
+Commit new changes, and pull from on pootle VM:
+(cd /var/lib/pootle/maintenance/helpers; sudo -u pootle git pull origin master)
+Do
+update from templates
+on the
+templates
+project on Pootle's frontend. And wait until daily cron job will populate languages for newly registered project, or run it immediately:
+sudo -u pootle python /var/lib/pootle/maintenance/helpers/admin/add_langs.py
+Then your activity must be in place to be translated and
+commit to VCS/update from VCS
+links must be activated.
+Working with git in the pootle server
+The git operations must be done by the pootle user:
+sudo -u pootle git log
+sudo -u pootle git push origin  sucrose-0.82
+This script tell you when you can update different clones of activities, when new strings are added via gettext in each repo.
+/var/lib/pootle/maintenance/helpers/potupdater/check_unmerged_translations.sh
+Other important script is pogenerator.py this script re-generates pot in each repo.
+Resolving conflicts
+If the maintainer did a commit with a file in the po directory we will have a conflict, and Pootle can not do a pull.
+Pootle build the pot file from the sources, if we compare and the translations are updated in pootle 
+we can do a pull preserving the info in pootle:
+sudo -u pootle git pull -s ours
+Checking that pootle is working
+When commiting from pootle interface, repos in git reflect the commit as something similar to:
+pootle pushed 3fd0cf7b to taportfolio/mainline:master
+on March 04, 2011 01:32
+Commit from Sugar Labs: Translation System by user cjl.: 2 of 25 messages   translated (0 fuzzy).
+Pogenerator.py (in cronjob), it's also giving mails with info like:
+Already up-to-date. or
+####### Checking POT for Write (master) ######
+Etoys .pot update
+Go to Etoys translation directory (that is svn checkout from upstream project):
+su - pootle
+cd ~/translations/etoys_new
+Since there is no need in changing .pot files on Pootle level, revert local changes if they present:
+svn revert templates/*.pot
+Fetch new update from the upstream:
+svn up templates
+Tips
+How to manipulate users:
+django-admin shell --settings=pootle.settings
+>>> from django.contrib.auth.models import User
+>>> u = User.objects.get(username='bernie')
+>>> u.is_superuser = True
+>>> u.save()
+Refresh stats, needed when the database and the checked out modules get out of sync:
+sudo -u pootle django-admin refresh_stats --settings=pootle.settings
+If you have a commit error file because of only read git url, please rm the old
+/var/lib/pootle/checkouts/
+files related with that activity or project and re run pootlepopulator.
+Also if there are errors related with git add, is likely that some lang.po files are not versionated on pootle server, please run
+git add .
+inside the activity or project.
+When there are
+commit to cvs/update to cvs
+links missing in activities or projects please check git url in .git/config , this URL must be writable by pootle.
+References
+http://translate.sourceforge.net/wiki/pootle/installation
+http://lists.laptop.org/listinfo/localization
+http://git.sugarlabs.org/pootle-helpers
+/usr/lib/python2.6/dist-packages/translate/storage/versioncontrol/git.py (Translate)

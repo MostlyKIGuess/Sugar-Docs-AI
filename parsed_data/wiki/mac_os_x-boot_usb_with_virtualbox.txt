@@ -1,0 +1,170 @@
+Title: Mac OS X-Boot USB with VirtualBox
+URL: https://wiki.sugarlabs.org/go/Mac_OS_X-Boot_USB_with_Virtualbox#Running_Soas_files_on_a_2nd_USB_in_Virtualbox_3.2_installed_on_the_MacBook_Air
+--------------------------------------------------------------------------------
+Contents
+1
+Running Soas files on a 2nd USB in VirtualBox 3.2 installed on the MacBook Air
+2
+Mac OS X F14 desktop with VirtualBox Boot USB
+2.1
+How you can get it
+2.1.1
+Boot USB
+2.1.1.1
+dd command to copy it to your Boot 4GB USB
+2.1.2
+SoaS v3 Mirabelle VirtualBox files to put on 2nd USB
+2.1.2.1
+Prebuilt Soas-v3-Mirabelle 4GB Appliance
+2.1.3
+Build your own Virtual Appliance using EasyVMX!
+2.2
+Boot Helper CD's
+2.3
+References
+Running Soas files on a 2nd USB in VirtualBox 3.2 installed on the MacBook Air
+In VirtualBox Make a "new" VirtualBox appliance where you specify the existing vmdk file on the 2nd USB as the Hard Disk.
+NOTE the same 4 GB USB 2nd USB containing the students appliance files runs interchagably in BOTH VMware Player and VirtualBox on Mac and PC.s
+This ONLY applies to Appliances built with EasyVMX!
+[1]
+(VMware 6.0) and a Burned CD in VMware Player.
+Hard Disks built in VirtualBox will not start with VMware Player.
+TESTED ON:
+Acer Aspire One Netbook Ubuntu 9.10 VirtualBox 3.2.10
+MacBook Air OSX VirtualBox 3.2.10
+Dell 520n Dektop PC Ubuntu 9.04 VMware Player
+EeePC1000HE running Windows XP Pro SP2 VirtualBox 3.2.10
+CAUTION: DO NOT  OPEN Appliance WITH VMWORKSTATION 6.5.2
+USB will become unusable if you do.  VMware Player is OK
+This a much simpler solution if you have
+VirtualBox-3.2.10-66523-OSX.dmg
+installed on your Mac.
+See:
+SoaS v3 Mirabelle VirtualBox files to put on 2nd USB
+Mac OS X F14 desktop with VirtualBox Boot USB
+(This is an experimental Work in Progress; PLEASE TEST)
+This is a 4GB USB that is booted on a MacBook Air with a boot helper CD
+It opens a SoaS v3 Mirabelle Virtual Appliance located on a 2nd USB
+This 2nd USB can be exchanged with that of another student.
+This is proposed as a first solution for
+SL#598 Boot Helper Virtual Machine
+To run USB from ram: on Boot screen <TAB> add to boot command "live_ram"  (supposed to load into ram) Needs testing.
+How you can get it
+Boot USB
+4GB USB to be booted in an intel Mac ONLY:
+Mac_F14_Vbox.img.tar.bz2
+1.8G
+Note will not boot in Non-Mac Machine and will be damaged if you try to do so.
+Download it and decompress it
+Use Boot Helper CD
+soas-4-boot-test.iso
+(Burn this to a CD and boot with it)
+Hold "C"key when powering up Mac and Hold it down until blue fedora screen appears)
+DO NOT try to build or import a Virtual Machine on this live USB - It is only 4GB in size and it will fill up and be destroyed.
+You can always dd write a copy from the Mac_F14_Vbox.img if this happens.
+Use it to point to an existing Virtual Machine on a 2nd 4GB USB ONLY
+dd command to copy it to your Boot 4GB USB
+To Write to your 4GB USB (linux)
+/dev/sd(x)
+BE CERTAIN THIS IS THE DEVICE ADDRESS OF YOUR USB
+type mount in terminal to see device (/dev/sdb; /dev/sdc; /dev/sde....etc
+root@xxx:/home/xxx/Desktop#
+dd if=Mac_F14_Vbox.img of=/dev/sd(x)
+7831552+0 records in
+7831552+0 records out
+4009754624 bytes (4.0 GB) copied, 1365.52 s, 2.9 MB/s
+root@xxx:/home/xxx/Desktop#
+SoaS v3 Mirabelle VirtualBox files to put on 2nd USB
+NOTE the files on the 2nd USB can be opened directly in VirtualBox 3.2 installed on the MacBook Air
+In VirtualBox Make a "new" VirtualBox appliance where you specify the existing vmdk file on the 2nd USB as the Hard Disk.
+Suggestion: Put Multiple Copies of these 8 files on an external USB Hard disk each set in a separate folder
+rename the folders to match your students' Names.
+Easy to Copy for backup
+Archive in a safe place between sessions
+Students have access to their own files from one PC or Mac
+Each student has name and password set by "firstboot" on first login.
+Occupies minimal space on Class Computer.
+Disadvantage: Only one student access at a time.
+Prebuilt Soas-v3-Mirabelle 4GB Appliance
+Details
+Talk:Mac OS X-Boot USB with VirtualBox
+Download tar.bz2 file
+Soas-v3-Mirabelle_no_firstboot
+421M
+This Appliance is ready for students First login where they will set their name and password.
+Decompress (linux)
+copy-paste files 8 files (listed below) to a preformatted 4GB USB (fat16 label=MIRABELLE)
+Contains these files
+nvram
+Soas-v3-Mirabelle.log
+Soas-v3-Mirabelle.vmdk
+<- Use this file
+Soas-v3-Mirabelle.vmsd
+Soas-v3-Mirabelle.vmx
+Soas-v3-Mirabelle.vmxf
+Soas-v3-Mirabelle-s001.vmdk
+Soas-v3-Mirabelle-s002.vmdk
+Soas-v3-Mirabelle-s003.vmdk
+Eject USB from Linux PC
+Insert in MacBook Air
+Start VirtualBox 3.2 for OS X
+""NEW"/Linux/Fedora
+"Hard Disks"
+"Use Existing Disk/ADD"
+Click on USB Labeled MIRABELLE
+select
+Soas-v3-Mirabelle.vmdk
+<Choose>
+_>START
+Soas Boots and Runs to firstboot where you set password and user name. Then to gdm where you log in to Soas.
+ENJOY
+Tested Nov 24 2010 and it works from DL -satellit
+Build your own Virtual Appliance using EasyVMX!
+NOTE we Build the Appliance on a PC running Linux (Ubuntu 9.04) with VMware Player; then use the Appliance copied to a 4 GB USB inserted into the Macintosh and run from VirtualBox 3.2 for OSX
+xxx.vmdk files it creates can be opened in VirtualBox 3.2
+An installation of VMware Player (free) is used to create the files we need (linux or windows)
+web site that builds a vmx file to your specifications (free)
+http://www.easyvmx.com/
+Works fine, runs on most platforms, and has persistence
+VMware Player download (free):
+http://www.vmware.com/tryvmware/
+specified a 8 GB Hard Drive and other parameters
+downloaded, in browse, the Custom vmx file as a .zip file
+Decompressed the .zip file
+Put
+CD soas-3-mirabelle.iso burned as CD
+in your CD Drive
+Open VMware Player and point it to this vmx file
+CD boots in VMware player application
+Sugar Starts
+To install to VMware player Hard Disk:
+Open Sugar-terminal:
+su
+liveinst
+Anaconda installer opens
+Initialize all disks
+custom/create
+/boot 200 ext4
+/     6000
+swap  400
+Install proceeds normally
+Shutdown
+Copy the files created in VMware Player and save them (they can be used to make multiple 4GB USB's for different students as it starts with firstboot with it's personalization of password and name.)
+To use:
+Copy-Paste all files to a 4 GB USB (fat 16 Label: MIRABELLE) and insert it into a Mac  with VirtualBox 3.2 for OSX running
+In VirtualBox Make a "new" VirtualBox appliance where you specify the "existing" vmdk file on the 2nd USB as the Hard Disk.
+Advantages:(2nd USB with personalized .vmdk files)
+Portable (Student can take home and run on home Computer)
+Run it on different Platforms where VirtualBox 3.2 is installed.
+Boot Helper CD's
+MAC SOAS-3 Mirabelle Boot DISK
+soas-3-boot-test.iso
+(Burn this to a CD and boot with it)
+Read Me First & Credits to Programmer
+MAC SOAS-4 Mango lassi Boot DISK
+soas-4-boot-test
+(Burn this to a CD and boot with it)
+References
+Sugar_Creation_Kit#Building_a_bootable_USB
+http://lists.sugarlabs.org/archive/iaep/2010-November/012019.html
+Emulator_image_files#VirtualBox

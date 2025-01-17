@@ -1,0 +1,578 @@
+Title: Sugar Network/1.0/Todo
+URL: https://wiki.sugarlabs.org/go/Sugar_Network/1.0/Todo#0.4
+--------------------------------------------------------------------------------
+Contents
+1
+Features
+1.1
+Sugar Network
+1.1.1
+Object domain
+1.1.2
+Workflows
+2
+Development releases
+2.1
+0.1
+2.2
+0.2
+2.3
+0.25
+2.4
+0.3
+2.5
+0.4
+2.6
+0.5
+2.7
+0.6
+2.8
+0.7
+2.9
+0.8
+2.10
+1.0
+2.11
+Post 1.0
+3
+Statistics to gather
+3.1
+Interactions
+3.2
+Participants
+3.3
+Usage
+3.4
+Content
+4
+Inventory of technical issues outside Client and Server
+5
+Questions for educators/experts
+Features
+This is a list of features that need to be implemented during the
+intermediate releases
+. In brackets, there will be mentioned
+intermediate releases
+that when particular feature needs to be initially implemented (obviously, that implementation needs to be polished until final 1.0 release).
+Sugar Network
+Features related to
+Sugar Network
+implementation.
+Object domain
+The detailed information about Sugar Network object domain might be found on
+concept pages
+and in
+objects model
+. But in short, Sugar Network objects are represented by the following list (object names might not be exposed in final GUI):
+Context
+These are the top-level entities that represent content in the Sugar Network and might be several types:
+Sugar Activities (
+0.1
+),
+.xol
+files (
+0.3
+);
+arbitrary documents that might be opened by the Sugar, e.g., PDF or HTML files that represent, e.g., books (
+0.3
+);
+(this list might be extended before releasing 1.0, e.g., by editable Wiki articles).
+The rest of objects directly or indirectly associated with
+Contexts
+.
+Question
+(
+0.1
+)
+General questions about
+Contexts
+. The idea is populating the knowledge base for the
+Context
+, similar (but much simpler) to
+stackoverflow site
+.
+Idea
+(
+0.2
+)
+Any ideas regarding
+Contexts
+.
+Problems
+(
+0.2
+)
+Report a problem with
+Contexts
+. A user-friendly interface to complain about an error that the users encountered when working with the
+Context
+. It is not intended to be a full functional bugs reporting system, but rather a users friendly interface to ask questions. For real bugs reporting case, there is semiautomatic
+Report
+object, or experienced people can use already existing bugs reporting systems.
+Solution
+(
+0.3
+)
+Object represent exactly a solution for particular
+Question
+,
+Idea
+,
+Problem
+.
+Review
+(?)
+A post that reviews the
+Context
+.
+Comment
+(?)
+Short comment for existing
+Question
+,
+Idea
+,
+Problem
+,
+Review
+object. If you have a post with more than a couple of lines, consider creating new object instead of commenting existing one.
+Artifact
+(?)
+Object created within the
+Context
+:
+Activity objects,
+(this list might be extended before releasing 1.0).
+Report
+(
+0.25
+)
+Semi automatic reports created if Sugar activity failed to start/stop.
+Workflows
+From users point of view.
+Browse
+Contexts
+(
+0.1
+);
+Bookmark
+Contexts
+(
+0.2
+);
+Launch
+Contexts
+as Sugar activities
+(
+0.1
+);
+Support online and offline modes where in offline, only selected
+Contexts
+will be accessible (
+0.3
+);
+Create
+Questions
+,
+Ideas
+,
+Problems
+(
+0.2
+);
+Browse and create
+Solutions
+for
+Questions
+,
+Ideas
+,
+Problems
+(
+0.25
+);
+Comment objects (?);
+Semi automatic creating
+Reports
+(
+0.25
+);
+Subscriptions to events for particular
+Contexts
+(?);
+Visually expose already visited content
+[1]
+(?)
+From point of view of people who can help with solving problems.
+Browse and create
+Solutions
+for
+Questions
+,
+Ideas
+,
+Problems
+(
+0.25
+);
+Subscriptions to events for
+Contexts
+people are responsible for (?);
+From content creators/uploaders point of view.
+ASLO activities will be delivered from Sugar Network
+(
+0.1
+);
+Create new
+Content
+for Sugar activity (?);
+Create new
+Content
+for arbitrary document (.xol, PDF, HTML, etc) (?);
+Upload new versions (?).
+From point of view of people who are willing to take part in quality assurance (QA) process.
+..
+Development releases
+More detailed TODO list for particular intermediate releases according to the
+roadmap
+.
+0.1
+Users friendly Sucrose+Sugar Network client distribution.
+Done.
+Distribution will be formed as 3rd party repositories to install packages, i.e., something like Sweets Distribution.
+Packages will include:
+Sucrose with integrated SN client
+Pre-configured environment to start using SN from server hosted on SL server
+So, after attaching this repository, installing one package and launching sugar, people will see current SN implementation and start collaborating on public SN server. Collaboration will include:
+launching activities from the SN (mirrored from ASLO)
+populate already implemented resources, linked to activities, e.g., Questions
+Sugar Shell will provide the following options for providing SN content:
+Original Home view (not SN), by default
+Empty favorites view, will be improved in 0.2;
+Original Home view with activities provided from SN, limited meanwhile solution
+Favorites view will contain local activities downloaded from SN in 0.2;
+SN client instead of
+Home View
+list view.
+Switch between Home View modes will happen from Control Panel.
+0.2
+Investigate Jabber related issues:
+[2]
+.
+Major work is done, minor issues might be fixed in process.
+Synchronization between SN nodes.
+No chances to have it in 0.2, postponed to 0.3.
+Server notifications about SN data changes.
+Implemented on server side, client will use it in 0.3.
+Expose favorited contexts in favorite view in Home view.
+Right now, Home view shows activities from ~/Activities.
+Revise Dextrose-3 patches to exclude ones that don't make sense after enabling Sugar Network.
+Some bugs fixing commits were merged to SD
+repositories
+.
+Prepare .pot files.
+Moved to 0.3, translation.sugarlabs.org process should be setup before 0.3 release.
+XO images for students and teachers, teachers server. This downstream work Will be done within the Hexokinase project.
+Moved to 0.25.
+0.25
+Release targeted to getting initial feedback from teachers in Comas district in Lima.
+Continue working on client GUI improvements
+;
+Initial implementation of
+Solutions
+in client GUI
+;
+Make it possible to create new
+Reports
+in GUI after getting Sugar activity failed;
+Client application needs to reflect on server side changes to avoid showing stale data;
+Postponed for 0.3.
+XO images for students and teachers (teachers server) to start testing the system right after flashing XOs.
+0.3
+Consider running the system in Fedora-11 (current in use in Peru).
+Sugar 0.94 and SN starts well.
+Distribute base software updates.
+Moved to 0.4.
+Start gathering
+usage statistics
+.
+Moved to 0.4.
+Define/Document some useful usage indicators for SN interaction.
+Moved to 0.4.
+More useful client behavior in offline scenario, e.g. show content accessible locally.
+Initial implementation in place.
+Optimize current implementation to make it more useful on XO-1 laptops.
+The second shell start (after calling
+sugar
+command and before appearing Journal icon) for 40 installed activities is only 6 seconds longer than with Dextrose-3.
+Setup -testing server instance that will keep regular SN content that should be migrated to new code base on every release.
+. Sugar Shell looks for
+http://api-testing.network.sugarlabs.org
+by default, there is also read-only public web server,
+http://network-testing.sugarlabs.org
+.
+Setup translation.sugarlabs.org translation process.
+Moved to 0.4.
+Handle server notifications about SN data changes in client application.
+Moved to 0.4.
+Synchronization between SN nodes.
+Moved to 0.4.
+Basic i18n support in SN content (excluding managing already entered strings).
+Basic routines for SN editors (including initial populating SN content):
+0.3 will contain only trivial and ready use activities, the editors workflow implementation work will start from 0.4.
+Since there are useful binary based activities (GC, TuxPaint), support upload such activities to SN. From developers point of view, the only they need to proceed is uploading sources bundle to SN, the rest (building sources for all supported platforms) should happen automatically.
+Moved to 0.4.
+Revise most popular ASLO activities to add all needed meta information (like required dependencies) and mark the as stable and ready to run from Sugar Network.
+Thanks to
+satellit
+, testing server contains only activities that start without problems.
+Worfklow to semi automatic collect fail reports using Report resource.
+Move to 0.25.
+final XO image, for students and teachers (teachers server), that is ready for deploying.
+Moved to 0.4.
+0.4
+Fix issue with creating new Journal entity on every launch from F8.
+Moved to 0.5.
+Edit resources capability
+Delete comments capability
+Create context capability
+Distribute base software updates.
+Moved to 0.5.
+Start gathering
+usage statistics
+.
+Moved to 0.5.
+Define/Document some useful usage indicators for SN interaction.
+Setup translation.sugarlabs.org translation process.
+Synchronization between SN nodes.
+Upload arbitrary documents as contexts to SN
+Moved to 0.5.
+with
+segregation in webui
+.
+Final XO image, for students and teachers (teachers server), that is ready for deploying to start testing in the field.
+Next
+development
+XO images and images targeting to Peru deployment
+[3]
+.
+0.5
+Journal integration:
+Journal is accessible as Artifact resource from
+~
+mount point.
+Fix an issue with creating new Journal entity on every launch from F8.
+Moved to 0.6.
+Upload arbitrary documents as contexts to SN.
+Moved to 0.6.
+Make it possible to show a top of recent comments for all currently represented resources in webui. That should help with fast observing the current discussion status.
+Moved to 0.6.
+Offline updates for base software updates.
+Start gathering
+usage statistics
+.
+CRUD
+workflow for SN content.
+Moved to 0.6.
+Basic routines for SN editors (including initial populating SN content):
+let all people, not only editors, expose the fact that particular activity [doesn't]works in theirs environment (maybe just by exposing how many fail Reports exist for the Implementation, Report might have the level of failure: doesn't do basic work, doesn't do optional work but basic features work fine).
+Moved to 0.6.
+0.6
+Reliable way to start Sugar Activities that have additional dependencies.
+Moved to 0.7.
+Fix an issue with creating new Journal entity on every launch from F8.
+Moved to 0.7.
+Upload arbitrary documents as contexts to SN.
+Moved to 0.7.
+Make it possible to show a top of recent comments for all currently represented resources in webui. That should help with fast observing the current discussion status.
+Moved to 0.7.
+Initial implementation of Contributor Hub.
+Synchronize testing server with ASLO.
+0.7
+Server side:
+Server side stats.
+Client side:
+Support server side stats.
+No need.
+Process package dependencies in order to provide reliable start of Sugar Activities.
+Resume Sugar Network non-activities content, e.g., Journal objects or .xol libraries.
+RO access to local Journal
+.
+WebUI:
+Offline work and Syncronization functionality
+Include notes regarding the licenses applicable for published content
+Fix an issue with creating new Journal entity on every launch from F8.
+...
+Contributor Hub:
+Upload content, e.g., .pdf files.
+0.8
+Server and client side:
+Offline usecase for Sugar Network nodes.
+Moved to 0.10+
+Support
+Users' home page
+.
+WebUI:
+Subscriptions and Notifications.
+Moved to 0.10+
+Users' home page
+.
+Moved to 0.10+
+Contributor Hub:
+Visualize server stats.
+1.0
+No new features, only polishing.
+Final release should have. Difficulties are from 0 (impossible) to 5 (trivial).
+General
+Sugar Network content related features:
+Uploading non-software content. Difficulty 5.
+Uploading non-binary activities. Difficulty 3.
+Activities will come from regular ASLO sync.
+Share Journal objects.
+Statistics related features:
+Server side stats, e.g.,
+likes
+for resources. Difficulty 2.
+Personal users' stats
+Implemented in
+sugar-client
+.
+Visualize stats.
+Users' home page
+to keep them up-to-date:
+Live updates in resources user is subscribed after becoming online. Difficulty 4.
+Getting digest of changes happened in resources where logged user is an author. Difficulty 3.
+Sugar Network editors workflow:
+Multiple authors per Context to let several people change Context metadata (it is all time possible to create related objects by any user). Difficulty 4.
+Contributor Hub should provide a UI to let deployment supported to select what content should be accessible for particular deployment. Difficulty 3.
+..
+WebUI
+Share Journal objects.
+Users'
+home page
+to keep them up-to-date.
+...
+Contributor Hub
+Upload content.
+Stats visualization.
+Post 1.0
+Full support of offline deployments.
+Full support for server-less use-case for users.
+Support binary based activities.
+Statistics to gather
+Statistic types:
+network-server
+Stats will be collected on Sugar Network server and stored in
+round-robin
+storage for further analyzing;
+client-sniffer
+Stats will be collected by special sniffer, e.g.,
+sugar-client
+, launched on client side to collect local stats, in
+round-robin
+database, with following transmitting to the Sugar Network server;
+unknown
+Ambiguous stats criterion.
+Interactions
+Contexts Searches (
+network-server
+).
+Context [Activity Type] Launches (
+client-sniffer
+).
+Context [Activity Type] Failure Reports (
+network-server
+).
+Context [Project Type] Views (
+unknown
+).
+Context [Project Type] Creation (
+network-server
+).
+Context [Project Type] Editing (
+network-server
+).
+Resource Creation/Editing/Commenting Review Type (
+network-server
+).
+Resource Creation/Editing/Commenting/Solving Question Type (
+network-server
+).
+Resource Creation/Editing/Commenting Idea Type (
+network-server
+).
+Resource Creation/Editing/Commenting/Solving Problem Type (
+network-server
+).
+Participants
+Total Users: Total number of participants at any time (counting since network launching) (
+network-server
+).
+Period New Users: Simple summation of the number of new participants over the course of a specified time period (
+network-server
+).
+Period Active Users: Simple summation of the number of participants that registered at least one effective interaction on the network over the course of a specified time period (
+network-server
+).
+Period Unique Visitors: The number of unduplicated (counted only once) visitors to the network over the course of a specified time period (visitors may or may not make effective interactions) (
+network-server
+).
+Top/Ranking Users: [how to rank participation?] [total / by period?] [also, sort by Location or Conexion type?] (
+unknown
+)
+Usage
+Total Visits: Total number of visits to the network at any time (counting since network launching). (
+network-server
+)
+Period Visits: Total number of visits to the network over the course of a specified time period. (
+network-server
+)
+Period Effective Visits: Simple summation of the number of visits that registered at least one effective interaction on the network over the course of a specified time period. (
+network-server
+)
+Period Interactions Per Visit: Average number of effective interactions per visit on the network over the course of a specified time period. (
+network-server
+)
+Content
+Total Contexts [Activity type]: simple summation of contexts of Activity type at any time (counting since network launching). (
+network-server
+)
+Period New Contexts [Activity type]: simple summation of the total number of created contexts of Activity type over the course of a specified time period. (
+network-server
+)
+Period Active Contexts [Activity type]: simple summation of the total number of contexts of Activity type that registered at least one effective interaction over the course of a specified time period. (
+network-server
+)
+Total Contexts [Project type]: simple summation of contexts of Proejct type at any time (counting since network launching). (
+network-server
+)
+Period New Contexts [Project type]: simple summation of the total number of created contexts of Project type over the course of a specified time period. (
+network-server
+)
+Period Active Contexts [Project type]: simple summation of the total number of contexts of Project type that registered at least one effective interaction over the course of a specified time period. (
+network-server
+)
+Period Context Ranking [100?] of Contexts by type: most interacted Contexts over the course of a specified time period. (
+unknown
+)
+Inventory of technical issues outside Client and Server
+How will students register with a teacher
+How will teachers turn their laptop into servers
+What are the constraints of the syncronization mechanism
+Patch to Journal for sharing in SN
+Questions for educators/experts
+What kind of users' statistics will be useful for educators/researchers?
+See the current
+implementation
+of Australian
+request
+. The collected data are being stored in
+RRD
+format and might be represented in
+graphics
+.
+Should students, teachers be clearly separated in the GUI?
+Should teachers track what their students do within the Network?
+Should the students track what they do within the Network?
+Should teachers moderate what their students do within the Network?
+What kind of users' statistics will be useful for teachers and learners?

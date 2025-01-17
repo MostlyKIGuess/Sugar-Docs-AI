@@ -1,0 +1,41 @@
+Title: Development Team/Chroot
+URL: https://wiki.sugarlabs.org/go/Development_Team/Chroot
+--------------------------------------------------------------------------------
+Contents
+1
+Status
+2
+Purpose
+3
+Usage
+4
+History
+Status
+sugar-chroot-0.1 released: see
+sugar-chroot
+Purpose
+You want to hack sugar. You don't want to fuss around.
+You want sugar-chroot.
+Usage
+As excerpted from the
+README
+:
+sugar-chroot consists of simple scripts. Download and unpack them like so:
+NV=sugar-chroot-0.1
+curl
+http://dev.laptop.org/~mstone/releases/SOURCES/$NV.tar.xz
+| tar Zxf $NV.tar.xz
+cd $NV
+To use them, pick a supported distro:
+DISTRO=debian
+DISTRO=fedora
+To configure:
+echo $DISTRO > conf/distro
+$EDITOR conf/$DISTRO.mk
+Then run
+sudo make r/distro
+to install your chroot.
+History
+See
+http://wiki.sugarlabs.org/index.php?title=Development_Team/Chroot&oldid=36911
+for the manual instructions which sugar-chroot automates.

@@ -1,0 +1,195 @@
+Title: Machine/template-fedora13
+URL: https://wiki.sugarlabs.org/go/Machine/template-fedora13
+--------------------------------------------------------------------------------
+Guest installation
+qemu-img create -f qcow2 /srv/vm/template-fedora13.qcow2 10G
+virt-install -v --accelerate --nographics -x console=ttyS0,115200 \
+   --name template-fedora13 --vcpus=4 --ram $((1*1024)) \
+   --os-type=linux --os-variant=fedora13 \
+   --network bridge:br0 \
+   --disk /srv/vm/template-fedora13.qcow2 \
+   --location
+http://download.fedora.redhat.com/pub/fedora/linux/releases/13/Fedora/x86_64/os/
+In Anaconda, select graphical installation over vnc
+Layout the disk with a single primary partition for root
+In package selection, choose "minimal system"
+Initial configuration
+At the end of installation, boot with:
+virsh start --console template-fedora13
+Set ssh keys of Sugar Labs sysadmins:
+mkdir ~/.ssh
+cat >>~/.ssh/authorized_keys
+paste keys
+Configure the SSH daemon:
+vi /etc/ssh/sshd_config
+  PermitRootLogin yes
+  PermitEmptyPasswords no
+  PasswordAuthentication no
+service sshd restart
+setsebool -P ssh_sysadm_login on
+Put selinux in permissive mode (while we patiently wait for the day in which selinux in Fedora will become sort of usable out of the box without major tweaks):
+vi /etc/sysconfig/selinux
+Remove root password (this lets us login from the console with no password):
+vipw -s
+Enable traditional networking (no NetworkManager nonsense):
+chkconfig network on
+start network
+Optimize creation of new users
+mkdir /etc/skel/.ssh
+cat >/etc/skel/.ssh.authorized_keys <<__EOF__
+# Place your ssh public keys here, one per line
+__EOF__
+chmod g-w -R /etc/skel/.ssh
+Create sysadmin accounts:
+useradd -c "Bernie Innocenti" -m bernie
+cat >>/home/bernie/.ssh/authorized_keys
+chown -R bernie:bernie /home/bernie/.ssh
+...
+Add users to wheel group (no better way in Fedora?):
+vigr
+Edit sudoers with visudo:
+Uncomment "%wheel ALL=(ALL) NOPASSWD: ALL"
+Add these lines
+#bernie: forward agent
+Defaults env_keep += "SSH_AUTH_SOCK"
+Switch from serial console to ssh
+ssh root@template-fedora13.sugarlabs.org
+Install a bunch of useful rpms:
+yum install etckeeper bash-completion git-core strace munin-node duplicity postfix vim devtodo man
+Enable etckeeper:
+etckeeper init
+Insert into /etc/munin/munin-node.conf:
+#SMParrish
+allow ^140\.186\.70\.53$      # sunjammer.sugarlabs.org
+allow ^10\.3\.3\.1$           # trinity.trilan
+allow ^2001:4830:1100:48::2$  # sunjammer.sugarlabs.org (IPv6)
+cd /etc/munin/plugins
+rm if_err_eth0 entropy
+turn on munin-node
+chkconfig munin-node on
+service munin-node start
+generate key for root
+ssh-keygen -N "" -f /root/.ssh/id_rsa -t rsa
+Install our standard scripts
+rsync -aP bernie@sunjammer.sugarlabs.org:/usr/src/devtools/ /usr/src/devtools/
+ln -sf /usr/src/devtools/sysadm/bashrc.sh /etc/skel/.bashrc
+ln -sf /usr/src/devtools/sysadm/bashrc.sh /root/.bashrc
+ln -sf /usr/src/devtools/sysadm/zzz_profile.sh /etc/profile.d/zzz_profile.sh
+ln -sf /usr/src/devtools/conf/vimrc /etc/vimrc
+create /etc/system-full-backup.conf
+#bernie: This file MUST have permissions 600
+echo "Please configure /etc/system-full-backup.conf and run"
+echo "  ssh-copy-id -i /root/.ssh/id_rsa.pub sugarbackup@backup.sugarlabs.org"
+echo "then, comment out these lines to enable backups"
+exit 1
+PASSPHRASE=ChangeMe
+TARGET="scp://sugarbackup@backup.sugarlabs.org/backup/`hostname`"
+Install /root/.ssh/id_rsa.pub key on sugarbackup@backup.sugarlabs.org
+ssh-copy-id -i /root/.ssh/id_rsa.pub sugarbackup@backup.sugarlabs.org
+log in for the first time on backup server to accept ssh fingerprint
+ssh sugarbackup@backup.sugarlabs.org
+create /etc/profile.conf
+#SMParrish
+HOST_COLOR='\033[1;33m'
+HOST_CFLAGS='-march=core2'
+HOST_CORES=2
+Add the machine to /etc/munin/munin.conf on Machine/sunjammer for monitoring.
+[VM Name]
+        address vmname.sugarlabs.org
+Replace sendmail with postfix
+Create /etc/postfix/main.cf  and paste the following into it replacing template-fedora13 with the new VM name
+smtpd_banner = $myhostname ESMTP $mail_name (Fedora)
+biff = no
+
+# appending .domain is the MUA's job.
+append_dot_mydomain = no
+
+# Uncomment the next line to generate "delayed mail" warnings
+#delay_warning_time = 4h
+
+readme_directory = no
+
+# TLS parameters
+smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_use_tls=yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+
+# See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
+# information on enabling SSL in the smtp client.
+
+#bernie
+myhostname = template-fedora13.sugarlabs.org
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+myorigin = /etc/mailname
+mydestination =
+       template-fedora13.sugarlabs.org,
+       localhost.sugarlabs.org,
+       localhost,
+       sugarlabs.org
+relayhost =
+
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+#bernie
+home_mailbox = Maildir/
+
+#bernie: as suggested by mostro
+smtpd_recipient_restrictions =
+        permit_mynetworks
+        permit_sasl_authenticated
+        reject_unauth_destination
+        reject_rbl_client bl.spamcop.net
+        reject_rbl_client zen.spamhaus.org
+        reject_rbl_client dnsbl.njabl.org
+        reject_rbl_client dnsbl.sorbs.net
+        reject_rbl_client cbl.abuseat.org
+        reject_unknown_recipient_domain
+        reject_non_fqdn_recipient
+        reject_unlisted_recipient
+Disable sendmail & enable postfix
+service sendmail stop
+service postfix start
+chkconfig sendmail off
+chkconfig postfix on
+Get all system mail forwarded to the systems-logs@ list
+cat >>/etc/aliases <__EOF__
+#bernie
+root: systems-logs@lists.sugarlabs.org
+__EOF__
+newaliases
+Clone the VM
+Login to the host system & clone the VM
+sudo virt-clone --connect=qemu:///system -o template-fedora13 -n "new VM name" -f /srv/vm/"new VM name".qcow2
+Start the new VM and make sure it boots (networking probably will not work, we will fix that later)
+sudo virsh start --console "new VM name"
+edit /etc/sysconfig/network and change the hostname
+HOSTNAME=
+newvm
+.sugarlabs.org
+Add the hostname to the sugarlabs zone file in the
+nameservers
+.
+Edit network configuration /etc/sysconfig/network-scripts/ifcfg-eth0 to update IPv4 and IPv6 addresses
+Edit /etc/udeve/rules.d/XX-persistent-net.rules
+Remove definition for eth0 it will get regenerated on reboot
+Reboot the system, when it comes back up networking should work
+remove old ssh keys & generate new ones
+rm -rf /etc/ssh/ssh_host_*
+service sshd restart
+create new key for root
+ssh-keygen -N "" -f /root/.ssh/id_rsa -t rsa
+update /etc/system-full-backup.conf
+update the motd
+vim /etc/motd
+Add the machine to /etc/munin/munin.conf on Machine/sunjammer for monitoring.
+[
+newvm
+.sugarlabs.org]
+address
+newvm
+.sugarlabs.org

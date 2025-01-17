@@ -1,0 +1,81 @@
+Title: Deployment Platform/Client Configuration
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/Client_Configuration
+--------------------------------------------------------------------------------
+Summary
+This page describes the
+sweets.conf
+configuration file, the common way to configure Sugar clients within the
+Sweets Distribution
+, thus,
+Deployment Platform
+. Configuration does not intersect with Sugar Shell settings, stored in GConf, and contains parameters related only to new functionality introduced by
+Sweets Distribution
+.
+Configuration files
+The configuration occurs based on several sources (sorted by applied order):
+/etc/sweets.d
+directory with system-wide configuration files,
+/etc/sweets.conf
+system-wide configuration file,
+~/.config/sweets/config
+user-wide configuration file,
+~/.sugar/
+PROFILE
+/sweets.conf
+configuration related to particular Sugar profile.
+Configuration files should be formatted as regular
+INI
+files.
+Configuration sections
+This is a list of configuration sections in
+sweets.conf
+files. Each section belongs to particular application and might be optional in the final system.
+[main]
+General purpose section.
+debug
+Logging verbosity level:
+0
+, log only errors and warning,
+1
+, additionally log info messages,
+2
+, additionally log debug messages,
+3
+, additionally log trace messages.
+[client]
+Configure
+sugar-network-client
+, a
+Sugar Network
+client application from
+sugar-network
+package. To get the full list of available configure options, call the
+sugar-network-client config
+command.
+[stabilities]
+One more
+Sugar Network
+related section. By default, only stable Sugar Activity implementations will be fetched from the Sugar Network. To customize stability selection, add exceptions to the this section. Each option should conform the format
+CONTEXT =
+STABILITIES
+.
+For example:
+[stabilities]
+org.somosazucar.ServidorVNC = stable,testing
+[shell]
+Configure Sugar Shell extra functionality implemented by version packaged in Sweets Distribution. There are the following settings:
+plugins
+Space separated list of
+Shell plugins
+to enable.
+[blacklist]
+Blacklist
+Sugar Shell components.
+[sugar-plugin-*]
+Configure particular
+Shell plugin
+.
+[packagekit-presolve]
+Configure PackageKit
+presolve
+backend.

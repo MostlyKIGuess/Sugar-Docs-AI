@@ -1,0 +1,124 @@
+Title: Human Interface Guidelines/The Sugar Interface/Icons/lang-es
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/The_Sugar_Interface/Icons/lang-es#Active_vs._Inactive_Icons
+--------------------------------------------------------------------------------
+Traducción de
+HIG-Icons
+original
+english
+|
+español
+|
+한국어
++/-
+cambios
+←
+Lineamientos de Diagramación
+Iconos
+Colores
+→
+Contents
+1
+Iconos
+1.1
+Categorías de Iconos
+1.1.1
+El XO
+1.1.2
+Iconos de Actividades
+1.1.3
+Iconos de Objetos
+1.1.4
+Iconos de Acciones
+1.2
+Iconos Activos vs. Inactivos
+1.2.1
+Activo
+1.2.2
+Inactivo
+1.3
+Lineamientos para el Diseño de Iconos
+1.3.1
+Formato del Icono
+1.3.2
+Tamaño de Iconos
+1.3.3
+Trazos & Rellenos
+Iconos
+Categorías de Iconos
+El XO
+Los iconos que representan Personas tienen un estatus especial en las laptops. Referidos en general como
+XOs
+, ellos representan a los niños y sus laptops en el Vecindario de una red mesh, y por extensión al proyecto OLPC y sus objetivos de poner una laptop en las manos de cada niño. Cada niño elegirá el trazo y color para su XO, que serán los colores que se aplicarán a los íconos de cualquier Actividad u Objeto que creen.
+The icons which represent People have special status on the laptops. Referred to generally as the XOs, they represent the children and their laptops on the mesh Neighborhood, and furthermore represent the OLPC project and its goals to place a laptop in the hands of every child. Each child will select a stroke and fill color for their XO, and their chosen colors will then apply to the icons of any Activities or Objects they create.
+Iconos de Actividades
+Iconos de Objetos
+Iconos de Acciones
+Iconos Activos vs. Inactivos
+Puede ocurrir en muchas situaciones que algunos elementos de la interfaz se encuentren inactivos. Sugar especifica un estilo visual consistente para representar los conceptos de ausencia e inactividad. Los elementos inactivos son botones no accionables actualmente, o controles que están temporalmente deshabilitados. Los elementos ausentes son iconos de objetos que representan personas o cosas que no se encuentran actualmente presentes; por ejemplo, una descarga incompleta, o un amigo invitado que todavía no se ha unido a la actividad.
+Many instances may arise in which some elements of the interface are inactive.  Sugar specifies a consistent visual style to represent the concepts of absence and inactivity.  Inactive elements are buttons that are not currently actionable, or controls that are temporarily disabled.  Absent elements are object icons that represent people or things which aren't actually present at the moment; for instance, an incomplete download, or an invited friend who hasn't yet joined the activity.
+Generalmente, las interfaces representan dicha inactividad por medio del agrisado. Por supuesto, dado que la laptop también opera en una escala de grises, dicha distinción por color
+no debe
+ser usada bajo ninguna circunstancia. De hecho, Sugar tomara ventaja de los gráficos vectoriales para representar a los objetos y botones inactivos usando un contorno blanco y sin color de relleno.
+Generally, interfaces represent such inactivity through grayed out imagery.  Of course, since the laptop also operates in grayscale mode, such a color distinction
+must not
+be used under any circumstances.  Instead, Sugar will take advantage of the vector graphics used for rendering objects and buttons by rendering inactive ones as a white outlined stroke, with no fill color.
+Activo
+Inactivo
+Lineamientos para el Diseño de Iconos
+Formato del Icono
+Para su uso en Sugar, todos los íconos diseñados deben ser provistos en el
+formato SVG
+. Dado que todos los íconos existen como vectores, el escalamiento y coloreado dinámico ocurre sin ninguna degradación. Esto permite la representación de íconos en varios tamaños dependiendo del contexto de la interfaz. Adicionalmente, esto provee un soporte dinámico para un coloreado de actividades y objetos basados en los colores elegidos por cada chico para su XO.
+All icons designed for use in Sugar must be provided in
+SVG format
+.  Since all icons exist as vectors, dynamic scaling and coloring of the icons occurs without any degradation.  This allows variably sized representations of particular icons to exist depending on context in the interface.  Additionally, this provides support for dynamic coloring of activity and object icons based upon a child's chosen XO colors.
+Tamaño de Iconos
+Los iconos deben ser desarrollados y guardados en un tamaño estándar (
+S - standard
+), aunque su tamaño y apariencia actual en la interfaz cambie dinámicamente. Cuando sean desarrollados en el tamaño estándar (
+S
+), los iconos deben entrar holgadamente dentro de una sub-celda de 3 x 3 segura para iconos de una celda estándar de una grilla de 75px, como esta especificado en la
+sección de diagramación
+.
+Icons should be developed and saved at Standard (S) size, though their actual size and appearance in the interface may change dynamically.  When developed at standard size, icons should fit loosely within the 3 x 3 icon-safe subcell of a standard 75px grid cell, as specified in the
+layout section
+.
+Cabe destacar que cuando la interfaz retamaña los iconos, los bordes (o filetes) no permanecen necesariamente proporcionales al tamaño general del icono. Esto garantiza que el peso del borde permanece suficientemente visible en todos los tamaños y así poder representar su peso y color, aunque esto puede limitar la granularidad con la cual usar los bordes, que pueden fusionarse en tamaños pequeños. La siguiente tabla relaciona los varios tamaños de iconos con sus correspondientes factores de escala y el peso de los bordes. Recomendamos probar sus iconos en los tamaños XS, S, y M para poder ajustar sus apariencias para una optima legibilidad.
+Notice that when the interface scales your icons, strokes do not necessarily scale proportionally to the overall icon size.  This ensures that the stroke weight remains visible enough at all sizes to convey its weight and color, but it may also limit the granularity with which you use strokes, which could begin to blend together at smaller sizes.  The following chart relates the various icon sizes to their corresponding scale factors and stroke weights.  We strongly suggest that you try rendering your icons at XS, S, and M sizes in order to tweak their appearance for optimal legibility.
+Tabla de Comparación de Tamaños de Iconos
+Icon Size Comparison Chart
+Tamaño del Icono
+Icon Size
+Factor de Escala
+Scaling Factor
+Peso de Trazo
+Stroke Weight
+XS
+0.5
+2.25pt
+S
+1.0
+3.5pt
+M
+1.5
+4.0pt
+L
+2.0
+4.5pt
+XL
+2.75
+6.0pt
+Trazos & Rellenos
+Referencia API
+Module: sugar.shell.view.stylesheet
+API Reference
+Module: sugar.shell.view.stylesheet
+Todos los iconos son dibujados en dos colores: trazos y relleno. El color del trazo y relleno utilizados para un icono son determinados por los chicos, ya que corresponden a los colores escogidos por ellos para sus XOs. Con lo cual, los colores que se elijan para guardar los iconos es arbitrariamente irrelevante. Sin embargo, cabe destacar que cualquier relleno que coincida con el color de un trazo cuando sean dinámicamente dibujados tomará su color.
+All icons render in two colors: stroke and fill.  The actual stroke and fill colors that an icon renders in are determined by the children, since they correspond to the colors they have chosen for their XOs.  As such, the colors in which you choose to save your icon are arbitrary.  However, note that any fills that have the same color as your strokes will dynamically take on their color when rendered.
+Todos los trazos en un icono de actividad a tamaño "S" deben tener un peso de 3.5pt. Todos los iconos deben tener un relleno primario que represente su forma general. Además no hay un límite a la cantidad de trazos y rellenos usados; no todos los trazos deberán tener relleno, y no todos los rellenos deberán tener bordes.
+All strokes within an "S" activity icon must have a line weight of 3.5pt. All icons should have a primary fill which represents its overall shape.  In addition, any number of supplemental strokes and fills may be used; not all strokes within an icon must have fills, and not all fills must have strokes.
+←
+Lineamientos de Diagramación
+Iconos
+Colores
+→

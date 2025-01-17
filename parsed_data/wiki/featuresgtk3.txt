@@ -1,0 +1,264 @@
+Title: Features/GTK3
+URL: https://wiki.sugarlabs.org/go/Features/GTK3
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Implementation Plan
+6.1
+HippoCanvas removal
+6.2
+Theme porting
+6.3
+Backwards-compatibility for activities
+6.4
+Proposed plan of action
+6.5
+How to port
+7
+Other considerations
+7.1
+Version number
+7.2
+Retaining the 'sugar' module name
+7.3
+Python 3
+8
+API changes
+8.1
+Plain text as the default for palettes
+8.2
+Removal of keep button
+8.3
+Removal of old toolbars
+9
+Dependencies
+10
+Contingency plan
+11
+Documentation
+12
+Release Notes
+13
+Hackfests
+14
+Comments and Discussion
+15
+Subpages
+Summary
+Sugar needs to rebase itself on new generations of its key underlying technologies: GTK+ 3 and PyGObject Introspection.
+Sugar is already somewhat broken on recent distribution versions as a result of this. This page aims to summarise options and community opinions around this challenging shift, and to help formulate a plan of how it will be executed. In other words, it tries to take community input, answer all the unanswered questions, and present a logical path forward that can be adopted by the developers.
+Owner
+This plan/proposal maintained by
+Daniel Drake
+and
+Simon Schampijer
+A number of developers will be needed at each stage to successfully execute this; Daniel offers his assistance for a coordination/oversight role if that would be useful.
+Current status
+Targeted release:
+0.96
+(the sugar-toolkit and sugar-artwork port)
+Last updated: 31.01.12
+Percentage of completion: 35% (the sugar-toolkit and sugar-artwork port will count as 50% when finished)
+At the Desktop summit, Raul Gutierrez Segales, Benjamin Berg and Paul Proteus successfully
+prototyped
+some of the ideas below. After only a few hours of effort, a minimal Sugar GTK3 activity was running alongside GTK2 activities. The plan below should therefore be quite credible, but some prerequisites remain.
+Detailed Description
+Two major changes have recently occurred in Sugar's underlying technologies. Firstly, GTK+ 2 has been obsoleted by GTK+ 3, and GNOME is now based on GTK+ 3. Secondly,
+PyGTK
+, the underlying Python library that Sugar uses to call into GTK+, has been deprecated in favour of
+PyGObject Introspection
+(hereafter "PyGI").
+In order to remain innovative and current, and to take advantage of the latest developments, Sugar needs to follow suit and move to GTK3 and PyGI. Lagging behind on this conversion is already bringing negative consequences to Sugar; notably 2 of our most important activities (Read and Browse) are already broken and without a future until we catch up again.
+Unfortunately, this is an API-incompatible change. As confirmed by the PyGI developers, PyGTK and PyGI cannot be mixed in the same process. This means that the conversion process can't be done on a fine, incremental basis, and if sugar-toolkit were to be simply replaced with a PyGI/GTK3 port, this means that all existing activities would stop working until they themselves have also been ported -
+all activities will need modifications as part of this feature
+. The community has expressed desire for old activities to continue working (many are unmaintained); unfortunately this is not realistic in the long term. As a compromise, this feature discussion includes the requirement that for a certain period of time, both PyGTK/GTK2 and PyGI/GTK3 activities must be able to function alongside each other. As detailed below, this can be pulled off quite easily and in a way that will not drain resources.
+This project will involve modifications to almost every file within Sugar and its activities, making it a huge task, even though the vast majority of code is trivial to port. This feature discussion attempts to identify ways that this porting process can be done in distinct stages, where Sugar remains functional at the completion of each stage, making this more manageable.
+For the most part, the port from PyGTK to PyGI only involves changing the names that are used to access methods and constants. PyGI uses a slightly different and more consistent naming scheme to wrap GTK+.
+import gtk
+gtk.MessageDialog(None, 0, gtk.MESSAGE_INFO, gtk.BUTTONS_CLOSE, "Hello World").run()
+The above PyGTK code rewritten as PyGI is:
+from gi.repository import Gtk
+Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.CLOSE, "Hello World").run()
+PyGI provides a script which can be used to automate much of the conversion.
+The move from GTK2 to GTK3 is also expected to be unproblematic, because the vast majority of code does not need any changes - most GTK3 API/ABI is identical to GTK2. The cases which do require some intervention to solve will take some time, but the changes are
+well documented
+and the number of cases encountered should be low.
+Benefit to Sugar
+PyGI is technologically better than PyGTK. It is a nicer way of calling into GObject-style libraries from Python that means less maintenance is needed upstream (PyGObject automates the creation of bindings to a degree much higher than PyGTK ever could, and automatically achieves more complete coverage).
+PyGTK is no longer maintained; PyGI is actively maintained.
+The move to GTK3 allows us to
+keep up with our GNOME neighbours
+, as they improve and refine the base technologies that we share.
+The move to PyGI is expected to result in
+lower memory usage and faster startup
+.
+Browse has no future under GTK2 and is
+already broken
+, it
+needs to move to WebKit
+and that move is dependent on Sugar moving to PyGI/GTK3.
+Similarly, Read is
+already broken
+under GTK2 due to static evince bindings no longer being maintained and libevince itself moved to GTK3; we need to switch to PyGI/GTK3 to be able to keep calling into evince and let the Read activity live on.
+Implementation Plan
+Sugar is divided into different components, many of which run in different processes. This means that we are able to divide up the required work on a process-by-process basis. While this work is being conducted, some Sugar processes might be based on PyGI/GTK3 and others based on PyGTK/GTK2, but the platform would keep functioning at each stage. There would be some system resource overhead during this transitional time (as the system would need to have PyGTK, GTK2, PyGI and GTK3 all in memory) but this feature implementation would end with the whole sugar ecosystem using PyGI/GTK3.
+HippoCanvas removal
+A prerequisite to porting a Sugar process, component or activity is to remove all its usage of hippocanvas. This library is unmaintained, would be painful to port to GTK3, and can be done better with standard GTK+ code at the Python level. Most users of HippoCanvas can switch to custom GtkContainer widgets.
+One complication is that hippo usage is not limited to Sugar's core; some activities use hippo, or they pull on sugar-toolkit classes which are implemented with hippo. These are: Chat, Speak (
+please list others here
+).
+Theme porting
+Theme status.
+One major internal change in GTK3 is the way that themes are designed. GTK2 allowed themes to be implemented with a special format in a gtkrc file, but GTK3 now requires that themes are implemented using CSS. Therefore another non-trivial prerequisite for a GTK3-based sugar release of any visual component is the porting of the theme.
+Fortunately, the gtkrc file format does not seem to be too far away from css (i.e. it applies attributes to classes in a textual format), and css is well known and well documented, so hopefully this is not a major challenge. For an example of the old GTK2 style, see
+/usr/share/themes/Adwaita/gtk-2.0/gtkrc
+, and for a GTK3 CSS example see
+/usr/share/themes/Adwaita/gtk-3.0/gtk-widgets.css
+Backwards-compatibility for activities
+As mentioned above, as mixing PyGTK/GTK2 and PyGI/GTK3 is impossible, a straightforward port of sugar-toolkit to PyGI/GTK3 would break all activities. However, having backwards compatibility for activities for a limited time is considered a requirement, and having a "flag day" where all activities stop working until ported is not seen as an option - there must be a transition period.
+As the conversion process from PyGTK to PyGI makes minor changes to almost every single line of code that involves GTK/glib, maintaining both PyGI and PyGTK codepaths in the same files is not realistic (there would be an unrealistic amount of
+if
+conditions).
+We are therefore required to have two copies of sugar-toolkit during the transition period
+: one for ported PyGI/GTK3 activities, and another for PyGTK/GTK2 activities that have not yet been ported.
+As we do not have plentiful developer resources, I propose that the PyGTK/GTK2 version of sugar-toolkit is frozen as soon as this feature development is underway. No bugfixes or improvements, just a copy of the code at that point.
+The GTK3 version of sugar-toolkit would be installed under a new module named
+sugar1
+, distinguishing it from the frozen GTK2
+sugar
+version to be removed later. All code will need extensive textual changes in moving to GTK3, changing "import sugar.foo" to "import sugar1.foo" will just be another step in that process.
+The removal of the GTK2 sugar-toolkit version would happen one year after the first stable release of a sugar-toolkit that includes GTK3 support. In this context, 'removal' means that it gets deleted from the sugar-toolkit master branch of the git tree. Old versions of sugar-toolkit will of course be left available, in old git branches and release tarballs.
+Proposed plan of action
+The steps below prioritise the porting of sugar-toolkit, as this is where Sugar would see the most immediate benefit: the revival of Browse and Read. The steps that follow can largely be parallelised; the important bit is placing sugar-toolkit first in line.
+Remove hippocanvas from sugar-toolkit
+Port sugar theme to GTK3
+Port sugar-toolkit to GTK3 while keeping backwards compatibility, release as sugar-toolkit-0.95.x
+Rescue Browse and Read, and allow independent activity porting efforts to begin
+Remove hippocanvas from all other parts of Sugar, including activities
+Port Sugar core to GTK3
+Remove sugar-toolkit's GTK2 compatibility one year after the first GTK3 sugar-toolkit stable release
+How to port
+I plan to start a page at
+Features/GTK3/Porting
+that details the porting process, that could be provided as documentation to anyone involved in these efforts (including those working on porting Sugar core, but also those working on activities). The content covered will be:
+How to remove hippo and what to replace it with (links to commits that have done this for other activities, etc)
+How to select the GTK3 version of sugar-toolkit
+How to handle each of the sugar-toolkit API changes (detailed in the following section)
+How to port from PyGTK/GTK2 to PyGI/GTK3.
+This basically involves reading the
+PyGObject porting documentation
+, using pygi-convert.sh, then checking the result.
+The
+Migrating from GTK+ 2.x to GTK+ 3
+should also be read.
+Other considerations
+Version number
+It goes without saying that such a migration would be the basis of a new major release. When this topic has been discussed before, people have toyed with the idea of calling the GTK3 version of Sugar "Sugar-1.0".
+There are arguments for:
+This is undoubtedly a paradigm shift for Sugar, so a major bump to the version number is called for.
+It would make the change really obvious
+And there are arguments against:
+Some people might interpret the number 1.0 as indicating a higher level of maturity than what the developers feel
+Some developers have very specific ideas about what should be included in Sugar-1.0, even if development of such items is barely even on the horizon
+Some people want a much longer lead-up time to Sugar-1.0 so that the API can be refined/reworked/perfected
+Tomeu, Simon and Marco agreed that the 1.0 version number could be used here, and communicated in a slightly different sense: "we are really still in the first iteration and 1.0 will be when that first iteration reaches maturity, without big changes in the API. After 1.0 we can start working on what will be one day 2.0 which should be the second iteration of Sugar, hopefully using what we have learned during these years."
+However, current Sugar developers feel strongly that the changes described here are not significant to warrant a major version bump and have specific ideas about what should be included in a 1.0 release. Therefore, in the interest of being slightly less intrusive, this feature does not ultimately propose a version numbering change - it is planned that sugar-toolkit-0.96 will be released as the first with GTK3 support, and once we reach sugar-0.98, the next releases will be 0.100, 0.102, etc.
+Retaining the 'sugar' module name
+The strategy suggested above involves the GTK3 sugar-toolkit version being installed with the 'sugar1' module name. It would be possible to retain the 'sugar' name for this module via a Python trick documented below, but it appears that there is no demand for this from the community. Porting to GTK3 requires major textual changes anyway, changing 'sugar' to 'sugar1' in the same files is therefore regarded as acceptable. Here is how the naming trick could be done anyway:
+The new GTK3 version of sugar toolkit would be installed with name
+sugar
+, and the old GTK2 version would be installed with name
+sugar_gtk2
+.
+Before
+sugar-activity
+imports sugar.activity (or any other sugar-toolkit class), it would look for an empty file called "GTK3_PORTED" in the activity's directory. If present, it would run a little trick:
+import os
+import sys
+if not os.path.exists("GTK3_PORTED"):
+    import sugar_gtk2
+    sys.modules["sugar"] = sugar_gtk2
+The result is that all unported/unmodified activities (without the GTK3_PORTED file) would
+import sugar.foo
+as before, but the above trick that modifies Python's module table would result in them (transparently, magically, automatically) being redirected to sugar_gtk2.foo.
+At the end of the transition period, sugar_gtk2 would be deleted in entirity, the above addition to sugar-activity would be dropped, and activities could drop the GTK3_PORTED files at their leisure.
+Further consideration would need to be given to sugar-base. This package installs some classes which are then used by sugar-toolkit, so they would need to be duplicated into sugar_gtk2.
+Python 3
+Is it worth throwing in a Python 3 migration into this project? I have researched the issue, and my opinion is: no.
+Python 3 brings no immediate obvious benefit, and does not fix any pressing problems. On the other hand, PyGI solves some clear breakage for us.
+Python 3 (or rather the code that supports it) is not mature. Many modules are still Python2-only.
+PyGI does support Python 3, but it was
+broken
+when I tried it. It is not seeing much attention.
+Our neighbours within GNOME and other open source projects are only just starting to play with Python 3. There is not much similar experience we can build upon. There may be teething problems, such as modules that Sugar uses that haven't been ported, and bugs in existing ports due to lack of use (such as the fact that PyGI was broken for quite a while with nobody noticing) that hold us back. This is not so for the PyGI transition, where we can look at many PyGTK applications that have been ported and that are actively used.
+J5 (PyGI developer) suggested that we avoid combining the 2 migrations. It would add more change to an already disruptive project, and increases the risk. It would be better to limit the amount of change we introduce, so that risk is more manageable and to decrease the number of problems and challenges that we face.
+If the above situation does change, the Python 3 migration will be much easier than this one. Py3 migration does not require invasive code changes. It will be much easier to have Python 2 and 3 support maintained in parallel. The few existing projects that have done this are able to maintain Python2 and Python3 support in the same codebase, without too many if conditions. The "if we're already making so much change, why not avoid a future migration period by including Py3" argument is not very strong, because the Py3 migration will be much smoother and less complex.
+API changes
+The fact that almost all Sugar components and activities require sweeping changes as part of this shift presents an interesting opportunity for us to make API changes in sugar-toolkit. The importance here should still be placed on the technology shift, rather than on the opportunity to produce a perfect API (which we could spend all eternity designing and discussing), but this is an opportunity that we should not miss.
+I propose that once sugar-toolkit is ported and mostly operational, we run a 30-day window where API changes that have seen some kind of planning and discussion below can be made and committed.
+Plain text as the default for palettes
+Sugar's palette classes currently accept strings, but then they pass those strings to GTK as markup (always, unconditionally). However, markup is only used in a handful of places, and this means that all users of palettes that draw in translations or strings from other sources which might contain characters such as < or > must escape their arguments, leading to big patches
+like this
+.
+As agreed
+here
+, it would make more sense for palettes to pass those strings as standard text by default, and to have different functions to opt-in to receive markup processing. Then the excessive escaping would go, and the only users would have to escape would be those who use markup.
+Removal of keep button
+Sugar-0.94 proposes the
+removal of the Keep button
+, but the old KeepButton classes would be kept around for activities that directly use it. Porting sugar-toolkit to GTK3 would be a good time to remove these classes.
+Removal of old toolbars
+Sugar-0.86
+redesigned activity toolbars
+, with the new toolbars implemented by new classes, and the old classes being kept around so that old activities are not immediately broken. This would be a good opportunity to remove the long-deprecated old activity toolbar classes.
+Dependencies
+Sugar would start depending on PyGObject built with gobject introspection support, GTK3, and (at the end of the transition period) would drop its dependencies on GTK2 and PyGTK.
+Contingency plan
+Hopefully, this page has been convincing in that this change is of necessity. Either way, we should consider our options for the case where this migration is found to be more difficult than predicted.
+As this migration would take over the course of a major release (or perhaps 2-3 of them, as components are ported individually), our users have the option to remain on older releases in the face of stability issues, and as developers we have the option of delaying major releases until things are ready.
+If new PyGI/GTK3-based major releases are found to be unstable, we also have the option of allowing interested community members to pick up maintenance of older GTK2-based release branches (e.g. 0.94) with a "master first" commit policy. Personally, I would suggest that it would be a better use of resources to have those people help fix any problems with the GTK3 version, but as an open source community this is something we must be open to.
+In the event of problems in the GTK3 version of sugar-toolkit, activity authors have the (default) choice of staying with GTK2. The transition period before the GTK2 version is removed would obviously be extended in the face of significant problems with GTK3 version.
+Documentation
+Development page
+Activity porting guide
+Release Notes
+Hackfests
+This work would benefit from some focused attention at in-person meetings.
+See
+Features/GTK3/Desktop Summit activities
+for earlier desktop summit ideas.
+On September 10th-12th, a SugarCamp will be held in Paris. We will be working on this plan at the event, starting with the prerequisites.
+On October 28th-30th, a hackfest will be held in Prague with the specific purpose of implementing this plan:
+Marketing_Team/Events/Gtk3_Hackfest_2011
+Comments and Discussion
+See
+discussion tab for this feature
+Subpages
+Features/GTK3/API wish list
+Features/GTK3/Desktop Summit activities
+Features/GTK3/Development
+Features/GTK3/Porting
+Features/GTK3/Porting/Finance
+Features/GTK3/Porting/GetBooks
+Features/GTK3/Porting/Implode
+Features/GTK3/Porting/InfoSlicer
+Features/GTK3/Porting/Jukebox
+Features/GTK3/Porting/Log
+Features/GTK3/Porting/Record
+Features/GTK3/Porting/TamTam
+Features/GTK3/Porting/Typing Turtle
+Features/GTK3/Shell
+Features/GTK3/Shell/GTK3 Port
+Features/GTK3/Shell/Hippo Removal
+Features/GTK3/Shell/Hippo Removal/Testing on the XO
+Features/GTK3/Theme

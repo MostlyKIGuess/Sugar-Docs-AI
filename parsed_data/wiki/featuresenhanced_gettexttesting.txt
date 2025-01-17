@@ -1,0 +1,32 @@
+Title: Features/Enhanced Gettext/Testing
+URL: https://wiki.sugarlabs.org/go/Features/Enhanced_Gettext/Testing
+--------------------------------------------------------------------------------
+Testing without language packs
+This is mostly regression testing, in order to ensure that we do not break existing stuff with the new patch.
+Set the locale to something other than en_US.UTF-8 (by editing ~/.i18n). As an example, it can be de_DE.UTF-8 or es_PE.UTF-8
+Restart Sugar or sugar-emulator
+Start random activity
+Ensure that the translated strings come up properly
+Testing with language packs
+This tests support for language packs (which are essentially translation files which can be installed separately from the activities later on by deployments)
+Set the locale to es_PE.UTF-8 by editing ~/.i18n (it should read LANG=es_PE.UTF-8)
+Restart Sugar or sugar-emulator
+Set the GConf key
+/desktop/sugar/i18n/langpackdir
+to some random directory (say
+/foo
+)
+The best way to do this would be to start Terminal and use the command
+gconftool-2 --set -t string /desktop/sugar/i18n/langpackdir /foo
+(this will create the key if it does not exist as well)
+Make directory
+/foo
+(with the command mkdir -p /foo)
+Make directory /foo/es_PE/LC_MESSAGES
+Download
+http://people.sugarlabs.org/~sayamindu/org.laptop.sugar.ReadActivity.mo
+into /foo/es_PE/LC_MESSAGES
+Start Read Activity and confirm if the translation string for the Fullscreen button comes up as "FooBar"
+Remove the file org.laptop.sugar.ReadActivity.mo
+Restart Read Activity
+Confirm if the translation string for the Fullscreen button comes up as Pantalla completa

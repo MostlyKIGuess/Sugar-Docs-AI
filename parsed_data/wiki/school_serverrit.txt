@@ -1,0 +1,243 @@
+Title: School Server/RIT
+URL: https://wiki.sugarlabs.org/go/School_Server/RIT
+--------------------------------------------------------------------------------
+Contents
+1
+School Server Fall 2009 Seminar Project
+1.1
+Purpose
+2
+schoolserver.rit.edu
+2.1
+Project Ideas
+2.2
+Reading Library
+2.2.1
+Proposed Design Goals
+2.2.2
+File Distribution System
+2.3
+Network Configuration
+2.4
+System Configuration
+2.4.1
+System Information
+2.5
+Collaboration Server
+3
+Schedule/Milestones
+3.1
+Necessary Tasks
+3.2
+Completed Tasks (Weeks 1-6):
+3.3
+Tasks Under Development (Current)
+3.4
+For Future Development
+3.5
+Resources
+3.6
+Subpages
+4
+Contact Information
+For
+RIT Honors Seminar
+project.
+School Server Fall 2009 Seminar Project
+Purpose
+To create a school server with minimal hardware requirements in order to develop and test ideas and innovation from within the community
+schoolserver.rit.edu
+Note:
+Admin log is located on the server at /var/log/adminlog.log
+Project Ideas
+Current Project and/or current main focus
+Library /Book Reader
+. Thousands of books stored on the XS which children are able to pull over the network either as whole book  or bit by bit as they read them on their XO's.
+An e-book reader client/server system
+Additionally, they can "check out" books and bring them home on their laptops to read at home, or while not connected to the XS.
+This may prove to be more economical than the proposal of distributing text via SD cards as it would allow for a wider range of content per available Gigabyte. One 40 gig hard disk library would hold 10 times as much content as ten, 4-GB SD cards replicated with identical content.
+Run said books through Pootle, so children have access to books not in their native tongue.
+Essentially, a back-end to the read activity.
+Status:
+Currently under development; See "Reading Library" below.
+Completed projects and tasks
+File Distribution System
+Status:
+Completed; Testing and improvements currently under development. See more information below - "File Distribution System". Please email us at our contact address if you are interested in learning more about this portion of the XS project or are interested in assisting in development.
+Fix Ejabber
+Status:
+Ejabber is running and working. XO's can communicate
+To use Ejabber point XO server to schoolserver.rit.edu
+Configure Moodle to our needs
+Status:
+Moodle is not configured; We currently do not have a project that needs Moodle.
+Future project ideas
+Provide a school server test and development environment for the Honors Seminar participants
+Develop School Server systems administration skills
+Backup registered XO's or Sugar Sticks
+Status:
+Not started
+Host Moodle content developed in class
+Status:
+Moodle is installed but not fully configured.
+Test and Debug XS - Sugar Labs School Server software
+Currently running OLPC-School-Server-0.6-i386.iso
+Status:
+Upgraded to the latest XS Server image.
+Develop a School Server SysAdmin training curriculum for volunteers who want to support OLPC, the XS Server project, or Sugar deployment
+Basic documentation and support is being compiled
+Status:
+Under development; not complete.
+Create an Activity(XO Application) for RIT XO's so students can easily access Moodle
+Status:
+Not started
+Moodle XO Python API
+Status:
+Not started
+XO Backup/Restore
+Status:
+Not started
+XO Security
+[1]
+Status:
+Not started
+Deployment "whitebook"
+Status:
+Not started
+Provide a service that allows teachers/volunteers (who do not speak English) in actual deployments to communicate via email with technical support volunteers by using the translating service
+Pootle
+. Incoming and outgoing "tagged" emails would be translated in and out of the server on arrival/departure of the XS.
+Status:
+Not started
+In class quizzing. Teachers ask questions, students respond using their XO, quiz results stored on XS. (Think the
+I>clicker
+; Similar concepts were proposed by
+Alex Jones
+)
+Status:
+Not started
+Possibility of parsing of information, possible graphical heuristics.
+Status:
+Not started
+Reading Library
+Resources:
+olpc:Collections
+Activities/Get Internet Archive Books
+Activities/Read Etexts
+Calibre: (Python Ebook reader / Organizer.)
+Activities/Library
+Nepali library
+Features/Content support
+(for contemplating the design and integration with Sugar)
+olpc:Simple Digital Library Index
+,
+discussion thread
+.
+Proposed Design Goals
+Hold copies of e-books for learners with no Internet access
+Compatible with existing Sugar e-book readers
+Teacher/Administrator interface for loading books from a variety of Internet book archives and portable USB or CD/DVD storage media.
+In the end, we want to have instructions and some supporting scripts to modify the standard OLPC School Server to support a reading library and our campus environment as independent features.
+File Distribution System
+An alternative to extending e-book readers - a file distribution system for the server and a client for the XO. The goal of this project is to build an easy system to host files on the server that can be downloaded using the browser activity and possibly a file distribution download activity.
+See the
+Project Page for File Distribution System
+.
+Network Configuration
+The School Server, XS, as received is designed and configured for 2 Ethernet adapters,
+eth0 - connected to the Wide Area Network (WAN) or the campus Internet connection,
+eth1 - connected to an Access Point (AP) which the XOs connect to.
+For robustness in unreliable power supply environments, there are scripts that reconfigure features on a frequent basis. This design has frustrated anyone wanting to deviate from the default configuration.
+We will have to understand the design, carefully document our adjustments for our environment, and make preparations to restore one or more configurations once we upgrade to a new version of the server that may likely restore some of the default configurations.
+System Configuration
+Current OS installed:
+OLPC-School-Server-0.6-i386.iso
+From:
+http://xs-dev.laptop.org/xs/
+using Martin Langhoff's explicit instructions.
+System Information
+All configurations based on the installing steps and configurations found at
+http://wiki.laptop.org/go/School_server
+and modified as needed for our applications.
+Hostname:
+schoolserver.rit.edu
+Server uptime:
+12:54:38 up 9 days, 18:50,  1 user,  load average: 0.00, 0.01, 0.00
+CPU model: Intel(R) Pentium(R) 4 CPU 1.80GHz
+Collaboration Server
+This bug report,
+http://dev.laptop.org/ticket/9242
+, covers the missing collaborator icons in the Neighborhood view (after first connection and before reboot or reconnection to the access point)
+/etc/idmgr.conf
+edited line
+BIND_DOMAIN=172.18.0.1
+to
+BIND_DOMAIN=129.21.47.159
+in order to try to enable the registration service. Ran
+service idmgr restart
+.
+But, on trying to register my XO, it stalls for a minute or two and then reports that it failed to connect to the schoolserver (it was connected to the ejabberd service).
+--
+FGrose
+00:35, 17 October 2009 (UTC)
+Schedule/Milestones
+Necessary Tasks
+Server up and running
+Register the server with the RIT network
+Establish connectivity to the server
+Server administrative tasks
+Server log of tasks
+Develop a list of project ideas
+Completed Tasks (Weeks 1-6):
+Server up and running
+Register the server with the RIT network
+Establish connectivity to the server
+All group members have an account on the server
+Server administrative tasks
+Admin log is located on the server
+/var/log/adminlog.log
+"
+Develop project ideas
+Ejabber up and running
+To use Ejabber, point XO server to
+schoolserver.rit.edu
+Moodle installed on the server
+Tasks Under Development (Current)
+Library/E-Book Reader
+File Distribution System
+For Future Development
+Configure Backup/Restore for registered XOs and Sugar Sticks
+XO Security
+Configure Moodle
+Create and XO Activity for easy access to Moodle
+XO Python API
+Develop a School Server SysAdmin training curriculum
+Deployment "whitebook"
+Translation Service using
+Pootle
+In-class quizzing
+Resources
+RIT LTL or other hardware
+OLPC XS development builds,
+http://wiki.laptop.org/go/School_server
+http://lists.laptop.org/listinfo/server-devel
+and
+the list archives
+,
+archive with search
+OLPC projects/xs repository,
+http://dev.laptop.org/git/?q=projects%2Fxs
+Martin Langhoff's git repository,
+http://dev.laptop.org/git/users/martin/
+Subpages
+School Server/RIT/File Distribution System
+School Server/RIT/XS on XO
+Contact Information
+email: schoolserver.rit.edu@gmail.com
+googlegroup:
+http://groups.google.com/group/schoolserver_rit_edu
+Ryan Nolette
+Fatima Pryce
+Justin Lewis
+Wesley Dillingham
+Fred Grose

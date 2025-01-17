@@ -1,0 +1,30 @@
+Title: Development Team/Jhbuild/Debian
+URL: https://wiki.sugarlabs.org/go/Development_Team/Jhbuild/Debian
+--------------------------------------------------------------------------------
+Contents
+1
+Supported versions
+2
+Prerequisites
+3
+Installing dependencies
+4
+Known issues
+Supported versions
+Currently Wheezy (testing) and Sid (unstable) are supported.
+Squeeze isn't supported any more because Sugar is in the progress of migrating to GTK 3 / Gnome 3, requiring bleeding edge versions of a couple of components.
+Prerequisites
+In order to install sugar-jhbuild, you need to install git-core, lsb-release, python and subversion:
+sudo aptitude install git-core lsb-release python subversion pkg-config
+Installing dependencies
+After installing and updating sugar-jhbuild according to the
+common instructions
+, you can use this invocation to install all dependencies automatically:
+./sugar-jhbuild depscheck -s | sudo xargs aptitude -y install
+Known issues
+In order to use
+Read
+, you will need gir1.2-evince-3.0 >= 3.3.90-1, currently only available in
+Debian experimental
+.
+sudo apt-get install -t experimental gir1.2-evince-3.0 libevview3-3

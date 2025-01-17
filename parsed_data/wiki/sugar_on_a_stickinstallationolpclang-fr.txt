@@ -1,0 +1,74 @@
+Title: Sugar on a Stick/Installation/OLPC/lang-fr
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Installation/OLPC/lang-fr
+--------------------------------------------------------------------------------
+Important:
+The content of this page or section is outdated. Please
+check the English reference
+version. If you have checked or updated this page or section and found the content to be suitable, please remove this notice.
+english
+|
+español
+|
+français
+HowTo
+[ID# 99603]
+Vous avez un OLPC-XO-1?
+Il y a trois principales options pour les utilisateurs de XO: (1) olpc-update; (2) installer SOAS ("Sugar on a Stick" = Sugar sur clef USB) sur le NAND interne; et (3) installer SOAS sur une carte SD.
+Mettre à jour vers la dernière version de Sugar
+Vous lancez
+olpc-update
+depuis l'activité Terminal, par exemple :
+sudo olpc-update 767
+où 767 is
+la dernière version stable
+de OLPC (OLPC 8.2, Sugar 0.82)
+Les détails concernant la version 8.2.1 seront disponibles fin mars ou début avril.
+Plus de détails peuvent être trouvés
+ici
+.
+Installer l'image de SOAS
+(Requiert une
+clef développeur pour votre OLPC-XO-1
+et l'accès à un ordinateur sous GNU/Linux.)
+ATTENTION
+: ceci effacera toutes vos données sur le NAND de votre OLPC-XO-1!!
+Sur un système Fedora10 :
+sudo yum -y install crcimg mtd-utils
+Sur Debian ou Ubuntu :
+sudo apt-get install mtd-utils
+crcimg n'est pas packagé pour Debian donc vous aurez à le compiler vous-même :
+wget
+http://dev.laptop.org/~mstone/releases/SOURCES/crcimg-1.1.tar.bz2
+tar xvf crcimg-1.1.tar.bz2
+sudo make -f Makefile.build install
+Ensuite :
+wget
+http://dev.laptop.org/~cjb/rawhide-xo/livecd-iso-to-xo.sh
+wget
+http://download.sugarlabs.org/soas/snapshots/2/Soas2-200906221314.iso
+lancez cette commande (ou une commande similaire, selon la version de votre fichier .iso):
+sudo sh livecd-iso-to-xo.sh Soas2-200906221314.iso Soas.img
+puis copiez Soas.img et Soas.crc sur votre clef USB ou votre carte SD
+Sur le OLPC-XO-1, démarrez avec la clef USB branchée et les quatre boutons de jeu appuyés pour arriver au "OK" initial de l'Open Firmware (OFW).
+Tapez la commande suivante :
+disable-security
+copy-nand u:\Soas.img
+Note : selon le système de fichier sur votre clef USB, les noms peuvent être tronqués :
+dir u:\
+copy-nand u:\SOAS-2~1.img
+Vous devriez voir une animation avec des blocs indiquant que le contenu de la clef est copiés sur le NAND.  Une fois que c'est fini, vous devriez revenir au "OK" d'OFW.  Tapez :
+reboot
+et le OLPC-XO-1 va redémarrer et vous devriez disposer de Sugar 0.84.
+Lancer SOAS depuis une carte SD ou un USB externe
+(Nécessite une
+clef de développeur pour OLPC-XO-1
+et un accès à un ordinateur Fedora)
+Sur Fedora:
+wget
+http://download.sugarlabs.org/soas/snapshots/2/Soas2-200906221314.iso
+sudo yum install livecd-tools
+sudo livecd-iso-to-disk --format --xo --xo-no-home Soas2-200906221314.iso /dev/sdX1
+où
+/dev/sdX1
+est le périphérique associé à votre média amovible.
+back to downloads page

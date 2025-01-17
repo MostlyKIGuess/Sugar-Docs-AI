@@ -1,0 +1,98 @@
+Title: Machine/sunjammer
+URL: https://wiki.sugarlabs.org/go/Machine/sunjammer
+--------------------------------------------------------------------------------
+Contents
+1
+Info
+2
+Services
+3
+Sysadmin procedures
+4
+Location
+5
+Specifications
+6
+Hardware
+7
+Network configuration
+8
+Backups
+9
+Admins
+Info
+This is our development and community shell server, also running a number of first-tier
+web services.
+Services
+The following services are hosted on sunjammer:
+Service/email
+Service/shell
+Service/imap
+Service/smtp
+Service/lists
+Service/wiki
+...countless others...
+Sysadmin procedures
+The following sysamin procedures apply to sunjammer:
+Sysadmin/User management
+Sysadmin/Add shell account
+Sysadmin/Content Delivery Network
+Sysadmin/Quota
+Sysadmin/SSL Certificates
+See
+Infrastructure_Team/Resources
+for the complete list of our sysadmin procedures.
+See
+/root/memo
+on sunjammer for local sysadmin procedures that have not yet been converted to wiki pages.
+Location
+Sunjammer is a XEN domU running on [cloud9.fsf.org].
+The dom0 is hosted by the
+Free Software Foundation
+at their current colo.
+Specifications
+KVM/QEMU (Standard PC (i440FX + PIIX, 1996) pc-i440fx-xenial)
+AMD Opteron 62xx class (6) @ 2.100GHz
+6 CPU Cores
+8GB RAM
+Hardware
+Silicon Mechanics
+Rackform nServ A266
+.
+2.4GHz quad-core Opteron
+64GB RAM
+Network configuration
+1 Gbit global IPv4 through FSF's BGP router
+1 Gbit global IPv6 (6to4)
+1GbE crosslink to
+Machine/treehouse
+Backups
+Live incremental backup of all filesystems pulled daily by
+Machine/freedom
+.
+sunjammer.sugarlabs.org:/backup/sunjammer/
+We keep 4 months of backup history using hard-links.
+We also used perform a daily system-remote-backup to
+Machine/backup
+, but we no longer have access to this account.
+Admins
+DO NOT CONTACT THE ADMINS DIRECTLY FOR SUPPORT - Use the "Sugar Systems" group chat
+Admins with root access:
+Alex Perez
+,
+aperezbios
+on
+#sugar
+Freenode
+Bernie Innocenti
+(emeritus)
+Srevin Saju
+,
+srevinsaju
+on
+#sugar
+Freenode
+Admins with physical access:
+FSF Sysadmin RT <sysadmin
+at
+fsf.org>

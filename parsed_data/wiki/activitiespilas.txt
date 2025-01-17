@@ -1,0 +1,133 @@
+Title: Activities/Pilas
+URL: https://wiki.sugarlabs.org/go/Activities/Pilas
+--------------------------------------------------------------------------------
+english
+|
+español
+|
+HowTo
+[ID# 77589]
+This page is based on documents translated from Spanish. Your help improving the translation would be very welcome :)
+Go to Pilas Activity page in Spanish
+.
+Contents
+1
+About the Pilas.xo Project
+2
+Links to the project
+3
+Getting Started
+4
+Status
+5
+Future Work
+6
+Running Pilas from Pippy or Terminal
+About the Pilas.xo Project
+Pilas is an engine for making videogames in an easy way. It's oriented to people that are learning to code videogames and that want to achive interesting and fun result very quickly.
+This project brings the Pilas game development engine to Sugar, adapting it to the needs of the Sugar platform and adding elements to your learning curve. We seek to facilitate a teaching tool for Python and game development.
+This project was developed during
+Sugar Day Junin 2011
+Links to the project
+Pilas:
+[1]
+Activity.xo
+[2]
+Code
+[3]
+Issues tracker
+[4]
+Name of branch 'pilasqt'. Command to take to the branch:
+hg clone
+https://hugoruscitti@bitbucket.org/hugoruscitti/pilas
+cd pilas/ 
+hg update pilasqt
+Getting Started
+The Activity starts with the game engine initialised and a monkey (mono) preloaded. The monkey is displayed in the upper pane and the lower pane executes Python code in immediate mode
+The following Pilas commands can be entered :
+mono.sonreir()                       //monkey smile
+mono.gritar()                        //monkey shout
+mono.decir("Hello World!")  
+mono.x = 100
+mono.y = 100
+mono.z = 1                           //depth or drawing order
+mono.escala = 2                      //set scale
+mono.rotacion = 40                   //rotate 40 degrees
+mono.rotacion = [360]                // the [] means animate
+mono.x = [-200, 200]                 //animate horizontally
+mono.x = [-200, 200] * 5             //go side to side 5 times
+mono.x = [-200, 200], 10             //animate over 10 seconds
+help(mono)
+pilas.ver(mono)                      //view source
+mono.eliminar()                      //delete monkey
+mono = pilas.actores.Mono()          //create a monkey instance
+pilas.iniciar()                      //initialise the game engine
+pilas.iniciar(gravedad=(0, 0))       //initialise and set gravity
+//with pilas.actores you can create:
+//Mono Bomba Pingu Pelota Banana       Monkey Bomb Penguin Ball Banana
+//Caja Tortuga Moneda Estrella         Box Turtle Money Star
+//Nave Piedra                          Plane Rock
+pilas.ejemplos.Piezas ()             //starts a demonstration game
+There is much more, read the Spanish documentation.
+[5]
+Status
+What has been done:
+Packaging the pilas-engine
+[6]
+to run on Sugar.
+Incorporation of PyQt libraries
+[7]
+into the activity
+Adding widget ninja-ide
+[8]
+, to have the interactive shell on the same screen.
+Generation of file dependencies needed for the project with PyInstaller
+[9]
+Creating the pilas.xo activity
+To-do immediately:
+Bug: resize widgets
+Bug: set focus
+Documentation of how it is packaged with Qt activity
+[10]
+for Sugar
+define user guidelines and make mockups
+typical Pippy examples
+[11]
+interpreter and code editor tabs
+option to run in fullscreen or box
+list of Pilas actions and behaviors
+help tab
+persistent options
+Document examples / startup guide
+Future Work
+We must turn this into a roadmap ...
+To-do:
+Trim list of dependencies created PyInstaller, to include only what is needed
+Incorporating autocomplete and inline help for the ninja-ide
+Use dbus
+[12]
+to communicate with the menu of others
+Incorporate Sugar persistence [persistence options or code to be developed]
+Integrate code for the pilas-engine
+[13]
+and pilas.xo
+Wish list
+Refactoring to PyCairo
+[14]
+Incorporate into the activity the possibility of Sugar sharing
+Add interactive options on objects (such as in eToys
+[15]
+)
+Running Pilas from Pippy or Terminal
+This is not working, help please!
+Pippy:
+import sys
+sys.path.append('/home/olpc/Activities/Pilas.activity')
+import pilas
+pilas.iniciar()
+Terminal:
+Create a file myprogram.py in ~/Pilas.activity containing
+import pilas
+pilas.iniciar()
+In Terminal type
+python myprogram.py

@@ -1,0 +1,175 @@
+Title: Activities/Moon
+URL: https://wiki.sugarlabs.org/go/Activities/Moon
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+1.1
+Screenshots
+1.2
+Moon Phases
+1.2.1
+New Moon
+1.2.2
+First Quarter
+1.2.3
+Full Moon
+1.2.4
+Last Quarter
+1.3
+Some Definitions
+2
+Learning Resources
+3
+Development
+3.1
+Release Notes
+3.1.1
+v10
+3.1.2
+v9
+3.1.3
+v8
+3.1.4
+v7
+3.1.5
+v6
+3.1.6
+v5
+3.1.7
+v4
+3.1.8
+v3
+3.1.9
+v2
+3.1.10
+v1
+3.2
+TODOs
+3.3
+Feature requests
+3.4
+Resources
+Description
+Moon is a simple Lunar phase activity for Sugar, including upcoming Lunar eclipse information and simulated visual effect during an eclipse.
+Screenshots
+Moon Phases
+See also
+http://en.wikipedia.org/wiki/Lunar_phase#Names_of_lunar_phases
+New Moon
+The new Moon is very hard to observe as it rises and sets so close to the Sun's position in the sky. This is the time when it's possible for a solar eclipse to occur, but due to the small visible size of both the Sun and the Moon disks, it happens very rarely. You may get a glimpse of the Moon's unlit disk just before sunrise or just after sun set before the sky gets too bright.
+First Quarter
+The Moon rises after the Sun is up, while you're in full daylight, so you'll not get a good view until the Sun begins to set and the sky darkens. As the sky darkens the Moon will be high and/or towards the west.
+Full Moon
+The full Moon rises in the east at about the same time the Sun sets, then sets in the west at about the same time the Sun rises - so it's quite easy to observe on a clear night. The Moon rise and set times, opposing the Sun's, are because full Moons occur when you (and the rest of the Earth) are directly between the Moon and the Sun. This is also the time when it's possible for a luna eclipse to occur (the Moon hidden by the Earth's shadow). Due to the Moon's slightly offset orbit, luna eclipses are quite rare as it usually misses the Earth's shadow.
+Last Quarter
+The Moon rises late at night, before dawn, when the sky is dark and can be seen over in the east of the sky. By the time it reaches it's highest point in the sky the Sun will be beginning to rise making viewing less easy.
+Some Definitions
+Phase
+Historical names for the various portion of the Moon as illuminated by the Sun
+Lunation
+Average lunar month (roughly 29 days, 12 hours, and 44 minutes)
+Selenographic Terminator Longitude
+Longitudinal position of the shadow as it moves east to west across the Moon's visible surface
+Lunar Eclipse
+When the Earth is directly between the Sun and Moon, casting a shadow over the Moon's surface
+Solar Eclipse
+When the Moon is directly between the Sun and Earth, casting a shadow on the Earth's surface
+Julian Date
+Unit of measurement measuring days passed from a known point in history (BC 4713-01-01 12:00, Monday)
+Latitude
+Unit of measurement indicating a position north or south
+Longitude
+Unit of measurement indicating a position east or west
+Learning Resources
+A great PDF presentation by
+La main à la pâte
+- a worldwide network of scientists and educators engaging other teachers in hands-on approaches of science teaching. This presentation clearly and simply covers a range of Luna related experiments and projects, well worth a read:
+Children of the Moon (Hijos de la Luna)
+Enfant de la lune (Hijos de la Luna)
+Development
+Moon is a fully Python activity that uses PyGTK for graphics and events. All Python code is in an easily modifiable single file with a Sugar activity subclass that takes care of control, views, and a model class for actual Moon calculations. The code was ported from a Cocoa application I wrote some time ago for the Mac, called
+MoonDock
+.
+Release Notes
+v10
+Merged alsroot's solution to future proof json module
+Picked-up latest localizations
+v9
+Code cleanup (make pylint happier)
+Merged alsroot's excellent independence resolution code addition (resizes moon image to fit available display)
+Updated localizations (latest from Pootle, thanks all!)
+v8
+Updated empty NEWS file with actual news
+Added pt_BR.po translation (from Gabriel Menini).
+Corrected some word translations for Spanish.
+Added some revised Spanish translation changes from Gabriel Menini.
+v7
+Added French locale by Bastien Guerry (thanks!)
+Reduced frame padding to allow more space for longer French strings.
+Fixed encoding issue affecting one string in the po file for both FR and ES.
+Corrected missing newline from Juliana ES translation string.
+v6
+Now has a Spanish locale by Gabriel Menini (many thanks!)
+Removed service_name from .info, that spec went away a long time ago.
+Change methods from camelcase to make pylint happier...
+v5
+Cleaned up MANIFEST.
+Added extra licensing texts and activity.info fluff.
+Journal stores state for grid on/off and southern/northern view.
+Activity remembers last used defaults and will use them for new launches.
+GIT now includes the below Spanish name modification
+v4
+Now called Luna in the activity bar in Spanish locales.  Still needs translation for spanish...
+v3
+Added a view toolbar.
+Feature added to display selenographic longitude and latitude grid lines (to help learning the terms).
+Feature added to toggle Moon image view between Northern and Southern hemisphere viewing location (rotates view 180deg).
+Textual displayed dates/times comply with local daylight saving rules and time zones (all internal calculations are in UTC).
+More accurate selenographic terminator visualisation (shadow) for waning gibbous & waxing crescent (corrected estimate for 3d curvature).
+v2
+Minor update to display information using your local time zone, instead of UTC
+v1
+Beta version with basic core functionality (text information, Moon phase visualisation, Lunar eclipse data & effect).
+TODOs
+Mouse over hover hints for major Lunar features
+Markers for interesting locations, view toolbar button, showing Lunar landings etc.
+State saving to Journal, for the new view options
+Simplify/clean-up textual data and information
+Improve information for the targeted demographic age
+Convert main view to Cairo to allow improved rendering
+Soft shadows
+Antialiased grid
+New daylight view feature (would be an estimate)
+Light blue to black transition of sky and Moon composite
+Consider possible shared activity functionality
+Shared markers with text notes?
+Mini-month Lunar calendar (stylised icons)
+Feature requests
+Add your feature requests here!
+It would be good to have associated displays that explain some of the technical terms like, waxing, Julian, lunation, Selenographic, terminator, & longitude for the schoolchild or anyone wanting a lesson on Earth's moon. --
+FGrose
+23:00, 19 February 2008 (EST)
+In version 3, I've added an extra colour coded view showing a longitude and latitude grid along with compass directions - I'll probably extend this technique (least text as possible) in future versions (e.g with a view mode for labelling/highlighting the terminator edge in green). Hopefully this will help. --
+Garycmartin
+2:00, 26 February 2008 (GMT)
+It would be great if explanation (or link to it) for technical terms are provided on this wiki page.  Without the knowledge it is very difficult to localize this activity on Pootle. --
+Korakurider
+2:00, 10 October 2008 (JST)
+Thanks Korakurider, I'm just starting to add more descriptions on the wiki now (ideally I'll be looking to migrate some of this into the Moon Activity itself, I've avoided using much text so far to reduce the translation effort required). --
+Garycmartin
+20:58, 9 October 2008 (UTC)
+Change date function would rock. --Edward/Tabitha 07:14, 15 November 2008 (UTC)
+Thanks Edward/Tabitha (I added this here from your email), the Moon source code is designed to support this, I just need to come up with a simple/friendly Sugar UI to allow it to happen. Thinking I might try a slightly different approach and solve this with a Lunar calendar view. --
+Garycmartin
+16:36, 15 November 2008 (UTC)
+A change viewer latitude function would add to the learning potential. See this
+discussion thread
+.  Perhaps the hemisphere toggle could pop up a small Earth image, and clicking a location would rotate Earth's moon image appropriately.  --
+FGrose
+13:55, 3 October 2011 (EDT)
+Resources
+Activity Library page
+Source
+Source tarball
+Trac tickets

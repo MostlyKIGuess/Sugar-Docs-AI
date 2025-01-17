@@ -1,0 +1,212 @@
+Title: Deployment Team/Sugar-0.88/lang-es
+URL: https://wiki.sugarlabs.org/go/Deployment_Team/Sugar-0.88/lang-es
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar 0.88 en Fedora 11 para  el XO-1
+1.1
+Builds de prueba
+1.2
+Cronograma de entregas (TBD)
+1.3
+Plan de Pruebas
+1.4
+Estado actual
+1.4.1
+Regresiones desde la 0.84
+1.4.2
+Bugs No-regresion (tambien presentes en 0.84)
+1.4.3
+Nuevas caracteristicas
+1.4.4
+Caracteristicas experimentales
+1.5
+Usando esta imagen afuera de Paraguay
+1.6
+Como unirse al  desarrollo
+Sugar 0.88 en Fedora 11 para  el XO-1
+F11-XO1-0.88 es una distribución con Sugar 0.88 para el  XO-1 desarrollada en conjunto por
+Sugar Labs
+,
+Paraguay Educa
+y
+Activity Central
+, en colaboración
+con
+Plan Ceibal
+y miembros de la comunidad OLPC/Sugar.
+Este ciclo de desarrollo durara solo 2.5 meses por que estamos apuntando al descanso de invierno en  Augosto de 2010 para un despliegue masivo  Paraguay. Mientras no habra tiempo para nuevos desarrollos, trataremos de unir algunas características relativamente seguras (post-0.88) contribuidas por otros despliegues e individuos.
+Builds de prueba
+Imágenes Flash para el XO-1 pueden ser obtenidas aquí:
+http://people.sugarlabs.org/bernie/olpc/f11-xo1-0.88/
+Para laptops sin bloqueo, solo se necesitan descargar dos archivos:
+osNNNpy.img
+osNNNpy.crc
+Siga estas
+instructiones de instalación
+para tener estas imagenes en su XO-1 .
+Cronograma de entregas (TBD)
+Esta es una propuesta rápida:
+ETA
+Fase
+Descripción
+Disponibilidad
+Jun 10
+Alpha1
+Release de prueba para
+OLPC Realness Summit
+in-house + community testers
+Jun 10
+Alpha2
+Alpha release con todas las caracteristicas
+En-casa + testers comunitarios
+Jun 25
+Beta1
+Regresions  no conocidas vs. Sugar 0.84
+Un aula de clase en caacupe + 3 formadores
+Jul 15
+Beta2
+Pasa el 100% del plan de pruebas
+Una aula de clases en caacupe + 3 formadores
+Jul 25
+RC
+Candidato para entrega
+Un aula de clases en  caacupe + 3 formadores
+Aug 1
+Entrega
+Entrega desplegable y estable
+Actualización masiva
+Plan de Pruebas
+Además de pruebas de comunidad y pruebas en campo , estamos planeando reducir y extender el plan de pruebas de OLPC adoptado en el release 8.2.0 (os801):
+http://wiki.laptop.org/go/TestPlan_8.2.0
+Retroalimentación de la comunidad entera es apreciada. Los Bugs o errores que pertenezcan a componentes principales deben ser llenados en los
+trackers
+usuales:
+Sugar y actividades:
+http://bugs.sugarlabs.org/
+Fedora 11:
+http://bugzilla.redhat.com/
+Drivers y personalizaciones OLPC:
+http://dev.laptop.org/
+Bugs o errores específicos a esta construcción o release:
+http://trac.paraguayeduca.org/
+Por favor , copie a  "bernie" en todos los bugs o errores y mantenga la tabla de abajo actualizada (esto ahorra un poco de tiempo).
+Estado actual
+Regresiones desde la 0.84
+Status
+Task
+Owner
+HECHO
+Cuadro no siempre aparece (con la tecla cuadro o iendo a la esquina)
+HECHO
+Traducción de "Dismount" es "Eliminar"
+bernie
+HECHO
+Portar el arreglo de condición de carrera en el titulo de actividades
+bernie
+50%
+Portar el parche 0.84 para GsmPalette.get_state() name clash
+tch
+ALT-TAB no cambia entre aplicaciones
+Browse: widgets en formularios son de 0x0 pixels (xulrunner bug?)
+Iconos en el circulo de actividades son muy pequeños (problema de DPI?)
+jasg
+Tamaño de Fuente en Terminal muy grande (problema DPI?)
+jasg
+Selección de nombre de usuario  se salta en el primer boot
+tch
+HECHO
+Añadir de nuevo  Write, eToys
+bernie
+Laptop no se duerme cuando se cierra la tapa
+tch
+Sonido se muere en todas las actividades después de usar record una vez
+ask dsd
+UI de la actividad Record  esta dañada
+m_anish?
+Sugar no se asocia  automáticamente con AP al iniciar
+Memorize no empieza por que falla en importar  libxml2
+Bugs No-regresion (tambien presentes en 0.84)
+Status
+Task
+Owner
+Bug de Raul acerca del navegador del journal tapando actividades  (sl#1999)
+La actividad Record no se puede dejar o salir con  CTRL-W
+m_anish
+Sugar debería reiniciar/refrescar después de actualizar actividades
+tch
+HECHO
+guardar -> guardar una copia (fold into stop menu)
+jasg
+HECHO
+Fechas de actividades no tienen sentido
+bernie
+HECHO
+Las capas de Pippy están dañadas
+m_anish
+80%
+Versión sugarizada de  scratch
+bertf, dirakx
+No se puede asociar con AP con letras con acentos en su  SSID
+carlos
+Nuevas caracteristicas
+Estado
+Tarea
+Propietario
+HECHO
+Cambiar manejo de potencia desde ohm a powerd
+bernie
+HECHO
+Añadir StopWatch, Finance, JukeBox, ImageViewer, InfoSlicer
+bernie
+Añadir Words (no en aslo) y GetBooks
+sayamindu
+Resurrección de soporte para Rainbow
+mstone?
+70%
+Integrar extensión journalmanagement
+jasg
+80%
+sl#2006: Unir parches de touchpad  (walter)
+bernie
+DONE
+Tamaño del display del Journal o Diario
+aa
+40%
+Integrar el backup  de Esteban hacia USB/SD
+tch
+50%
+Integrar arreglos de bugs GSM de DCastelo
+tch
+Caracteristicas experimentales
+Status
+Task
+Owner
+DONE
+experimental menu speedup patch
+mstone (bernie)
+DONE
+kill the MANIFEST file
+bernie
+Usando esta imagen afuera de Paraguay
+Algunas personalizaciones hacen esto de alguna forma especifico a Paraguay:
+Soporte de lenguajes limitado: para ahorrar espacio, solo hemos incluido traducciones de Ingles y Español.
+Imágenes firmadas con las claves de Paraguay. Laptops de otras regiones deben ser abiertos para que acepten esta imagen.
+El icono de actualización de software del panel de control busca nuevas actividades en nuestro wiki y no en laptop.org.
+La pagina de inicio de Browse o Navegar tiene el de Paraguay Educa logo y algunos links hacia nuestro sitio web.
+Podemos hallar el tiempo para sacar imagenes ligeramente modificadas que tengan las necesidades de otros despliegues de OLPC interesados en hacer actualizaciones a Sugar-0.88.
+Mas importante podemos ayudar a otros despliegues a producir sus propias imagenes de SO
+independientemente de nosotros, asi explotando
+Freedom #1
+ofrecida por el software libre.
+Como unirse al  desarrollo
+Fuentes del sistema de construccion:
+http://git.paraguayeduca.org/gitweb/users/bernie/olpc-os-builder.git
+parches afuera del árbol Sugar 0.88:
+http://people.sugarlabs.org/bernie/sugar/sugar-0.88-patches/
+Repositorio Yum conteniendo nuestros RPMs personalizados  (junto con sus fuentes):
+http://people.sugarlabs.org/bernie/olpc/pyeduca-repo/f11-xo1-sugar0.88/
+(espejo rapido y disponible)
+http://repo.paraguayeduca.org/f11-xo1-sugar0.88/i386/os/
+(repositorio original)
+IRC: #sugar on irc.feenode.net (Ingles preferido, Español también hablado por muchos miembros)

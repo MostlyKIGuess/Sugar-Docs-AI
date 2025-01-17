@@ -1,0 +1,167 @@
+Title: Human Interface Guidelines/The Sugar Interface/Input Systems
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/The_Sugar_Interface/Input_Systems#.22Hand-held.22_Mode
+--------------------------------------------------------------------------------
+english
+|
+español
+|
+한국어
+HowTo
+[ID# 70560]
++/-
+←
+Security
+Input Systems
+Layout Guidelines
+→
+Contents
+1
+Input Systems
+1.1
+Keyboard
+1.1.1
+Localized Keyboard Layouts
+1.1.2
+Description of Keys
+1.1.3
+Softkey Sliders
+1.1.4
+Keyboard Shortcuts
+1.2
+Trackpad
+1.2.1
+Trackpad as Mouse
+1.2.2
+Trackpad as Graphics Tablet
+1.3
+Microphone and Speakers
+1.4
+Camera
+2
+"Hand-held" Mode
+2.1
+Energy Saving Benefits
+2.2
+Implementing Hand-held Controls
+2.2.1
+The Directional Buttons
+2.2.2
+The Controller Buttons
+2.3
+Built-in Hardware in Hand-held Mode
+2.4
+Screen Rotation
+Input Systems
+Keyboard
+The basic laptop keyboard layout.
+Localized Keyboard Layouts
+API Reference
+Module: keymapping TBD
+Arabic
+Spanish (Argentinian)
+Portuguese (Brazilian)
+Nigerian
+Thai
+US International
+Description of Keys
+Key
+Function
+View Keys
+Transitions among
+Neighborhood
+,
+Groups
+,
+Home
+, and
+Activity
+views.
+Toggles visibility of the
+Bulletin Board
+for the current view
+Toggles visibility of the
+Frame
+Hardware Controls
+This key will invoke a Journal search.
+This slider key functions as controls for both the display backlight (left two buttons) and the speaker volume (right two buttons).
+Special Functions
+The
+View Source
+key (gear) peels away the activity layer, allowing children to view the underlying source code. It is accessed in combination with the Fn and space keys.
+Grab Keys are for panning/scrolling; they are used in conjunction with the touchpad.
+The middle of the three large
+"slider"
+keys at the top center of the keyboard is available for use by activities.  The slider can be mapped directly to a control in software.
+Editing Keys
+We've enlarged the Enter Key, and given it a visual indicator that maps directly to the graphics used in the UI.  All instances of the confirm and cancel icons within the interface will be selectable directly via the Enter and Escape Keys – a relationship strengthened by this visual mapping.
+The Escape Key has a visual indicator that maps directly to the screen graphics, complementing the Enter Key.
+We've replaced the Backspace and Delete Keys with an Erase Key.  This new term more accurately describes its functionality both for erasing a few characters of text, but also for erasing drawings, sounds, and other objects. (Fn-Erase deletes beneath the cursor.)
+The Tab Key differs little from those on modern keyboards.  Shift-Tab functions as a reverse tab, as visually indicated on the key.
+Modifier Keys
+The Control Key is the primary modifier for keyboard shortcuts on the laptops.  Note that the control key takes the place of the nominally useful caps lock key on the OLPC keyboards. The removal of caps lock was a design decision on the part of the OLPC team, however placement of the control key in its location followed naturally, since this was its original placement prior to the PS/2, and is still widely accepted among many communities.
+The Shift Key is used as a modifier for typing capital letters and other "upper" characters.
+The Alt Key is a multipurpose modifier. The Alt Key is typically used to provide a related but alternative functionality (often increased scope) to a Control Key. For example, Ctrl-C is copy; Alt-C is copy and erase.
+The Alternate Graphics Key (alt gr) is used to select the alternate (additional) characters printed on the right half of the key caps. A common use is the Unicode combining characters used for inserting accent characters. (On some keyboards, there are two separate sets of symbols printed, e.g., Thai, Arabic, Urdu, Ethiopic, etc. In these cases, the Language Key, described below, switches the entire keyboard between languages.)
+The Language Key, found on keyboards that have both full Latin and a second alphabet, e.g., Arabic, Thai, Urdu, Ethiopic, etc., is used to toggle the entire keyboard between alphabets.
+Fn is the Function Key. It is used to further modify keys; it is used to access the View Source Key; it modifies the arrow keys to home, end, page up, and page down; and it is used to enable the analog slider controls.
+Navigation Keys
+The standard Arrow Keys – up, down, left, and right – also operate as page up, page down, home, and end respectively when used in conjunction with the Fn Key.
+Softkey Sliders
+The slider keys have two modes: "digital" and "analog." In digital mode, the discrete functions printed on the key caps are accessed, four per key. In analog mode, accessed with the Fn key, intermediate key codes are enabled—there are seven positions along the slider; intermediary postions are interpolated in software, turning each of the keys into a 13-position slider.
+Keyboard Shortcuts
+For the purposes of development, you may want to review the detailed specifications for keys and their codes on the
+Keyboard Layout
+page.  For a complete list of agreed upon keyboard shortcuts in the Sugar environment, at both system and activity levels, please refer to the
+olpc:Keyboard shortcuts
+page.  Following is a high level description of the types of shortcuts the available keys should pertain to.
+◆
+CTRL
+(U+25C6) will be the main modifier key. It will be used to define "base" shortcuts. For instance, ◆A will "select all" in a text editor.
+◇
+ALT
+(U+25C7) should be used for optional modifications (or ALTernates) to base shortcuts. For instance, ◆S will perform a standard "keep" and ◇S could be "keep as...". ◆V is paste, ◇V is "paste and remove from clipboard."
+⇧
+SHIFT
+(U+21E7) can work in two ways. Its primary use would be as an inversion modifier, such that it inverts the meaning of the base shortcut. For instance, ◆Z is undo and ⇧◆Z is redo. ◆TAB is next activity, ⇧◆TAB is previous activity. SHIFT can also be used to create a second set of "base" shortcuts which are less often used.
+The FN key is reserved solely for system level operations, and generally for those that map to functions which are printed on the keyboard itself.
+Trackpad
+The laptops employ a capacitive (finger controlled) trackpad.
+Only the center region of the trackpad has capacitance, responding to a finger.
+Trackpad as Mouse
+The use of the finger on the central trackpad area serves as the primary input device for pointing.  Though external
+USB mice
+will work seamlessly with the laptops, their availability will be limited, and activity designers should not expect that children will have access to them.  This means that a certain lack of precision can be expected when moving the cursor about the screen, and activities should not require extremely precise motion.  Excessively small controls should also be avoided for similar reasons; details on how to design interface elements reside in the
+Controls
+section.
+In addition, the laptops have two buttons positioned beneath the trackpad for input. The left button is the primary button with which elements of the interface are selected, pressed, or activated. The right button has secondary functionality.  Typically, the right mouse button invokes contextual menus, the content of which pertains directly to the interface element the mouse is positioned over.
+Trackpad as Graphics Tablet
+No stylus support is currently planned for the XO.
+Microphone and Speakers
+The laptop has a built-in microphone and stereo speakers to allow for voice communication and recording. You may integrate audio functionality directly into your activities by requesting access to this hardware in the Functional Manifest. There are also an external microphone and speaker jacks.
+Need a section on using sounds in activities; particularly in the background...
+Camera
+The laptops have built-in cameras to allow for still photography and video recording.  You may integrate camera functionality directly into your activities by requesting access to this hardware in the Functional Manifest.
+"Hand-held" Mode
+The laptops feature a hand-held mode of operation in which the screen swivels around 180 degrees and folds flat, similar to a tablet PC. In this mode, the screen covers the keyboard and trackpad; however, the microphone and camera, mounted within the display bezel, remain available for use. Additionally, bezel-mounted controls provide auxiliary input suitable for the activities that Hand-held mode is designed to support: reading an eBook, playing games, etc.
+Energy Saving Benefits
+The laptop is engineered for extreme operating efficiency—a goal furthered by Hand-held mode. The CPU can be suspended while still displaying on-screen graphics. While reading an eBook, since the screen need only be updated when a page is changed, the time spent reading any given page requires no use of the CPU. The screen can run in reflective (daylight) mode—with the backlight off—for additional energy savings. These factors combine to create an extremely low-power, energy-efficient machine; Hand-held mode provides a usage scenario where maximal energy savings can be attained.
+Implementing Hand-held Controls
+Unlike a typical tablet PC, the OLPC laptop does not have a touch-sensitive screen. Primary user input comes from two bezel-mounted button sets: the D-pad (directional pad), which has 8 directions of articulation; and the button controller, which houses 4 discrete buttons (labeled  ◯, ╳, △, ▢,  on the B1 machine).
+The Directional Buttons
+The D-pad should
+not
+be, in general, used to move a cursor around the screen— in fact, the cursor will hide by default in Hand-held mode.  Instead, it should be used for more discrete operations, such as flipping through pages, scrolling a view, or jumping to focusable elements on screen.  When an interface necessitates focusable elements, these should be visually apparent and arranged in a natural order. In most cases, "natural order" will mean scan-line order, or the way in which one reads a page of text, but this may adapt to suit the needs of the activity. For instance, some activities may opt to scan first by column, then by row; some may use a clockwise ordering some may even zig-zag across the screen. All of these arrangements are acceptable as long as their orderings logically follow from one to the next according to the visuals provided on screen.
+Specific activities may in fact benefit from a more traditional cursor. Some games, for instance, may require one. To support these cases, the cursor may be explicitly shown. However, these instances should be carefully considered, since in many cases a cursor will provide a simple yet inefficient solution to a problem for which a better one exists.
+The Controller Buttons
+Generally speaking, the controller buttons can act either as standard event triggers, or as modifier buttons to the target of the D-pad controls. A common use for standard buttons is as select and cancel buttons. In such instances, the ◯ button should always represent confirmation, selection, or forward progress, while the ╳ button represents cancel, escape, or backward progress. Adhering to these guidelines will make navigation of Hand-held interfaces consistent.
+When used as a modifier, the visuals on screen should clearly indicate which of the directions—up, down, left, right—perform actions, and those actions likewise should be clearly indicated.  For instance, in the eBook, holding down ∆ displays an overlay listing the book's chapters, and the up/down arrows will have focus within this list while the modifier key remains pressed. The currently selected chapter appears in the center of the screen, and up and down arrows above and below the selected chapter clearly indicate how to scroll through the list.  When activities implement a combination of both standard and modifier buttons, we encourage ╳ and ◯ for standard, and △ and ▢ for modifiers, since the former two are easier to hit with natural finger placement.
+Built-in Hardware in Hand-held Mode
+Both the camera and microphone reside within the display bezel, and as such remain available for activities to use within Hand-held mode.  The important trade off to consider before using the camera or microphone is that of energy efficiency: while the laptop conserves energy in Hand-held mode, continued use of either of these two devices requires constant CPU usage, virtually eliminating the benefits. Therefore, do not simply integrate these hardware components unless they provide a fundamental service to your activity—but don't let this deter you from doing so where appropriate.
+Screen Rotation
+While in Hand-held mode, the laptops support screen rotation; by pressing a small button on the bezel of the display, the interface will rotate 90 degrees to provide a portrait layout of the currently active activity.  Just as any activity can implement Hand-held mode, those which can benefit from a vertical aspect ratio may also implement this feature, and we encourage developers to take advantage of this functionality.  The Read activity serves as a prime example of the usefulness of such a feature, since a vertical layout is well suited to displaying a single page from a book.  This is just the type of activity one might want to do in Hand-held mode, and by providing two orientations a greater number of use cases can be covered.
+In the current revisions of the laptops, its important to note that the buttons for interacting with Hand-held mode are slightly less accessible when the laptops are held vertically.  For this reason, activities that require heavy or frequent use might not be best suited for this mode.  However, OLPC is working hard on introducing touch-screen technology in the near future, which will nearly eliminate the dependency on the physical buttons, expanding the possibilities as every activity can take advantage of screen rotation.  Therefore, even if screen rotation doesn't make sense for the first version of your activity, please construct your interface in such a way as to allow future adaptation to this new and potentially useful functionality.
+←
+Security
+Input Systems
+Layout Guidelines
+→

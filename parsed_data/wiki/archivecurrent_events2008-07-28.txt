@@ -1,0 +1,124 @@
+Title: Archive/Current Events/2008-07-28
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2008-07-28
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Community jams and meetups
+3
+Tech Talk
+4
+Sugar Labs
+Sugar Digest
+1. Oversight: We had a meeting of the acting oversight board (minutes are available
+here
+).
+2. Infrastructure: Ivan Krstić and Bernie Innocenti have been moving the Sugar Labs back-end infrastructure to a new server hosted at MIT. Please report any problems you may have encountered post-move (One artifact to note: its.an.education.project@tema.lo-res.org
+will not work
+. It will bounce e-mails. Please change your address book to iaep@lists.sugarlabs.org).
+3. "Follow Through": Chris Leonard has created a wiki page (
+Education Team/Lesson Plan resources
+) to aggregate collections of lesson plans or curriculum development materials "posted in some dusty corners of the Internet"; they provide potentially useful modules of curricular content (constructionist and instructionist) that can either be adapted or at least serve as examples. Please contribute to the list with your own ideas and feedback on the postings.
+Another useful exercise would be to enhance these lesson plans through consideration of everything Sugar has to offer: journaling, collaboration, etc. A few detailed guides would go a long way towards opening the door to others, regardless of where the learning goals come from, generative or handed down from above.
+4. From Blog of Project Ceibal: More resources for teachers and learners:
+on-june-th-27th-we-launched-book-ceibal.html
+Libro_CEIBAL_en_la_sociedad_del_siglo_XXI.pdf
+Libro_Completo.pdf
+The communities deploying Sugar are beginning to make their materials and learning publicly available. I look forward to seeing some of the wonderful materials created by the team at Inttelmex made public soon.
+5. Help wanted: OLPC has a posted job opening for a Sugar UI coder (Please see
+User Interface Developer for Sugar
+). There is also interest expressed by numerous parties for help porting Sugar to a number of different Linux-based platforms. Please contact me (walter AT sugarlabs.org) if you have an interest in such work.
+Community jams and meetups
+6. Teacher Jam Chicago: July 29, 2008 @ Google Chicago
+7. Especially for teachers Uruguayans: A round table and conference of the "Regional Forum Ceibal learn from Digital Content educational and Intelligence" will be held in Montevideo on July 23—25 and will be transmitted live on Gateway Ceibal.
+Tech Talk
+8. Ubuntu refresh: James Munro, with hep from Morgan Collett, has created a fresh set of Ubuntu Sucrose packages (Please see
+Sugar packages
+).
+With some help from Marco Pesenti Gritti, I've been trying to get my xsession configured on Ubuntu to run from the Joyride build in my home directory (sugar-jhbuild) instead of the build installed from "apt-get sugar". Not quite working due to some pathname scrambling—hopefully I'll be able to post instructions soon.
+9. Browse: Simon Schampijer released a new xulrunner rpm (xulrunner-1.9-1.olpc3.2) that brings back Sugar- and OLPC-specific patches (e.g., permission patch to work with Bitfrost, no-native theme patch) that were lost when updating to the latest tarball. The layout on many sites were broken without these patches. It is available in Joyride >= 2155. Tomeu Vizoso solved the remaining issues that prevented Google Gears from running on the Browse activity.
+10. SocialCalc: Work continues on the spreadsheet; a mailing list has been created to explore the use of spreadsheets in education and rural community development (Please subscribe at
+http://lists.laptop.org/listinfo/socialcalc
+).
+11. Geography: A team of students at Rensselaer Polytechnic Institute (RPI) have just finished developing a world-geography game (Please see
+RPI Geography
+). Gabriel Eirea is working on "Conozco Uruguay", an Uruguayan geography educational game. (There are also several GCompris geography games available, thanks to Bruno Coudoin; please see
+GCompris Geography
+)
+12. SMS: Ankur Verma has built an SMS Gateway that can be accessed by XO through web browser, enabling one to send and receive SMS messages from within Sugar (Please see
+http://wiki.laptop.org/go/SMS
+).
+13. Physics: Brian Jordan worked on fleshing out OLPC Physics portal page (Please see
+http://wiki.laptop.org/go/Physics
+). He continues to work on the physics activity, having collected advice from teachers and testers, including feedback from the OLPC-Sur list (many of whom are teachers using OLPC in Peru and Uruguay). Bobby Powers continued to work on his system-dynamics activity (Please see
+http://wiki.laptop.org/go/Model
+and
+http://wiki.laptop.org/go/Model/Mockups
+).
+14. Play Go: Andrés Ambrois has been working on the PlayGo activity; he has made some patches and done some general cleaning up of the code. He is going to tackle collaboration next (See
+http://wiki.laptop.org/go/PlayGo
+).
+15. Food Force: Manusheel Gupta reports progress on the Food Force game (Please see
+food force
+).
+The artwork better fits with the text display;
+A messaging system has been developed, making it a more interactive experience.
+16. Sugar control panel: Simon added documentation for the graphical control panel (Please see
+Sugar Control Panel GUI
+) and fixed related control-panel bugs, such as
+Ticket #7510
+.
+17. Speech synthesis: Hemant Goyals's Google Summer of Code project, "Integration of Speech Synthesis in Sugar Environment", is making great progress, according to Simon, the project supervisor. You can follow the progress at
+http://wiki.laptop.org/go/User:Hemant_goyal
+.
+18. Creative Commons: The addition of a Creative Commons (CC) licensing functionality in the Journal was discussed at this week's Sugar developers meeting (Please see
+Creative Commons licensing functionality in the Journal
+).
+Eben Eliason will make mock-up by August 15 (
+Ticket 7551
+);
+Asheesh Laroia will then port the existing interface to incorporate Eben's mockup;
+after code review, the CC feature will be included
+19. Collaboration: Morgan Collett tested a fix for blocker
+Ticket #7444
+("cannot close a shared activity when the initiator has disconnected"). Elliot Fairweather work on the BuddyInfo interface for telepathy-synapse; he has Cerebro/Synapse enabled buddies appearing in the mesh view (Please see
+synapse_buddy.png
+).  Guillaume Desmottes made some improvements on "Gadget" integration into Sugar (Gadget is an XMPP server component being developed to scale Jabber-server-based collaborative activities). The presence-service is now able to properly manage buddies and activities from gadget views and update them according Gadget events.
+20. Translations: Sayamindu Dasgupta is testing a new language-pack generation system. New features include:
+Support for activity.linfo files, which will support the translation of the names of activities;
+Support for rollback and uninstallation of individual language packs;
+Support for branches, which will enable support for the various branches within Joyride, e.g., 8.1.x, 8.2.x, and eventually, 9.1.x
+21. Sugar Almanac: Faisal Anwar continues his work on the Sugar developer documentation. He has some sample code and instructions on using Pango to render fonts in your Sugar activities as well as an updated set of steps to internationalize your activity (based on the instructions at
+Internationalization in Sugar
+) and his own experience getting text to translate (Please see
+Sugar Almanac
+).
+22. Tinderbox: ﻿Edward Cherlin contacted ﻿Luke Crawford, who runs a colocation center in California; Luke has offered Sugar Labs Xen virtual machines for use as tinderboxes. The first test machine, running CentOS, is at sugarlabs1.xen.prgmr.com. Luke is building a Fedora 9 image for us, which should be ready some time this week. Depending on our needs and his excess capacity, it will be possible to
+add more machines. Marco offered to take the lead on setting up the tinderboxes.
+23. Activity updates: Eben Eliason has been working on tickets relevant to the pending 8.2 release, including new mockups for a software update system. Eben has been leading the discussion about activity versioning, which will probably not be resolved until release 9.1 Tomeu Vizoso added the ability to delete activities from the Home View. C. Scott Ananian worked an activity update control panel (
+Ticket #4951
+) inspired by OLPC Austria's XO-get activity and Bert Freudenberg's script. Scott requests that activity authors consider adding "update_url" fields to their activity.info files (Please see
+http://wiki.laptop.org/go/Activity_bundles
+). Brian Jordan wrote a script for pulling activities from git repositories and creating symlinks to them from the Activities folder; this enables you to "git pull" the newest version of an activity from a repository directly in a running Sugar environment (Please see
+Activity Coop
+).
+24. Developer meetings: Upcoming meetings will have a fixed set of points that are discussed each meeting; additional topics that can be added by the attendees (Please see
+The meeting itself
+).
+updates from the past week (e.g. process changes);
+Sugar roadmap;
+review of the latest bugs (for which we need help);
+introduction of new developers
+Additional topics can be added by the developers during the week (Please see
+How to add topics
+). Those of you on the Sugar mailing list should expect to receive three meeting-related messages each week:
+Monday: reminder to add_topics
+Thursday: meeting reminder
+Thursday: minutes from the meeting
+25. Release process: Marco Pesenti Gritti, back from vacation, has been spending time thinking about the interaction of the OLPC and Sugar Labs release processes; progress is being made, but there is more work to do. We'd like to get this right, as it will only get more complicated as we are working with more vendors and more distributions.
+26. 8.2.0 bug fixing: Marco has been busy triaging and diagnosing tickets and reviewing patches for the upcoming 8.2.0 release. (One collection of bugs he dispatched were related to problems with the zoom-level logic in Joyride.)
+Sugar Labs
+27. Self-organizing map (SOM): Gary Martin has generated another SOM from the past week of discussion on the IAEP mailing list (Please see
+Image:2008-July-12-18-som.jpg
+). A prominent theme is mathematics education.

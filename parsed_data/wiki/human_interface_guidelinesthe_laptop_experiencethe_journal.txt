@@ -1,0 +1,143 @@
+Title: Human Interface Guidelines/The Laptop Experience/The Journal
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/The_Laptop_Experience/The_Journal#The_Notion_of_.22Keeping.22
+--------------------------------------------------------------------------------
+english
+|
+español
+|
+한국어
+HowTo
+[ID# 92781]
++/-
+←
+View Source
+The Journal
+Global Search
+→
+Contents
+1
+The Journal
+1.1
+The Notion of "Keeping"
+1.2
+Deprecating Hierarchy
+1.2.1
+Temporal Organization
+1.2.2
+Falloff
+1.3
+Journal Entries
+1.3.1
+Implicit
+1.3.2
+Note
+1.3.3
+Clipping
+1.3.4
+Event
+1.3.5
+Progress Indicator
+1.4
+The Power of Metadata
+1.4.1
+Tagging
+1.4.2
+Metadata
+1.5
+Powerful Search, Filter & Sort
+1.5.1
+Searching
+1.5.2
+Filtering
+1.5.3
+Sorting
+1.6
+Implicit Versioning System
+1.7
+Automatic Backup and Restore
+1.7.1
+Backup
+1.7.2
+Restore
+The Journal
+See
+Journal
+and
+Design Team/Proposals/Journal
+for new design images.
+The Notion of "Keeping"
+We believe that the traditional "open" and "save" model commonly used for files today will fade away, and with it the familiar floppy disk icon.  The laptops do not have floppy drives, and the children who use them will probably never see one of these obsolete devices.  Instead, a more general notion of what it means to "keep" things will prevail. Generally speaking, we keep things which offer value, allowing the rest to disappear over time.  The Journal's primary function as a time-based view of a child's activities reinforces this concept.
+Most of us have heard the "save early, save often" mantra, largely ignored it, and incurred the consequences.  Sugar aims to eliminate this concern by making automatic backups.  This lets the children focus on the activity itself.
+The physical analog for an Activity is paper, pencil, & writer at a desk, canvas, paint, & artist at an easel, clay & hands at a wheel, or sidewalk, chalk, & children at a driveway. They exist as created and modified. No 'saving' action, per se, is needed.  The 'Keep' toolbar button (proposed to be 'Copy',
+[1]
+) provides the capability to replicate the current state of the Activity into a new, separately available
+*
+Activity object in the Journal.  Outside of software culture, such rapid and perfect replication has few physical analogs, and perhaps so has been a point of confusion.
+* Note:
+The Keep(Copy) action currently produces an object that shares an ID with its parent and so may not be opened simultaneously with its parent in the same Sugar instance. (This is a bug.)
+Use case
+: A teacher could easily prepare a series of
+Activities/Physics
+models illustrating the construction of a system through stages. The learning of the physical principles could be staged into separate lessons or exercises.
+Incremental backups occur regularly and are also triggered by such activity events as changes in scope, new participants, etc.  To cater to the many needs of the editing environment, activities can also specify "keep-hints" which prompt the system to keep a copy.  For instance, a drawing activity may trigger a keep-hint before executing an "erase" operation immediately preceded by a "select all".  Of course, a child may choose to invoke a keep-hint by selecting the "keep in journal" button, but the increasing adoption of this new concept of keeping should ultimately eliminate this.
+Based on the Object model associated with files, each kept Object is, technically speaking, a separate instance of the activity that created it.  This eliminates the need "to open" a file from within an application, and replaces the act of opening with the act of resuming a previous activity instance.  Of course, a child will have the option to resume a drawing with a different set of brushes, or resume an essay with a different pen, and will so be provided with an "open with" (a different tool kit)-style of functionality; but, no substitute for an "open" command will exist within an activity's interface.
+Deprecating Hierarchy
+Temporal Organization
+Along with the idea of implicit keeping, the laptops will drastically minimize the hierarchical filesystem as a means for organization, replacing it with a temporally organized list of activities and events, furthering the Journal metaphor.  This drastically simplifies the auto-keeping behavior, since it eliminates the need to specify a location in which a newly started activity should be kept;  naturally, the newly started activity will appear as the most recent entry in the journal.
+Temporal organization functions naturally in the absence of explicit or hierarchical methods, since humankind's intrinsic relationship to time gives them, at the very least, a relative notion of "how long ago" something happened.  By moving back through the Journal, a child can simply locate  the period in time within which she knows she made something, and then employ additional use of searching, filtering, and sorting to pinpoint exactly what she's looking for.
+Falloff
+Due to the laptops' limitations in storage capacity, the potential exists for the Journal to contain so many entries that no more may be written.  However, the frequency of such occurrences is limited by temporal falloff, which tidies up the Journal contents and keeps space available for new entries.  One might think of this as an intelligent combination of garbage collection and disk defragmentation.
+The driving principle here is that of temporal granularity, derived directly from our very capacity for human memory.  Our minds, generally speaking, maintain a high level of granularity with respect to very recent events, but only a low granularity for events from several years ago.  Moreover, this granularity tends to follow a logarithmic curve, where the past few minutes remain quite clear, the past few hours more blurry, and by last month quite vague.  When we look years into the past, only specifically memorable events stand out in our minds.
+On the laptops the policies are a bit more strict, but the principle remains the same.  With a finite amount of memory, there must exist some means of managing what's remembered, or kept; and what's forgotten, or erased.  An intelligent algorithm will assist children in identifying "forgotten" entries.  Taking into account how old an entry is, how many times she's viewed it, how recently she's worked on it, how many hours she's worked on it, how many people she's worked on it with, its tags, and even more forms of automatically generated metadata, the Journal can suggest to her those entries which it feels can be erased.  She will then have the opportunity to review those items prior to their erasure, if she wishes, and can keep any she still feels attached to.
+In a time where gigabytes have become cheap, many of us still manage to fill our hard drives.  Excepting the cases of multimedia collections of audio or video files, much of that space is consumed by files we either don't remember we ever made, or will never open again.  On the laptops, where space is precious, so too will be the objects and entries that remain in the journal years down the road.  The temporary, the experimental, the duplicate, and the unwanted files will naturally fall off the bottom, maintaining a browsable history of those that remain important to the children.
+Journal Entries
+Implicit
+Implicit journal entries will be the most common.  These appear as the result of many kinds of a child's interactions with her machine, but most commonly when engaging in an activity.  Other implicit entries might appear when she takes a photo, or receives a note from a friend, or downloads a file from the Web.  In all of these cases, the journal entry itself has a basic format which conveys important information about the event which created it.  Most importantly, the associated Object - the photo, the message, the drawing, the story - becomes embedded within the entry.  It also includes key metadata, such as its name, when it was made, and who collaborated on it.
+The journal entry also provides some means to interact with it.  For instance, each entry has a description field where a child can tag it with meaningful related words which will make searching for it in the future a breeze.  This field will automatically receive any tags that the activity itself associates with the entry.  In addition to this tag field, several buttons will allow direct manipulation of the Object, making it possible to resume the activity, place the Object on the clipboard, send it to a friend, print it, or erase it, among others.
+Note
+In addition to implicit ones, children have the opportunity to create several special kinds of entries on their own.  The first of these, the Note, has the simplest form.  Taking a cue from a traditional journal, a Note entry simply provides a large text entry field.  This freeform entry allows the children to write down short descriptions of their day to day experiences, just as one would within a real journal.  Providing this layer of personalized entries further emphasizes the idea that the Journal really does provide more than a filesystem, as an actual record of events and interactions of the children with the laptop and with their peers.
+In practice, children may also use this feature as a means of jotting down a note to themselves - a reminder.  In these instances, a simple control within the entry will turn the note into a "to-do" note.  As a to-do entry, it will have a checkbox indicating its completion status.  By filtering the Journal to show only these entries, it doubles as a basic to-do list, providing another useful tool for learning organizational skills.
+Clipping
+Clippings serve a slightly different purpose in the journal.  Similar in spirit to notes, a child can create a clipping from anywhere, or from within any activity on their laptop.  As an extension of the copy to clipboard idea, clippings copy a selection - some text from a chat session with a friend, an image from a web page, etc. - directly to the journal for safekeeping.  This provides a quick and easy way to keep a quick record of anything that you might want to keep around for future reference: a phone number, a link, a password, etc.
+Event
+Taking the temporal aspect of the Journal one step further, Events act like "future" journal entries.  By specifying a name for the event, a brief description, and a time, these Journal entries serve as a basic planning system.  A control within the entry also enables an audible alert, so that Events can act as alarms.  Events also tie in closely with some implicit actions of the laptops.  For instance, a child might want to go on a photo safari with her friend after school.  While still in class, she sends him an invitation to join a photo capture activity, but schedules a time of 3:00.  He then receives an invitation, as usual, but upon accepting it receives an Event entry in the journal, with a reference to the scheduled activity, instead of immediately entering it.  When 3:00 arrives, both children receive notifications that their scheduled event is about to start, and join each other both physically outside and virtually in the referenced capture activity.
+Progress Indicator
+In many cases, entries will appear at one point in time but the desired result of the entry won't be immediate.  This might occur, for instance, when downloading a file from the Web, receiving a file from a friend, restoring a file from the server, or saving a large Object such as video or audio data.  All of these processes take some non-trivial length of time, and so when necessary, Journal entries will provide a progress indicator stage.  When the download, transfer, or task begins an entry will be created in the journal to indicate that.  This entry will include a progress bar with estimated time until completion; once completed, it will transition to a standard entry.  This makes the Journal a consistent place to keep track of progress, and also provides an easy means to pause and resume transfers, which will prove extremely useful when in areas with intermittent connectivity.
+The Power of Metadata
+Despite the flatness of the Journal, finding past entries shouldn't prove difficult thanks to a tagging structure built from the ground up for the laptops.  By associating relevant descriptive words with each journal entry, searching for an entry becomes as easy as describing it.  These descriptions will manifest in two ways, tagging and metadata.  The former provide a straightforward manner for the children to describe and organize their stuff, while the latter provides a more technical means by which activities can associate relevant data and tags with all Journal entries they create.
+Tagging
+Tagging will become a fundamental process for all types of data and activities on the laptops.  Fortunately, children have a natural inclination to describe their world and the things they see and do.  This actually aids kids in learning, as they will enjoy describing the drawing they've made, the stories they've written, or the composition they produced, and can learn new vocabulary in doing so.  Of course, the kid-like desire to describe things doesn't detract from the usefulness of this tag-based system as they grow older.
+As such an integral part of the system, the tagging interface will be exposed in various places.  Of course, as mentioned, each journal entry will have a field for tags.  Likewise, each open activity instance will have a tag field adjacent to its name field, so that the act of naming a particular activity or Object becomes associated with describing it in their minds.  Additionally, activities could offer specific places within the interface for tagging to occur, such as in the description field for a photo the child just took.
+Metadata
+Metadata adds an additional level of sophistication to the tagging model.  Rather than thinking of this as data about data, consider it a means of tagging tags. Metadata on the laptops will be an extension of the basic tagging model where the tag itself consists of a key:value pair.  Or, you could simply consider a tag to be a metadata pair with a null key. Whichever way you look at it, this categorization of tags has powerful implications when it comes to organizing and categorizing data.
+The Journal itself assigns a variety of useful metadata tags to entries as they appear.  These include the time of the entry, its sharing scope, who participated in the activity, its size, and more.  The Journal will also keep track of other useful metadata, such as the number of times a child views a particular entry, the number of revisions an entry has gone through, etc.  Likewise, activities will deal primarily with metadata rather than simple tags.  This allows activities to define specific parameters, or keys, that make sense for the Objects they produce, and then assign values to those dynamically.  In a music composition activity, for instance, potential keys might be beats per minute, the key the composition is written in, the length of the track, and the composer, among others.  See the sorting section to fully understand the usefulness of this metadata within the Journal.
+Of course, since tags and metadata both follow a very basic format, children can assign their own metadata associations with Journal entries once they have enough experience simply by typing key:value pairs into the description field.
+Powerful Search, Filter & Sort
+Searching
+The search field provides the most direct means of locating a particular Journal entry, returning instant results as the search is typed, and offering auto-completion for popular tags.  In order to find anything on their laptop, a child need merely describe it, since the tags she's associated with it already appear within its description field.  Her searches also apply to the metadata associated with the entry by either the Journal or the activity that created it, making it even easier to find things.
+For simplicity, the search field will employ OR logic to all terms entered, which ensures the least amount of confusion when used by children who don't yet understand boolean logic.  As such, a search for "orange cat" will return a list of everything orange and also every cat.  Of course, any entries tagged with both orange and with cat will match more strongly, and will automatically filter to the top of the results.  However, in keeping with a primary goal of the laptops, this won't eliminate the possibility for more complex boolean searches.  Full support for AND, OR, NOT, and parenthetical grouping of terms will be built into the search engine, providing advanced functionality for those who desire to enter more complex queries.
+Since the laptops will find themselves in the hands of many children, additional modifications to the search algorithm will assist them as they grow.  The youngest children who receive them will still be learning how to spell, and those that can may still require some time to learn typing skills.  For these reasons, a fuzzy match algorithm will assist the children, returning some results even when the corresponding tags don't match what they typed exactly.  This algorithm is adaptive, and so as they become more comfortable with their language and with using the technology, the extent of the fuzziness and therefore the number of fuzzy results returned will lessen, preventing false matches from aggravating more advanced users.  Several other kinds of fuzziness could also be applied, though such possibilities are only speculation at this point.  For instance, fuzzy matches based on thesaurus entries could turn up items tagged with "funny" even when the child searches for "humorous".  Likewise, translation fuzziness could return an entry tagged with "cat", even though the child searched for "gato."  These advanced fuzziness algorithms could prove invaluable in a laptop community that has been built with sharing and collaboration in mind.
+Filtering
+Support for basic filtering also exists within the journal.  The search and filter functionality appear together in the toolbar, since searching could also be interpreted as filtering by tags.  Additionally, their appearance together allows an easy method for the children to visually construct their query in a sentence-like format, with relevant parts of their query displayed as icons — just as those within the entries themselves — for visual reinforcement.
+Several fundamental filters exist.  First and foremost, there is an advanced date filter, which can only be expected in a Journal organized temporally by default.  This control will present a timeline to the child, with visual indication over the length of the timeline of the number of entries present in the Journal from any given point in time.  By expanding and contracting the selected area she can select anything from a single day to all time, and by sliding the selection through time, she can filter out all entries that don't lie within the specified range.  Other basic filters include the activity that the entry represent, and the activity participants.
+Other available filters allow children to locate specific kinds of entries.  For instance, a child may want to view all entries that have been tagged by the Journal for possible removal when memory becomes low.  They may also want to see all their notes, or to-dos, or events.  They could also show only starred items, or in progress items, and more.  The system will provide adequate flexibility for finding anything in the Journal nearly instantaneously.
+Sorting
+Whereas searching and filtering provide a means of defining what entries get shown in the list of results, sorting determines how those entries are organized.  A unique approach to sorting on the laptops makes the metadata associated with entries even more valuable.  The sort bar, which the child can expand in order to more precisely control their view of the journal, offers a popup menu from which a number of options such as date, title, activity, size, participants, and others may be chosen.  In addition to this fixed list, a dynamic list of options also appears, providing a list of metadata keys that are present in the majority of the entries within the results list, the utility of which will become apparent below.
+The true functionality of the system arises from "then by" sorting.  When desired, a child can specify up to three levels of sorting hierarchy.  This feature shouldn't be overlooked, since it serves as an extraordinarily powerful means of viewing and organizing data hierarchically, even when no hard hierarchy exists.  In fact, when used to its full advantage this approach can be more useful than a hard hierarchy, since the order of the hierarchy can be adjusted dynamically to suit the child's needs at the time.  And, in conjunction with the intelligently compiled list of metadata keys on which to sort, children can not only find what they're looking for, but can browse through their journal in any way that suits them.  Consider, for instance, that a child filters her journal so that all of her music appears in the results.  Since nearly every song Object in her Journal has metadata keys for artist, album, track, and year, she could sort by these keys to arrange her music collection for browsing.  Sorting by artist, then album, then track she can obtain a traditional view of her music.  In order to view a discography for each artist, on the other hand, she could sort by artist, then by album, then by track.  Or, to see a timeline of her music, she could sort by year, then by artist.
+This powerful sorting method isn't necessarily limited solely to a bunch of songs, or pictures, or other specific type of data.  Since many forms of metadata will apply across Object types, the possibilities are nearly limitless.
+Implicit Versioning System
+As mentioned before, the laptops automatically save, or "keep", objects in the Journal at regular intervals.  This eliminates the need for the children to constantly worry about saving, and reduces the chances that an unexpected circumstance will cause data loss.  These individual keep events are incremental, meaning that the changes within the file are kept in a nondestructive manner.  Therefore, the Journal not only stores Objects as children create them, but also keeps track of the revision history for each one.  This allows the Journal to function as a versioned filesystem.
+The space limitations on the laptop cause some concern with the mention of revision history.  However, the differences between revisions will often be small.  Additionally, Objects with large revision histories provide one easy way for the journal to regain valuable space when memory becomes tight, since it can collapse the history, storing only every few automatic revisions in addition to those explicitly kept by the child.
+Automatic Backup and Restore
+Backup
+In most locations where laptops deploy, a nearby school equipped with a server will provide additional functionality when children bring their laptops within range.  This server has one major implication for the Journal: backup.  Due to limited storage space on the laptops, children will have to choose to erase older entries to make way for new ones.  The automated backup system will ensure that, even once their creations leave their own laptops, they will remain available on the school server.  This process will happen in the background, fully automatically, anytime the child comes within range and bandwidth allows.  Her Journal will keep track of which entries have and have not yet been backed up, taking this into account when recommending items for removal.
+Restore
+The backup service provided by the server will allow several types of restoration, based upon the child's needs.
+Full restore functionality provides a fail-safe for the children.  Though the ruggedness of the laptops should minimize the need for a full restore, any event which causes permanent loss of any or all data on a laptop can be recovered from nearly completely from the backup files.  These files also provide a means of restoring the child's settings and data should they for any reason ever need a new laptop.  In practice, this is a temporal restoration, recovering all files stored on the backup server within a given time period from the present.
+The backup server will also provide partial restores, which allows children to select individual objects and entries to recover.  Any recovered items will appear as a new Journal entry on the date of recovery.  This form of restoration will occur with much greater frequency, purposed mainly to restore an accidentally deleted entry from a week or so ago, while flexible enough to restore any entry ever backed up on the server.
+In addition to these hard restoration methods which physically copy the data back onto the children's laptops, the server will also provide soft restore functionality, allowing children to browse through the backups on the server directly from within their Journals.  Since this browsing functionality will integrate cleanly with the entries stored on their own laptops, the children will be able to search, filter, sort, and view anything they ever entered without having to think about the technicalities of the data's physical location.  Apart from a visual indication within the entry, the experience of browsing through backups will be seamless.  Using the temporary restore method, children can browse through their past creations, much as we might browse through a photo album.  They will have full ability to resume any instance of an activity, to view its contents.  A copy-on-write approach will be taken, so that if a child attempts to modify a temporarily restored item, it will behave identically to a partial restore for that Object, writing the modified revision into a new journal entry.
+←
+View Source
+The Journal
+Global Search
+→

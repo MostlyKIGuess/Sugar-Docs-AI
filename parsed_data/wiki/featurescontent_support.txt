@@ -1,0 +1,69 @@
+Title: Features/Content support
+URL: https://wiki.sugarlabs.org/go/Features/Content_support
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+Dependencies
+9
+Release Notes
+10
+Comments and Discussion
+Summary
+Sugar should be able to support easy installation and distribution of books, multimedia, and other content.
+Owner
+DanielDrake
+dsd@laptop.org
+Current status
+Targeted release: 0.100
+Last updated: July 2013
+Percentage of completion: 100%
+Detailed Description
+Content bundles
+have long been both a crucial part of the OLPC-Sugar offering (see
+http://wiki.laptop.org/go/Creating_a_collection
+), and a pain through having some deficiencies.
+They are important because it is the only easy way for a deployment to add pre-made content to Sugar (e.g. books). The strong point of the design here is that beyond a not-too-strange library.info metadata file, you do not have to interact with anything too technical (e.g. python) beyond the HTML content itself. It is something that seems to fall within
+capabilities of deployment teams without much difficulty, whereas activity development is often a painful step up.
+They are quite widely used and in my experience visiting deployments "how do we add our content to the laptop" is a very frequent question - I always ran training sessions on content bundles in response. Here are some examples of the kinds of bundles that exist:
+World maps
+Music (e.g., one album)
+Grade 3 textbooks
+Grade 5 textbooks
+Collections of local historical tales
+Multimedia about local culture (dance/music)
+However they are a pain because Sugar never really supported them very well. Sugar can launch them from the Journal, but shipped content that the user has never opened before does not exist in the Journal, so there was something missing here.
+To fill the gap, OLPC added a system (olpc-library) to produce a HTML index of content bundles and this is the Browse homepage, but that isn't great either - it's not part of Sugar where it should be, and users have to open the web browser as if they are going online when they are just looking to open some preinstalled content.
+With my recent work on
+automatic activity updates
+, we had to add content bundles to the bundle registry so that they will be updated appropriately. Now that this is done, it is very easy to remove this deficiency.Content bundles now appear alongside activities, in the list and favourites views. They are launched as expected with a click.
+Sugar's support for content is currently minimal. You are limited to shipping the content on USB disk to each computer, or through a website (one-click-per-file). The widely-deployed .xol content bundles only have minimal support (they can only be launched from the journal).
+With this change, it is envisioned that the OLPC-specific way of providing a content bundle index (through olpc-library) would go away. The
+content bundle format
+has been tweaked to remove unused fields. However, it is fully compatible with existing content bundles.
+Benefit to Sugar
+Sugar deployers finally have a simple method of shipping content to all systems within a deployment.
+Scope
+A small Sugar patch is needed, to show content bundles on the home screen (rather than ignore them), and some tweaks to the ContentBundle class is needed so that it matches the API of the ActivityBundle class.
+How To Test
+Install content bundles and make sure that you can open them. Make them available on the favorites view and check they can be opened from there. Check that you can erase them and that they are then gone from disk.
+Dependencies
+None.
+Release Notes
+to be written after implementation and testing
+Comments and Discussion
+See
+discussion tab for this feature

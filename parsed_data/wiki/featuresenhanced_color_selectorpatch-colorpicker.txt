@@ -1,0 +1,88 @@
+Title: Features/Enhanced color selector/Patch-colorpicker
+URL: https://wiki.sugarlabs.org/go/Features/Enhanced_color_selector/Patch-colorpicker
+--------------------------------------------------------------------------------
+--- src/jarabe/intro/colorpicker.py	2009-11-19 15:40:18.000000000 -0500
++++ src/jarabe/intro/colorpicker.py	2009-11-12 14:37:19.000000000 -0500
+@@ -19,7 +19,7 @@ import hippo
+ from sugar.graphics.icon import CanvasIcon
+ from sugar.graphics import style
+ from sugar.graphics.xocolor import XoColor
+-
++"""
+ class ColorPicker(hippo.CanvasBox, hippo.CanvasItem):
+     def __init__(self, **kwargs):
+         hippo.CanvasBox.__init__(self, **kwargs)
+@@ -41,3 +41,73 @@ class ColorPicker(hippo.CanvasBox, hippo
+     def _set_random_colors(self):
+         self._xo_color = XoColor()
+         self._xo.props.xo_color = self._xo_color
++"""
++class ColorPicker(hippo.CanvasBox, hippo.CanvasItem):
++    def __init__(self, me, **kwargs):
++        hippo.CanvasBox.__init__(self, **kwargs)
++        self.props.orientation = hippo.ORIENTATION_HORIZONTAL
++        self._xo_color = None
++
++        self._xo = CanvasIcon(size=style.XLARGE_ICON_SIZE,
++                              icon_name='computer-xo')
++        self._xo.connect('activated', self.__pressed_cb, me)
++        self.append(self._xo)
++
++    def __pressed_cb(self, item, me):
++        me.set_random_colors()
++
++class ColorPrev(hippo.CanvasBox, hippo.CanvasItem):
++    def __init__(self, me, **kwargs):
++        hippo.CanvasBox.__init__(self, **kwargs)
++        self.props.orientation = hippo.ORIENTATION_HORIZONTAL
++        self._xo_color = None
++
++        self._xo = CanvasIcon(size=style.STANDARD_ICON_SIZE,
++                              icon_name='computer-xo')
++        self._xo.connect('activated', self.__pressed_cb, me)
++        self.append(self._xo)
++
++    def __pressed_cb(self, item, me):
++        me.set_prev_colors()
++
++class ColorNext(hippo.CanvasBox, hippo.CanvasItem):
++    def __init__(self, me, **kwargs):
++        hippo.CanvasBox.__init__(self, **kwargs)
++        self.props.orientation = hippo.ORIENTATION_HORIZONTAL
++        self._xo_color = None
++
++        self._xo = CanvasIcon(size=style.STANDARD_ICON_SIZE,
++                              icon_name='computer-xo')
++        self._xo.connect('activated', self.__pressed_cb, me)
++        self.append(self._xo)
++
++    def __pressed_cb(self, item, me):
++        me.set_next_colors()
++
++class Prev(hippo.CanvasBox, hippo.CanvasItem):
++    def __init__(self, me, **kwargs):
++        hippo.CanvasBox.__init__(self, **kwargs)
++        self.props.orientation = hippo.ORIENTATION_HORIZONTAL
++        self._xo_color = None
++
++        self._xo = CanvasIcon(size=style.STANDARD_ICON_SIZE,
++                              icon_name='go-left')
++        self._xo.connect('activated', self.__pressed_cb, me)
++        self.append(self._xo)
++
++    def __pressed_cb(self, item, me):
++        me.set_prev_colors()
++
++class Next(hippo.CanvasBox, hippo.CanvasItem):
++    def __init__(self, me, **kwargs):
++        hippo.CanvasBox.__init__(self, **kwargs)
++        self.props.orientation = hippo.ORIENTATION_HORIZONTAL
++        self._xo_color = None
++
++        self._xo = CanvasIcon(size=style.STANDARD_ICON_SIZE,
++                              icon_name='go-right')
++        self._xo.connect('activated', self.__pressed_cb, me)
++        self.append(self._xo)
++
++    def __pressed_cb(self, item, me):
++        me.set_prev_colors()

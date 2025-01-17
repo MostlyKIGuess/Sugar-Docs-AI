@@ -1,0 +1,101 @@
+Title: Features/Sugar3 Docs/How To Write
+URL: https://wiki.sugarlabs.org/go/Features/Sugar3_Docs/How_To_Write
+--------------------------------------------------------------------------------
+This will guide you through how to write docs for a module in sugar3.  There are 5 easy steps to writing the documentation, and 3 bonus steps for getting it merged.
+Example patch:
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/269/files
+or
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/256/files
+How To Guide
+1.  Write a code example for using the code.  Try to write a stand alone python script that demonstrates the major features of the module and put in the
+examples
+directory in sugar-toolkit-gtk3.  If it can not be demonstrated standalone, write a code sample that the user could paste into their activity, like the
+sugar3.graphics.alert
+example.  When writing the example, add comments to explain what code is doing that might be non obvious (eg. that something is zero indexed, or that this function needs to be called first)
+2.  Write a blurb (a small paragraph, around 3 lines) for the module and include your example.  Your blurb should say what this does and where to use it.  Place this between the license and the imports.  Including the example will always use the syntax
+.. literalinclude:: ../examples/SOMETHING.py
+.  For example:
+'''
+The combobox module provides a combo box; a button like widget which
+creates a list popup when clicked.  It's best used outside of a
+toolbar when the user needs to choose from a *short* list of items.
+
+Example:
+
+.. literalinclude:: ../examples/combobox.py
+'''
+3.  Document each class.  Write a blurb about what the class does and where to use it.  If the constructor takes any parameters, or if the class has any signals, they need to be documented here.  Place this directly after the class definition.  For example:
+class PaletteMenuItem(Gtk.EventBox):
+    '''
+    A palette menu item is a line of text, and optionally an icon, that the
+    user can activate.
+
+    The `activate` signal is usually emitted when the item is clicked.  It has
+    no arguments.  When a menu item is activated, the palette is also closed.
+
+    Args:
+        text_label (str):  a text to display in the menu
+
+        icon_name (str):  the name of a sugar icon to be displayed. Takse
+            precedence over file_name
+
+        text_maxlen (int):  the desired maximum width of the label, in
+            characters.  By default set to 60 chars
+
+        xo_color (:class:`sugar.graphics.XoColor`):  the color to be applied to
+            the icon
+
+        file_name (str):  the path to a svg file used as icon
+
+        accelerator (str):  a text used to display the keyboard shortcut
+            associated to the menu
+    '''
+4.  Document the class methods and global functions.  You should document what the method/function does and any side effects that it has.  If it takes arguments, the they must have their types and function documented.  Same goes for return value.  This should be placed after the definition.  For example (the following are 2 separate methods from different classes):
+def set_image(self, icon):
+        '''
+        Sets the icon widget.  Usually this will be a
+        :class:`sugar3.graphics.icon.Icon`.
+
+        Args:
+            icon (:class:`Gtk.Widget`):  icon widget
+        '''
+        self._hbox.pack_start(icon, expand=False, fill=False,
+                              padding=style.DEFAULT_PADDING)
+        self._hbox.reorder_child(icon, 0)
+def get_value(self):
+        '''
+        The value of the currently selected item; the same as the `value`
+        argument that was passed to the `append_item` func.
+
+        Returns:
+            object, value of selected item
+        '''
+        row = self.get_active_item()
+        if not row:
+            return None
+        return row[0]
+5.
+Proofread
+.  Use the 'make-doc.sh' script to build the docs.  Then
+cd doc/_build/html
+and start a http server (
+python -m SimpleHTTPServer 8000
+).  Load
+localhost:8000
+in your favorite web browser and check that your documentation has rendered correctly and makes sense.  Make sure you have a spell checker in your text editor (the vim one in very nice as it only checks strings and docstrings), because I can't spell or check.
+SAMdroid
+(
+talk
+) I'm being hypocritical saying this, but I'll proof it soon :)
+6.  Write a commit message like
+Write documentation for sugar3.path.module
+.
+7.  Create a pull request on GitHub.
+8.  Listen to whoever reviews your patch.
+Syntax Information
+The docgen uses sphinx.  Sphinx uses reStructuredText as a markup.  We then use autodoc and napoleon to write docstrings using google style.
+Napolean quick intro:
+http://sphinxcontrib-napoleon.readthedocs.org/en/latest/
+reStructuredText primer:
+http://sphinx-doc.org/rest.html
+How do I do X in sphinx?:  I'm too lazy to find docs.  Just duckduckgo or google "sphinx X" if you haven't already.

@@ -1,0 +1,124 @@
+Title: Summer of Code/2013/Social Sugar project
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2013/Social_Sugar_project#Mini_Profiles
+--------------------------------------------------------------------------------
+This page tracks the progress of
+Akshit Khurana
+'s GSoC project: "Social Sugar". More details about the project can be found on
+proposal page
+.
+Contents
+1
+Work done
+1.1
+Adding social ids
+1.2
+Mini Profiles
+1.3
+Icons
+1.4
+Mockups
+1.5
+Screenshots
+2
+TODO
+3
+Code
+Work done
+checked out previous work done: on webservices, journalx and sugar-network.
+added social_ids to BuddyModel, still working on integration to access them in group view.
+reading about
+GObject
+and
+Python GTK
+Week ending Friday Jun 21st
+read about GObject, gconf and some PyGTK.
+am able to read social_ids from BuddyModel, access them in Group/Network views, send data through telepathy.
+Week ending Jun 28th
+Social ids are taken from webservices' Account models.
+Working on User Interface for mini profiles. See notes from
+Mini profiles UI discussion
+.
+Week ending July 5th
+Created a couple of svg icons, initially a simple cloud, then a cloud with a speech bubble like pointer for mini profiles
+Made few mockups for the neighborhood view, but we would focus on friends view first.
+Implemented small icon gtk widget on friends view.
+Will work on expanded view of mini profiles this week.
+Week ending July 12th
+Added a method stub to webservices Account to get latest post from webservice and a class to store a generic post from any service.
+On clicking the small cloud icon (above the friend's buddy icon) the post gets printed to the log currently, which will be later displayed in the expanded view of the mini profiles, when the GTK widget is ready.
+Week ending July 19th
+On clicking smaller clouds we get the larger icons which will display posts.
+Facing issues adding Gtk widgets over cloud icon (cairo surface). Tried the following:
+Using .add() method of the icon
+Changing eventbox's properties: Eventbox's set_visible_window / set_above_child also didn't work.
+Able to add text using Cairo methods but not other GTK widgets
+Week ending July 26th
+Tried Gtk.Fixed for the above issue, didn't work.
+Found a container:
+Gtk.Overlay
+to overlay widgets over on top of each other.
+Created a new social bubble icon, to incorporate 140 chars of text and a small icon of the service.
+Added icon for service, place for text in content over the social bubble icon.
+Fixed positioning of overlay content.
+Week ending August 2nd
+Created a
+mock service
+based on the WebServices' directory structure with additional methods/classes as required by miniprofiles.
+Documented on
+Wiki
+: Simple instructions to try out the mini profiles.
+Working on hiding of the large clouds on clicking outside them, was looking at how palettes are hidden.
+Week ending August 9th
+Asked Manuel's help with the artwork. Tried to incorporate his suggestions:
+make sure the text fits a rectangular area inside the cloud
+center align text
+make the tip of the arrow point to the head of the buddy
+reduce border of the big cloud
+for the social icon, use white fill, black borders
+Set up a VM to test mock-service extension
+Fixed issues faced in accessing social_ids in group view, apparently group view has different objects for buddies.
+Reached out to Daniel regarding network issues with multiple instances of osbuild, I need to update osbuild and get back to him regarding this.
+Week ending August 16th
+Added multi service support to the Mini Profiles:
+Created multiple mock services
+Cycles between posts from different services.
+Week ending August 23rd
+Added close button, so hide the large cloud
+This stops fetching the next post
+Added a play/pause button
+Can be used to pause cycling through posts
+Tinkering with favorites layout to allocate enough space for the buddy with large cloud.
+Week ending August 30th
+Fixed the buddy cutting issue, by setting size to include the large cloud before layout.
+Set up moksaya on local for API.
+Working on client library using Martin's grestful library.
+Week ending September 6th
+gmoksaya
+: python client for Moksaya's API
+Fixed a couple of small bugs in grestful:
+Handling multiple file uploads
+Adding more HTTP success codes
+Week ending September 13th
+Working on integration of Project Sharing Website's client
+Adding social ids
+What are social ids?
+Social IDs identify a user on external platforms uniquely.
+To create mini profiles in group view, we can add a social_ids dictionary to BaseBuddy model in addition to other properties like nick and color. social_ids is a mapping of `service key` : `uid`.
+E.g.
+{'project_sharing_website': '19348r93jfioaf', 'another_service': 'adfjafp1asdf'}
+These social_ids will be obtained when a user adds his account to webservices module.
+Mini Profiles
+Small cloud icon around buddy with same colors (if social_ids is not None)
+Expanded view (mini profile)
+The small cloud icon expands into a thought cloud.
+Displays one item from each webservice at a time, rotating.
+Each service should support a GET info by public user ID.
+Service plugin will implement service call and widget content.
+Icons
+Mockups
+Screenshots
+TODO
+see how comments work and think which new methods we should need to get our "interactions" information
+Code
+socialsugar2
+branch on my sugar fork on github.

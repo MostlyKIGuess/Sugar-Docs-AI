@@ -1,0 +1,226 @@
+Title: 0.84/Sugar
+URL: https://wiki.sugarlabs.org/go/0.84/Sugar
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar
+1.1
+Introduction
+1.2
+News
+1.3
+Detailed changes
+1.3.1
+0.83.1
+1.3.2
+0.83.3
+1.3.3
+0.83.4
+1.3.4
+0.83.5
+1.3.5
+0.83.7
+1.3.6
+0.83.8
+1.3.7
+0.84.0
+1.4
+Credits
+Sugar
+Introduction
+Some introductory words what the activity is like. Any special things you like to mention that happened during the release cycle etc
+More Info:
+link to get some further info about the module
+News
+reduced memory usage
+performance improvements in startup
+Detailed changes
+0.83.1
+Modularized the shell to have every major UI component like the frame the home view and the control panel reside in his own module and be self contained
+Use gconf as a backend to store the profile.
+Several heavy shell dependency have been dropped.
+Merge of the journal and of the shell service into the shell
+"Battery fully charged" shows up in error (battery is removed)
+#5867
+Jabber server description is ambiguous
+#8623
+Should re-request closed random views
+#8900
+Should request random activities/buddies to populate the mesh view
+#7545
+Clipboard objects need meaningful labels
+#5751
+Dragging within the clipboard creates duplicate clippings
+#8606
+Cursor lock while dragging icons in Home (or anywhere)
+#7408
+Tray control should support highlight on drag
+#8604
+0.83.3
+Fix uninstalling activities from the home view
+Make sugar control panel support selection of multiple languages d.l.o
+Add saving and loading of the nm connections and support for WPA
+#8876
+Implement a global handler for the view source key
+Initial implementation of activity notifications
+Wireless network frame device
+#9
+Make sugar control panel support selection of multiple languages
+#8876
+Update Icon in the AP palette
+#7
+Control Panel needs to list wireless firmware version
+#8131
+0.83.4
+Fix language parsing on Gentoo and ALTLinux
+#81
+(alsroot)
+Change the FRAME_POSITION_RELATIVE to follow eben's spec
+exec sugar-session
+Add wired device icon for the frame
+Only show wireless device in the frame when connecting/connected
+Use jabber.sugarlabs.org by default
+Only create a keydialog for the activating connection
+CanvasPulsingIcon: Don't begin pulse loop on resume if not pulsing
+Use g_timeout_add_seconds() for power efficiency
+Add the journal button to the volumes toolbar in the journal
+Remove jarabe/model/volume.py and use gio instead
+First try at restoring removable devices support in the journal
+make the image viewer activity the default one for iamges
+0.83.5
+Make the journal entries in the favorites palette resumable
+Simplify the constants used to identify favorite layouts
+Separate debug settings from xsession
+#163
+Add logout option
+#207
+to xomenu (sayamindu, icon by eben)
+Change jabber server without sugar restart
+#142
+About my XO -> About my Computer
+Fix setting the timezone in debian
+#196
+Autoconnect to AP that we connected to last
+#8
+Add a favorites mode setting for deciding if the favorites view resumes by default or not
+Resume by default the last activity from the favorites view
+Implement filtering by file type for removable devices
+Filter by timestamp, not by mtime
+#132
+Add support for text queries on removable devices
+Dont abort if we cannot read a file from a removable device
+Add a favorite filter to the journal toolbar
+Sanitize the file name when we copy to removable devices
+Refresh the detailed view when the entry changes
+#36
+Refresh full metadata when editing so we dont lose properties
+#38
+Focus Search is not exposed via dbus anymore
+#89
+'Open with' does not work for clipboard item
+#131
+Install bundles when they get into the journal
+#165
+Add Resume item to the file transfer palette
+Fix erase button in the journal
+#126
+Following eben's spec for the device positions
+0.83.7
+Resume Activity list is not updated directly
+#322
+Fix network panel on XO (Sascha Silbe)
+#290
+Only show cp power section on xo
+#320
+Add logout option to the buddy menu (Sayamindu)
+#207
+Launch activity also when clicking on the palette icon
+#335
+Use the activity icon for the 'Start new' palette item
+#314
+Close the object chooser when the activity is closed
+#329
+Dates in journal are not translated
+#55
+Don't mute when right-clicking the speaker icon
+#278
+Correctly cache the connection to the OHM service
+#249
+Show launcher screen immediately after the user clicks to start an activity
+#243
+Use documend-send icon (Gary C Martin)
+#227
+Try harder to get an icon for a clipping
+Hide the journal activity in the home view
+#87
+Correctly initialize the TrayIcon
+Add 'View Details' option to object palette in journal
+Translation updates
+Hide OLPC-specific fields on non-xo machines
+#133
+Add a 'Clear search' button to 'No matching entries' message
+#266
+Correctly detect when a query in the journal is empty
+#255
+Avoid launching two instances of the same activity instance
+#238
+Add start-with option to objectpalette in the journal
+Fix dnd of icons in the favorite view
+#213
+Right click on AP should reveal palette not connect to AP
+#10
+Display space used and left in the volume palette in the journal
+#33
+Don't update the zoom level when a dialog window pops up
+Fix filtering the objectchooser with data types
+#219
+0.83.8
+Revert "Add a favorites mode setting for deciding if the favorites view resumes by default or not"
+Listen for changes in the Activities dir and install/uninstall activities accordingly
+#235
+Fix sorting of favorite icons by installation_time
+#387
+View Source: Option and accelerator in activity frame palette
+View Source: Use activity icon outline for Bundle Source, part of
+#360
+View Source: Hide Python Bytecode files
+#361
+Use the file transfer icons
+Many new translations!
+0.84.0
+Focus rectangle corners should be rounded
+#406
+Restore minimal .xol support
+#459
+Check the activity version and replace an older version upon download
+#464
+Friendstray: icon reacting to right click
+#441
+Network device icons don't react on right click
+#463
+Don't open a launcher window when that activity is already running
+#426
+Fall back to application-octet-stream for unknown types
+#458
+Show a generic icon for clippings, if available
+#454
+Don’t add_bundle on activity dir change when installed already
+#442
+Make mute sound code togglable
+Keyhandler: Map XF86Search to the journal search
+Keyhandler: Catch all exceptions (thanks to Sascha Silbe)
+Give time for exit to execute when closing the emulator
+#435
+Dont hardcode the maximum amount of entries to cache in the journal
+#72
+Add standard ‘Print’ shortcut to take a screenshot
+Use keyboard specific keys to set the volume
+#430
+Update to new DBus policy
+#307
+Fix palette appearance on right-click
+#403
+Switch to existing instance of an activity if it’s already running
+#410
+Credits
+Tomeu Vizoso

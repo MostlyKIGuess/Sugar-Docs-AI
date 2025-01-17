@@ -1,0 +1,213 @@
+Title: Summer of Code/2016/Nutritional Microworld
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2016/Nutritional_Microworld
+--------------------------------------------------------------------------------
+Contents
+1
+About me
+2
+About my project
+3
+Me and The Community
+4
+Miscellaneous
+About me
+What is your name?
+My name is Sneh Gupta, and I am a 3rd year undergraduate student at
+IIIT-Hyderabad
+.
+What is your email address?
+snehgupta42@gmail.com
+What is your Sugar Labs wiki username?
+Snehgupta
+What is your IRC nickname on irc.freenode.net?
+Sneh1234
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My first language is Hindi, I am fluent in English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+Location: Hyderabad, Telangana, India
+Time Zone: UTC + 5:30 (Indian Standard Time)
+Working hours: (UTC + 5:30) 15:00 - 18:00 and 21:00 - 2:00
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer
+I have been a part of sugar since January this year. This is my first time contributing to an open source organization, but so far I am really enjoying the experience. Ever since I started exploring the world of open source, I have been mesmerised by the simplicity and the noble intentions behind the work that is being done. Sugar labs in particular has grabbed my attention so far because of OLPC program. It is a great initiative, and I want to contribute in whatever way I can to it.
+About my project
+What is the name of your project?
+Nutritional Microworld.
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+The project Nutritional Microworld is for children to learn the fundamental concepts of nutrition. Children life nowadays is quite different that they tend to have an unhealthy lifestyle . By playing with nutrition microworld, children will be able to learn the concepts of nutrition in a fun and interactive manner.
+This project is analogous to turtle-blocks. By utilising block programming children will be able to do a lot of new things.
+I have made a basic UX design for each type of activity.
+Nutrition Microworld can be a bit overwhelming for the beginners. So Nutrition microworld can be used in two different modes.
+i) In Beginner mode user will have access to a limited set of functionality.
+ii) In advanced mode extra functionality will be added to the beginner mode.
+Beginner Mode -
+On the basis of functionality we have three different types of activities :
+i) Food related activity :
+In this activity section user can select food items. The food items will contain images as well as nutrient information along with them. In this module, activities related to food items are present. For instance in the example below “Get calorie” method would take two arguments ice-cream and amount of it. Thereby returning the calories gained from it.
+ii) Exercise related activity :
+This section would contains different types of exercises. User can use exercise activities in conjunction with food related activities to get better understanding of how nutrition is related to exercise. For instance, as can be seen from the diagram below, the calorie gain block would return the net calorie. For example, here it is used to find the net caloric gain after eating a piece of apple and swimming for 30 min. Since 100 gm of apple would give approximately 50 calories and swimming for 30 min causes approximately 200 calorie to burned. Thus, the net caloric gain would be -150 calories.
+iii)  Games :
+With the games activity, getting through these things and understanding the concepts of nutrition will be more easier and interactive. There will be some interesting quiz problems. User will be able to set the number of problems he wants to solve. And then he can choose those problems that he wants to solve.
+Below are some game examples user can play:
+1) Guess the item
+- In this game user will have to find the correct name of the given food item. For example, here the image of guava is shown and now user have to write its name in the text field.
+2) Nutrients Problem
+- In this game user will have to answer some question related to nutrients. For example, which food has highest protein content? Now user have to write the answer in the text field.
+3) Disease Problem
+- In this game user will have to find which nutrient is related to given disease and vice - versa. For example, here vitamin A is given as one of the argument now user have to write the name of disease which is caused by lack of Vitamin A that is “Night Blindness”.
+4) Balance Diet
+- In this game user will have to select which diet is better. User can do this by analysis of the nutrients. In the example below, two possible diets are given and second diet is better as it contains more nutrients than the first diet.
+Similarly many more games can be created. Above games are simply based on block programming.
+Also, a learning section will be there to get the basic information about any food item, nutrient etc. For example, here apple is given as an argument to ‘Learn’ method and it outputs information about apple.
+Advanced Mode -
+Along with the activities of beginner mode this will help user to do personalized activities. To make the activity personalized this mode stores user data(like identity, physical bio-data etc).
+This mainly consists of two types of activities :
+i) Activity Planner:
+For this activity user have to load his personal identity. As can be seen below, User can do this by simply creating user by “Create User” block and set his personal bio-data. And then directly load user by “Load User” block by giving username as the argument. Here, user can set his/her plans regarding health related activities. As described below user can set his goal by “Set Goal” blocks which can consists of multiple plans (for example he will burn this much calorie, he will take this much Vitamin A, etc.) and by “Activities Done” block user can do entry of his activities from Start date to end date (given in argument). The below UX diagram shows that user set his goal "XYZ" in that he plans to burn 1500 Cal and take 3gm of Vitamin C from 25/08/16 to 28/08/16 and then he can use “Activities Done” block to simply keep track of the food items he ate and exercise done from 25/03/2016 to 28/08/16. Activities done will store the log of a given duration in database.
+ii) Analytics :
+User will be able to graphical analysis of his activities (food related activity and exercise related activities) in this module. User can choose whatever type of graph/chart he wants to plot, parameters on which he wants to plot, etc. User will be able to modify everything related to graph (like color, scaling-x , scaling-y etc.). Multiple dataset can be plotted on the same graph. For instance, he may plot graph of multiple nutrients he has taken, graph of calorie gain and calorie burned, also he may select datasets from his goals etc. From the example given below, user wants to plot a line graph of “Calorie burn” subgoal from his goal named “XYZ” (Goal contains subgoals) and actual calorie burn.
+We would generate appropriate graphs (user customized) for the expected and actual calories burned by user for better visualization.
+This is the sample line graph of user’s goal named XYZ and user’s actual result with respect to time interval. Here calories burned are shown on the y axis.
+iii) Biosensor :
+In Nutritional Microworld biosensor will be mostly used as an exercise amount measuring function. It will have microprocessor and memory connected to it. User will have to wear biosensor and this biosensor may have wrist wearing design, ankle wearing design, etc . Biosensor will keep track of activities done by user as it will have 3 direction accelerometer in it. User can do wireless syncing of data or he can connect biosensor by usb with computer. It’s use can also be extended depending on the sensor, user is using . For example it can be used as glucometer to measure glucose. We create a new instance of biosensor by taking three arguments viz type, path and the name for setting a new biosensor. From the example given below, user has created a new wrist wearing biosensor instance with name Sensor1 (just like action blocks that we make in TBjs). Now user can access this biosensor by just loading sensor1 (which can be stored in cache as well as in a file). For example here data log is obtained by loading sensor1, setting duration and selecting records which he wants to extract (here it is Exercise data). Output from biosensor in the form of log can be directly given to “Exercise Done” block while storing the activities. Earlier we were giving input to ‘Exercise Done’ block manually.
+The technologies I will use in the project will be mostly Javascript with HTML/CSS.I will mainly use ChartJs, CreateJs, Jquery, node.js. Some other api that I am going to use will be ndb api, human api.
+Jquery for HTML document traversal and manipulation, event handling, and Ajax making it simpler.
+ChartJs provides beautiful flat designs for charts. It uses HTML5 canvas element for rendering. ChartJS charts are responsive by default. This library will be used for analysis purpose.
+CreateJs is a suite of modular libraries. It contains easelJS, tweenJS, preloadJS and soundJS. I'll use easelJS library to work with canvas element.
+To incorporate nutrient data in nutrition microworld, I’ll use ndb rest api provided by
+National nutrient database
+.
+To integrate health data from different types of sensor, I’ll use
+Human rest API
+along with node.js library. It supports many types of sensor and provides better access to manage data stored in sensor.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+DAYS
+WORK TO BE DONE
+23 April - 7 May
+Going through the code of turtleblocks .
+Discuss the implementation details with the mentor.
+Read about nutrition.
+Discuss the possibility of additional games.
+8 April - 22 May
+Solve bugs to get better understanding of code.
+Understanding the mechanism of biosensor.
+Read about different js api that I am using.
+23 May - 29 May
+Modify existing plugin loader.
+Extract food data from ndb api.
+Extract image for each food item.
+Enable user to search particular food item.
+30 May - 6 June
+Implement prototype for exercise activity
+Create different blocks related to exercise.
+Creating database for games problem and learning section.
+6 June- 12 June
+Write code to generate blocks of games problem.
+Enable user to play multiple games sequentially. (Like in Quiz block)
+13 April - 19 June
+Testing of all the module used in the conjunction.
+This completes the beginner mode.
+20 June- 26 June
+Midterm Evaluation
+27 June - 30 July
+Create a separate workspace for advanced user.
+Creating a module for saving user’s personal data.
+31 July - 3 July
+Family trip
+4 July - 10 July
+Taking review from mentor about the work done so far.
+Analyze the review and make improvements.
+Create block prototype for activity planner
+Add save functionality to activity planner and save its output as .tb file.
+11 July - 17 July
+Make different type of charts/graphs by using chartJs.
+Integrate graphs/charts with user’s activity.
+Give more controls to user while making graph/charts.
+Take review from mentor and discuss the possibility of more functionality related to analytics part.
+18 July - 24 July
+Use human api to extract the data from biosensor.
+Create different blocks required for biosensor.
+Enable biosensor to be used in conjunction with ‘Activities Done’ block.
+Testing for different types of biosensor.
+25 July - 31 July
+Buffer week.
+1 August - 7 August
+Discuss with Walter Bender and Dr Jessica Early if there is anything more to implement.
+8 August - 14 August
+Organize whole code
+UI improvements.
+Testing all the modules and variations.
+Fix remaining small issues
+15 August - 21 August
+Pencils down date
+Scrub code
+Re-factor the code to remove out unnecessary/commented code and its repetitions also
+Adding comments which will help further development of the activity easier for other people
+22 August - 29 August
+Submit the final code.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I have been a part of several academic projects up until now, and I have learnt to assess the complexity of a project fairly well. I have worked as the lead developer on several academic projects as a part from my course work. Apart from that I been Freelancing for a while now, which has helped me build the essential skill of getting things done on time. I have explored the analytics.js, existing nutrition plugin, activity.js, etc. in the Sugar Lab code base and I have developed a fairly good amount of understanding of it. I have also fixed several bugs in turtleblocksjs , musicblocksjs which has given me understanding the underlying details and the ideas used in the code. Also I have technical skills required for this project.
+Some of the academic projects which I have been a part of include:
+1)
+Virtual carrom
+-> It is two player virtual carrom game written in openGL-2 and c++.
+2)
+Hospital database
+-> It is a database management system made for hospital for managing patient records, their bill records and medicine records. Developed in php, html, javascript.
+3)
+Ultimate-Tic-Tac-Toe
+-> Created a bot for ultimate tic-tac-toe game to compete with other bots in a tournament. Min-Max tree and Alpha-Beta pruning were used here to simulate optimal game-play.
+4)
+Orchestration-Layer
+-> A Virtualization Orchestration Layer made in Python. It works as a fabric that can coordinate the provisioning of compute resources by negotiating with a set of Hypervisors running across physical servers in the datacenter. It works with rest api. It uses hello_flask for frontend. While uses Qemu, KVM, libvirt for backend.
+5)
+TopShooter
+-> Built a 3-D top shooter game in openGL-2 and c++.
+Me and The Community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My answer
+:
+The project Nutritional Microworld is for children to learn the fundamental concepts of nutrition in fun and interactive way. It will help children to develop good eating habit and encourage them to do exercise. They will also get sense of planning activities, which is essential to achieve success in any field. By nutritional microworld games it will become easy for children to remember fact about nutrition.
+Walter Bender:
+:
+The basic idea is to create a “microworld” for nutrition. The project will provide basis functions for exploring nutrition. A set of activities is to be designed that would engage children in some basic concepts. Workshop will be conducted with children and teachers to test the decisions made.
+What will you do if you get stuck on your project and your mentor isn't around?
+In order to get over the obstacles during the duration of the program I would try to resolve it at different levels. I will try to look up online for the possible solutions and see if any of them are able to help me with the issue that I face. Otherwise, I will try to use the mailing list and irc channels to ask other community members for help. I will also try to seek the help of my friends and colleagues when possible.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I will be keeping a blog throughout the entire duration of the project. I will update the blog with the status of my weekly progress and a summary of the work done during the week. I will try to use the mailing list and the irc channel to inform the community about the problems or the questions that I might face during the duration of the project.
+Miscellaneous
+We want to make sure that you can set up a development environment before the summer starts. Please do one of the following: Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+I have been regular contributor in the sugar community since January and the below are the merged pull requests and issues reported by me.
+PR: Added statistics button.
+https://github.com/walterbender/musicblocks/pull/222
+PR : Fixed palette bug.
+https://github.com/walterbender/musicblocks/pull/104
+PR: Fixed naming of action blocks.
+https://github.com/walterbender/musicblocks/pull/205
+PR: Fixed bug related to resizing of block.
+https://github.com/walterbender/musicblocks/pull/208
+PR: Fixed disturbance in matrix when dragged off the screen.
+https://github.com/walterbender/musicblocks/pull/217
+PR: Fixed disturbance in first column of matrix.
+https://github.com/walterbender/musicblocks/pull/236
+PR: Fixed SVG bug related to rotation of text.
+https://github.com/walterbender/turtleblocksjs/pull/253
+Bug reported : Coordinate of turtle changes after resizing.
+https://github.com/walterbender/turtleblocksjs/issues/252
+Bug reported: Parent blocks does not resize after children are send to trash.
+https://github.com/walterbender/musicblocks/issues/225
+Bug reported: Decrease block size feature doesn’t work for the first time.
+https://github.com/walterbender/musicblocks/issues/218
+Bug reported: Detaching of labels.
+https://github.com/walterbender/musicblocks/issues/186
+If you plan to work on Sugar-Web projects we want to be sure that you're familiar with web technologies, so:
+Clone the
+Sugarizer repository
+Using instructions
+here
+develop your first Sugar-Web activity
+Send us a screenshot of your new activity executed in Sugarizer
+Describe a great learning experience you had as a child.
+When I was in class 8th, I was selected as one of the top 4 finalist in National Cyber Olympiad. Up until that point I liked computer science,but I did not have any special inclination towards it. But after I attended the preparatory camp, which was conducted for the finalists , my perception shifted drastically. The way the teachers at the camp taught computer science made me fall in love with it. The simplicity with which they were able to explain to us the underlying complex concepts had a deep impact on the way I approach problem solving now. Undoubtedly, I can say that it was a great learning experience for me.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+No, everything is fine.

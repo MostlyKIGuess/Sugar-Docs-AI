@@ -1,0 +1,76 @@
+Title: Features/Tick based animation
+URL: https://wiki.sugarlabs.org/go/Features/Tick_based_animation
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+Smoother Animations.
+Animate each frame as Gtk+ needs a new frame drawn instead of at whatever frame rate we want.
+Owner
+Name: Sam P.
+Email: *@sam.today
+Current status
+Merged in 0.109.0.1
+Last updated: 18 June 2016
+Percentage of completion: 100% MERGED
+Detailed Description
+Gtk+ 3.8 introduces the idea of a 'tick'.  This can have a callback attached to it.  This is used to do animations in GtkPopover and the other Gtk+ widgets that have animations.  Therefore, sugar should not just do out animations at 20fps.  If the animation could go at 120fps because the computer is awesome, why not?  If the computer is bad and it can only render 5fps, why worry about any more?
+This feature can be split up into many parts:
+Toolkit implementation (100%):
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/213
+Frame and Home view (100%):
+https://github.com/sugarlabs/sugar/pull/505
+Frame and homeview are a good spot for tick based animation as we are not cpu bound to open the frame or change views - the animation can take up 100% cpu and all will be fine
+Pulsing icon (NO-GO):
+https://github.com/sugarlabs/sugar/pull/513
+Opening an activity is a cpu bound task, so this is probably the wrong space for animations that steal all of the cpu.  This patch TRIPLES activity start times on the XO4.
+Benefit to Sugar
+Smoother animation.
+No legit, that is the only benefit.
+Scope
+Animation consumers need to add the "widget=x" when creating an animator so they can have the tick callback attached.
+Consumers who don't are not effected.
+UI Design
+None
+How To Test
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/258#issuecomment-145695297
+User Experience
+Smoother animations.
+Dependencies
+Needs Gtk 3.8 to look different.
+Contingency Plan
+None necessary, revert to previous release behaviour
+Documentation
+Included in the toolkit patch
+Release Notes
+Animations are now smoother than ever on newer hardware.  Animations dynamically change FPS to leave no cpu cycle wasted.
+Comments and Discussion
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/258
+https://github.com/sugarlabs/sugar/pull/572

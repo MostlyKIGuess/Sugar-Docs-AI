@@ -1,0 +1,278 @@
+Title: Summer of Code/2014
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2014
+--------------------------------------------------------------------------------
+Students
+: See our guide on
+how to participate in Google Summer of Code
+for more information.
+The Sugar Labs Google Summer of Code 2014 projects/students/mentors:
+Project
+Student
+Mentor
+Blog
+Music Suite
+Aneesh Dogra
+Gonzalo Odiard
+Turtle Art 3D
+Anubhav Jaiswal
+Tony Forster
+Activity Unit/UI Tests
+Gaurav Parida
+Daniel Narvaez
+[1]
+Port to Python 3
+Kunal Arora
+Sameer Verma
+Bulletin Board
+Nazrul Haque Athar
+Walter Bender
+[2]
+Hack a Stuffed Animal
+Jade Garrett
+Stephen Thomas
+Social Help for Sugar
+Prasoon Shukla
+Paul Cotton
+[3]
+Cordova Container for Sugar
+Puneet Kaur
+Lionel Laské
+[4]
+Sugar Listens
+Rodrigo Parra
+Martin Abente
+[5]
+Contents
+1
+Project candidates
+2
+Sugar Core
+3
+Sugar Activities
+4
+Subpages
+Project candidates
+In the table below is list of projects potential participants might contribute within GSoC program.
+Note
+Potential mentors, please feel free to add ideas to this list. Also, feel free to add your name to a project you'd be willing to co-mentor.
+Note
+Potential students, more project ideas can be found on our
+Features
+page.
+Note
+Accepted projects are in
+Green
+Sugar Core
+Title
+Mentor
+Project
+Port to Python3
+Walter Bender and Daniel Narvaez
+Brief explanation
+There are many reasons to port Sugar to Python 3, not the least being its support for internationalization (unicode) is greatly improved over Python 2 (Very important as we have users in >100 languages). There is a good discussion of strategies
+here
+. The first task will be to work with the core developer team to decide on a strategy: writing Python 2/3 compatible source or a pure port. Once that decision is made, the remainder of the work will be to do the port itself. Developing a robust test suite is a must.
+Expected results
+Support for Python 3 in Sugar Core and a Porting Guide for Sugar Activities.
+Knowledge prerequisite
+Strong background in Python
+Activity Unit Tests
+Walter Bender and Daniel Narvaez
+Brief explanation
+While we have been vigilant about developing tests for most of Sugar core, we have only just begun to scratch the surface regarding test suites for Sugar activities. This project is to develop unit and UI test suites for all of the
+"Fructose"
+activities – those activities that are shipped as part of every Sugar distribution.
+Expected results
+A suite of unit and UI tests for the Fructose Activities and a Testing Guide for Sugar Activities.
+Knowledge prerequisite
+Strong background in Python, GTK3
+JavaScript Collaboration for Sugar
+Manuel Quiñones
+Brief explanation
+Sugar has promoted JavaScript/HTML5 to be a first-class development language, on par with Python. Lots of work to do to make this ready for prime time. Specific to this project is the development of a collaboration model that includes both the mechanisms for identifying potential collaborators and the mechanisms for sharing between activities. The first step is to agree upon a collaboration strategy with the developer team; then implement that strategy.
+Expected results
+Rich, intuitive collaboration between JavaScript Activities and an update Guide for Developing Sugar Activities in JavaScript.
+Knowledge prerequisite
+Strong background in JavaScript
+Cordova/PhoneGap container for Sugar
+Lionel Laské and Suraj K S
+Brief explanation
+The idea is to allow Sugar Web Activities to use device dependent features. In this objective, the project will be to transform Sugar into a Cordova/PhoneGap container and to implement major PhoneGap features. Shortly, the project is to add Sugar as new supported platform for Cordova/PhoneGap. Lists of Sugar features that could be exposed to Sugar Web Activities using Cordova/PhoneGap will be: Camera, Audio/Video capture, Accelerometer, Connection, Events, File, Globalization, Media. During the project, the student will also have to demonstrate its work by writing some sample activities using device features. Examples of activities include a Record-like activity or a Level-Tool-like activity.
+Expected results
+Rich media and sensor support for JavaScript Activities, Sample activities and an update to the Guide for Developing Sugar Activities in JavaScript to reflect the new APIs.
+Knowledge prerequisite
+Strong background in JavaScript, don't be put off by Python.
+Voice Interface
+Martin Abente Lahaye
+Brief explanation
+Speech-recognition technologies are interaction mechanisms that, nowadays, have evolved from "alternative" to "extended". Proof of this is the proliferation of such technologies in a wide range of domains. From smartphones assistants, medical-record transcriptions, smart cars, and TV command controls to many others. In this regard, not much have been seen in the education domain. This is could be due the fact that there is still a missing glue between the speech-recognition technologies and educational content developers. This project is about filling the gap –within the Sugar Learning Platform.
+Expected results
+put together a speech-recognition engine that allow us to deploy it in offline scenarios (i.e., using PocketSphinx and Voxforge projects);
+define a general architecture that will allow us to provide high-level speech-recognition functionality to the Sugar core and activities (i.e., exposing this engine as a DBus service);
+finding acceptable solutions that will allow us to add new content and being able to handle different languages.
+Knowledge prerequisite
+Strong background in Python; some experience with either PocketSphinx or Voxforge
+Assistive Interface
+Andres Aguirre
+Brief explanation
+Alternative input devices allow individuals to control their computers through means other than a standard keyboard or pointing device. Examples include smaller or larger keyboards, eye-gaze pointing devices, and sip-and-puff systems controlled by breathing. Using a base sensor package, the goal of this project is to provide an alternative physical-sensor interface to the Sugar desktop for people with limited motor control. The project will require an intervention into both the Sugar toolkit and Sugar core to ensure that the necessary hooks for ATSPI. The first task will be to survey the Sugar suite to find holes in the UI; the second task is to develop a work plan in conjunction with the Sugar developer community; the third task is to implement that plan; finally, arrange with the mentor to deploy the results with our target audience for feedback.
+Expected results
+Expanded coverage of ATSPI throughout Sugar Core; a working prototype that can be tested in the field; an Assistive Technology Guide for Sugar Activity Developers
+Knowledge prerequisite
+Strong background in Python, GTK3, and Atspi; some electronics background would also be useful.
+Bulletin Board
+Walter Bender
+Brief explanation
+While it seems the prevailing notion of collaboration in the classroom is for the teacher to be able to a service such as VNC to share a desktop with a student, it is evident from computer-supported collaborative work outside of the classroom that such models provide little if any enhancements to productivity or learning. Our approach in Sugar has always been to allow our users to collaborate directly on tasks – be it writing a document together; sharing bookmarks while browsing; or sharing code snippets while programming. That said, often times, a large project involves multiple tools and multiple resources to be shared among a group. This project is to provide an uber-structure for collaboration – the Bulletin Board – where a group can share resources in a persistent manner as they work on a project together. One aspect it a shared, persistent "clipboard" of artifacts being used collectively within the project; another, illustrated on the left, is a chat channel that can be overlaid on top of activities to enable targeted discussions.
+Expected results
+Two new Sugar toolkit services: a share, persistent clipboard; and a chat overlay onto any shared activity.
+Knowledge prerequisite
+Strong background in Python and Gtk3
+Social Help
+Martin Abente, Paul Cotton, Walter Bender
+Brief explanation
+Last summer we had a GSoC project to implement system-wide help for Sugar activities. It is now possible to get context-dependent help anywhere within the Sugar system by simply typing Ctrl-H or by clicking on the help button on the Sugar 'frame". This summer, we'd like to add a social component to our help. Using the same mechanism for determining content, we'd like to offer our users a channel for topical discussions. The most simple way to do with would be to launch them into topical IRC channels. However we'd like to also explore tools such as
+"Discourse"
+. The first step will be to determine a platform for the social help in discussion with the developer community; step two will be to implement the social help mechanism in Sugar.
+Expected results
+A system-wide mechanism for jumping into a forum for topical discussions about Sugar and Sugar activities; a service that can be dropped onto a classroom server for circumstances where Internet access is not available or permitted.
+Knowledge prerequisite
+Strong background in Python and webservices
+Platipy Project
+Spyral (Platipy)
+Austin Cory Bart (acbart@vt.edu), Robert Deaton (rdeaton@platipy.org)
+Brief explanation
+"Spyral"
+is a Pygame replacement designed to make the process of developing pygame games for Sugar a lot easier. It's part of the Platipy project, that documents the process and Spyral. Spyral is still being actively developed, but is already mature enough for game development.
+Expected results
+There are a number of features that we want to add to Spyral: improved collision handling, an audio API (even just exposing Pygames), hex-grid support, window/mac application freezing, more Widgets and Form functionality. We also wish to extend more of the documentation on how to create educational games; tutorials on our advanced features like layering, styles, the event handler, etc.
+Knowledge prerequisite
+Strong background in Python, prefered experience with Pygame.
+Sugar Activities
+Title
+Mentor
+Project
+Turtle Art 3D
+Walter Bender, Antonio Battro, Horacio Reggini, Tony Forster
+Brief explanation
+Sugar is lacking any 3D programming environments. This project would be to develop such an environment. There is a rich program in 3D Logo developed by Horacio Reggini
+[6]
+. The specific project would be to write an extension to
+Turtle Blocks
+to encompass Reggini's ideas.
+Expected results
+A new Turtle Art plugin that adds basic 3D transforms to Turtle Blocks (e.g., setxyz, pitch, roll, yaw); camera and lighting models; surface texture mapping; and a rich set of example projects. A bonus would be a plugin for generating objects for MineCraft.
+Knowledge prerequisite
+Python and some 3D graphics (3D transform) experience.
+Music Suite
+Gonzalo Odiard
+Brief explanation
+Sugar's primary music offering, the TamTam suite, is woefully inadequate with touch interfaces. The goal of this project is to rewrite the suite to use the underlying mechanisms demonstrated in the touch-friendly Music Keyboard activity.
+Expected results
+Touch-friendly replacements for TamTamMini, TamTamJam, TamTamEdit, and TamTamSynthesizerLab.
+Knowledge prerequisite
+Python and digital audio experience (CSound a real plus).
+Video Editing Suite
+Gonzalo Odiard
+Brief explanation
+Sugar need a simple activity to process video. The interface should be simple and need run in a device with low computational and storage resources as the OLPC XO or Intel Classmate. Limited screen real estate must also be a consideration.
+Expected results
+A new Sugar activity for rich media editing and an extension to the Sugar toolkit for generating video from data within existing Sugar activities such as FotoToons and Portfolio.
+Knowledge prerequisite
+Strong background in Python, GTK and GStreamer.
+Assistive Robots
+Alan Alguar
+Brief explanation
+In conjunction with the Assitive Interface project, the goal of this project is to provide a physical sensor interface to the Sugar robots suite (
+Turtle Bots
+) for people with limited motor control.
+Expected results
+We have access to a target population of children with special needs that would love to work with robotics. We expect an adaption of the Turtle Bots (Turtle Blocks) interface to support programming through a simple pointing device to be deployed with this population and to solicit feedback on the intervention.
+Knowledge prerequisite
+Strong background in Python programming
+GST-1.0
+Walter Bender
+Brief explanation
+We ported Sugar to GTK-3 several years ago. However, we have yet to completely deprecate our GTK-2 branch because there are still a number of core activities that have not been ported to GTK-3, e.g., Turtle Blocks, Measure, and Record. The reason that these activities have not been ported is because of some dependencies on GST-0.10. Specifically, the code associated with accessing raw data streams from audio devices that are then used to feed these activities. This project is to remove the GST-0.10 dependencies and replace them with GST-1.0 libraries. While seemingly trivial, is quite challenging since the equivalent libraries do not exist in GST-1.0. It will require writing some new GST sinks and providing introspection support in Python.
+Expected results
+Elimination of all GST-0.10 code from Sugar activities; deprecation of the Gtk-2 branch
+Knowledge prerequisite
+Strong background in C and Python programming, GTK3, and GST 1.0
+Hack a Stuffed Animal
+Stephen Thomas
+Brief explanation
+Many children can not communicate verbally whether due to nonverbal autism or some other factor. While there are many catalogs and websites with adaptive equipment and software but the prices are high.  There is a OLPC deployment in Uruguay where a student uses his stuffed animal as an input device for using an XO and Etoys.  We would like to build on this to make it easier and lower cost or these children and their parents to communicate and use computers.  The software must be FOSS and the hardware to hack a Stuffed Animal could potentially repurpose old keyboards or under $10 by repurposing a used USB game controller (free if kids donate their old ones).
+In this project a student would design and document how to hack a stuffed animal to be used as an input device similar to a joystick or arrow and a few other keys to allow a nonverbal child to use their favorite stuffed animal as an input device.
+Expected results
+Documentation and parts lists for Hacking a Stuffed Animal into an input device.  Some basic demonstration programs to use the input device with Etoys, TurtleArt etc.
+Knowledge prerequisite
+Maker skills to Hack a stuffed animal; Etoys (If student knows Scratch, they can learn the skills needed in Etoys for this project)
+PECS for Non-Verbal Communication
+Stephen Thomas
+Brief explanation
+As noted in the Hack a Stuffed Animal project, many children can not communicate verbally whether due to nonverbal autism or some other factor. In this project a student would a student would design a set of picture boards that could be navigated using a joystick or arrow keys and arrow and few other keys. The project would also allow a parent or teacher to simply add and re-arrange pictures using a webcam, imported pictures or simple drawings that can be made using Etoys (Etoys runs on Linux, Windows and Mac OS and is one of the core applications in Sugar).
+Expected results
+Working Etoys program where a student could navigate a
+Picture Exchange Communication System
+(PECS) to communicate with others. Also the ability for parents and caregivers can modify the PECS elements with little to no training.
+Knowledge prerequisite
+Maker skills; Etoys (If student knows Scratch, they can learn the skills needed in Etoys for this project)}
+Etoys touch UI
+Rita Freudenberg
+Brief explanation
+The objective of this project is to adapt the Etoys user interface for touch gestures such as rotate, scale, and such. Currently, Etoys is very dependent on the user to interact with Morphs with the cursor. Given the popularity of multitouch devices this represents a severe disadvantage.
+Bert Freudenberg has done some initial work adapting the Squeak Virtual Machine and Morphic to support multitouch events [1]. As he stated, the UI would need to be improved (or maybe even redesigned from scratch) before we can deliver this to kids.
+In this project we don't propose the complete redesign of Etoys UI (which we think it would take more than 3 months to complete) but at least a new implementation of Morphic interaction that takes into account multitouch gestures.
+[1]
+http://croquetweak.blogspot.com.ar/2010/06/squeak-etoys-on-ipad.html
+Expected results
+new implementation of Morphic interaction that takes into account multitouch gestures
+Knowledge prerequisite
+Squeak programming skills
+Physical Etoys XO bundle
+Ricardo Moran
+Brief explanation
+The objective of this project is to finish the bundling of Physical Etoys as a Sugar activity for the XO computers. The student will need to make sure all Physical Etoys modules work correctly in Linux and specifically on the XO laptop. This would involve porting some libraries, dealing with platform-specific issues and wrap all the necessary files in an Activity bundle.
+Expected results
+Physical Etoys Activity
+Knowledge prerequisite
+Squeak programming skills
+Subpages
+Summer of Code/2014/Activity Unit Tests
+Summer of Code/2014/Amar
+Summer of Code/2014/AnaBalica/Social Help
+Summer of Code/2014/AnubhavJ/
+Summer of Code/2014/AnubhavJ/Turtle Art 3D
+Summer of Code/2014/Building Cordova Container for Sugar
+Summer of Code/2014/Cordova Container for Sugar
+Summer of Code/2014/Etoys Touch UI
+Summer of Code/2014/Gp94/Activity Unit Tests
+Summer of Code/2014/Hack a stuffed animal
+Summer of Code/2014/Improved Imageviewer
+Summer of Code/2014/Javascript Collaboration For Sugar
+Summer of Code/2014/Music Keyboard Enchancements
+Summer of Code/2014/PhysicalEtoysXOBundle
+Summer of Code/2014/Physical Etoys XO Bundle
+Summer of Code/2014/Port to Python3
+Summer of Code/2014/Prasoon2211/Social Help
+Summer of Code/2014/Proposal name
+Summer of Code/2014/Proposal to port sugar core to python3
+Summer of Code/2014/Smagnin/Music Suite
+Summer of Code/2014/Smart Sugar
+Summer of Code/2014/Sugar Listens
+Summer of Code/2014/Travis Irby Proposal
+Summer of Code/2014/Voice Recognition Engine
+Summer of Code/2014/Your Proposal
+Summer of Code/2014/ayush/js-collaboration
+Summer of Code/2014/bliss-sid/Voice-interface
+Summer of Code/2014/blogs
+Summer of Code/2014/bulletinboard
+Summer of Code/2014/curiousguy13/Bulletin Board
+Summer of Code/2014/curiousguy13/Port To Python3
+Summer of Code/2014/milestones
+Summer of Code/2014/native/Bulletin Board
+Summer of Code/2014/port-to-python3
+Summer of Code/2014/puneet kaur
+Summer of Code/2014/rohitshetty/turtle art 3d
+Summer of Code/2014/sugar cordova
+Summer of Code/2014/testing sugar activities

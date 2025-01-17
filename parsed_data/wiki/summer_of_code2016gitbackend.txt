@@ -1,0 +1,186 @@
+Title: Summer of Code/2016/GitBackend
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2016/GitBackend
+--------------------------------------------------------------------------------
+About You
+What is your name?
+My name is Vikram Ahuja and i am a Undergraduate student at
+IIIT Hyderabad
+.
+What is your email address?
+My email address is
+What is your Sugar Labs wiki username?
+Vikram Ahuja
+What is your IRC nickname on irc.freenode.net?
+vikramahuja1001
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My first language is Hindi, but i am comfortable in English as well.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I am located in Hyderabad, India(UTC + 5:30). I tend to work from 06:30 to 18:30(UTC)but it can be adjusted according to the needs of the project. I can easily spend more than 8 hours per day.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+Yes. I have been contributing to Sugar Labs from last year and was also a Google Code In mentor this year. All the work i have done is mentioned on the last page of this proposal.
+About your project
+What is the name of your project?
+The name of my Project is Git Backend.
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+This project is aimed to create a git like backend for the Sugar Journal and Turtle JS which will support versioning and forking. The datastore in the Sugar Journal will be rebuilt to accommodate the functionalities of git like versioning, forking committing, etc. The end user will benefit from it by first learning the concept of git and secondly the overall structure of the Journal will be changed to make it more user friendly which makes it easier to collaborate and learn.
+Git itself at a core, is a key-value datastore. The files that we save in git system, it generates a SHA-1 key(just the hash of file content) for that file and return it for identification purpose. Every version of the data is kept in the object database, which lives in the subdirectory “.git/objects”, the other residents of “.git/” hold lesser data: the index, branch names, tags, configuration options, logs, the current location of the head commit, and so on. The object database is elementary yet elegant, and the source of Git’s power. Each file within .git/objects is an object.
+There are 3 kinds of objects that concern us: blob objects, tree objects, and commit objects.
+The Commit -  Contains a reference to a tree.
+The Tree - It is a collection of file information, the state of a single directory at a given point in time. Its format - tree <content length><NUL><file mode> <filename><NUL><item sha>
+The Blob - A blob is simply the content of files one is versioning. Its format - blob <content length><NUL><content>
+This project will be divided into two parts/deliverables:
+The first task is to create a git backend and UI for Turtle JS to get a feel of its heuristics.
+Extending  the above idea to create a git backend for the Sugar Journal and creating an API to enable python activities to use it.
+This project will also enable the end-user to understand the concept of git and also let them follow and understand its chain of commands. The UI will be designed in such a way that user will know and understand what exactly is happening at each command/stage whether it is forking, committing or pushing. The API will be designed in such a way that it enables activity creators to take use of the git command chain UI properly. Since the API is supposed to work with both python and Javascript, a web service or framework will be used which will bind the web application with the backend. The JavaScript part will make an AJAX call to the python module and receive and process the JSON response and the python part will be able to send and receive HTTP requests. Python framework like Flask or Django can be used.
+Technological Details
+This project will be primarily done using python and the UI part for Turtle JS will be using HTML, CSS and Javascript. There are many python libraries with git implementation. For eg:
+Dulwich
+Gitpython
+Pygit 2
+For web activities, a web framework such as Flask or Django will be required.
+I have tried
+dulwich
+and found it be very well documented. A script which i made to try out some functionalities in dulwich :
+dulwich_test.py
+, but the final library that is to be used will be decided during the community bonding period.
+This script contains takes use of dulwich objects(low level) as well as its API wrapper(high level functions build out of its low level functions). The first part shows us how to add data to tree and blob using its lower level functions. The second part uses its API called porcelain which is a higher level framework and has in-build functions. I have tested its clone, add and commit functions.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Week
+Task
+Community Bonding Period(28th April-18th May)
+Finalizing the designs with the mentor.
+Finalizing the features and the implementation details with the mentor
+Clarifying doubts and add to my existing research.
+Researching more libraries and compare with Dulwich
+Understanding the code of Turtle Block JS.
+Understanding the code of Sugar Journal and Datastore.
+Decide framework to use for web development of UI
+Finalizing the libraries to be used.
+Week 1(19th May - 25th May)
+Designing a flow chart for developing git backend
+Start working on the first task(Backend for Turtle JS)
+Major functionalities like commit, fork, create etc will be implemented.
+Week 2(25th May - 1st June)
+Functionalities like pull request, diff will be implemented.
+Finishing backend for the Turtle JS
+Week 3(2nd June - 8th June)
+UI to look at commit history, merging and forking for the Turtle JS
+Web service for integration of Python and JS modules
+Week 4(9th June - 15th June)
+Finishing up UI for Turtle JS
+Web service for integration of Python and JS modules
+Server integration
+Week 5(16th June - 22nd June)
+Starting with the second task to create the backend for the journal
+Coding functionalities like create, read, update , delete.
+Week 6(23rd June - 29th June)
+Deliverable 1
+Mid-Term Evaluation
+Buffer Week
+Week 7(30th June - 6th July)
+Major git functionalities like commit, fork, PR, diff , status and merge to be implemented.
+Start working with the API so that activities can connect to the git backend
+Week 8(7th July - 13th July)
+Finishing coding functionalities required for the backend.
+Week 9(14th July - 20th July)
+Testing and bug fixes
+Finishing up with the API.
+Server Integration
+Week 10(21st July - 27th July)
+First version of the git backend completed.
+Server Integration
+Week 11(28th July - 3rd Aug)
+UI for Sugar python activities
+Server Integration
+Week 12(4th Aug - 10th Aug)
+Integrating API with activities
+UI for sugar  python activities
+Week 13(11th Aug - 17th Aug)
+Integrating API with the activities
+Buffer Week
+Testing, bug fixing
+17th Aug - 20th Aug
+Buffer Week
+Testing
+Final Submission
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I have done a number of projects in my college till now, some of them are :
+I had made an Online File System and Terminal in web2py which had basic features  like copying, moving ,deleting,  playing audio and videos, reading text files from both the Terminal and the UI based Filesystem. Made using Web2py, python and JS.
+https://github.com/vikramahuja1001/Online-Filesystem-Terminal
+Made a Question-Answer portal like StackOverflow.
+https://vikramahuja.pythonanywhere.com/QuestionAnswer/default/index
+It was made using web2py, python and JS.
+Made an Android Application for a Online Event Planner Company (
+yourevent.co
+) which allows users to make video invitations for their events. This project was a part of Course which took place for 12 weeks.
+https://github.com/vikramahuja1001/Invitube
+Made a 2D Carron game using OpenGL.
+https://github.com/vikramahuja1001/CarromOpenGL
+Created an 9X9 intelligent Tic Tac Toe game using python
+Created a Pacman game using python
+Created a Photo Sharing portal using Ruby on Rails.
+All the above mentioned projects had strict deadlines and were completed on time. In most of these projects I had to learn the technologies first and then implement them. Also I have no commitment other than this project this summer.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My Views
+: The user will benefit from it by learning the chain of commands in git and the technical benefit will be that we will have a better system which will provide an all round mobility to Sugar activities
+Walter Bender
+: Git is the manifestation of a powerful idea that we want to expose to teachers and students. Enhancing Sugar with the ideas of versioning, sharing, and forking, along with commit messages is a big step forward for us in terms of pedagogy.
+What will you do if you get stuck on your project and your mentor isn't around?
+If I get stuck around somewhere I will try and find the solution on Internet. If unable to do so I will ask on the irc channel of sugarlabs, there are many experienced developers in that channel and will also post the problem on the sugarlabs developer mailing list and on Stack Overflow.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I will be maintaining a blog regarding my work and will be updating it every week. Other than that i will also make a report of each week and will mail to my mentor as well as the sugar labs community so that they are informed about my progress over the course of project.
+Miscellaneous
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug.
+I have been regularly contributing to sugar labs activities from last 3 months. I have reported and solved many bugs
+1. Fixed log10 function ( #4809 )
+Fix log10 function using base 10 algorithm - Fixes #4809
+   PR -
+https://github.com/godiard/sugarlabs-calculate/pull/3
+2. Removed the redundancy of Factorial Function (#3531)
+Fac() function removed - Fixes #3531
+   PR -
+https://github.com/godiard/sugarlabs-calculate/pull/6
+3. The output the input equation is not displayed correctly, for negative power (#4810)
+Displaying output correctly for a negative power - Fixes #4810
+   PR -
+https://github.com/godiard/sugarlabs-calculate/pull/11
+4. Fixed an infinite loop in Calculate Activity
+Input of form a+x**y making the activity unreactive
+   PR -
+https://github.com/godiard/sugarlabs-calculate/pull/19
+5. Do not show decimal zeros if the result is an integer
+PR -
+https://github.com/godiard/sugarlabs-calculate/pull/24
+6. Problem of significant digits in Calculate (#4814)
+Fixed Significant digits with both exponential and scientific calculators. Fixes #4814
+   PR -
+https://github.com/godiard/sugarlabs-calculate/pull/28
+7. Adding Calculate functions in source/calculate.rst in help activity
+Added Calculate functions in source/calculate.rst
+   PR -
+https://github.com/godiard/help-activity/pull/11
+8. Tab numbers enhancement in Pippy
+Make Ctrl-(1-9) changes current tab to that number
+   PR -
+https://github.com/walterbender/Pippy/pull/8
+9. Pippy tabs defect
+Executing the Ctrl-w code if number of tabs is greater than 1
+   PR -
+https://github.com/walterbender/Pippy/pull/14
+10. Pippy tabs name defect
+Solved the problem of naming tabs when adding/deleting tabs
+     PR -
+https://github.com/walterbender/Pippy/pull/16
+11 . Pippy Pep8 fixes.
+PR -
+https://github.com/walterbender/Pippy/pull/18
+12. Tab numbers enhancement in Browse Activity
+Make Ctrl-(1-9) changes current tab to that number
+     PR -
+https://github.com/sugarlabs/browse-activity/pull/3
+13. Tab numbers enhancement in Terminal Activity
+Make Ctrl-(1-9) changes current tab to that number
+     PR -
+https://github.com/godiard/terminal-activity/pull/11

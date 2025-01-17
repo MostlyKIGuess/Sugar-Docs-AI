@@ -1,0 +1,45 @@
+Title: Math4Team/RIT/Tips & Tricks
+URL: https://wiki.sugarlabs.org/go/Math4Team/RIT/Tips_%26_Tricks#Toolbar_listener
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+Directory of source code on the XO
+3
+Toolbar listener
+4
+Git Issues
+4.1
+Pushing Problems
+4.2
+Git and Activity Workflow
+Description
+The purpose of this page is to collaborate with each other and share useful information which we can all benefit from.
+Directory of source code on the XO
+/home/olpc/Activities/Assimilate.activity
+If you haven't figured this out yet, you may be in trouble... ;-)
+Toolbar listener
+We found out that by default, the tabs in the top of the game only change the part above the toolbar and not the main part of the game below which we planned to modify a bit. However, we found an application called Measure which does what we want to do. There is some code which we can copy from to make changes to the main part of the screen when you change tabs. Go to the
+source code for Measure
+and open
+toolbar_top.py
+. The function we are interested in is called "def _toolbar_changed_cb(self, tbox, num)".
+Git Issues
+Pushing Problems
+If you are attempting to push and are getting an error messaging containing
+master -> master (non-fast forward)
+when you have already successfully pushed in the past and force pushing isn't working, you can try and follow these steps (this worked for me, but I'm not an expert at Git so I can't say how well it will work for you):
+Backup your project files (in case something goes wrong)
+Do a pull (will complain about some conflicting files)
+Reset the head:
+git reset --hard HEAD
+Remove the conflicting files:
+git rm -r <files>
+Commit the changes
+Do another pull (not sure if this is required)
+Do another commit (not sure if this is required)
+Now finally push and hopefully it will work
+Git and Activity Workflow
+Here is a little guide one a possible workflow:
+User:Jlew/XO_Workflow

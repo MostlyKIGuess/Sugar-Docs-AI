@@ -1,0 +1,270 @@
+Title: Lemonade Stand
+URL: https://wiki.sugarlabs.org/go/Lemonade_Stand
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+Project Status
+3
+Releases
+4
+Structure
+4.1
+Morning
+4.2
+Day
+4.3
+Evening
+4.4
+Midnight
+5
+Difficulty Settings
+5.1
+Easy
+5.2
+Normal
+5.3
+Hard
+5.4
+Impossible
+6
+Goals
+6.1
+Additional Ideas & Features
+6.1.1
+Completed
+6.1.2
+In progress
+6.1.3
+Wishlist
+7
+Helping Out
+8
+Fall 2010 Milestones
+9
+Potential Problems
+10
+Educational Standards
+11
+Contacts
+11.1
+Current
+11.2
+Historical
+12
+Getting the Latest Snapshot from Git
+13
+Game Play
+14
+Links and Resources
+Description
+This is your basic "Lemonade Stand" style game, where the player manages a lemonade stand (or similar such store) and tries to make as much money as possible. The game is designed to incorporate money and fractional math skills to teach basic operations.
+Localization will be implemented in the final phase, with the stand being written to use more regional ingredients and products.
+Project Status
+Status:
+Released/Hibernation
+Version 2.1 Released 11/12/10
+Group Members:
+Nathaniel Case
+,
+JT Mengel
+,
+Sarah Wagner
+,
+Mitchell DeMarco
+,
+Anthony King
+,
+Anthony Lubrani
+,
+Jonathan Sanger
+,
+Steven Schoenfeld
+,
+Justin Lewis
+Lemonade stand (or more likely, *Insert produce here* stand) is a collaboration project at RIT. It is designed to test children on fractions, working with money, estimation, and other math topics. While our time restraints limit the extent to which we can implement features, the current goal is a feature complete program even if lacking in graphics. We plan on having a system based on buying and selling commodities and an eventual season based economy.
+The largest and most complex task of the project will be the introduction of a basic AI to handle the economy, more graphics, and localization.  We are planning on introducing the game with a generic currency model while being easy to replace for regional types.
+Lemonade Stand is taking a short hiatus following the 2.1 release to identify the next series of features to implement for the next release.
+Any interest in helping can be directed towards project leader
+Nathaniel Case
+as well as any of the other listed active members. Lemonade Stand is to be considered an open project, which is currently undoergoing active development for the RIT fall quarter 2010.  Nathaniel will continue to have interest in the project and will continue to provide assistance and input as time allows beyond this time.
+Releases
+1.0.0
+: initial release.
+1.1.0
+(git tag): Updated game code.
+2.0, XO Release 4
+: Game Rewrite
+2.1, XO Release 5
+: Beautification Project
+Structure
+For more detailed information on how to implement new things, please see the
+Developer Documentation
+The game's 'day' is split into 3 parts (Start of day, Day occurs, and End of day)
+Morning
+Supplies are purchased and plans are made for the day.
+A recipe may be chosen if more than one is available.
+Day
+Customers queue at the stand and buy lemonade.
+Evening
+Profit is calculated by the player and 'put away'.
+Midnight
+The day's activities are put together into a digest, including:
+Weather forecast for the next few days
+Special events that happened during the day
+Current discounts on supplies
+Any supplies which have perished will be listed
+Once the digest has been displayed, the game returns to morning again.
+Difficulty Settings
+Easy
+Supplies will not perish
+Prices are fixed at multiples of 25 and products yield more money per sale.
+Subtotals are listed for all math problems
+Math-based screens will not close while there are problems (trying to buy too many supplies, not collecting correct change)
+Normal
+Supplies will not perish
+Prices are more complex multiples of 5 with slightly smaller profit margins
+Subtotals are listed for all math problems
+Math-based screens will not close while there are problems (trying to buy too many supplies, not collecting correct change)
+Hard
+Supplies will perish
+Prices are the same as Normal
+Subtotals are listed for all math problems
+Math-based screens will allow you to give bad answers (buy too many supplies, not collecting correct change)
+Impossible
+Supplies will perish
+Prices are not multiples of 5
+Subtotals are not listed for math problems
+Math-based screens will allow you to give bad answers (buy too many supplies, not collecting correct change)
+Goals
+We're looking to create a workable prototype with the ability to buy materials and sell a product.However, the most important goal is to have a working game. While possibly not feature complete, the game should have basic functions working.
+Additional Ideas & Features
+(Based on available time)
+Completed
+Creating a GUI based game
+Incorporating counting of money (bills and coins) to make change
+Cool
+Random Events
+:
+Weather patterns impacting sales
+Making materials perishable to increase difficulty
+Making the program more intuitive so that it can be easily learned
+In progress
+Implementing multiple difficulties
+Redesign UI
+Advanced mode: changing the recipe for your "lemonade"
+Strawberry Lemonade
+(Implemented but not purchaseable or usable)
+Wishlist
+Creating seasons to vary prices and product demand
+Random events that may influence supplies and/or cost and/or customers
+"Tools" to buy to increase efficiency
+Juicer reduces lemon requirement of recipies by 1/2
+Hidden values 'advertising' and 'loyalty'
+Upgrading the stand / buying more recipies increases advertising (does not decrease)
+Prices close to customer's expectations / satisfying demand increases loyalty (decreases over time)
+Both could act as a multiplier to customer demand. (base demand x advertising x loyalty = actual demand)
+Implementing Bargaining / Haggling
+Potential use of network, competitive, or cooperative modes
+Choosing location of Lemonade Stand within the town, would influence sales, cost of supplies, etc.
+Perhaps showing currency the player has letting them find total profit
+Helping Out
+One of the things we always need are new
+random events
+to make the game more interesting.
+Another thing which is always useful is submitting new
+artwork
+.
+Fall 2010 Milestones
+Week 3:
+Get JT's sketches into image files
+come up with more events and weather ideas
+add recipes
+Week 4:
+new background image
+get into constants.py
+define what difficulties entail, implement lowest difficulty
+nail down ideas about overlays, startup screen
+Week 5:
+implement two difficulties, simple and insane
+Get counting game images
+implement basic splash screen
+Week 6:
+Get store images
+implement counting game
+Week 7:
+Get activity log images
+Implement store
+Week 8:
+Implement activity log
+Get images for other parts of the game (events, weather, etc.)
+Potential Problems
+Localization is likely to be a big problem in this game.  Not simply translating the words, but also translating the idea, ie. finding out what kind of shop would be reasonable to open in a country, what it might stock, etc.
+This becomes even more difficult when moving to a graphical environment.  For every localized region we will need a different set of graphics depending on what the stand is selling.
+Educational Standards
+Standards found here
+4.N.4 	 Select, use, and explain models to relate common fractions and mixed numbers (1/2, 1/3, 1/4, 1/5, 1/6, 1/8, 1/10, 1/12, and 11/2), find equivalent fractions, mixed numbers, and decimals, and order fractions
+4.N.6 	 Exhibit an understanding of the base ten number system by reading, naming, and writing decimals between 0 and 1 up to the hundredths.
+4.N.10 	 Select and use appropriate operations (addition, subtraction, multiplication, and division) to solve problems, including those involving money.
+4.D.3 	 Construct, draw conclusions, and make predictions from various representations of data sets, including tables, bar graphs, pictographs, line graphs, line plots, and tallies
+Contacts
+Current
+Nathaniel Case
+Justin Lewis
+Sarah Wagner
+JT Mengel
+Historical
+Mitchell DeMarco
+Anthony King
+Anthony Lubrani
+Jonathan Sanger
+Steven Schoenfeld
+Getting the Latest Snapshot from Git
+Lemonade Stand is available either under the
+DBAD License
+or the GPLv3+
+To get the latest working version from Git, open a terminal and enter these commands:
+git clone
+git://gitorious.org/lemonade-stand-olpc/lemonade-stand.git
+cd lemonade-stand
+git clone
+git://git.fedorahosted.org/FortuneEngine.git
+fortuneengine
+mv fortuneengine/fortuneengine/* ./fortuneengine/
+If you don't have pygame, then download and install it from
+pygame
+.
+The game can then be run by executing 'python LemonadeStand.py'
+Game Play
+After entering the command to run the game the following specials keys are used to actually play:
+<ENTER>
+:
+From the Welcome Screen - Enters the game.
+From the Main Screen - Enter the store.
+From the Store Screen - Complete transaction, Leave store.
+From Daily Log - Submits values entered.
+Arrow Keys
+:
+From the Store Screen - Left and right arrows select a product.
+From Daily Log - Up and down arrows select a monetary value (dollars, quarters, etc).
+Number Keys
+: From the Store Screen - Used to enter the desired quantity of the selected product.
+From Daily Log - Used to enter the number of dollars, quarters, etc. which make up your profit.
+<h>
+: From any screen - Causes a help message to appear or disappear.
+<ESC>
+: From any screen - Exits the game.
+To access the different difficulty levels use the following commands to run LemonadeStand.py:
+Easy
+: python LemonadeStand.py -d 0
+Normal
+: python LemonadeStand.py -d 1
+Hard
+: python LemonadeStand.py -d 2
+Impossible
+: python LemonadeStand.py -d 3
+Links and Resources
+Activity Page
+Git Repository
+Project Trac

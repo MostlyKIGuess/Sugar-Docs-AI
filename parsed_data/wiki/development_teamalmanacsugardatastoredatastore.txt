@@ -1,0 +1,271 @@
+Title: Development Team/Almanac/sugar.datastore.datastore
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/sugar.datastore.datastore
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Sugar Almanac
+for Developers
+Development Team/Almanac
+Main Page
+Package: sugar
+sugar.env
+sugar.profile
+sugar.mime
+Package: sugar.activity
+sugar.activity.activity
+sugar.activity.registry
+Package: sugar.graphics
+sugar.graphics.alert
+sugar.graphics.toolbutton
+sugar.graphics.toolbox
+Package: sugar.datastore
+sugar.datastore.datastore
+Logging
+sugar.logger
+Notes on using
+Python Standard Logging
+Internationalization
+Internationalization
+Contents
+1
+High Level Functionality of the Datastore
+2
+Datastore Helper Functions
+2.1
+How do I create a new datastore object?
+2.2
+How do I provide a query to the datastore.find() method so that I can find datastore objects with a particular property?
+2.3
+How do I delete datastore entries with a particular property?
+2.4
+How do I get all the unique values that are mapped to a particular key in the datastore?
+2.5
+How do I get command line access to the files in my DataStore?
+2.6
+How do I identify the different mount points available through the datastore api?
+2.7
+How do I save multiple files that are associated with a single activity?
+3
+Class: DSObject
+3.1
+How do I access the metadata entries for a datastore object?
+3.2
+How do I create new metadata entries or reassign metadata for a datastore object that has been created?
+3.3
+How do I save a simple text file to the datastore?
+3.4
+How do I resume an activity from the datastore programmatically?
+4
+Class: DSMetadata
+5
+Notes
+High Level Functionality of the Datastore
+Abstractly, the datastore is a place where all sugar activities and activity data are saved. The datastore saves both physical file data and metadata, both of which can be accessed by using the datastore API provided in the sugar.datastore package.
+The Activity class in sugar includes write_file() and read_file() methods that automatically interface with the datastore at different points during the life of an activity. However, you can access the datastore API more directly if you want more control over custom objects that are supposed to be created in the datastore.
+Overview of the Datastore
+Datastore Helper Functions
+How do I create a new datastore object?
+In addition to the
+write_file()
+method, which allows sugar's activity code to save your activity by creating a datastore object, you can explicitly create datastore objects in your activity code using the datastore.create() helper function. This function will return an object of type DSObject. The following code shows how a new datastore object is created and then actually written to the datastore. Other sections will discuss how this datastore object can actually be assigned to files and populated with useful metadata.
+from sugar.datastore import datastore
+...
+    #This method creates a datastore object that will be saved for later use by this activity. 
+    def _create_ds_object(self):
+        #my_dsobject is of type datastore.DSObject
+        my_dsobject = datastore.create()
+
+        # ... you can put any code to change your datastore file and metadata here ...
+
+        #Persist this newly created datastore object in the datastore for later access. 
+        datastore.write(my_dsobject)
+
+        return my_dsobject
+How do I provide a query to the datastore.find() method so that I can find datastore objects with a particular property?
+IMPORTANT
+Do not rely on datastore.find() method in all cases, its behaviour could be changed in future releases;
+there is only on thing for sure: to treat jobjects that were created within activity use:
+datastore.find({'activity_id': <activity-id-of(and only of)-current-activity>, ...})
+The datastore package includes a find() helper function that allows you to find things in the datastore. Belows is a very simple example use of find where I simply search for journal entries that have a title of 'file1.txt'. I think print out the title and file path for each retreived entry.
+from sugar.datastore import datastore
+...
+        ds_objects, num_objects = datastore.find({'title':'file1.txt'})  
+        print '------------------------- QUERY RESULTS ---------------------------'
+        print "Number of Objects: " + str(num_objects)
+
+        for i in xrange (num_objects):
+            print "File Path: " + ds_objects[i].get_file_path()
+            print "Title: " + ds_objects[i].metadata['title']
+Separate elements of the dictionary are combined with AND, and each attribute can have a list which is combined with OR. For instance, the query
+datastore.find({'title':['this','that'],
+                 'activity':'org.laptop.sugar.ReadActivity',
+                 'mime_type':'application/pdf',
+                 'mtime':{'start':datetime.today().replace(hour=0, minute=0, second=0),
+                          'end':datetime.today().replace(hour=23, minute=59, second=59)}})
+would get all pdf files for the Read activity titled 'this' or 'that' which were modified today.
+How do I delete datastore entries with a particular property?
+The following code shows a function that contains a property name and value for the metadata of a datastore object. The function searches out and deletes any datastore entries where the metadata property matches the value passed.
+from sugar.datastore import datastore
+...
+    ### Method: _delete_dsobjects, deletes datastore objects where prop=val 
+    # in the metadata
+    # @Returns: number of objects deleted. 
+    def _delete_dsobjects(self, prop, val):
+
+        #Use find to query for datastore objects to delete for. 
+        ds_objects, num_objects = datastore.find({prop: val}) 
+
+        #loop through and delete each datastore object found. 
+        for i in xrange (num_objects):
+            print 'DELETING ' + ds_objects[i].metadata['title'] + '...'
+            ds_objects[i].destroy()
+            datastore.delete(ds_objects[i].object_id)
+        
+        return num_objects
+How do I get all the unique values that are mapped to a particular key in the datastore?
+Use the datastore.get_unique_values() method, which will return you a list of unique values for a given key. The code below finds all the unique activities that have been saved in the datastore.
+from sugar.datastore import datastore
+...
+        #the datastore.get_unique_values() method should return a list of values
+        unique_val_array = datastore.get_unique_values('activity')
+
+        #loop through list of values and print them out. 
+        for x in unique_val_array:
+            print x
+How do I get command line access to the files in my DataStore?
+Use the
+dslinks.py
+script to generate a set of symbolic links.  Then you can use a script similar to the following to copy selected datastore objects to a usb stick or sd chip.  This version selects all the datastore objects that have a file extension of '.odt' (which are generated by abiword).  To experiment with unix shell commands substitute 'echo $fn' for the 'cp -p $fn /media/KINGSTON'
+#use the unix for command to iterate over the activities or file extensions of interest
+        for fn in `find /home/olpc/datalinks |grep .odt`; 
+        do
+           cp -p $fn /media/KINGSTON
+        done
+How do I identify the different mount points available through the datastore api?
+Mount points
+help to abstract different locations where datastore objects can be stored. The following code uses the datastore.mounts() method to help print out all the mount points available, with each point identified by three key properties: title, uri and id.
+from sugar.datastore import datastore
+...
+    #### Method: _print_all_mounts, prints all the mounts available. 
+    def _print_all_mounts(self):
+        print '------------------------MOUNTS--------------------------------'
+        ds_mounts = datastore.mounts()
+        for x in ds_mounts:
+            print '---------MOUNT---------'
+            print 'title: '+ x['title']
+            print 'uri: '+ x['uri']
+            print 'id: ' + x['id']
+How do I save multiple files that are associated with a single activity?
+You may be creating an activity that works with multiple files at once. For example, you may have a media editing activity that works with several sound and video files at once (perhaps combining them in to one output). In such cases, you need to be able to access multiple files from a single datastore entry.
+Class: DSObject
+How do I access the metadata entries for a datastore object?
+Every DSObject created by datastore.create() has a metadata property. This property refers to a
+DS Object
+, which contains the metadata for your datastore object. The code below shows how to read metadata values by referring to the metadata property of a DSObject. metadata is a Python dictionary object.
+from sugar.datastore import datastore
+...
+        #my_dsobject is of type datastore.DSObject
+        #object_id is a datastore object (e.g., returned from the datastore Chooser)
+        my_dsobject = datastore.get(object_id)
+        
+        #Access the 'description' property
+        print my_dsobject.metadata['description']
+This code snippet shows how to create a pixbuf from the preview entry in the datastore:
+from sugar.datastore import datastore
+...
+        #my_dsobject is of type datastore.DSObject
+        #object_id is a datastore object
+        my_dsobject = datastore.get(object_id)
+
+        pixbufloader = gtk.gdk.pixbuf_loader_new_with_mime_type('image/png')
+        #Access the 'preview' property
+        #Note that the preview image is 300x225
+        pixbufloader.write(dsobject.metadata['preview'])
+        pixbufloader.close()
+        pixbuf = pixbufloader.get_pixbuf()
+How do I create new metadata entries or reassign metadata for a datastore object that has been created?
+Every DSObject created by datastore.create() has a metadata property. This property refers to a
+DSMetadata object
+, which contains the metadata for your datastore object. The code below shows how to assign metadata values by referring to the metadata property of a DSObject.
+from sugar.datastore import datastore
+...
+        #my_dsobject is of type datastore.DSObject
+        my_dsobject = datastore.create()
+        
+        #Map the 'filename' property to a specific filename 
+        my_dsobject.metadata['filename'] = 'krugman-ebooks.txt'
+
+        datastore.write(my_dsobject)
+How do I save a simple text file to the datastore?
+The function below takes a filename and file text and saves a new datastore object. When you look in to the datastore using the Journal activity, the object will appear with the title saved in the filename variable. Notice that when we actually write the file, it is written to the 'instance' directory, which means the file is only temporarily stored in that location. This is fine because the datastore should copy this file.
+from sugar.datastore import datastore
+...
+    #### Method: _write_textfile, which creates a simple text file
+    # with filetext as the data put in the file. 
+    # @Returns: a DSObject representing the file in the datastore. 
+    def _write_textfile(self, filename, filetext=''):
+        
+        # Create a datastore object
+        file_dsobject = datastore.create()
+
+        # Write any metadata (here we specifically set the title of the file and
+        # specify that this is a plain text file). 
+        file_dsobject.metadata['title'] = filename
+        file_dsobject.metadata['mime_type'] = 'text/plain'
+
+        #Write the actual file to the data directory of this activity's root. 
+        file_path = os.path.join(self.get_activity_root(), 'instance', filename)
+        f = open(file_path, 'w')
+        try:
+            f.write(filetext)
+        finally:
+            f.close()
+
+        #Set the file_path in the datastore.
+        file_dsobject.set_file_path(file_path)
+
+        datastore.write(file_dsobject)
+        return file_dsobject
+How do I resume an activity from the datastore programmatically?
+Every DSObject instance has a resume() method that can be called to resume the activity associated with the object. The method below demonstrates:
+#### Method: _resume_activty, resumes an activity associated with
+    # the datastore object passed to this method. 
+    def _resume_activity(self, ds_object):
+        print "********* Resuming " + ds_object.metadata['title']
+        ds_object.resume()
+Class: DSMetadata
+Notes

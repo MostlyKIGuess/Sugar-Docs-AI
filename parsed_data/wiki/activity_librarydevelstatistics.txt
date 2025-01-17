@@ -1,0 +1,35 @@
+Title: Activity Library/Devel/Statistics
+URL: https://wiki.sugarlabs.org/go/Activity_Library/Devel/Statistics
+--------------------------------------------------------------------------------
+The stats scripts for AMO are run by 2 shell scripts on dm-stats01 at different intervals. They are stored here:
+http://svn.mozilla.org/addons/trunk/bin/parse_logs/
+Cronjobs
+[root@dm-stats01 cron.d]# cat addons 
+MAILTO=amo-developers@mozilla.org,root
+0 20 * * 4 root /usr/local/bin/addons_stats_updates.sh
+0 18 * * * root /usr/local/bin/addons_stats_downloads.sh
+Downloads
+/usr/local/bin/addons_stats_downloads.sh
+- runs every night out of cron.
+This runs the AMO download counter for each directory download logs are stored in. Anytime a new directory is added, a new counter line needs to be added in the format:
+/usr/bin/php -f parse_logs.php logs=/data/stats/logs/im-log01/addons.mozilla.org temp=/tmp type=downloads geo=SJ
+where
+logs=
+is the new directory
+geo=
+is the location of the log source
+If there is a possibility that filenames will be the same in 2 directories of the same geo=, the geo should be made unique, like SJ2, NL3, etc. Otherwise, the log will be assumed already parsed when only the first directory was parsed.
+When the download counter runs, it will look at every log file in the directory given to see if its file name has already been parsed for that geo. It will update the counts in the AMO database for the appropriate dates. So, if you have logs to be parsed, just dump them in the directory and run the script and they will be parsed. It is not date-specific, unlike update pings.
+Update Pings
+/usr/local/bin/addons_stats_updates.sh
+- runs every Thursday at to count that Wednesday's logs.
+This script counts update pings for add-ons hosted on AMO for a specific day only.
+If a new log directory is added, a new line should be added in the format:
+/usr/bin/php -f parse_logs.php logs=/data/stats/logs/im-log01/addons.mozilla.org/ geo=SJ temp=/tmp type=updatepings date=$SJ_DATE
+logs=
+is the same as described above
+geo=
+is the same as described above
+date=
+is the date of the logfiles you want to parse. The date needs to be in the same format as the logfile name, so if the file is called access-2008-09-05-1.gz the date would be 2008-09-05. The `date` command is used for this in the automatic commands and is stored in the $SJ_DATE variable in the shell script.
+If changes are made, unlike the download counter, the script will have to be run for each specific date (Wednesdays) missed by running each command of the shell script with the appropriate date manually entered in the format of the logfile name, probably YYYY-MM-DD.

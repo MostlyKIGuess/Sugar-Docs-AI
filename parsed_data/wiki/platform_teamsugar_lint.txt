@@ -1,0 +1,97 @@
+Title: Platform Team/Sugar Lint
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Sugar_Lint
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Install
+3
+Usage
+3.1
+Direct invocation
+3.2
+Lint files before commiting
+4
+Additional syntax in source files
+4.1
+Disable sugar-lint
+4.2
+Ignore pep8.py checks in Python sources
+5
+Customize lint configuration
+6
+Getting involved
+Summary
+A set of configuration files and scripts to
+lint
+various sugar related code.
+During execution, sugar-lint will lint:
+python files by pylint (should be installed before) with custom configuration file and pep8.py (comes with sugar-lint sources),
+vala files by vala-indent (should be installed from
+http://git.sugarlabs.org/projects/vala-indent
+).
+C/C++ files by indent command (should be installed)
+Install
+Clone sugar-lint repository:
+git clone
+git://git.sugarlabs.org/sdk/sugar-lint.git
+<install-path>
+cd
+<install-path>
+git submodule update --init
+Add sugar-lint command to PATH e.g. to ~/.bashrc (you need to relogin):
+echo PATH=
+<full-install-path>
+:$PATH >> ~/.bashrc
+Usage
+Direct invocation
+To lint files:
+sugar-lint
+<file>
+To lint all files recursively:
+sugar-lint -r .
+If fails were detected, call diff command (by default
+vimdiff
+or
+DIFFER
+environment variable value) to diff the source file and temporary file with comments in problematic places:
+sugar-lint -d
+<file>
+Lint files before commiting
+To add pre-commit git hook to lint files before commiting to arbitrary project:
+ln -s
+<full-install-path>
+/sugar_lint/git-pre-commit-hook
+<project-root>
+/.git/hooks/pre-commit
+Additional syntax in source files
+Various sugar-lint related hints that could be used in source files.
+Disable sugar-lint
+To disable checks entirely for source file.
+Python syntax:
+# sugar-lint: disable
+Vala syntax:
+// sugar-lint: disable
+/* sugar-lint: disable */
+Ignore pep8.py checks in Python sources
+# pep8: ignore=
+code
+[,
+code
+]
+Customize lint configuration
+After cloning sugar-lint sources it contain default configuration files and configuration might be tuned to local need at any time. Configuration files are:
+sugar_lint/pylintrc
+pylint config file;
+sugar_lint/pep8rc
+pep8.py config file;
+sugar_lint/indent.pro
+indent and vala-indent config file.
+Getting involved
+Read the
+HACKING
+file to know how to contribute with code.
+Sugar Lint
+sources
+.

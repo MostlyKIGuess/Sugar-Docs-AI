@@ -1,0 +1,120 @@
+Title: Features/Messages Notification
+URL: https://wiki.sugarlabs.org/go/Features/Messages_Notification
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+Internet-Links in Notifications
+9.1
+Notifications
+9.2
+User clicks on a link.
+9.3
+"Browse" opens, and URL is loaded.
+9.4
+User switches to Neighborhood-View.
+9.5
+User clicks another link.
+9.6
+The view changes to "Browse" window (without opening a new  window), and the URL is loaded.
+10
+User Experience
+11
+Dependencies
+12
+Contingency Plan
+13
+Documentation
+14
+Release Notes
+15
+Comments and Discussion
+Summary
+The current icons-only notification system is generally ineffective to fully communicate different kind of system events. This feature provides a set of extensions to the current system to display simple text messages.
+This feature will be use for special events and communications, it is not intended to replace the current logging system and Log activity viewer.
+Owner
+Name:
+Martin Abente
+,
+Ajay Garg
+(internet-links in notifications)
+Email: <tch AT sugarlabs DOT org>, <ajay@activitycentral.com>
+Current status
+Targeted release: (0.9x)
+Percentage of completion: 25% (Design - prototyping)
+Detailed Description
+Extends our support for the
+fd.o Desktop Notifications protocol
+This feature requires a some re-factoring of jarabe.frame.notification(NotificationIcon, NotificationWindow) widgets.
+Also, requires minimal extensions to jarabe.frame.frame(Frame) to extract the notification text message details.
+Plus, since the corner notifications icons can't be seen for long periods of time (to avoid visual spam), a new tray bar can be added to the left side of the bottom frame window. This tray will contain current session's notifications.
+Benefit to Sugar
+Messages notification capabilities, useful in many different scenarios.
+Scope
+sugar/src/jarabe/frame/frame.py
+sugar/src/jarabe/frame/notification.py
+sugar/src/jarabe/frame/notificationstray.py (new file)
+sugar/src/jarabe/frame/Makefile.am
+UI Design
+Notification icons show up as usual, when clicking on icons a palette will show up with summary and body information. A new horizontal tray is added in the left side of the bottom frame, this works as a historical registry of current session notifications.
+How To Test
+Running this python script should work (provided by Gonzalo Odiard):
+import dbus
+BUS_NAME = 'org.freedesktop.Notifications'
+OBJ_PATH = '/org/freedesktop/Notifications'
+IFACE_NAME = 'org.freedesktop.Notifications'
+bus = dbus.SessionBus()
+notify_obj = bus.get_object(BUS_NAME,OBJ_PATH)
+notifications = dbus.Interface(notify_obj,IFACE_NAME)
+notifications.Notify("HelloWorld",0,'',"Summary","Body",[],{},-1)
+Internet-Links in Notifications
+This would help in navigating to any internet-link, by simply clicking on the link.
+There are two cases possible ::
+No instance of "Browse" is open. In this case, following sequence of steps happen ::
+User clicks on the link in the notification.
+"Browse" opens (in a new window, obviously) and the URL is loaded.
+There is an instance of "Browse" already open. In this case,
+User clicks on the link.
+The window gets switched to the "Browse" window (if not already).
+The URL is loaded.
+Code changes required at the client-side ::
+If the link needs to be added, with a particular text for the hyerlink, the following code needs to be written :
+frame.add_message(body='Description', summary='First Title', link='http://www.linuxquestions.org', link_text='Click here to get answers to all your Linux questions')
+If no special text needs to be present for the link, we can skip the "link_text" attribute :
+frame.add_message(body='Description',summary='Second Title',link='http://www.wikipedia.org')
+Notifications
+User clicks on a link.
+"Browse" opens, and URL is loaded.
+User switches to Neighborhood-View.
+User clicks another link.
+The view changes to "Browse" window (without opening a new  window), and the URL is loaded.
+User Experience
+1. User notice the notification pulsing icon.
+2. User click on the icon to read its message.
+3. After a few seconds corner notifications icon will disappear.
+4. Notification icons can still be seen at  the notifications tray. (they could disappear also, after a extended period of time)
+Dependencies
+None
+Contingency Plan
+Work harder.
+Documentation
+None
+Release Notes
+Nothing to be released (yet).
+Comments and Discussion
+Please follow the comments on Dextrose and sugar-devel mailing list.

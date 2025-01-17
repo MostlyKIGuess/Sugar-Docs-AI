@@ -1,0 +1,65 @@
+Title: WebServices/translation
+URL: https://wiki.sugarlabs.org/go/WebServices/translation
+--------------------------------------------------------------------------------
+Contents
+1
+Frengly
+1.1
+What it can do
+1.2
+Use in classrooms
+1.2.1
+Teachers
+1.2.2
+Students
+1.3
+Effectiveness/Workflow
+1.4
+Endpoint
+1.5
+Technical challenges
+Frengly
+Frengly
+is a free and simple web service that offers translations between twenty-five different languages.
+What it can do
+Frengly allows for the translating of text between various languages.
+Use in classrooms
+Teachers
+Improve communication within classes, especially if a common language is not shared.
+Teaching materials available to various audiences despite language barriers.
+Students
+Have notes and assignments translated to preferred language.
+Learning language aid.
+Effectiveness/Workflow
+Teacher creates lesson package for students in preferred language.
+Students view the lesson plan and highlight with their mouse any text they do not understand.
+Right-click mouse and translation options appear, offering twenty-five different languages.
+Students select one and the highlighted text is translated.
+If a certain language is used often, students can right-click and go to “options” and set a commonly-used language.
+An “automatically translate” option will have all lesson packages and text translated to the designated language without the user prompting.
+Endpoint
+From a computer or any device accessing Sugar Labs, a user (teacher or student) requests a selection of text to be updated by highlighting and specifying the new language.  Frengly’s Translation Engine returns the translated text in place of the original text.
+Accessing the Frengly Translation Engine
+http://syslang.com?src=fr&dest=en&text=Bonjour+monsieur&email=xxx&password=xxx
+src:
+source language to translate from
+dest:
+destination language to translate to
+text:
+a piece of text you want to translate
+email:
+frengly account email, entered during registration (use username for older accounts)
+password:
+frengly account password
+outformat:
+format of the response [xml/json], not mandatory- default is xml
+Technical challenges
+Implementation of SugarLabs to interface with Frengly.
+Bandwidth from Frengly server.
+Speed of ISP at user’s end.
+Proper Java runtime engine loaded at from user's end that requires Frengly server.
+Automatic translate option- user preference varies.
+→ User may prefer the option on only set specific pages instead of all.
+→ Whether automatic translate option will run on specified account or specified computer.
+→ Disabling option on specific pages.
+→ Translated language same for all pages or varied.

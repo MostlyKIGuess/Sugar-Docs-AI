@@ -1,0 +1,125 @@
+Title: Installation
+URL: https://wiki.sugarlabs.org/go/Installation#Mac_OS
+--------------------------------------------------------------------------------
+The Constructionist Learning Environment
+Where do you want to install sugar?
+Or scroll down to explore more on the various possibilities of Sugar OS !
+Sugar can be installed on any device. You do not require to have a native OLPC sugar laptop, to install sugar.
+Contents
+1
+Linux
+1.1
+Fedora
+1.1.1
+Using Sugar as a Desktop Environment
+1.1.2
+Using Sugar with another Desktop Environment
+1.2
+Ubuntu
+1.2.1
+Ubuntu 19.10 (Eoan Ermine)
+1.2.2
+Ubuntu 19.04, 18.04, 18.10
+1.3
+Debian
+1.3.1
+Using Sugar 0.112 on Debian =
+1.3.2
+Using Sugar 0.110 on Debian
+2
+Arch Linux
+3
+Windows
+4
+Mac OS
+5
+Raspberry Pi
+Linux
+Sugar depends mostly on Open Source, GNU and Linux. Sugar supports Linux Operating Systems like Ubuntu, Debian, Fedora, Arch Linux, etc. The Sugar On A Stick (SOAS) is built primarily based on Linux Kernels and Fedora Operating Systems. The installation methods on some of the most popular Linux distributions are given below
+Fedora
+Fedora is an operating system based on the Linux kernel, developed by the community-supported Fedora Project and sponsored by Red Hat. -- wikipedia.org
+In relation to Sugar, Fedora is a downstream distribution project that can be used to run Sugar.
+Using Sugar as a Desktop Environment
+Install Fedora. Then, in a Terminal, type:
+sudo dnf groupinstall sugar-desktop
+Then restart your computer. At the Sign in select the Sugar desktop.
+Using Sugar with another Desktop Environment
+Select the GNOME on Xorg or GNOME Classic desktop, then in a Terminal, type:
+sudo dnf groupinstall sugar-desktop
+sudo dnf install sugar-runner
+sugar-runner
+Sugar will start. Logout from Sugar to return to the desktop environment you were previously using.
+Sugar is also available from Activities search in GNOME.
+Ubuntu
+Ubuntu is a Debian-based Linux operating system, with Gnome as its default desktop environment. -- wikipedia.org
+In relation to Sugar, Ubuntu is a downstream distribution project that can be used to run Sugar.
+Ubuntu 19.10 (Eoan Ermine)
+Sugar 0.112 can be installed with the following commands:
+sudo apt update
+sudo apt install sucrose
+log out,
+log in with the Sugar desktop selected. For detailed instruction steps, or issues faced during installation on Ubuntu 19.10, proceed
+here
+Ubuntu 19.04, 18.04, 18.10
+Sugar 0.112 is in the universe repository, and can be installed with the following commands:
+sudo add-apt-repository universe
+sudo apt update
+sudo apt install sucrose
+log out,
+log in with the Sugar desktop selected, for Home View on 18.* use F3 key. For more informatiom, click
+here.
+Debian
+Debian is a free operating system (OS) for your computer. An operating system is the set of basic programs and utilities that make your computer run. -- debian.org
+In relation to Sugar, Debian is a downstream distribution project that can be used to run Sugar.
+Using Sugar 0.112 on Debian =
+Sugar 0.112 will be available in Debian Buster.
+Using Sugar 0.110 on Debian
+Sugar 0.110 is available in Debian Stretch:
+Install Debian Stretch in the usual way, see
+debian.org
+, and debian-installer,
+when asked mid-way through install what to include, deselect all,
+when the install has completed, log in, install Sugar, a display manager, and reboot,
+sudo apt install sucrose lightdm
+exec sudo reboot
+in the graphical login screen, change from the default X session to Sugar,
+log in as your non-root user, created during install.
+Arch Linux
+Sugar OS can be natively installed as a desktop environment on Arch Linux. Arch Linux delivers its package, which can
+be installed with ``pacman``.
+sudo pacman -S sugar
+Also see
+Arch Wiki on Sugar
+for more information.
+NOTE: Manjaro Operating System redirects here. Manjaro Linux is built on top of Arch Linux. The installation is the same
+Windows
+As Sugar OS is primarily based on Linux, it is not currently possible to run sugar natively on Windows. However, sugar includes support for Windows system in the following ways:
+Use a Virtual Machine to run Sugar OS seamlessly. See
+Sugar VM WikiPage
+Use alternative ~ sugarizer, on
+sugarizer wiki
+Mac OS
+MacOS offers options to install Sugar OS
+Use BootCamp on Mac devices to dual boot to Sugar SOAS. See instructions on installing systemless
+here
+Use a Virtual Machine. Using Virtual Machines on Mac is highly efficient due to its high processing speed. This complements the normal PCs in running multiple VMs. Refer to the
+Sugar on VirtualBox guide for Mac OS.
+Install a side-by-side Fedora OS, and follow the instructions given
+here
+Raspberry Pi
+Raspberry Pi are a series of small, low cost, low power computers.
+Sugar can be run on a Raspberry Pi. You will need a display, keyboard and mouse.
+As of August 2017, the best to use is Sugar on a Stick, as it has many activities and has regular security updates. See
+Sugar on a Stick
+for how to download and install it. Sugar on a Stick is a spin of Fedora.
+Other methods are;
+using
+Fedora
+,
+using
+Debian
+,
+using
+Ubuntu
+.
+Developers may focus on either Fedora or Debian when setting up a development environment for Sugar on Raspberry Pi, because Sugar development on generic computers is focused on those operating systems.

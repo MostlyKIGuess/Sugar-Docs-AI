@@ -1,0 +1,76 @@
+Title: Talk:Testing/Reports/livecd-iso-to-disk
+URL: https://wiki.sugarlabs.org/go/Talk:Sugar_Creation_Kit/sck/tools_livecd-iso-to-disk
+--------------------------------------------------------------------------------
+Contents
+1
+dd USB install to 2nd USB with liveinst
+2
+Test
+2.1
+dd write
+2.2
+Install to 8 GB Toshiba USB
+3
+Background
+dd USB install to 2nd USB with liveinst
+Test
+- (passed) see info below--
+Satellit
+08:34, 11 April 2012 (EDT)
+dd write
+4 GB USB:-Test of 4.1 Live .iso's
+Tris55:/home/(user)/Desktop/BetaRC4.1# dd if=Fedora-17-Beta-x86_64-Live-Desktop.iso of=/dev/sdb bs=2M
+323+0 records in
+323+0 records out
+677380096 bytes (677 MB) copied, 119.145 s, 5.7 MB/s
+Tris55:/home/(user)/Desktop/BetaRC4.1#
+Boot dd 4 GB USB
+Insert target USB (8 GB Toshiba USB) - to install to
+Disk Utility-on 8 GB Toshiba USB
+GPT 2
+fAT / 7500
+Install to 8 GB Toshiba USB
+liveinst
+use whole
+review
+back
+custom
+delete partitions 
+gpt 2
+fAT / 7500
+no swap
+Copying live image to hard drive
+resizing /dev/sdb2
+install bootloader
+Reboot
+grub 2.00 beta~ 2
+Has only 2 lines
+can't open font file true
+Firstboot to gnome 3.4.0
+Disk Usage Analyzer
+Total file system capacity 7.8 GB (used 2.8 available 5.1)
+Background
+https://bugzilla.redhat.com/show_bug.cgi?id=811438
+Description of problem:
+For 17 Beta RC4, the KDE Lives are too large:
+Fedora-17-Beta-i686-Live-KDE.iso : 754974720
+Fedora-17-Beta-x86_64-Live-KDE.iso : 752877568
+Confirmed fixed with RC4.1:
+Fedora-17-Beta-i686-Live-KDE.iso : 718274560
+Fedora-17-Beta-x86_64-Live-KDE.iso : 715128832
+All other size and checksum tests pass for RC4.1 as well.
+Adam Williamson 2012-04-10 21:00:15 EDT
+bcl> adamw: I'm headed for bed. But we can easily turn off including the macboot.img in livecd-creator and lorax.
+<adamw> bcl: we're going to just do an rc4.1 spin with 17.4.
+<adamw> since 17.7 doesn't actually boot anyway (you confirmed that), it's winning us nothing.
+<adamw> and we've had a lot of testing with 17.4-generated images, so it seems safest just to go back to that.
+https://bugzilla.redhat.com/show_bug.cgi?id=811412
+If I write F17 Beta RC4 desktop live to USB with dd, boot from it via BIOS
+mode, and try to do an installation, it does not succeed. At bootloader
+installation stage it pops up the 'there was a problem during bootloader
+installation, the system may not be bootable' warning. Indeed, on reboot, the
+system is not bootable - grub reports 'error: file `/grub2/i386-pc/normal.mod`
+not found. Entering rescue mode...' and gives me the rescue prompt.
+Working theory - this is due to grub2-mkconfig getting confused by the macboot
+stuff on the USB stick. (Yes, it scans the USB stick). grub2-mkconfig run just
+ends with it claiming it's found OS X on the USB stick, and then it exits with

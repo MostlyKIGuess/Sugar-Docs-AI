@@ -1,0 +1,66 @@
+Title: Features/Fixing Collab (Tubes)
+URL: https://wiki.sugarlabs.org/go/Features/Fixing_Collab_(Tubes)
+--------------------------------------------------------------------------------
+Contents
+1
+Fixing Collaboration (Tubes)
+1.1
+Summary
+1.2
+Background
+1.3
+Scope
+2
+Benefit to Sugar
+3
+UI Design
+4
+How to test
+5
+Dependencies
+6
+Contingency Plan
+7
+Release Notes
+Fixing Collaboration (Tubes)
+Summary
+Collaboration (hereon called collab) is build upon a framework called telepathy. Many years ago, the Telepathy Tubes (one type of channel) was deprecated. They have now been removed from telepathy (Fedora 22+) and therefore sugar collab does not work on newer systems.
+This feature is to migrate to a new method, as well as moving the boilerplate code that activities use to do collab into an abstraction for easy porting.
+Background
+Sugar uses telepathy to do collab. Lets look a how telepathy works from my understanding:
+Accounts (eg. jabber server, salut local network link)
+Connections - when you connect to a buddy over an account
+Channels - using a connection, you can make a channel to send data to a buddy
+Let's look at some of the types of channels:
+Text - you can send text. Used for IM applications, but realistically can be used to transfer any text data. Chat activity uses this
+FileTransfer - a buddy can offer to send another buddy a file, which can be backed by anything (eg. can be send from memory to memory)
+DBusTube - a shared dbus thing
+StreamTube - shared socket thing
+Tubes - DEPRECATED. Many sugar activities use this. It is like a whole connection due to the fact that you can negotiate other tubes over your Tubes channel. For design reasons, it got replaces by DBusTUbe and StreamTube channels.
+Scope
+Sugar toolkit negotiates channels for the activity. It gives them a text and tubes channel. This is where the error happens, and must be changed to only give the activity a text channel. However, since OLPC OS still supports tubes, this should be behind a flag.  (namely, the gsetting org.sugarlabs.collaboration.tubes-supported).  See
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/282
+(and the required
+https://github.com/sugarlabs/sugar/pull/644
+)
+Activities that depend on tubes now don't work. Hypothetically, they could be ported to use DBusTube and StreamTube channels. However, that is very hard and generally a massive pain, given that most activities have about 150 lines of slightly varying boilerplate tube negotiation. This can be replaced with a high level abstraction, so that the activity only deals with what data to send, rather than how to send that data. See
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/272
+However, some activities need to send large blobs to single buddies (eg. a new buddy joins read, needs a copy of the file). This is not suited to a json encoded message. However, we can use FileTransfer tubes (see the patch above). However, the shell currently claims all file transfers, so we need to have a special identifier for the shell to know to disregard these, see
+https://github.com/sugarlabs/sugar/pull/621
+All activities (other than Chat) need to be ported to the collab wrapper
+To maintain backwards compatability for activities, they can use a polyfill version of the CollabWrapper, see
+https://github.com/walterbender/physics/pull/10
+Benefit to Sugar
+For users, they get working collab on newer platforms.
+For developers, they get a high level api that makes it easy to add collab to their activities. They no longer need to add 150 lines of confusing tube negotiation boilerplate or reinvent a message passing system.
+UI Design
+N/A
+How to test
+Run activities. Share them between computers with the patch, and old (fedora 18) XOs. See them working together.
+This is TODO.
+Dependencies
+None
+Contingency Plan
+Collab will be broken again.
+Release Notes
+Sugar now sports a brand new collaboration engine that makes collaboration work in new and exciting places. Developers can now use the new CollabWrapper API to enable collaboration in their activities with ease.

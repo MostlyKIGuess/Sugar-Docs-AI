@@ -1,0 +1,56 @@
+Title: Features/GTK3/API wish list
+URL: https://wiki.sugarlabs.org/go/Features/GTK3/API_wish_list
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Ideas
+3.1
+Toolbar items factory methods
+3.2
+Code to enable/disable power management
+3.3
+Code to recognize XO-1, XO-1.5, XO-1.75 and other hardware
+Summary
+There are a lot of code copy/pasted in the activities, and we can provide a easier API to new/occasional developers.
+Would be good use the change to GTK3 to improve our small sugar-toolkit/sugar APIs
+This pages is right now, to discuss ideas, and collect useful information.
+Owner
+The Activity Team
+Ideas
+Toolbar items factory methods
+Walter use in his activities factory methods to create buttons, separators, entry, etc.
+This remove a lot of duplicated code.
+Example:
+def _label_factory(label, toolbar):
+Factory for adding a label to a toolbar
+my_label = gtk.Label(label)
+   my_label.set_line_wrap(True)
+   my_label.show()
+   _toolitem = gtk.ToolItem()
+   _toolitem.add(my_label)
+   toolbar.insert(_toolitem, -1)
+   _toolitem.show()
+   return my_label
+def _entry_factory(length, toolbar, callback):
+Factory for adding a text enrty to a toolbar
+my_entry = gtk.Entry()
+   my_entry.set_max_length(length)
+   my_entry.set_width_chars(length)
+   my_entry.connect('changed', callback)
+   my_entry.show()
+   _toolitem = gtk.ToolItem()
+   _toolitem.add(my_entry)
+   toolbar.insert(_toolitem, -1)
+   _toolitem.show()
+   return my_entry
+We can add methods like create_button, create_label and create_entry to the toolbar
+Code to enable/disable power management
+Many activities have code to deal with pm.
+Code to recognize XO-1, XO-1.5, XO-1.75 and other hardware
+A few activities repeat code to recognize hardware.
+More problems ahead
+http://dev.laptop.org/ticket/11116

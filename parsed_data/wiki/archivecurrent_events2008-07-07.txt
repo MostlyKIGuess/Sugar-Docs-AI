@@ -1,0 +1,85 @@
+Title: Archive/Current Events/2008-07-07
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2008-07-07
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Community jams and meetups
+3
+Tech Talk
+4
+Sugar Labs
+Sugar Digest
+1. Software Freedom Conservancy: Bradley Kuhn has written to inform us that the Conservancy Board has provisionally approved Sugar's application to join the Conservancy. It is a timely decision in light of the discussion on 30 June.
+2. Biofeedback: Tom Boonsiri has blogged about the experiences of children using the work he has been doing on integrating biofeedback into Sugar (Please see
+http://olpcgoldenstate.blogspot.com
+). "We've developed two very low cost ($10) and easy to use peripheral prototypes to carry across our lesson plan effectively."
+3. Immokalee: Timothy Falconer send links to a two-part NPR story on Waveplace's Sugar/XO and Etoys pilot in Immokalee, Florida (You can listen at
+http://www.npr.org/templates/story/story.php?storyId=91891812
+and see photos at
+http://waveplace.com/mu/waveplace/item/tp142
+).
+4. FLOSS Manuals: With some gentle prompting from Dave Farning, Anne Gentle has been leading a discussion community efforts to document Sugar. She is circulating some ideas for getting more energy behind some of the separate document deliverables FLOSS Manuals could target, including a Turtle Art "manual" (Please see
+http://en.flossmanuals.net/
+). If you would like to volunteer to do some writing, please join the discussions (
+http://lists.flossmanuals.net/listinfo.cgi/discuss-flossmanuals.net
+and
+http://lists.lo-res.org/mailman/listinfo/its.an.education.project
+). We will be discussing how to prioritize efforts (perhaps in a manner similar to Trac). Suggestions welcome.
+5. Sugar talk in Brazil: There has been an interesting discussion about Sugar on the OLPC Brasil list (Por favor, consulte
+http://lists.laptop.org/pipermail/brasil/2008-June/001697.html
+).
+6. Etoys and Debian: Another animated discussion has revolved around inclusion of Etoys in the Debian distribution. While we haven't yet reached consensus, the bottom line, as expressed by Yoshiki Ohshima, is the desire to work together "to empower children all over the world via computer technology and education."  The greater the reach of Etoys, the more children (and others) can "exchange projects, share ideas, work together, and unite."
+7. Etoys documentation: Ted Kaehler reports that the PDF version of the Etoys QuickGuides has been updated to the latest guides (Please see
+http://wiki.laptop.org/images/8/81/The_Etoys_Quick_Guides.pdf
+). Note that the QuickGuides are also available from the Help icon within Etoys itself and on the web (
+http://wiki.laptop.org/go/Etoys_QuickGuides_Index
+). Kathleen Harness is the author of these excellent guides; editorial and technical assistance were provided by Kim Rose and Ted Kaehler.
+Community jams and meetups
+8. Libre Software: Hilaire Fernandes reports that the 9th Libre Software Meeting will be held at Mont de Marsan, Landes, in SW France, from the 1 to the 5 of July. This year, Squeak/Smalltalk will be largely represented with conferences and workshops (
+http://blog.ofset.org/hilaire/index.php?post/Squeak-Smalltalk-LSM-2008
+).
+OLPC France is planning an Idea Contest (
+http://llaske.free.fr/olpcfrance/index.php?title=Concours_d'idées_OLPC_France
+) which will be announced at the meeting (
+http://2008.rmll.info/
+).
+Tech Talk
+9. Patch reviews: Marco Pesenti Gritti has recommended that we go back to using Trac as the primary mechanism for patch reviews: "While it's good to have patches review on the list so that everyone can participate easily, it also makes it very difficult to track the status of each patch and it's easy to forget some of them." The new process (
+Development Team/Code Review#Patch_submission
+) is described in the wiki.
+10. Turtle Art: Arjun Sarwal reports progress on a modification of Turtle Art with sensors that uses python-alsaaudio, which makes getting samples much easier and more straightforward.
+11. Measure: Arjun has also been reorganizing the wiki pages associated with Measure Activity and sensors with the aim that there should be more easily accessible information on the page (A very rough outline here
+http://wiki.laptop.org/go/Measure/New_temp
+). Arjun hopes to release a new Measure Activity in a week or so that is more readily extensible.
+12. Logo: Brian Harvey is looking for help "sugarizing" Berkeley Logo, an interpreter for the Logo programming language licenced under GPL. It currently runs under Linux from an xterm window and a separate X11 window for graphics. (The source code is available at
+http://www.cs.berkeley.edu/~bh/logo.html
+). There is also an experimental version using wxWidgets that is about 90% working. Brian thinks it may be relevant because that version knows about creating and managing windows, including an interactive text window, so it might be an easier starting point for a Sugar version (Please see
+http://sourceforge.net/projects/ucblogo/
+).
+13. Vision processing: Nirav Patel is working on a library of computer vision tools for pygame (Please see
+http://git.n0r.org/?p=pygame-nrp;a=summary
+). There is currently a pygame version 1.8.1 with the addition of a camera module that supports v4l2 cameras that use MMAP and have pixel formats of RGB24, RGB444, YUYV, SBGGR8, or YUV420. Basic usage is as follows:
+import pygame
+from pygame import camera
+cam = camera.Camera("/dev/video0", (640, 480), "RGB")  # the third argument can be YUV or HSV too.
+cam.start()
+frame = cam.get_image() # the frame returned is a 24bit pygame Surface
+See
+http://eclecti.cc/bytes/living-pointillism-a-pygame-webcam-script
+and
+http://eclecti.cc/files/centroid.py
+for more examples.
+14. Sugar almanac: Faisal Anwar continues to make progress (with community contributions) on the Sugar almanac (Please see
+http://wiki.laptop.org/go/Sugar-api-doc
+). He asks that you please keep the feedback coming. Among many other additions, the Sugar Almanac now has a section on using the datastore.
+15. Tomeu Vizoso's busy week:
+Talked with Dennis Gilmore about making a new release of Gnash for the XO;
+Clean up the Trac mess along with Marco;
+Use the correct activity icon for drag and drop; and
+Fix alignment of icons in the frame.
+Sugar Labs
+16. Self-organizing map (SOM): Gary Martin has generated another SOM from the past week of discussion on the IAEP mailing list (Please see
+Image:2008-June-21-27-som.jpg
+). List activity picked up this week; the ongoing Smalltallk/Debian drama is featured.

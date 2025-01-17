@@ -1,0 +1,89 @@
+Title: Trisquel On A Sugar Toast
+URL: https://wiki.sugarlabs.org/go/Trisquel_On_A_Sugar_Toast#Install_Sugar-desktop_0.88_.22SWEETS.22_sweets_sugar_0.88.1
+--------------------------------------------------------------------------------
+Contents
+1
+Trisquel 11 Sugar Toast
+1.1
+Bug Reports
+1.2
+Install to disk
+1.3
+Password
+1.4
+Advanced topics
+1.4.1
+Configure a Sugar-ltsp-server
+1.4.2
+Live CD persistence
+1.4.3
+USB load helper
+1.4.4
+Easy virtualized images
+1.4.5
+SD cards support
+1.4.6
+Updating
+1.4.7
+Customizing Trisquel
+Trisquel 11 Sugar Toast
+T
+risquel
+o
+n
+a
+S
+ugar
+T
+oast (TOAST from now on) is a live/installable iso image that can be run from a CD/DVD or be used to load a USB drive with data persistence.
+http://us.archive.trisquel.info/iso/trisquel_11.0.1_amd64.iso
+Among other things,
+It has lots of Activities
+It autostarts if you just turn it on
+It has a joyful splash screen
+It uses any Linux swap partitions it finds
+Now for the bad news...
+It only has English and Spanish as language options
+it is missing the firmware to make some wireless chips work (Intel 3945, maybe others)
+and it shares a hardware-specific bug with the other Sugar Live systems:
+With some nVidia video cards, Xorg's "nouveau" DRI driver bug which makes  github.com/login go all gray and affects other websites including gmail.com The simplest and least invasive fix is to delete /usr/lib/*-linux-gnu/dri/nouveau_dri.so
+Hot fix on Live System: CTRL-ALT-F2 trisquel [Enter] [Enter] sudo rm /usr/lib/*-linux-gnu/dri/nouveau_dri.so; sudo killall Xorg [Enter] then login as trisquel [Enter] [Enter])
+For gory details see
+sugar-live-build issue 20
+Bug Reports
+Use
+https://gitlab.trisquel.org/trisquel/makeiso/-/issues
+to report bugs specific to the TOAST ISO image.
+Use
+http://trisquel.info/en/project/issues
+to report bugs generic to Trisquel, with tag "sugar" and milestone "etiona".
+Install to disk
+You can use TOAST live from a removable media, or perform a permanent install as you do with any GNU/Linux distro. You can select "Install Triquel" in the main boot menu to do so. If you already started a live session, you can manually launch the installer by running "ubiquity" in the terminal activity.
+Password
+if you do a restart you will be returned to the gdm login screen:
+user=trisquel
+password= none; hit [Enter]
+Advanced topics
+Configure a Sugar-ltsp-server
+you just have to install sugar on the central server
+sudo apt-get install trisquel-sugar
+LINK:
+https://trisquel.info/en/wiki/configure-ltsp-server
+Live CD persistence
+You can achieve user data persistence by loading TOAST from a handy USB drive, but you can also use a regular Live CD for that, and it will work in systems with no USB-boot capabilities. You just need to pass the "persistent" parameter to the Live CD kernel (pressing F4 in the boot menu) and have a ext2 (ext3 and 4 will work too) partition labeled "live-rw" available in any disk. It can be a USB flash drive too.
+Any data in the /home directory will be stored in the live-rw partition; if you need to install a persistent file outside /home, as a config file or a program, or even install some deb packages, you just need to label the partition "casper-rw" instead. For normal Sugar, use "live-rw".
+This method is useful to save space in the thumb drive for persistence data, and also because the persistence partition can be mounted and accessed from other computers. It can be used to have live persistent sessions in systems that cannot boot from USB, but this will work faster if you use the method described next.
+USB load helper
+Some computers -like Apple's- cannot boot an operating system from a thumb drive, and in some cases the computer is not configured to do so and the user doesn't have the privileges or knowledge to do that, and a CD is the only method for booting a system. As USB images run faster and can provide integrated persistence, you might want to use the Live CD to load just the kernel and run the live session from the faster flash drive instead. You just need to create a Live USB drive using the method described above, and boot the computer with both the CD and the USB drive inserted. Set the computer to boot from the CD, and it will load the kernel and search for USB drives to continue booting from them.
+Easy virtualized images
+The above methods can also be used in a virtualization application like VirtualBox or KVM. You just need to start a live session using the TOAST iso, format the virtual disk with ext3, label it "live-rw" and reboot. Since then, the virtual disk will store the persistent data. If a new TOAST iso is released, you just need to replace the image attached to your virtualization system.
+SD cards support
+Using a USB SD card reader you should be able to use the usb-creator tool to load the live image into a SD card. That will allow you to boot the persistent live system in a XO or netbook, or install TOAST in its hard drive. It should also work with other card formats, as long as the computer is able to boot from them.
+Updating
+To get the latest version of the Sugar activities, just open the updater in the user settings window. To update the Trisquel system underneath, open a terminal and run this commands:
+sudo apt-get update
+sudo apt-get upgrade
+This procedure will also update the Fructose activities, and it will not interfere with the Sugar updater.
+Customizing Trisquel
+See
+http://trisquel.info/en/wiki/customizing-trisquel-iso

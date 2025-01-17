@@ -1,0 +1,178 @@
+Title: Sugar Creation Kit/sck/Sugar-in-Virtualization
+URL: https://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/Sugar-in-Virtualization#Ubuntu_11.04_Sweets_Distribution_sugar_0.94
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar in Virtualization
+1.1
+Fedora Getting started with virtualization
+1.2
+Boxes in gnome3
+1.3
+VirtualBox
+1.3.1
+Emulator_image_files
+1.3.2
+Fedora f17 Additions
+1.3.3
+Setup Mac to Autostart VirtualBox on startup
+1.3.4
+How to Clear ./sugar
+1.3.5
+Tutorial on how to import a VirtualBox Appliance (tutorial)
+1.3.6
+VirtualBox Soas V-7 Install (tutorial)
+1.3.7
+Download VirtualBox Here
+1.3.8
+Older versions
+1.3.9
+Trisquel-4.1-sugar
+1.3.10
+Debian-squeeze-Gnome-sugar
+1.3.11
+Mandriva-linux-one-2010.1-Gnome-sugar
+1.4
+QEMU Virtualization
+1.5
+VMware Player Virtualization
+1.5.1
+VMware Player Appliances
+Sugar in Virtualization
+Fedora Getting started with virtualization
+Fedora's guide
+https://fedoraproject.org/wiki/Getting_started_with_virtualization?rd=Virtualization_Quick_Start
+Boxes in gnome3
+virt manager included in fedora 20 gnome desktop
+"A simple GNOME 3 application to access remote or virtual systems."
+VirtualBox
+Emulator_image_files
+click these links ^ for more details and examples from alternate wiki pages
+scroll down in this page for RECOMMENDED Sugar Appliances
+With
+VirtualBox
+®
+one can run Sugar in a window on Microsoft Windows, Intel-based  Apple Macintosh, or Linux host computers from a virtual machine (VM) window.
+VirtualBox overview
+A good solution for running sugar on Macintosh computers
+VirtualBox downloads
+Windows/Linux/Intel Macs
+Oracle VirtualBox downloads
+(alternate link)
+Installing on Linux hosts
+Read this if VirtualBox does not install.
+VirtualBox on Mac OS X Hosts
+mount-usb-devices-in-virtualbox-with-ubuntu
+replace OSE with Virtualbox and how to set up a USB-stick
+Fedora f17 Additions
+https://www.virtualbox.org/ticket/10293#comment:16
+http://www.virtualbox.org/download/testcase/VBoxGuestAdditions_4.1.9-76737.iso
+Setup Mac to Autostart VirtualBox on startup
+how to set it up
+How to Clear ./sugar
+When making a new VM
+, to clear the Sugar Journal of old entries and to avoid identity conflicts among copies of the VM, enter the command
+rm -rf ~/.sugar
+in the Terminal activity. Then shutdown the VM. This will clear all Learner information on the VM and let you start with a fresh install. Skipping this will result in collisions in the Neighborhood view of the Jabber network between separate copies of the appliance. Verify the presence of the
+.sugar
+directory by entering
+ls -a
+in Terminal.
+When cloning a customized VM
+, in order to keep the Journal and installed .xo Activities, use
+rm -rf ~/.sugar/default/owner.key*
+in the Sugar Terminal, and then
+shutdown the VM
+. enter in root terminal:
+su (password) shutdown -h now
+This leaves the Journal entries and removes only the previous Learner's identity key files.
+To clear the Sugar Journal
+:
+rm -rf ~/.sugar/default/datastore
+This may be needed if the Journal becomes clogged with too many entries.
+USE WITH CAUTION'
+Tutorial on how to import a VirtualBox Appliance
+(tutorial)
+Annotated screen-shots of an import
+Cómo importar un aparato de VirtualBox
+VirtualBox Soas V-7 Install
+(tutorial)
+How to create your own VirtualBox Appliance from a CD or .iso file
+Download VirtualBox Here
+Licensing Information.
+VirtualBox is released as
+GPL
+=> "Freely available for Windows, Mac OS X, Linux and Solaris x-86 platforms."
+VirtualBox Extension Pack => "
+Free for Personal Use
+, available for Windows, Mac OS X, Linux and Solaris x-86 platforms."
+(Extension Pack is required for USB 2 Access.)
+Note: Page moved to
+Sugar_on_a_Stick/Virtual_machines
+Trisquel On A Sugar Toast
+Older versions
+Trisquel On A Sugar Toast/Virtual machines/Archive
+Trisquel-4.1-sugar
+Sugar Desktop ONLY
+Ubuntu 10.04 LTS with Sugar sweets 0.88.1
+Trisquel
+No Longer Available
+Debian-squeeze-Gnome-sugar
+RECOMMENDED
+Full GNOME Desktop plus Sugar 0.88.1
+Debian Information
+Updated 12/05/2010 includes activities Downloaded from ASLO as .xo files; and sugar-emulator.
+Log in as sugar
+password=sugaruser
+root=sugarroot
+8-GB VirtualBox hard disc
+English and English keyboard
+USA-Los Angeles (Pacific timezone)
+No Longer Available
+Mandriva-linux-one-2010.1-Gnome-sugar
+RECOMMENDED
+Full GNOME Desktop plus Sugar-0.88.0
+Mandriva Information
+Note Log into gnome desktop first to enable networking then start sugar-emulator
+Log in as sugar
+password=sugaruser
+root=sugaruser
+8-GB VirtualBox hard disc
+English and English keyboard
+USA-Los Angeles (Pacific timezone)
+No Longer Available
+Info:
+2010.2 free DVD Download
+Mandriva_Linux_2010.1 Download
+Mandriva 2010.1 Features
+The Brazilian government education authority has selected Intel-powered classmate PCs running Mandriva Linux for educational use nationwide.
+QEMU Virtualization
+In Gnome terminal:
+su
+yum install @virtualization
+Start (Graphical): Applications/System Tools/Virtual Machine Manager
+installs soas.iso files to VM HD (with liveinst command in terminal of running Virtual Machine)
+VMware
+Player Virtualization
+click this link ^ for more details and examples
+Updated 05/09/2013
+Download VMware Player (free)
+Requires java_script
+requires registering first but free.
+after download:
+find file
+change permissions
+Properties
+[X] Allow executing file as program
+Install in root terminal:
+./VMware-Player-5.02-1031769.x86_64.bundle
+Create Virtual Machine
+Choose xxxx.iso file
+Install
+Note for
+OpenSUSE
+enter "yast" in terminal and look for live installer
+Navigate with <tab> and f10
+VMware Player Appliances
+DEPRECATED
+VMware Player 4.0 will now work with exported Virtual Box appliances

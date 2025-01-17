@@ -1,0 +1,242 @@
+Title: Summer of Code/2016/Journal Rethink
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2016/Journal_Rethink
+--------------------------------------------------------------------------------
+Contents
+1
+About Me
+2
+About my Project
+3
+Me and the community
+4
+Miscellaneous
+About Me
+What is your name?
+My name is Abhijit Patel and I am a 2nd year undergraduate student at Dhirubhai Ambani Institute of Information and Communication Technology, Gandhinagar, India.
+What is your email address?
+abhisandhyasp.ap@gmail.com
+What is your Sugar Labs wiki username?
+Abhijit
+What is your IRC nickname on irc.freenode.net?
+AbrahmAB
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My first language is Gujarati . I am also fluent in English, Hindi and Marathi.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I am located in Gandhinagar, India. The time zone is Indian Standard Time (UTC + 5:30). I am planning to work 5:00 to 14:00 (UTC) but is adjustable. As I don't have any other commitments  this summer I could surely manage my time and be active when the mentors are available.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I am new to open source.The idea of “anyone could contribute code” is just splendid. Developing a piece of software that would be used by millions of people by coordinating with other developers all round the globe, is something that has always fascinated me.
+Sugar learning platform is an example of how technology can be used to impart education. Contributing to the open-source project under sugar labs would indirectly contribute to educating a few more children. Nothing else could match this joy.
+About my Project
+What is the name of your project?
+Journal Rethink
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+Journal Rethink is to enhance Journal such that students could use it as a platform to do their project-work. 
+The listed features can be used for making Journal as a platform for working on projects.
+This project will benefit students as well as teachers in many ways.
+For Students :
+Positive group experiences will contribute to student learning, retention and overall school success.Properly structured, group projects can reinforce skills that are relevant to both group and individual work, including the ability to:
+Break complex tasks into parts and steps
+Plan and manage time
+Refine understanding through discussion and explanation
+Give and receive feedback on performance
+Develop stronger communication skills.
+Tackle more complex problems than they could on their own.
+Pool knowledge and skills.
+Develop their own voice and perspectives in relation to peers.
+For teachers :
+Teachers can often assign more complex, authentic problems to groups of students than they could to individuals. Group work also introduces more unpredictability in teaching, since groups may approach tasks and solve problems in novel, interesting ways. This can be refreshing for instructors. Additionally, group assignments can be useful when there are a limited number of viable project topics to distribute among students. And they can reduce the number of final products instructors have to grade.
+Shared mini-journal:
+The present Sugar Journal shares only single instance of an activity with a group of participants. A need is to make Journal support sharing of multiple instances of one or more activities among the same group like for Maths Project group.
+For this a feature of “Shared project having multiple Journal Entries(A mini-journal)” would be added under this project. On sharing a project , a new shared and synced mini-journal would be initiated. This idea of mini-journal can be implemented by creating one single instance which has instances of all the activities to be shared.
+In short, When users opens the Journal they can see list of projects (mini-journals) in Projects List View. When they click on the particular project, they see a list of activities that are shared with the same participants under the same project in the mini-journal (same layout as journal today).
+->
+Flow chart:
+A flow chat demonstrating the functioning of “Shared Mini-Journal” feature.
+File Syncer System for mini-journal:
+A file syncer system will be developed which will sync the files when the user does not have the activity running. This system will be further used to alert the user for the changes that occur in the state of shared activity by implementing the alert tool.
+A alert tool box with a palette box will be added which can be used as an indication of new notifications or alerts that will be prompted when the state of shared activity changes.
+Start a new entry or Add New Item:
+Under the mini-journal feature another feature of adding more instances of activities directly from Journal by just using the feature of “Add Item”. At first the student or user will be forced to title the entry he is adding. Then a File-Chooser view of Home-view displaying the list of activities would pop-up from which user would select the activity to start working in.
+A mock-up of the File-Chooser View of Home View  (in my
+prototype
+):
+Integrating Chat Activity in mini-journal:
+As for every project work needs discussion among the group members. Integrating the chat activity in this mini-journal would give a place for discussion for all the members of the mini-journal.
+Chat activity will be auto-created for every project. It would be like as soon as the student starts new project the chat activity is automatically created in the mini-journal and as new and new participants are added to the project they also join the chat activity.
+Icon View for Journal:
+Journal is in list view today. The Icon View would make searching through images much more engaging and efficient. A prototype of this Icon View is created in the below link.
+Implemented Icon View (in my
+prototype
+):
+Technologies or languages used are python and Gtk.
+For the mini-journal I will be using telepathy implementations like the Salut (for link-local XMPP ) and Gabble that are being used by sugar.
+UI Designs:
+I have prepared some UI designs for different views that would be created during the summer.
+1.
+Project List:
+List of Project(mini-journal) will be displayed in new window when pressed on the “Projects” tool button in main toolbar.
+Pressing on the details view button opens the Project View as described in design [3].
+Pressing on the Add new project (‘+’ list-add icon) add new project window as described in design [2] will be displayed.
+On pressing the ‘Chat icon’ in the main toolbar, chat activity will be resume and the student can have discussion regarding the project there.
+2.
+New Project Started:
+When New Project is started the below window appears.
+3.
+Mini-Journal (project) view:
+The mini-Journal containing the list of shared activities in the particular project.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then
+Days
+Task
+31 April to 9 May
+Get thorough with Journal code. Analyze its working. I have basic understanding of the code because of my previous contributions to sugar.
+Get a better grip over telepathy salut and gabble.
+10 May to 18 May
+Analyze more on how collaboration works in sugar.
+Develop an outline of the project and more discussion with my mentor Sam and other community members regarding the features that are to be implemented.
+19 May to 31 May
+Start developing the “Shared-project” tool.
+Create a mini-journal instance that will be shared.
+Design a single mini-journal instance that will handle instances of other shared activities.
+1 June to 13 June
+Implement the File-Syncer System.
+Make this system sync the files when the user does not have the activity running.
+14 June to 24 June
+Test the working of mini-journal system that is in sync with the File-Syncer system.
+Write test cases that can be further used for developing and testing.
+25 June to 26 June
+Prepare for mid-term evaluation.
+Send patches of the feature completed for review.
+The main Shared mini-journal would be implemented till midterm.
+27 June to 28 June
+Midterm Evaluation
+29 June to 5 July
+Buffer Week
+6 July to 9 July
+Analyze the feedback and clean up the code.
+10 July to 26 July
+Add alerts to the file-syncer system that would alert the user for changes in state of shared activity.
+On completion, send patch for review.
+27 July to 2 August
+Integrate the Chat Activity in mini-journal.
+3 August to 6 August
+Implement the “Add new Item” tool.
+Design the File-Chooser Dialog View for Home View.
+7 August to 10 August
+Implement the Icon View for Journal.
+11 August to 17 August
+UI improvements.
+Improve code efficiency.
+Test again all the tools and features.
+Send patches for more reviews.
+18 August to 22 August
+Fix bugs.
+Documentation and Update the wiki page of Journal, describe the new features that are added.
+Add comments that will help further development.
+23 August
+Final Evaluation
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I am familiar with Journal codebase, have been contributing from more than a month now and have exactly understood the developments needed.
+I have no other commitments apart from GSoC. My university will also be going through vacations this summer and I have no other short/long vacations planning during the summer. So, there will be no obstacles regarding my availability and my weekly dedicated time. The only fun trip I wish to have this summer is to fulfill my dream of completing GSoC 2016.
+Prototype:
+I have also developed a prototype.
+Implemented the Icon View for Journal.
+Designed the File Chooser View of Home View.
+Link for the same:
+https://github.com/AbrahmAB/sugar-prototype/tree/prototype
+I have also developed a prototype for sugar-toolkit-gtk3 for supporting the changes made in my sugar-prototype
+Link for this sugar-toolkit-gtk3-proto is:
+https://github.com/AbrahmAB/sugar-toolkit-gtk3-proto/tree/prototype
+My college project work as well as other games that I have developed are as follows:
+Tiny-Shell
+: The project included to write a simple Unix shell program that supports job control. The language used was C.
+Dynamic Memory Allocator
+: This is an ongoing project, in which I am writing a dynamic storage allocator for C programs, i.e., my own version of the malloc , free , and realloc routines.
+Simulate game
+: Designed my first game in python using Gtk and pyGame libraries.
+My_Tetris
+: Just tried my hands at functional programing. Designed a tetris game in Haskell.
+Me and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My answer :
+The project Journal Rethink is all making Journal support the project-based school activities. This will promote project-activities in school and improve students’ team-work qualities.
+Sugar focuses on sharing and collaboration. And this project would probably bring a great extension in collaboration and sharing system.
+The file syncer system is pretty new for sugar. This will sync files whose activities are not running and alert the inattentive student. Each and every member of project group must be informed about the changes made in the project. Without any notification or alert system the changes may go unnoticed. For this file syncer system comes handy.
+The Shared mini-journal alongwith the file syncer system will make Journal a platform for project based activities in school. A whole new and better  experience for the students and teachers.
+Sam :
+It will strategically use Sugar's journal system to make the user experience much better.  Instead of having separated systems, making a project based journal will tie the journal and collab together in a way that users will intuitively understand.  It will also allow for better reflection and group work, which are Sugar's key advantaged over a LMS+desktop approach.
+Walter :
+The Journal has always been at the heart of Sugar, but its potential has never been fully realized. This project will bring many underdeveloped and underutilized features to the forefront, furthering our pedagogical goals.
+What will you do if you get stuck on your project and your mentor isn't around?
+If I am stuck and my mentor isn't around I could at first try to sort the problem by just searching on web for some solutions. If this doesn't work then I would go to IRC to get a bit of help from the other developers or I could even post the problem on the mailing list. I have experienced that the members of community are very responsive and am sure they could help me. Alongwith the above I am surrounded by some experienced developers and open source enthusiasts who will definitely help me.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I am planning to write a blog on Wordpress where I will post updates of the progress as well as obstacles being faced by me.
+If allowed I will also create a wiki page with details as per the layout of Features page for all the features that would be implemented and update the current status for each feature regularly.
+I will also announce milestones on the mailing list or IRC channel to inform the community of my progress.
+Miscellaneous
+We want to make sure that you can set up a development environment before the summer starts. Please do one of the following: Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+[
+Journal
+] Implemented toggled sorting order :
+https://github.com/sugarlabs/sugar/pull/653
+(
+merged
+)
+[
+Journal
+] Typo in sugar :
+https://github.com/sugarlabs/sugar/pull/654
+(
+merged
+)
+[
+Journal
+] Journal entries name can be renamed to blank :
+https://github.com/sugarlabs/sugar/pull/655
+(
+merged
+)
+[
+Journal
+] Dragging a Journal entry drags the whole white entry bar instead of icon :
+https://github.com/sugarlabs/sugar/pull/656
+(
+merged
+)
+[
+Sugar-toolkit-gtk3
+] Ellipsis in title and msg of alert :
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/310
+(
+merged
+)
+[
+Turtle-extras
+] Fixed spellchecks in taextras.py :
+https://github.com/walterbender/turtleextras/pull/1
+(
+merged
+)
+[
+Journal
+] Buddy palette appears in wrong position :
+https://github.com/sugarlabs/sugar/pull/662
+(
+merged
+)
+[
+Journal
+] Fixed issue: Journal Entries can be renamed to blank via Detail View :
+https://github.com/sugarlabs/sugar/pull/663
+(
+open
+)
+[
+Reflect Activity
+] Fixed #5: Solved sorting of list :
+https://github.com/walterbender/reflect/pull/6
+(
+merged
+)
+Describe a great learning experience you had as a child.
+Once my teacher showed us the poetry algorithm. A computer algorithm that generates poetry! I was surprised to see that the poem generated by that algorithm was as equivalent as a real human composing a poetry. As an experiment, 10 of us were handed paper which contained two poems, one composed by human and other by computer. Surprisingly 8 out of us failed to tell which one was composed by computer! This incident arose the programmer in me.

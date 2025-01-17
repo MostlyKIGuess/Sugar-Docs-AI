@@ -1,0 +1,60 @@
+Title: Archive/Current Events/2013-09-16
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2013-09-16
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+1.1
+In the community
+1.2
+Tech Talk
+1.3
+Sugar Labs
+Sugar Digest
+"When I want to read a novel, I write one." -- Benjamin Disreali
+“An expert is a man who has stopped thinking because ‘he knows.” -- Frank Lloyd Wright
+1. Flavio Danesse made a post on the
+Sur list
+about his approach to teaching Python programming to children of age 12. He eschews the use of IDEs and other affordances in favor of giving them a basic understanding of simple, readily available tools.
+Yo me hice 5 repartidos básicos en pdf que conforman los tres talleres base de python joven, donde se les enseña a usar la terminal, a escribir código en un archivo, a ejecutarlo, luego se enseñan los tipos de datos, los operadores de todo tipo, control de flujo, conversiones de tipo, colecciones, funciones, clases, y poca cosa más.
+A eso hay que agregar que también hay que enseñarles donde pueden consultar el api, como buscar ayuda en internet, etc . . .
+Flavio goes on to say that when they are beginning to understand these things, he starts them on small exercises and only then the GTK API. Some of the students go on to use IDEs, but only after they have a strong foundation.
+There is evidence that his approach has merit: many of the young programmers from Uruguay who have contributed so much to Sugar are current and former students of Flavio.
+2. We continue to make great progress in our efforts to make HTML5/Javascript a first-class development environment in Sugar. An indication of progress is that community members not directly affiliated with the development effort are beginning to write
+Sugar Apps
+using the new API. More details can be found at
+here
+.
+3. Gonzalo Odiard and I have been doing some work on classroom management in support of the OLPC AU deployment. The basic idea is to make it easier for the exchange of a variety of data within a classroom setting: the Journal Share activity enables bi-directional sharing of Journal objects, facilitating the distribution of materials and resources, as well as handing in homework assignments; the Share Favorites activity enables a group of students to share their Sugar desktop favorites settings, so that when embarking on a group or class project, everyone has access to the same set of tools; the Share Stats activity enable students to share activity-usage statistics with the classroom teacher, part of a general effort to make learning visible to both students and teachers.
+Regarding statistics gathering, we've implemented an age/gender setting in the Sugar control panel so that data can be sorted by age. This work is not yet up-streamed, but the patches are available
+here
+and
+here
+.
+4. I've been working with
+Spirituality for Kids
+to make their videos and lessons available as Sugar activities. We published
+English-language activities
+one month ago and
+Spanish-language activities
+this week.
+5. "Dog bites man": I've made some changes to Turtle Blocks. In response to a request from a teacher in the OLPC Charlotte deployment, I changed the way in which the coordinate rescaling works. (Chances are you didn't even know Turtle Blocks lets you transform the coordinate scale. It is done with a button on the View toolbar.) By default, the turtle coordinates are scaled to pixels: if the turtle moves forward 100, it moves 100 pixels. But traditionally, Logo is scaled from 0 to 100; in that mode, forward 100 would move the turtle from the center of the screen (0, 0) to the top of the screen (0, 100). But for young children just being to learn numeracy, they typically use only one- and two-digit numbers. So I changed the scale from 0 to 20. In this new scaling, moving forward by single digits results in a readily visible change on the screen. I now save the coordinate scaling in gconf so that the user need only set it the first time they use Turtle Blocks (or it can be set as part of a deployment's configuration.) See
+Turtle Blocks v187
+.
+Speaking of Turtle Blocks, Google Summer of Code intern Marion Zepf continues to make great progress on the
+export-to-Python extension
+. As a result of her work, Turtle Blocks projects can be exported as Python code. Our hope is that this will facilitate some of our users in making the transition from block-based programming languages to text-based programming languages, which are better suited for more complex tasks. (For example, the most complex Turtle Blocks program I have ever written uses about 1000 blocks. But Turtle Blocks itself is more than 25,000 lines of code. This suggests there is a gulf between the complexity we can reach in a block-based environment and a text-based environment.)
+In the community
+6. International Turtle Art Day will be on October 12. Pacita Peña and Cecilia Alcala will be hosting an event in Caacupé and there will be other events around the world sharing ideas and resources. Brian Silverman and Artemis Papert will be featured guests. There are guides to holding a Turtle Art Day event available in
+English
+and
+Spanish
+. (Tip of the hat to Claudia Urea, who has led this effort.)
+Tech Talk
+7. Daniel Narvaez announced that we have entered the final phase of the run up to the Sugar 1.0 release. Please help us with testing. There is a short
+status=new&status=assigned&status=accepted&status=reopened&priority=Immediate&priority=Urgent&component=Sugar&status_field=New&order=priority list of bugs
+we are hoping to quash in time for the final release at the end of September.
+Sugar Labs
+7. Please visit (and contribute to)
+our planet
+.

@@ -1,0 +1,65 @@
+Title: Features/Replace combo box in language panel
+URL: https://wiki.sugarlabs.org/go/Features/Replace_combo_box_in_language_panel
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+The combo box on the language panel is unwieldy. This feature would replace the combo box with a pair of palettes: one for language and one for country.
+Owner
+Name:
+Walter Bender
+Email: <walter at sugarlabs dot org>
+Current status
+Targeted release: 1.02
+Last updated: 2014-03-04
+Percentage of completion: 100%
+See
+https://github.com/walterbender/sugar/tree/language-2
+Detailed Description
+We ship lots of languages and country combos. The combo box on the language panel is unwieldy (and broken on touch -- it will not pop up properly on first touch). This feature would replace the combo box with two palettes (as shown in the figures).
+From the palettes, you see more choices w/o needed to scroll. Plus the palettes are much easier to use with touch.
+Benefit to Sugar
+This feature will help us scale to more languages and give better touch support.
+Scope
+The intervention is limited to:
+sugar/extensions/cpsection/language/view.py
+How To Test
+Features/Replace combo box in language panel/Testing
+User Experience
+The user will see two buttons and labels displayed instead of a combo box. In the examples illustrated, it means that rather searching through a
+long
+list in a combo box >10x the screen height, the user scans 2.5 screens of items.
+Dependencies
+No new dependencies
+Contingency Plan
+There is no adverse impact if this feature does not land.
+Documentation
+Release Notes
+Comments and Discussion
+See
+discussion tab for this feature

@@ -1,0 +1,77 @@
+Title: Features/About Me
+URL: https://wiki.sugarlabs.org/go/Features/About_Me
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Provide a mechanism for users to specify age and gender.
+Owner
+Name:
+Walter Bender
+Email: <walter AT sl.o>
+Current status
+Targeted release: (1.02)
+Last updated: (5 November 2013)
+Percentage of completion: 100%
+See
+[1]
+and
+[2]
+Detailed Description
+OLPC Australia uses gender and age as part of their program analysis. They also use age to modify the behavior of some activities, e.g., the robot in the Speak activity takes on the age of the user. The proposed feature is to modify the About Me CP section and the initial intro pages to include widgets for selecting gender and age.
+Benefit to Sugar
+This is a feature that is already used in one major deployment. It would enhance the ability of other deployments to leverage age and gender for their program analysis. Also, Sugar activity developers can begin to incorporate age and gender into their activities where appropriate.
+Scope
+Impacts sugar/extensions/cpsection/aboutme and jarabe/intro
+How To Test
+On newly flashed or build Sugar environments:
+You should be prompted to select gender after entering name and selecting color
+You should be prompted to select age after selecting gender
+You should be able to go back and change these setting
+Once you've entered age and gender, you should be able to change them in the control panel
+Open the Sugar control panel
+Select About Me
+You should be able to change your age and gender
+Close the control panel section
+Reopen it and observe that the new age and gender are set
+User Experience
+The direct impact on the user is minimal: they have the option to set gender and age. Some activities use these data to enhance the user experience.
+Dependencies
+No new dependencies
+Contingency Plan
+None. The feature is complete pending code review.
+Documentation
+The gconf settings used by this feature are:
+'/desktop/sugar/user/gender' ('male' or 'female')
+'/desktop/sugar/user/birth_timestamp'
+   birth_timestamp = time.time() - int(age * _SECONDS_PER_YEAR)
+Release Notes
+Comments and Discussion
+http://lists.sugarlabs.org/archive/sugar-devel/2013-November/045583.html
+See
+discussion tab for this feature

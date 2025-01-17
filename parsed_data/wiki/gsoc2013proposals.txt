@@ -1,0 +1,434 @@
+Title: GSoC/2013/Proposals
+URL: https://wiki.sugarlabs.org/go/GSoC/2013/Proposals
+--------------------------------------------------------------------------------
+A draft copy of our application
+NOTE
+: We need to freeze this page as of 29 March 2013 until Google decides our fate. Please don't add new project ideas until after 8 April.
+Project candidates
+A list of projects potential participants might contribute within GSoC program.
+Note
+Potential mentors, please feel free to add ideas to this list. Also, feel free to add your name to a project you'd be willing to co-mentor.
+Note
+Potential students, more project ideas can be found on our
+Features
+page.
+Contents
+1
+Project candidates
+1.1
+Sugar Core
+1.1.1
+Sugar Framework for writing activity in full HTML5
+1.1.2
+Unified journal view
+1.1.3
+Plugin support
+1.1.4
+PackageKit control panel plugin for Distribution Activity/OS installs/updates
+1.1.5
+End-user modifications of Sugar source
+1.1.6
+Project sharing website
+1.1.7
+Social Sugar
+1.1.8
+Sugar as a Service website
+1.1.9
+Implement help mechanism for activities using Mallard
+1.1.10
+Activity Development Framework
+1.1.11
+ASLO Enhancements
+1.1.12
+GTK wrapper library for Android
+1.2
+Sugar Activities
+1.2.1
+Write Turtle Blocks in Turtle Blocks
+1.2.2
+Python export functionality for Turtle Blocks
+1.2.3
+Portfolio videos
+1.2.4
+Implement collaboration in Paint Activity
+1.2.5
+Add recording to Music Keyboard activity
+1.2.6
+Display notes in a score in Music Keyboard activity
+1.2.7
+Finish port of TamTam suite to Gtk3
+1.2.8
+IRC Activity fixes
+1.2.9
+Chat Activity with translation
+1.2.10
+ASL Open Video Chat
+1.3
+Platform
+1.3.1
+Build Deployment Platform
+1.3.2
+Clean up Ubuntu Sugar packaging
+Sugar Core
+Sugar Framework for writing activity in full HTML5
+The objective is to develop a JavaScript framework allowing to write Sugar activities in full HTML5/JavaScript. The framework will expose to JavaScript an API to call Sugar features:
+Journal/Datastore,
+Collaboration/Telepathy,
+Toolbar handling,
+Sugar look&feel - for example via a CSS style sheet usable on HTML controls
+Access to Sugar settings (buddy name, colors, current language, ...),
+View source.
+Like PhoneGap/Cordova, the framework will come with a template to develop and package easily a new HTML5 activity. A basic tutorial will be include too.
+The work could be inspired by the work done with Enyo Framework in
+1
+. By the way, the resulting framework should be JavaScript framework agnostic (no need for jQuery, Enyo, ...). More on this works
+here
+.
+Mentor
+:
+Lionel Laské
+Co-Mentor
+: Daniel Narvaez
+Level: Advanced
+Benefits to the Student: A chance to learn from touching almost every corner of an advanced system.
+Benefits to the Community: We'll greatly expand the reach of the project by opening the door to JavaScript programmers. Plus it will force us to clean up our APIs.
+Unified journal view
+Rather than viewing the details of a Journal entry on a separate page, the idea is to make the details appear in an expandable in-line format on the main Journal view. The look and feel would be more like Google+ or Facebook. Performance will be a major challenge.
+This project requires some working knowledge of the low-level Sugar Journal and datastore code.
+Contact
+:
+User:Walter
+Level: Advanced
+Benefits to the Student: A chance to exercise both design/UI and programming skills
+Benefits to the Community: Long-overdue feature that will make this core Sugar feature more visible and appealing to our users
+Plugin support
+A number of activities, notably
+Turtle Art
+, are supporting plugins -- the ability to extend features by downloading additional modules. However,
+the mechanism for installing plugins
+is anything but friendly. It would be nice to design a uniform plugin bundle type and modify the activity installer to recognize this new type. Caveats include dependencies -- presumably the plugin would take care of that -- and version control -- plugins are often incumbent upon a specific version of an activity.
+ASLO hosting
+] should also be considered.
+Strong Python skills and experience with Sugar toolkit required.
+Contact
+:
+User:Walter
+Co-mentor:
+User:Aneesh Dogra
+Co-mentor:
+User:Francis
+Level: Intermediate
+Benefits to the Student: A chance to touch lots of code
+Benefits to the Community: A simple way to develop and deliver customizations to activities and Sugar itself. Sugar can remain simple and stable, while the extensions can be more of a play ground for new ideas
+PackageKit control panel plugin for Distribution Activity/OS installs/updates
+The updates Control Panel only deals with updating of user installed Activities and is badly broken with Sugar 0.98. PackageKit is a universal interface to a number of packaging standards (rpm/deb etc.) used by a number of distributions. It can work with Fedora/OpenSuse/Debian/Ubuntu and others so provides a single packaging interface to multiple distributions.
+By interfacing with the distribution's packaging interface the user can be displayed with a list of all installed and available Sugar Activities available in the distro, apply Activity and OS updates to their system or install new ones. It allows the distro to have available their Activity set that has been tested and QAed on their platforms.
+It will also ease deployments that wish to use a central OS/Activities repository as they can configure in the OS the underlying repositories where they wish to pull the distro updates from to ensure the Sugar users only get tested and approved activities and OS updates
+Strong Python skills and experience with Sugar toolkit required.
+Contact
+: Needs Python mentor
+Co-mentor:
+User:Peter Robinson
+Co-mentor:
+Level: Intermediate
+Benefits to the Student: A chance to develop good integration with core OS infrastructure and core Sugar control panel code.
+Benefits to the Community: A simple way to deploy new and updated Activities as well as core OS improvements including updates to Sugar itself. Sugar can remain simple and stable, while the updater can help deployments or individual users on all Distributions.
+End-user modifications of Sugar source
+We have an existing mechanism for duplicating and modifying Sugar activities: a copy of the bundle can be created in ~/Activities, where it can be modified by the end user. We also have a mechanism for viewing the Sugar toolkit source, but no such convenient way for making changes without risking messing up the system. While it should be easy enough to make a duplicate copy in the user's home directory, and to change the Python paths to use the modified code, we need some mechanism -- presumably at boot -- to choose which version to run: the installed version or the modified version.
+Strong Python skills and experience with Sugar toolkit required.
+Contact
+:
+User:Walter
+Level: Advanced
+Benefits to the Student: A chance to touch lots of code
+Benefits to the Community: We'll come further towards our goal of enabling and encouraging our users to "own" through modification all aspects of our code.
+Project sharing website
+Create a Project Hosting Site similar to the Scratch website where kids can share the projects they have created using various Sugar Activities.  The site should foster collaboration and sharing of projects.  The Web Site should be built using a free web framework so that it can be installed at deployment sites. Some features include:
+Ability to engage and connect with friends and classmates using various  Social Networking sites/techniques.
+Ability to post projects from various Sugar Activities (ex: Turtle Blocks, Etoys, Memorize, Physics, etc.)
+Separate landing pages for different audiences (kids, teachers, parents, etc.)
+Section to share kid created art from projects
+Ability for users to create galleries (of their own projects, favorite projects, subject specific topics, etc.)
+Ability to have “private classroom spaces”
+Tools to support community management of the site
+Multi-language support
+Contact
+:
+User:MrSteve
+Co-mentor
+:
+User:dogi
+Level: Advanced
+Benefits to the Student: Learn more about web services
+Benefits to the Community: We need more mechanisms for sharing ideas and work. This is low-hanging fruit.
+Social Sugar
+Design and Develop GUI components that can help Sugar to reflect user's social interactions from external platforms. A perfect target can be the Group-View that shows user's friends and their shared activities
+[1]
+, but it _could_ also show social information about these friends, IE social networks or sharing platforms publications. This would also give this zoom-level added value.
+Community members are already working on the backend component to support this feature
+[2]
+. This is also a great opportunity to complement other GSoC-2013 proposals.
+Contact
+:
+User:tch
+Level: Intermediate
+Benefits to the Student: (a) Learn about Sugar's core, UI Design and web services and (b) interact with community members and other GSoC participants.
+Benefits to the Community: Social interaction is a key element in the learning process, therefore we should promote this.
+Sugar as a Service website
+Create a Site for managing multiple "Sugar in a Browser" sessions like
+treehouse
+or
+broadway gnome
+Some features include:
+Ability of integration of
+Chrome Remote Desktop
+Ability to share or to allow other user watch this session
+Ability to scale the infrastructure onto local (virtualbox}, private (kvm) and other public clouds (
+http://fedoraproject.org/wiki/Cloud_SIG
+,
+http://xvm.mit.edu/
+or
+http://cloud.ubuntu.com/
+)
+Contact
+:
+User:dogi
+Co-mentor
+:
+User:Aneesh Dogra
+Level: Advanced
+Benefits to the Student: Learn more about web services
+Benefits to the Community: We need to reach out to people who are not yet comfortable with virtual machines et al. by developing less invasive mechanisms for distributing Sugar.
+Implement help mechanism for activities using Mallard
+Mallard
+is a mark-up language that makes it easy to provide user help. It would be a nice feature to add Mallard-like help to activities, accessed through a mechanism similar to the view source mechanism. We need to sort through two issues: integration into Sugar and integration into our i18n / L10n system.
+Contact
+:
+User:Walter
+Co-mentor
+:
+User:Aneesh Dogra
+Co-mentor
+:
+User:Francis
+Level: Advanced
+Benefits to the Student: Learn about lots of cool tools.
+Benefits to the Community: Most of our help is in the wiki and in English. This will enable us to reach our users more directly and in their first language.
+Activity Development Framework
+This framework should allow to:
+Make toolbars from factories removing many lines of code.
+Start a project through typing a command.
+Doing collaboration easier to implement.
+Any other work which makes the development process hard and can be framed.
+Contact
+:
+User:Francis
+Co-Mentor
+:
+User:Ignacio_Rodríguez
+Benefits to the Student: Learn to articulate to others how to do something useful.
+Benefits to the Community: We don't provide enough support for our developers. Time to address that deficiency.
+ASLO Enhancements
+The current
+Activity Library
+is based in an old version of the
+Mozilla Add-ons Library
+.
+This project is divided in three parts:
+Update the old platform and have the corresponding modifications to distribute Sugar Activities instead of Mozilla Plugins.
+Add an activity manager to the control panel. Allowing the installation/update of activities from ASLO.
+Add to the Sugar Bundle Builder a way to auto-upload activities to ASLO.
+Contact
+:
+User:Francis
+Co-mentor
+:
+User:RafaelOrtiz
+Level: Advanced
+Benefits to the Student: Learn about web services
+Benefits to the Community: Our "app store" is not as accessible as it needs to be.
+GTK wrapper library for Android
+Sugar Activities uses the PyGTK library which is a binding for GTK. Android doesn't have GTK and porting GTK to Android is very complicated due to the difference in the user space of GNU/Linux and Android.
+The objective of this task is to develop a wrapper library of
+PyGTK
+that expose the same API but invoke equivalent methods in a Android graphic library like
+Kivy
+. The student only have to implement the minimal set of methods that allows to run the
+hello world activity
+which is the more basic sugar activity.
+Level: Advanced
+Contact
+:
+User:Andres_Aguirre
+Co-mentor
+:
+User:Walter
+User:Rafael sisto
+Benefits to the Student: (a) Learn about Android graphic libraries and Python programming in Android
+Benefits to the Community: This will be the first step to have a framework for porting Sugar Activities to Android with a minimal impact in the actual code of the activity. Also will help outside the Sugar community being a quick method for porting GTK applications to Android
+Sugar Activities
+Write Turtle Blocks in Turtle Blocks
+In support of making Sugar as transparent and fungible as possible, we'd like to make it not just Free, but provide affordances for end-user modifications. Turtle Blocks is a possible stepping stone towards that end: a programming environment approachable by children as young as five-years old. So as a first step, let's write Turtle Blocks in Turtle Blocks. From that experience, we'll hopefully know how to approach the more general Sugar problem.
+Contact
+:
+User:Walter
+Co-mentor
+:Tony Forster
+Level: Advanced
+Benefits to the Student: Lots of good Python hacking involved
+Benefits to the Community: We'll learn how far we can push on the idea that end users *can* modify code.
+Python export functionality for Turtle Blocks
+A goal of Turtle Blocks is not just to get children programming, but to launch them out of block world into text-based languages where they can develop more sophisticated programs. While Turtle Blocks is written in Python and can be extended by importing Python modules, it currently exports only in its native block language and in Logo. For this project, we'd want to enable a Python export option so that programmers can take their Turtle projects and extend them into full-fledged Python projects. The hypothesis is that this would lead more children to grow their programming skills beyond simple block programs.
+Contact
+:
+User:Walter
+Co-mentor
+: Tony Forster
+Level: Advanced
+Benefits to the Student: Lots of good Python hacking involved
+Benefits to the Community: We'll have a vehicle for studying whether or not we can bring students of programming from block worlds to text-based programming and debugging.
+Portfolio videos
+Working with the maintainer of
+Portfolio
+to add a mechanism for exporting .ogv (voice over still images) of a portfolio presentation. This is a request that has come from deployments: they'd like to be able to post videos of student work, which is currently available as a slide show with audio voice-over.
+A working knowledge of Python and some gstreamer skills are a must.
+Contact
+:
+User:Walter
+Co-mentor:
+User:Aneesh Dogra
+Level: Intermediate
+Benefits to the Student: Learn how to master GStreamer
+Benefits to the Community: We need more vehicles of expression for our users. Video tools are to scare in Sugar.
+Implement collaboration in Paint Activity
+Paint Activity does not implement collaboration yet. The easy part is send the mouse positions and draw in the different machines, but you need have the status of the different tools used, copy/paste operations and undo/redo. Paint is already ported to cairo and Gtk3.
+Requires familiarity with Python.
+Contact
+:
+User:Godiard
+Level: Beginner
+Benefits to the Student: Learn about our collaboration stack
+Benefits to the Community: More shared spaces for expression is aligned with our pedagogical goals.
+More information
+http://wiki.sugarlabs.org/go/Activities/Paint#GSOC_2013
+Add recording to Music Keyboard activity
+Music Keyboard activity uses part of TamTamMini code to play sounds. Should be good add the capability of record the played sound.
+Requires familiarity with Python.
+Contact
+:
+User:Godiard
+Level: Beginner
+Benefits to the Student: Learn about python and music libraries (csound)
+Benefits to the Community: More shared spaces for expression is aligned with our pedagogical goals.
+More information
+http://wiki.sugarlabs.org/go/Activities/MusicKeyboard
+Display notes in a score in Music Keyboard activity
+Should be good, show the notes played in a score to help kids to learn music reading.
+Requires familiarity with Python.
+Contact
+:
+User:Godiard
+Level: Beginner
+Benefits to the Student: Learn about python and cairo
+Benefits to the Community: Improve our expression tools is aligned with our pedagogical goals.
+More information
+http://wiki.sugarlabs.org/go/Activities/MusicKeyboard
+Finish port of TamTam suite to Gtk3
+TamTam is a suite of 4 different activities to produce music. We started to port them to Gtk3, because then we can use multi touch and integrate a piano keyboard, or other virtual instruments. The work is not finished.  Requires work with cairo library, and gtk knowledge.
+Contact
+:
+User:Godiard
+Co-mentor:
+User:Aneesh Dogra
+Level: Intermediate
+Benefits to the Student: Learn about python and cairo, and gtk
+Benefits to the Community: Improve our expression tools is aligned with our pedagogical goals.
+More information:
+http://wiki.sugarlabs.org/go/Features/GTK3/Porting/TamTam
+IRC Activity fixes
+Activities/IRC
+is built around an all-Python IRC client,
+Urk
+which is no longer maintained since 2007. Thus, its better to port the activity to a newer and a better all-python IRC library.
+Activities/IRC
+is significantly slower than other IRC clients available on other platforms. The reason being its not multi-threaded. Thus, adding multi-threading support will be very useful.
+Activities/IRC
+is missing some useful features including sound on highlight (play a sound when the user is highlighted in a channel), user info (whois data) and many others. Look at some popular IRC clients running on other platforms and research about the features which can be added to
+Activities/IRC
+and how can they be added.
+Requires familiarity with Python and IRC protocol specifications.
+Mentor
+:
+User:Aneesh Dogra
+Co-mentor
+:
+User:RafaelOrtiz
+Level: Intermediate
+Benefits to the Student: Learn Python and some UI design
+Benefits to the Community: We use IRC as the backbone of our community discourse so we should better support it within Sugar itself
+Chat Activity with translation
+Above is an example of a chat where two people connected by chat could not talk to each other due to language barrier.
+The project task is to add a drop-down box that translates of the chat messages coming from another user similar to the private/shared drop-down menu shown. This could work like the #sugar / #sugar-es channels on IRC.
+Contact
+:
+User:Satellit
+Co-mentor
+:
+User:Aneesh Dogra
+Level: Intermediate
+Benefits to the Student: Learn about machine translation and web services
+Benefits to the Community: The better we can accommodate users across multiple languages, the farther we'll reach.
+ASL Open Video Chat
+Open Video Chat is an Free/Open Source video conferencing activity for the XO laptop. This project was originally started in March 2010 with funding from the National Technical Institute for the Deaf in Rochester NY.
+Focus
+The primary focus of Open Video Chat is to provide streaming video at frame rates that are suitable for communicating with sign language. This ends up being somewhere between 20 and 30 frames per second.
+Current Features
+20 FPS video
+preview window
+text chat
+Desired Features
+RTP protocol implementation
+faster frame rate (30+ FPS)
+audio
+higher resolution video
+IRC
+The contributors of Open Video Chat frequent #rit-foss on freenode
+Contact
+:
+User:decause
+Level: Intermediate/Advanced
+Benefits to the Student: Learn about gstreamer video pipelines. Learn about sugar networking stack and services (Telepathy). Learn about Python and Sugar UI.
+Benefits to the Community: The Video/Text chat software is nearly complete (90%), it just needs to be ported to latest version of sugar and include new telepathy bindings.
+Source Code:
+Github Repository
+Activity Page:
+A.SL.O
+Platform
+Build Deployment Platform
+The Platform Team has been working on a reference Sugar + GNU/Linux distribution for XO laptops. The Sweets project has infrastructure and packages for Ubuntu, Debian and Fedora. It would be a great contribution if these could be integrated into a reference distribution for regular computers. It could be based on TOAST, SOAS, or build from a new base.
+This project would be deployed by the volunteer team in Peru.
+Contact
+:
+User:Sebastian
+Co-mentor
+: alsroot on #sugar
+Level: Medium
+Benefits to the Student: A chance to do systems integration and curating a specialized GNU/Linux distribution for a real life deployment.
+Benefits to the Community: By having a
+deployment platform
+which will be consistent and robust, with an integrated feedback mechanism, Sugar community will enhance feedback loops from deployments. This will help improve Sugar at an accelerated pace.
+Clean up Ubuntu Sugar packaging
+We have a number of disjointed half-finished or out of date efforts to package Sugar for Ubuntu, including:
+https://wiki.ubuntu.com/Sugar
+(sugar-remix -- deprecated)
+http://wiki.sugarlabs.org/go/Sweets_Distribution#Installation
+(sweets -- Sugar 0.94)
+This task is to develop a work flow such that Ubuntu becomes part of the Sugar release process, ensuring that Sugar on Ubuntu is current.
+Contact
+:
+User:Satellit
+Contact
+: alsroot on #sugar
+Level: Advanced
+Benefits to the Student: Learn about packaging
+Benefits to the Community: Ubuntu is widely used and we should have our best bits bundled with it in order to reach more potential users.

@@ -1,0 +1,44 @@
+Title: Dextrose/3/Sugar Version
+URL: https://wiki.sugarlabs.org/go/Dextrose/3/SugarVersion
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Moved and died at
+http://sugardextrose.org
+Dextrose-3, which will be based on sugar 0.94/fedora 14 has achieved Feature Freeze as of 1st September 2011. This page is for reference only.
+Only update the Discussion page if you must.
+This discussion is a part and blocker for
+Dextrose/3/Feature Freeze
+discussions. One big question is the readiness of new collaboration in sugar-0.94. This raises two more questions if new collaboration isn't ready to be used in schools within 0.94 time frame.
+Should we revert collab code to 0.88 (which we know works), but it will be additional work, and
+only
+AC will have devs to work on that (i guess).
+Should we stick with sugar-0.88.1 (as with dx2) and bypass working on reverting the code. This has a few disadvantages:
+Obviously, we lose out on the new features between 0.88-0.94
+We lose sync with OLPC
+The above have to be put up against 'how much work fixing collab is?'. Can it be fixed in time for 0.94. Fixed means, reliably tested as well. I guess this is a call both for OLPC and Dextrose.
+Please use this page as a starting point and post your comments
+here
+:-)
+Discussions/Analysis
+While dextrose-3 alpha-1 was being developed, it was assumed that we would basing it on sugar0.9x/fedora-14. However, the new 0.9x has quite a few collaboration issues, and without collaboration working stably, the whole point of dextrose-3 w.r.t it being used by deployments would be defeated. This made it a significant decision (one, which I believe caused the one week delay in reaching feature freeze). The choices against us were:
+Sugar 0.94/fedora14
+Sugar 0.88/fedora14
+Sugar 0.88/fedora11 (essentially the platform dextrose-2 is based on)
+While coming to this decision, all these three options were seriously considered. 0.88/f11 was the last fallback option we had. We were somewhat certain that 0.88/f14 would have worked, but 0.94/f14 was the most ideal alternative. Staying with 0.94/f14 would have meant that:
+We stay in sync with OLPC 11.x, and upstream sugar 0.9x. This is a major advantage considering maintenance and packaging overheads, including backporting, upstreaming patches in the future.
+Fedora 11 was EOL-ed a while ago, and has numerous inherent problems.
+By the time 0.9x collab is eventually ready, it would be better than 0.88 collab.
+Comment: One point that was raised during these discussions was that while developing collab 0.9x code, the procedure followed was not good coding practice. Heavily broken new collab code was pushed to trunk and then its fixing was started. What should perhaps been followed was a separate branch should have been used for new collab and only merged when it was stable enough (
+reference
+to a very long and fruitful discussion about deciding sugar version ;))
+Thus, an analysis was carried out about current readiness (existing issues), rate of bugfixing, and comparison of workability with the 0.88 collaboration. At the end of this, I came to the following conclusions:
+The current 0.9x collab is actually not too bad, but there are still some high priority issues remaining.
+The collaboration in 0.88 was somewhat buggy, and those would likely not be fixed anytime soon.
+Collaboration bugs are being fixed at a good rate as of now.
+This led me to believe that if AC were to work together with OLPC on collaboration, there is very little reason it will not be fixed by the time 0.94 is actually released. It is also a high priority for OLPC 11.3.0 as well. The way in which AC could contribute to fixing collab is that it need not be fixing the collab bugs directly (as they are complex and require knowledge of collab code) but help with other sugar related issues.
+So, with the above in mind, dextrose-3 would be based on sugar 0.94/fedora-14.

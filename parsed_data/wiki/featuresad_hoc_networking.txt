@@ -1,0 +1,117 @@
+Title: Features/Ad hoc Networking
+URL: https://wiki.sugarlabs.org/go/Features/Sugar_Adhoc_Networks
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+8.1
+Autoconnect
+8.2
+Connect both machines to the same channel
+8.3
+Share an activity
+8.4
+Members
+8.5
+Collaborate between XO-1.0 and XO-1.5 without infrastructure
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+The Feature will add three default ad hoc networks, for channel 1, 6, and 11. They will be represented with designated icons in the Neighborhood view.
+Owner
+Name:
+Simon Schampijer
+Email: simon AT sugarlabs DOT org
+Current status
+Targeted release: 0.90
+Last updated: 13/08/2010
+Percentage of completion: 100%
+Detailed Description
+The Feature will add three default ad hoc networks, for channel 1, 6, and 11. They will be represented with designated icons in the Neighborhood view. This will mimic the mesh behavior on devices where mesh hardware is not available and make the "under a tree"-scenario possible in those cases. If Sugar sees no "known" network (the learner has not been connected to an currently available Access Point before) when it starts, it does autoconnect to an ad hoc network. First we try if there is an ad hoc network that is used by other learners in the area, if not we default to channel 1.
+Benefit to Sugar
+The Feature will allow small groups of learners to collaborate without the need of an infrastructure, the so called "under a tree"-scenario more easily. In previous Sugar releases the learner could create an ad hoc network by using an option in the wireless device palette. This representation will be more accessible to the learners.
+Scope
+The sugar module is affected by this Feature and the sugar-artwork module by the addition of the six icons (3 channels, two states each). The patch tries to not be too invasive as it is meant to be back ported to 0.84.
+UI Design
+The ad hoc networks are represented using
+Maya numerals
+. They use the same representation as access points to show the status of the connection
+(picture Connected)
+. The fill color is used to indicate if other members are connected to the network. It does not indicate the number of people that are connected though. If the fill color of the ad hoc icon is set then there is at least one person listening
+(picture members)
+.
+How To Test
+Flash at least two XOs with the latest version of Sugar and the latest version of NetworkManager.
+Autoconnect
+connect to an Access Point on one machine and restart the machine
+--->
+the machine does autoconnect with the AP
+start the machine without having connected to an AP before
+--->
+the machine should autoconnect to ad hoc network 1
+start machine A and connect to the ad hoc network 6, start machine B without having been connected to an AP before
+--->
+machine B should autoconnect to the ad hoc network 6
+Connect both machines to the same channel
+--->
+the buddies should be present on the neighborhood view of the other machine
+The learner is connected to channel 11.
+Share an activity
+--->
+the shared activity is displayed correctly in the Neighborhod view and the sharing does work
+Members
+The ad hoc icons in the Neighborhood view do indicate whether the network has members or not, here channel 11 has members.
+The ad hoc icons in the Neighborhood view do indicate whether the network has members or not, whether it is used by more than one person. It does not indicate the number of people that are connected though. If the fill color of the ad hoc icon is set then there is at least one person listening.
+On machine A connect to an ad hoc network. Start machine B which has been connected to an access point before.
+--->
+On machine B it should automatically connect to the access point and the icon representing the ad hoc network machine A is connected to should be colored, the fill color is set.
+Shut down machine A.
+--->
+after 10-15 minutes the icon representing the ad hoc network machine A is connected to should be uncolored, the fill color is NOT set. This is indicates that there are no members on the network.
+Collaborate between XO-1.0 and XO-1.5 without infrastructure
+The XO-1.5 and XO-1.0 will see ad hoc networks in his neighborhood view, so it the XO-1.0 can connect to an ad hoc network that has been created by a learner on the XO-1.5.
+The XO-1.5 and XO-1.0 will see ad hoc networks in his Neighborhood view, so it the XO-1.0 can connect to an ad hoc network that has been created by a learner on the XO-1.5.
+User Experience
+The user experience should be similar to the one with mesh networks. With having the ability to indicate if a network has members there should even be an improvement to know which network (channel) one should connect to.
+Dependencies
+There was an
+issue in NetworkManager
+reporting not the correct channel for ad hoc networks. The patch has been landed to master and the
+NETWORKMANAGER_0_7 branch
+. Make sure you have at least NetworkManager-0.7.2.997-1.
+Contingency Plan
+None necessary, revert to previous release behavior. I am available until the 0.90 release (and after) to fix any bugs that may be introduced by the Feature.
+Documentation
+Initial discussion at OLPC.
+Design thread on sugar-devel.
+#9845
+#1610
+Release Notes
+Still coming.
+Comments and Discussion
+See
+discussion tab for this feature

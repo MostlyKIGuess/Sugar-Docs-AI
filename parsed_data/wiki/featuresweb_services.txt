@@ -1,0 +1,111 @@
+Title: Features/Web services
+URL: https://wiki.sugarlabs.org/go/Features/Web_services
+--------------------------------------------------------------------------------
+see
+Web_Services
+for the feature as implemented
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+This feature adds a new section to the Sugar Control Panel to manage online accounts and some interventions to the Sugar Journal toolbars and palettes in order to expose any installed online services.
+Owner
+Name:
+Walter Bender
+Name:
+Raúl Gutiérrez Segalés
+Email: <walter AT sugarlabs DOT org> <rgs AT itevenworks DOT net>
+Current status
+Targeted release: 1.0
+Last updated: 18 Feb 2013
+Percentage of completion: 100% (pending review, including an example Web Service: Facebook sharing. Note that a self-hosted web service is being written by Tincho, Walter and Raúl atm:
+https://www.itevenworks.net/2013/05/a-backend-for-sugars-future-web-services-infrastructure/
+)
+Detailed Description
+This feature adds a new section to the Sugar Control Panel to manage online accounts and some interventions to the Sugar Journal toolbars and palettes in order to expose any installed online services.
+There are two parts to the feature:
+adding support to the Control Panel to manage online accounts.
+adding support to integrate webservices with the Sugar journal, adding Copy-to and Refresh capabilities.
+We have implemented one example of using this feature:
+support specific to Facebook: to share Journal entries on Facebook and to retrieve comments on those entries from Facebook.
+We are working with community members on Twitter and Google Drive extensions based on the framework in #0002 and #0003 and encourage other community members to work with us on additional services.
+For now, web services implementations are welcome to handle their retrieval of tokens on their own. In the future we might want to delegate that to Gnome Online Accounts or a similar auth/token provider.
+Benefit to Sugar
+See the
+detailed discussion in the Sugar Digest
+.
+Scope
+The feature requires
+the addition of a new cpsection: extensions/cpsection/webservices
+an icon added to data/icons
+a place to put the webservices: extensions/web
+an interface to the webservices: src/jarabe/web
+and integration of webservices with the journal: src/jarabe/journal/palettes.py and src/jarabe/journal/journaltoolbox.py
+The changes to existing code is minimal, just the addition of some new palette entries based upon the availability of the online services. The actions taken by the services themselves are self-contained within the services themselves.
++ from jarabe.web import online_accounts_manager as oam
++         for account in oam.OnlineAccountsManager.configured_accounts():
++            menu = account.get_share_menu(metadata)
++            self.append(menu)
++        self._refresh_buttons = []
++        for account in oam.OnlineAccountsManager.configured_accounts():
++            self._refresh_buttons.append(account.get_refresh_button())
++            self.toolbar.insert(self._refresh_buttons[-1], -1)
++        for account in oam.OnlineAccountsManager.configured_accounts():
++            menu = account.get_share_menu(self._metadata)
++            palette.menu.append(menu)
+UI Design
+There are three places where the UI is impacted.
+1. There is a new icon on the control panel (as a place holder, we use a color-inverted activity-web.svg) for online account management. It has a label, _('Configure your Web Services'). When that icon is clicked, a horizontal list of icons (provided by the services) is displayed. (If no services are installed, a message to that effect is displayed.) If a service is requested, a widget provided by the service is displayed in the bottom 3/4 of the screen. Typically, this would be some sort of login dialog. A token and expiration time may be stored in .gconf/desktop/sugar/collaboration or some other place specific to the online service.
+The Web Services section is on the lower right
+The available services are shown along the top (in this case, only FB is installed)
+2. In the Journal list view, a new palette entry is created for each installed online service under the Copy-to submenu. If the service is "active", i.e., the user has a valid token as determined by the online service, then that button is sensitive. Otherwise, it is insensitive.
+The web services are added to the Copy-to menu (in this case, only FB is installed)
+3. In the Journal detail view, the Copy-to submenu is also updated. In addition, a refresh button for each installed online service is displayed on the toolbar. The service itself determines whether or not that button is sensitive or insensitive. (For example, the Facebook service uses the refresh button to retrieve comments from Facebook. Therefore, the refresh button is only sensitive if the Facebook service is active
+and
+the entry has been shared with Facebook.)
+An example of comments retrieved from FB using the Refresh button. These comments co-exist with comments generated from within Sugar.
+How To Test
+One of the frustrations with our previous collaboration framework was how hard it was to test it. We want to get as much testing as possible with collaboration through web services.
+These are the different things we'd like to cover:
+testing discovering and setting up online accounts: for this we'll provide a dummy social service (i.e.: SugarLabs sharing). This'll allow us to exercise different parts of the web services codebase: is the service discovered? can you configure it? can you post something? can you refresh? (TBD: Walter/Raul)
+testing each individual component. For each added service we'd like a minimum set of tests that will allow us to do a quick run from the command line and test that the service just works. That'll save loads of time when actual testing integration with Sugar.
+more stuff to come.
+User Experience
+If you use the Journal, you will see a new entries on the Copy-to submenu for each online service you've installed. There is no need to use these buttons.
+Dependencies
+No new dependencies, but some new strings to translate.
+Contingency Plan
+No impact as this is a new feature.
+Documentation
+Some discussions with the design team regarding the placement of the buttons on the palettes.
+Release Notes
+The Sugar Journal has a new mechanism for integrating the Sugar Journal with online services, e.g., if you install the Facebook online service, you can share journal entries on Facebook and associate comments from Facebook with your journal entries.
+Comments and Discussion
+See
+discussion tab for this feature

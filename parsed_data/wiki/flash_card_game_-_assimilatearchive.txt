@@ -1,0 +1,141 @@
+Title: Flash Card Game - Assimilate/Archive
+URL: https://wiki.sugarlabs.org/go/Flash_Card_Game_-_Assimilate/Archive
+--------------------------------------------------------------------------------
+Contents
+1
+Contacts
+2
+Class Goals
+3
+Week by week milestones
+3.1
+4/24
+3.2
+5/1
+3.3
+5/8
+3.4
+5/15
+4
+Updates on our progress
+4.1
+4/24
+4.2
+5/1
+4.3
+5/8
+4.4
+5/15
+Contacts
+Urko Fernandez
+is the one and only developer of Assimilate. Dennis contacted him via his gmail address on April 23rd, 2009 and again on May 1st, 2009 and received the following reply on May 7, 2009:
+Hi Dennis,
+Sorry for not answering sooner. Feel free to ask any questions; I'll be
+glad to help you. I promise the answer won't take that long next time.
+See you,
+Urko
+Dennis responded asking him what development environment he has used in the past and received the following response:
+The way I developed all the software was through Ubuntu. It's a very easy to use Linux distribution and it has a package manager called Synaptic (maybe the "synergy" you were talking about) that can install the Sugar environment with just one click. You don't need to install
+Ubuntu, you can try a LiveCD (similar to the sugar on a stick) or even install or run it through a virtualization software under Windows.
+Developing on the XO is not comfortable unless you access it through SSH and use another computer to type and copy/paste anytime is necessary.
+Let me know what approach you find best and I can help you set it up.
+There are some vmware images available, this is the newest I could found:
+http://jars.de/english/ubuntu-804-vmware-image-download-english
+Just download the image, install the vmplayer (free, as in free beer):
+http://www.vmware.com/products/player/
+And run it, then you should look for "sugar" in synaptic and install it.
+Good luck,
+Urko
+Dennis replied thanking Urko for the response and asked whether the latest code was in git or the .xo file since we found differences between the two.
+Urko replied as follows:
+I didn't know anything about this "synergy" program, it seems very useful and it's GPL. But working with Ubuntu+Sugar is the easiest way to develop software for the XO. After that, you can just checkout the source code with GIT from the XO and run it to see if it works as it
+does in Ubuntu.
+About the git repositories and the .XO file, it's true they are different. The repository has the newest version, and is stable enough to be used, but normally is better to stick with the one official stable version. I will recommend to pick the latest version in
+Again, feel free to ask any question regarding the architecture and design of the application. There are many unfinished things, and some bugs to be fixed, and I'll be glad and thrilled to collaborate. That's the whole purpose of open source software.
+I am now involved in a different educational project, but I would like to continue involved in the Assimilate activity.
+Hope to hear from you soon.
+We have not responded to this yet.
+Class Goals
+Our goal for this RIT class is to complete the
+"Must Haves"
+part of
+our plan
+and document everything we do weather it works or not. Documentation will either be on this wiki or directly in the code that we modify and/or create.
+Week by week milestones
+4/24
+Brendan -
+Setup development environment (Git, Eclipse + Pydev | SoaS).
+Dennis -
+Get in contact with developer of Assimilate.
+James -
+Figure out how to edit the "Activities" tab since it isn't listed in the toolbars.py file
+Everyone -
+Decide who will work on exactly which parts of the project for the next few weeks.
+5/1
+Dennis -
+Change the names of the tabs from "Flashcard" and "Help" to "Play" and "Edit".
+James -
+Add code from Measure activity to change the interface for each tab.
+Brendan -
+Remove the text box below the question so that you cannot change the question in the "Play" tab.
+James -
+Kill the play button!
+Dennis -
+Remove the voting function
+5/8
+Everyone -
+Install SoaS and try to get the original source code running so we can start making changes to the game!
+Dennis -
+Email the Rochester python group for help.
+Brendan -
+Talk to the folks in IRC to ask them for help.
+Brendan -
+When a user answers incorrectly, enter loop to prompt to display answer or guess again.
+If user chooses to display the answer, remove a point from their score, display the correct answer, and exit the loop.
+If user chooses to guess again, clear the input field and make the question worth half the points. Only loop through this 2x so that the maximum number of guesses is 3.
+After exiting this loop, display the next flashcard.
+Dennis -
+Limit each flashcard to have only 1 question and 1 answer.
+James -
+Work on displaying the score. After seeing how the score changes, we will be able to fix it as necessary.
+5/15
+Have the game give the correct answer after the 3rd incorrect attempt or after guessing correctly. Allow questions/answers to be entered in the Create tab and allow the game to run properly in the View/Activity tab.
+Fix any problems that have come up during this time which we hadn't planned on before.
+Updates on our progress
+4/24
+We made progress on editing the main interface of the game by using a
+toolbar listener
+to change the interface based on which tab is active.
+Brendan wasn't able to meet with us this week to update us on setting up the development environment (Eclipse, Pydev, Git). Yesterday Brendan said that he has been working on this but hasn't used it with Assimilate yet. Dennis will check with him to see how it's going after today.
+Dennis contacted the developer of Assimilate, but hasn't heard back yet.
+James figured out that it is best not to edit the "Activities" tab. Instead we will use the "Flashcard" and "Help" tabs and change their names to "Play" and "Edit".
+Everyone decided who will work on exactly which parts of the project for the next few weeks.
+5/1
+Dennis contacted the original developer again since we are still awaiting a reply.
+Brendan was unable to get a development environment running in windows, but was able to use sugar on a stick (SoaS) to compile properly. See the
+Development Environment
+section of
+Links & Resources
+.
+After running the code from git on SoaS, it showed the splash screen, but never ran the program so we need to get the existing code working before we can even make the changes that we had planned to make this week. Dennis suggested trying to copy the code directly from the xo since we installed the working version from a .xo file.
+James wasn't able to meet with us today since he had an interview this week. I'm still waiting to hear back from him on his progress this week.
+Dennis updated the wiki.
+As soon as we get the original code running in our development environment, we will start making the changes which we prepared for this week so that we can catch up with our milestones.
+5/8
+SoaS did not end up working out. We were able to get Assimilate installed, but when we ran it from the circle of programs, it would just hang and then crash and go back to the main screen. We initially tried using code from git, but when that didn't work, we also tried extracting the code from the .xo file (which worked on the OLPC). However, this did not work either. Then we tried copying the code from the OLPC since we knew that worked and it still wouldn't load the program in SoaS. Of course, we also tried installing Assimilate from the .xo file (just as we did on the OLPC) and that didn't work either. Our conclusion is that Assimilate will not run on SoaS.
+We discovered that Synergy supposedly works on the OLPC. Dennis is trying to get it working at the moment. However, this only works if you have a wireless network since the OLPC doesn't have an ethernet port. See these
+two resources
+for info about synergy.
+Dennis heard from the developer of Assimilate and responded. See
+Contacts
+.
+At this point, our goals are not being met due to getting behind working on setting up a development environment other than the XO. James is currently working on his previous milestones using the XO to develop on. Dennis is working on getting Synergy to connect an XO to a regular laptop. Brendan is working on assembling a lesson plan to help teachers effectively utilize Assimilate.
+5/15
+We did not accomplish anywhere near what we had planned for and hopped to complete at this point. We have made small changes to the code which James is in the process of uploading back to git, but the game has not changed much at all.
+Development environment progress update
+Dennis was unable to get synergy to work properly with the OLPC and windows. I have used synergy on non-olpc computers and it works great. Perhaps if you try it with Linux or a Mac you might have success. This would have been the best development environment in my opinion, but I just couldn't get the two machines to connect.
+Dennis installed Sugar as a program in Ubuntu via the Synaptic Package Manager without problems. However, we still ran into the same issues we have had in the past. We couldn't get Assimilate to run whether we installed it from source or from the .xo file. This is confusing to us since we installed and ran Assimilate fine with the same .xo file on the OLPC. The closest we get is clicking on the icon on the circle of programs and seeing the splash screen. Then it dies and goes back to the circle of programs screen.
+Final tasks
+James is uploading the modified code back into git.
+Dennis is updating the wiki, creating a "how to play/use this game" document, and emailing the Math4 group to explain our situation and look for interested developers to continue this project.
+Brendan is writing our "Lesson Plan" document which Erik requested.

@@ -1,0 +1,49 @@
+Title: Sysadmin/Autocheckout repositories
+URL: https://wiki.sugarlabs.org/go/Sysadmin/Autocheckout_repositories
+--------------------------------------------------------------------------------
+Configuration for a number of services, including
+Service/Nameservers
+and
+Service/planet
+, is stored in git repositories intended to be edited concurrently by the sysadmins, using a local clone. On push, the commit hook performs an automatic checkout and reloads the configuration as needed. A notification email is sent to the other sysadmins.
+Usage
+You need ssh access to the remote server and an account with write access to the directory where the data is stored. This is generally accomplished by using groups. Please, do not work as root.
+On your computer, do:
+git clone <user>@<remote_host>:<repository_path>
+Then edit data as you would normally do. When you're done:
+git commit <changed_file1> <changed_file2>
+GIT repository implementation details
+We use a detached working directory to allow the automatic checkout to work (see post-receive hook below). The git repository is in
+/var/lib/bind/etc/bind.git
+and the working directory lives in
+/var/lib/bind/etc/bind
+.
+/etc/bind
+is a symlink to the working directory (
+/var/lib/bind/etc/bind
+).
+The git config file is as follows:
+[core]
+       repositoryformatversion = 0
+       filemode = true
+       bare = false
+       sharedRepository = true
+       logallrefupdates = true
+
+[receive]
+       denycurrentbranch = ignore
+
+[hooks]
+       mailinglist = systems-logs@...
+       emailprefix = "[DNS] "
+       showrev = "git show -C %s; echo"
+The "description" file contains the repository description that will be sent by email
+We use a post-receive hook to checkout changes to the work tree and signal daemons to reload the configuration
+#!/bin/bash -x
+#
+# note: this script runs with .git as cwd and GIT_DIR=.
+#
+hooks/post-receive-email
+cd ..
+unset GIT_DIR
+git checkout -f

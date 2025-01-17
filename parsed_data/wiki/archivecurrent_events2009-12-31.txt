@@ -1,0 +1,109 @@
+Title: Archive/Current Events/2009-12-31
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2009-12-31
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+From the community
+3
+Help Wanted
+4
+Tech Talk
+5
+Sugar Labs
+Sugar Digest
+1. Tomeu Vizoso
+blogged
+about his trip to Uruguay. He attended the
+First International Event on Experiences about the Ceibal Plan
+. As well he spent time at
+LATU
+(Laboratorio Tecnológico del Uruguay), the organization managing the technical aspects of the Sugar/OLPC deployment in Uruguay. While it was a great opportunity for Tomeu to see Sugar in action and meet local teachers and technologists, perhaps the most important aspect of the trip was that he had the opportunity to lead the .uy community closer to the mainline Sugar community.
+The concrete issue they found when developing on their own was that every time that their upstream (OLPC) produced a new image build, in order to benefit from the improvements in that release they had to apply the customizations made locally, solve any conflicts and retest everything. If they had contributed those modifications to Sugar, OLPC images would have come with them and no further work would be needed. Reaching the point in which they can directly use the OLPC images as-is is still a bit far away, but every bit that they integrate upstream is a step in the right direction and reduces their development and support costs. Also, when their employees work within the communities that maintain their software, they work directly with the most qualified engineers in those technologies, increasing local capacity.
+You can read first-hand reports from Uruguay
+here
+.
+2. John Markoff of the
+New York Times
+wrote about a new book by Jim Gray,
+A Deluge of Data Shapes a New Era in Computing
+. According to Markoff, Gray, who works for Microsoft, describes an "era in which an “exaflood” of observational data was threatening to overwhelm scientists. The only way to cope with it, he argued, was a new generation of scientific computing tools to manage, visualize and analyze the data flood." He argues for government support for "cheaper clusters of computers to manage and process all this[sic] data." The goal is "to have a world in which all of the science literature is online, all of the science data is online, and they interoperate with each other." Alas, there is no mention of Free Software in the article. It is not clear to me how a proprietary system would solve any of the problems Gray is describing. Sigh.
+3. I have been working through a number of logistical and administrative issues with the Software Freedom Conservancy with the goal of streamlining our interactions with them. (Like Sugar Labs, they are a volunteer organization—the extent to which we can smooth out any mismatches in expectation or practice will well serve both organizations. While we benefit from the numerous services provided by the conservancy, we are also under an obligation to abide by its mission--promoting FOSS projects--and work within its administrative structure. With input from Karen and Bradley, I've written up some
+administrative procedures for handling transactions
+regarding requests for payment, project proposal approvals, and license requests in the wiki. Feedback is most welcome.
+From the community
+4. Raúl Gutiérrez Segalés and the Sugar/OLPC team in Paraguay have developed an inventory and tracking system for helping to manage deployment logistics. There tool lets you:
+import list of children and their document IDs; and upload information about schools, teachers, geographic coordinates, etc.;
+keep track of laptops given to children;
+report tickets (screen broken, OS reinstall needed); do follow-ups; and close tickets;
+use an embedded Google-maps widget to track access points and servers and their availability;
+generate reports: laptops delivered; open tickets; network status; network availability over time; laptops spread among schools; etc.;
+report stolen laptops (so they won't get more leases);
+automatize generation of leases (based on the status of laptops: activated, stolen, etc.)
+The manual (in Spanish) is available
+here
+. An English-langauge manual is in the works.
+To install the package, you'll need to add their repository:
+Create the file
+/etc/yum.repos.d/pyeduca.repo
+with the following content:
+[pyeduca-base]
+name=Packages used by Paraguay Educa
+baseurl=
+http://repo.paraguayeduca.org/yum/base
+enabled=1
+gpgcheck=0
+Then:
+yum install inventario
+5. Jim Simmons is writing a FLOSSmanual guide to writing Sugar Activities for beginners (See
+[1]
+).
+Help Wanted
+6. Tomeu has created
+a new page in the wiki
+for describing "vacancies" in our community.
+Tech Talk
+7. Chris Ball announce Build OS64 as the "final" release build for new XO-1.5 laptops. This is a Fedora-11-based system with Suagr 0.84 as well as a GNOME desktop. Release notes are available
+here
+.
+8. Bryan Berry announced the release of Karma Version 0.2 (See
+http://karma.sugarlabs.org
+). "The Karma Project aims to create high-quality open-source educational software using openweb technologies for the Sugar desktop educational environment. karma.js is a Javascript library for manipulating HTML 5 and SVG in any context." Please note that you will need Firefox 3.5 or Google Chrome/Chromium to run the demos. The Karma-2.xo bundle is available at
+karma-2.xo
+. There is a Karma tutorial series as well (See
+[2]
+,
+[3]
+,
+[4]
+,
+[5]
+).
+9. Sayamindu Dasgupta has built
+a fork of Turtle Art
+that support the
+Arduino
+. The Arduino is "an open-source electronics prototyping platform... intended for artists, designers, hobbyists, and anyone interested in creating interactive objects or environments." Instructions can be found
+here
+. Note that there is also support for the Arduino for Etoys (See
+http://tecnodacta.com.ar/gira/
+).
+10. Michael Stone announced the release of rainbow-0.8.6. (Rainbow implements portions of the isolation shell described in the [wiki.laptop.org/go/Bitfrost  Bitfrost] threat model and security architecture.) There are a number of new features in this release, including "support for garbage collection of uids, ui sugar for resuming uids, bug fixes to the resume logic, and a simplified singly-linked list library." Please help with testing:
+git:
+git://dev.laptop.org/users/mstone/security
+tar:
+http://dev.laptop.org/~mstone/releases/SOURCES/rainbow-0.8.6.tar.bz2
+browse:
+http://dev.laptop.org/git/users/mstone/security/tree/?id=rainbow-0.8.6
+setup:
+http://wiki.laptop.org/go/Rainbow/Installation_Instructions
+tests:
+http://wiki.laptop.org/go/Rainbow/Testing
+11. Simon Schampijer announced the first tarballs for Sugar 0.88. Some of the new
+features
+are ready for testing. (Simon will be working with Sebastian Sdziallas to make a Sugar-on-a-Stick spin for facilitating testing.)
+Sugar Labs
+12. Gary Martin has generated a SOM from the past week of discussion on the IAEP mailing list (Please see
+SOM
+).

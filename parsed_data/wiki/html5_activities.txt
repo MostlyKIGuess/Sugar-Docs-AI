@@ -1,0 +1,101 @@
+Title: HTML5 activities
+URL: https://wiki.sugarlabs.org/go/HTML5_activities
+--------------------------------------------------------------------------------
+Contents
+1
+Principles
+2
+History
+3
+Current works
+4
+TODO List
+5
+GSoC Timeline progress
+Principles
+The objective of this work is to allow developers to write activities for Sugar using only HTML5 and JavaScript (no need to write Python code). HTML5 activities could be hosted on Sugar side-by-side with "standard" Python activities. Specifically HTML5 will be displayed on the Sugar Home view like any other activities.  HTML5 activities could benefit from common Sugar features (Sugar UI, Datastore/journal, telepathy, ...) like any other activities. Finally there should be no visual difference from the user perspective between a Python activity and a HTML5 activity.
+HTML5 activities could be named "Sugar Web Activity".
+HTML5 activities will be run via a WebKit instance. A JavaScript framework will expose Sugar Features to HTML5 activities. Specifically, this framework will allow to use HTML controls matching the Sugar widgets look&feel and will expose common and customized activity toolbars. The framework will also expose API for handling Telepathy (communication and collaboration between multiple Sugar machine) and Datastore (Sugar Journal reading and writing).
+The following schema sum up HTML5 activities functional architecture.
+Because it will force independence from Gtk/Python, HTML5 activities is a first step toward Sugar on Android.
+History
+The very first Web Activity is
+Wikipedia
+. Wikipedia is a Python activity embedding a WebView to display HTML Wikipedia pages. Searching and browsing is available from a standard Python toolbar. Clicking on a toolbar button change the current HTML viewed page or launch an history command (previous/next). To communicate from HTML to Python, Wikipedia embed an
+HTTP Server
+. When a hyperlink is clicked in the HTML page it call the HTTP server then run Python code.
+Foodchain
+is another attempt to write HTML5 activities. In FoodChain there is no embedded HTTP Server. Communication from Python to JavaScript use the WebKit "
+execute_script
+" command. Communication from JavaScript to Python use the WebKit "
+console.log
+" function with a hack on the WebKit "console-message". In both way of communication, all data exchange between Python and JavaScript are converted in JSON.
+Two others activities use the same framework:
+Grid paint
+and
+Abecedarium
+. The framework is described
+here
+.
+Current works
+HTML5 activities has been choose
+[1]
+as a feature for Sugar 0.100.
+HTML5 activities will be build on WebKit2 but if time permits we will implement compatibility with previous releases running WebKit1.
+HTML5 activities is accepted a project for
+Summer of Code/2013
+.
+A technical architecture is described
+here
+.
+The procedure to create a web activity using from a common template is described
+here
+.
+Some interesting discussion around this subject in the community:
+Sugar Web Architecture
+[2]
+Sugar Web UI
+[3]
+Localization
+[4]
+Renaming HTML --> Web
+[5]
+Running HTML5 activity on other platforms
+[6]
+How to deploy framework in the activity
+[7]
+Datastore API
+[8]
+[9]
+Unit Testing
+[10]
+Webkit1/Webkit2 compatibility
+[11]
+TODO List
+See TODO list of the project on
+[12]
+.
+GSoC Timeline progress
+Week 1: Working sugar-build environment, create a new activity
+[13]
+Week 2: Develop the RadioButton and CheckBox in Sugar HTML UI, sample here:
+[14]
+, start a new Sugar HTML API
+Week 3: Start developing the Sugar Activity Palette
+Week 4: Working on DataStore handling to Activity Palette, solved issue on new Sugar HTML API
+Week 5: Publish a first
+blog post
+on its work, try to fix an issue regarding popup on home view
+Week 6: First mock-up and specification of the Markdown activity a Markdown format editor
+Week 7: First version of Markdown activity
+[15]
+Week 8-9-10: Object Chooser integration in the Markdown activity
+Week 11: Publish a first version of Markdown activity in
+Sugar App Store
+. Work on an issue in the DataStore JavaScript API
+Week 12: Solve issue in the DataStore JavaScript API, work on a new blog post
+Week 13: Write a new version of Markdown activity, work on setting of preview metadata in webactivity
+Week 14: Publish the new version of
+Markdown activity
+, Final
+blog post

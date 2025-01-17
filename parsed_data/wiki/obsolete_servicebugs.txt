@@ -1,0 +1,54 @@
+Title: Obsolete Service/bugs
+URL: https://wiki.sugarlabs.org/go/Service/bugs
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+Hostnames
+3
+Hosted on
+4
+Administrative contact
+5
+Sysadmins
+6
+Notes
+6.1
+Cleaning user database
+7
+Upgrade notes
+8
+See Also
+Description
+A
+Trac
+instance for keeping track of bugs in upstream Sugar components, some activities and Rainbow.
+Hostnames
+http://bugs.sugarlabs.org/
+http://bugs-testing.sugarlabs.org/
+http://bugs-devel.sugarlabs.org/
+Hosted on
+Production site runs dockerized on
+Machine/freedom
+.  Data stored in the /srv/socialhelp partition
+(Old) testing and devel sites run on
+Machine/sunjammer
+Administrative contact
+systems AT lists DOT sugarlabs DOT org
+Sysadmins
+For non-emergency calls, preferably send email to the administrative contact.
+Sam P
+(email: @sam.today)
+Notes
+Cleaning user database
+To remove inactive accounts (i.e. ones that have never been confirmed or marked as spammers):
+sqlite3 /srv/socialhelp/tracproject/db/trac.db
+DELETE FROM session WHERE length(sid) != 24 AND NOT EXISTS (SELECT * FROM permission WHERE username = sid);
+Upgrade notes
+Edit the Dockerfile (stored in /home/sam/trac or from the
+github repository
+) to include the latest version of Trac (eg. change the version numbers)
+container.yml start /home/sam/trac -d
+See Also
+https://github.com/sugarlabs-infra/trac-docker

@@ -1,0 +1,27 @@
+Title: Service/backup
+URL: https://wiki.sugarlabs.org/go/Service/backup
+--------------------------------------------------------------------------------
+Locations
+/backup on
+Machine/papert
+: daily filesystem backups for
+Machine/bender
+and
+Machine/sunjammer
+/backup on
+Machine/bender
+: daily filesystem backups for all VMs hosted on
+Machine/papert
+Administrative contact
+Bernie Innocenti
+wizbackup
+Source code
+README
+This is the main backup script for all
+Sugar Labs Machines
+. It's a minimalist script based on rsync and keeps a history of N days using hard-links. While it's very very simple, wizbackup gets the job done and has the added benefit of not requiring any tools to read or restore a backup. The advantage over similar backup solution is that backups are just plain filesystem snapshots of the source machines; the main disadvantage is poor performance with large files which change often, such as logs or databases (my solution is to exclude these and backup the data using ad-hoc methods, such as SQL dumps).
+The `wizbackup-driver` script runs daily on the backup servers from `/etc/cron.daily/wizbackup`.
+It reads a list of hostnames to backup from `/backup/HOSTS/<machine-group-name>` and an optional list of files exclusions from `/backup/EXCLUDES`, in the same format taken by the `--exclude` flag of rsync.
+For each machine in the list, `wizbackup-driver` invokes `wizbackup` with this command-line:
+wizbackup <hostname>:/ <local-backup-dir> --exclude-file /backup/EXCLUDE/ALWAYS --exclude-file /backup/EXCLUDE/<hostname>
+Wizbackup uses rsync and ssh to connect to the remote machine. Hence, the backup server must be authorized to connect as root to all backup hosts (e.g.: by storing the identity in `/root/.ssh/authorized_keys`). Wizbackup reads the ssh private key from `/etc/wizbackup/ssh_id`).

@@ -1,0 +1,229 @@
+Title: Features/Policy
+URL: https://wiki.sugarlabs.org/go/Features/Policy
+--------------------------------------------------------------------------------
+Contents
+1
+Why does this process matter or why should I care?
+1.1
+Who is responsible for this process?
+1.1.1
+Roles
+2
+What is a feature?
+3
+Starting the process
+3.1
+Propose a feature
+3.2
+Propose a feature for addition into the release cycle
+3.3
+Acceptance of a feature
+3.4
+Things you should consider when proposing a feature
+4
+During the process
+4.1
+What do the feature owner need to do over the course of the release cycle?
+4.2
+Important dates
+4.3
+What is the process for dropping a feature?
+Why does this process matter or why should I care?
+The main goal of the feature policy is to make systematic and predictable the process by which community ideas on how Sugar should evolve get transformed into actionable proposals. These ideas (new features) can be requests from the field or individual propositions on how to enhance the Sugar learning platform.
+Furthermore this process describes the steps a Feature owner needs to fulfill to propose the Feature to be part of a Sucrose release cycle and to include it in a Sucrose release.
+We are currently in discussing on how this process can be used by activities, too. As Activities are not part of Sucrose (the Sugar platform), they do not need to follow the release cycle. Stay tuned on updates to the Feature process regarding activities.
+Note:
+For more background on FOSS project development, please refer to Karl Fogel's
+Producing Open Source Software
+Who is responsible for this process?
+The person responsible for managing the Feature Process is our community-designated Release Manager.
+Roles
+In addition to the Release Manager, there are five other distinct roles in the new-feature process: the proposer of the idea; the developer of the idea; the maintainer of the relevant module, the design team and the Sugar community.
+the proposer (or "owner") of the idea is the one that proposes the feature and completes the new feature proposal as described below. The owner may want to follow the development and provide feedback throughout the process;
+the developer of the idea is the one that implements the idea and follows the process to inclusion in a release;
+the maintainer of the module is the one that reviews any code that needs to be merged for a feature;
+the design team is responsible for ensuring the overall consistency and quality of the Sugar experience; They will provide feedback during the process; and
+the community provides feedback throughout the process, but especially at the stage where by we decide which new-feature proposals to pursue.
+As noted above, the Release Manager is the one that sets and enforce the policy for features, including setting dates, formalizing processes, etc.
+What is a feature?
+A feature is defined as a significant change or enhancement to the version of Sugar currently under development that may or may not include new packages. Bugs are not features. We use the bug tracker to report and monitor bugs.
+Sugar features are usually considered to meet one or more of the following objectives:
+Highly user-visible changes (beyond artwork or bug fixes)
+Improvements or changes that require non-trivial cross-package integration
+Exciting new capabilities we can trumpet Sugar having—some of this is good public relations. Some examples might include:
+Adding of new functionality to the Sugar platform, for example: version support in the datastore; file-sharing; etc.
+Work Sugar contributors are doing upstream as part of their work for Sugar
+New features from upstream that we are making available in Sugar for the first time
+Significant enough that if not completed properly or without a proper backup plan could delay the release
+Noteworthy enough to call out in the release notes
+Similarly, Activity features meet a similar set of criteria:
+Highly user-visible changes (beyond artwork or theme changes)
+Improvements or changes that require non-trivial cross-package integration
+Exciting new capabilities:
+Adding of new functionality, for example: support for a new ebook format
+Adding a new activity area, for example: a multimedia editor
+Better leverage of the Sugar platform, for example: Journal integration for Scratch
+Noteworthy enough to call out in the release notes
+It's sometimes easy to mistake new packages, or enhancements, for features. Features have a very specific definition, but here are some questions to ask yourself before engaging the feature process.
+Is this change very visible to end users?
+In this case "end user" means "someone in the audience for this change", which could be Sugar users, developers, or system administrators.
+Does this change require intervention?
+This might be a configuration-file format change, or something else that will perturb unsuspecting end users.
+A change that requires a very simple intervention to revert behavior is not necessarily a feature.
+Is this something that will interest the lay press?
+The lay press in this case includes Education-oriented sites.
+Starting the process
+Before starting the process you should have read the feature definition from above and made sure the idea you want to propose does fit into one of the categories. Subsequently, there are three steps needed to go from your original idea to a feature present in a stable release of Sugar:
+Propose a feature to the community;
+Find/name an owner and propose the feature for addition into the release cycle or activity development cycle; and, in the case of platform features,
+Finish the feature by the
+Feature Freeze
+such that it is included in the release.
+Propose a feature
+Community members are encouraged to create new pages for features that enhance or improve Sugar. Anyone can propose new features for Sugar, even if you cannot build it yourself. Of course, every feature needs an owner to work on it during the release cycle. If the community agrees on the need for the feature, we will try to find resources to work on it. For proposing a feature you need to:
+Copy the markup from the
+Features/Feature Template
+Click here to load it
+Select all the markup and copy
+Add a new wiki subpage named
+Features
+/
+Your feature name
+and paste the template markup into it.
+Add details for each of the sections required in the
+Template
+.
+The template adds
+[[Category:Feature Page Incomplete]]
+to the wiki page. This means that it is not part of the release cycle. See below on how to request inclusion.
+Put a watch on your page by clicking the watch link so you can see changes other people make to your page.
+Note:
+You must be logged in to do this.
+Note:
+Feature pages do not have to be complete as they are useful for brainstorming and for describing work in process.
+If you cannot work on the feature yourself and are looking for other people that might be interested, you should mail the sugar-devel mailing list and discuss it there. The feature page described above should be filled out as completely as possible though to have a base for subsequent discussion.
+Propose a feature for addition into the release cycle
+The final goal is to have a feature present in a stable release. There are three major steps needed on which the Release Manager bases his decision to accept a feature or not:
+Owner: The Feature must have a clear owner (The proposer of the feature and the owner can be the same person).
+Community consensus: There should be more YES than NO in the community for this Feature.
+Send an email to sugar-devel mailing list with [FEATURE] tag in the subject asking for feedback. This is to give the community (deployments, developers, teachers etc) the chance to comment.
+If your feature adds UI or changes the current UI please add as well the [DESIGN] tag to the subject. Please add the flag as well if the work flow does change or new ones are added. The Design Team should be involved in the discussion to guarantee a consistent design and a consistent work flow in Sugar. When presenting the feature to the release manager the design does not have to be fully completed but the discussion should have been started.
+Documentation: In order to be considered an official feature accepted for the next Sugar release, the feature should be formally documented on a separate wiki page. The wiki page is the same page than the one from above (a blank template is available at
+Features/Feature Template
+). Please make sure it includes the following information.
+Summary of the feature
+A designated owner with a link to Sugar home page. The owner is responsible for:
+making sure the feature is completed according to the schedule
+communicating periodic status
+attending feature status meetings
+Current status
+last updated
+estimated percentage of completion
+Description of the new feature
+Detailed explanation of what the new feature will do and how it will be implemented
+Benefit to Sugar
+Scope
+How To Test
+Dependencies--on other packages or features
+Contingency plan
+Link to documentation
+Important information for release notes
+Put a
+watch
+on your page so you are notified when its category changes.  You must be logged in, then click the
+watch
+link at the top of the page.
+Once the feature owner believes that the feature is ready for presentation to the Release Manager for
+acceptance
+move your feature from
+Category:Feature Page Incomplete
+to
+Category:Feature Ready for Release Manager
+. The Release Manager will then do the sanity check.
+Acceptance of a feature
+Acceptance by the Release Manger is a sanity check, presumed in most cases to be a formality, to ensure that new features compliment Sugar guidelines and is manageable, prior to publicizing as officially targeted for the next release.
+Feature acceptance is agreement by the Release Manager that a particular feature is:
+consistent with the goals and policies of Sugar
+supported by the Sugar community
+suitable for listing as an Official Feature of the next release of Sugar
+important to track prior to feature freeze and could affect timeliness of the release
+The Release Manager does not comment on the actual code. Merging of the Feature code is in agreement with the module maintainer following the Sugar
+coding guidelines
+and the
+review process
+. The feature itself must not be completed to be accepted by the Release Manager.
+If the Feature is accepted the Release Manager moves the Feature to Feature Accepted <version>, such as,
+Category:Feature Accepted 0.114
+. If the feature is denied the Release Manager moves the Feature to
+Category:Feature Page Incomplete
+for rework or future resubmission.
+Things you should consider when proposing a feature
+How does it impact learning?
+What is the benefit to a learner?
+How usable and useful is this feature to a young learners?
+The majority of our users are
+12 years old or under
+, and have little computing experience. When proposing a new feature you should have your audience in mind.
+How well does this fit into a classroom environment?
+Of course, Sugar is also designed for use outside of the classroom, but those features that can really enhance the classroom experience are key to increasing the adoption of Sugar.
+Don't forget the current user base.
+Keep in mind that Sugar has already a large user base (1.000.000 learners). There shouldn't be additions or rewrites for the sake of it. This does not mean that the platform stands still and we only do stabilizing work. Good practice is for example to backup your proposal by requests from the field, if possible.
+Does it scale in deployments?
+Anything that involves a setup process of a person touching each computer is not suitable for deployments.
+Are there technical aspects which might make your feature workable with a set of 10 computers, but useless with a set of 100? 1000? 10000?
+Does it present technicalities to the deployer?
+If so, you may be excluding them from using this feature. Unfortunately, many deployments are limited in terms of their technical capabilities, especially when dealing with Linux/open source technologies.
+If you
+can
+document a technical process in simple terms on a short wiki page, then it may be a realistic task for deployment teams to undertake. But keep in mind that the reader likely does not understand exactly what they are doing, so it needs to be a copy-paste type process.
+Does it rely on (or use) infrastructure or star-style connectivity?
+If your feature relies or uses networking to talk to some kind of centralized server, then it's probably going to get overloaded after your feature gains adoption in our large user base.
+Deployers are likely to disable this part of your feature due to the painfully high latencies and costs of internet connections throughout the developing world.
+If networking is a core part of your feature then make sure it is replicable, e.g. on the OLPC XS school server. Make sure that this process is fully documented with support channels available. For reasons of cost, latency or simply lack of connectivity, many deployments will replicate the global infrastructure you have set up and use your feature exclusively on a LAN level. If this is too difficult then they simply will not use your feature.
+What does it require?
+The majority of our users use low-specification computers, so keeping things small and fast will greatly increase the size of your userbase, the support from fellow Sugar developers, and the eventual success of your work.
+During the process
+What do the feature owner need to do over the course of the release cycle?
+The feature is included in the release cycle and follows the
+Release schedule
+.
+Complete the feature: The feature must be feature complete by the
+Feature Freeze
+.
+Inclusion: The owner of the feature is responsible that the Feature is present at latest in the release at Feature Freeze. The developer will work with the module maintainer (e.g. Tomeu for Sugar), who is ultimately responsible to review and merge the new feature. Please follow the
+development team guidelines
+to make this happen.
+Feature pages: The feature page should be updated to reflect the current status of the feature. At
+Feature Freeze
+: The "How To Test" and "User Experience" section must be completed so that testing of that feature can begin. The section 'Release Notes' must be completed when the writing of the release notes begins.
+Important dates
+New features may be proposed (using the guidelines above) and accepted no later than the
+Feature Acceptance
+milestone. Of course you can still propose a feature for an upcoming release.
+New features must be feature complete or close enough to completion by
+Feature Freeze
+that a majority of its functionality can be suitably tested--the "feature is testable".
+All feature must be present in the release after Feature Freeze.
+After the release at
+Feature Freeze
+all features will be evaluated based on test results to date.
+Possible reversion of a feature is latest at the
+UI Freeze
+release.
+The Release Manager will send individual reminders and announcements to sugar-devel list as necessary
+A summary status for all the features targeted to a particular release will be collected on the
+0.114/Feature List
+page which references and briefly explains the feature. The Release Manager will maintain this page.
+Reminders to developers about upcoming feature deadlines will be sent to sugar-devel.
+Nag mail to developers with delinquent feature page updates will be emailed privately and shamed in a nice way on sugar-devel.
+What is the process for dropping a feature?
+A feature will be proposed for a vote to be dropped from the
+Accepted Feature
+list by the Release Manager if one of the following occurs:
+Feature is incomplete or not testable at
+Feature Freeze
+.
+Feature owner fails to consistently provide status.
+Partially completed features can still be listed as
+accepted
+for the upcoming release if the wiki page describing the feature is tailored to reflect the completed work. Dropped features can be proposed again for inclusion in the next release.

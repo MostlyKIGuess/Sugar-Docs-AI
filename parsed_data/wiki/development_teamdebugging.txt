@@ -1,0 +1,40 @@
+Title: Development Team/Debugging
+URL: https://wiki.sugarlabs.org/go/Development_Team/Debugging
+--------------------------------------------------------------------------------
+Contents
+1
+Using print
+2
+Using logger
+3
+Using pdb
+4
+Using epdb
+5
+References
+Using print
+Add print statements at chosen points, while watching standard output by running the activity from within Terminal;
+sugar-activity .
+Using logger
+Add calls to logger.error at chosen points, while watching output as above, or the Sugar logs.
+Using pdb
+In Terminal, change to the activity directory, and then run the activity under control of the debugger;
+python -m pdb /usr/bin/sugar-activity .
+At the (pdb) prompt, step from sugar-activity into the activity proper.
+Using epdb
+Install epdb on Fedora
+dnf install python-epdb
+Install epdb on Debian or Ubuntu
+apt install python-pip
+pip install epdb
+Add epdb to your activity at the point you wish to begin debugging
+def __init__(self):
+   import epdb
+   epdb.set_trace()
+Run your activity and interact with the debugger
+sugar-activity .
+At the (Epdb) prompt, step through your program.
+References
+https://docs.python.org/2/library/pdb.html
+https://github.com/sassoftware/epdb
+https://pypi.python.org/pypi/epdb

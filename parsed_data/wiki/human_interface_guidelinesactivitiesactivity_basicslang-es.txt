@@ -1,0 +1,153 @@
+Title: Human Interface Guidelines/Activities/Activity Basics/lang-es
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/Activities/Activity_Basics/lang-es#Resuming_Activities
+--------------------------------------------------------------------------------
+Traducción de
+HIG-Activity Basics
+original
+english
+|
+español
+|
+한국어
++/-
+cambios
+←
+Introducción
+Bases de las Actividades
+Paquetes de Actividad
+→
+Contents
+1
+Bases de las Actividades
+2
+Comenzando Actividades
+2.1
+Actividades Privadas
+2.2
+Actividades Compartidas
+3
+Uniéndose a Actividades
+4
+Compartiendo Actividades
+5
+Cambiando entre Actividades
+6
+Terminando Actividades
+7
+Retomando Actividades
+8
+Robustez de las Actividades
+9
+Invitaciones
+9.1
+Invitaciones Explícitas
+9.2
+Invitaciones Implícitas
+9.3
+Recibiendo Invitaciones
+10
+Notificaciones
+10.1
+Notificaciones Pegotas
+10.2
+Notificaciones Pasajeras
+Bases de las Actividades
+Comenzando Actividades
+Las actividades figuran en la sección de Acciones del marco; comenzar una actividad se reduce a crear una instancia activa de ella, representada en el anillo de actividades. Ellas pueden ser comenzadas con un simple clic. Una actividad también puede ser directamente manipulada; arrastrando una actividad al anillo también resulta en una instancia activa de la misma.
+Activities appear in the Actions section of the frame; starting an activity amounts to creating an active instance of it, represented in the activity ring. They can be started with a single click. An activity may also be directly manipulated; dragging an activity into the ring will also create a new active instance of it.
+Pautas visuales sirven para diferenciar entre las instancias de una actividad y el
+ícono de la actividad
+en el marco. Específicamente, una actividad instalada en el sistema y que figura en el borde de Acción es dibujada con un bordeado blanco, sin rellenar. Una vez creada el ícono se rellena; tanto las
+líneas y rellenos
+coinciden con los colores XO del chico que la creó.
+Visual cues differentiate between instances of an activity and the
+activity icon
+in the frame. Specifically, any activity installed on the system and appearing in the Actions edge is drawn as a white outline stroke, with no fill. Upon instantiation the icon receives a fill; both
+stroke and fill colors
+match the XO colors of the child who created it.
+Actividades Privadas
+Las actividades creadas heredan el alcance de la vista donde fueron creadas. Esto quiere decir que cualquier actividad comenzada en el Hogar comienza como privada. Los chicos pueden más tarde
+compartir
+actividades privadas, abriéndolas a sus amigos, compañeros, grupo, o cualquiera en la malla por medio
+invitaciones explícitas
+.
+Newly created activity instances inherit the scope of the view in which they are created. This means that any activity started from the Home view begins as a private one by default. Children may later
+share
+private activities, opening them up to friends, classmates, group members, or anyone on the mesh through an
+explicit invitation
+.
+Actividades Compartidas
+Dado que las actividades creadas heredan el alcance de la vista, cualquier actividad comenzada en la vista de Grupo de Amigos estará abierta a que sus amigos participen. Esto se aplica a cualquier otro grupo al cual el chico pertenezca también. Las
+invitaciones implícitas
+son enviadas a todos los miembros del Grupo actualmente seleccionado, alertándolos de la nueva actividad. De modo similar, cualquier actividad iniciada en la vista de Malla (no filtrada) estará abierta a todos, aunque las invitaciones no sean enviadas.
+Since newly created activities inherit the scope of the view, any activity started directly from the Friends Group view will be open for her friends to participate in. This applies to any group the child belongs to as well.
+Implicit invitations
+are sent to all of the members of currently selected Group, alerting them of the activity. Likewise, any activity started from the (unfiltered) Mesh view will be open to everyone on the mesh, although invitations are not sent.
+Las vistas proveen un alcance para la creación de actividades. Para un mayor control, la búsqueda (localizada en el Marco) provee un forma incremental de filtrado que permite seleccionar un alcance arbitrario. A medida que una búsqueda es ingresada en el campo, la vista—Amigos o Malla—se actualiza dinámicamente para mostrar su resultado. La selección permanece en color, mientras que los filtrados tendrán sus bordes en blanco. Los términos del filtro usan parámetros tales como los nombres de las actividades, los tipos de actividades, los nombres de los individuos, y los intereses de los individuos. Por ejemplo, un chico puede buscar a cualquiera que le gusten los juegos antes de comenzar un nuevo juego de Memoria, o a todos en el mismo grado en el contexto de un aula, o un grupo especifico de individuos por nombre. Los resultados de la búsqueda se convierten en el alcance para cualquier nueva instancia de una actividad, y todas las XOs dentro de dicho alcance reciben invitaciones implícitas cuando comienza la actividad. Estos agrupamientos pueden ser guardados como grupos para un uso futuro.
+The views provide scope for instantiating activities. For finer granularity, the search (located in the Frame) provides an incremental filtering system that enables arbitrary selection of scope. As a query is entered into the search field, the view—Friends or Mesh—dynamically updates to reveal the matching selection. Matches remain in color, while those filtered out appear with a white outline. The filter terms apply parameters such as the names of activities, the types of activities, the names of individuals, and the interests of individuals.  For instance, a child could search for anyone who likes games before starting a new game of Memory, or everyone in the same grade in a classroom setting, or a specific group of individuals by name. The results of the query become the scope for any new activity instance, and all XOs within that scope receive implicit invitations when an activity begins. These groupings may be saved as groups for future use.
+Una vez que una actividad compartida comienza, el chico que la inicio es llevado a la vista de la Actividad. Los otros que reciban invitaciones no se unirán hasta no aceptar la invitación; iconos XO con borde blanco aparecerán en la sección de Personas del marco para indicar su potencial arribo posterior. Si aceptan la invitación, sus XO se colorearan con sus colores; y se la rechazan, el icono desaparecerá.
+Once a shared activity begins, the child who initiated the activity is taken into Activity view. Others who received invitations won't join the activity until they accept the invitation; white outline placeholders for their XO icons appear in the People section of the frame to indicate their potential arrival. If they accept an invitation, their XO fills with their colors; if they decline the outline disappears.
+Uniéndose a Actividades
+Los chicos se encontraran frecuentemente uniéndose a actividades comenzadas por otros. Las actividades pueden ser buscadas; ya sea por nombre de la actividad, el tipo de actividad, intereses de los individuos, y los nombres de los individuos. Por ejemplo, uno podría buscar todas las actividades relacionadas con la música, o todas las actividades que tiene participantes a quienes les guste acampar, o todas las actividades de chat activas, o un grupo específico de personas por nombre. Una vez que la actividad apropiada es localizada, un simple clic en el icono de la actividad la activara.
+Children will often find themselves joining activities already started by others. Activities can be discovered through search; searches may specify an activity name, an activity type, interests of individuals, and names of individuals. For instance, one could search for all activities that relate to music, or all activities that have participants who like camping, or all the active chat activities, or a few specific people by name. Once an appropriate activity is found, a single click on the activity icon will engage it.
+Compartiendo Actividades
+Las actividades pueden comenzar como privadas, o restringidas a un pequeño grupo de individuos. Puede haber ocasiones para abrir una actividad a un grupo mas grande. Por ejemplo, una clase se puede dividir en grupos para trabajar sobre un proyecto dentro de actividades grupales privadas. Al final de la sesión, todos los grupos pueden querer abrir sus actividades al resto de la clase para discusiones y criticas. Por medio de la selección en la marquesina contextual de la actividad, uno puede fijar el nuevo alcance para unirse a la actividad entre Privado, Malla, o cualquiera de los Grupos específicos a los que se pertenezca, incluyendo su clase, sus amigos, y potencialmente otros.
+Activities may begin as private, or restricted to a small group of individuals. There may be occasion to open up activities to a broader scope. For instance, a class may break into groups to work on a project within private group activities. At the end of the session, all groups may wish to open up their activities to the rest of the class for discussion and critique. Through selection in the activities contextual rollover, one may set the scope of children who may join an activity to one of Private, Mesh, or any specific Group to which she belongs, including her class, her friends, and potentially others.
+Un chico puede de igual modo bloquear actividades, angostando el alcance de la actividad. Los participantes deben retirarse por iniciativa propia o bajo pedido de los otros participantes de la actividad antes de poder bloquearla.
+A child may lock activities in a similar manner, tightening an activity's scope. Participants must leave on their own volition or at the request of others within the activity before locking it.
+Cambiando entre Actividades
+El anillo de actividades indica las actividades actualmente abiertas en la laptop. A partir de la vista del Hogar, un simple clic en cualquiera de las actividades del anillo la seleccionara como la actividad activa, cambiando automáticamente a la vista de Actividad. Los atajos de teclado permiten una transición rápida entre las actividades abiertas.
+The activity ring indicates the activities currently running on the laptop. From the Home view, a single click on any activity in the ring will select it as the active activity, automatically transitioning back to its Activity view. Keyboard shortcuts enable quick transitions among open activities.
+Terminando Actividades
+Una actividad termina tan fácil como comenzarla. Para completar la metáfora, el arrastrar una metáfora fuera del anillo la termina. Nótese que terminar una actividad compartida—aun una que
+Ud.
+comenzó—no necesariamente la "cierra". La instancia de una actividad permanece activa en la malla siempre que existan uno o más individuos como participantes.
+Ending an activity happens as easily as starting one. To complete the metaphor, dragging an activity out of the ring will end it.  Selecting the End action in the activities contextual rollover will do likewise. Note that ending a shared activity—even one
+you
+started—does not necessarily "close" it. An activity instance remains active on the mesh as long as one or more individuals remain as participants.
+Retomando Actividades
+En vez de una operación de "Abrir", uno puede simplemente retomar una actividad. Si un dibujo se encuentra en el Diario, el retomarla automáticamente comenzara la actividad de Dibujo, permitiendo las modificaciones sobre el dibujo. Dado el énfasis sobre las actividades colaborativas, el retomarlas ha sido particularmente considerado. La
+huella digital de una actividad
+(
+activity fingerprint
+) identifica de modo único una instancia en la malla. Retomar una actividad implica invitar a todos aquellos que en uno u otro punto hayan participado en su creación y que se encuentren en el alcance actual. Adicionalmente, pueden ocurrir casos en los cuales la actividad retomada ya se encuentra activa en la malla. En dichos casos, el chico se unirá de forma automática a la instancia activa.
+In lieu of an "Open" command, one may simply resume an activity.  If a drawing resides in the Journal, then resuming it will automatically restart the Draw activity, allowing modifications to that drawing.  Due to the emphasis on collaborative activities, special consideration has to be given when resuming them;  An activity fingerprint identifies a particular instance on the mesh.  Resuming an activity implicitly invites all others who at one point participated in its creation that also remain within its currently specified scope.  Additionally, cases may arise when an activity being resumed is already active on the mesh.  In such cases, the child will automatically join the already active instance.
+Robustez de las Actividades
+Todas las actividades diseñadas para la laptop deben hacer hincapié en su robustez. Dos consideraciones esenciales para la robustez son las entradas y la red.
+All activities designed for the laptop should place a strong emphasis on robustness.  Two essential robustness considerations are input and network.
+Invitaciones
+Las invitaciones conforman una funcionalidad esencial a un ambiente computacional que enfatiza el aprendizaje y creación colaborativa. Por esta razón, dos formas de invitaciones están presentes en el SO: explícitas e implícitas.
+Invitations perform an essential functionality in a computing environment that so strongly emphasizes collaborative learning and creation.  For this reason, two forms of invitations are present in the OS: explicit and implicit.
+Invitaciones Explícitas
+Las invitaciones explícitas son usadas para invitar individuos específicos a una actividad previamente activa. La habilidad de enviar invitaciones explícitas a otros sirve particularmente dentro de actividades privadas, ya sea en un grupo privado o en solitario. En estos casos, una invitación explícita puede extender un grupo al incluir uno o más individuos específicos, sin necesitar abrir la actividad a un alcance más amplio.
+Explicit invitations are used to invite specific individuals into already active activities.  The ability to send explicit invitations to others serves particular use when in a private activity, be it a private group or a solitary one.  In these cases, an explicit invitation can extend the group by including one or more specific individuals, without opening up the activity to a broader scope.
+Un chico puede iniciar una invitación explícita ya sea dentro de la actividad misma o identificando a un individuo o grupo ya sea en las vistas de Grupo o Vecindario.
+A child may initiate an explicit invitation either from within the activity itself or by identifying an individual or group in either the Groups or Neighborhood views.
+Invitaciones Implícitas
+Las invitaciones implícitas no requieren de ninguna acción específica por parte del chico. Estas invitaciones son dirigidas a los individuos apropiados siempre que las acciones así lo sugieran, como es el caso de comenzar una actividad en la vista de Grupos o Vecindario. Todos los individuos dentro del alcance de la actividad recibirán las invitaciones implícitas para unirse. Cuando una actividad es retomada, aquellos que participaron previamente recibirán una invitación.
+Implicit invitations do not require specific action on the part of the child. These invitations go to the appropriate individuals whenever actions suggest it, such as when starting an activity from the Groups or Neighborhood views. All individuals within the activity's scope receive implicit invitations to join. When an activity is resumed, those who participated previously receive an invitation.
+Recibiendo Invitaciones
+Invitaciones entrantes aparecerán dentro del área de
+Acciones
+del Marco, junto a las actividades instaladas; estarán coloreadas con los colores del que invita. La Marquesina revela tanto el nombre del que invita así como el nombre y tipo de actividad. La marquesina extendida, contendrá las opciones de aceptar o rechazar. Opcionalmente, se puede enviar un mensaje explicando al que invita la razón del rechazo.
+Incoming invitations appear within the
+Actions
+section of the Frame, adjacent to the installed activities; they are rendered in the color of the inviter. Rollover reveals both the name of the inviter as well as the name and type of the activity.  On extended rollover, the options to accept and decline appear. There is an optional message back to the inviter upon declining and invitation.
+Notificaciones
+Las Notificaciones se comportan de modo similar a las Invitaciones; también aparecen en el área de
+Acciones
+del marco. Sin embargo, a diferencia de las invitaciones, que son enviadas por personas en la malla, las Notificaciones provienen de las actividades o directamente del sistema. A medida que llegan las notificaciones, se forma una cola, con las mas recientes en la en la esquina inferior izquierda para su rápido acceso.
+Notifications behave similarly to Invitations; they also appear in the
+Actions
+edge of the frame.  However, unlike invitations, which are sent from people on the mesh, Notifications come from activities or directly from the system. As new notifications come in, they form a queue, with the most recent in the lower left-hand corner for quick access.
+Notificaciones Pegotas
+Normalmente, las notificaciones permanecen en el marco hasta que el chico las acepte.
+By default, notifications will remain in the frame until the child acknowledges them.
+Notificaciones Pasajeras
+Las notificaciones pasajeras alertan al chico cuando llegan, pero como contienen información que tiene una validez limitada, con el tiempo expiran. Por lo tanto, las Actividades pueden especificar tiempos limites sobre sus notificaciones, después del cual desaparecerán automáticamente.
+Transient notifications alert a child when they arrive, but as they contain information that has a limited lifetime, they expire.  Thus Activities may specify timeouts on notifications, after which they will automatically disappear.
+←
+Introducción
+Bases de las Actividades
+Paquetes de Actividad
+→

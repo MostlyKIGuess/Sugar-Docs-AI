@@ -1,0 +1,262 @@
+Title: Wiki Team/Guide/Formatting
+URL: https://wiki.sugarlabs.org/go/Wiki_Team/Guide/Formatting#Code_Examples
+--------------------------------------------------------------------------------
+For a quick overview of wiki markup see the
+Wiki Team/Guide/Overview
+!
+Text will show up just as you type it (provided you begin it in the first column).  Multiple spaces are compressed, and line endings are ignored (except blank lines).
+Use a blank line to start a new paragraph.  Multiple blank lines add more vertical space.
+Wiki markup code is supposed to be simple and easy to learn.
+You can also use most HTML markup, if you prefer it, except for links.
+Contents
+1
+Fonts
+2
+Sections
+3
+Section heading
+3.1
+Subsection heading
+3.1.1
+Sub-sub section heading
+3.1.1.1
+Sub-sub-sub section heading
+4
+Lists
+5
+Linking
+6
+Preformatted text
+6.1
+Line wrapping
+6.2
+Code Examples
+7
+Stopping Text flow
+8
+Tables
+9
+nowiki
+10
+Categories
+11
+Templates
+12
+Translation
+13
+See Also
+Fonts
+Use these to change fonts:
+Description
+You type
+You get
+Italic text
+''italic''
+italic
+Bold text
+'''bold'''
+bold
+Bold and italic
+'''''bold & italic'''''
+bold & italic
+Fixed-width
+<tt>fixed width font </tt>
+fixed width font
+underscore
+<u>underscored text</u>
+underscored text
+Sections
+It is often useful to divide articles into sections and subsections.  The following markup can be used.  You must begin these on a new line.
+Heading
+You type
+You get
+HTML tags
+level 1
+==Section heading==
+Section heading
+<h2>...</h2>
+level 2
+===Subsection heading===
+Subsection heading
+<h3>...</h3>
+level 3
+====Sub-sub section heading====
+Sub-sub section heading
+<h4>...</h4>
+level 4
+=====Sub-sub-sub section heading=====
+Sub-sub-sub section heading
+<h5>...</h5>
+An article with four or more headings will automatically create a table of contents.  
+Using HTML heading tags also creates proper section headings and a table of contents entry.
+Lists
+Wiki markup makes lists fairly easy:
+List type
+You type:
+You get:
+Bullet list
+* one
+* two
+* three
+** three and one-third
+** three and two-thirds
+one
+two
+three
+three and one-third
+three and two-thirds
+Numbered list
+# one
+# two<br>spanning several lines<br>
+without breaking the numbering
+# three
+## three point one
+## three point two
+one
+two
+spanning several lines
+without breaking the numbering
+three
+three point one
+three point two
+Mixture of bulleted
+and numbered lists
+# one
+# two
+#* two point one
+#* two point two
+one
+two
+two point one
+two point two
+Definition list
+;Definition
+:item 1
+:item 2
+Definition
+item 1
+item 2
+See also
+Template:Definition table
+HTML lists are also allowed
+Blank lines should be avoided, they break list numbering and sub-list. Use <br> instead.
+Linking
+Linking is covered in a separate page:
+Wiki Team/Guide/Links
+Preformatted text
+Text which does not begin in the first column of the wiki editing box will be shown indented, in a fixed width font.
+For example, this line was preceded by a single space. It preserves whitespace formatting:    A     B     C     D     E     F     G     H     I
+A single paragraph of text can be entered with a space in column 1 (the first character position in the wiki editing box) of every line to preserve the raw text format of the entry.
+For example, this block of lines was
+   entered with 4 spaces before each line.
+   A    B    C    D    E    F    G    H    I
+The parser tags
+<pre> and </pre>
+may be entered before and after blocks of preformatted text to preserve the raw format of the text.  This is suitable for chat transcripts such as
+Design_Team/Meetings/2009-03-01
+.
+Line wrapping
+Line wrapping can be adjusted with the style property
+white-space
+(See
+http://www.w3schools.com/cssref/pr_text_white-space.asp
+)
+With this tag and style,
+<pre style="white-space:pre-wrap">
+, whitespace is preserved by the browser. Text will wrap when necessary, and on line breaks.
+Code Examples
+Raw text is appropriate for showing computer code or command examples, such as this famous little program:
+main(){
+    printf("Hello, World!\n");
+  }
+Coding format may be embedded in a line of regular text with the <code>
+code text
+</code> wiki syntax.
+Blocks of pre-existing code (often with structured linebreaks) may be preserved by entering a space before
+<nowiki>
+in the first wiki page column as in this example:
+<nowiki>class DatastoreResultSet(BaseResultSet):
+    """Encapsulates the result of a query on the datastore
+    """
+    def __init__(self, query, page_size):
+
+        if query.get('query', '') and not query['query'].startswith('"'):
+            query_text = ''
+            words = query['query'].split(' ')
+            for word in words:
+                if word:
+                    if query_text:
+                        query_text += ' '
+                    query_text += word + '*'
+
+            query['query'] = query_text
+
+        BaseResultSet.__init__(self, query, page_size)
+
+    def find(self, query):
+        entries, total_count = _get_datastore().find(query, PROPERTIES,
+                                                     byte_arrays=True)
+
+        for entry in entries:
+            entry['mountpoint'] = '/'
+
+        return entries, total_count</nowiki>
+The result looks like the following:
+class DatastoreResultSet(BaseResultSet):
+    """Encapsulates the result of a query on the datastore
+    """
+    def __init__(self, query, page_size):
+
+        if query.get('query', '') and not query['query'].startswith('"'):
+            query_text = ''
+            words = query['query'].split(' ')
+            for word in words:
+                if word:
+                    if query_text:
+                        query_text += ' '
+                    query_text += word + '*'
+
+            query['query'] = query_text
+
+        BaseResultSet.__init__(self, query, page_size)
+
+    def find(self, query):
+        entries, total_count = _get_datastore().find(query, PROPERTIES,
+                                                     byte_arrays=True)
+
+        for entry in entries:
+            entry['mountpoint'] = '/'
+
+        return entries, total_count
+Stopping Text flow
+See
+mediawikiwiki:Help:Images#Stopping_the_text_flow
+.
+Tables
+Tables are covered in a separate page:
+Help:Tables
+nowiki
+Use <nowiki> to insert text that is not parsed by the wiki, e.g.,
+<nowiki>====Heading 4====</nowiki>
+will result in ====Heading 4====, rather than the creation of an actual heading,
+Heading 4
+Categories
+An important navigational tool in the wiki is the use of
+categories
+. It is customary to include one or more category tags to the end of a page to indicate in what topical area the page belongs. For example, this page should be listed under the [[Category:General public]] and [[Category:HowTo]] categories. You can create a new category, if really necessary, simply by including a new category tag, e.g., [[Category:My new category]].
+Templates
+Another tool that helps make the wiki more readily navigable is the use of templates (Please select the Template namespace in the pull-down menu on the
+Special:Allpages
+page to view the current list of available templates). Templates provide a consistent look to pages as well as a shorthand for communicating things like {{Stub}} and {{Requesttranslation}}. Feel free to ask for help (
+here
+) regarding creating new templates you may need.
+Translation
+We have a mechanism for maintaining multilingual versions of pages in the wiki. Please see
+Translation Team/Wiki Translation
+for more information about translations. We also recommend the use of the Google machine translation for pages that have yet to be translated by a human expert. To see a
+Google translation
+, simply use the dropdown selector in the sidebar.
+See Also
+Meta-Wiki Help:Contents
+Wiki Team/Guide/Overview
+MediaWiki Manual: Formatting

@@ -1,0 +1,308 @@
+Title: Platform Team/Server Kit/sugar-server
+URL: https://wiki.sugarlabs.org/go/Sugar_Server_Kit/sugar-server#activation
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Functionality
+2.1
+Registry
+3
+Services
+3.1
+registry
+3.2
+backup
+3.3
+activation
+3.4
+keyring
+4
+User identity models
+4.1
+Hardware based model
+4.2
+SSH key based model
+4.3
+Vulnerabilities
+5
+Configuration
+6
+Getting involved
+7
+Resources
+Summary
+The core
+Sugar Server Kit
+component.
+The singular program requires only Python, and obvious dependencies like coreutils, to allow all its services to function properly. It provides basic sugar related services, and uses one CLI tool to manage all its functionality.
+Functionality
+Registry
+During the sugar-server work, all its components have access to a registry, an analog of a database to keep information about registered users or activated machines. The registry is file based, i.e., every item is kept in one file (in JSON notation) in the
+<root-option>/home/registry
+directory.
+There are two subdirectories, i.e., "tables":
+users
+, for registered users, and
+machines
+, for machines that requested activation leases on bootstrap.
+Registry items might contain the following keys:
+uid
+, user's identity got after registration on a server;
+machine_sn
+, serial number of hardware Sugar user is running on, e.g., serial number of a XO laptop;
+machine_uuid
+, UUID value of hardware Sugar user is running on, e.g., UUID of a XO laptop;
+pubkey
+, SSH public key, this is the exact line that needs to be placed as-is to
+~/.ssh/authorized_keys
+file; note that OLPC XS operates with stripped version of public keys.
+Services
+The list of services that sugar-server provides. Each service has a described interface to understand how it interact with clients. The counterpart for these interfaces is the
+sugar-client
+with a
+Client API
+it provides for clients, e.g., Sugar Shell.
+If a particular service supports a
+RESTfull interface
+, the HTTP server is started on
+host
+with the
+httpd-port
+port. The content of requests and replies is transferred using dictionaries in JSON notation.
+The resulting dictionary on success, will contain predefined keys:
+success: OK
+;
+The resulting dictionary on failure, will contain:
+success: ERR
+;
+error
+, error message.
+registry
+Provides Sugar users registration on a school server. After being registered, Sugar on user's side will set up interaction with a school server. See
+sugar-client
+project for details from the client point of view.
+Interface:
+POST
+/client/register
+Process registration on a server.
+The input dictionary, contains (see
+identity models
+section for additional details):
+nickname
+, user's Sugar nick name;
+machine_sn
+, machine's serial number, makes special sense only for XO anti-thief support and
+hardware based
+identity model,
+machine_uuid
+, machine's UUID value, makes special sense only for XO anti-thief support,
+pubkey
+, SSH public key passed as-is.
+The resulting dictionary, contains:
+uid
+, unique identity that needs to be used for further interaction with the server.
+GET
+/client/status
+?uid=
+UID
+Get information about client's status on a server.
+The resulting dictionary, contains:
+registered
+, if
+False
+, client needs to process registration;
+jabber-url
+, if
+registered
+is
+True
+, Jabber server url;
+backup-url
+, if
+registered
+is
+True
+, Rsync url to backup Journal to, needs to be used as-is.
+pending-restore
+, is there a pending restore, i.e., if
+True
+, during the registration on a server, there was an existing backup; any further, post registration, backup or restore will clean up the
+pending-restore
+flag.
+Requested uid might be NOT registered in cases like:
+registration was removed from the server,
+request was sent to a server that was not the same as where the uid was created,
+someone
+registered
+the same serial number.
+Requirements:
+Current Sugar Shell code calls only XML-RPC method using the hard coded
+http://schoolserver:8080/
+url. This restriction can be avoided using
+sugar-client
+.
+Backwards compatibility:
+dict
+register
+(
+str
+machine_sn,
+str
+nickname,
+str
+machine_uuid,
+str
+pubkey)
+To support OLPC's XS clients, RPC function to serve registration requests. The XML-RPC service will be listening to the
+8080
+port on the
+--host
+host.
+backup
+Process backup and restore for students' Journals. The service accepts requests that clients send before starting the backup process. If server accepts requests, clients start Rsync'ing Journal data via SSH. The Rsync url needs to be obtained from a
+/client/status
+request and be used without any modification on the client side, i.e., the process is fully server driven.
+Users' backups are stored in the
+<root-option>/home/backups/<UID's-last-two-chars>/<UID>
+directories.
+Interface:
+GET
+/client/backup
+?uid=
+UID
+Check if client can start transferring Journal files.
+The resulting dictionary, contains:
+accepted
+, if
+True
+, clients can start backup process.
+Requirements:
+The
+root
+configuration option should point to the home directory of the system user that starts sugar-server process. This is needed because clients will SSH to this user to perform Rsync backups.
+Backwards compatibility:
+Note, this backup functionality is not compatible with client tools that work with OLPC XS. The problem is that these tools construct a backup url on the client side (using only the server host name from a backup url given after registration on the server) so relying that every client has its own system user on the server side. That doesn't work with this new backup functionality, where there is only one system user on the server side, and authorisation happens at the SSH level (using the
+command
+option in
+~/.ssh/authorized_keys
+file).
+activation
+This service is intended to process anti-thief requests that XO laptops send to the server during the boot process. It is looking for pre-created leases using
+<root-option>/share/leases/<SN's-last-two-chars>/<SN>
+paths. If there are no existing leases and the
+delegation
+option is
+True
+, it will ask the
+keyring
+service to generate a new one using delegated leases.
+Interface:
+GET
+/client/lease
+?machine_sn=
+MACHINE_SN
+Get OLPC anti-thief lease for specified XO's serial number.
+The resulting dictionary, contains:
+lease
+, lease content
+Requirements:
+Current XO's bootstrap code uses TCP interface, having the following numbers hard coded:
+host
+needs to be
+172.18.0.1
+,
+activation-port
+needs to be
+191
+,
+XOs use
+172.18.96.1
+as a gateway while connecting to
+172.18.0.1
+.
+Backwards compatibility:
+Service is also listening to
+--activation-port
+port on the
+--host
+host to process TCP requests used by the XO's bootstrapping code. If sent data starts with a serial number, the service will reply with:
+STOLEN
+text, if serial number is stated as stolen;
+lease content found for serial number;
+UNKNOWN
+for errors.
+keyring
+Keyring service is needed to work with the activation one. It signs delegated leases for activation requests if pre-existing leases weren't found.
+Interface:
+There is no public interface, the service is used internally by sugar-server.
+User identity models
+How sugar-server will identify users upon registration.
+Hardware based model
+The use case assumes:
+the hardware is intended to run only Sugar,
+it serves only one user,
+there is an existing practice within XO deployments with workflows that need to be preserved.
+To process registration, users need to provide:
+valid SSH public key,
+valid machine serial number, i.e., a serial number that the school server is aware of, e.g., there is an activation lease.
+After re-flashing an XO (with loosing private key), it is possible to re-register the user by uploading a new public key. See
+below
+for related vulnerability issues.
+The following TODO needs to be implemented:
+Properly handle backups after hardware switching for the particular user.
+More reliable identity scheme that will avoid
+compromising users
+.
+SSH key based model
+This is a low level model, since the major feature is uploading an SSH public key to the server. This model might be useful in cases like:
+the hardware is intended to run not only Sugar (thus, might not be affected by "re-flashing" issue),
+it might serve multiple users.
+To process registration, users need to provide a
+valid SSH public key.
+To always have access to already-uploaded-to-the-server data, people need to take care about securing their SSH key. This key can be found in the
+~/.sugar/
+<profile>
+/owner.key
+file.
+Vulnerabilities
+How current implementations are bad.
+Compromised users
+Current implementation of
+hardware based
+identity model has a security issue that might be described with the following use case:
+an XO registered on a school server;
+processed several Journal backups there;
+got re-flashed and failed in keeping client side identities, like the Sugar profile private key;
+the XO wants to re-register to restore Journal content from a previous backup. But from the school server point of view, this request is a regular registration request from a new XO (which provides the same serial number that the existing registration uses).
+Sugar-server will process these registrations assuming that the request was sent from an XO that has exactly the same serial number that was provided with the request.
+Compromised servers
+Both identity models might process registration on fake servers. The only thing clients need to start a registration, is a properly resolved
+schoolserver
+host name.
+Possible solutions:
+Switch to HTTPS
+.
+Configuration
+By default, configuration occurs based on several sources (sorted by order of application):
+/etc/sugar-server.conf
+system-wide configuration file,
+~/.config/sugar-server/config
+user-wide configuration file,
+sugar-server
+'s command-line arguments.
+Configuration files contain option names equal to command-line arguments. To get the current configuration, call:
+sugar-server config
+See
+sugar-server-templates
+sources for an example.
+Getting involved
+Report
+on bugs.
+Read the
+HACKING
+file to know how to contribute with code.
+Resources
+Sources
+.

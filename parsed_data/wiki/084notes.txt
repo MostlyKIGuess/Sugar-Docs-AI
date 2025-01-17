@@ -1,0 +1,341 @@
+Title: 0.84/Notes
+URL: https://wiki.sugarlabs.org/go/Development_Team/Release/Releases/Sucrose/0.84#File_transfer
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+Sucrose 0.84 Release Notes
+1.1
+Introduction
+1.2
+What is new for users
+1.2.1
+Resume Activity
+1.2.2
+View Source
+1.2.3
+Journal
+1.2.4
+Control Panel
+1.2.5
+Clipboard
+1.2.6
+New logic for the device positions
+1.2.7
+XO Menu
+1.2.8
+File transfer
+1.2.9
+Palettes
+1.2.10
+New Fructose Activities
+1.3
+What is new for developers
+1.3.1
+Widgets
+1.3.2
+API
+1.3.3
+Dependencies
+1.3.4
+Bundlebuilder
+1.3.5
+Extensions
+1.3.6
+Debugging
+1.3.7
+Misc
+1.4
+What is new for packagers
+1.5
+Internationalization (i18n) and Localization (l10n)
+1.6
+Compatibility
+1.7
+Getting the sources
+1.7.1
+Glucose
+1.7.2
+Fructose
+1.7.3
+Fructose dependencies
+1.8
+Detailed changes
+1.8.1
+Glucose
+1.8.2
+Fructose
+1.8.3
+Fructose dependencies
+1.9
+Looking at the release cycle details
+1.10
+Looking Forward to 0.86
+1.11
+Credits
+Please do not edit unless you are part of the Sugar Release Team!
+Sucrose 0.84 Release Notes
+Introduction
+Sucrose
+0.84 is the latest version of the Sugar education platform, consisting of
+Glucose
+, the base system environment; and
+Fructose
+, a set of demonstration activities.
+Sucrose is released every six months and contains many new features, improvements, bug fixes, and translations. Sucrose 0.84 continues this tradition and is our second well-planned release to date.
+You can learn more about Sugar itself by studying the
+Sugar definition
+or by reading the
+comic strip
+about the learning platform from Dongyun Lee.
+What is new for users
+Resume Activity
+In order to make it easier to continue past work, the Home View will display recent activity entries in the activity Palette.
+You can choose to resume past entries or, with the
+Start
+option in the Palette, start a new instance of the activity.
+When clicking on the activity icon in the Favorites View, the last entry will be resumed by default. This is based on the assumption, that in most cases, one want to resume previous work rather than creating from scratch.
+View Source
+There were some great improvements to the View Source concept in this release cycle. You can display the source code of an activity using the activity Palette in the Frame or by using the keyboard short cut
+Shift+Alt+V
+when in an activity.
+The View Source dialog will allow you to examine the content of the activity bundle and display its files respectively.
+Further it allows you to survey the source of the current activity instance (the document). In the case of the Browse activity this would be the source of the HTML page currently displayed.
+The coloured activity icon represents the source of the activity instance. The outlined activity icon represent the bundle source for the activity itself, the template. We use this to help draw a distinction between the activity instance and the activity bundle.
+Using the uncoloured outline to represent the bundle vs the coloured icon to represent an instance has been the design cue all along.
+Journal
+A lot of work has gone into bringing the Journal implementation closer to its design. The Object Chooser can now be filtered by data type, which improves the experience in activities like Write that can fetch content from the journal, e.g. images.
+A button has been added to the toolbar to filter for favorite entries to give a better way of marking entries as 'important'.
+Reading removable devices like usb sticks should be more reliable now that the Journal doesn't depend on an index on the removable device.
+The Journal entry Palette shown in the list view has seen some great improvements. We added a
+View Details
+option that brings you to the details of the entry. Furthermore you do not need to go to the detail view any more to select the activity you want to start or resume the entry with - this option is now available in the Palette as well.
+The Journal's search and browsing capabilities are less useful if all entries are named the same regardless of their actual content or meaning to the user. That is why an alert has been added that encourages the user to set the title and other properties of a newly created Journal entry. This alert is only shown on the creation of a new Journal entry, not on resume.
+Control Panel
+Sugar now supports setting up a priority list of languages. Not all the activities have translations for all languages. You can create a list of languages in the Control Panel that are used to display messages in place of a missing translation.
+The
+About my XO
+section has been renamed to
+About my Computer
+to reflect the use of Sugar on non-XO hardware. As well the fields of the page has been changed accordingly. The
+Power Section
+is only displayed on XO hardware since the functionality is currently only available there.
+Furthermore you can change the jabber server without having to restart Sugar.
+Clipboard
+For text clippings a preview is displayed so it's easier to spot the wanted clipping.
+Several improvements were made to the detection of images dragged and dropped to the clipboard in the Frame.
+New logic for the device positions
+The logic to position the Frame devices has been reworked. Plug in your devices and try it out.
+[500 external devices eg. USB drive]
+[400 3rd party devices eg. speech]
+[300 transient connection devices eg. AP]
+[200 transient devices eg. camera]
+[100 static devices eg. battery]
+XO Menu
+A logout option has been added to the XO menu. It is displayed in cases where we have a multi user system and allows therefore returning to a Login Manager like KDM or GDM. The menu is now accessible as well from the Groups and Mesh View and the Friends Tray.
+File transfer
+Some basic file exchanging functionality has been added, with plans to expand it in the next release. You will be able to interchange files from the Journal to other computers running Sugar if they are on the same local network and are
+not
+connected to a Jabber server (check the Network Section in the Control Panel).
+Select an entry in the Journal you want to transfer to a friend. Note that you can only transfer an entry to a friend.
+On the receiver side an entry for an incoming transfer will be added to the Frame. You can then choose whether accept or decline that transfer.
+On the receiver side an entry for an outgoing transfer will be added to the Frame. The sender can cancel that transfer at any time.
+Palettes
+The Palette highlighting on tray icons has been fixed.
+The direct access on right click has been added to many places - for example the AP icons in the mesh view or the device icons in the frame.
+New Fructose Activities
+Three great activities have been added to Fructose, the
+Image Viewer activity
+,
+Turtle Art
+and
+Jukebox
+.
+What is new for developers
+The following changes are important for developers using the Sucrose 0.84 developer platform. If you're not interested in changes for developers, you can skip forward to Section
+Internationalization and Localization
+.
+Widgets
+A
+widget
+to select the color has been introduced. It is similar to the gtk.ColorButton, but does not have any alpha support. Instead of a color selector dialog it will pop up a Palette. An example on how to use the ColorToolButton in your activity can be examined in the Write activity.
+The Object Chooser can now be filtered by data type. An example is the import image functionality in Write.
+Support for accelerators has been added to the
+MenuItem
+widget. The sub classed hippo.CanvasWidget, CanvasTextView has been moved to the toolkit.
+API
+An API policy has been figured out and modules have been marked as STABLE / UNSTABLE / DEPRECATED. There is a comment in the module that indicates its current state.
+Sugar moved to
+GConf
+as a backend to store the profile. This is another step in reducing divergence from other desktop environments.
+To handle "view source",
+HandleViewSource and GetDocumentPath
+have been added to the activity service. The former will handle the content of the activity bundle, the latter is the source of the current activity instance, in the case of Browse this would be the source of the HTML page currently displayed. Activity authors need to implement
+get_document_path
+and return the path to the document the dialog should display.
+The method
+get_preview
+has been changed to be public. It does return an image representing the state of the activity. Generally this is what the user is seeing in this moment. Activities can override this method and provide their own preview data.
+Dependencies
+For performance reasons Sugar is using exclusively
+cjson
+, a
+JSON
+processing module written in C. Pyjson and Simplejson have been dropped. All the Fructose activities that use JSON to serialize data have been changed to use
+cjson
+as well.
+Etoys
+4.0 has been released. The major version jump signifies the end of their two-year relicensing effort. Now we are looking forward to see etoys packaged for distributions that the Sugar users can enjoy that great educational environment there as well. Big Thanks to the Squeak community and Etoys developers!
+Bundlebuilder
+Bundlebuilder
+the module for packaging xo bundles, bundling source tarballs and installing activities on the system has been refactored, mainly to do a more standard system installation of activities. The install argument has a prefix option,
+mo
+files are installed in '/usr/share/locale' and
+po
+files are not installed. The
+release
+command has been dropped. For Glucose and Fructose components you can use the
+release
+script of the
+sugar-tools
+module instead.
+Extensions
+Extending the shell was never that easy. For example you can extend the Control Panel by adding a new section, adding a new device to the Frame, or defining a new keyboard shortcut. You only need to put your Python code, following the API guidelines, at a certain place and the extension is picked up by the shell on startup automatically.
+The API is unstable for the moment and will be reviewed in the next release cycle. Nevertheless, people have been writing little widgets, like a clock, for the Frame already.
+Have a look at existing extension code
+here
+.
+Debugging
+Since version 0.84 the configuration file '~/.sugar/debug' is created which gets read when Sugar starts. The file does contain logging options which are commented by default. Use your editor of choice and remove the '#' before the line 'export SUGAR_LOGGER_LEVEL=debug' to enable Sugar debug logging. More information about the Sugar logs can be found at
+BugSquad/Get Logs
+.
+Misc
+We have been moved to make use of the latest improvements in NetworkManager 0.7. Sugar 0.84 will not be able to let you connect to an Access Point using with NetworkManager 0.6.
+For this release minimal .xol support has been restored
+#459
+. The content bundle concept will be revised next release, see (perhaps)
+Unified Bundles
+TempFilePath support has been added to the
+util
+module
+The method
+sha_data
+in the module
+util
+is public now
+Listen for map in Window instead of in Canvas
+#428
+.
+Use the same font size independent from scaling
+Upstream Evince hackers were very helpful and accepted to merge our work. That means that the Read activity can run on all modern distros using the standard Evince packages.
+What is new for packagers
+the Image Viewer activity,
+Turtle Art
+and Jukebox have been added to Fructose.
+Read - Evince >= 2.26
+Browse - Hulahop >= 0.4.8
+Write - Libabiword >= 2.6.8
+Internationalization (i18n) and Localization (l10n)
+Thanks to members of the worldwide translation team, who can be found on the
+localization mailing list
+, we have the following languages (listed alphabetically) which have significant support (more than 80% of the user interface translated):
+Chinese (China)
+Chinese (Taiwan)
+Dutch
+French
+German
+Italian
+Japanese
+Nepali
+Portuguese
+Russian
+Spanish
+Swedish
+Turkish
+Vietnamese
+Screenshots of the translated Sugar interface
+Sugar in Chinese (Taiwan)
+Sugar in French
+Sugar in Nepali
+Sugar in Vietnamese
+Moreover, a number of languages have attained "partially supported" status, with more than half of the user interface strings translated.
+Compatibility
+When you upgrade a computer that was running previously Sucrose 0.82,
+The old datastore will be updated to the new format.
+Your old profile (in
+.sugar/default/config
+) will be imported into GConf
+If you later downgrade from Sucrose 0.84.x to an earlier version,
+The datastore is incompatible, so all data in the journal won't be accessible (but will be still there)
+You will be prompted to enter a new name and color like it would happen on first boot
+Most of the activities in Sucrose 0.84.x should be compatible with Sucrose 0.82. An exception is Browse, which depends on new versions of Hulahop, Read which depend on the latest version of Evince and Write which depends on the latest version of libabiword.
+Getting the sources
+If you want to package sugar for your favourite distribution or just want to examine sugar's lovely code ;) you can find all the source code of each module at the links below.
+Glucose
+sugar-toolkit 0.84.0
+sugar 0.84.0
+sugar-artwork 0.84.0
+sugar-base 0.84.0
+sugar-datastore 0.84.0
+sugar-presence-service 0.84.0
+etoys 4.0.2206
+Fructose
+read 65
+chat 64
+terminal 23
+imageviewer 6
+jukebox 7
+turtleart 41
+browse 105
+etoys 100
+write 63
+calculate 28
+log 17
+pippy 25
+Fructose dependencies
+hulahop 0.4.9
+Detailed changes
+Glucose
+sugar
+sugar-toolkit
+sugar-base
+sugar-presence-service
+sugar-datastore
+sugar-artwork
+etoys
+Fructose
+Terminal
+Read
+Browse
+Chat
+Write
+Image Viewer
+Jukebox
+Turtle Art
+Etoys
+Fructose dependencies
+hulahop
+Looking at the release cycle details
+You can browse the notes of each development release in
+Development Team/Release/Roadmap/0.84#Schedule
+. Their respective sources are listed there as well.
+Looking Forward to 0.86
+Planning of the next release cycle has started at
+Development Team/Release/Roadmap/0.86
+.
+Credits
+Many people contributed to this release indirectly, including testing, documentation, translation, contributing to the Wiki, outreach to education and developer communities. On behalf of the community, we give our warmest thanks to the developers and contributors who made this Sugar release possible.

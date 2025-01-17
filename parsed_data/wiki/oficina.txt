@@ -1,0 +1,166 @@
+Title: Oficina
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2009/Oficina
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+1.
+What is your name?
+My name is Nathalia Sautchuk Patrício.
+2.
+What is your email address?
+My email address is nathalia.sautchuk AT gmail DOT com.
+3.
+What is your Sugar Labs wiki username?
+My Sugar Labs wiki username is nathalia.sautchuk.
+4.
+What is your IRC nickname?
+My IRC nickname is nathalia.
+5.
+What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My native language is Portuguese but I have an advanced level of English too.
+6.
+Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+I am located in São Paulo, Brazil (GMT -3). I prefer to work after the lunch time until late hours in the night but it is not a problem to work in other periods.
+7.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+Yes, I participated in some open-source projects before. Some of them were developed in university classes (they are in different stages of development) and they are hosted at Google Code:
+Alumini (
+http://code.google.com/p/alumini/
+): a conferences manager;
+Labsof2 (
+http://code.google.com/p/labsoft2/
+): a System Service Center and
+Pintassilgo (
+http://code.google.com/p/pintassilgo/
+): an image gallery.
+I participated in other open-source projects when I was an intern at LSI-USP (Integrated Systems Laboratory at University of São Paulo):
+Jogo do piano (
+http://code.google.com/p/jogodopiano/
+): a music game for XO and
+Oficina (
+http://code.google.com/p/oficina/
+): a paint activity for XO (later incorporated as official activity in builds).
+I have just started two new open-source projects at university:
+Labsoftinfra (
+http://code.google.com/p/labsoftinfra/
+): an application for PDA to manage the classroom equipments and a web application to supervise the university stock. It has been developed for a course named Software Engineering Laboratory 2 and
+FEBRACEV (
+http://github.com/nathaliaspatricio/febracev
+): my capstone project and it will be a Virtual Science Fair.
+The main open-source project that I have participated was the development of Oficina (Paint Activity) for Sugar:
+http://dev.laptop.org/git/projects/oficina
+. I developed this project for about six months (between 2007 April and 2007 September).
+My profile pages for those projects are:
+Google Code:
+http://code.google.com/u/nathalia.sautchuk/
+and
+GitHub:
+http://github.com/nathaliaspatricio
+.
+About your project
+1.
+What is the name of your project?
+The name of my project is “ Programmable Brushes for Oficina”
+2.
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+Oficina is one of the Paint Activities for Sugar. It has a lot of tools like brushes, eraser, forms and text. The objective is refactoring the Oficina code and make a common base where tools can be plugged. The current available tools will use this base. With this, kids can put the tools that they want, including their own brushes.
+In Turtle Art Activity there already is a way to plug a python code to add new block's functions. The idea is add a similar feature to Oficina. Sugar has already a python editor called Pippy. Using this kids can developed or edit your own brush and import your custom code into Oficina using the Pippy button.
+One example of a tool code (nowadays it is the current brush):
+def brush(self, widget, coords, last, size = 5, shape = 'circle'):
+       widget.desenha = False
+       if(shape == 'circle'):
+           widget.pixmap.draw_arc(widget.gc_brush, True, coords[0], coords[1], size, size, 0, 360*64)
+           if last:
+               widget.gc_brush.set_line_attributes(size, gtk.gdk.LINE_SOLID, gtk.gdk.CAP_ROUND, gtk.gdk.JOIN_ROUND)
+               widget.pixmap.draw_line(widget.gc_brush,last[0]+size/2,last[1]+size/2,coords[0]+size/2,coords[1]+size/2)
+               widget.gc_brush.set_line_attributes(0, gtk.gdk.LINE_SOLID, gtk.gdk.CAP_ROUND, gtk.gdk.JOIN_ROUND)
+       if(shape == 'square'):
+           widget.pixmap.draw_rectangle(widget.gc_brush, True, coords[0], coords[1], size, size)
+           if last:
+               points = [coords, last, (last[0]+size,last[1]+size), (coords[0]+size,coords[1]+size)]
+               widget.pixmap.draw_polygon(widget.gc_brush,True,points)
+               points = [(last[0]+size,last[1]), (coords[0]+size,coords[1]), (coords[0],coords[1]+size), (last[0],last[1]+size)]
+               widget.pixmap.draw_polygon(widget.gc_brush,True,points)
+       if last:
+           x = min(coords[0], last[0])
+           width = max(coords[0], last[0]) - x
+           y = min(coords[1], last[1])
+           height = max(coords[1], last[1]) - y
+           widget.queue_draw_area(x, y, width+size, height+size) # We add size to avoid drawing dotted lines
+       else:
+           widget.queue_draw()
+Other important functionality is that children can share their brushes since Sugar 0.84 already allows users to take any item in the Journal and send it to anyone else. There are already some available tools for default but kids can modify or delete this.
+Oficina is developed in Python using PyGTK library and the bucket tool is implemented in C language. I will use these technologies in my project.
+3.
+What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (July 6-13); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+My initial planning to develop the project is:
+May 23 - June 5
+Study the Oficina code and his architecture (remember some things because it has a lot of time since I worked with it)
+Study a similar feature in the Turtle Art Activity
+June 6 - July 7
+Development of the common base
+July 8 - July 12
+Preparation of the alpha release
+Development of some example brushes for demonstration
+July 13
+Mid term evaluation
+Release the alpha version
+July 14 - July 23
+Tests on XO
+Ask for bugs and improvements in community
+July 24 - August 3
+Correction of the bugs
+August 4 - August 13
+Ask for feedback about the correction activity
+Preparation for the beta version release
+August 14 - August 22
+Release the beta version
+This is rough plan to the work. I like Agile methodologies and I will reschedule the activities when it is necessary.
+4.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+The main open-source project that I have participated was the development of Oficina (Paint Activity) for Sugar:
+http://dev.laptop.org/git/projects/oficina
+. Because of that I have a good knowledge about the activity, the language Python and the library PyGTK (that will be used in the project). Moreover, I already know the process of developing a open-source project and in particular the process adopted by Sugar Labs. Yet I know how to use the tools like Git and Trac (that it can be used in the project) and I participe in the Sugar Labs lists (iaep@lists.sugarlabs.org, devel@lists.sugarlabs.org) for some time.I have a good base in software engineering since I have studied this at university and I am in the fifth year (the last year of undergraduation course). I have a good experience at software development (with different languages and technologies) since I work in the area for over 3 years.
+You and the community
+1.
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My answer:
+This project is important for Sugar Labs community since a Paint Activity like Oficina is one of the core activities in the Sugar and it has a good and improved activity of this type is necessary for the adoption by schools and kids. Before children can read words they learn another expression ways and the painting is one of the most important way. In my proposal the main idea is to turn Oficina a more flexible expression environment. This would allow greater freedom for children' expression since they could create their own brushes. Moreover, this idea has a interdisciplinary characteristic because children can work the artistic side and also learn how to programming. When I participated in deployment of XO here in Brazil we had a couple of discussions on what the children wanted and what we didn't have. I thought they needed more brushes and tools. Especially, the power to create them on our own, which is missing.
+Manu Sheel Gupta (manu@laptop.org) - Oficina maintainer:
+This project will help meet one of the most important goals of Sugar Labs and free software - "to make it simple for the user to extend activities". This is very important as free software communities build on top of each others' work to build learning eco-systems. Collaboration, and building of such an eco-system in absolutely essential for the sustainability of the project and the communities. I believe that giving the power to the user to develop brushes of their choice is what a paint activity is supposed to do. And, this feature will help shape this idea, and put it in the right context, which has been missing since day one of any paint project. I wish to see this proposal getting selected.
+2.
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+Yes. In 2007 I was an intern at LSI-USP (Integrated Systems Laboratory at University of São Paulo) and I worked at UCA project (In english One Computer per Student) sponsored by the Brazilian Federal Government. In this project the laboratory was responsible for a pilot in a school at São Paulo testing the XO netbooks. I followed what happened in the pilot of this school because sometimes I had to go there. So I have a close contact with people that works at this school and I suggest to deploy there because teachers have experience in projects like that.
+3.
+What will you do if you get stuck on your project and your mentor isn't around?
+If I get stuck on my project I will try to find the solutions on the internet (in some site, blog or forum). If this does not work I will ask someone in the Sugar IRC channel. If anyone can not help me I will ask in some discussion lists like the Sugar Labs lists or Python lists. If anything works I will send an e-mail requesting a help for my mentor before the planned meeting.
+4.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I will create a page about Oficina in the Sugar Labs wiki that I intend to put the status of project. Also I will post frequently in a blog that I can create for the project and in my current blog (
+http://nathaliapatricio.blogspot.com
+). If I have any problems over the course of the project I will try to find the solutions on the internet (in some site, blog or forum). If this does not work I will ask someone in the Sugar IRC channel. If anyone can help me I will ask in some discussion lists like the Sugar Labs lists or Python list
+Miscellaneous
+An example of the kind of screenshot of your first modification to your development environment which you should include in your application. Note that the drop-down menu text has Mel's email address in place of the word "Restart" - your screenshot should contain your email instead.
+An example of the kind of screenshot of your first modification to your development environment which you should include in your application. Note that the drop-down menu text has Mel's email address in place of the word "Restart" - your screenshot should contain your email instead.
+1.
+We want to make sure that you can set up a development environment before the summer starts. Please send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "Restart." See the image on the right for an example. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+2.
+What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+My T-Shirt size is Medium.
+3.
+Describe a great learning experience you had as a child.
+A great learning experience came from the incentive of reading Brazilian Children's books when I was in primary school. Nowadays I can learn about everything that I want or which I am curious about. I think it is possible today because of this incentive that I have had. This makes me more participative in my learning process and interested in learning technologies.
+4.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+When I was working at LSI-USP with XO netbooks I (and another people of the team) did a initial usability study of Oficina with some kids. We had an short paper published in 2008 about that at IEEE ICALT (IEEE International Conference on Advanced Learning Technologies).
+The paper calls "Testing the OLPC Drawing Activity: an usability report" by Alexandre Antonino Gonçalves Martinazzo, Nathalia Sautchuk Patrício, Leandro Coletto Biazon, Irene Karaguilla Ficheman and Roseli de Deus Lopes. It is available in the link:
+http://www2.computer.org/portal/web/csdl/doi/10.1109/ICALT.2008.200
+.

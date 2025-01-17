@@ -1,0 +1,250 @@
+Title: User:Walter/Get Sugar
+URL: https://wiki.sugarlabs.org/go/User:Walter/Get_Sugar
+--------------------------------------------------------------------------------
+Template:Downloads/Get Sugar Landing
+Are you new to Sugar?
+The easiest way to get started is to use
+Sugar on a Stick
+. Basic instructions are found below. A more detailed
+Sugar-on-a-Stick Creation Guide
+is also available. (If you already use GNU/Linux, you may want to install the
+Sugar packages
+available from your distro.)
+MS Windows
+(1) Prepare
+:
+Download
+the Fedora Live USB Creator from
+FedoraHosted
+(2) Download
+:
+Download
+the Sugar-on-a-Stick iso.
+(3) Burn
+: Insert a USB flash drive (or SD Card) with 1 GB or more of free space into your computer and launch Fedora Live USB Creator to create a Sugar-on-a-Stick bootable image.
+Note
+: Be sure to set the
+persistent storage
+slider to a non-zero value.
+(4) Boot
+: Insert the USB stick into a USB port on your computer. Set the option to "boot from USB" in your computer's BIOS, and then start up the computer.
+Detailed
+installation instructions for Windows
+and
+booting instructions
+are available. There is also a
+guide to using Sugar on a Stick
+.
+GNU/Linux
+GNU/Linux users may want to install the
+Sugar packages
+on their favorite distro.
+(1) Prepare
+: Use this script
+http://bit.ly/livecd-iso-to-disk
+to create a bootable image. (Run
+chmod +x livecd-iso-to-disk.sh
+after you download the script to make it executable.)
+(2) Download
+:
+Download
+the Sugar-on-a-Stick iso.
+(3) Burn
+: Execute, as the root user, in
+one
+command with arguments, the following:
+./livecd-iso-to-disk.sh --reset-mbr --overlay-size-mb 200 --home-size-mb 200 --delete-home --unencrypted-home /path/to/source.iso /dev/sd
+?
+1
+where '
+?
+' in the final parameter represents the target bootable device node, such as
+sdb1
+or
+sdc1
+, etc.
+(4) Boot
+: Insert the USB stick into a USB port on your computer. Set the option to "boot from USB" in your computer's BIOS, and then start up the computer.
+Detailed
+installation instructions for GNU/Linux
+and
+booting instructions
+are available. There is also a
+guide to using Sugar on a Stick
+.
+Apple OSX
+DRAFT
+: These instructions are incomplete. Please help with testing and documentation. You may want to refer to the
+Virtual Machines instructions
+below.
+(1) Prepare
+: These instructions are only for
+64-bit
+machines. (To identify processor, choose Apple menu > About This Mac. A small window will appear titled
+About This Mac
+. The processor type is displayed in this window. Sugar on a Stick is for the Intel processor only.)
+(2) Download
+:
+Download
+the Sugar-on-a-Stick iso. Be sure to download a
+64-bit
+image.
+(3) Burn
+:
+Does someone have a simple way to burn a Live USB on a Mac?
+(4) Boot
+: Insert the USB stick into a USB port on your computer.
+Is this correct?
+: During the startup sound, press and hold the
+c
+key. If the Apple logo appears, Sugar is not booting. Restart and try again.
+the
+c
+key must be pressed during the startup sound and you must continue to hold it down.
+you may release the
+c
+key once the Sugar logo appears.
+Alternative
+installation instructions for OSX
+Also,
+these older installation instructions
+and
+booting instructions
+are available. There is also a
+guide to using Sugar on a Stick
+.
+Advanced users
+Explore
+the
+Sugar Creation Kit
+Try
+customizing
+Sugar on a Stick;
+Read
+the
+detailed Customization Guide
+; and
+Read
+additional instructions for using
+VirtualBox
+and other virtual machines.
+Do you have an OLPC XO?
+Upgrade
+to
+Sugar 0.84 with Fedora 11 and Gnome
+, the
+stable
+OLPC release
+Upgrade
+to
+Dextrose Sugar 0.88 with Fedora 11 and Gnome
+(requires a
+developer key
+)
+Load
+another one of the
+OLPC:OS images
+Experiment
+with
+Updating XOs
+to the latest
+Sugar on a Stick
+release.
+Do you use GNU/Linux?
+Select your favorite distribution
+Fedora
+Debian
+Trisquel
+Ubuntu
+Ubuntu Sugar Remix
+Mandriva
+Caixa Mágica
+OpenSuse
+AltLinux
+Gentoo
+Or try a Live USB version of Sugar
+, v4 alpha with Sugar 0.89.1 and Fedora 14 (Branched)
+Trisquel on a Sugar Toast (Trisquel 3.0
+Dwyn
+)
+OpenSuse Live USB
+Virtual Machines on all platforms
+(1) Prepare
+:
+Download
+Sun VirtualBox (It is recommended that you
+read this first
+.)
+(2) Download
+: Download these three files:
+soas-v3-Mirabelle.mf
+soas-v3-Mirabelle.ovf
+soas-v3-Mirabelle.vmdk
+Note that on some browsers on OSX, the file extensions are reset upon download. You may have to modify them to match those shown above.
+sugarroot
+is the root password.
+(3) Launch
+: VirtualBox
+(4) Import
+: soas-v3-Mirabelle.ovf from the
+Import Appliance
+option under the
+File
+menu.
+If you run into problems, you may want to consult the
+Talk:VirtualBox
+page for help.
+Other virtual machines
+may also work but have not undergone testing with our images.
+Are you a developer?
+Learn how to get setup on the
+Supported systems
+page.
+Some additional references you may find useful:
+jhbuild
+Gitorious source code repository
+Virtual machine or emulator image files
+Adding Sugar to your
+favorite distro...
+Are you preparing a deployment without Internet access?
+See
+Sugar Creation Kit
+Are you looking for Sugar Activities?
+Visit the
+Sugar Activity Library
+<imagemap>
+File:Sugarlabs_mainpage_02.png
+rect 14 14 38 47
+Calculate
+rect 74 15 107 44
+Chat
+rect 137 16 171 43
+Implode
+rect 201 14 238 46
+Distance
+rect 265 12 298 47
+Etoys
+rect 11 79 41 108
+Moon
+rect 74 78 106 110
+Paint
+rect 140 78 170 109
+Pippy
+rect 201 80 235 108
+Read
+rect 266 82 298 107
+Record
+rect 11 143 41 172
+TamTam Synth Lab
+rect 75 146 105 169
+Terminal
+rect 142 140 166 173
+Turtle Blocks
+rect 201 144 235 171
+WikiBrowse
+rect 269 142 299 173
+Write
+default
+Sugar Activity Library
+desc none
+</imagemap>

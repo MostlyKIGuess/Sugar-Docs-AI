@@ -1,0 +1,97 @@
+Title: Features/Problem Reports
+URL: https://wiki.sugarlabs.org/go/Features/Problem_Reports
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+For Deployments
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+The "Report a problem" control panel provides a way for the user to report issues with the Sugar shell and activities.  The control panel uploads system information and logs, along with the user's description of the problem.
+Owner
+Name:
+Wade Brainerd
+Email: wadetb@gmail.com
+Current status
+Targeted release: 0.88
+Last updated: October 16th, 2009
+Percentage of completion: 90%
+Detailed Description
+A new control panel will be added, titled "Report a problem".  This panel contains a description box and an Upload report button.  When the button is pressed, the description and system logs are uploaded to a central Sugar Labs server.
+The central server logs the problem reports in a database and stores a copy of the logs.  It also analyzes the logs for specific errors (such as Python Tracebacks).  When a problem report is added, the server sends an email out to a mailing list of developers and interested parties.
+When a problem is detected in an Activity, such as failure to launch, Sugar will offer a "Report problem" button which takes the user directly to the control panel.
+After uploading, the user is given a Report ID number (a small decimal number).  They can use this if they wish to follow up with the Sugar developers by email.
+For Deployments
+Deployments can set up their own log collection server, if desired.  All that is required is a web server with PHP and sqlite.
+The URL of the log server is configured using a GConf key and can be customized per deployment.
+It's important to understand that this system is intended to be as automated as possible, so deployments should not expect to have a staff of support personnel monitoring problem reports, but can instead use them to get a general sense of what problems are most common.
+Benefit to Sugar
+Currently there is no mechanism for non-technical users to submit problem reports.  In order to inform the Sugar or Activity developers of a problem, a user has two options:
+Create a Trac account and enter a bug.
+Write an email to sugar-devel@lists.sugarlabs.org.
+The first option is time consuming and requires the user to fill in confusing fields such as Component and Version manually.  The second option requires the user to have an email account, and the report is not logged anywhere.  Neither option is convenient or provides relevant details about the problem.
+The new control panel offers a way for casual users to report problems encountered in Sugar.  It also supplies a high level of detail about the problem to the developers.
+The reason problem reports are not added directly to Trac is that we don't want to spam the database with spurious reports.  Problem reports are intended to be triaged by subscribers to the mailing list, and then either bugged or noted on an existing ticket.
+Scope
+A prototype of the control panel and server have been finished and posted to
+#1439
+as patches.
+The collection server is currently running at logcollect.sugarlabs.org.  Logs are emailed out to the sugar-reports@lists.sugarlabs.org mailing list.
+Work left to do:
+The control panel needs a SVG icon.
+When an activity exits, if its log contains an exception report, Sugar should offer to report the problem.  When an activity fails to launch, Sugar should display an error on the launch window and offer to report the problem instead of timing out.
+The server needs to be installed on the SugarLabs infrastructure and the reports mailing list needs to be created (sugar-reports@lists.sugarlabs.org?).
+The server is now live at logcollect.sugarlabs.org.  The mailing list sugar-reports@lists.sugarlabs.org now exists.
+For deployments, there should be a way to override the server URL.
+The server URL now comes from Gconf.
+The Log activity needs to have its Upload Logs button replaced by a button that opens the control panel.
+Most likely we will remove the button from Log, but patches for both options have been posted to the ticket.
+How To Test
+Open the Control panel.
+Click Report a problem.
+Type in a problem description.
+Click the Upload Report button.
+Verify that the upload succeeds.
+Verify that a report email was sent to the reports list.
+Verify that the data in the report email attachment is reasonable.
+Verify that the download link in the report email works.
+If there are exceptions in any log files (it may help to add one manually), they should be noted in the email.
+User Experience
+The user will notice a new control panel.  When an activity fails to launch or otherwise suffers an exception, the user will be offered an opportunity to report the problem.
+Dependencies
+None
+Contingency Plan
+Nothing depends on this feature.  If it's not ready in time it can simply be omitted.
+Documentation
+Ideally this feature would be documented as part of the FLOSS manual.
+Also, instructions for deploying the log server and configuring the URL via gconf should be documented on the Wiki.
+Release Notes
+A mention of how to customize the server URL would be useful.
+Comments and Discussion
+See
+discussion tab for this feature
+You can add categories to tie features back to real deployments/schools requesting them, for example [[Category:Features requested by School Xyz]]

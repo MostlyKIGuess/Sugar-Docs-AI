@@ -1,0 +1,95 @@
+Title: Deployment Platform/Sneakernet
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/Sneakernet
+--------------------------------------------------------------------------------
+Contents
+1
+Background
+2
+Teacher's XO
+2.1
+Sugar Network volume
+2.2
+Synchronization
+3
+Students' XO
+4
+Getting involved
+Background
+This is
+one of possible
+deployment scenarios of
+Deployment_Platform
+. This page is intended to describe procedures for school servers and end users in
+Internet-less
+environment. Using
+predefined recipes
+, it should be possible to fully support such deployments.
+Targeting environment
+The standard targeting environment, final environment might be similar, assumes:
+Particular deployment, e.g., a school, without Internet access.
+Lack of technical personal when in most cases only not IT skilled teachers have access to school servers.
+Lack of dedicated hardware for school servers, server side software will be launched on teacher's XO laptop (XO-1.5 is preferred).
+School server's client connected to school server XO using Ad-hoc wireless connection.
+The only way to synchronize school servers with each other and with the master one, is a
+sneakernet
+.
+The scenario assumes keeping Sugar Network node server launched on teacher's XO which provides Sugar Network access to students around. Teacher's and students' XO should be flashed with special Sugar with Sugar Network integration. It might be
+one of reference images
+or final deployment ones like
+Hexoquinasa
+.
+Teacher's XO
+Sugar Network volume
+To make process of choosing server XO more flexible, entire Sugar Network node data should be stored on separate removable device, SD card of USB stick. Any XO can be turned into Sugar Network node by plugging such volume.
+To make removable media capable to store Sugar Network data:
+Create
+sugar-network
+directory in the root.
+In order to make XO server capable:
+Enable server mode checkbox in
+Sweets Distribution
+section in Sugar Control Panel, or, if this sections is disabled, populate
+/etc/sweets.conf
+configuration file (it might be done on XO image creation stage):
+[client]
+server-mode = True
+Initiate Ad-Hoc wireless session from the Neighborhood View in the Sugar Shell to let students connect to Sugar Network server;
+Plug prepared Sugar Network volume.
+Synchronization
+Note that newly prepared Sugar Network volume will be empty, initial content should be fetched from the master node. Due to offline nature of this scenario, synchronization will happen via
+sneakernet
+, i.e., using synchronization files placed to regular removable volumes, e.g., USB sticks.
+To make removable volume capable to handle synchronization files:
+Create
+sugar-network-sync
+directory in the root.
+The synchronization workflow looks like:
+Plug prepared synchronization volume to server XO;
+Wait for Sugar alert which says that synchronization is complete;
+Unplug synchronization volume from server XO;
+Plug synchronization volume to a machine which is connected to the Internet;
+Run
+sugar-network-sync
+shell script from synchronization volume (it will be created while synchronizing on server XO);
+Wait until finishing script work, it will upload server XO files and download master server response;
+Bring synchronization volume back to server XO and start from the 1st step.
+Students' XO
+In order to point students' XO to the teacher's Sugar Network node, enable auto server discovering radio-box in the
+Sweets Distribution
+section in Sugar Control Panel, or, if this sections is disabled, populate
+/etc/sweets.conf
+configuration file (it might be done on XO image creation stage):
+[client]
+discover-server = True
+Then, connect to wireless Ad-Hoc, and, in some time, F8 view will expose teacher's Sugar Network content.
+Getting involved
+Subscribe to the
+sugar-devel
+mailing list and email with the subject prefixed with
+[PLATFORM]
+.
+Ask your question on IRC channels,
+#sugar
+(not logged) or
+#sugar-newbies
+(logged).

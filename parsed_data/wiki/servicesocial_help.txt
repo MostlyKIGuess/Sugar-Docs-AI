@@ -1,0 +1,45 @@
+Title: Service/Social Help
+URL: https://wiki.sugarlabs.org/go/Service/Social_Help
+--------------------------------------------------------------------------------
+Contents
+1
+Hostnames & Emails
+2
+Hosted On
+3
+Setup
+4
+Todo
+Hostnames & Emails
+socialhelp.sugarlabs.org
+use.socialhelp.sugarlabs.org
+(HTTP only, redirects to use-socialhelp on https)
+use-socialhelp.sugarlabs.org
+socialhelp AT sugarlabs DOT org
+Hosted On
+Freedom
+using docker
+All the stuff lives in
+/srv/socialhelp
+It uses the
+socialhelp
+partition which is 20G ext4 on the lvm
+Setup
+First do the discourse:
+cd /srv/socialhelp/discourse
+
+# Generate the container - will take some time
+sudo ./launcher rebuild app
+
+sudo ./launcher start app --docker-args "-m 5g --cpuset='6-7'"
+Most of the helpful discourse documentation is found
+on their discourse forum
+.
+Then the re-director & sso:
+container.yml start /containers/org.sugarlabs.socialhelp_sso/ -d
+   container.yml start /containers/org.sugarlabs.use-socialhelp/ -d
+# If they fail to start, make sure that they are built:
+   container.yml build /containers/org.sugarlabs.socialhelp_sso/
+   container.yml build /containers/org.sugarlabs.use-socialhelp/
+Todo
+how to upgrade to next version of discourse

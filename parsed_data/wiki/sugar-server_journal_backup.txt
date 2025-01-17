@@ -1,0 +1,87 @@
+Title: Sugar-server Journal backup
+URL: https://wiki.sugarlabs.org/go/Sugar-server_Journal_backup
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Benefit to Sugar
+5
+Scope
+6
+UI Design
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Modify the current Sugar Journal backup procedure to enable user's to maintain a permanent record of their documents on a school server.
+Owner
+Name:
+Tony Anderson
+,
+Manash Pratim Das
+Email: tony_anderson @ usa (dot) net, mpdmanash @ gmail (dot) com
+Current status
+Targeted release: TBD
+Last updated: 23 April 2016
+Percentage of completion: 0%
+Benefit to Sugar
+The current backup system does not permit a user to save Journal objects which cause the total Journal size to exceed the available space on the XO. The proposed system will enable a backup to a school server to be limited to the size of the available store on the school server. It will provide the user with the ability to manage the size of the local datastore by deleting data files associated with Journal objects and enable them to be loaded again from the school server as needed.
+Scope
+This feature changes code in Sugar and on the school server.
+ds_backup.sh runs the ds_backup.py script on conection to the registered server. The current checks for backup frequency and network load are removed.
+'registration' is removed from the menu. Registration is attempted with each schoolserver connection. The idmgr code on the school server is modified to ignore redundant registrations. Registration on only permitted to one school server. If a school server is not the one to which the registration is made, the ds_backup.py script is not run. An unregistered laptop registers with the first server it connects to. If this needs to be changed, the user can delete the server entry in the network control panel and then connect again.
+The ds_backup.py script uses the datastore class to access the Journal. It opens each object. If the metadata has a Journal flag, the script checks whether the local object has been modified from the saved object (based on date). If so, the local copy is uploaded to replace the saved copy.
+Note: if desired, the uploaded copy could become the prime and other copies could be kept with earlier version id.
+If the object is new (no Journal metadata entry), and does not have a data file with a user-supplied title, the metadata file is uploaded to the Log directory and the local object is deleted.
+If the object is new but has a data file with a user-supplied name, the metadata is shown with a 'Journal' flag and the object is uploaded to the 'Journal' folder. The metadata is marked as 'keep'.
+If an object has a 'Journal' metadata field (new or existing), the script checks the 'keep' metadata field. If it is set and there is no local copy of the data file, it is downloaded from the school server. If it is not set and there is a local copy of the data file, it is deleted.
+The create_user module on the server is changed to create the user directory with subdirectories: Journal and Log. A complete log of the Journal consists to the metadata files in Log plus the metadata files in Journal.
+UI Design
+Remove current registration menu item from main menu.
+Use 'favorite' stars in Journal to control download and delete of local copies of data files 
+associated with Journal objects.
+How To Test
+Examine current Journal display
+Connect to school server<lli>
+Verify that Journal display shows 'favorite' star set on each object.
+Verify that some Journal objects no not shown.
+Clear favorite star on a Journal object.
+Connect again to school server
+Verify that data file for that Journal object is no longer available to resume.
+Set favorite star on the object
+Connect again to the school server
+Verify that data file is now available to resume
+User Experience
+Has control over data objects using space on laptop.
+Has access to data objects saved on school server
+Journal does not show objects not associated with a data file
+Dependencies
+What other packages (RPMs) depend on this package? Are there changes outside the developers' control on which completion of this feature depends? In other words, does your feature depend on completion of another feature owned by someone else or that you would need to coordinate, which might cause you to be unable to finish on time? Other upstream projects like Python?
+This feature is to replace the current ds_backup-client. As an enhancment to the Journal, it is a feature of Sugar. There are parallel feature implementations included in GSOC 16 which may need lead to incompatiblities in the Journal view. These will neeed to be resolved as needed.
+The implementation will attempt to preserve compatibility so that it can be retroactively installed on earlier Sugar versions. The documentation will specify how and to which versions this is supported.
+The implementation is based on python 2.7. The developers are testing on 13.2.5 and later releases. Implementation assumes future versions of Fedora are compatible. There are no known changes to upstream modules needed at this time.
+SOAS, Fedora, and Ubuntu implementations of Sugar are assumed to be compatible. Appropriate testing will be required. Dependencies such as generation of a serial-number can be included in the registration of the server by Sugar.
+Contingency Plan
+Documentation
+Added to Sugar Labs identified documentation.
+Release Notes
+Notify when feature is released.
+Comments and Discussion
+There is need for community dicussion on the changes to the ui. There may be concern that 
+visible access to Journal objects created for log purposes may not be visible in the Journal.

@@ -1,0 +1,98 @@
+Title: Activities/Butialo
+URL: https://wiki.sugarlabs.org/go/Activities/Butialo
+--------------------------------------------------------------------------------
+Butialo is a user-friendly environment that allows programming of the
+Butiá
+robot in the
+Lua language
+. Lua is a simple imperative scripting language  but can create sophisticated programs. It is a dynamic language with automatic memory management and is extremely fast. Butialo is a derivative of the
+Pippy
+IDE (Python environment provided with the XO), which simplifies the creation of programs for the presence of  components connected to the Butiá  and offering snippets of code to access them.
+The authoritative documentation is in the Spanish language at
+[1]
+Contents
+1
+Installation
+2
+Programming documentation
+3
+Simple example
+4
+Simple example (other)
+5
+Util
+6
+Continue reading in Spanish
+Installation
+Download the Activity at
+[2]
+Later versions of Sugar do not work with Butialo V4, so far tested OK on Sugar 0.88 and failing on Sugar 0.94. (Error 'libreadline.so.5 cannot open shared object file' This could be solved either by installing libreadline, or building lua with no libreadline support.)
+Programming documentation
+Common commands are shown in the samples on the left of the screen. For more documentation on Lua commands see the
+documentation for Lua
+. For Butia specific commands, after installing TurtleBots, look in ~/Activities/TurtleBots.activity/plugins/butia/butiaAPI.py for their syntax.
+Simple example
+Move forward until there is an obstacle.
+Motores.setvel2mtr( 1, 500, 1, 500 )
+while true do
+  local dist = Dist.getDistancia()
+  if dist<700 then
+     Motores.setvel2mtr( 1, 0, 1, 0 )
+     repeat
+        wait(1)
+        dist = Dist.getDistancia()
+     until dist > 700
+     Motores.setvel2mtr( 1, 500, 1, 500 )
+  end
+end
+Can also be programmed with events. The previous program is equivalent to the following:
+local function adelante()   -- adelante is Spanish for forward or proceed
+ Motores.setvel2mtr( 1, 500, 1, 500 )
+end
+local function esperar()    -- esperar is Spanish for wait
+ Motores.setvel2mtr( 1, 0, 1, 0 )
+ wait( 1 )
+end
+
+events.add( Dist.getDistancia, '<', 700, esperar )
+events.add( Dist.getDistancia, '>', 700, adelante )
+events.go()
+Simple example (other)
+Butia with dynamic stability. Take a Butiá, remove idler wheels and place an IR distance sensor pointing to the floor. The button toggles the behavior.
+local d        --measured distance
+local eq       --equilibrium position of d
+local v        --calculated velocity
+
+while true do
+   print ("Press the button to start")
+   repeat until Boton.getBoton()==1
+ 
+   eq = Dist.getDistancia() 
+ 
+   print("Starting", eq)
+   util.wait(1)
+ 
+   repeat
+       d = Dist.getDistancia()
+       v = 100+5*math.abs(d-eq)
+       if v > 1024 then v = 1024 end
+       if d < eq then
+           Motores.setvel2mtr(1, v, 1, v)
+       else
+           Motores.setvel2mtr(0, v, 0, v)
+       end
+   until Boton.getBoton()==1
+ 
+   print("Finished")
+   Motores.setvel2mtr(1, 0, 1, 0)
+   util.wait(1)
+end
+Video
+Util
+Butialo provides various auxiliary functions.
+util.wait (t)
+Pauses program execution for t seconds.
+util.get_time ()
+Returns the system time, in seconds.
+Continue reading in Spanish
+[3]

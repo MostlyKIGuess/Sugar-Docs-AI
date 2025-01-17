@@ -1,0 +1,88 @@
+Title: Development Team/Almanac/sugar.activity.registry
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/sugar.activity.registry
+--------------------------------------------------------------------------------
+Sugar Almanac
+for Developers
+Development Team/Almanac
+Main Page
+Package: sugar
+sugar.env
+sugar.profile
+sugar.mime
+Package: sugar.activity
+sugar.activity.activity
+sugar.activity.registry
+Package: sugar.graphics
+sugar.graphics.alert
+sugar.graphics.toolbutton
+sugar.graphics.toolbox
+Package: sugar.datastore
+sugar.datastore.datastore
+Logging
+sugar.logger
+Notes on using
+Python Standard Logging
+Internationalization
+Internationalization
+Contents
+1
+Class: ActivityInfo
+1.1
+What are the all the things I can find out about an activity using an ActivityInfo object?
+2
+Class: ActivityRegistry
+2.1
+How do I get a list of all the activities that are available on an XO?
+2.2
+How do I find all the activities whose name matches a certain string?
+2.3
+How do I get a list of all activities that handle a specific mime type?
+Class: ActivityInfo
+In Sugar 0.86, this class (sugar.activity.registry.ActivityInfo) has been replaced by sugar.bundle.activitybundle.ActivityBundle.
+What are the all the things I can find out about an activity using an ActivityInfo object?
+ActivityInfo objects are containers that contain metadata about different activities installed on an XO. The sample code prints out some of the most useful pieces of information that an ActivityInfo object will contain.
+from sugar.activity import registry
+...
+            #Print out all the relevant info about this activity info object (ai is an ActivityInfo instance). 
+            print ai.name 
+            print ai.icon #path to the icon for this activity
+            print ai.bundle_id #like 'org.laptop.WebActivity'
+            print ai.version 
+            print ai.path #path where this activity's bundle is saved
+            print ai.command
+            print ai.show_launcher
+            print ai.favorite
+            print ai.installation_time
+Class: ActivityRegistry
+The ActivityRegistry class can be used to help you get information about the activities that are installed on the current XO.
+How do I get a list of all the activities that are available on an XO?
+Use the get_activities() method in ActivityRegistry. This will return a list of ActivityInfo objects - one for each activity installed. You can then iterate through this list.
+from sugar.activity import registry
+...
+        #Retrieve and ActivityRegistry Object
+        ar = registry.get_registry()
+
+        # use get_activities() to get a list of ActivityInfo objects and iterate through each
+        for ai in ar.get_activities():
+            print ai.name
+How do I find all the activities whose name matches a certain string?
+The find_activity() method in ActivityRegistry takes a string and returns a list of ActivityInfo objects, each of which represents an activity whose name matches the string passed. You can pass the full name of an activity (eg. 'Terminal', or 'Web') or you can pass part of the name (eg. 'term'). Note that this method may find multiple activities that match your search, so make sure you check for how many have been returned if you are looking for a specific activity. The find_activity() method is not case sensitive.
+from sugar.activity import registry
+...
+        #Retrieve and ActivityRegistry Object
+        ar = registry.get_registry()
+
+        # search for activities with a name like 'annot'
+        aiList = ar.find_activity('terminal')
+        # for each ActivityInfo object (representing each activity) found, print out the activity name. 
+        for ai in aiList:
+            print ai.name
+How do I get a list of all activities that handle a specific mime type?
+Use the get_activities_for_type() method in ActivityRegistry, passing to it the mime type you are trying to open.
+from sugar.activity import registry
+...
+        #Retrieve and ActivityRegistry Object
+        ar = registry.get_registry()
+
+        # search for activities that handle gif images - will get a list of ActivityInfo objects
+        aiList = ar.get_activities_for_type('image/gif')

@@ -1,0 +1,93 @@
+Title: Service/activities4
+URL: https://wiki.sugarlabs.org/go/Service/activities4
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+Hostnames
+3
+Hosted on
+4
+Administrative contact
+5
+Sysadmins
+6
+Notes
+7
+Upgrade notes
+8
+Sources
+Description
+Sugar Activity Library for Python 3 Activities.
+Hostnames
+http://v4.activities.sugarlabs.org/
+Hosted on
+Machine/sunjammer
+Administrative contact
+activities AT sugarlabs DOT org
+Sysadmins
+For non-emergency calls, preferably send email to the administrative contact.
+Srevin Saju
+, maintainer.
+Notes
+To add your activity bundle to
+aslo-v4
+, you need to be a member of the
+sugardl
+group.
+Then, copy your bundle to
+/srv/activities-v4/bundles
+, for example:
+rsync dist/Pippy-17.xo user@sunjammer.sugarlabs.org:/srv/activities-v4/bundles/
+ 
+ # optionally, generate metadata and copy to the same directory
+# add a link to source code repository
+ git config --get remote.origin.url > org.laptop.Pippy.git
+ 
+ # get a list of authors of the activity
+ git log -P --pretty=format:"%an" > org.laptop.Pippy.log
+# copy them to sunjammer's bundles/metadata directory
+ rsync org.laptop.Pippy.* user@sunjammer.sugarlabs.org:/srv/activities-v4/bundles/metadata/
+ 
+ # trigger a new build of aslo-v4
+ rebuild-aslo
+Deploy directory:
+/srv/www-sugarlabs/v4-activities
+Source directory:
+/srv/activities-v4/src
+Bundle (*.xo) directory:
+/srv/activities-v4/bundles
+Upgrade notes
+As
+activities-v4
+user on
+Machine/sunjammer
+, do
+~/bin/also-refresh-src
+ ~/bin/aslo-rebuild
+This will pull
+master
+from the
+source repository
+, and the python library will be installed to
+~/.local/lib/python3.x/site-packages
+. Once this has been done, it will be accessible from any directory.
+~/bin/aslo-rebuild
+will rebuild v4.activities.sugarlabs.org, and deploy it to
+/srv/www-sugarlabs/v4-activities
+. This is only recommended if the user is
+activities-v4
+. For all other cases, please use
+rebuild-aslo -> /usr/local/bin/rebuild-aslo
+and
+source-update-aslo -> /usr/local/bin/source-update-aslo
+for rebuilding and updating the source code.
+ASLO-v4 also maintains host specific configuration in
+/srv/activities-v4/etc
+which is maintained in a git repository. To make changes, add yourself to the
+activities-v4
+group and commit your changes.
+Sources
+source repository
+.

@@ -1,0 +1,91 @@
+Title: Features/Variable-Appearance-of-Buddy-Icon
+URL: https://wiki.sugarlabs.org/go/Features/Variable-Appearance-of-Buddy-Icon
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+This feature is a modification to the existing XO icon on the Sugar desktop. The XO icon will now change based on the number of journal entries, battery status, and disk usage.
+Owner
+Name:
+Hrishi Patel
+Email: Hrishi Patel <hrishipatel99@gmail.com>
+Current status
+Targeted release: 0.115-0.116
+Last updated: 30th August 2019
+Percentage of completion: 70%
+Detailed Description
+The XO icon on the Sugar desktop changes according to:
+Number of Journal entries. If number of journal entries are less than 10, the embryo will be the style. If the number of journal entries is between 10 and 50, Teen style is selected. For more than 50 journal entries, the Adult style will be selected.
+Battery status. Badges are shown if a battery is detected. The badge uses the existing battery icon in the Sugar artwork.
+Disk usage. Currently, the icons will only change for when disk status is below 50%, greater than 50% or greater than 90%. The stroke size of the icons will change accordingly.
+Provides a setting (GSettings) to enable or disable the feature.
+In future, the widget will be based on Cairo and will not be using icons for the styles.
+Benefit to Sugar
+This feature provides a visual update to the existing XO icon on the Sugar desktop. The user will know more about their Journal, their disk and battery status from the Desktop. The idea was to make the XO icon adapt according to the properties state above for better user experience.
+Scope
+What work do the developers have to accomplish to complete the feature in time for release?  Is it a large change affecting many parts of the distribution or is it a very isolated change? What are those changes?
+Review my pull request and commits for the changes I make.
+documentation changes.
+testing the feature as I make changes.
+The feature is implemented in buddyicon.py (jarabe/view/buddyicon.py).
+The code at extension/deviceicon/battery was also modified.
+A gsetting was added to make enabling the feature optional.
+UI Design
+No direct impact on the workflow. The artwork was changed (
+https://github.com/Hrishi1999/sugar-artwork/tree/tamagotchi-widget
+).
+In future, Cairo will be used to draw the icon instead of using too many icons.
+How To Test
+Use this branch to test changes:
+https://github.com/Hrishi1999/sugar/tree/tamagotchi-widget-feature
+To test battery badges, the device must be battery-equipped. You will notice a changes to XO icon on Desktop.
+User Experience
+You will notice that the XO icon on Sugar desktop will change according to the properties state above (journal entries, disk usage, and battery)
+Dependencies
+No dependencies.
+Contingency Plan
+None necessary, revert to previous release behavior.
+Documentation
+See PR #852 at
+https://github.com/sugarlabs/sugar/pull/852
+Release Notes
+Variable Appearance of Buddy Icon
+This feature is a modification to the existing XO icon on the Sugar desktop. The XO icon will now change based on the number of journal entries, battery status, and disk usage.
+Comments and Discussion
+Link to the discussion on lists.sugarlabs.org:
+http://lists.sugarlabs.org/archive/sugar-devel/2019-July/057072.html
+,
+http://lists.sugarlabs.org/archive/sugar-devel/2019-July/057100.html
+,
+http://lists.sugarlabs.org/archive/sugar-devel/2019-June/057003.html
+,
+http://lists.sugarlabs.org/archive/sugar-devel/2019-May/056832.html
+See
+the discussion tab for this feature.

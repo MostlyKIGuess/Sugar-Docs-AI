@@ -1,0 +1,135 @@
+Title: Sugar on a Stick/Macintosh
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Macintosh
+--------------------------------------------------------------------------------
+Contents
+1
+Macintosh Booting USB sticks
+1.1
+Installation script transcript
+2
+Building a bootable Mac USB stick
+Macintosh Booting USB sticks
+Used the installation shell script
+tools_livecd-iso-to-disk.sh
+with the
+--format --efi
+on the USB stick.
+in a Fedora 17 GNOME 3 hard disk installation --
+Satellit
+23:24, 10 April 2012 (EDT)
+Installation script transcript
+Desktop# ./tools_livecd-iso-to-disk.sh --format --efi --overlay-size-mb 300 --home-size-mb 175 --delete-home --unencrypted-home Fedora-17-Beta-x86_64-Live-Desktop.iso /dev/sdc1
+Verifying image...
+./tools_livecd-iso-to-disk.sh: line 900: checkisomd5: command not found
+Are you SURE you want to continue?
+Press Enter to continue or ctrl-c to abort
+WARNING: THIS WILL DESTROY ANY DATA ON /dev/sdc!!!
+Press Enter to continue or ctrl-c to abort
+wipefs: WARNING: /dev/sdc: appears to contain 'gpt' partition table
+Waiting for devices to settle...
+Copying live image to target device.
+squashfs.img
+   658305024 100%    4.33MB/s    0:02:25 (xfer#1, to-check=0/1)
+sent 658385457 bytes  received 31 bytes  4524986.17 bytes/sec
+total size is 658305024  speedup is 1.00
+osmin.img
+        8192 100%    0.00kB/s    0:00:00 (xfer#1, to-check=0/1)
+sent 8265 bytes  received 31 bytes  16592.00 bytes/sec
+total size is 8192  speedup is 0.99
+Updating boot config file
+Initializing persistent overlay file
+300+0 records in
+300+0 records out
+314572800 bytes (315 MB) copied, 77.7406 s, 4.0 MB/s
+Initializing persistent /home
+175+0 records in
+175+0 records out
+183500800 bytes (184 MB) copied, 39.9797 s, 4.6 MB/s
+Formatting unencrypted /home
+mke2fs 1.41.14 (22-Dec-2010)
+Filesystem label=
+OS type: Linux
+Block size=1024 (log=0)
+Fragment size=1024 (log=0)
+Stride=0 blocks, Stripe width=0 blocks
+44880 inodes, 179200 blocks
+8960 blocks (5.00%) reserved for the super user
+First data block=1
+Maximum filesystem blocks=67371008
+22 block groups
+8192 blocks per group, 8192 fragments per group
+2040 inodes per group
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729
+Writing inode tables: done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: done
+This filesystem will be automatically checked every 20 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+tune2fs 1.41.14 (22-Dec-2010)
+Setting maximal mount count to -1
+Setting interval between checks to 0 seconds
+Installing boot loader
+Target device is now set up with a Live image!
+Building a bootable Mac USB stick
+(tested on a MacBook Air)
+1
+Boot Intel Mac
+Download Soas-v4
+Fedora-14-x86_64-Live-SoaS Download
+Download Soas-v3
+soas-3-mirabelle Download
+Copy them to a USB for transfer later (see below)
+2
+Format a 2nd Target USB (2GB) in OSX Disk utility
+Insert Target USB
+start Disk Utility
+highlight the target USB in left column of OSX Disk Utility
+Click on erase; select fat16; Name FEDORA; hit return
+3
+Burn USB
+Start Oracle VirtualBox for OSX
+VirtualBox-3.2.10-66523-OSX.dmg Download
+TO download F14:
+Fedora-14-x86_64-Live-Desktop Download
+Start the F14 Desktop you have installed to VirtualBox
+Insert USB that contains: Fedora-14-x86_64-Live-SoaS.iso and soas-3-mirabelle.iso
+Copy them to running f14-Desktop in VirtualBox
+4
+Start liveusb-creator (To install liveusb-creator; In Terminal:"yum install liveusb-creator)
+<Browse>/Desktop/ Fedora-14-x86_64-Live-SoaS.iso or soas-3-mirabelle.iso
+<Target Device> /dev/sdb1 (FEDORA)
+<Persistent Storage> choose 900 MB
+<Create Live USB>
+5
+Shutdown Fedora 14 in VirtualBox; Close VirtualBox Program; Shutdown Mac.
+6
+Insert Soas-4-boot-test CD in USB DVD/CD; Plug in Live USB you just built
+soas-4-boot-test Download
+OR Make a rEFIt Boot CD:
+Here is a simple way to recognize a bootable USB on a Mac.
+Go to rEFIt (
+http://refit.sourceforge.net/
+) and make a bootable cd.
+"There is no need to install rEFIt on your mac. In fact installing rEFIt may make it impossible to upgrade the Mac OS to a newer version later on (personal experience, I had to do a clean install).
+Put the rEFIt CD[1] in and hold the
+option key
+after turning the computer on.
+The Mac will recognize the CD because it uses EFI and then the CD will recognize the bootable USB."[2]
+[1]
+How to Burn a rEFIt CD
+(You can rename the .cdr file to .iso for use in linux.)
+[2]
+Downloads#Apple Mac OS X
+7
+Boot from Soas-4-boot-test helper CD
+Hold down "C" key and do not release until Fedora Blue "soas-boot" screen appears
+It may take 10-15 seconds
+Select "Boot with basic video driver"
+Hit return
+Congratulations Your Live USB should Boot and run Sugar on a Stick from the live USB with persistence
+Notes:
+Wireless connection does not work. Use an USB Ethernet Adapter for Internet Connectivity
+you can eject a USB CD/DVD drive, if used (In bottom right of sugar frame) and unplug the CD/DVD USB connector from the Mac. It will not be needed until next time you boot the Live USB
+Important
+Do NOT try to boot this USB stick except on an Intel MAC with a boot disk—It becomes corrupted if a boot is attempted as standalone Live SoaS on a Netbook

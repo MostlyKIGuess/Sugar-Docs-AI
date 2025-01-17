@@ -1,0 +1,480 @@
+Title: Platform Team/Guide/Sweets Packaging
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Guide/Sweets_Packaging
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Prepare the environment
+3
+Recipe files
+3.1
+Writing recipes
+3.2
+Interfaces
+3.3
+Dependencies
+3.4
+Stability status
+3.5
+Glob patterns
+3.6
+Examples
+4
+Releasing
+5
+Development with Sweets
+5.1
+Sugar sweets
+6
+Developing activities
+6.1
+Manage sources
+6.2
+Launch activity
+7
+Good practices
+7.1
+Devel packages
+7.2
+Transparent behaviour
+8
+Feedback
+Summary
+This guide describes how to prepare software projects to be distributed via Sugar Labs' Packaging Management System, Sweets.
+Make sure that you read the
+introduction page
+and
+Usage guide
+. To understand conceptual ideas, read the
+Glossary
+.
+Prepare the environment
+Using the
+Usage guide
+'s instructions, install the Sweets. In addition, Sweets might be used from sources:
+git clone
+git://git.sugarlabs.org/sdk/sweets.git
+cd sweets
+git submodule init
+git submodule update
+./sweets upgrade
+The command
+./sweets upgrade
+might require relogin from the X session to take into account the new PATH value.
+Recipe files
+The recipe specification file is an analog of scenario files in regular GNU/Linux distributions, like
+.spec
+files in RPM. It is the cornerstone of Sweets, everything on the sweet project level depends on the recipe file. For activities,
+activity/activity.info
+, an inherited recipe file name, is supported.
+On a logical level, the entire Sweets infrastructure might be treated as a set of distribution bundles with sources that contain recipe files. Software projects are identified as Zero Install
+interfaces
+that contain information about which distribution bundle needs to be downloaded in order to launch a particular software version. That's not the full picture (there are binary bundles created based on sources), but it is useful for this topic's purpose. Read the
+Development with Sweets
+section to learn about the available usage scenarios.
+A recipe file is an
+ini
+format configuration file that might consist of several sections:
+One or more
+use case sections
+.
+Optional
+archive sections
+.
+Optional
+auxiliary sections
+.
+Optional
+[DEFAULT]
+section with common options that are accessible from all other sections.
+These files need to be placed in the root sources directory with names
+sweets.recipe
+or
+activity/activity.info
+for Sugar activities.
+Writing recipes
+In sources directory, create a recipe file, e.g., using
+sweets init
+command. Recipe file should contain at least one
+use case
+section. There are several types of use case sections:
+Activity
+for Sugar activities,
+Application
+for stand alone applications,
+Library
+for libraries.
+Make sure that all required options were set. The
+implement
+option has a special meaning, it is an
+identifier
+of the sweet.
+By default, the entirely sources directory will be packaged into sources tarball. In case if sources list needs to be restricted, add
+Source
+section with appropriate
+include
+and/or
+exclude
+options.
+If the sweet needs to be built, add
+Build
+section.
+If built files are platform dependent, add
+Archive
+section with
+arch=any
+option.
+Interfaces
+The
+implement
+,
+associate
+and
+requires
+(optionally) options contain
+short interfaces
+. These values have two meanings:
+suffixes for final
+interface
+s, e.g.,
+http://sweets.sugarlabs.org/
+<value>
+,
+the name of project/package on
+OBS
+that will be used to host released sweet.
+In the 2nd case, the last slash separated part is a package, and the rest is a project, e.g., for
+sdk/sugar
+,
+sdk
+is a project and
+sugar
+is a package in the
+sdk
+project.
+It is possible to have interface values without slashes, in that case, project and package names are the same.
+In the
+OBS
+, there is a special project named
+base
+. This project contains sweets that all time will be represented only by native packages. In other words, if you need to make sure that your sweet needs to depend only on native packages, use dependencies from the
+base
+project.
+The
+base
+project is also useful for
+associated
+interfaces set in
+associate
+recipe option. For example, if your sweet needs
+pygame=2
+dependency that is not yet widespread, create
+~user/pygame
+temporary sweet with
+2
+version only, and use
+~user/pygame
+as a dependency in your sweet. If
+base/pygame
+will be added as associated interface to the
+~user/pygame
+, users that have
+>=2
+version in native packages will reuse them instead of
+~user/pygame'
+s one.
+See OBS
+projects
+for all existed sweets.
+Dependencies
+Dependencies might be used in the
+requires
+and
+suggests
+options in recipes files to declare that the current sweet depends on another sweet/s.
+The format of a dependency string is:
+<interface> [(=|>=|<) <version>]
+The
+interface
+value supports all interface
+forms
+. The limited set of version conditions depends on Zero Install
+specification
+when the
+=
+condition is a high level one and will be described in
+>=
+and
+<
+terms.
+Dependencies may be optional. In that case, they need to be wrapped in square brackets. Optional dependencies will be used
+only
+if there is an
+implementation
+to choose, otherwise they will be discarded without errors.
+Stability status
+Sweets should have stability status:
+stable
+, final stable release,
+testing
+, let people interested in testing try latest changes that are not yet stable,
+developer
+, just a more extreme version of
+testing
+,
+This is a useful Zero Install feature that let developers share not yet stable version among the community. Since by default, only stable versions are being used, people, who are interested in helping developers in polishing not yet stable versions, need to explicitly choose not stable versions.
+Glob patterns
+The
+include
+and
+exclude
+options contain file patterns. A pattern could be of two types:
+doesn't contain
+/
+or
+**
+substrings, will be applied only to file names
+contains
+/
+or
+**
+substring, will be applied to the full file path (relative to the root), thus could affect several directory levels
+Only these pattern symbols are allowed:
+*
+matches everything, except directory separator
+?
+matches any single character, except directory separator
+**
+matches everything, including directory separator
+Examples
+A list of recipe examples. Additionally, see
+sugar*
+repositories in the
+Gitorious sdk
+repository, all of them are sweets.
+Python activity
+Python-based activity with standard Sugar Platform dependencies.
+[Activity]
+implement = cartoon-builder
+name      = Cartoon Builder
+summary   = Create your own cell-animation sequences
+license   = GPLv2+
+homepage  =
+http://wiki.sugarlabs.org/go/Activities/Cartoon_Builder
+version   = %(activity_version)s
+stability = stable
+
+icon      = activity-cartoonbuilder
+exec      = sugar-activity activity.CartoonBuilderActivity
+
+# Backwards compatibility of original activity.info options
+bundle_id = com.ywwg.CartoonBuilderActivity
+activity_version = 7
+Python library
+A python-based library that could be used as is, or as an activity dependency.
+[Library]
+implement = libjournal
+name      = libjournal
+summary   = Hight level library to create your own Journal-like activity
+license   = GPLv3+
+homepage  =
+http://wiki.sugarlabs.org/go/Activity_Team/Services/Journal
+version   = 1
+stability = testing
+requires  = toolkit
+binding   = PYTHONPATH
+C-based library
+[DEFAULT]
+depends   = base/glib; base/gconf; base/libgee >= 0.5; base/gtk+ >= 2.12
+            base/pango >= 1.20; base/librsvg
+
+[Library]
+implement = polyol
+name      = polyol
+summary   = Intermediate level GObject based libraries for Sugar
+description = Polyol is a set of libraries that are written in Vala.
+            Libraries are intended to provide high-level C API to basic Sugar
+            features including Gtk based user interface. Applications that are
+            linked against Polyol, interact with sugar processes
+            (like shell, datastore, etc.) via DBus.
+license   = LGPLv3+
+homepage  =
+http://wiki.sugarlabs.org/go/Activity_Team/Polyol
+version   = 1
+stability = developer
+
+binding   = LD_LIBRARY_PATH lib
+            PKG_CONFIG_PATH lib/pkgconfig
+            VAPIDIR share/vala/vapi
+requires  = %(depends)s
+
+[Archive]
+arch      = any
+
+[Build]
+requires  = %(depends)s; pkg-config; cmake; make; gcc-c
+configure = cmake -D CMAKE_INSTALL_PREFIX=%(PREFIX)s
+                  -D PYTHON_SITEDIR=%(PREFIX)s/python
+                  -D COMPONENTS="collab;ds;env;gui;shell;toolkit"
+                  -D BINDING=python
+                  -D CMAKE_C_FLAGS:STRING="%(CFLAGS)s"
+                  .
+make      = make
+install   = make DESTDIR=%(DESTDIR)s install
+Releasing
+In Sweets, releasing means uploading a sources tarball with a release (though, that
+doesn't only mean
+stable versions) to the Sugar Labs
+instance
+of the
+Open Build Service
+(OBS). Before releasing, make sure that you have a Sugar Labs
+account
+. A login with password will be required the first time or when your cookie is missing.
+Before releasing, make sure that your recipe conforms to the OBS
+Policy
+. While releasing, sweet sources will be uploaded to an OBS project/package according to the
+implement
+recipe option. If a particular project or package don't exist, they will be created (upon user's confirmation for project creation).
+To initiate releasing, enter from the sweet sources directory:
+sweets commit
+The
+sweets
+command will ask for a commit message, i.e., release notes. The same notes might be passed to
+commit
+command via the
+--message
+command-line argument.
+If the releasing sweet is binary based, only the most recent stable version will be built on the OBS side, other versions will be built on the client side.
+Development with Sweets
+Source bundles might be used on the client side not only indirectly, via
+sweets
+command for example, but also explicitly. Sources might be bundled, emailed, etc. In this case, it is just like
+.xo
+files. To make sources useful within Sweets, the local directory with sources might be employed in several ways:
+Applications might be launched from sources,
+sweets
+<path-to-sources>
+;
+To reuse sources as dependencies for other sweets, the source directory needs to be registered in Sweets,
+sweets checkout
+<path-to-sources>
+; applications might be checked out as well.
+Checking out will register a
+sweet
+in the local
+Sweets
+instance as a single
+implementation
+for the
+interfaces
+it
+implements
+. This feature is especially useful for libraries, for example, if the sugar-toolkit sources, which implement the
+sdk/sugar-toolkit
+interface
+, were cloned to the
+~/src/sugar-toolkit
+directory, then, while running a
+sdk/sugar
+sweet
+, it would become possible to reuse local sugar-toolkit sources as a regular
+implementation
+of the
+sdk/sugar-toolkit
+dependency of
+sdk/sugar
+.
+Sugar sweets
+There are
+sdk/sugar
+sweets that might be used as an example how to support sweets. Sweets Sugar sources are always rebased
+forks
+of upstream projects with added
+sweets.recipe
+files and lightweight patches that make the original code useful via Sweets.
+Checkout sources from:
+http://git.sugarlabs.org/sdk/sugar-base
+http://git.sugarlabs.org/sdk/sugar-toolkit
+http://git.sugarlabs.org/sdk/sugar-artwork
+http://git.sugarlabs.org/sdk/sugar
+and see its
+sweets.recipe
+files.
+Developing activities
+How Sweets might be useful while developing activities.
+Manage sources
+The traditional development related routine for activity sources is to run the
+setup.py
+script located in the root activity directory. With Sweets, these routines might be accomplished with the
+sweets
+command. Here is some background information:
+A downside of using Sweets is that running
+setup.py
+requires being in the Sugar session (in order to have all the libraries that
+setup.py
+injects);
+Sweets is designed to support multiple software versions at the same time. So to avoid having to login to different Sugar sessions for creating source tarballs, for example, it makes more sense to have a standalone utility;
+The
+sweets
+command already contains development related functionality; it is useful to keep all development related functions in one utility.
+Sweets support the following
+setup.py
+'s commands:
+build
+, build generated files, e.g.,
+locale/
+directory;
+dist_xo
+, create a .xo with activity sources;
+dist_source
+, create activity sources tarball;
+genpot
+, generate the gettext pot file.
+And doesn't support the following:
+dev
+- seems to be a needlessly exaggerated function that creates a symbolic link in the
+~/Activities
+directory to activity sources. The same might be done using the
+ln -s
+command to avoid having derived functionality, or better, place sources directly in the
+~/Activities
+directory;
+fix_manifest
+- function creates
+MANIFEST
+file. Not having this file is not a failure, and Sweets is designed to have include/exclude rules in recipe files instead;
+install
+- function installs the activity to the root system.  Sweets avoid, by design, any global changes during its regular behaviour.
+As regular
+sweets
+'s commands, these commands need to be executed from the activity directory (or in any of its sub-directories, not just in the root), or the path to activity sources might be specified after the command name, e.g.:
+sweets build [PATH]
+Launch activity
+Before starting Sugar Shell, place your activity's sources directory under the
+~/Activities/
+directory, or place there a symbolic link to the activity sources. After running Sugar Shell, the new activity will appear in the Home view (if it's absent in the Favorites view, switch to the List view).
+Good practices
+Devel packages
+It is common practice in binary-based GNU/Linux distributions to use satellite devel packages to collect various build-time files like C headers or pkg-config files. In the Zero Install environment, this doesn't work, because every package is stored in a separate directory hierarchy, e.g., *.so symlinks, from devel package, will point to nothing, since all *.so.* files from the library package live in a separate directory.
+Keep all build-time files in the sweet with runtime files.
+Transparent behaviour
+Library sweets that are associated with native packages (
+base/*
+sweets), should use regular environment variables for binding, such as
+LD_LIBRARY_PATH
+. The idea is that it should be possible to replace them with native packages transparently and avoid changes in sweets that use these libraries.
+Feedback
+Submit
+your bug report or feature request.
+Subscribe to the
+sugar-devel
+mailing list and email with the subject prefixed with
+[SWEETS]
+.
+Ask your question on IRC channels,
+#sugar
+(not logged) or
+#sugar-newbies
+(logged).

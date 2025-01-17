@@ -1,0 +1,310 @@
+Title: Platform Team/Server Kit/sugar-client
+URL: https://wiki.sugarlabs.org/go/Sugar_Server_Kit/sugar-client#OLPC_XS
+--------------------------------------------------------------------------------
+Caution
+The
+sugar-client
+application exits only in
+1.x
+releases of the
+Deployment Platform
+(originally named as Sugar Server Kit).
+For the planing 2.0 release,
+sugar-client
+functionality is split into several Shell
+plugins
+.
+Contents
+1
+Summary
+2
+Functionality
+2.1
+Registration on a school server
+2.2
+Auto Journal restore
+2.3
+Usage statistics
+2.3.1
+Stats configuration
+3
+Background operations
+4
+Backwards compatibility
+4.1
+Sugar Shell code
+4.2
+Treating UUIDs
+4.3
+OLPC XS
+5
+Distribution
+6
+Configuration
+7
+Troubleshooting
+8
+Getting involved
+9
+Resources
+Summary
+A program to run on Sugar clients side to interact with
+Sugar Server Kit
+based school server. It implements the
+Client API
+for usage, e.g. in Sugar Shell, and the
+sugar-client
+utility to get access to the same API from the console.
+Functionality
+The high level functionality is described by DBus
+API
+sugar-client provides. These DBus services will be accessible right after installing
+sugar-client
+package, e.g., to reuse them in Sugar Shell code. To call the same functionality from the command line, use
+sugar-client
+utility.
+Registration on a school server
+That's the first operation that should be processed to let the rest of sugar-client functionality working properly. The key configuration option here, is
+api-url
+that points to
+sugar-server's API
+. If
+api-url
+was not explicitly specified, the default one,
+http://schoolserver:8000
+, will be used. If
+api-url
+was explicitly specified, it will be
+kept
+for later usage.
+The result of registration will be:
+Setting the
+/desktop/sugar/collaboration/jabber_server
+GConf key with Jabber server url to support Sugar collaboration;
+School server reply will be formed as a regular
+sugar-client.conf
+configuration file and placed to user's profile directory. This configuration will be
+reused
+for all other sugar-client functionality.
+If
+auto-register
+configuration option is set, sugar-client will try to make auto-registration on a server on Sugar
+startup
+. Auto-registration will happen if client is not registered at all or registration is outdated (school server asked clients to process re-registration).
+To process registration, either call
+DBus API
+or use
+sugar-client
+utility:
+sugar-client register [
+<api-url>
+]
+Auto Journal restore
+The affected usecase:
+a XO processed several
+auto
+backups (the regular practice in the field),
+and was reflashed,
+XO was
+not
+restored manually before the first auto backup,
+the first auto backup will cleanup backuped Journal on the server (Journal after reflashing is empty),
+any later restore using UI will restore empty Journal (though, it is possible to restore Journal for particular date using CLI tools).
+Since disabling auto backups will be considered as a regression, sugar-client needs to provide a way to 
+auto restore Journal after reflashing.
+The implementation will be:
+auto-register
+option needs to be more than
+0
+,
+backup-timeout
+needs to be more than
+0
+,
+auto-restore
+needs to be
+True
+,
+Journal should be empty,
+right after registering newly reflashed XO, sugar-client will start restoring the Journal.
+Usage statistics
+Summary:
+Implementation is based on
+sugar-stats
+library.
+Client behaviour is entirely controlled by
+stats server
+.
+To activate stats client activity,
+background operations
+need to be activated. The procedures are:
+sugar-client requests server for stats parameters in
+stats-timeout
+period, in particular:
+should stats gathering process start or stop,
+client side storage parameters;
+if server needs stats, client start gathering process;
+during the server interaction, client sends already collected stats.
+To start stats activity, client side should have the following
+configuration
+:
+stats-url
+, HTTP(S) url to the stats server,
+stats-timeout
+, how frequent (in seconds) client should connect to stats server to upload new information and correct current behaviour.
+The stats gathering process might be initiated manually by the command:
+sugar-client -d monitor [OPTIONS]
+It is important to use secure connection with server, specify server's certificate via
+stats-ca-certs
+parameter.
+Stats configuration
+After enabling stats gathering (after the first successful server connection), all stats related configuration will be stored in
+sugar-client.conf
+configuration file in
+[stats]
+section. Enable this configuration manually if you need to enable stats gathering before the first connection to the server.
+[stats]
+rras = ["RRA:AVERAGE:0.5:1:4320", "RRA:AVERAGE:0.5:5:2016"]
+step = 60
+enabled = true
+Background operations
+Sugar-client might process background operations. To make it possible, add
+sugar-client session
+command line call to, e.g.,
+~/.sugar/debug
+file, to let it run on Sugar Shell startup. It is important to let sugar-client know about environment variables like
+DISPLAY
+and
+DBUS_SESSION_BUS_ADDRESS
+. This command will start, if it was not started before, DBus service on session bus.
+Background operations are:
+Process auto-
+registration
+.
+If
+auto-register
+option is
+1
+, sugar-client will process auto-registration for never registered clients. If
+auto-register
+option is more than
+1
+, sugar-client will check if auto-registration is needed on every start.
+Process regular Journal backup.
+If
+backup-timeout
+option is more than
+0
+, sugar-client will try to backup the Journal periodically in
+backup-timeout
+seconds.
+Process automatic Journal
+restore
+if
+auto-restore
+is
+True
+.
+Process regular unattended packages update.
+If
+update-timeout
+option is more than
+0
+, sugar-client will try to call update process periodically in
+update-timeout
+seconds;
+Process stats
+monitoring
+.
+If
+stats-url
+is set.
+In all cases, periodical operations will be triggered only once within the same timeout period, even after Sugar session restart.
+Background operations will be processed from DBus service. While working, such DBus service will log into
+~/.sugar/
+current-profile
+/logs/sugar-client.log
+file.
+Backwards compatibility
+Sugar Shell code
+The sugar-client initiative is intended to replace several client side tools to collect all server interaction functionality in the same place and provide it via DBus API. To support already existed tools, sugar-client provides the same name programs that forward the processing to
+sugar-client
+utility:
+dextrose-updater
+utility from Dextrose-2 to process native packages updates.
+journal-backup
+Journal backup from Dextrose-2.
+journal-restore
+Journal restore from Dextrose-2.
+ds-backup.sh
+and
+ds-backup.py
+Journal backup from OLPC XS distribution.
+Treating UUIDs
+While interacting with a
+sugar-server
+, sugar-client is different, in case of treating UUIDs while registration, with Sugar Shell code. The UUID value will be a hash of SSH public key (how it is being used for JIDs in Sugar Shell). After registration, UUID value will be kept in
+~/.sugar/
+profile
+/sugar-client.conf
+file as a sugar-client's
+uuid
+configuration option.
+OLPC XS
+In addition to
+Sugar Server Kit
+based solutions, sugar-client will interoperate with OLPC XS school servers.
+TODO
+Distribution
+The sugar-client distribution contains:
+sugar-client-service
+utility
+the main program that implements entirely functionality as DBus services for Client API;
+sugar-client
+utility
+to call DBus API from the console;
+.service
+files
+to run
+sugar-client-service
+for each exported DBus interface;
+backwards compatibility command wrappers.
+Configuration
+The configuration occurs based on several sources (sorted by applied order):
+/etc/sugar-client.conf
+system-wide configuration file,
+~/.config/sugar-client/config
+user-wide configuration file,
+~/.sugar/
+current-profile
+/sugar-client.conf
+configuration got after registration on a server,
+Configuration files contain option names equal to command-line arguments. To get the current configuration, call:
+sugar-client-service config
+Troubleshooting
+Debugging
+To enable debug logging, add the following lines to
+configuration file
+:
+[main]
+debug = 3
+Direct launch
+In special cases, it is possible to execute sugar-client operations directly, instead of calling DBus service. For that reason,
+-d
+command-line argument needs to be passed:
+sugar-client -d update
+Getting involved
+Report
+on bugs.
+Read the
+HACKING
+file to know how to contribute with code.
+Resources
+Sources
+.
+Current stable binary
+packages
+.
+Development binary
+packages
+.

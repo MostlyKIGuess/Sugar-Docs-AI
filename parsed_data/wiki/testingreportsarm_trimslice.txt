@@ -1,0 +1,127 @@
+Title: Testing/Reports/ARM TrimSlice
+URL: https://wiki.sugarlabs.org/go/Testing/Reports/ARM_TrimSlice#TrimSlicePro
+--------------------------------------------------------------------------------
+Contents
+1
+TrimSlicePro
+2
+TrimSlice H250: Install Ubuntu on a 320 GB HD
+3
+TrimSlice H250: Ubuntu on a SDXC Card
+3.1
+Updates on SDXC Card
+3.2
+Install sugar 0.90
+3.3
+Install Browser
+3.3.1
+Start surf and download activities you want installed to sugar from
+ASLO
+3.3.2
+Alternate Method for Activity Installation
+3.4
+Install KDE
+TrimSlicePro
+Note none of these links work (get 404) 05/21/2019
+New TrimSlicePro
+http://trimslice.com/web/trim-slice-pro-specifications
+Update Manager fails:
+FIX:use root terminal- (asks if OK to install unsigned software)
+apt-get update
+apt-get upgrade
+Long Update
+New kernel:
+apt-get dist-upgrade
+Updated to Linux-image-trimslice 2.6.38.3-1.03  5183 kb
+TrimSlice H250: Install Ubuntu on a 320 GB HD
+Tried a 320 GB HD and install worked:
+Failed with 160 GB HD
+Download:
+http://trimslice.com/download/installers/ubuntu/natty/installer-ubuntu-natty-2.6.38.3_l4t.r1.01.img.zip
+Unzip file
+write to 64 GB SDXC Card
+dd if=installer-ubuntu-natty-2.6.38.3_l4t.r1.01.img of=/dev/mmcblk0
+Boot from SDXC Card
+Log In Trim
+Password 111111 (default)
+select install to HD -Icon on desktop
+Select HD in popup window
+Restore
+/dev/sda1
+298.09 GiB Image size
+ext3fs
+3.13 GiB original
+Created Jul 17, 2011
+Shutdown and Restart _ (Power down/Turn on with front button (green LED) Wait takes about 5 min to boot)
+Booted from new HD
+ifupdown(eth0)
+Log in to Wireless AP.
+Graphical Update Manager will not work-shows 3 updates but does not connect to internet
+use root terminal
+sudo su
+apt-get update
+apt-get upgrade
+Y/n
+205 upgraded
+TrimSlice H250: Ubuntu on a SDXC Card
+http://trimslice.com/web/trim-slice-h-specifications
+This is a workaround as the Trimslice OS installers do NOT make a bootable HD on the TrimSlice H 250 (even though it appears to have done so)
+I used a 160 GB HD- Worked on 320 GB HD (see above)--
+Satellit
+18:36, 27 June 2012 (EDT)
+This is based on the fact that The installer-ubuntu-natty-2.6.38.3_l4t.r1.01.img is a working Ubuntu install
+Note: Running from the SanDisk (30MB/s) Ultra 64 GB SDXC seems faster than either the Internal HD in the TrimSlice H250 or the ssd in the TrimSlicePro
+In the TrimSlice H250 Ubuntu Desktop:
+Download:
+http://trimslice.com/download/installers/ubuntu/natty/installer-ubuntu-natty-2.6.38.3_l4t.r1.01.img.zip
+Unzip file
+write to 64 GB SDXC Card
+dd if=installer-ubuntu-natty-2.6.38.3_l4t.r1.01.img of=/dev/mmcblk0
+Open with gparted in another Ubuntu PC
+Resize Partition (Max seems to be 30GB)
+Create a fat partition from remaining 30GB on Card.-Labeled MyFiles
+Boot Card in Trimslice H250
+Create USER in System Settings
+(NEW USER) password is 111111
+Change to Administrator with password
+Shutdown
+Reboot Card and log in as (NEW USER) with password
+Have fun
+MyFiles 30 GB partition appears on Desktop
+HINT  Move the installer icon from the desktop to Downloads for safety
+Updates on SDXC Card
+apt-get update
+apt-get upgrade
+211 upgraded ....2 not upgraded [y/N] 
+ Install these packages without verification [y/N]?
+ linux-image-trimslice 2.6.38.3-1.03
+Install sugar 0.90
+apt-get install sugar-emulator-0.90
+Long install
+Install Browser
+Download surf-115 to a USB
+http://people.sugarlabs.org/Tgillard/Surf-115.xo
+Drag-Drop
+surf-115.xo from USB to Journal
+Start surf and download activities you want installed to sugar from
+ASLO
+Alternate Method for Activity Installation
+Running Ubuntu 11.04
+Download new Activity.xo file from
+ASLO
+to the desktop
+Or Copy the Activity.xo from a
+CD/DVD
+or USB to the desktop
+Extract the .xo file with "Archive Manager" to Activities from the desktop
+New activity will be on inside end of (f3) Home View activity spiral
+Install KDE
+Ubuntu Software Center - search for: KDE desktop
+[x] kde-standard
+[x] KOffice  127 MB
+Log out/log in select "KDE Plasma Workspace" on bottom bar (gdm)
+Beautiful Display on Samsung SyncMaster S20B350 HDMI 1600x900 @60Hz PP
+"Sugar in a window" (sugar-emulator) works
+TrimSlicePro Setup Booted from 64 GB SDXC Card in front slot
+(SDXC files are expanded to 30 GB plus 30 GB 2nd Partition MyFiles-see text for details)
+TrimSlicePro Running KDE-Desktop -plus sugar-emulator (0.90.1)

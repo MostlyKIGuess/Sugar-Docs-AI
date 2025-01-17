@@ -1,0 +1,72 @@
+Title: Sysadmin/Quota
+URL: https://wiki.sugarlabs.org/go/Sysadmin/Quota
+--------------------------------------------------------------------------------
+Contents
+1
+User quota
+2
+Requesting limit exensions
+3
+Additional info for sysadmins
+3.1
+Essential documentation
+3.2
+Show quota summary for all users
+3.3
+Create quota from scratch
+3.4
+Reset quota limits for all users
+3.5
+Check quota limits in cron.daily
+3.6
+Crash recovery
+User quota
+The /srv filesystem on
+Machine/sunjammer
+has usrquota enabled with the following per-user limits:
+soft    hard
+ /srv space:   10G     12G
+ /srv files:    1M    1.2M
+When users attempt to write beyond their hard-limit, the system call fails with a "Quota exceeded" error.
+If the soft-limit is exceeded, a cronjob sends a daily notification
+email to the user and to systems-logs@. This continues for a grace period
+of 7 days. Aftet the grace period, offending users will be barred from
+allocating any additional space until they free up some space.
+Requesting limit exensions
+Additional space can be requested to the sysadmins, along with a motivation.
+For best service, follow the canonical BOFH space extension script:
+Q: I need more space
+A: Well, why not move to Texas?
+Q: No, on my account, stupid.
+A: I didn't quite catch that. What was it that you said?
+Q: Um, I said what I wanted was more space on my account, *please*
+A: Sure, hang on. < clickety...clickety... rm -r /home/$USER > There, you've got *plenty* of space now!
+(from
+BOFH, Part 3
+)
+Additional info for sysadmins
+Essential documentation
+man edquota
+man setquota
+Show quota summary for all users
+repquota -vast
+Create quota from scratch
+quotacheck -m -c /home
+quotacheck -m -c /mail
+quotaon -au
+Reset quota limits for all users
+cd /home
+for i in *; do
+       # 25G  30G 1M 1.2M
+       setquota -u $i 26214400 31457280 1024000 1200000 /home
+       #  1G 1.2G 1M 1.2M
+       setquota -u $i 10485760 12582912 1024000 1200000 /mail
+done
+Check quota limits in cron.daily
+See `/etc/warnquota.conf` and `/etc/quotatab`
+warnquota -u -s
+Crash recovery
+In case of crash, theoretically one should run quotacheck to scan the
+entire filesystem, recomputing the exact quota status of all users.
+In practice, nothing bad happens if the values are off by a few megabytes,
+so quotacheck is mostly just a waste of time.

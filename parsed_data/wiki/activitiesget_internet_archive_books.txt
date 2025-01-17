@@ -1,0 +1,46 @@
+Title: Activities/Get Internet Archive Books
+URL: https://wiki.sugarlabs.org/go/Activities/Get_Internet_Archive_Books
+--------------------------------------------------------------------------------
+Contents
+1
+Description & Goals
+2
+Current Features
+3
+Planned Features
+4
+Bugs
+5
+Source
+6
+The Movie!
+Activity Library download
+|
+Source
+|
+Description & Goals
+The Internet Archive is a website containing around a million public domain ebooks created by scanning page images from books in various libraries.  Because of this the ebooks have pages that look like the books they came from, including illustrations and other page decorations.  It may be the best source of free books for younger readers, as well as for books in languages other than English.
+This Activity will use the
+Advanced Search
+capabilities of the
+Internet Archive website
+to enable browsing the website's catalog, getting information on the books therein, and downloading these books to the Journal. Its user interface is similar to the offline catalog search of Read Etexts, but where that Activity is used for both getting books and reading them this one will concern itself only with getting the books, so they may be read with the Read Activity.
+Current Features
+The Activity will allow searching on Title and Author. The books found will be listed in a table containing Author, Title, Volume (if any) and Language. Selecting the entry in the table will display other metadata about the book above the table: the book's description and subject, publisher, etc. The user may then download the selected book to the Journal where it will be given a title meta tag containing title and author and an appropriate MIME type.
+I support these formats for downloading:
+PDF
+Black and White PDF
+Deja Vu
+The other formats Project Gutenberg offers are Text and Flipbook.  A Flipbook is a collection of image files in a Zip archive along with some Javascript.  You could use View Slides to read these, but the page images are too small to be readable.  Also, text files for the Internet Archive are created with OCR software with no attempt to format or proofread it, so I probably won't offer this one either.
+Deja Vu is a special format for books composed of scanned in page images.  It gives better results with more highly compressed files than you get with PDFs.  Typically a Deja Vu book is half the size of a Color PDF.  Deja Vu is the default download format, but if you are using an XO with version .82 of Sugar you may find that Deja Vu support in the Read Activity is not very robust.  For .82 choose one of the PDF formats.  The B/W PDF format is not available for every book, but it uses notably less disk space than the Color version.
+The metadata for the downloaded book is stored in the Journal entry's Description field.
+Planned Features
+I consider this Activity to be feature complete.  The only thing I might do is find some data to put in the Journal entry it creates for itself.  At the moment that Journal entry is empty.
+Bugs
+I'd like the Activity to start up with the search field having the focus.  I put in code that should do this but it isn't working.
+Source
+http://git.sugarlabs.org/projects/get-internet-archive-books
+The Movie!
+See
+Reading With The Sugar Desktop
+at Daily Motion.

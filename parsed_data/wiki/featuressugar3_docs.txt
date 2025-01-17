@@ -1,0 +1,140 @@
+Title: Features/Sugar3 Docs
+URL: https://wiki.sugarlabs.org/go/Features/Sugar3_Docs
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Example Docstring
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Add developer API documentation to sugar-toolkit-gtk3 in a consistent format.  Then, create a site to make the docs available in your browser.
+Owner
+Name:
+Sam P.
+Email: @sam.today
+Current status
+Targeted release: 0.108
+Last updated: 8/Aug
+Percentage of completion: 10% (see
+documentation website
+)
+Detailed Description
+Create a sphinx configuration file so we can have a website (DONE)
+Translate existing docs into 1 consistent style
+Write docs for all other public
+sugar3
+classes, see
+/How To Write
+Example Docstring
+Let's just use google style doc strings, they are very clean and similar to the current style.
+Longer example.
+# GPLv3...
+'''
+The module does something which should be summarised here.
+
+Example:
+    Something representitive of the overall module::
+
+        from example import ClassyClass
+
+        # Explain non-obvious behaviour
+        c = ClassyClass(a=1, b=2)
+        c.props.c = 3
+        c.thing()
+
+STABLE.
+'''
+
+from gi.repository import GObject
+
+
+class ClassyClass(GObject.GObject):
+    '''
+    The ClassyClass does blah, blah.  Explain common usage pattern of
+    this class, such as calling the `thing` function to do a thing.
+
+    The `lol` signal is emitted when the class is laughing or when a
+    different non-obvious condition happens.
+
+    Args:
+        a (int): description of a
+        b (int): b could be a contrustor argument or a GObject props
+            that you can invoke using the **kwargs
+        c (int): desctiption of c
+        d (:class:`sugar3.graphics.alert.Alert`): remember to link
+            classes using the correct syntax
+
+    .. code-block:: python
+
+        c = ClassyClass()
+        # This is just an example of using this class
+    '''
+
+    def __init__(self, **kwargs):
+        GObject.GObject.__init__(self, **kwargs)
+
+    def thing(self, happy, lol=False):
+        '''
+        What a description for this function!
+
+        Args:
+            happy (bool): a description for happy
+
+        Keyword Arguments:
+            lol (bool): a optional argument, explain what
+                it defaults to
+
+        Returns:
+            type: explaintaion
+        '''
+        pass
+Benefit to Sugar
+This will allow developers to create activities more eaisly.  They will no longer have to look thought the source code th understand how the api works, they will instead (hopefully) have understandable docs with good working code samples.
+Scope
+This will require lots of changes in the docstrings.  However, no changes will be made to code that runs on users machines.
+UI Design
+Example docs:
+http://dev.sam.today/
+http://dev.sam.today/sugar3.graphics.alert/
+http://dev.sam.today/sugar3.graphics.animator/
+How To Test
+View docs
+Try code samples
+User Experience
+None for sugar users.
+Dependencies
+None
+Contingency Plan
+None
+Release Notes
+The Sugar Toolkit has improved API documentation.  See
+https://developer.sugarlabs.org/sugar3/
+Comments and Discussion
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/248
+Link to the discussion of this feature on lists.sugarlabs.org
+See
+the discussion tab for this feature.

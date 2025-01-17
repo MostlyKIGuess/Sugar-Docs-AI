@@ -1,0 +1,21 @@
+Title: How groupthink could be more general
+URL: https://wiki.sugarlabs.org/go/How_groupthink_could_be_more_general
+--------------------------------------------------------------------------------
+The idea is to make a more-general data structure which can synchronize itself behind the scenes. The steps are basically
+Serialize your data in a way that doesn't reshuffle by itself too often
+Elect a leader
+Keep the last version you think you synced with each other participant. This is imperfect because you can never be sure the other side got the message, but good enough.
+Send changes to the leader, using an rsync-like protocol.
+Unlike rsync, this is initiated by the sender
+but the sender thinks it knows a version which is stored both by it and the receiver
+so it sends the signatures of the chunks of that "common" version, as if it were the receiver; and then any new data and assembly instructions, as with rsync
+If all goes smoothly, the leader/receiver can use that; otherwise, it asks for any missing chunks.
+If the leader/recipient has not changed the version, it just says "OK" and uses the new version.
+If it has, it makes an attempt to "resolve" the three-way diff, and sends the changes back, using the version it got as the "common" version and the algorithm above.
+When it can't resolve the changes, it just chooses the other side, and puts its own changes into its "redo" stack.
+Take a relatively simple case. Alice (leader) and Bob have a common structure, synchronized: chunks "AaBbCcDd". They lose communication. Alice edits it to "AaBbEeDd", and Bob edits it to "AaBbCcDdFf". Then they get communication back.
+Now Bob says "I think you have AaBbCcDd; I want you to add 'Ff' after the d." Alice then says "I think you have AaBbCcDdFf; I want you to take the part up to b, then add 'Ee', then the part starting with D". Now they are synchronized.
+Say that, instead, Bob misses Alice's reply. As far as Bob knows, their last common version is "AaBbCcDd", yet Alice thinks it's "AaBbEeDdFf". Alice takes the opportunity to forget the "AaBbCcDd" state, (even though her versioning file system happens to still have kept "AaBbCc", that's irrelevant). Bob makes another change - from AaBbCcDdFf to AaBbCGcDdFf. Now he says "I think you have AaBbCcDd; I want you to add 'G' between C and c, and 'Ff' after the d.". (Alice "what are the contents of C and c" and Bob replies. This is not actually helpful, but I can't think of an easy algorithm to avoid it.) Then she replies "Up to b, then 'Ee', then G, then starting from D", and if Bob can hear that they are synchronized.
+Note that this "protocol" makes use of old versions; it is possible that it could include an undo stack and/or versioning storage for free. It is also remarkably non-chatty and so should scale well as long as communication reliability is good.
+I realize I'm handwaving with the rdiff protocol. Even if you limit it to breaking on some definable chunk boundaries (word, sentence, line... whatever), its advantage comes from sending the sig for various chunks at once; yet the longer those chunk sequences are, the more fragile the algorithm when the two parties do not actually remember a common version.
+The other tough algorithm is the "resolve the 3-way diff" step. But the important thing there is that even if it fails, collaboration can continue - one person just has to redo their edits.

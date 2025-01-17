@@ -1,0 +1,73 @@
+Title: Development Team/Almanac/sugar.env
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/sugar.env
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Sugar Almanac
+for Developers
+Development Team/Almanac
+Main Page
+Package: sugar
+sugar.env
+sugar.profile
+sugar.mime
+Package: sugar.activity
+sugar.activity.activity
+sugar.activity.registry
+Package: sugar.graphics
+sugar.graphics.alert
+sugar.graphics.toolbutton
+sugar.graphics.toolbox
+Package: sugar.datastore
+sugar.datastore.datastore
+Logging
+sugar.logger
+Notes on using
+Python Standard Logging
+Internationalization
+Internationalization
+Environment Helper Functions
+How do I get the profile path, where datastore, logging and other files are all located?
+You can use the env.get_profile_path() method, which returns the base directory from which you can find other directories related to the datastore, logging, and activity-specific files.
+from sugar import env
+...
+        print env.get_profile_path()
+= How do I get the log path?
+Use env.get_logs_path to get the specific path for logging.
+from sugar import env
+...
+        print env.get_logs_path()

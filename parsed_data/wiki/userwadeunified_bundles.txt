@@ -1,0 +1,102 @@
+Title: User:Wade/Unified Bundles
+URL: https://wiki.sugarlabs.org/go/Unified_Bundles
+--------------------------------------------------------------------------------
+Contents
+1
+Goal
+2
+Problems Addressed
+3
+Overview
+4
+Sugar Content Viewer Packages
+4.1
+Web Content Viewer
+4.2
+SWF Content Viewer
+4.3
+PDF Content Viewer
+4.4
+Slides Content Viewer
+4.5
+Media Content Viewer
+4.6
+Etext Content Viewer
+4.7
+Etoys Content Viewer
+5
+Content Viewer implementation
+6
+Content Viewers and MIME Types
+7
+Content Viewer based Activities
+8
+Implementation
+Goal
+To describe a new Sugar bundle which supports equally Activity software and prepared Content.
+To describe the changes to Sugar and activities required to support such a bundle.
+Problems Addressed
+The current .xol content bundle format hides its data in the home page of Browse.  Prepared content is an important part of the learning experience and deserves a first class position in the interface.
+Further, the .xol format is not well supported in Sugar.  It requires a parallel infrastructure for downloading, installing, updating and removing, and this infrastructure simply does not exist.  Tools for creating content bundles are also weak, although this proposal does not specifically address this.
+Finally, there is a class of "Read-like" activities in Sugar which do not fit well with the notion of what an activity really is.  Read, Jukebox, View Slides, Read Etexts and others do not allow creating any content, so when started they pose a Journal selector in a very Windows-like manner.  The reality is that these "activities" are really just content viewers which have no meaning in the absence of content.  They should not even be displayed on the Home view with other activities.
+Overview
+The Unified Bundles project aims to merge the .xol (Content Bundle) and .xo (Activity Bundle) formats into a single .xo (Sugar Bundle) format.
+The Unified Bundle format is exactly the same as the Activity Bundle format with one clarification.  Activity Bundles are expected to contain an executable program, which is referenced by the exec line of activity.info.  In Unified bundles, there no longer needs to be an executable program, and the exec line may refer to an external executable program provided by Sugar.
+Content bundles packaged as Unified bundles are .zip files (named .xo) which contain assets such as .html, .js, .jpeg, .swf files, a MANIFEST, and an activity directory containing activity.info.  The activity.info file refers to the content viewer which opens the assets in its exec line.
+Sugar Content Viewer Packages
+The external programs referred to by content bundle activity.info files are provided by Sugar Content Viewers.  They are packaged separately from Sugar and a core set can be dependencies of Sugar.
+Web Content Viewer
+The Sugar Web Content Viewer is packaged as sugar-web-content-viewer.
+This package contains the source code of the Browse activity, plus the sugar-web-activity launcher script.  This launcher script provides extra command line arguments to control UI features such as which toolbars are available.
+Web-based Unified content bundles are made up of .html, .js, .jpeg, etc. files.  The activity.info file contains the line:
+exec sugar-web-activity [options] <index_file>
+The Browse activity then becomes a tiny Unified bundle holding a static Sugar Labs welcome page.
+SWF Content Viewer
+The Sugar SWF (Flash) Content Viewer is packaged as sugar-swf-content-viewer.  It depends on the Gnash package and Python bindings.
+This package contains a simple PyGTK wrapper sugar-swf-activity, which embeds Gnash as the activity canvas and manages saving the flash persistent data to the Journal.   It may also provide some simple hooks for collaboration and localization.
+SWF-based Unified content bundles are made up of one or more .swf files and related assets.  The activity.info file contains the line:
+exec sugar-swf-activity [options] <swf_file>
+PDF Content Viewer
+The Sugar PDF Content Viewer is packaged as sugar-pdf-content-viewer.  It depends on the Evince package and Python bindings.
+This package contains the source code to the Read activity, plus the sugar-pdf-activity launcher script.
+PDF-based Unified content bundles are made up of one or more .pdf files.  The activity.info file contains the line:
+exec sugar-pdf-activity [options] <pdf_file>
+Slides Content Viewer
+The Sugar PDF Content Viewer is packaged as sugar-slides-content-viewer.
+This package contains the source code to the View Slides activity, plus the sugar-slides-activity launcher script.
+PDF-based Unified content bundles are made up of one or more image files.  The activity.info file contains the line:
+exec sugar-slides-activity [options]
+Media Content Viewer
+The Sugar Media Content Viewer is packaged as sugar-media-content-viewer.
+This package contains the source code to the Jukebox activity, plus the sugar-media-activity launcher script.
+Movie and/or audio-based Unified content bundles are made up of one or more media files.  The activity.info file contains the line:
+exec sugar-media-activity [options]
+Etext Content Viewer
+The Sugar Etext Content Viewer is packaged as sugar-etext-content-viewer.  Package dependences are not known at this time.
+This package contains the source code to the Read Etexts activity, plus the sugar-etext-activity launcher script.
+Etext-based Unified content bundles are made up of one or more etext files.  The activity.info file contains the line:
+exec sugar-etext-activity [options] <etext_file>
+Etoys Content Viewer
+The Sugar Etoys Content Viewer is packaged as sugar-etoys-content-viewer.  Package dependences are not known at this time.
+The purpose of having a separate content viewer for Etoys is that the content viewer wrapper script launches Etoys in a mode which bypasses the home screen, and seamlessly launches into the Etoys content.
+FreeCell
+is an example of this idea.
+This package contains some of the source code to the Etoys activity, plus the sugar-etoys-activity launcher script.
+Etoys-based Unified content bundles are made up of a Squeak script or Etoys project.  The activity.info file contains the line:
+exec sugar-etoys-activity [options] <squeak_file>
+Content Viewer implementation
+Content Viewers require very small changes to Sugar.  This is because they are really a special case of Activities.
+Content viewers are distributed as distro packages.  Their activity class files are installed into /usr/share/sugar/activities.  Their wrapper scripts are installed into /usr/bin.  Their activity.info files include a new line "hidden=true" which prevents them from being visible in any of the Home views, which prevents them from being launched directly by the user.
+Content Viewers and MIME Types
+Content viewer "base" activities installed in /usr/share/sugar/activities will be registered as the primary MIME type handlers for their respective types.
+So, when a .html file is opened from the Journal, the sugar-web-content-viewer activity will be launched and a Journal entry will be recorded as "Web Content".
+Content Viewer based Activities
+Making Sugar provide the content viewers instead of releasing them as individual activities is that they can be extended by developers to create new activities.
+For example, the WikiBrowse activity is based on the Browse classes.  If Browse, is not installed, WikiBrowse cannot launch.  With the source code to Browse part of Sugar, web-based activities can be built on top of the Content Viewer classes and extended with additional Python code such as a custom server or PyXPCom code.
+As another example, the Gmail activity is a customized copy of an older (now broken) version of the Browse source code.  With the content viewer source available, this would no longer be needed.
+With the SWF content viewer to base on, a Flash developer can develop a game in Flash but use Python to add toolbars and GTK widgets.  They would package their Python code and SWF file in a Unified bundle, and subclass the sugar-swf-activity classes in their Python code.
+Implementation
+The primary change to Sugar is that it should gracefully handle failure to find the program specified by the 'exec' line in activity.info, displaying a friendly error message on the launcher screen to the effect of "You do not have the required software to view this content.".
+There is also the new hidden=true line in activity.info to prevent Content Viewers from appearing in the Home view.
+Most of the work is in converting existing activities to Content Viewer packages, packaging them and writing the sugar-xxx-activity wrapper scripts.  Fortunately, this work can be done one content viewer at a time and the old and new systems can coexist.
+For example, you can have Read and sugar-pdf-content-viewer installed simultaneously.  The user will be allowed to open a PDF file with either, and sugar-pdf-content-viewer will only come into play when a Unified bundle is opened.

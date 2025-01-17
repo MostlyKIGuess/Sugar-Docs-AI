@@ -1,0 +1,80 @@
+Title: Ubuntu/0.90
+URL: https://wiki.sugarlabs.org/go/Ubuntu/0.90
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar 0.90 on Ubuntu
+1.1
+Problem: collaboration is broken
+1.2
+Problem: unexpected dialog
+1.3
+Problem: Browse activity does not work
+1.4
+Problem: software update does not work
+1.5
+Problem: very few activities
+1.6
+Problem: Sugar is not full screen
+1.7
+Problem: no screensaver or power management controls in Sugar
+1.8
+Installation
+Sugar 0.90 on Ubuntu
+There are many problems with Sugar 0.90 on Ubuntu, many of which have been fixed in a later version of Sugar.  This page is a historical reference.
+(Also applies to Trisquel 5.5.)
+Problem: collaboration is broken
+Activity collaboration over a local area network does not work.  There is no workaround.
+User's Central avatar XO disappears after several minutes (Known bug in 0.90)
+Problem: unexpected dialog
+A "Choose password for new keyring" dialog may appear the first time Sugar is started.
+Workaround: the dialog can be cancelled.
+Solution: this was fixed in
+ticket #2278
+.
+Problem: Browse activity does not work
+Browse can be installed, but does not work, because the Sugar Platform is incomplete on this version of Ubuntu; it is missing hulahop.
+Workaround: use the Surf activity:
+download
+http://people.sugarlabs.org/Tgillard/Surf-115.xo
+install the bundle in a terminal by typing:
+sugar-install-bundle Surf-115.xo
+Workaround: use Firefox started from Terminal.  However, Firefox is not integrated with Sugar, and does not access the journal or install activity bundles.
+Problem: software update does not work
+Sugar has a Software Update option in My Settings.  This does not work when the native Ubuntu packages are installed.
+Workaround: none.
+Problem: very few activities
+Only the Pippy and TurtleArt activities are included.
+Workaround: you can download more Activities from
+activites.sugarlabs.org
+using Surf.
+Workaround: you can download more activities from Ubuntu.  Click on System, then Administration, then Synaptic Package Manager.  The packages names all start with
+sugar-
+and end with
+-activity
+.  For example
+sugar-terminal-activity
+.
+Workaround: you can download more Activities from
+activites.sugarlabs.org
+from outside of Sugar and install each .xo bundle individually in a terminal with:
+sugar-install-bundle activity.xo
+Activities that you install in a Sugar Terminal activity are automatically made favourites and will appear in the home view.
+Activities that you install in GNOME Terminal are not automatically made favourites, and so do not appear in the home view.  Use the List View to mark them as favourites.
+Problem: Sugar is not full screen
+Sugar on Ubuntu is run in a window.
+Workaround: see
+how to configure full screen
+.
+Problem: no screensaver or power management controls in Sugar
+Sugar does not have screensaver or display power management controls compatible with Ubuntu.
+Workaround: turn off screensaver and power management, using Terminal commands:
+xset s off
+xset -dpms
+Installation
+See
+Ubuntu#How to install Sugar on Ubuntu
+for generic instructions that should apply to all versions.
+See
+Ubuntu/Previous
+for how to install older versions of Sugar on older versions of Ubuntu using Ubuntu Software Center.

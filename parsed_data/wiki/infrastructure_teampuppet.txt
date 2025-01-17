@@ -1,0 +1,97 @@
+Title: Infrastructure Team/Puppet
+URL: https://wiki.sugarlabs.org/go/Infrastructure_Team/Puppet
+--------------------------------------------------------------------------------
+Sugar Labs Puppet infrastructure.
+Contents
+1
+Modules
+2
+Master
+2.1
+Private repository
+2.2
+Repository hierarchy
+3
+Nodes
+Modules
+Puppet modules configure particular services like
+git.sugarlabs.org
+or MySQL but not tied to final configurations, they are being configured from
+puppetmaster
+.
+All modules are collected as repositories in
+puppets
+Gitorious project. Modules might be created from scratch or mirrored from upstream, so, all modules that are used within Sugar Labs are stored in one place. Module repository might have followed branches:
+master
+, development version (might be absent if project is mirrorred from upstream),
+production
+, version is being used in production,
+upstream
+, if it is mirrorred project.
+Auto generated
+documentation
+.
+Master
+Only puppetmaster keeps final configuration for all Sugar Labs services. It is being started in a private git repository on
+Machine/lightwave
+, which is a high security machine.
+Private repository
+/var/lib/puppet/etc/puppet.git
+/var/lib/puppet/etc/puppet
+detached working directory
+/etc/puppet
+symlink to detached working directory
+/var/lib/puppet/etc/puppet.git/config
+:
+[core]
+repositoryformatversion = 0
+filemode = true
+bare = false
+sharedRepository = true
+logallrefupdates = true
+worktree = /etc/puppet
+
+[receive]
+denycurrentbranch = ignore
+
+[hooks]
+mailinglist = systems-logs@...
+emailprefix = "[PUPPET] "
+showrev = "git show -C %s; echo"
+/var/lib/puppet/etc/puppet.git/description
+:
+Sugar Labs Puppet configuration
+/var/lib/puppet/etc/puppet.git/hooks/post-receive
+#!/bin/bash
+sh /usr/share/doc/git-core/contrib/hooks/post-receive-email
+git checkout -f
+for i in $(ls /etc/puppet/manifests/nodes/*.pp); do puppet kick $(basename $i .pp); done
+Repository hierarchy
+Git repository consists of:
+manifests/site.pp
+, main recipe which contain common settings and includes nodes.
+manifests/services/
+, recipes that describes final configuration for particular services.
+manifests/nodes/
+, puppetized nodes, configuration for hosts that ask puppetmaster.
+modules/
+, git submodules with Puppet
+modules
+.
+Nodes
+Hosts that fetch configuration from the
+puppetmast
+need
+puppet >= 2.6
+package.
+If
+puppet
+was installed from gems, it needs to be initially configured:
+puppet master --mkusers
+To complete configuration, execute:
+puppet agent --no-daemonize --onetime --server puppet.sugarlabs.org
+Every puppetized host should have particular node file in
+manifests/nodes/<host-name>.pp
+on
+puppetmaster
+.

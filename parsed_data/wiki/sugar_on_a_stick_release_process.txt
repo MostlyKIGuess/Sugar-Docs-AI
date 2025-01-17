@@ -1,0 +1,136 @@
+Title: Sugar on a Stick release process
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick_release_process#Testing_process
+--------------------------------------------------------------------------------
+<
+Sugar on a Stick
+Contents
+1
+Feature process
+1.1
+How to submit a feature for consideration
+1.2
+Approved features for the current release
+1.3
+Features submitted for review
+1.4
+Current feature ideas
+2
+Testing process
+2.1
+Test image
+2.2
+Test cases
+2.3
+Test results
+Feature process
+The feature process for Sugar on a Stick aims at providing a structured way of implementing and keeping track of upcoming features for the next release of Sugar on a Stick. This document outlines the guidelines for submitting feature proposals. An important thing to realize is the release schedule for each release.
+What is a feature?
+A feature is defined as a significant change or enhancement to the version of Sugar on a Stick currently under development that may or may not include new packages and also relate to features of both Fedora and Sugar
+What are the deadlines?
+The deadlines for the release currently under development are outlined in the
+release schedule
+.
+What do I get with a feature?
+Having your feature approved not only helps everybody involved in the development and engineering process to keep track of its state, but also allows other teams - like the
+marketing team
+- to leverage your work and promote it.
+What are my responsibilities?
+By signing up for a feature, you sign up for taking care of it. That means you'll be the one responsible for providing updates and interacting with the different teams concerned by your feature, like the release engineering for Sugar on a Stick. It does, however, not mean that you've to realize your feature all alone - go out and tell the
+lists
+and the
+planet
+about your work. Get people excited to help you!
+How does evaluation happen?
+Your proposal needs a majority of
+YAY
+votes from the release team (determined for a given release by the release manager - the v4 release manager is Sebastian Dziallas, and the current relase team is formed by Peter Robinson, Mel Chua and Sebastian Dziallas) to get approval. Discussion will happen at a weekly meeting, while the decisions will be announced to the SoaS mailing list.
+What if my feature got rejected?
+No worries! Features that are originally rejected can be revised and resubmitted.
+How to submit a feature for consideration
+Fill out the
+template
+and stick it on a page in the wiki. (
+TODO:
+create
+Category:SoaS_v4_Feature
+so people can make their pages belong to the appropriate category so that we know which version you're targeting ).
+Place a link to your proposal in the
+#Current feature ideas
+section of this page while you're working on the document.
+Send an email to the SoaS
+list
+and incorporate any feedback you might receive.
+When you think your feature proposal is ready, move it to the
+#Features submitted for review
+section of this page. It will be brought up at the next
+Sugar on a Stick meeting
+, where it'll be evaluated and voted on. We might ask you to make further adjustments and revisit it at a later point or approve the feature directly. We're looking forward to hearing about your ideas!
+Approved features for the current release
+Features must be added to this list by a member of the release team. Place complete feature proposals in the
+#Features submitted for review
+section for consideration at the next meeting.
+Sugar 0.90
+Features/Revised_Browse_default-bookmarks.html
+Updated Activities from the Mirabelle list
+Features/SoaS Remixability
+Features submitted for review
+When your feature proposal is complete and ready to review, add it to the list below. These will be considered at the next
+Sugar on a Stick meeting
+.
+Remixability
+Features/SoaS Remixability
+(still being edited)
+Including Fructose Activities that are tested and known to work (still being edited)
+Current feature ideas
+These feature ideas are in various stages of development.
+School server
+Kickstart generator
+btrfs and snapshots
+systemd
+Control Panel section for setting display parameters (e.g., VGA out)
+Simplifying Making a Custom remix and sharing the .ksfile and the CD.iso files on the wiki
+Sugar_Creation_Kit#Build_Your_Own_Remix_-.28not_included_on_SCK.DVD.29
+Remixability
+Features/SoaS Remixability
+SugarCreationStation
+Features/SoaS Creation Station
+This is a CD that needs to be installed to a HD to be used
+.
+Installs all of the required elements for a Build System to make Custom-Remix.iso's
+Joins the Remixability feature with regards to reporting and sharing on the wiki of .ks; .iso files; and Usage Reports .
+Testing process
+Our test process, which is under construction, will consist of the following:
+An agreed-upon image each week for testers to attack (the daily build on $datetime of each week, for instance)
+An agreed-upon set of test cases for them to execute (iow, the "test plan" thing we haven't had before)
+An agreed-upon place and format for the results from running those test cases to be reported to
+An agreed-upon $datetime each week by which all test results for that week will be submitted - so that the development team has a chance to look at those results and revise the build before the next test image goes out.
+The first thing we are doing is getting a weekly image under test to automatically appear at a static link; see
+#Test image
+below. We are going to set up a cron job so the nightly build (from
+http://alt.fedoraproject.org/pub/alt/nightly-composes/soas/
+- which we need to start up again from the Fedora side) grabs and archives the appropriate image-under-test each week.
+The last weekly testing update was 6/21/2010:
+http://lists.sugarlabs.org/archive/soas/2010-June/001560.html
+Test image
+The test image is the most recent
+nightly build
+as of 23:59:59 on the most recent Thursday. Past test images are available at
+http://download.sugarlabs.org/soas/test/
+.
+Test cases
+We do not yet have test cases. They will appear here when they are available.
+Prototype Tests:
+Activity Testing
+Testing/Activity Test Table
+based on
+[1]
+Install Testing
+Talk:Sugar_on_a_Stick_release_process#Test_Matix
+Old:
+Talk:Testing/Activity Test Table/Install_Test_Table
+Test Notes and Links:
+Talk:Sugar_on_a_Stick_release_process#Testing_Links
+Test results
+A basic template for reporting simple smoke test results is
+Testing/Activity Test Table
+. This needs to be moved to a proper namespace, and instructions need to be written. Instructions will be listed here when they are available.

@@ -1,0 +1,193 @@
+Title: Testing/Reports/Sweets on Raspberry pi armhf raspbian
+URL: https://wiki.sugarlabs.org/go/Testing/Reports/Sweets_on_Raspberry_pi_armhf_raspbian#Soft_reboot.
+--------------------------------------------------------------------------------
+Sugar via Sweets is possible on a Raspberry pi. It is functional and stable, and tested unsupervised by children. The install process is time consuming and individual Activities can take anything from 15 to 75 seconds to start, so some patience is required.
+This method has been tested on the following four images:
+from
+http://www.raspbian.org/
+rpi_pisces_r2.img
+and
+rpi_pisces_r3.img
+and from
+http://www.raspberrypi.org/downloads
+2012-07-15-wheezy-raspbian.img
+and
+2012-09-18-wheezy-raspbian.img
+using a SanDisk 4 GB, class 4, SDHC card (generally successful) and a PNY 8 GB, class 4 SDHC card (with more errors).
+The Sugar via Sweets installation process instructions are here:
+Platform Team/Guide/Sugar via Sweets
+The Rasp pi install is updated and upgraded.
+First install gnome-packagekit:
+sudo apt-get install gnome-packagekit
+Now as a "helper" to the Sweets installer add these python packages
+sudo apt-get install python-vte python-gst0.10 python-pygame python-webkit python-beautifulsoup
+Soft reboot
+the Rasp pi before proceeding.
+Download the installer,
+wget
+http://download.sugarlabs.org/sweets/sweets/installer.sh
+then run the installer:
+sh installer.sh
+Logout of LXDE, then
+startx
+or
+Soft reboot
+the Rasp pi before proceeding.
+You can view the sweets help file with this command.
+sweets -h
+Seeing the help page confirms that the installer has run correctly.
+In recent tests with 2012-09-18-wheezy-raspbian.img, this error response was seen:
+bash: sweets: command not found
+Running
+echo $PATH
+reveals:
+echo $PATH
+/usr/lib/arm-linux-gnueabihf/libfm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
+To fix this, add this line to the foot of ~/.bachrc
+export PATH=$PATH:/home/pi/.local/bin
+Logout of LXDE,
+startx
+, then
+sweets -h
+displays the help page correctly.
+Launch first sweet.
+(Launches a fairly recent version, marked "testing").
+$ sweets dextrose/sugar:emulator = 0.94
+$ sweets dextrose/sugar:emulator = 0.94
+-- Download
+http://download.sugarlabs.org/sweets/sdk/telepathy-mission-control/telepathy-mission-control-5.7.1-r9-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-datastore/sugar-datastore-0.94.0-r1-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-presence-service/sugar-presence-service-0.88.0-r3-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar/sugar-0.94.1-r19-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-toolkit/sugar-toolkit-0.94.0-r3-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-base/sugar-base-0.94.0-r5-src.tar.gz
+-- Download
+http://download.sugarlabs.org/sweets/dextrose/sugar-artwork/sugar-artwork-0.94.0-r1-src.tar.gz
+-- Solve dextrose/sugar-base for building                                       
+-- Solve dextrose/sugar-toolkit for building     
+-- Solve dextrose/sugar-presence-service for building
+-- Solve dextrose/sugar-datastore for building        
+-- Solve dextrose/sugar-artwork for building   
+-- Solve sdk/telepathy-mission-control for building
+-- Solve dextrose/sugar for building                
+-- Install python-gtk2-dev python-xklavier libxt-dev x11-apps libxvmc1 xsltproc libfs6 libxss-dev xdg-user-dirs-gtk libdbus-1-dev python-gconf python-wnck telepathy-salut python-gobject-dev libxfont-dev libxres-dev libxfixes-dev libdrm-dev libxdmcp-dev python-dev libxcomposite-dev x11-xserver-utils libfontenc-dev intltool libdmx-dev libice-dev python-cjson python-decorator libxdamage-dev libxmu-dev libcairo2-dev libxpm-dev libgtk2.0-dev libxv-dev libxxf86dga-dev libgconf2-dev libtelepathy-glib0 libx11-dev libasound2-dev python-rsvg libxext-dev gnome-common python-telepathy libxau-dev libxft-dev python-simplejson libxcursor-dev libfs-dev libtool libtelepathy-glib-dev libxi-dev python-dateutil python-hippocanvas libxtst-dev metacity libdmx1 libxxf86vm-dev libxp-dev icon-slicer python-gtksourceview2 libxinerama-dev libxp6 libxkbfile-dev libdbus-glib-1-dev libxrender-dev libxvmc-dev icon-naming-utils libxrandr-dev xserver-xephyr libsm-dev telepathy-gabble libglib2.0-dev
+-- PackageKit install failed: Failed to obtain authentication. (not-authorized) 
+...
+As PackageKit has failed to obtain authentication, add the "Install list" from above.
+sudo apt-get install python-gtk2-dev python-xklavier libxt-dev x11-apps libxvmc1 xsltproc libfs6 libxss-dev xdg-user-dirs-gtk libdbus-1-dev python-gconf python-wnck telepathy-salut python-gobject-dev libxfont-dev libxres-dev libxfixes-dev libdrm-dev libxdmcp-dev python-dev libxcomposite-dev x11-xserver-utils libfontenc-dev intltool libdmx-dev libice-dev python-cjson python-decorator libxdamage-dev libxmu-dev libcairo2-dev libxpm-dev libgtk2.0-dev libxv-dev libxxf86dga-dev libgconf2-dev libtelepathy-glib0 libx11-dev libasound2-dev python-rsvg libxext-dev gnome-common python-telepathy libxau-dev libxft-dev python-simplejson libxcursor-dev libfs-dev libtool libtelepathy-glib-dev libxi-dev python-dateutil python-hippocanvas libxtst-dev metacity libdmx1 libxxf86vm-dev libxp-dev icon-slicer python-gtksourceview2 libxinerama-dev libxp6 libxkbfile-dev libdbus-glib-1-dev libxrender-dev libxvmc-dev icon-naming-utils libxrandr-dev xserver-xephyr libsm-dev telepathy-gabble libglib2.0-dev
+(Do not copy the list of packages in this example - copy the list obtained in your output.)
+For reference, check the SD card has plenty of space:
+df -h
+. Reveals Used 2.2G, Avail 1.3G, ok
+Soft reboot.
+Now launch again with same command
+$ sweets dextrose/sugar:emulator = 0.94
+-- Solve dextrose/sugar-base for building
+-- Solve dextrose/sugar-toolkit for building
+-- Solve dextrose/sugar-presence-service for building
+-- Solve dextrose/sugar-datastore for building        
+-- Solve dextrose/sugar-artwork for building   
+-- Solve sdk/telepathy-mission-control for building
+-- Solve dextrose/sugar for building                
+-- Build dextrose/sugar-base (0.94.0)
+-- Build dextrose/sugar-toolkit (0.94.0)
+-- Build dextrose/sugar-presence-service (0.88.0)
+-- Build dextrose/sugar-datastore (0.94.0)        
+-- Build dextrose/sugar-artwork (0.94.0)   
+-- Build sdk/telepathy-mission-control (5.7.1)
+-- Build dextrose/sugar (0.94.1)               
+_XSERVTransSocketOpenCOTSServer: Unable to open socket for inet6
+_XSERVTransOpen: transport open failed for inet6/raspberrypi:30
+_XSERVTransMakeAllCOTSServerListeners: failed to open listener for inet6
+[dix] Could not init font path element /usr/share/fonts/X11/misc, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/cyrillic, removing from list!
+...
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+The XKEYBOARD keymap compiler (xkbcomp) reports:
+> Warning:          Compat map for group 2 redefined
+>                   Using new definition
+...
+Errors from xkbcomp are not fatal to the X server
+....
+We now have Sugar in a window
+Function keys, F1 to F6, all views and all avatars work correctly.
+There are no Activities installed and visible in F3 view. Click on central avatar => My Settings => Software updates.
+Mark to update: Arithmetic, Chat, Implode, IRC, Log, Maze, Memorize, Pippy, Terminal. Then Install updates.
+The loaded Activities now appear and will start from the F3, List View. They do not appear in the F3, Favorites view, until after a restart.
+The author recomends updating a maximium of ten activities at one time. Use those Activities a little, and soft reboot before updating more Activities.
+Contents
+1
+Soft reboot.
+2
+GUI Activity install
+3
+Activities
+4
+Extra mile
+5
+Review
+Soft reboot.
+During testing I had unexplainable errors - possibly related Rasp pi not being able to write to certain SD cards fast enough.
+When a reboot is needed, rather than just
+sudo reboot
+from within LXDE. Perhaps, enter command
+top
+and watch while CPU activity subsides, then logout of LXDE. And/or, from the console,
+top && shutdown -r now
+. Further, after the downloads and other sections of prolonged 100% CPU activity, I have tended to use the Rpi for some light work with the idea of settling the contents, and have an extra restart.
+GUI Activity install
+This method is useful where a working browser is not available in Sugar. We can use the host browser, Midori, and pcmanfm unzip tool.
+Select a new Activity from ASLO,
+http://activities.sugarlabs.org//en-US/sugar/
+. (Packages selected to run in Sugar 0.94.1 can be identified in ASLO, using "Advanced Search"). Using Midori, download chosen Activities to, say, ~/downloads. Open ~/downloads with pcmanfm, select the NewActivity.xo, right click, chose extract to, enter ~/Activities, press Save. The Activity will unzip ready to use. You can check in ~/Activities that you have NewActivity.activity
+Alternatively you could take the SD card to a PC and transfer or download a collection of Activity.xo files onto a folder on the SD card, then unzip them on Rasp pi as above.
+Activities
+Working
+Abacus Arithmetic Calculate Dimensions Edit FlipSticks FotoToon ImageViewer Implode IRC Jukebox Labyrinth Log Maze Memorize Moon Pippy Spirolaterals StopWatch Sugar Commander Terminal TurtleMachine TurtleArt TypingTurtle Words.
+Working with difficulties
+Chat, ok, but fails to install at first attempts.
+Physics, seems to be running at 100% CPU at rest. However it can be demonstrated running.
+Not working
+Browse Paint Read Record Ruler Speak TamTamMini Write
+As an alternative to Browse, you could experiment with Surf available from:
+http://people.sugarlabs.org/Tgillard/Surf-115.xo
+. Surf works in version 0.88 but fails in version 0.94.
+Extra mile
+Further dependencies.
+It is a known issue in Debian, that the "suggested dependencies", that is, -S sweets command argument, generally fails.
+Here is a workaround: in order to get the maximum number of Activities to run, install (or check that you already have the newest version) by running this command:
+sudo apt-get install python-xlib python-gnome2 python-lxml python-csound python-elements  evince
+But,
+$ sweets -S dextrose/sugar:emulator = 0.94
+still fails to open a window.
+Review
+The above method has fulfilled all the "install" dependencies of the four <sweets> versions, sdk: 0.88, 0.94, and dextrose: 0.88, 0.94, so far as is revealed by:
+sweets status --deps <those four sweets>
+and (having run the
+Extra mile
+list)
+sweets status --deps -S <those four sweets>
+Remaining errors.
+This error message keeps appearing:
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+Remaining unresolved dependencies for
+-S
+option. This is edited output list after cutting all "ok" items.
+$ sweets status --deps -S dextrose/sugar:emulator = 0.94
+dr   sdk/hulahop (0.8.2-7)
+dr     sdk/pyxpcom (1.9.2-15) (<2)
+er
+http://sweets.sugarlabs.org/sdk/xulrunner
+(>=1.9.2, <1.9.3)
+dr   sdk/pyabiword (0.8.0-11)
+er
+http://sweets.sugarlabs.org/base/abiword
+(>=2.8, <2.9)
+dr   sdk/etoys (4.1.2390-6)
+er
+http://sweets.sugarlabs.org/sdk/evince-python

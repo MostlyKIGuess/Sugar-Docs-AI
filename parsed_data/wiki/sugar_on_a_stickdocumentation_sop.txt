@@ -1,0 +1,123 @@
+Title: Sugar on a Stick/Documentation SOP
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Documentation_SOP
+--------------------------------------------------------------------------------
+Starting with the upcoming SoaS version (release date:
+2010-05-11
+), a good amount of the related documentation will be created through
+publican
+. This
+SOP
+describes how to contribute changes to the documentation.
+Contents
+1
+Viewing the Documentation
+2
+Contributing Content to the Documentation
+2.1
+Checking out the latest Version
+2.2
+Apply your Changes
+2.3
+Generating HTML or PDF output
+2.4
+Create a Patch from your Changes
+2.5
+Push your changes
+2.5.1
+If you don't have commit access
+2.5.2
+If you have commit access
+Viewing the Documentation
+You can view a reasonably up-to-date version of the files here:
+Customization Guide
+Creation Kit
+This is not a permanent location (the URLs above will likely be moving between now and May 2010), and these files may not be completely up-to-date; we are currently obtaining a more permanent infrastructure solution, but the links should suffice at present.
+Contributing Content to the Documentation
+Checking out the latest Version
+Clone the
+GIT repository
+with the Sugar on a Stick documentation from GIT by running:
+git clone git://git.sugarlabs.org/soas-docs/mainline.git soas-docs
+Apply your Changes
+Edit away! - Try to follow these conventions
+here
+.
+For example, Move down to a directory you want to edit, and edit a file with gedit
+cd soas-docs
+ls
+cd Creation\ Kit/
+cd en-US
+ls
+gedit Book_Info.xml
+Bump the edition tag in
+Book_Info.xml
+after a major change.
+Make sure to explain your change in Revision_History.xml
+Generating HTML or PDF output
+Install publican if you haven't already. If you are running a yum-based system (Fedora, SuSE, etc), this is:
+sudo yum install publican
+If you are running an apt-based system (Debian, Ubuntu, etc), this is:
+sudo apt-get install publican
+In the same directory as the file
+publican.cfg
+(this will almost certainly be
+/path/to/soas-docs/Customization Guide
+or
+/path/to/soas-docs/Creation Kit
+), run the following command.
+publican build --format=html --lang=en-US
+or
+publican build --format=pdf --lang=en-US
+...depending on what output format you would like. You will see output that looks like this.
+[you@machine]$ publican build --format=html --lang=en-US
+Setting up en-US
+        Processing file tmp/en-US/xml/Common_Content/Conventions.xml
+        Processing file tmp/en-US/xml/Common_Content/Feedback.xml
+        Processing file tmp/en-US/xml/Common_Content/Legal_Notice.xml
+        <snip more similar stuff>
+Beginning work on en-US
+        Starting html
+        Using XML::LibXSLT on /usr/share/publican/xsl/html.xsl
+Writing pref-Customization_Guide-Preface.html for preface(pref-Customization_Guide-Preface)
+Writing sect-Creation_Kit-Preparation-Getting_Started.html for section(sect-Creation_Kit-Preparation-Getting_Started)
+Writing chap-Customization_Guide-Preparation.html for chapter(chap-Customization_Guide-Preparation)
+<snip more similar stuff>
+Writing index.html for book
+        Finished html
+When the publican build is finished, you will find your generated docs in a folder called
+tmp/en-US
+in your current directory.
+Create a Patch from your Changes
+Create a patch using the following command:
+git diff > product-name-change.patch
+product
+reflects the folder you made your change in, so either
+creation-kit
+or
+customization-guide
+name
+references to your personal name to track contributions
+change
+should be a one or two word description of your proposed change
+Push your changes
+If you don't have commit access
+Send an email (with a subject line like this
+[PATCH] name-of-your-patch
+) to the SoaS
+mailing list
+together with your patch and an explanation of what you changed and why you think the change is necessary. Discussion will happen on list.
+After that, your patch will be committed and pushed. At some point, you might also be granted access to the GIT repository so that you can commit changes directly without submitting the patches to the list.
+If you have commit access
+If you need to apply someone else's patch to the file before committing it, do that first.
+patch -p0 < path/file.patch
+Once you have applied the patch and otherwise edited the files you want to commit, make the commit.
+git commit -a
+Leave a commit message describing the change. Finally, push changes back to gitorious with
+git push
+If you are doing a push for the first time, you may need to specify the origin (this is due to a weird thing in gitorious). In order to do this:
+git remote rm origin
+git remote add origin gitorious@git.sugarlabs.org:soas-docs/mainline.git
+git push origin master
+You should be able to simply use
+git push
+thereafter.

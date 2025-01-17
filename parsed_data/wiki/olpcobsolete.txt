@@ -1,0 +1,63 @@
+Title: OLPC/obsolete
+URL: https://wiki.sugarlabs.org/go/OLPC/obsolete
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+This content is saved for historic references.
+Note
+: This content was moved from
+Supported systems
+historic content.
+Fedora on an OLPC XO
+On an OLPC XO-1 laptop, run olpc-update as root.
+Normally you only need to run
+olpc-update
+in the Terminal application with a build number, like this:
+# sudo olpc-update 767
+Note:
+Now you can do this by means of the graphical
+Sugar Control Panel
+.
+Joyride
+See
+OLPC:Future releases
+, the Joyride train is in the round house.
+Joyride is for developers; it is not supported. Joyride builds may cause data corruption and in rare cases, even cause hardware damage, so please do not use Joyride on mission-critical systems.
+Joyride contains all the "bleeding-edge" features that are being debugged for inclusion in the next release.
+Open the Terminal application and type the following, substituting 2469 for the latest version number.
+# olpc-update joyride-2469
+What's the latest version?
+You can find the latest build number (shown above as 1779) at the bottom of
+http://xs-dev.laptop.org/~cscott/xo-1/streams/joyride/
+Updates usually takes 10–15 minutes. It's advised that you plug your XO in while Sugar updates itself, then reboot it to see the new OS take effect.
+Other Options
+These are options that can be used with the update command:
+# olpc-update --help
+Usage: 
+ olpc-update [options] --hints hints-file
+ olpc-update [options] [-rf] build-number
+ olpc-update [options] [-rf] --usb
+ olpc-update --version
+ olpc-update --help
+
+For example:
+ olpc-update 630
+ olpc-update joyride-1779
+ olpc-update update.1-700
+
+Options:
+  -h, --help    show this help message and exit
+  -f, --full    skip incremental update attempt.
+  --force       force update to an unsigned build.
+  -r, --reboot  reboot after a successful update.
+  --hints=FILE  name of json-encoded hints dictionary identifying the desired
+                new version.
+  -u, --usb     upgrade from new build on inserted USB stick.
+  -v            display verbose progress information; repeat for more verbose
+                output.
+  -q, --quiet   don't output anything; use exit status to indicate success.
+  --version     display version and license information.

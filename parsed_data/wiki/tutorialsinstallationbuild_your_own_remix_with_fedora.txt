@@ -1,0 +1,164 @@
+Title: Tutorials/Installation/Build Your Own Remix with Fedora
+URL: https://wiki.sugarlabs.org/go/Tutorials/Installation/Build_Your_Own_Remix_with_Fedora
+--------------------------------------------------------------------------------
+Contents
+1
+Build_Your_Own_Remix_with_Fedora
+1.1
+Install the necessary software
+1.2
+Set up your environment
+1.2.1
+spin-kickstarts.git
+1.3
+Example Terminal Command to Build .iso
+1.4
+Install Files
+1.5
+Prepare Files in gedit
+1.6
+Copy/Paste command from gedit into root terminal
+1.7
+Burn your custom.iso to a CD
+2
+Resources
+2.1
+More Customizing Tips
+2.2
+Anaconda Kickstart
+2.3
+How to use Comps for Package groups
+2.4
+Detailed information on the use of Kickstart files in Fedora 18
+2.5
+Software Raid
+2.6
+Build a DVD.iso
+2.7
+More Tutorials
+Build_Your_Own_Remix_with_Fedora
+Will make a customized Live CD/DVD .iso file
+This example is done using an installed
+Fedora 18 TC2 gnome3-live-desktop
+in
+VirtualBox 4.2.4
+;
+With the extensions installed - (required to save the remix.iso to USB stick)
+(Use at least a 30 GB VirtualBox Hard Disk)
+But similar procedures work with
+Earlier versions of fedora
+f7-f17
+Install the necessary software
+To create a live image, the
+livecd-creator
+tool is used. Super user privileges are needed. The tool is more or less self-documenting, use the
+--help
+option to see options.
+The
+livecd-creator
+tool is part of the
+livecd-tools
+package.  If it is not installed on your system, add it with:
+su -c 'yum install livecd-tools spin-kickstarts'
+If you are interested in localized live cd files, install also
+l10n-kickstarts
+.
+su -c 'yum install l10n-kickstarts'
+Note the spin-kickstart files that download are specific for the version of fedora you are using
+The version of sugar will also be different for each version of fedora:
+f12 0.86.-
+f13 0.88.-
+f14 0.90.-
+f15 0.92.-
+f16 0.94.-
+f17 0.96.-
+f18 0.98.- works in TC2
+It is best if your install is all in the / directory (ext4 format) as the temporary files need a lot of room on /
+Set up your environment
+Now we'll set up the place you'll be building your remix's image file in. We assume you're running a recent version of Fedora.
+We will use the /home/(user*)/ to do our builds
+Note: If you use the Kickstart files in the default installed location in /usr/share/spin-kickstarts you will have permission problems editing the files.
+Set SELinux in permissive mode:
+Builds will fail if this is not done
+su -c ‘setenforce 0’
+Copy the kickstart files you've Downloaded to your Home user directory
+(user*)= your user name
+mkdir /home/(user*)/spin-kickstarts
+cp /usr/share/spin-kickstarts/*.ks /home/(user*)/spin-kickstarts/
+cd /home/(user*)/spin-kickstarts/
+spin-kickstarts.git
+These are more up to date kickstart files-(used for builds)
+Index:
+http://git.fedorahosted.org/cgit/spin-kickstarts.git/
+Unzip this file : F18:
+http://git.fedorahosted.org/cgit/spin-kickstarts.git/snapshot/spin-kickstarts-f18.zip
+Use these kick-start files as shown in the above example.
+Be sure to not mix them with the files we added to /spin-kickstarts
+Suggest copying them to /home/(user)*/ to keep them apart.
+Edit one of these .ks files with the
+gedit
+Text Editor
+see (section below for details of what you can do)
+Example Terminal Command to Build .iso
+You must be connected to a fast Internet connection for this to work
+f18 build system using fedora-livecd-soas.ks
+(This example also works with a f13 to f18 Build System)
+In root terminal /home/(user):
+livecd-creator \
+--config=/home/(user)/spin-kickstarts/fedora-livecd-soas.ks \
+--fslabel=Soas-v8-Remix-20121215 --cache=/var/cache/live --verbose
+be sure to leave a beginning space on lines 2 and 3
+KEY
+--fslabel=Soas-v(2-3-4-5-6-7-8)-Remix-yearmmdd = (The name you specify for the CD remix)
+The Version built depends on the version of Fedora you are running.
+Explanation of format for name:  (preliminary layout pending approval by Soas)
+v(2-3-4-5-6-7-8)= the sugar version v(2-3-4-5-6-7-8)
+v2= Fedora 12 sugar 0.86-
+v3= Fedora 13 sugar 0.88-
+v4= Fedora 14 sugar 0.89-0.90
+v5= Fedora 15 sugar 0.92
+v6= Fedora 16 sugar 0.94.x
+v7= Fedora 17 sugar 0.95.x
+v8= Fedora 18 sugar 0.98.x
+year/mm/dd= The Creation Date
+Remix is REQUIRED for naming if Soas is used
+--config=/home/(user*)/spin-kickstarts/  * (path to your /spin-kickstarts folder and .ks file)
+Install Files
+Setup
+su -c 'yum install livecd-tools spin-kickstarts'
+Prepare Files in gedit
+Open and edit the appropriate kickstart file in gedit:
+This is using the fedora-live-desktop.ks
+Note that many ,ks files call a 2nd .ks
+Open inspect and edit both in gedit
+Write commands to gedit
+Copy-Paste this entry to root terminal
+Copy/Paste command from gedit into root terminal
+Start of session in root terminal (this example uses fedora 18 gnome3)
+Begin to install
+Success is indicated by message:
+"Setting supported flag to 0"
+Note it can take up to 60 minutes for the build to complete
+Burn your custom.iso to a CD
+Find your custom live.iso in your home directory with
+files
+application
+Right Click on it
+Burn to CD
+Or save .iso for use in VirtualBox
+Resources
+More Customizing Tips
+Different ways to customize your kickstart Remix
+Anaconda Kickstart
+Fedora's Detailed instructions on how to use a kickstart file in Fedora 18
+How to use Comps for Package groups
+Detailed information on the use of Kickstart files in Fedora 18
+Software Raid
+Information on software raid
+Red_Hat_Enterprise Guide
+Build a DVD.iso
+Activate a shell inside the mock chroot
+Next, create a DVD (this may take a while)
+Before proceeding, validate the ISO images using the sha256sum command
+Exit the mock shell, and copy the ISO image out of the chroot and have fun ...
+More Tutorials

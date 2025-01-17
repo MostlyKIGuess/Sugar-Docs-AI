@@ -1,0 +1,459 @@
+Title: Development Team/Almanac/lang-es
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/lang-es
+--------------------------------------------------------------------------------
+Traducción de
+Development_Team/Almanac
+original
+english
+|
+spanish
++/-
+cambios
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Sugar Almanac
+for Developers
+Development Team/Almanac
+Main Page
+Package: sugar
+sugar.env
+sugar.profile
+sugar.mime
+Package: sugar.activity
+sugar.activity.activity
+sugar.activity.registry
+Package: sugar.graphics
+sugar.graphics.alert
+sugar.graphics.toolbutton
+sugar.graphics.toolbox
+Package: sugar.datastore
+sugar.datastore.datastore
+Logging
+sugar.logger
+Notes on using
+Python Standard Logging
+Internationalization
+Internationalization
+Contents
+1
+¿Cómo puedo obtener ayuda adicional más allá de este almanaque?
+2
+¿Dónde puedo ver los cambios de la API?
+3
+Comenzando
+3.1
+¿Cómo estructuro mis archivos para que sean una actividad de válido en Sugar?
+3.2
+¿Cómo puedo hacer un icono para mi actividad?
+4
+Paquete: sugar
+5
+Paquete: sugar.activity
+6
+Paquete: sugar.datastore
+7
+Paquete: sugar.graphics
+8
+Paquete: sugar.presence
+9
+Clipboard
+10
+Logging
+11
+Internacionalización
+12
+Texto y gráficos para las actividades de Sugar
+12.1
+¿Cómo puedo crear un cuadro de texto para la edición de código?
+13
+Audio y Video
+14
+Ratón
+14.1
+¿Cómo puedo cambiar el cursor del ratón por el cursor de espera en mi actividad?
+14.2
+¿Cómo puedo rastrear la posición del ratón?
+15
+Varios
+15.1
+¿Cómo se si mi actividad está "activa" o no?
+15.2
+¿Cómo puedo obtener la cantidad de espacio libre disponible dentro del directorio /home?
+15.3
+¿Cómo puedo saber si mi actividad se está ejecutando en una XO?
+15.4
+¿Cómo puedo saber la configuración actual del lenguage en mi XO?
+15.5
+¿Cómo llamar repetidamente a un método específico después de un número N de segundos?
+15.6
+¿Cómo puedo actualizar la build que se ejecuta en mi XO?
+15.7
+Estoy desarrollando en una XO pero mi teclado y la configuración de idioma no son ideales. ¿Cómo puedo cambiarlos?
+15.8
+My Python activity wants to use threads; how do I do that?
+15.9
+How do I customize the title that is displayed for each instance of my activity?
+15.10
+¿Qué paquetes están disponibles dentro de Sugar para el desarrollo de juegos?
+15.11
+How do I detect when one of the game buttons on the laptop have been pressed?
+15.12
+How do I detect if one of the joystick buttons has been pressed?
+15.13
+¿Cómo elimino un botón específico de la barra de herramientas?
+16
+Notes
+¿Cómo puedo obtener ayuda adicional más allá de este almanaque?
+¿Quieres comenzar con los básico del desarrollo para Sugar? Puedes visitar el
+Activity Handbook
+de OLPC Austria (
+Ten en cuenta que este manual fue actualizado por última vez en mayo del 2008, las capturas de tienen el diseño pre-8.2. En términos de código en sí, las cosas deberían funcionar como están descriptas. Si encuentra algún problema por favor póngase en contacto con
+ChristophD
+.
+)
+Ver también
+Development Team/Almanac/Code Snippets
+Ahora, vamos con el almanaque actual...
+¿Dónde puedo ver los cambios de la API?
+Cambios de API entre los releases de OLPC pueden ser vistos aqui:
+API Changes
+Comenzando
+¿Cómo estructuro mis archivos para que sean una actividad de válido en Sugar?
+Puedes encontrar información sobre la estructura de la actividad aquí:
+Activity Bundles
+¿Cómo puedo hacer un icono para mi actividad?
+La información sobre lo que debe hacer se puede encontrar aquí:
+Making Icons
+Paquete: sugar
+sugar.env
+sugar.profile
+sugar.mime
+sugar.logger
+Paquete: sugar.activity
+sugar.activity.activity
+sugar.activity.activityfactory
+sugar.activity.registry
+Paquete: sugar.datastore
+sugar.datastore.datastore
+Paquete: sugar.graphics
+sugar.graphics.alert
+sugar.graphics.icon
+sugar.graphics.notebook
+sugar.graphics.toolbutton
+sugar.graphics.toolbox
+sugar.graphics.style
+Paquete: sugar.presence
+Sugar.presence
+Sugar.presence.activity
+Sugar.presence.buddy
+Sugar.presence.presenceservice
+Clipboard
+Notas sobre el uso del
+módulo Clipboard de GTK
+Logging
+sugar.logger
+Notas sobre el uso del
+standard de Logging en Python
+Internacionalización
+Internationalization
+Texto y gráficos para las actividades de Sugar
+Pango
+¿Cómo puedo crear un cuadro de texto para la edición de código?
+Puedes usar gtksourceview2
+import gtk
+import gtksourceview2
+from sugar.graphics import style
+
+...
+
+# Configuramos el buffer
+buffer = gtksourceview2.Buffer()
+if hasattr(buffer, 'set_highlight'): # handle different API versions
+    buffer.set_highlight(True)
+else:
+    buffer.set_highlight_syntax(True)
+
+# Configuramos el tipo MIME para el buffer
+lang_manager = gtksourceview2.language_manager_get_default()
+if hasattr(lang_manager, 'list_languages'): # again, handle different APIs
+    langs = lang_manager.list_languages()
+else:
+    lang_ids = lang_manager.get_language_ids()
+    langs = [lang_manager.get_language(lang_id) 
+                  for lang_id in lang_ids]
+for lang in langs:
+    for m in lang.get_mime_types():
+        if m == mime_type:        # <-- this is the mime type you want
+            buffer.set_language(lang)
+
+# Establecemos el objeto para la vista, usarlo como gtk.TextView
+view = gtksourceview2.View(buffer)
+view.set_size_request(300, 450)
+view.set_editable(True)
+view.set_cursor_visible(True)
+view.set_show_line_numbers(True)
+view.set_wrap_mode(gtk.WRAP_CHAR)
+view.set_right_margin_position(80)
+#view.set_highlight_current_line(True) #FIXME: Ugly color
+view.set_auto_indent(True)
+view.modify_font(pango.FontDescription("Monospace " +
+                 str(style.FONT_SIZE)))
+...
+Para agregar texto al buffer:
+buffer.set_text(text)
+Para obtener todo el texto:
+text = buffer.get_text(buffer.get_start_iter(), buffer.get_end_iter())
+Probablemente quieras poner la view(vista) en un gtk.ScrolledWindow
+sw = gtk.ScrolledWindow()
+sw.add(view)
+sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+y agregar el el objeto sw en vez de la view(vista).
+Puedes encotnrar más en el código fuete de Pippyy en jarabe.view.sourceview.
+Audio y Video
+GStreamer
+Ratón
+¿Cómo puedo cambiar el cursor del ratón por el cursor de espera en mi actividad?
+En la subclase de tu actividad:
+self.window.set_cursor( gtk.gdk.Cursor(gtk.gdk.WATCH) )
+y para volver al que está por defecto:
+self.window.set_cursor( None );
+¿Cómo puedo rastrear la posición del ratón?
+Existen varias razones por las que te puede interesar controlar la posición del ratón, que van desde el entretenimiento ([
+[1]
+]) a lo funcional (ocultar ciertas ventanas cuando el ratón no se ha movido por un par de segundos y volver a hacer aparecer esos elementos cuando este se mueva nuevamente). Esta es una manera en la cual se puede implementar esta funcionalidad:
+...
+		self.hideWidgetsTime = time.time()
+		self.mx = -1
+		self.my = -1
+		self.HIDE_WIDGET_TIMEOUT_ID = gobject.timeout_add( 500, self.mouseMightHaveMovedCb )
+
+	def _mouseMightHaveMovedCb( self ):
+		x, y = self.get_pointer()
+		passedTime = 0
+
+		if (x != self.mx or y != self.my):
+			self.hideWidgetsTime = time.time()
+			if (self.hiddenWidgets):
+				self.showWidgets()
+				self.hiddenWidgets = False
+		else:
+			passedTime = time.time() - self.hideWidgetsTime
+
+
+		if (passedTime >= 3):
+			if (not self.hiddenWidgets):
+				self.hideWidgets()
+				self.hiddenWidgets = True
+
+		self.mx = x
+		self.my = y
+		return True
+Varios
+Las tareas que aparecen más abajo son técnicas útiles que he encontrado mientras escribía código y documentación para esta referencia. No ha sido categorizadas aún.
+¿Cómo se si mi actividad está "activa" o no?
+Puedes configurar un evento usando la constante VISIBILITY_NOTIFY_MASK para saber cuando se cambia la visibilidad. Luego en el callback para este evento lo que debes hacer es comprar el estado del evento con las variables gtk definidas para la visibilidad de tu actividad. Puedes ver
+la sección de Constantes de Estado de Visibilidad de GDK
+gtk.gdk.Constants para más información.
+# Notify when the visibility state changes by calling self.__visibility_notify_cb
+        # (PUT THIS IN YOUR ACTIVITY CODE - EG. THE __init__() METHOD)
+        self.add_events(gtk.gdk.VISIBILITY_NOTIFY_MASK)
+        self.connect("visibility-notify-event", self.__visibility_notify_cb)
+    ...
+    # Callback method for when the activity's visibility changes
+    def __visibility_notify_cb(self, window, event):
+        if event.state == gtk.gdk.VISIBILITY_FULLY_OBSCURED:
+            print "I am not visible"
+        elif event.state in [gtk.gdk.VISIBILITY_UNOBSCURED, gtk.gdk.VISIBILITY_PARTIAL]:
+            print "I am visible"
+¿Cómo puedo obtener la cantidad de espacio libre disponible dentro del directorio /home?
+La siguiente función usa el módulo
+statvfs
+. El código siguiente muestra cómo obtener la cantidad total de espacio libre en /home.
+#### Método getFreespaceKb: devuelve el espacio disponible en kilobytes. 
+    def getFreespaceKb(self):
+        stat = os.statvfs("/home")
+        freebytes  = stat[statvfs.F_BSIZE] * stat[statvfs.F_BAVAIL]
+        freekb = freebytes / 1024
+        return freekb
+Ten en cuenta que asumir cosas acerca de "/home" no es una buena idea, es mejor usar os.environ['HOME']. Rainbow pondrá los archivos actuales en otros lugares, algunos en el ramdisk, otros en la flash.
+Ten claro que espacio libre en el sistema de archivos realmente te importa.
+¿Cómo puedo saber si mi actividad se está ejecutando en una XO?
+Sugar corre en PCs comunes, así como en XO. Aunque tu actuvidad probablemente corra en una XO real, algunas personas necesitan utilizarla en otros lados. Normalmente no deberías escribir una actividad que le importe si es una XO o no donde se está ejecutando. Si por alguna extraña razón necesitas saber, la forma más fácil es verificar si /sys/power/olpc-pm (el manejador de poder de la XO) existe.
+reliably detecting if running on an XO
+olpc:Power Management Interface
+import os
+...
+      #Devuelve un valor booleano que nos dice si estamos en una XO o no. 
+      print os.path.exists('/sys/power/olpc-pm')
+¿Cómo puedo saber la configuración actual del lenguage en mi XO?
+La variable 'LANG' te dice que lenguaje está actualmente activo en el XO. El código siguiente muestra cómo buscar en el valor de esta variable.
+import os
+...
+       _logger.debug(os.environ['LANG'])
+¿Cómo llamar repetidamente a un método específico después de un número N de segundos?
+La función gobject.timeout_add() te permite invocar un método después de un período de tiempo determinado. Si quieres llamar a un método en varias ocasiones, simplemente sigue llamando a la función de gobject.timeout_add desde tu función.
+El código de abajo es un ejemplo simple en donde la función que implementa el timeout se llama repeatedly_call. Nota que la sincronización entre las llamadas son aproximadas. Para que esto funcione debes llamar a repeatedly_call() desde alguna parte de tu código.
+Puedes ver un mejor ejemplo de este patrón en uso
+aquí
+.
+#Este método se llama a sí mismo aproximadamente cada 1 segundo
+	def repeatedly_call(self):
+		now = datetime.datetime.now()
+		gobject.timeout_add(self.repeat_period_msec, self.repeatedly_update_time)
+¿Cómo puedo actualizar la build que se ejecuta en mi XO?
+Hay varias páginas que te dan instrucciones sobre cómo instalar / actualizar la build actual.
+Si usted ya tiene una build instalada y una conexión a Internet, primero pruebe usar
+OLPC: OLPC-update
+.
+Si eso no funciona, puedes mirar las instrucciones para una
+OLPC: Activated upgrade
+que se puede hacer a través de un USB]
+Como mencionan las instrucciones en las páginas más arriba, asegurate de instalar tus actividades por separado luego de que actualices a una build específica.
+Estoy desarrollando en una XO pero mi teclado y la configuración de idioma no son ideales. ¿Cómo puedo cambiarlos?
+Las laptops intenacionalizadas tienen configuraciones que te pueden retrazar mientras estás desarrollando. Para cambiar las configuraciones de idioma usa el
+olpc:Sugar Control Panel
+Keyboard settings on internationalized laptops
+[1]
+can also be suboptimal, especially as characters like "-" and "/" are in unfamiliar positions. You can use the
+setxkbmap
+command in the
+olpc:Terminal Activity
+to reset the type of keyboard input used and then attach a standard U.S. keyboard that will allow you to type normally. The command below sets the keyboard to the US mapping (it will reset to the default internationalized mapping upon restart).
+setxkbmap us
+My Python activity wants to use threads; how do I do that?
+A question that has been answered with limited success is which threading patterns are most appropriate for use in Sugar.  The following pattern of code to work fine in basic instances:
+#### Method: __init__, initialize this AnnotateActivity instance
+    def __init__(self, handle):
+        ...
+        self.sample_thread = Thread(target=self.announce_thread, args=())
+        self.sample_thread.setDaemon(0)
+        self.sample_thread.start()
+        ...
+
+    def announce_thread(self):
+        while (self.Running):
+            time.sleep(1)
+            print "thread running"
+            self._update_chat_text("Thread", "In here")
+This is the basic series of steps that most online documentation on python suggests to use when trying to work with threads in python. The problem is that it is unclear how this pattern relates to code that worked in the SimCity activity:
+import gobject
+gobject.threads_init()
+#import dbus.mainloop.glib
+#dbus.mainloop.glib.threads_init()
+It should be noted that in the SimCity activity the pygame sound player would not produce sound reliably unless this setup was done.
+Should the two patterns always be used in tandem? It seems that the latter code is mainly to initiate gobject and other libraries to work with threading, but it is unclear what restrictions there are with using threading with these libraries. Does one take precedence over the other? It is not clear if there is any problem with using the standard python threading code on the sugar technology stack.
+In fact, experiments with threading on sugar leads to several different problems. For one thing, thread termination was tricky - using the can_close() method for sugar activities to terminate an activity only killed threads in some circumstances. It did not properly handle terminating threads in the case of CTRL-C or terminal interrupts. You can try to catch signals (SIGINT, SIGTERM or SIGHUP), but you will still be running in to errors in terminating child threads using these as well.
+Another set of errors with threading comes up when trying to combine with stream tubes. The bottom line is that it is unclear what the scope of threading in a Sugar activity should be - should it simply work if you do the standard python threading pattern, is the use of the glib.threads_init and gobject.threads_init calls necessary, are there other interactions with threads and dbus that need to be accounted for? With more clarity from sugar developers on how the platform envisions threading to work in an activity, we can be more comfortable writing entries in the Almanac to help developers write error-free code.
+How do I customize the title that is displayed for each instance of my activity?
+By default, activity titles are just the generic activity names that you specify in your activity.info file. In some applications, you may want the activity title to be more dynamic.
+For example, it makes sense to set the title for different browser sessions to the active web page being visited. That way, when you look back in the journal at the different browser sessions you have run in the previous few days, you can identify unique sessions based on the website you happened to be visiting at the time.
+The code below shows how you can set the metadata for your activity to reflect a dynamic title based on whatever session criteria you feel is important. This example is adapted from the Browse activity, which sets activity instance titles based on the title of the current web page being visited.
+if self.metadata['mime_type'] == 'text/plain':
+            if not self._jobject.metadata['title_set_by_user'] == '1':
+                if self._browser.props.title:
+                    # Set the title of this activity to be the current 
+                    # title of the page being visited by the browser. 
+                    self.metadata['title'] = self._browser.props.title
+¿Qué paquetes están disponibles dentro de Sugar para el desarrollo de juegos?
+Si tu actividad requiere herramientas para desarrollar juegos robustos y límpios deberías utilizar
+pygame
+. Puedes importar el paquete para usarlo con cualqueir actividad de la siguiente forma:
+import pygame
+...
+How do I detect when one of the game buttons on the laptop have been pressed?
+The laptop game buttons (the circle, square, x, and check buttons next to the LCD) are encoded as page up, home, page down and end respectively. So, you can detect their press by listening for these specific events. For example, the code below listens for button presses and then just writes to an output widget which button was pressed.
+...
+    #### Initialize this activity. 
+    def __init__(self, handle):
+        ...
+        self.connect('key-press-event', self._keyPressCb)
+        ...
+
+    #### Method _keyPressCb, which catches any presses of the game buttons. 
+    def _keyPressCb(self, widget, event):
+
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        
+        if (keyname == 'KP_Page_Up'):
+            self._chat += "\nCircle Pressed!"
+            self._chat_buffer.set_text(self._chat)
+        elif (keyname == 'KP_Page_Down'):
+            self._chat += "\nX Pressed!"
+            self._chat_buffer.set_text(self._chat)
+        elif (keyname == 'KP_Home'):
+            self._chat += "\nSquare Pressed!"
+            self._chat_buffer.set_text(self._chat)
+        elif (keyname == 'KP_End'):
+            self._chat += "\nCheck Pressed!"
+            self._chat_buffer.set_text(self._chat)
+
+        return False
+How do I detect if one of the joystick buttons has been pressed?
+This is the same process as detecting game buttons, except with different names for the keys. Again, you listen for "key-press-event" signals and then in your callback you check to see if the pressed button was one of the joystick keys.
+#### Initialize this activity. 
+    def __init__(self, handle):
+        ...
+        self.connect('key-press-event', self._keyPressCb)
+        ...
+
+    #### Method _keyPressCb, which catches any presses of the game buttons. 
+    def _keyPressCb(self, widget, event):
+
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        
+        if (keyname == 'KP_Up'):
+            self._chat += "\nUp Pressed!"
+            self._chat_buffer.set_text(self._chat)
+        elif (keyname == 'KP_Down'):
+            self._chat += "\nDown Pressed!"
+            self._chat_buffer.set_text(self._chat)
+        elif (keyname == 'KP_Left'):
+            self._chat += "\nLeft Pressed!"
+            self._chat_buffer.set_text(self._chat)
+        elif (keyname == 'KP_Right'):
+            self._chat += "\nRight Pressed!"
+            self._chat_buffer.set_text(self._chat)
+
+        return False
+¿Cómo elimino un botón específico de la barra de herramientas?
+Aquí hay un ejemplo de como borrar el botón de compartir:
+activity_toolbar = toolbox.get_activity_toolbar()
+    activity_toolbar.remove(activity_toolbar.share)
+    activity_toolbar.share = None
+Notes
+↑
+olpc:Keyboard layouts#OLPC keyboard layouts

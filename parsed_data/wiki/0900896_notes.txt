@@ -1,0 +1,241 @@
+Title: 0.90/0.89.6 Notes
+URL: https://wiki.sugarlabs.org/go/0.90/0.89.6_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.89.6 Release Notes
+1.1
+Announcement
+1.2
+Compatibility
+1.3
+Update to this version
+1.4
+Glucose (base) modules
+1.4.1
+Updated
+1.4.2
+Not Updated
+1.5
+Glucose news
+1.5.1
+sugar
+1.5.2
+sugar-datastore
+1.5.3
+Etoys
+1.6
+Fructose (base activity) modules
+1.7
+Fructose news
+1.7.1
+Chat
+1.7.2
+TurtleBlocks
+1.7.2.1
+98
+1.7.2.2
+97
+1.7.2.3
+96
+1.7.2.4
+95
+1.7.2.5
+94
+1.7.2.6
+93
+1.7.2.7
+92
+1.7.2.8
+91
+1.7.2.9
+90
+1.7.2.10
+89
+1.7.2.11
+88
+1.7.2.12
+87
+1.7.2.13
+86
+1.7.2.14
+85
+1.8
+What is new for packagers
+Sucrose 0.89.6 Release Notes
+Announcement
+This is our development release number 6 in the
+0.90 development cycle
+! This is our Release candidate!
+We now entered
+Hard Code Freeze
+. When the hard code freeze is in effect, each and every code change should be approved by the release team. Only critical fixes will be considered. To request approval send mail to sugar-devel@lists.sugarlabs.org, including the patch and a detailed description of the changes, the benefits and the risks. Approval will have to be granted by two members of the team.
+Thanks everyone for your great contributions!
+Compatibility
+There are no known compatibility issues, as of today.
+Update to this version
+Please use the instructions for your distribution (SoaS, Fedora, Ubuntu, Debian etc) of choice to upgrade to this release. Note that it may take a while until the release is packaged for each distribution. Please stay tuned for distribution specific announcements and watch out for updates at
+Get Sugar
+.
+Glucose
+(base) modules
+Updated
+sugar-datastore 0.89.4
+etoys 4.1.2387
+sugar 0.89.10
+Not Updated
+sugar-toolkit 0.89.5
+sugar-base 0.90.0
+hulahop 0.7.1
+sugar-presence-service 0.90.1
+sugar-artwork 0.89.4
+Glucose news
+sugar
+Pass the contact-id to the buddy-removed signal instead of the handle
+#2349
+(Tomeu Vizoso)
+Make sure we don't change the owner's colors because of a network event
+#2348
+(Tomeu Vizoso)
+Commit from Sugar Labs: Translation System by user mschlager.: 361 of 363 messages translated (0 fuzzy). (Markus Schlager)
+Properly store and load friends
+#2331
+(Tomeu Vizoso)
+Announce file transfer capabilities
+#1603
+(Tomeu Vizoso)
+Reset resolver cache when connection has been established
+#1940
+(Simon Schampijer)
+Display changed to 'Sugar in a window' instead of 'Xephyr on' Ticket
+#2285
+(Ishan Bansal)
+Protected Activities Support
+#2087
+(Martin Abente)
+Increase timeout for buddy properties queries
+#2298
+(Tomeu Vizoso)
+Set param-register to False after a RegistrationExists error
+#2296
+(Tomeu Vizoso)
+Change owner's jid to be hashed_pubkey@server
+#2279
+(Tomeu Vizoso)
+sugar-datastore
+metadata-only update sets filesize property to 0
+#2229
+commit 3644fac reintroduced race condition, broke test suite
+#2104
+autogen.sh: pass --enable-maintainer-mode to configure
+Etoys
+fix Journal saving fails in Sugar 0.82
+updated translations: de, ja, ta
+fix error when adding variable named 'val'
+fix tile help balloons not being translated
+add button to reset saved preferences
+make soundReverb a preference
+do not hard-code squeak vm path
+replace == with = in shell tests
+fix paintbox in event theatre
+fix SuppliesPlayersTool guide
+remove MenuMakeNewFlap guide from index
+pop-up arrows now enabled by default
+new DrGeo examples project (see gallery)
+new home project (green border more visible)
+Demon Castle renamed to Etoys Castle and fixed
+revised guides for English and Spanish
+DrGeoII translations for de,es,fr,ja
+updated German and Japanese translations
+do not ship languages with too few translations (ar_SY, en_GB, km, pap, pl, zh_TW)
+hide distracting/not-functional preference panel buttons
+allow negative timer values
+shared flaps are not destroyed anymore when switching projects
+various smaller fixes
+Fructose
+(base activity) modules
+Pippy 37
+Browse 117
+Calculate 32
+Etoys 116
+Chat 67
+TurtleArt 98
+Fructose news
+Chat
+Remove access to a private member of the presence service (Tomeu Vizoso)
+TurtleBlocks
+98
+fixed palette selection bug introduced by alpha-value checking
+97
+recenter default turtle when dragged onto palette
+removed comment label from collapsible stacks
+made font smaller on the bottom-of-collapsible-stack block (#2305)
+rgs fixed resume problem in GNOME version (#2293)
+checking alpha value to block 'hit' detection (#1852)
+trap and display math errors in python block (#2313)
+96
+fixed deleted-turtle ghost bug
+95
+some performance enhancements (block creation and stack dragging)
+removed depreciated field from desktop file (Luke Farone)
+fixed problem with setup.py in non-Sugar environments (Luke Farone)
+new example program for turtle sees block
+fixed broken clock example
+catch import error for upload (#2194)
+rescaling of read pixel values (#2188)
+turtle sees block takes into account gray and shade (#2188)
+hide extra turtles on clean (#2191)
+hide coordinate overlays on clean (#2191)
+reset scale, gray on clean (#2191)
+work-around to c-c/c-v toolbar bug (Raul Gutierrez #2050)
+writing config file in config directory (Luke Farone #2193)
+using turtle name to generate color for multiple turtles
+delete turtle when dragged onto the palette (#2191)
+94
+added "turtle sees" block
+added read_pixel block
+updated sample images (smaller file sizes)
+updated license for sample images
+updated nl translation
+fixed path problem with Exec in desktop file (Matthew Gallagher)
+fixed path problem with icon in turtleart.py (Matthew Gallagher)
+moved modules to TurtleArt subdirectory
+limit size of upload file (Jamie Boisture)
+93
+recenter overlays when window resizes (Jamie Boisture)
+added icon for Desktop mode (Jamie Boisture)
+support for project upload to server for Desktop mode (Jamie Boisture)
+92
+fixed sharing bug introduced in v91
+cleaned up cmdline processing
+91
+added black and white blocks
+fixed cgi escape bug (#1854)
+fixed bug with overzealous block resizing (#2092)
+speed up of refresh code (expose_cb handling)
+90
+fixed problem with keyboard accelerators: Ctrl-C, Ctrl-V, and Alt-Return
+89
+added non-interactive mode (with help from Jamie Boisture)
+fix problem with icon in F13
+block scale saved between sessions
+88
+alsroot fixed ObjectChooser bug (#2002)
+87
+added fill block
+added gray block
+fixed typo in sample code
+added mouse support to sample code (See
+http://tonyforster.blogspot.com/2010/03/mouse-support-in-turtleart.html
+)
+86
+More .es updates
+85
+Fixed bug loading floating point numbers from saved projects
+'store in box' accepts strings and numbers as labels
+New .es translations
+What is new for packagers
+New API has been added to telepathy-gabble and telepathy-salut to support the work on the collaboration framework, which results in needing 0.9.16 for tp-gabble and 0.3.13 for tp-salut.
+One of the goals of the collaboration refactoring was dropping functionality in sugar that has been implemented in
+telepathy-mission-control
+, so Sugar now depends on tp-mission-control 5.4.3.

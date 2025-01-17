@@ -1,0 +1,104 @@
+Title: 0.90/0.89.5 Notes
+URL: https://wiki.sugarlabs.org/go/0.90/0.89.5_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.89.5 Release Notes
+1.1
+Announcement
+1.2
+Compatibility
+1.3
+Update to this version
+1.4
+Glucose (base) modules
+1.4.1
+Updated
+1.4.2
+Not Updated
+1.5
+Glucose news
+1.5.1
+sugar
+1.5.2
+sugar-toolkit
+1.5.3
+Etoys
+1.6
+Fructose (base activity) modules
+1.7
+Fructose news
+1.8
+What is new for packagers
+Sucrose 0.89.5 Release Notes
+Announcement
+This is our development release number 5 in the
+0.90 development cycle
+! This is our Beta release! We would like to invite you for testing now. The plan is to have a Soas build with the latest 0.90 Sugar packages available by the end of the week. We will send another announcement when it is ready for download.
+We now reached
+String Freeze
+, no string changes may be made without confirmation from the localization team and notification to the release team! We encourage translators to translate the new strings that has been introduced by the various new Features.
+Furthermore Tomeu Vizoso made great progress in fixing integration bugs introduced by the
+Remove Presence Service
+Feature.
+The Etoys team reports that the first beta release of Etoys 4.1 is now available. The biggest change is that stopping the Etoys activity will no longer save to the Journal. To save, you will have to press the keep button. The octagonal stop button is replaced by a circular exit button to indicate the new behavior. It puts up a warning before actually quitting. More about the rationale for this change can be found
+here
+.
+Thanks everyone for your great contributions!
+Compatibility
+There are no known compatibility issues, as of today.
+Update to this version
+Please use the instructions for your distribution (SoaS, Fedora, Ubuntu, Debian etc) of choice to upgrade to this release. Note that it may take a while until the release is packaged for each distribution. Please stay tuned for distribution specific announcements and watch out for updates at
+Get Sugar
+.
+Glucose
+(base) modules
+Updated
+sugar 0.89.8
+sugar-toolkit 0.89.5
+etoys 4.1.2384
+Not Updated
+sugar-base 0.90.0
+hulahop 0.7.1
+sugar-presence-service 0.90.1
+sugar-datastore 0.89.3
+sugar-artwork 0.89.4
+Glucose news
+sugar
+AP: signal strength update not separate from state change
+#2246
+(Simon Schampijer)
+Listen to changes to the nick and jabber server settings and update MC appropriately (Tomeu Vizoso)
+Journal: Alert if an error occurs when copying to devices in the detail view
+#1842
+(Simon Schampijer)
+Sugar GConf settings breaks mouse buttons behavior in gnome session
+#1544
+(Aleksey Lim)
+Run gnome-keyring-daemon from the 'sugar' script if we are running in Xephyr (Tomeu Vizoso)
+sugar-toolkit
+sugar.presence: Remove dead code and make clear which methonds are deprecated (Tomeu Vizoso)
+Read the public and private keys lazily (Tomeu Vizoso)
+Use Account.ConnectionStatus instead of Account.Connection.Status (Tomeu Vizoso)
+Etoys
+no save on stop under Sugar, must use keep button (enable sugarAutoSave to revert to old behavior)
+easier to make flap (see supplies)
+GSoC addition: scriptable speech bubbles
+translatability of Text object must be enabled explicitly
+minor fixes
+updated translations from Pootle
+added languages zh_CN, ca, sk, pap, pl, km, en_GB, ar_SY
+revised Italian, Portuguese, and German QuickGuides
+Fructose
+(base activity) modules
+Pippy 37
+Browse 117
+Calculate 32
+Etoys 116
+Fructose news
+No news.
+What is new for packagers
+New API has been added to telepathy-gabble and telepathy-salut to support the work on the collaboration framework, which results in needing 0.9.16 for tp-gabble and 0.3.13 for tp-salut.
+One of the goals of the collaboration refactoring was dropping functionality in sugar that has been implemented in
+telepathy-mission-control
+, so Sugar now depends on tp-mission-control 5.4.3.

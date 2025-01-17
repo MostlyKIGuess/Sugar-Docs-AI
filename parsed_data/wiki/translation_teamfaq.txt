@@ -1,0 +1,235 @@
+Title: Translation Team/FAQ
+URL: https://wiki.sugarlabs.org/go/Translation_Team/FAQ#There_are_so_many_projects._Which_one_do_I_start_off_with_.3F
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Welcome to the
+Translation Team
+FAQ! The aim of this page is to provide an up to date list of common questions that we get about the Translation Team. This page contains many frequently-asked questions along with some answers.
+We encourage you to answer questions and keep these pages organized.
+To ask the
+Translation Team
+a question, please
+post questions here
+.
+Contents
+1
+General
+1.1
+How do I find the Sugarlabs pootle projects?
+1.2
+I have a question that is not answered here - how do I contact you?
+1.3
+Things that you should initially try to resolve your problems
+1.4
+Where do I find a list of language teams and their administrators?
+1.5
+There are so many projects. Which one do I start off with?
+1.6
+I don't understand the nomenclature of the projects. Could you explain it to me?
+1.7
+What do you mean by "string frozen"?
+1.8
+Is it possible to edit more than one string at a time?
+1.9
+Can we use translation memories?
+1.10
+Can I translate off-line?
+1.11
+How do I see/test/check my translations in action?
+1.12
+I am translating for a deployment of OLPC XO laptops.  What version should I translate?
+1.13
+Can I see translations in another language?
+1.14
+How do I jump directly to the untranslated strings?
+1.15
+How do I integrate translations into a software release/build?
+1.16
+Why are strings that were translated in Pootle not showing up in the releases/language packs?
+1.17
+How can I translate Pootle itself into my language?
+2
+Trouble-shooting
+2.1
+I can't translate! (or) I only get the "Suggest" button and not the "Submit" button
+3
+Administrative
+3.1
+How do I add a project to be translated ?
+3.2
+How do I start a translation team for my language ?
+3.3
+Do you have any document/guide for a language coordinator ?
+4
+Ask a question
+General
+How do I find the Sugarlabs pootle projects?
+See
+http://translate.sugarlabs.org
+.
+I have a question that is not answered here - how do I contact you?
+You can find us on IRC at
+irc://irc.freenode.net#olpc-pootle
+. We also have a mailing list to discuss localisation related stuff. You can subscribe to the list by visiting
+http://lists.laptop.org/listinfo/localization
+. You can also
+#ask a question
+.
+If you face a problem that is affecting the way in which you (or others) would normally work, please mail
+translate@rt.laptop.org
+, stating the problems you are facing.  The request will get logged in our Request Tracker installation.
+You should use translate@rt.laptop.org for things like
+Forgotten passwords
+Error messages in Pootle
+Pootle being unresponsive
+Requests like addition of new languages, addition of new projects, etc, follow the old workflow, and they should be done via Trac at dev.laptop.org.
+The
+Pootle developers
+also have a mailing list for Pootle discussion - you can subscribe and or search the archives at
+http://lists.sourceforge.net/lists/listinfo/translate-pootle
+- however please post your questions to the SugarLabs/OLPC localization list above, as they may not be relevant to the larger Pootle community.
+Things that you should initially try to resolve your problems
+Log out, and log in again, with the language choice at log in time being set to "Default"
+Avoiding searching or uploading for large files (e.g. Etoys). If you need to upload/merge a large file, mail translate@rt.laptop.org
+Where do I find a list of language teams and their administrators?
+A current list of language teams, along with their administrators (if any) is available at
+olpc:Pootle#Sign-up
+.
+There are so many projects. Which one do I start off with?
+It depends on the decision of the language team you are a part of. We recommend that you translate at least Glucose, Fructose (and Terminology, to ensure consistency) before moving on to the other projects.
+I don't understand the nomenclature of the projects. Could you explain it to me?
+Here's a table for your reference:
+Project Name
+Description
+String Frozen
+Etoys
+The entire Etoys package (excluding the example projects)
+No
+Fructose
+A set of core activities which follow the Sugarlabs release schedule. This is the bleeding edge, development version, which will be stabilized every six months
+No
+Fructose 0.84
+A set of core activities which follow the Sugarlabs release schedule. This is the 0.84 release
+Yes
+Fructose 0.82
+A set of core activities which follow the Sugarlabs release schedule. This is the 0.82 release
+Yes
+Glucose
+The core Sugar libraries. This is the bleeding edge, development version, which will be stabilized every six months
+No
+Glucose 0.84
+The core Sugar libraries. This is the 0.84 release
+Yes
+Glucose 0.82
+The core Sugar libraries. This is the 0.82 release
+Yes
+Honey
+Non fructose activities (do not follow any regular schedule)
+No
+Terminology
+A set of common terms and phrases which occur in Sugar, useful for maintaining consistency and for defining a standard.
+Yes
+OLPC Content
+Strings related to OLPC PR materials
+Yes
+OLPC Software
+Packages specifically for the XO Sugar - GNOME desktop switching
+Yes
+You can also refer to
+this page
+for more details.
+What do you mean by "string frozen"?
+First and most important is that "string freeze" is a restriction on developers and not translators.  String freeze means developers need to stop changing UI strings so that translators can do their final work prior to release, in other words, string freeze is a start signal for translators to perform their final reviews and commits of PO files, not a stop signal, even the release date itself is not a stop signal for localization.
+Second is that even after a release is made and declared final and stable, localizers can complete their work and a deployment team can make a customization stick for a deployment that includes the post-release localization work, so you will not "miss the boat" for providing a localized UI environment for your deployment if work on your language is not complete by the next release date.  This is part of the beauty of separating the code (release) from the strings (PO/MO files).
+Is it possible to edit more than one string at a time?
+No. For on-line translations you can only edit one string at a time. Each project/language administrator has the power to enable off-line translations, but that needs to be coordinated and controlled; currently we lack the man-power (read administrators) to guarantee that workflow.
+Can we use translation memories?
+Yes.
+Can I translate off-line?
+Depends. Initially, Pootle's ability to import PO files is not enabled, and it will be up to each administrator (language/project) to decide if it will be allowed, who will have said ability and set up the appropriate workflow.
+How do I see/test/check my translations in action?
+There are several methods to do that. See
+Translation_Team/Testing
+for the details.
+I am translating for a deployment of OLPC XO laptops.  What version should I translate?
+As of this writing (Feb. 2010) you are most likely looking at deploying the 0.84 versions of Fructose / Glucose as the details of deploying the very latest version of Sugar on the XO have not yet been fully worked out (at least to a level that is stable enough for a live deployment), although there is ongoing work on that.  Version 0.84 Fructose / Glucose strings will not be changing and the string freeze for those was a long time ago, so they are a stable target.
+Can I see translations in another language?
+Pootle can show you the translations in an third language while you translate. In order to see that, select the alternate language from your options page (once you have logged in).
+How do I jump directly to the untranslated strings?
+From the project page of your language (eg: Fructose for Spanish), click on the
+Show Editing Function
+, and for each file, you will get a link called
+View untranslated
+which would take you directly to the untranslated strings.
+How do I integrate translations into a software release/build?
+A language administrator must perform the Commit to VCS action through the Pootle user interface, it is on the Translate tab of Pootle for those users like admins that have the commit PO file privilege.  Pootle is directly connected up to the git software repository (git).  The language admin's action in Pootle triggers a commit in the software repository; the PO file for that language can be found in the /po directory of the git project's source code tree and after the commit of the PO file, you can see the evidence in the git commit log and in the date stamp of the PO file in the source tree.
+Why are strings that were translated in Pootle not showing up in the releases/language packs?
+Suggested strings will not appear in the committed PO file and will not be shown to users.  Translations marked as "fuzzy" will be committed, but will not be built into activities or language packs; for these strings, as well as ones that have not been translated at all, users will see the English version.  There are no functional consequences of partially completed PO files, but as you can imagine, it is not a pretty or desirable result to have mixed language UI strings.
+For suggested strings to be incorporated in the translation, they must be accepted.  Accepting or rejecting suggestions is done by language admins (or other localizers that may be granted the review privilege in a given language).  It is generally part of the review process, which should take place before any commit, to clear up any pending suggestions.
+How can I translate Pootle itself into my language?
+Especially when working with less technical translators, having Pootle operate in their native language can be helpful.  While Pootle supports many languages, some of the language targets for Sugar do not yet have Pootle translations.  Previously Pootle used the "live" translations from the Pootle project in the Sugar Labs Pootle server, but this is no longer the case.  All translations of Pootle should now be done at
+http://pootle.locamotion.org/projects/pootle/
+- if your language is not listed there, contact the Pootle developers on the translate-pootle mailing list and it can be added.  Once the translation is substantially complete, contact us and the translated strings can be copied over to the Sugar Labs Pootle.  In general, however, if your translation team is able to use Pootle in English or another supported language, it is better to concentrate on translating Fructose/Glucose/etc. first.
+Trouble-shooting
+I can't translate! (or) I only get the "Suggest" button and not the "Submit" button
+Several possibilities:
+Pootle account — by default, anonymous users aren't allowed to translate, so you need to register first.
+Pootle language — in order to to have 'access' to a given project you need to have a language in your user options that is associated to the project
+Pootle project — you must have the project in your list of projects in your user options in order to be considered as a non-anonymous translator
+Language+Project rights — although projects are relatively open (suffices to be registered to be able to translate) those rights are specified by the administrator. If all of the above are satisfied please ask your language administrator(s) or ask in the
+mailing list
+.
+Administrative
+How do I add a project to be translated ?
+If you are using the GIT services on git.sugarlabs.org, just file a ticket at
+http://dev.sugarlabs.org
+under the component localization, mentioning the name of the GIT repository. If your project is hosted somewhere else, please file a ticket detailing how to access your project's version control setup, and we'll try to figure out a way how to best integrate your project's translation related files.
+Basic steps for git.sugarlabs.org hosted projects:
+/po/ directory set up in top-level of git repo containing the .pot file produced by gettext.
+user:pootle granted commit priv to the repo
+Ticket opened in bugs.sugarlabs.org requesting hosting of project PO files in Pootle, please provide link to git repo.
+How do I start a translation team for my language ?
+File a ticket at
+http://dev.sugarlabs.org
+with your name, email address, Pootle username (if you have already registered), language name and language code. We will setup the relevant accounts and permissions for you. You should file the ticket under the component localization.
+Do you have any document/guide for a language coordinator ?
+The OpenOffice.org people have an excellent guide about Pootle - you can read it online at
+http://wiki.services.openoffice.org/wiki/Pootle_User_Guide#Pootle_Userguide_for_Translation_Leads
+Ask a question
+Have a question that is not answered above? Add it below, subscribe and send an email to
+localization@lists.laptop.org
+, or try the
+irc://irc.freenode.net#olpc-pootle
+IRC
+channel
+.
+Faster navigation
+I would thank a way to go directly to the "need to translated" parts.  In this moment I need to "travel" (clicking and clicking) trough all the "translated" parts until I reach the "not translated".  I know: easy to say... hard to do.  Just letting you know (for the records).  Javier Rodriguez, Lima. Peru  3 March 2008.
+This
+is
+possible with Pootle (although in the past it has sometimes failed due to timeouts for very large projects like Etoys).  From a project translation page (e.g. the Spanish
+terminology
+page), click on
+Mostrar Funciones de Edición
+(Show Editing Functions) and then you will have an option to
+Ver No Traducidas
+(Show Untranslated) which takes you directly to the parts that have not been translated (or have fuzzy translations). You can use the Regresar/Saltar buttons (Back/Skip) as well as the others next to those to go to the next untranslated item without having to page through parts that are translated.  Note that if you use direct navigation to edit another entry, you will lose the extra restrictions embedded in the URL (translate.html?fuzzy=1&editing=1&blank=1) and the buttons will now just back/skip to the immediately preceding/following entries, whether translated or not.  To recover the restriction, go back and re-click the Show Untranslated link or just add &fuzzy=1&blank=1 to the current URL (or just reload the page if those are already in the URL).  --
+@alex
+00:05, 18 April 2008 (EDT)
+See the Community
+FAQ
+list for more information.

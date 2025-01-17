@@ -1,0 +1,151 @@
+Title: Talk:Supported systems
+URL: https://wiki.sugarlabs.org/go/Talk:Supported_systems#LiveCD
+--------------------------------------------------------------------------------
+Contents
+1
+Updated Menu Item?
+1.1
+Supported hardware
+2
+Tested?
+3
+Updating Sugar to the Latest Version
+4
+LiveCD
+5
+Alix.1C (AMD Geode LX800)
+6
+Strawman for new layout of Try Sugar pages
+7
+Distributions' Collaboration sites
+Updated Menu Item?
+Can you update
+Getting Sugar
+to read
+Getting & Updating Sugar
+?
+Supported hardware
+Sugar for various hardware systems lists generic systems, but I'm more 
+interested in a laptop or motherboard that has the marvel chipset, and 
+can do the 802.11s mesh networking so I can see other XOs out there but
+also browse the network.
+It's a pain to keep switching betweeh 802.11b/g and 802.11s.  Are there any out there?
+Tested?
+What do these tables represent? Distros on which Sugar is bundled? Distros on which Sugar *can* run, with the necessary dependencies? --
+Morgs
+08:42, 27 May 2008 (UTC)
+The former, at least in the case of Debian, Ubuntu, and Fedora. But maybe we need to add another column to the table. --
+Walter
+11:58, 27 May 2008 (UTC)
+I think at this time the table should only contain Debian, Ubuntu and Fedora. The other distributions/OS are not supported in any way. --
+Marcopg
+We better try to define
+supported
+. --
+Walter
+02:19, 28 May 2008 (UTC)
+I think at very minimum
+supported
+should involve availability of binary packages. Only Debian, Ubuntu and Fedora meet that requirement. --
+Marcopg
+I've reorganized the table to try to reflect this distinction. --
+Walter
+11:57, 28 May 2008 (UTC)
+Updating Sugar to the Latest Version
+What is the recommended process for updating non-OLPC systems, such as Sugar on Ubuntu? Presumably,
+Development Team/Jhbuild
+?
+Right now, jhbuild is the only option although perhaps it would be easier to take the source tarballs released by the Sugar team and install them without requiring packaging. For Ubuntu, I would like to see a
+PPA
+available that gets updated with development releases of Sucrose, but I haven't yet had time to look into that myself. --
+Morgs
+09:12, 17 July 2008 (UTC)
+I've not managed to coerce Ubuntu into letting me run the jhbuild version of Sugar rather than the one I installed with apt-get through xsessions. (No problem running it from the cmdline.) Any tips? --
+Walter
+00:40, 18 July 2008 (UTC)
+Hmm, unfortunately not - but here are fresh Ubuntu packages for the latest Sucrose release, courtesy of James Munro:
+http://learninglab.lincoln.ac.uk/blogs/jmunro/2008/07/18/day-15-sugar-packages-done/
+--
+Morgs
+09:31, 18 July 2008 (UTC)
+Got it to work (See
+Development Team/Jhbuild#Creating_an_xsession_for_Sugar-jhbuild
+) --
+Walter
+23:03, 23 July 2008 (UTC)
+LiveCD
+We have a number of LiveCD and LiveUSB efforts underway, although none of them are of production quality yet. The goal of these efforts is to make it easy for teachers to try Sugar in situations where the school computers are locked down or cannot be reimaged. Another use case is for children to use Sugar at school and at home using a LiveUSB in cases where 1-to-1 solutions are not available.
+Caroline Meeks and I went to a computer lab at a Boston Public School to see what constraints we might encounter. They had a room full of Compaq Pentium 4 "EVO" desktops with 256M of DRAM. We tried a variety of LiveCDs (with and without Sugar).
+Distribution
+Sugar
+Result
+Fedora 9
+0.82
+Never completed launching desktop
+Ubuntu 8.4
+-
+Never completed launching desktop
+Ubuntu 8,4
+654
+Boot failed due to insufficient memory for RAM disk--required 384K
+PuppyLinux
+-
+Booted quickly and ran well
+Slackware
+-
+Booted but died OOM after running a few applications
+Other issues included the setting and saving of parameters, e.g., TinyLinux saves network settings, which would not work well when switching from school to home.
+It also may make sense to put a swap partition on the USB to help with some of the issues regarding OOM. (Yes, it will wear out, but not so quickly as one would think (Mitch Bradley had some interesting analyses of this which I will try to dig up.) But the bottom line is we need to keep the footprint small.
+--
+Walter
+22:59, 3 October 2008 (UTC)
+Alix.1C (AMD Geode LX800)
+Bug in initramfs /init detected. Dropping to shell. Good luck!
+bash: no job control in this shell
+bash-3.2#
+That is the output of both Sugar-spin Live CDs i tried on my AMD Geode LX800. The first was from early November 2008 running on Fedora 9.92, the second was a brand new Fedora 10 with Sugar 0.82-2.
+Kozuch
+14:48, 4 January 2009 (UTC)
+Strawman for new layout of Try Sugar pages
+New to GNU/Linux and Sugar (Try Sugar on a Stick)
+Windows user: Try the Fedora SoaS (builds from Windows)
+Mac (OSX) user: Try virtualbox
+Already using GNU/Linux?
+Find your distro from the list and follow the instructions on that distro's page
+Fedora
+Debian
+Ubuntu
+Ubuntu user: Try Ubuntu SoaS
+GenToo
+Mandriva
+...
+Have an OLPC XO-1? Update to the latest Sugar here:
+olpc-update instructions
+Developer tools are here:
+jhbuild
+VM
+Linux Terminal Server
+adding Sugar to your favorite distro...
+Not sure where to include the emulators for Windows and MacOS
+This looks generally good to me.  My only suggestion is that it be as simple as physically possible.  When trying out software, people are programmed to look first for their current operating system (Windows / Mac / Linux), followed by a large Download button.  Any longer instructions are sure to confuse and discourage.  Good examples include:
+[1]
+,
+[2]
+,
+[3]
+.
+Wade
+16:09, 5 March 2009 (UTC)
+I have started to pull together a
+1st pass
+but without the artwork it will be difficult and doing it the wiki will be difficult as well... may these pages have to be static. --
+Walter
+17:19, 5 March 2009 (UTC)
+Distributions' Collaboration sites
+As this page becomes the more technical reference, we need to ask the distributions to provide links to their source repositories, bug trackers, and other online venues for collaboration.  Perhaps the Starch and Sucrose tables could have columns for these links.
+We hope that discussions will continue to be shared with sugar-devel@lists.sugarlabs.org --
+FGrose
+00:38, 6 March 2009 (UTC)
++1 --
+Walter
+01:53, 6 March 2009 (UTC)

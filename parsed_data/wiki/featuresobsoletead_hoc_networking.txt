@@ -1,0 +1,88 @@
+Title: Features/Obsolete/Ad hoc Networking
+URL: https://wiki.sugarlabs.org/go/Features/Obsolete/Ad_hoc_Networking
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+See
+Features/Ad hoc Networking
+.
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+Testing
+7.1
+Under a tree
+7.2
+Internet Connection sharing
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Allows users to connect with each other over wireless in an ad hoc manner without infrastructure like an Access Point.
+Owner
+Name:
+Simon Schampijer
+Email: simon AT sugarlabs.org
+Current status
+Targeted release: 0.86
+Last updated: 19.09.09
+Percentage of completion: 100%
+Detailed Description
+It allows users to connect with each other over wireless in an ad hoc manner without infrastructure like an Access Point. This is the so called under a tree scenario. OLPC provided that functionality using hardware mesh. This feature allows to provide that functionality with nearly all the wireless hardware. Furthermore it allows you to do internet connection sharing.
+Benefit to Sugar
+It allows the Sugar users to create ad hoc networks with any given wireless hardware.
+Scope
+NetworkManager provides all the functionality needed to create Ad Hoc networks. In the sugar shell only the NetworkManager client needed to be changed to allow creating Ad Hoc networks and an option has been added to the frame network device.
+Testing
+Features/Obsolete/Ad hoc Networking/Testing
+Under a tree
+you need two computers with wireless capabilities
+on machine A reveal the palette of the network device (in the frame at the bottom) and click 'Create Network'
+a network item called "<your name>'s Network" is added in the neighborhood view
+on machine B connect to this network
+verify that both machines are connected to the same network; the network device is in connected state and both machines are in the same IP range (listed in the device item's palette)
+Internet Connection sharing
+you need two computers with wireless capabilities; one needs to either have a second wireless interface or a wired network interface; furthermore you need a wireless or wired connection to the internet
+connect the machine with two interfaces to your internet connection
+create on that machine an ad hoc network as well
+connect on the other machine (B) to that ad hoc network
+machine B should be able to use the internet connection of machine A; use for example the Browse activity to verify this.
+User Experience
+It allows users to connect with each other over wireless in an ad hoc manner without infrastructure like an Access Point. This is the so called under a tree scenario. OLPC provided that functionality using hardware mesh. This feature allows to provide that functionality with nearly all the wireless hardware. Furthermore it allows you to do internet connection sharing.
+Dependencies
+No further dependencies, only changes in the sugar shell.
+Contingency Plan
+Defer to 0.88
+Documentation
+Tomeu Vizoso has written a
+blog post
+about this feature.
+Release Notes
+The new ad hoc networking facilities allows users to connect with each other over wireless in an ad hoc manner without infrastructure like an Access Point. This is the so called under a tree scenario. OLPC provided that functionality using hardware mesh. This feature allows to provide that functionality with nearly all the wireless hardware. Furthermore it allows you to do share an internet connection using the same mechanism.
+Comments and Discussion
+See
+discussion tab for this feature

@@ -1,0 +1,142 @@
+Title: Platform Team/gatch
+URL: https://wiki.sugarlabs.org/go/Platform_Team/gatch
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Install
+3
+Usage
+3.1
+Initiate downstream branch
+3.2
+Populate downstream commits
+3.3
+Merge upstream updates
+3.4
+Tips
+4
+See also
+5
+Getting involved
+Summary
+Support long or ever standing, all time being on top, downstream patchsets in a Git repository. This tool is intended to be lightweight and support only long or ever standing downstream patches. 
+For the rest of use cases, look for the
+alternatives
+.
+Install
+Clone Gatch repository:
+git clone
+git://git.sugarlabs.org/sdk/gatch.git
+<INSTALL-PATH>
+Add
+gatch
+command to the
+PATH
+environment variable, e.g., in
+~/.bashrc
+file (you need to relogin):
+echo PATH=
+<INSTALL-PATH>
+:$PATH >> ~/.bashrc
+Usage
+This section operates with the following terms:
+upstream remote
+The name (from
+git remote
+command output) of repository that contain
+upstream branch
+;
+upstream branch
+Git branch in
+upstream remote
+repository that is beeing used as a basis for
+downstream branch
+;
+downstream remote
+The name (from
+git remote
+command output) of repository that contains
+downstream branch
+, might be the same as
+upstream remote
+;
+downstream branch
+Git branch in
+downstream remote
+that is based on
+upstream branch
+and contains downstream commits all time on top of ones from
+upstream branch
+.
+Initiate downstream branch
+Add upstream remote (if it is not the same as the current remote,
+origin
+) for repository downstream branch will be based on:
+git remote add
+<UPSTREAM-REMOTE>
+<UPSTREAM-URL>
+Create downstream branch:
+git fetch
+<UPSTREAM-REMOTE>
+--no-tags
+git checkout
+<UPSTREAM-REMOTE>
+/
+<UPSTREAM-BRANCH>
+-b
+<DOWNSTREAM-BRANCH>
+Register downstream branch as a Gatch branch:
+gatch init
+<UPSTREAM-REMOTE>
+<UPSTREAM-BRANCH>
+This command will create watershed commit with comment
+[gatch-
+<DOWNSTREAM-BRANCH>
+] Initiate downstream branch
+. Since this time, all downstream commits will be after watershed one, even after re-basing to the recent upstream branch.
+Populate downstream commits
+Use downstream branch as a regular Git branch, i.e., create new commits.
+Merge upstream updates
+Being in downstream branch, type:
+gatch merge
+This command will:
+fetch recent upstream branch commits;
+rollback downstream commits to the currently local upstream HEAD;
+pull upstream commits on top on currently local upstream HEAD;
+re-apply all downstream commits on top on new upstream HEAD.
+The whole process does not break Git's consistent history, i.e., while pushing new downstream branch to the server, there is no need in
+--force
+argument.
+The one obvious cave is that on the 4th step, git might complain about not possible merging. These conflict need to be solved as regular Git's merge conflicts.
+Tips
+Upstream merge right after clone
+init
+command keeps all information regarding upstream repository and branch in
+.sweets/gatch*
+files controlled by git. So, it is possible to clone downstream branch and run
+merge
+command, gatch will add upstream remote if it absent in local repository.
+Avoid upstream merge history
+Gatch does not break Git history, thus, it is possible to see downstream commits that existed before every upstream merge. It is useful to
+git --hard reset
+sometimes, but might be annoying to see all of them in
+git log
+output. To suppress showing these commits, use
+git log --first-parent
+command.
+See also
+guilt
+A series of bash scripts which add a quilt-like interface to git.
+stgit
+Manage a stack of patches using GIT as a backend.
+topgit
+A different patch queue manager.
+Getting involved
+Read the
+HACKING
+file to know how to contribute with code.
+Gatch
+sources
+.

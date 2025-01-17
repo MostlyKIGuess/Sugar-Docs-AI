@@ -1,0 +1,177 @@
+Title: Development Team/Datastore Rewrite
+URL: https://wiki.sugarlabs.org/go/Development_Team/Datastore_Rewrite#Versioned_entries_.28not_fulfilled_yet.29
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+Goals
+2.1
+Reliability
+2.2
+Performance
+2.3
+Maintainability
+2.4
+Custom metadata properties
+2.5
+More efficient file storage
+2.6
+Versioned entries (not fulfilled yet)
+3
+Design
+3.1
+Filesystem knows which entries are stored
+3.2
+Metadata is stored in a single file per property
+3.3
+Queries are accelerated with a disposable database
+3.4
+Detect identical files and hard-link them
+4
+Layout on disk
+5
+Source code
+Introduction
+This page describes the design of a new DataStore implementation that was shipped first in the
+0.84
+(April 2009) Sugar release.
+Goals
+Reliability
+A good DataStore doesn't lose data easily.
+Performance
+Queries should be fast enough for the journal to be very responsive when browsing its contents.
+Activities should be able to store their data quickly and present a fast UI to their users.
+The shell should be able to quickly query the DS to allow the user to resume entries from other views than the journal.
+Maintainability
+The original implementation tried to achieve goals that were hard and that proved not to be necessary at this stage. This has caused the code base to be unnecessarily complex and several changes to the requirements added considerable confusion to it. We wish to focus the code on what is really needed and do it well.
+Custom metadata properties
+Activities should be able to store in their entries the metadata they wish, should not be limited to a predefined set.
+More efficient file storage
+Identical files should be stored just once.
+Versioned entries (not fulfilled yet)
+Entries may be related in version trees.
+Design
+Filesystem knows which entries are stored
+By examining the directory structure, we know where is localized the data related to each entry. We don't depend any more on a binary structure that could become corrupted and unusable as a whole.
+Metadata is stored in a single file per property
+Metadata for each entry is stored in several files, one per property. In this way, if corruption happened on one those properties, the rest of the entry (and the other entries in the DS) would be unaffected.
+See
+olpc:Low-level_Activity_API#Meta_Data
+.
+Queries are accelerated with a disposable database
+This allows us to efficiently query the stored entries, but as we only use the database to accelerate queries, we can drop and recreate it in case of corruption or update to an incompatible database format.
+Detect identical files and hard-link them
+This improves storage efficiency in general, but in our case is more important because we wish to record in the journal several interactions that refer to the same file. For example, "Downloaded lesson3.pdf", "Read lesson3.pdf", "Sent lesson3.pdf to Juan" would all refer to the same file and we need to only store it once.
+Layout on disk
+The proposed implementation relies heavily on the data structures provided by the filesystem, thus the layout in which files are disposed on disk is a fundamental part of its design.
+Example of a datastore containing 5 entries, two of them referring to the same file (with checksum 464493d8d929436b6152e868867ed451):
+1a
+      1ab88287-766a-4d98-a7c0-4233dc48647a
+            data
+            metadata
+                  uid
+                  checksum
+                  activity_id
+                  mime_type
+                  preview
+                  share-scope
+                  timestamp
+                  title
+2b
+      2b90597c-0912-4e7f-8eeb-71a0f004490d
+            data
+            metadata
+                  uid
+                  checksum
+                  activity_id
+                  mime_type
+                  preview
+                  share-scope
+                  timestamp
+                  title
+3c
+      3cdf5f0e-7595-4166-b1f9-cbedfcfe1c4a
+            data -> 2b/2b90597c-0912-4e7f-8eeb-71a0f004490d/data
+            metadata
+                  uid
+                  checksum
+                  activity_id
+                  mime_type
+                  preview
+                  share-scope
+                  timestamp
+                  title
+4d
+      4db11d29-2f07-4452-bd8e-22a6a483ac19
+            data
+            metadata
+                  uid
+                  checksum
+                  activity_id
+                  mime_type
+                  preview
+                  share-scope
+                  timestamp
+                  title
+      4d9f2027-b41e-4015-a848-6b3972193eb8
+            data
+            metadata
+                  uid
+                  checksum
+                  activity_id
+                  mime_type
+                  preview
+                  share-scope
+                  timestamp
+                  title
+checksums
+      464493d8d929436b6152e868867ed451
+            2b90597c-0912-4e7f-8eeb-71a0f004490d
+            3cdf5f0e-7595-4166-b1f9-cbedfcfe1c4a
+index
+      flintlock
+      iamflint
+      postlist.baseA
+      postlist.baseB
+      postlist.DB
+      record.baseA
+      record.baseB
+      record.DB
+      termlist.baseA
+      termlist.baseB
+      termlist.DB
+      value.baseA
+      value.baseB
+      value.DB
+index_updated
+version
+1a
+: directory holding entries, it's only function is to avoid having too many directories in a single directory, as this is considered specially harmful on jffs2.
+1a/1ab88287-...-4233dc48647a
+: directory holding the files related to one entry
+1a/1ab88287-...-4233dc48647a/data
+: file related to an entry
+1a/1ab88287-...-4233dc48647a/metadata
+: directory containing a file for each metadata property of an entry
+2b/2b90597c-...-71a0f004490d/metadata/activity_id
+: file containing the value of the
+activity_id
+property
+3c/3cdf5f0e-...-cbedfcfe1c4a/data
+: hard link to the same file in the entry
+2b90597c-...-71a0f004490d
+checksums
+: directory containing a directory per each file contained in the DS, named by its md5 checksum
+checksums/464493d8d929436b6152e868867ed451
+: directory containing files named by each entry that contain a file with this checksum
+checksums/464493d8d929436b6152e868867ed451/2b90597c-...-71a0f004490d
+file named by the uid of an entry the file of which has this checksum.
+index
+: directory containing all files that belong to the search database. Can be deleted and recreated from the rest of the DS if needed without incurring in data loss.
+index_updated
+: When this file is not present, is because the xapian index is being rebuilt because it cannot be opened. Queries should fall back to display all the files on disk until the index is rebuilt.
+version
+: file that contains the version of the file layout. Currently we are at 1. Is updated when an earlier version is migrated to a newer one.
+Source code
+http://git.sugarlabs.org/projects/sugar-datastore

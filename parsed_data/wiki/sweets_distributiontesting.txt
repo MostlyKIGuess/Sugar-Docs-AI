@@ -1,0 +1,251 @@
+Title: Sweets Distribution/Testing
+URL: https://wiki.sugarlabs.org/go/Sweets_Distribution/Testing
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+see
+Sweets Distribution
+A page of test results combining Sweets Distribution with various supported platforms.
+Contents
+1
+Do this first
+2
+Ubuntu 11.10
+3
+Trisquel 5.5 sweets-distribution
+4
+Ubuntu 10.04.4 sweets 0.94
+5
+Fedora 14
+5.1
+Fedora 14 i686 live desktop installed to VirtualBox HD
+5.1.1
+How to install sugar 0.94.1 sweets-distribution on Fedora 14
+5.1.1.1
+How to start Sweets-Desktop
+5.2
+Fedora 14 x86-64 Desktop install to VirtualBox (Does not start sweets-distribution)
+6
+How to Access the Sugar Network when Factory is installed
+6.1
+A Listing of the Activities in sweets_distribution:Factory
+6.2
+Mejorar_Sistema
+6.3
+Hexoquinasa
+7
+References
+8
+Collaboration Tests
+Do this first
+The command:
+wget
+ftp://download.sugarlabs.org/packages/sweets-distribution.sh
+sudo sh sweets-distribution.sh
+will just install "sweets" package to have "sweets-distribution" command in the system.
+Sets up gpg key
+Hint: This works nicely in VirtualBox also.
+Ubuntu 11.10
+--
+Satellit
+14:20, 8 April 2012 (EDT)
+Installed Sweets_Distribution with:
+manual instructions
+sudo sh sweets-distribution.sh select Factory
+sudo sh sweets-distribution.sh sync
+Trisquel 5.5 sweets-distribution
+Revised July 3, 2012
+Note: After installing sweets-sugar ; Update Manager will not run: fix is to enter command:
+sudo chmod +r  /etc/apt/sources.list
+Updates: Apr 16 2012:
+sweets-distribution
+ sweets-distribution:Factory
+ -Core UI Components
+   sweets-sugar
+ -A set of widgets to build HIG Compliant Activities
+   sweets-sugar toolkit
+ Other Updates (sweets-distribution)
+ -Application to Manage Sweets-Distribution repositories
+   sweets
+Installed over a previous sweets-distribution install--
+Satellit
+21:16, 8 April 2012 (EDT)
+sudo  sweets-distribution select Factory
+-- Extracting bundle to /home/robert/.local/share/sweets-distribution
+-- This is a standalone sweets-distribution launcher
+-- Use "select" command to install it to the system
+-- Composing "/etc/apt/sources.list.d/SweetsDistribution.list" repository config
+-- Patch global "/etc/apt/sources.list" to hide any Sweets Distribution related lines
+-- Update sweets package(s)
+-- Hint: Use "status" command for getting status after selecting new repository
+-- Hint: Use "sync" command to make sure that installed packages are the same as in newly selected repository
+sudo sweets-distribution sync
+-- This is a standalone sweets-distribution launcher
+-- Use "select" command to install it to the system
+-- Uninstall sweets-distribution package(s) to make downgrade possible
+- Update sweets-desktop, sweets-sugar-presence-service, sweets-sugar, sweets-sugar-artwork,
+ sweets-sugar-base, sweets-sugar-datastore, sweets-sugar-toolkit, sweets- telepathy-gabble, sweets-telepathy-glib,
+ sweets-telepathy-mission-control, sweets-telepathy-salut package(s)
+Some visible changes in F1 view:
+* the number of buddies should be increased from ~20 to 70-90
+  some Sugar versions (maybe 0.90-0.92) don't publish information about
+  nickname/colors on regular basis; this information are being stored on disk for now
+* for some buddies, server still don't have information about colors (replaced by gray) and nick names (jabber ids)
+* Neighbourhood view will show non-Sugar contacts (balck&white colors)
+  that might be useful, e.g., to start chating with them using Chat activity
+sudo sweets-distribution status
+-- This is a standalone sweets-distribution lauchner
+-- Use "select" command to install it to the system
+Platform:    Ubuntu-11.10
+Installed repositories:
+  Factory   Ubuntu-11.10
+Need to sync:                                          
+   (no)
+Available repositories:                             
+   0.88      Ubuntu-10.04, Ubuntu-10.10
+   0.94      Ubuntu-10.04, Ubuntu-10.10, Ubuntu-11.04, Ubuntu-11.10
+   Factory   Ubuntu-10.04, Ubuntu-10.10, Ubuntu-11.04, Ubuntu-11.10
+Ubuntu 10.04.4 sweets 0.94
+Download:
+http://releases.ubuntu.com/lucid/
+wget
+ftp://download.sugarlabs.org/packages/sweets-distribution.sh
+sudo sh sweets-distribution.sh
+Manual install:
+SV=0.94
+UV=10.04
+SD=
+http://download.sugarlabs.org/packages/SweetsDistribution
+:
+sudo apt-add-repository "deb $SD/$SV/Ubuntu-$UV/ ./" && \
+wget -qO- $SD/$SV/Ubuntu-$UV/Release.key | sudo apt-key add - && \
+sudo apt-get update && \
+sudo apt-get install sweets-distribution
+Full Update in Update Manager (64 files) --
+Satellit
+12:06, 18 April 2012 (EDT)
+Fedora 14
+Fedora 14 i686 live desktop installed to VirtualBox HD
+Updates Apr 22 2012 --
+Satellit
+17:51, 22 April 2012 (EDT)
+sweets-distribution status
+Platform:   Fedora-14
+Installed repositories:
+  Factory  Fedora-14
+Need to sync:
+  sweets-sugar (0.94.1-21.1 => 0.94.1-22.1)
+  sweets (0.1-10.1 => 0.1-13.1)
+sweets-distribution sync
+-- Update sweets-sugar, sweets package (s)
+How to install sugar 0.94.1 sweets-distribution on Fedora 14
+yum install wget
+wget not installed
+wget
+ftp://download.sugarlabs.org/packages/sweets-distribution.sh
+su
+Password:
+sh sweets-distribution.sh
+-- Install sweets package
+-- Hint: Run "sweets-distribution -h" for getting help
+will just install "sweets" package to have "sweets-distribution" command in the system.
+Sets up gpg key
+sweets-distribution status
+Platform Fedora-14
+Repositories:
+(none)
+Need to sync:
+(no)
+Available repositories:
+Factory  Fedora-14
+-- Hint: Use "select" command to start using one of the available repositories
+-- Hint; Install "sweets-desktop" package to have Sweets Desktop
+sweets-distribution select Factory
+-- Create "/etc/yum.repos.d/SweetsDistribution" repository config
+-- Import GPG key from "/packages/SweetsDistribution:/Factory/Fedora-14/repodata/repomd.xml.key"
+
+-- Hint: Use "status" command for getting status after selecting a new repository
+-- Hint: Use "sync" command to make sure that installed packages are the same as in newly selected repository
+yum install sweets-desktop
+Install 40 Package(s)
+Upgrade  1 Package
+y/N
+Installs basic desktop- No Activities
+use 2nd USB to install xxx.xo files or unzip to ~/Activities
+Browse (122-129) do not work yet
+"There are no deps installed. Current Factory does not handle it yet"--
+Satellit
+07:54, 9 April 2012 (EDT)
+How to start Sweets-Desktop
+Fedora Applications/Education/Sugar
+Starts Sugar Emulator
+Log out/Log in to "Sweets-Desktop: from bottom bar of gdm login screen
+Starts Sweets-Desktop
+Fedora 14 x86-64 Desktop install to VirtualBox (Does not start sweets-distribution)
+Emulator and gdm login crash
+How to Access the Sugar Network when Factory is installed
+Hover on central Avatar in f3 (Home) circular display of sugar.
+Select
+My Settings/Sweets Distribution
+This screen appears:
+Sweets Distribution
+[X] Integrate Sweets Distribution features
+-----------------------------------------
+Sugar Network
+
+ Server url (htp:18.85.44.120:8000)
+Check box [X} to connect  [ ] to disconnect
+Restart computer
+Press the
+f8 Key
+:
+A listing of 36 pages of sugar activities appears Letting you start and run 215 sugar activities--
+Satellit
+00:37, 18 April 2012 (EDT)
+A Listing of the Activities in sweets_distribution:Factory
+Detailing which activities work.
+<alsroot> : not all activiites will work, only ones that don't have external deps and are pure python.
+this development stage running all activities is not a priority.
+it is in early development stage, ping icarito and kaametza, they are developing client side application
+Mejorar_Sistema
+http://wiki.sugarlabs.org/go/Platform_Team/Sugar_Network/Mejorar_Sistema
+Mockups and explanation of Sugar Network screens
+Hexoquinasa
+http://wiki.sugarlabs.org/go/Hexoquinasa
+Hexoquinasa is a Sugar Distribution based on Harmonic Distribution
+developed jointly by SomosAZUCAR and Sugar Labs's Platform Team
+in collaboration with the Sugar community.
+References
+http://lists.sugarlabs.org/archive/sugar-devel/2012-April/036464.html
+http://lists.sugarlabs.org/archive/sugar-devel/2012-April/036465.html
+The general rule for 0.94 and 0.88 repositories is using activities only
+from [Sweets Distribution] packages and only for Fructose. The rest of
+activities need to be handled manually, e.g., installing missed
+dependencies.
+In other words, 0.94 and 0.88 repositories are restricted in case of
+activities (in some meaning it was just a proof of the system).
+Only new system (right now in Factory repository) will cover full cycle
+(activities [itself] will be handled out of native packages, from Sugar
+Network).
+But right now, Factory is not ready for more or less regular usage. So,
+for regular usage choose 0.94 (or 0.88), avoid updating Fructose activities
+from ASLO (excluding only pure python and without dependencies) and use
+them only from [Sweets Distribution] packages.
+I've updated the Wiki:
+http://wiki.sugarlabs.org/go/Community/Distributions/Sweets_Distribution#Activities
+http://wiki.sugarlabs.org/go/Platform_Team/Harmonic_Distribution/1.0/Todo#0.3
+Hint: If you download a non working activity from ASLO:
+Delete it in list view of Home (f3) --right click on it in listing.
+sudo sh sweets-distribution sync
+This reinstalls original activities
+Link:
+http://wiki.sugarlabs.org/go/Sugar_Network
+Collaboration Tests
+Testing-results:
+Ubuntu 11.10 sweets on http:// shares chat (f8) with fedora14 sweets (f8) on http:// even though f14 has no activities installed.--
+Satellit
+13:45, 10 April 2012 (EDT)

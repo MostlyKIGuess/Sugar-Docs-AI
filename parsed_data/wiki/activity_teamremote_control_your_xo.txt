@@ -1,0 +1,31 @@
+Title: Activity Team/Remote control your XO
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Remote_control_your_XO
+--------------------------------------------------------------------------------
+x2x
+is an utility to share the keyboard and mouse between more than one computer. So you can configure your development machine with its regular keyboard and mouse to write and move the pointer cursor of the XO. This is useful for developing Sugar or activities. Here are the stops to set it up (on Fedora 17, see
+here
+for a Debian version).
+Download the source
+git clone
+git://github.com/dottedmag/x2x.git
+Install required dependencies to build it
+sudo yum install automake gcc libXtst-devel
+Configure and compile it
+cd x2x
+./bootstrap.sh
+./configure
+make
+Go to the XO and connect to your development machine via SSH and run x2x
+ssh -X yourusername@yourdesktophostname / yourdesktopip
+cd x2x
+DISPLAY=:0 ./x2x -to `echo $DISPLAY` -west
+Now you can move the mouse up to the left side of the screen and if you keep moving it in that direction the cursor will appear in the XO screen. Once you have focus on the XO when you type on the Desktop Keyboard you will be typing in the XO. It's magic!
+Even more, you can
+share
+the clipboard between the PCs :)
+NOTE: I used
+-west
+because I have my XO at the left of my Desktop PC
+Reference:
+http://humitos.wordpress.com/2012/05/24/how-do-you-work-every-single-day-with-your-xo/
+(Debian version)

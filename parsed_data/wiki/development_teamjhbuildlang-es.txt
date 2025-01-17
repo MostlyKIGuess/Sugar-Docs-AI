@@ -1,0 +1,296 @@
+Title: Development Team/Jhbuild/lang-es
+URL: https://wiki.sugarlabs.org/go/Development_Team/Jhbuild/lang-es
+--------------------------------------------------------------------------------
+Traducción de
+Development Team/Jhbuild
+original
+english
+|
+日本語
+|
+spanish
++/-
+cambios
+Sugar-jhbuild will automatically download the latest of Sugar's dependencies as well as Sugar itself directly from their source repositories, rather than relying on source packages that may have become stale. Below are generic instructions on how to use jhbuild to get up and running with Sugar.
+Sugar-jhbuild descargará automáticamente las últimas versiones de las dependencias de Sugar, como también a Sugar mismo directamente de los repositorios fuente, en vez de confiar en paquetes de código que pueden haber haber quedado estancados. Debajo se encuentran instrucciones genéricas de como usar jhbuild y hacerlo funcionar con Sugar.
+Contents
+1
+Plataformas compatibles
+2
+Consulte las instrucciones específicas a una distro
+3
+Checkout de sugar-jhbuild
+4
+Construír Sugar y sus dependencias
+4.1
+Ocupándose de las dependencias
+5
+Correr Sugar
+6
+Corriendo múltiples instancias
+7
+Correr una actividad individual
+7.1
+Suggestions
+8
+Construir una versión específica de Sugar
+8.1
+Sugerencias
+9
+Configurar el modo y la resolución de Sugar
+10
+Otras órdenes
+11
+Si la construcción se rompe luego de un update
+12
+Desde dentro de Sugar
+13
+Personalizar
+13.1
+Acceso de escritura a los repositorios
+14
+Enlaces internos útiles
+15
+Enlaces externos
+Plataformas compatibles
+Jhbuild is quite demanding with regard to the packages and setup for the host Linux distribution. As a result there are only a few Linux distributions which are known to work with it.
+See the distribution specific instructions for information about whether your distribution is currently supported. Other distros which have a recent-enough release (e.g. including the latest stable GNOME release) can be supported if someone is willing to maintain the dependencies for that distro release (in config/sysdeps).
+Jhbuild demanda bastante en cuanto a los paquetes y la configuración de la distribución de Linux anfitrión. Como resultado solo hay unas pocas distribuciones de Linux que se conoce que funcionan con él.
+Vea las instrucciones específicas a su distribución para saber si actualmente está soportada. Otras distros que tienen una emisión suficientemente reciente (por ej. que incluyan la última versión estable de GNOME) pueden ser soportadas si alguien está dispuesto a mantener las dependencias para esa emisión de la distro (en config/sysdeps).
+Consulte las instrucciones específicas a una distro
+Many distributions have some quirks that need to be catered for and there are different package managing tools in use, so please check the page for your distribution before proceeding:
+Muchas distribuciones tienen algunas mañas que necesitan atención, y hay distintas herramientas de manejo de paquetes en uso, así que por favor consulte la página para su distribución antes de proceder:
+Debian
+Fedora
+Ubuntu
+Mandriva
+Checkout de sugar-jhbuild
+In a suitable directory, execute
+git clone
+git://git.sugarlabs.org/sugar-jhbuild/mainline.git
+sugar-jhbuild
+En un directorio adecuado ejecute:
+git clone
+git://git.sugarlabs.org/sugar-jhbuild/mainline.git
+sugar-jhbuild
+Construír Sugar y sus dependencias
+Change directory and start the build.
+cd sugar-jhbuild
+./sugar-jhbuild update
+./sugar-jhbuild depscheck
+./sugar-jhbuild build
+Cambie de directorio y comience la construcción:
+cd sugar-jhbuild
+./sugar-jhbuild update
+./sugar-jhbuild depscheck
+./sugar-jhbuild build
+Ocupándose de las dependencias
+sugar-jhbuild depscheck will print a list of required packages. They are part of the distribution you're using and should be installed using your favourite package manager (e.g. aptitude/synaptic for Debian, yum for Fedora). If you notice that there's a package missing from the depscheck output (i.e. it's required for Sugar to work properly and not installed, but depscheck does not mention it), please file a bug report (login required first, but currently no automatic redirection to login page) against the sugar-jhbuild Component in the Sugar Labs bug tracker.
+sugar-jhbuild depscheck imprimirá una lista de paquetes requeridos. Son parte de la distribución que está usando y deben ser instalados usando su manejador de paquetes favorito (por ej. aptitude/synaptic para Debian, yum para Fedora). Si nota que hay un paquete faltante en la salida de depscheck (es decir, un paquete requerido para el correcto funcionamiento de Sugar, que no está instalado, pero depscheck no lo menciona), por favor
+entre un reporte de bug
+(se requiere que se identifique primero, pero actualmente no se redirige después de entrar al sistema) contra el componente sugar-jhbuild en el
+Sistema de seguimiento de bug de Sugar Labs
+Some tips:
+hulahop stopped building because I had installed a more recent version of xulrunner on my machine. The workaround was to
+rm -rf ~/sugar-jhbuild/source/hulahop
+and then run update and build again.
+Algunos consejos:
+hulahop había dejado de construirse porque había instalado una versión más reciente de xulrunner en mi máquina. La solución fue
+rm -rf ~/sugar-jhbuild/source/hulahop
+y luego correr update y build nuevemante.
+Correr Sugar
+This command launches the Sugar emulator:
+./sugar-jhbuild run
+To exit the emulator, press Alt-Q.
+Este comando lanza el emulador de Sugar
+./sugar-jhbuild run
+Para salir del emulador, presione Alt-Q.
+Corriendo múltiples instancias
+{{{1}}}
+Para correr múltiples instancias de Sugar, puede lanzarlo de la manera siguiente:
+SUGAR_PROFILE=2 ./sugar-jhbuild run
+Esto creará un nuevo perfil en ~/.sugar/, o sea ~/.sugar/2/. Encontrará registros y configuración para esta instancia aquí. El perfil por omisión es ~/.sugar/default/
+Correr una actividad individual
+Within sugar, e.g. in Terminal, this command launches an individual activity for testing:
+sugar-launch [bundle name]
+You will see debug output appearing in Terminal.
+Dentro de Sugar, por ej, en Terminal, este comando lanza una actividad individual para probarla:
+sugar-launch [nombre del bundle]
+Verá salida de depuración apareciendo en Terminal.
+To build a specific version of Sugar do the following:
+Open
+sugar.jhbuildrc
+and find line:
+modulesets = 'sugar'
+Set this to:
+modulesets = 'sugar-0.86'
+customizing the latter to your specific needs.
+./sugar-jhbuild
+Suggestions
+Copy all your sugar-jhbuild to sugar-jhbuild-0.84 (for example) or check the repositories out again.
+rm -r install/
+Don't forget to delete or modify
+.jhbuildrc
+after building the specific version of Sugar if you still want to receive the latest updates from the repositories,
+OR
+Create another user.
+Para construir una versión específica de Sugar haz lo siguiente:
+Construir una versión específica de Sugar
+Abrí
+sugar.jhbuildrc
+y busca la línea empezando con:
+modulesets = 'sugar'
+Cambiar esto a:
+modulesets = 'sugar-0.86'
+personalizando la versión de Sugar.
+Construir Sugar y sus dependencias:
+./sugar-jhbuild
+Sugerencias
+Hacer una copia de
+sugar-jhbuild/
+, llamando el la nueva carpeta
+sugar-jhbuild-0.84
+, por ejemplo o obtener todos las dependencias otra vez.
+rm -r sugar-jhbuild/install/
+No olvidarse de borrar o modificar
+.jhbuildrc
+despues de construir la versión específica de Sugar para obtener todavía las actualizaciones más recientes de sugar-jhbuild O
+Crear otro usuario.
+Configurar el modo y la resolución de Sugar
+You can make Sugar run in a window as well as specify a resolution. Within the sugar-jhbuild/install/share/sugar/shell directory, backup, then edit the python program file
+emulator.py
+:
+cd sugar-jhbuild
+cp install/bin/sugar-emulator install/bin/sugar-emulator.backup
+nano install/bin/sugar-emulator
+Find this piece of code:
+Puede hacer que Sugar corra en una ventana como también especificar una resolución. Dentro del directorio sugar-jhbuild/install/share/sugar/shell, respalde y luego edite el programa python
+emulator.py
+:
+cd sugar-jhbuild
+cp install/bin/sugar-emulator install/bin/sugar-emulator.backup
+nano install/bin/sugar-emulato
+Busque este pedazo de código:
+cmd = [ 'Xephyr' ]
+    cmd.append(':%d' % display)
+    cmd.append('-ac')
+
+     if gtk.gdk.screen_width() < 1200 or gtk.gdk.screen_height() < 900:
+         cmd.append('-fullscreen')
+     else:
+         cmd.append('-screen')
+         cmd.append('%dx%d' % (1200, 900))
+Comment out the
+if
+and
+else
+instructions, and specify the screen resolution and mode you want (it's important to delete 4 spaces before the "cmd.append" lines):
+Comente las instrucciones
+if
+y
+else
+, y especifique la resolución de la pantalla y el modo que desee (es ipmortante borrar 4 espacios delante de las líneas "cmd.append"):
+cmd = [ 'Xephyr' ]
+    cmd.append(':%d' % display)
+    cmd.append('-ac')
+
+#    if gtk.gdk.screen_width() < 1200 or gtk.gdk.screen_height() < 900:
+#        cmd.append('-fullscreen')
+#    else:
+    cmd.append('-screen')
+    cmd.append('%dx%d' % (800, 600))
+Sugar will now run on a 800x600 window. This file may be replaced next time you update sugar-jhbuild, and you'll have to do this again.  Also note that 800x600 is not an optimal resolution for the window, because the activity circle will be vertically off center.  1024x768 is a more useable resolution.
+Sugar ahora correrá en una ventana de 800x600. Este archivo puede ser reemplazado la próxima vez que actualize sugar-jhbuild, y deberá hacer esto nuevamente. También note que 800x600 no es una resolución óptima para la ventana, porque el círculo de actividades quedará descentrado verticalmente. 1024x768 es una resolución más usable.
+Otras órdenes
+JHBuild has several other commands that can be useful for development. You can get an overview with:
+./sugar-jhbuild --help-commands
+A useful sequence of commands for building Sugar, from the
+Sugar mailing list
+: (Note that build will update first anyway, so run update separately if you want to see what changed more easily.)
+./sugar-jhbuild update
+./sugar-jhbuild build
+./sugar-jhbuild run
+JHBuild tiene varias órdenes más que pueden ser útiles para el desarrollo. Puede obtener una descripción general con:
+./sugar-jhbuild --help-commands
+Una secuencia de comandos útil para construir Sugar, de la
+Lista de distribución de correos de Sugar
+: (Note que
+build
+corre
+update
+de todas maneras, así que corra
+update
+separadamente si quiere ver que cambió más fácilmente.)
+./sugar-jhbuild update
+./sugar-jhbuild build
+./sugar-jhbuild run
+Si la construcción se rompe luego de un update
+{{{1}}}
+Los paquetes en sugar-jhbuild son las últimas versiones de desarrollo, así que no solamente obtiene las últimas prestaciones, si no que también los últimos errores. También, las dependencias pueden cambiar a menudo, así que asegúrese de correr
+./sugar-jhbuild depscheck
+regularmente y de instalar los paquetes faltantes.
+Desde dentro de Sugar
+Once you have Sugar running, here are some useful commands:
+Alt+Shift+F
+makes the frame appear and disappear
+Ctrl-Q
+quits an activity
+Alt+Shift+Q
+quits Sugar
+Alt+Shift+O
+opens the search
+Alt+Shift+R
+rotates the screen
+una vez que tenga Sugar corriendo, aquí hay algunas órdenes útiles:
+Alt+Shift+F
+hace aparecer y desaparecer al marco
+Ctrl-Q
+sale de una actividad
+Alt+Shift+Q
+sale de Sugar
+Alt+Shift+O
+abre la búsqueda
+Alt+Shift+R
+rota la pantalla
+Personalizar
+To customize the build create a configuration file, named
+.sugar.jhbuildrc
+, in your home directory.
+Para personalizar la construcción, cree un archivo de configuración, llamado
+.sugar.jhbuildrc
+, en su directorio home.
+Acceso de escritura a los repositorios
+If you have write access to the repositories you can add this (if your login name happens to be marco):
+Si tiene acceso de escritura a los repositorios puede agregar esto (si su nombre de usuario fuera marco):
+repos['gnome.org'] = ':ext:marco@cvs.gnome.org:/cvs/gnome'
+repos['mozilla.org'] = ':ext:marco%gnome.org@cvs.mozilla.org:/cvsroot'
+repos['dev.laptop.org'] = 'git+
+ssh://marco@dev.laptop.org/git/'
+repos['dev.laptop.org/projects'] = 'git+
+ssh://marco@dev.laptop.org/git/projects/'
+Enlaces internos útiles
+*
+Understanding Sugar Code
+Taxonomy
+-- explains the components of Sugar (Glucose, Fructose, Sugar, Starches)
+Sugar Instructions
+-- how to actually use Sugar once you have it running
+Entendiendo el código de Sugar
+Taxonomía
+-- explica los componentes de Sugar (Glucosa, Fructosa, Azúcar (Sugar), Almidones)
+Instrucciones de Sugar
+-- cómo usar Sugar una vez que está corriendo
+Enlaces externos
+*
+JHBuild manual
+Red Hat Magazine article: Introducing Sugar
+Tinderbox
+(see the "Sugar JHBuild" tab).  The old
+sugar-jhbuild tinderbox
+.
+Manual de JHBuild
+Artículo de Red Hat Magazine: Presentando Sugar
+Tinderbox (Polvorín)
+(ver la pestaña "Sugar JHBuild").  El viejo
+sugar-jhbuild tinderbox
+.

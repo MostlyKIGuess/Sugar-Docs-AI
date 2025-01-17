@@ -1,0 +1,287 @@
+Title: Development Team/Almanac/GTK's Clipboard Module
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/GTK%27s_Clipboard_Module
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Contents
+1
+Working With Text on the Clipboard
+1.1
+How do I perform a simple copy and paste from GTK widgets?
+1.2
+How do I create my own named clipboard?
+1.3
+How do I work with multiple clipboards in my activity?
+2
+Working with More Complex Clipboard Functionality
+2.1
+How do I copy and paste images using the clipboard?
+2.2
+What is the difference between synchronous and asynchronous retrieval of clipboard data? How do I implement each type?
+3
+Notes
+Working With Text on the Clipboard
+How do I perform a simple copy and paste from GTK widgets?
+According to the
+PyGtk Tutorial
+, widgets of type Entry, SpinButton and TextView have some built in functionality to cut, copy and paste text to and from a clipboard. In particular, these widgets implement the
+Editable
+interface that has standard calls for clipboard functionality.
+The code below creates a simple gtk.Entry widget where text can be entered. Right below this widget, there is one button to copy text inside of the entry and another to paste text from the clipboard in to the Entry widget. In addition to using the "Copy" and "Paste" buttons, users can also use
+CONTROL-X
+,
+CONTROL-C
+, and
+CONTROL-V
+to cut, copy and paste text from widgets that implement the Editable interface. The meat of the work is done in short callbacks that are connected to the Copy and Paste buttons. The code for creating the UI has been included primarily for completeness and added clarity.
+#### Method: _createCanvas, creates a top level UI canvas object for this activity
+    def _createCanvas(self):
+        top_container = Notebook()
+        
+        #Create pages for the notebook
+        first_page = gtk.VBox()
+        second_page = gtk.VBox()
+        third_page = gtk.Frame()
+        
+        #FOR FIRST PAGE:: Create a text entry box with two buttons for copy and paste right below it. 
+        first_page_entry_box = gtk.VBox(homogeneous=False, spacing=5)
+        button_row = gtk.HBox()
+        #### Create the actual gtk.Entry for text entry
+        self.clipInput = gtk.Entry(max=0)
+        self.clipInput.set_width_chars(100)
+        #### Create the copy button and assign callback
+        copyClipInput = gtk.Button(label='Copy Text')
+        copyClipInput.connect("clicked", self._copyClipInput_cb, None)  # CALLBACK USED WHEN COPY BUTTON PRESSED!
+        button_row.pack_start(copyClipInput, expand=False, fill=False)
+        #### Create the paste button and assign callback
+        pasteClipInput = gtk.Button(label='Paste Text')
+        pasteClipInput.connect("clicked", self._pasteClipInput_cb, None) # CALLBACK USED WHEN PASTE BUTTON PRESSED!
+        ...
+
+    #### Method: _copyClipInput_cb, which is called when the "Copy Text" button is clicked
+    def _copyClipInput_cb(self, widget, data=None):
+        #Select all text in self.copyClipInput and copy it to the clipboard
+        self.clipInput.select_region(0, -1)
+        self.clipInput.copy_clipboard()
+        _logger.debug("$$$$$$$$$$$$$$$$$$$ Copy button pressed")
+
+    #### Method: _pasteClipInput_cb, which is called when the "Paste Text" button is clicked
+    def _pasteClipInput_cb(self, widget, data=None):
+        self.clipInput.paste_clipboard()
+        _logger.debug("******************* Paste button pressed.")
+Note that when you cut or copy text programmatically, you must first select a region in the widget. That is why we have the call to select_region() in the _copyClipInput_cb method. The -1 argument ensures that all text in the widget is selected.
+[1]
+How do I create my own named clipboard?
+When you use the standard copy and paste methods for Editable widgets in GTK, the data is typically copied to a standard clipboard named "CLIPBOARD".
+[2]
+With GTK's clipboard class, you can create multiple clipboard instances and control where data gets saved for sharing. Rather than having all your data going to the standard "CLIPBOARD" destination, you can create alternative clipboards that are responsible for sharing specific information.
+The code below shows how named clipboards are created. Note there are distinct variable references for the two clipboards created, so they can be accessed separately. Passing unique names to the gtk.clipboard_get() method ensures that the clipboards are indeed distinct and data from one will not interfere with the other.
+#Create a clipboard specifically for data on the first page of this activity's notebook
+        self.pg1_clipboard = gtk.clipboard_get('ANNOTATE_CLIPBOARD_1')
+        #Create a clipboard specifically for data on the second page of this activity's notebook
+        self.pg2_clipboard = gtk.clipboard_get('ANNOTATE_CLIPBOARD_2')
+How do I work with multiple clipboards in my activity?
+There are many cases where you might want to have multiple clipboards to save and share activity data. The diagram below summarizes the broad architecture that allows activities to manage multiple clipboards. Named clipboards are created and retrieved through the gtk.clipboard_get() function and then modified using the methods available in
+gtk.Clipboard
+.
+Retrieving and manipulating multiple clipboards
+Let's look at a very basic example of clipboard code that can be adapted for other activities. In this example, we have a notebook widget with several pages and we want data that is copied from a specific page available only to the same page in other instances of the same activity. The notebook pages are virtually identical and consist of a text entry field and copy/paste buttons underneath. If text is entered and copied from page 1 of an activity to the clipboard, then it should only be available to page 1 of other instances of the same activity. The same restrictions apply for data that is copied from page 2's text entry field.
+So how do we accomplish this?
+First, you need to create
+named clipboards
+for each context that you will be saving data. In our case, we have two notebook pages and will create two separate clipboards (one for each page).
+#### Method: _createCanvas, creates a top level canvas object for this activity
+    def _createCanvas(self):
+        top_container = Notebook()
+        
+        #Create pages for the notebook
+        first_page = gtk.VBox()
+        second_page = gtk.VBox()
+
+        #Create a clipboard specifically for data on the first page of this activity's notebook
+        self.pg1_clipboard = gtk.clipboard_get('ANNOTATE_CLIPBOARD_1')
+        #Create a clipboard specifically for data on the second page of this activity's notebook
+        self.pg2_clipboard = gtk.clipboard_get('ANNOTATE_CLIPBOARD_2')
+The UI for each page in our notebook is pretty much identical, except that the widgets will be identified uniquely based on which page they happen to be in. The code below creates a simple UI for each page with a text entry widget, a copy button and a paste button.
+#FOR FIRST PAGE:: Create a text entry box with two buttons for copy and paste right below it. 
+        first_page_entry_box = gtk.VBox(homogeneous=False, spacing=5)
+        button_row = gtk.HBox()
+        #### Create the actual gtk.Entry for text entry
+        self.clipInput1 = gtk.Entry(max=0)
+        self.clipInput1.set_width_chars(100)
+        #### Create the copy button and assign callback
+        copyClipInput1 = gtk.Button(label='Copy Text')
+        copyClipInput1.connect("clicked", self._copyClipInput1_cb, None)
+        button_row.pack_start(copyClipInput1, expand=False, fill=False)
+        #### Create the paste button and assign callback
+        pasteClipInput1 = gtk.Button(label='Paste Text')
+        pasteClipInput1.connect("clicked", self._pasteClipInput1_cb, None)
+        #### Put everything together in the UI
+        button_row.pack_start(copyClipInput1, expand=False, fill=False)
+        button_row.pack_start(pasteClipInput1, expand=False, fill=False)
+        button_row.pack_start(gtk.Label(''), expand=True, fill=True) #for appearance purposes
+        first_page_entry_box.pack_start(self.clipInput1, expand=False, fill=False)
+        first_page_entry_box.pack_start(button_row, expand=False, fill=False)
+        first_page.pack_start(first_page_entry_box)
+        first_page.pack_start(gtk.Label(''), expand=True, fill=True) #for appearance purposes
+
+        #FOR SECOND PAGE:: Create a text entry box with two buttons for copy and paste right below it. 
+        second_page_entry_box = gtk.VBox(homogeneous=False, spacing=5)
+        button_row = gtk.HBox()
+        #### Create the actual gtk.Entry for text entry
+        self.clipInput2 = gtk.Entry(max=0)
+        self.clipInput2.set_width_chars(100)
+        #### Create the copy button and assign callback
+        copyClipInput2 = gtk.Button(label='Copy Text')
+        copyClipInput2.connect("clicked", self._copyClipInput2_cb, None)
+        button_row.pack_start(copyClipInput2, expand=False, fill=False)
+        #### Create the paste button and assign callback
+        pasteClipInput2 = gtk.Button(label='Paste Text')
+        pasteClipInput2.connect("clicked", self._pasteClipInput2_cb, None)
+        #### Put everything together in the UI
+        button_row.pack_start(copyClipInput2, expand=False, fill=False)
+        button_row.pack_start(pasteClipInput2, expand=False, fill=False)
+        button_row.pack_start(gtk.Label(''), expand=True, fill=True) #for appearance purposes
+        second_page_entry_box.pack_start(self.clipInput2, expand=False, fill=False)
+        second_page_entry_box.pack_start(button_row, expand=False, fill=False)
+        second_page.pack_start(second_page_entry_box)
+        second_page.pack_start(gtk.Label(''), expand=True, fill=True) #for appearance purposes
+The rest of the work will be done when either the "Copy" or "Paste" buttons are pressed. In this case, the callbacks we bind using the connect() method above will be invoked.
+Below are the virtually identical callbacks for the two pages in our activity. The only difference is that they reference different clipboard objects, so that each page has its own set of clipboard data that it manipulates.
+#### Method: _copyClipInput1_cb, which is called when the "Copy Text" button is clicked
+    def _copyClipInput1_cb(self, widget, data=None):
+        #Select all text in self.copyClipInput and copy it to the clipboard
+        self.pg1_clipboard.set_text(self.clipInput1.get_text())
+        _logger.debug("$$$$$$$$$$$$$$$$$$$ Copy button on First Page pressed")
+
+    #### Method: _pasteClipInput1_cb, which is called when the "Paste Text" button is clicked
+    def _pasteClipInput1_cb(self, widget, data=None):
+        self.clipInput1.set_text(self.pg1_clipboard.wait_for_text())
+        _logger.debug("******************* Paste button on First Page pressed.")
+
+      
+
+
+
+    #### Method: _copyClipInput2_cb, which is called when the "Copy Text" button is clicked
+    def _copyClipInput2_cb(self, widget, data=None):
+        #Select all text in self.copyClipInput and copy it to the clipboard
+        self.pg2_clipboard.set_text(self.clipInput2.get_text())
+        _logger.debug("$$$$$$$$$$$$$$$$$$$ Copy button on Second Page pressed")
+
+    #### Method: _pasteClipInput2_cb, which is called when the "Paste Text" button is clicked
+    def _pasteClipInput2_cb(self, widget, data=None):
+        self.clipInput2.set_text(self.pg2_clipboard.wait_for_text())
+        _logger.debug("******************* Paste button on Second Page pressed.")
+Working with More Complex Clipboard Functionality
+How do I copy and paste images using the clipboard?
+Images can be passed to and from the clipboard as long as they have been loaded in to a
+gtk.gdk.Pixbuf
+object. The following code shows how a new Pixbuf object can be created by referencing an existing image file on the file system.
+# Load one.jpg image from file in to pixbuf
+      pb = gtk.gdk.pixbuf_new_from_file('~/one.jpg')
+Once you have a Pixbuf object, you can place it inside of a
+gtk.Image
+widget and display it within the UI of your activity. To programmatically copy and paste different images, you can use the
+gtk.Clipboard.set_image()
+and
+gtk.Clipboard.wait_for_image()
+methods, both of which save and retrieve gtk.gdk.Pixbuf objects from the clipboard.
+The code below illustrates copy and paste callback methods that can be written in a UI similar to the one discussed earlier for multiple clipboards. In this case, however, the copy and paste buttons in the UI apply to images rather than text.
+#### Method: _copyClipInput_cb, which is called when the "Copy" button is clicked for image
+    def _copyClipInput1_cb(self, widget, data=None):
+        # self.pb2 is a gtk.gdk.Pixbuf object with an image created earlier upon initialization of the UI
+        self.pg1_clipboard.set_image(self.pb2)
+
+
+    #### Method: _pasteClipInput_cb, which is called when the "Paste" button is clicked for image
+    def _pasteClipInput1_cb(self, widget, data=None):
+        self.image1.set_from_pixbuf(self.pg1_clipboard.wait_for_image())
+What is the difference between synchronous and asynchronous retrieval of clipboard data? How do I implement each type?
+The gtk.Clipboard class has methods that allow you to retrieve data both synchronously and asynchronously. With synchronous retrieval from the clipboard, you simply write a line of code that asks for data and then only proceeds once the clipboard returns that data.
+For simple text, we have already seen
+synchronous
+retrieval from the clipboard using the wait_for_text() method:
+self.pg1_clipboard.wait_for_text()
+This line of code retrieves text saved on the clipboard referenced by self.pg1_clipboard. Similar method calls, such as
+wait_for_contents()
+and
+wait_for_image()
+can allow you to access other types of data synchronously.
+In the case of
+asynchronous
+access to the clipboard, you provide callbacks that are invoked once the clipboard is ready with whatever data it is asked to retrieve. After you request data asynchronously from the clipboard, your code will continue to execute and will not wait for that data to return. Instead, a callback will be invoked once the data is made available.
+In the following code, we use the set_with_data() method to put stuff on the clipboard and then, in the callbacks for the "Paste" button, we retrieve data from the clipboard asynchronously. For this code we are saving and loading a file path, which is passed along in the various clipboard methods.
+#### Method: _copyClipInput_cb, which is called when the "Copy" button is clicked
+    def _copyClipInput1_cb(self, widget, data=None):
+        #Put some data on the clipboard. Here we are saving a file path to the clipboard, but this can be other data
+        #that can be accessed by your activity. 
+        self.pg1_clipboard.set_with_data([('foobar', 0, 0)], self._path_get_func, self._path_clear_func, '~/file-test/sample-text')
+
+    #### Method _path_get_func, invoked by clipboard to set the selectiondata
+    def _path_get_func(self, clipboard, selectiondata, info, data):
+        print ('SETTING CONTENTS =========================> ' + str(data))
+        selectiondata.set('STRING', 8, data)
+        
+    #### Method _path_clear_func, invoked by clipboard to clear contents of clipboard. 
+    def _path_clear_func(self, clipboard, data):
+        pass
+
+    #### Method: _pasteClipInput_cb, which is called when the "Paste" button is clicked
+    def _pasteClipInput1_cb(self, widget, data=None):
+        # Request data from clipboard and invoke callback method when data is received. 
+        self.pg1_clipboard.request_contents('foobar', self._pg1_contents_received, None)
+The callback specified in the _pasteClipInput_cb() method is self._pg1_contents_received. This callback should have a specific
+argument list that is outlined in the documentation for gtk.Clipboard.request_contents()
+. One argument is the selectiondata object which contains information about the object stored on the clipboard. The following code shows how different fields in the selectiondata object can be accessed and how the data field (which in this code stores a file path) is used to help update the file used by our activity.
+#### Method: _pg1_contents_received, which is invoked once the clipboard has returned some data
+    # that was requested in _pasteClipInput1_cb. 
+    def _pg1_contents_received(self, clipboard, selectiondata, data):
+        #Print out the different contents of the selection data returned from the clipboard. 
+        print ('CONTENTS ----------------------')
+        print (str(selectiondata.data))
+        print (str(selectiondata.type))
+        print (str(selectiondata.format))
+        print (str(selectiondata.target))
+        
+        #Use the data itself from selectiondata to reset the file this activity is working with. 
+        self.tw.update_file(selectiondata.data)
+Notes
+↑
+http://www.pygtk.org/docs/pygtk/class-gtkeditable.html#method-gtkeditable--select-region
+↑
+http://www.pygtk.org/pygtk2tutorial/ch-NewInPyGTK2.2.html

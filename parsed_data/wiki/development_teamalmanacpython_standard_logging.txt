@@ -1,0 +1,134 @@
+Title: Development Team/Almanac/Python Standard Logging
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/Python_Standard_Logging
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Contents
+1
+What is the overall structure of python standard logging that I will use in Sugar?
+2
+How do I write to a log in my activity code?
+3
+How do I send my log output to multiple destinations, including a file and the console?
+4
+How do I read the log output that I have generated in my activity code?
+5
+Notes
+What is the overall structure of python standard logging that I will use in Sugar?
+Sugar uses Python's Standard Logging
+[1]
+[2]
+pretty much without modification. The diagram below conceptualizes how logging generally works.
+Logging Diagram for Python
+How do I write to a log in my activity code?
+Sugar uses
+python's standard logging
+. The following code shows how to output something at the debug log level. The log message will be written to the standard log output destination (usually the console).
+import logging
+   _logger = logging.getLogger('annotate-activity')
+   _logger.setLevel(logging.DEBUG)
+...
+        _logger.debug('starting activity')
+How do I send my log output to multiple destinations, including a file and the console?
+The code example below sets up the activity to output its logs to several destinations. In particular, we output to a file called 'Annotate.activity.log' in sugar's standard logging directory and to the console. There are many
+different types of handler objects
+that you can output to at the same time, depending upon your debugging and tracking needs.
+from sugar import logger
+import logging
+import logging.config
+_logger = logging.getLogger('activity-annotate')
+_logger.setLevel(logging.DEBUG)
+...
+    #### Method: __init__, initialize this AnnotateActivity instance
+    def __init__(self, handle):
+        activity.Activity.__init__(self, handle)
+
+        #Get the standard logging directory. 
+        std_log_dir = logger.get_logs_dir()
+
+        #First log handler: outputs to a file called 'Annotate.activity.log'
+        file_handler = logging.FileHandler(os.path.join(std_log_dir, 'Annotate.activity.log'))
+        file_formatter = logging.Formatter('%(name)s -- %(asctime)s %(levelname)s:\n %(message)s\n')
+        file_handler.setFormatter(file_formatter)
+        _logger.addHandler(file_handler)
+
+        #Second log handler: outputs to a the console, using a slightly different output structure
+        console_handler = logging.StreamHandler()
+        console_formatter = logging.Formatter('%(name)s %(levelname)s ||| %(message)s')
+        console_handler.setFormatter(console_formatter)
+        _logger.addHandler(console_handler)
+        ...
+        _logger.debug('Creating annotate activity UI')
+How do I read the log output that I have generated in my activity code?
+How you read your log output depends of course on how and where you wrote your log output using Python's standard logging tools. Typically, you will want your logs to go to the console or to the standard logging directory.
+If your log is being output to the console, the best thing to do is to launch your activity from the terminal using the 'sugar-launch <activity-name>' command. Then, all console output will be printed to the terminal. The main drawback of this method is that, since a lot of code directs log output to the console, you will have to sift through a lot of output. For example, the output below is some initial console output (including log output) from running an activity.
+[fanwar@localhost ~]$ sugar-launch annotate
+[u'sugar-activity', u'annotateactivity.AnnotateActivity', '-b', dbus.String(u'org.laptop.AnnotateActivity', variant_level=1), '-a', 'b10b76394c10bd511dec1f9d5ac20af5d82a27aa']
+1215605658.958459 WARNING root: Activity directory lacks a MANIFEST file.
+1215605659.144058 DEBUG root: *** Act b10b76394c10bd511dec1f9d5ac20af5d82a27aa, mesh instance None, scope private
+1215605659.144233 DEBUG root: Creating a jobject.
+1215605659.145405 DEBUG root: datastore.write
+1215605659.153947 DEBUG root: dbus_helpers.create: 8681691c-1859-4507-85f8-33b3836a446f
+1215605659.154164 DEBUG root: Written object 8681691c-1859-4507-85f8-33b3836a446f to the datastore.
+activity-annotate DEBUG ||| Creating annotate activity UI
+1215605659.154495 DEBUG activity-annotate: Creating annotate activity UI
+activity-annotate INFO ||| In _createToolBox method
+1215605659.154779 INFO activity-annotate: In _createToolBox method
+1215605659.211541 WARNING root: No gtk.AccelGroup in the top level window.
+1215605659.214685 WARNING root: No gtk.AccelGroup in the top level window.
+activity-annotate DEBUG ||| execing _createCanvas
+1215605659.222814 DEBUG activity-annotate: execing _createCanvas
+activity-annotate DEBUG ||| finished creating UI
+1215605659.244071 DEBUG activity-annotate: finished creating UI
+1215605659.315145 DEBUG root: ActivityService.set_active: 1.
+** (sugar-activity:5646): DEBUG: Got client ID "10dc3d8b3e662f5a22121560565936684800000051360010"
+** (sugar-activity:5646): DEBUG: Setting initial properties
+** (sugar-activity:5646): DEBUG: Received SaveYourself(SmSaveLocal, !Shutdown, SmInteractStyleNone, !Fast) in state idle
+** (sugar-activity:5646): DEBUG: Sending SaveYourselfDone(True) for initial SaveYourself
+** (sugar-activity:5646): DEBUG: Received SaveComplete message in state save-yourself-done
+1215605661.104732 DEBUG root: Activity.save: dbus.String(u'8681691c-1859-4507-85f8-33b3836a446f')
+In this case, I was primarily interested in the lines starting with activity-annotate.
+You may want to output to a designated logfile where you can control exactly what is output (so that extraneous sugar log output is not interspersed with your activity output). The entry on
+writing to multiple files
+explains how to accomplish output to a logfile. If you write to a logfile in the standard sugar log directory, you can look at your log by opening up the log activity. In the terminal, the command 'sugar-launch log' will accomplish this. Below is a screenshot of the log activity as I look at the specific log for my Annotate activity.
+Looking at log output
+Notes
+↑
+OnLamp.com-- Python Standard Logging
+↑
+Python Library Reference --
+Logging

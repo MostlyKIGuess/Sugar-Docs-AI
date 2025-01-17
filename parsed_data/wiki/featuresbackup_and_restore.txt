@@ -1,0 +1,106 @@
+Title: Features/Backup and Restore
+URL: https://wiki.sugarlabs.org/go/Features/Backup_and_Restore
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+8.1
+Old implementation, only for reference.
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Easily backup and restore the Journal of a computer running Sugar (includes SoaS). Also, easily backup and restore the full Sugar installation. Beyond the Journal, this includes the activities, any configuration of the OS and the everything needed to restore to its original state.
+This feature is a top priority for Gardner Pilot Academy but also requests by essentially every XO deployment.
+Owner
+Feature request:
+Greg Smith
+Implementation:
+Martin Abente
+Current status
+Targeted release: 0.102
+Last updated: March 30, 2014
+Percentage of completion: 100%
+See also
+Features/Backup and Restore/Enhancements
+.
+Detailed Description
+For all the items listed below, implement solution with XS and if possible as a software solution on one or more standard Linux distributions.
+Backup and Restore of the Journal
+Allow time based backup and restore of the journal. Check for Journal changes on the Sugar computer. Copy any changes to the server on a regular basis. Stagger the copies so that not all Sugar computers backup at the same time. See implementation of this with XO and XS at:
+http://wiki.laptop.org/go/XS_Blueprints:Datastore_Simple_Backup_and_Restore
+Provide a GUI to restore all backed up journal entries
+TODO:
+Provide an interface to restore one backed up journal entry. The user would boot up any Sugar implementation (user name/password based security is also important) and point their Web browser at a URL on the server. Preferable to automatically take you to the right page (aka the page where your particular Sugar instance is backed up) but would also accept seeing a list of Sugar Journals by user name and picking the right one. Clicking on a single Journal entry or on a link for "full journal" would download those items back in to the journal of the Sugar computer.
+Provide a user initiated backup of the journal. Same case as above for restore.
+TODO:
+Backup and restore of full sugar instance. Same as above (AKA user initiated and time based server/script) but for the full Sugar instance. This can be only the full instance and does not need to list individual files. For restoring SoaS should support booting up with a USB stick, going to the page, then removing the USB stick and inserting a new one, then clicking restore. This would copy the full Sugar instance to the new USB stick. This would now be a clone of the original USB stick. Also, implement a "clone" feature which allows the same work flow as above but without a server. That is, put a SoaS in a computer, copy it to the computer then restore it to a new USB stick with the full SoaS including configuration.
+See also this bug in Sugar:
+http://dev.sugarlabs.org/ticket/75
+and
+http://dev.sugarlabs.org/ticket/916
+Benefit to Sugar
+Ensures that kids and teachers don't lose their work. Backup and restore over the WAN is a major growth technology in commercial SW. e.g. see:
+http://www.carbonite.com/
+A Sugar implementation would be a big feature promotable publicly. Could also be used for a sneaker net type collaboration of last resort. i.e. "get my journal entry off this web page" to move something from one Xo to another.
+Scope
+Will need client side and server software. May need to move a Linux package to SoaS and may need to push new code upstream to support Journal/Datastore implementation.
+How To Test
+Create some entries in a journal. Then test with:
+Dextrose 1 or later and a single computer
+Dextrose 1 or later with XS running 0.5 or later
+TODO:
+Test backup and restore of a single journal entry
+TODO:
+Test backup and restore of a full SoaS image. Make sure to use the SoaS so that it changes some files and configurations.
+Test time based backup, preferably with several computers.
+In all cases, ensure that the files are backed up on the server and can be restored to the original computer. Make sure to open the files in the journal and run them. Also, make sure to cold boot any full images and confirm that changes were saved.
+User Experience
+Backup to removable device
+Menu to acces the backup/restore window
+Initial window
+Operations show the progress
+Old implementation, only for reference.
+Backup to removable device
+1: Select USB stick
+2: Confirm journal backup
+3: Backup in progress
+4: Backup completed
+Journal restore from Schoolserver
+1: Select Schoolserver
+2: Restore from Schoolserver
+Dependencies
+What other packages (RPMs) depend on this package?  Are there changes outside the developers' control on which completion of this feature depends?  In other words, completion of another feature owned by someone else and might cause you to not be able to finish on time or that you would need to coordinate?  Other upstream projects like python?
+See
+http://dev.sugarlabs.org/ticket/916
+for changes to allow registering SoaS to a XS.
+Also ds-backup-client package is required to backup to an XS along with a patch to allow it to work on SoaS in addition to an XO.
+Contingency Plan
+None required.
+Documentation
+See XS example above. Will need more documentation.
+Release Notes
+Comments and Discussion
+See
+discussion tab for this feature

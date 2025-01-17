@@ -1,0 +1,108 @@
+Title: Linux Mint Debian Edition
+URL: https://wiki.sugarlabs.org/go/Linux_Mint_Debian_Edition
+--------------------------------------------------------------------------------
+Download:
+http://www.linuxmint.com/edition.php?id=88
+Compatible with Debian squeeze
+Rolling updates
+Contents
+1
+Install Sugar 0.88.1
+1.1
+NOTES
+2
+Notes for Installation on VirtualBox 4.0
+3
+2 GB Live USB disk
+4
+How to Make a 2 GB Installer USB disk
+5
+References
+Install Sugar 0.88.1
+Menu/Administration/Synaptic Package Manager:
+search "sugar"
+and select:
+sugar-tools-0.88
+sugar-artwork-0.88
+python-sugar-0.88
+sugar-terminal-activity
+python-jarabe-0,88
+sugar-emulator-0.88
+sugar-session-0.88
+sugar-presence-service-0.88
+sucrose-0.88
+python-sugar-toolkit-0.88
+sugar-pippy-activity
+python-hulahop
+sugar-chat-activity
+python-carquinyol-0.88
+sugar-turtleart-activity
+libhippocanvas-1.0
+python-hippocanvas
+Apply
+start Sugar: (Menu/Education/Sugar)
+from 2nd USB Stick:
+Click on journal
+Open Frame (pointer to top right corner)
+Drag-drop Install from USB icon in left bottom corner
+to Journal icon in extreme left bottom corner
+surf-115.xo
+Click on surf (web browser)
+Go to top right "Activities"
+(This is ASLO where you can install activities)
+search for IRC and install
+search for edit and install
+search for speak and install
+search for record and install
+Enjoy
+An Alternative is to Download and burn this DVD full of activities:
+http://wiki.sugarlabs.org/go/Sck/ASLOxo
+And Drag Drop install from the CD icon in bottom of frame to the journal icon
+Original Release Announcement: OLD
+(these are copied from that site)
+All Mint 10 features
+64-bit support
+Performance boost (using cgroup, the notorious “4 lines of code better than 200″ in user-space)
+Installer improvements (multiple HDDs, grub install on partitions, swap allocation, btrfs support)
+Better fonts (Using Ubuntu’s libcairo, fontconfig and Ubuntu Font Family) and language support (ttf-wqy-microhei, ttf-sazanami-mincho, ttf-sazanami-gothic installed by default)
+Better connectivity and hardware support (pppoe, pppoeconf, gnome-ppp, pppconfig, libgl1-mesa-dri, libgl1-mesa-glx, libgl1-mesa-dev, mesa-utils installed by default)
+Better sound support (addressing conflicts between Pulse Audio and Flash)
+Updated software and packages
+NOTES
+LMDE uses rolling updates; so once installed it becomes current version each time it is updated.
+Use linuxmint-debian-201101-gnome-dvd-i386.iso older versions (including torrents) were bad
+Make USB Installer Stick
+We actually made the ISO compatible with unetbootin so you may have more luck there.
+http://unetbootin.sourceforge.net/
+https://bugs.launchpad.net/linuxmint/+bug/636625
+Notes for Installation on VirtualBox 4.0
+Use gparted on Live DVD to format the 8-10 GB VirtualBox HD
+/boot ext4 500   /7000 ext4   swap=balance
+Install to HD
+edit partitions to format as ext4 and as /boot; /; and swap
+Finish installation and reboot
+Note this same procedure works to install to a 8 GB USB disk
+2 GB Live USB disk
+A Fast (ADVANCED) Method
+Great for Netbooks without a CD/DVD drive
+Boot Netbook from this non-persistent Live USB diskto test linuxmint-debian-201101-gnome
+Use it to Install to HD
+tested from DL; boots fine (satellit 01/04/2011)
+Download:
+linuxmint-debian-201101-gnome-dvd-i386.img
+How to write to USB disk
+Download to desktop
+Use "mount command to see USB address: ie: /dev/sdb; /dev/sdc; /dev/sdd....etc
+Or use gparted to see USB address
+dd command is VERY DANGEROUS; if you use wrong address you will distroy your Hard Drive with no warning.
+In root terminal #:
+cd Desktop
+dd if=linuxmint-debian-201101-gnome-dvd-i386.img of=/dev/sd(x)
+How to Make a 2 GB Installer USB disk
+Use the 32 bit version to make a 32 bit USB disk and 64 bit to make 64 bit USB disk
+References
+squeeze release notes
+Install of linux-mint-debian-edition
+Install xxx.iso to USB Stick
+Enabling support for WiFi devices based on Broadcom 4311/4312/4313/4321/4322/43224/43225 chipset
+"initial release of a fully-open Linux driver for it's latest generation of 11n chipsets. The driver, while still a work in progress... supports multiple current chips (BCM4313, BCM43224, BCM43225) as well as providing a framework for supporting additional chips in the future."

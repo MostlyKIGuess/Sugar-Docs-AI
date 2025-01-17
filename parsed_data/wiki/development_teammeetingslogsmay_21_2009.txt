@@ -1,0 +1,277 @@
+Title: Development Team/Meetings/Logs/May 21 2009
+URL: https://wiki.sugarlabs.org/go/Development_Team/Meetings/Logs/May_21_2009
+--------------------------------------------------------------------------------
+(04:07:23 PM) tomeu: hi fellow meetingers!
+(04:08:35 PM) erikos: hi meetingers
+(04:08:42 PM) erikos: roll call please!
+(04:09:07 PM) tomeu: and the room filled with silence...
+(04:09:19 PM) erikos: walterbender, is around
+(04:09:25 PM) walterbender: hi
+(04:09:32 PM) erikos: and sayamindu will be here in a few minutes
+(04:09:53 PM) erikos: alsroot, around as well?
+16:10
+(04:10:07 PM) alsroot: erikos: yup
+(04:10:15 PM) erikos: alsroot, nice
+(04:11:06 PM) erikos: so for today's meeting we want to talk about the Roadmap for 0.86
+(04:11:22 PM) erikos: current status of this discussion: http://erikos.sweettimez.de/?p=678
+(04:11:45 PM) erikos: and I am working on the schedule at http://wiki.sugarlabs.org/go/Development_Team/Release/Roadmap/0.86#Schedule at the moment
+(04:12:33 PM) tomeu: wonder if alsroot has any stuff to put into the shell and/or toolkit for 0.86
+(04:12:53 PM) erikos: tomeu, yup - that was my next question
+(04:13:15 PM) erikos: alsroot, do you have items in mind?
+(04:13:20 PM) alsroot: I'm planing Library for 0.82+, so it should be a honey
+(04:13:44 PM) erikos: alsroot, Library - an activity?
+(04:13:49 PM) alsroot: yup
+(04:14:22 PM) erikos: alsroot, can you describe that shortly?
+(04:14:26 PM) alsroot: erikos: in most cases it should be a new Journal(but w/o activity view)
+(04:14:41 PM) alsroot: erikos: http://wiki.sugarlabs.org/go/Activities/Library
+(04:14:45 PM) walterbender: erikos: I am planning to fork Turtle Art for 0.85 as per our discussion in Paris
+(04:14:52 PM) erikos: alsroot, thanks - /me looks
+16:15
+(04:15:33 PM) alsroot: erikos: "but w/o activity view" activity in meaning of objects/activity modes in Journal2
+(04:16:38 PM) erikos: alsroot, wow - this is really phrased out already
+(04:16:57 PM) erikos: walterbender, nice - I guess that makes sense to do
+(04:17:19 PM) alsroot: erikos: +1 week for v1 :)
+(04:17:45 PM) alsroot: and for making Libarry more effective I have ideas for ds http://wiki.sugarlabs.org/go/Talk:Version_support_for_datastore/Proposal#Features_that_could_benefit_Library_activity
+(04:17:52 PM) erikos: walterbender, so the list in my blog post is what we did on monday afternoon in paris (tomeu, gary, bernie, christoph)
+(04:18:14 PM) walterbender: erikos: I saw it. good stuff
+(04:18:30 PM) erikos: alsroot, I will read the page in detail later - sounds really nice
+(04:19:07 PM) erikos: alsroot, the good thing is - the core components are not effected - so you are independent of the schedule
+(04:19:21 PM) alsroot: erikos: exactly
+(04:19:23 PM) erikos: alsroot, at least we are not blocked when you are not in time for some reason
+(04:19:46 PM) erikos: alsroot, which of course will not happen ;p
+(04:19:53 PM) walterbender: erikos: I am confident that Lucian will have something for SSBs in time for 0.86
+16:20
+(04:20:13 PM) erikos: walterbender, what was SSB again?
+(04:20:17 PM) tomeu: walterbender: will he need any changes in the shell?
+(04:20:22 PM) walterbender: site-specific browser
+(04:20:37 PM) walterbender: tomeu: the current plan is no changes to shell
+(04:20:39 PM) tomeu: (or the toolkit)
+(04:20:59 PM) walterbender: probably not the toolkit
+(04:21:46 PM) unmadindu [n=sayamind@gnu-india/admin/unmadindu] entered the room.
+(04:21:53 PM) erikos: walterbender, is there a proposal already about the details?
+(04:22:13 PM) unmadindu: hello
+(04:22:17 PM) walterbender: erikos: getting close--maybe next week.
+(04:23:42 PM) erikos: walterbender, Lucian Branescu I guess?
+(04:23:51 PM) erikos: unmadindu, hey - you are just in time ;p
+(04:24:07 PM) walterbender: erikos: yes
+(04:24:21 PM) ***erikos has to keep up a bit :)
+16:25
+(04:25:14 PM) erikos: alsroot, some stuff you had in mind for the shell?
+(04:25:23 PM) alsroot: yupw, it could be nice to make Journal pluggable -- for example to replace Journal by Library
+(04:25:55 PM) erikos: unmadindu, we are just getting items up that are not on the list yet - http://erikos.sweettimez.de/?p=678
+(04:26:06 PM) ***unmadindu checks
+(04:26:20 PM) tomeu: alsroot: have you already looked into it? may be quite simple
+(04:26:34 PM) alsroot: tomeu: not yet
+(04:26:37 PM) erikos: unmadindu, feel free to throw in new ideas
+(04:26:42 PM) unmadindu: tomeu, erikos: did you get the chance to check out the metacity patch ?
+(04:26:44 PM) tomeu: alsroot: also, how much "pluggability" would you like?
+(04:26:51 PM) tomeu: unmadindu: not recently :/
+(04:26:59 PM) erikos: unmadindu, no :/
+(04:27:05 PM) tomeu: unmadindu: would love to see a custom soas image with it
+(04:27:12 PM) alsroot: tomeu: just run Library instead of Journal
+(04:27:16 PM) erikos: unmadindu, is it in a mail? or in trac?
+(04:27:27 PM) tomeu: alsroot: yeah, but having to patch code? or not?
+(04:28:11 PM) alsroot: tomeu: in my mind it should be like -- user download Library.xo and "old" Journal asks about replacing
+(04:28:32 PM) unmadindu: erikos: http://dev.sugarlabs.org/ticket/602
+(04:28:46 PM) alsroot: tomeu: because Library.xo has a special key in .info
+(04:28:50 PM) tomeu: alsroot: hmm, that makes me worry about support
+(04:29:05 PM) unmadindu: tomeu: ok, I'll try to do a spin of Soas, but right not I'm stuck with https://bugzilla.redhat.com/show_bug.cgi?id=499452
+(04:29:07 PM) tomeu: alsroot: imagine if some kids in nepal or uruguay use library and others use journal
+(04:29:28 PM) tomeu: alsroot: I would have thought that a deployer chooses to deploy sugar with library or with journal
+(04:29:49 PM) alsroot: tomeu: maybe option in context menu?(for this .xo)
+(04:29:59 PM) erikos: unmadindu, ok - i add it to the item
+16:30
+(04:30:15 PM) tomeu: alsroot: in which context menu? which option would that be?
+(04:30:44 PM) alsroot: tomeu: in context menu for Library.xo in the Journal -- "Make this activity a new Journal"
+(04:31:33 PM) tomeu: alsroot: yeah, but my worry about increased support costs still stands. if users can change the journal for the library, the people giving support will have much more work to do
+(04:31:33 PM) unmadindu: erikos: I plan to do a) a keyboard control panel extension (I would prefer to keep it as a seperate module, since everyone may not choose to go with XKB) and b) the dictionary during the 0.86 cycle. I also have plans with epub support in Read, but there's nothing definite yet
+(04:31:50 PM) tomeu: unmadindu: ok, I guess you are waiting for the rpm to reach some state?
+(04:32:18 PM) alsroot: tomeu: but yes, I geuess it demands more thinking
+(04:32:31 PM) befana left the room (quit: No route to host).
+(04:32:40 PM) alsroot: tomeu: I didnt think a lot about it
+(04:32:55 PM) erikos: unmadindu, ok, (a) we should add to the list
+(04:33:01 PM) tomeu: alsroot: I can help you find people to test Library if you want
+(04:33:09 PM) erikos: unmadindu, (b) can be live in honey I guess for the moment
+(04:33:16 PM) tomeu: then the community can decide about how to move forward
+(04:33:24 PM) erikos: unmadindu, oh, sorry
+(04:33:34 PM) erikos: unmadindu, no - is core functionality as well
+(04:33:51 PM) unmadindu: tomeu: oh, I did not see the new RPM  - I'll download and check
+(04:33:51 PM) alsroot: tomeu: at first I should release it :) -- but yes I guess we should wait for comunity reply
+(04:33:51 PM) erikos: unmadindu, I will add it to the list
+(04:34:28 PM) erikos: unmadindu, what just come to my mind - is the language support in the control panel language section
+(04:34:40 PM) erikos: unmadindu, so that it is in each language
+(04:34:51 PM) unmadindu: erikos: ah yes, that needs to be fixed as well :)
+(04:34:53 PM) erikos: unmadindu, our old desire
+16:35
+(04:35:00 PM) unmadindu: please add it
+(04:35:05 PM) erikos: yup
+(04:36:24 PM) alsroot: unmadindu: btw about dictionary -- i guess dictd doesnt support dict files for example from StarDict, or not?
+(04:37:04 PM) alsroot: unmadindu: "dictd" if your code is based on dictd
+(04:37:39 PM) unmadindu: alsroot: yes (I think), though I plan to extend the thing a bit (eg: have some metadata about each dictionary in a XML file, so that we can do generic queries like getdef(term, fromlang, tolang))
+(04:38:59 PM) unmadindu: http://stardict.sourceforge.net/Dictionaries.php seems to link to dictd dumps (mostly)
+(04:39:16 PM) unmadindu: eg: http://stardict.sourceforge.net/Dictionaries_dictd-www.dict.org.php
+16:40
+(04:42:03 PM) alsroot: unmadindu: then ok -- but on my system(gentoo) I have just several dictd packages but tons for stardict
+(04:43:06 PM) unmadindu: alsroot: hmm, in the worst case, I think we will be need to write converters  :-). I'll also try to look at the stardict code and see if we can reuse it
+(04:43:23 PM) erikos: alsroot, so the pluggable journal - we leave this out of the list for now?
+(04:43:32 PM) alsroot: unmadindu: or look at 300 dicts from http://xdxf.revdanica.com/down/index.php
+(04:44:15 PM) alsroot: erikos: well, in some way -- maybe it will be not pluggable journal but second/3rd/.. journal
+(04:44:49 PM) ***unmadindu checks
+16:45
+(04:45:29 PM) alsroot: erikos: my concern is that Library has all features(except "activity" view) of regular Journal + syncing(will do) with remote resources
+(04:46:50 PM) alsroot: so, users can benefit from easy way to use suck kinds of activities
+(04:46:57 PM) alsroot: s/suck/such
+(04:47:04 PM) erikos: hmm, yeah I see
+(04:47:22 PM) erikos: I mean it would make sense maybe in any case to make the journal pluggable
+(04:47:34 PM) erikos: like we plan to do for views
+(04:47:52 PM) alsroot: so Journal is viewer for ds :)
+(04:48:17 PM) erikos: maybe :)
+(04:49:57 PM) unmadindu: alsroot: thanks for the pointer. this will be useful. apart from the fact that the files references a dtd called xdxf_lousy.dtd ;-), I think this can solve a large part of our problems (I'll need to take a look at how the XML files are indexed though - chewing through megabytes of XML files to retrieve a single definition would not be a nice thing to do)
+16:50
+(04:50:23 PM) erikos: for the moment I add the ideas here - http://wiki.sugarlabs.org/go/Development_Team/Release/Roadmap/0.86#Proposal_Goals
+(04:50:37 PM) erikos: we can then trim down the list later
+(04:51:21 PM) erikos: what do others think we add as well the honey parts people try to work on?
+(04:51:39 PM) erikos: maybe under a special category
+(04:51:47 PM) erikos: but for a better overview
+(04:53:10 PM) alsroot: erikos: honey activities or honey reqs in sucrose?
+(04:53:35 PM) erikos: alsroot, honey activities
+(04:53:52 PM) erikos: like the library activity efforts
+(04:54:10 PM) tomeu: not sure
+(04:54:24 PM) tomeu: though I think we should advertise those efforts if the people involved think it's a good idea
+(04:54:27 PM) ***erikos is a bit torn on that
+(04:54:33 PM) ***alsroot started to like idea of decentraliszig of sucrose :)
+16:55
+(04:55:13 PM) tomeu: alsroot: can you elaborate on that?
+(04:55:17 PM) erikos: tomeu, maybe it should be in the activity team section
+(04:55:30 PM) andresambrois is now known as aa
+(04:55:31 PM) tomeu: erikos: oh, sounds good
+(04:56:16 PM) erikos: tomeu, ok - lets do this if nobody objects
+(04:56:37 PM) alsroot: tomeu: SL provide only "framework" - glucose -- wraps it to SP -- other parts is honey (+ deployer are free to build theirs own sets of sugar)
+(04:57:03 PM) erikos: tomeu, I just want a central entry place - so people can see what other people are working on
+(04:58:25 PM) tomeu: alsroot: but isn't that the original idea?
+(04:59:06 PM) erikos: unmadindu, a short translation team question: is it a good idea to have the freeze date for development be the same as the string freeze one?
+(04:59:23 PM) erikos: unmadindu, as we had to do quite a lot of exceptions this time
+17:00
+(05:00:00 PM) unmadindu: erikos: not really - I believe it would be a good to have a short period of "slushy freeze", where all string changes are announced, but you don't need to get permission. I think that preps the developers as well as the translators
+(05:00:03 PM) erikos: unmadindu, or maybe the issue is another one: and developers need to be more careful - or testing happens to late, or...
+(05:00:09 PM) alsroot: tomeu: original idea is making activities glucose version independent(as much as possible, or at least encourage developers to make these activities)
+(05:00:35 PM) erikos: unmadindu, that might be a good idea
+(05:00:45 PM) walterbender: alsroot: we need better guidelines for activity developers in this regard
+(05:01:30 PM) tomeu: alsroot: oh, I thought that by "decentraliszig of sucrose" you meant something different of how things have been to date
+(05:02:42 PM) alsroot: tomeu: nope just having the core(glucose) and the rest of sugar + deployers' sets
+(05:03:02 PM) alsroot: walterbender: well we should do it anyway :)
+(05:04:53 PM) nteon left the room (quit: "Leaving").
+17:05
+(05:05:35 PM) walterbender: erikos: I need to take off for a bit... thanks for organizing the meeting... ciao
+(05:06:13 PM) alsroot: back to decentralising of sucrose -- I'm sure 6months cycle is a bit much for activity
+(05:06:56 PM) erikos: walterbender, thanks for joining in
+(05:07:48 PM) erikos: unmadindu, how about a) 'slushy string freeze'
+(05:08:07 PM) erikos: unmadindu, after two weeks b) 'hard string freeze'
+(05:08:20 PM) erikos: unmadindu, after two more weeks c) release
+(05:08:23 PM) unmadindu: erikos: sounds good :-)
+(05:08:35 PM) erikos: unmadindu, ok, nice
+(05:09:28 PM) erikos: alsroot, so if I start to develop an activity today for example
+(05:09:39 PM) erikos: alsroot, I can develop it to work on 0.84
+(05:09:56 PM) erikos: alsroot, and it will work with 0.86 then as well - most likely
+17:10
+(05:10:18 PM) unmadindu: btw, while we are on the subject of "policy", is there any policy on external dependency ? eg, what if I add some code to Read which makes it depend on pywebkitgtk ?
+(05:10:23 PM) alsroot: erikos: in ideal case for 0.82+ -- I use sugar-port to wrap all diffs between sugars
+(05:10:45 PM) erikos: alsroot, yeah 0.82+ even better
+(05:10:56 PM) tomeu: unmadindu: all "good" activities depend only on SP
+(05:10:58 PM) valhalla [n=valhalla@81-174-24-165.dynamic.ngi.it] entered the room.
+(05:11:20 PM) unmadindu: SP ??
+(05:11:22 PM) alsroot: erikos: so with sugar-port i code the same code and it should work on 0.82+ (otherwise I'll patch sugar-port)
+(05:11:26 PM) tomeu: unmadindu: and I would say that core activities should not bundle any external code
+(05:11:28 PM) erikos: unmadindu, Sugar Platform
+(05:11:30 PM) tomeu: unmadindu: sugar platform
+(05:11:39 PM) ***erikos beat tomeu
+(05:11:40 PM) tomeu: http://wiki.sugarlabs.org/go/DevelopmentTeam/SugarPlatform/0.84
+(05:11:41 PM) unmadindu: ah ok.
+(05:11:45 PM) tomeu: ;)
+(05:11:54 PM) tomeu: unmadindu: we should have a policy, yeah
+(05:12:20 PM) unmadindu: I was thinking about having a set of "blessed external dependencies" like GNOME
+(05:13:02 PM) alsroot: so, back again to decentralising -- in my mind it should be: core(glucose) + sugar-port(to wrapp all diffs between sugars) + hoeny
+(05:13:04 PM) hpachas-PE [n=hpachas@200.37.120.18] entered the room.
+(05:13:13 PM) erikos: http://wiki.sugarlabs.org/go/Development_Team/SugarPlatform/0.84 now - mind the '_'
+(05:14:24 PM) erikos: alsroot, I think I do not understand the sugar-port exactly, yet
+17:15
+(05:15:25 PM) alsroot: erikos: I mean 0.82/0.84/0.86 have diff. API for ObjectsChoser(for example) -- activity have the same code and this code warks well on all versions(it proveds by sugar-port)
+(05:16:09 PM) alsroot: ..and more overs on 0.86 sugar-port gives activity chance to use all new features
+(05:16:33 PM) erikos: alsroot, so sugar-port is a wrapper code that is called to guarantie backwards compability
+(05:16:48 PM) erikos: alsroot, correct?
+(05:16:53 PM) alsroot: erikos: yup, + it supports all new features
+(05:17:43 PM) erikos: http://wiki.sugarlabs.org/go/Development_Team/sugar-port
+(05:17:50 PM) ***erikos is really outdated
+17:20
+(05:21:26 PM) erikos: alsroot, interesting
+(05:23:11 PM) erikos: alsroot, I would say - I add the decoupling to the list
+(05:23:25 PM) erikos: alsroot, and we should then discuss it in details
+(05:24:04 PM) tomeu: alsroot: isn't sugar-port a matter more of the activity team rather than the development team?
+(05:24:41 PM) alsroot: tomeu: well, its a bridge between DT and AT :)
+17:25
+(05:25:04 PM) erikos: alsroot, how does it technically work?
+(05:25:19 PM) alsroot: erikos: ifs/tryies/hasattr
+(05:25:20 PM) erikos: alsroot, let's take the json example
+(05:25:49 PM) erikos: alsroot, the activity calls 'from sugar import json'
+(05:26:06 PM) alsroot: erikos: http://people.sugarlabs.org/~alsroot/sugar-port/port.json-module.html
+(05:26:08 PM) erikos: alsroot, and then the code does decide which version to use?
+(05:26:18 PM) tomeu: well, I'd say that if it's a core component, then it should be part of sugar-toolkit. if it isn't, then it should be in the activity team namespace. though I don't find too important where it is in the wiki, it may be more clear
+(05:26:58 PM) erikos: alsroot, ok
+(05:27:30 PM) alsroot: tomeu: in that case sugar-port is outside of sucrose -- for example I just copy port/some-files to activity projects
+(05:28:04 PM) tomeu: yeah, that's what I meant by having it in the activity team. I think that way other activity authors may feel more encouraged to contribute to it
+(05:28:30 PM) alsroot: tomeu: yup, for example making new widgets
+(05:29:10 PM) erikos: alsroot, so it is a 'library' where the activity authors just grab whatever file is needed and dump it in their activity for using it
+(05:29:31 PM) alsroot: erikos: yup + backwards comp.
+(05:29:44 PM) alsroot: total backwards comp.
+(05:29:55 PM) alsroot: ..for sugar-port API
+17:30
+(05:31:10 PM) alsroot: maybe we can have several packages as sugar-port, but the major point of sugar-port is backwards comp.
+(05:31:25 PM) erikos: ok, i see that issue for things like json
+(05:31:50 PM) erikos: for widgets in sugar - there should be a policy for API backwards compability
+(05:32:01 PM) erikos: and actually there is
+(05:32:19 PM) erikos: if that is not good enough - I guess we fail here
+(05:32:33 PM) alsroot: erikos: yup, but w/o sugar-port devs have to write ifs/hasattr/etc
+(05:33:17 PM) alsroot: ..if they want to run activity on 0.82+(on 0.82 and use new features on 0.86)
+(05:33:54 PM) erikos: yup, I see that issue
+(05:33:59 PM) alsroot: like with http://people.sugarlabs.org/~alsroot/sugar-port/port.chooser-module.html
+(05:34:40 PM) erikos: but this case should maybe be handled in sugar itself then
+17:35
+(05:35:03 PM) alsroot: erikos: yes for 0.86, but what about deployed 0.82 :)
+(05:35:49 PM) erikos: alsroot, ok, good point
+(05:37:21 PM) erikos: how about - we add API work to our 0.86 goals
+(05:37:36 PM) erikos: and the sugar-port itself to the activity team
+(05:37:48 PM) alsroot: erikos: +1
+(05:38:34 PM) erikos: alsroot, ok, cool - definitely a good point we should be careful with
+(05:39:01 PM) erikos: tomeu, the CIA has discovered your non-meeting work
+(05:39:07 PM) erikos: tomeu, shame on you :)
+(05:39:09 PM) tomeu: arrgh
+(05:39:22 PM) tomeu: my brain has two hemispheres
+17:40
+(05:41:53 PM) erikos: ok, let's wrap maybe up here
+(05:42:06 PM) erikos: we are over time already
+(05:42:24 PM) alsroot: and lets code
+(05:42:27 PM) erikos: now that we have done brain strorming what needs to happen next
+(05:42:35 PM) erikos: regarding the roadmap
+(05:43:20 PM) erikos: a) I will clean up the schedule
+(05:43:29 PM) erikos: and ask for feedback on the ml
+(05:43:48 PM) erikos: b) release goals proposal
+(05:44:10 PM) erikos: let's add items to the list for the next days
+(05:44:24 PM) erikos: then we need to find owners of these items I guess
+(05:44:41 PM) erikos: I would propose to meet again next week
+(05:44:51 PM) erikos: and maybe trim down again the list
+17:45
+(05:45:11 PM) berserk [n=xxx@r200-40-149-210.static.adinet.com.uy] entered the room.
+(05:45:17 PM) erikos: and then each item should get a proposal by it's owner
+(05:45:25 PM) erikos: like alsroot has done
+(05:45:34 PM) erikos: or like the ones in fedora land
+(05:45:39 PM) erikos: sounds good?
+(05:45:47 PM) alsroot: +1 for me
+(05:45:49 PM) tomeu: sounds good!
+(05:46:36 PM) erikos: ok, nice - so add items to the list
+(05:46:47 PM) erikos: and I will follow up on the ml
+(05:47:03 PM) erikos: another point is to clean up the trac tickets
+(05:47:15 PM) erikos: maybe we can do that next wednesday
+(05:47:23 PM) erikos: I will send mail for that as well
+(05:47:51 PM) ***tomeu needs to go out, will be back in 30 mins
+(05:47:57 PM) erikos: thanks everyone for joining in
+(05:49:47 PM) erikos: and the fruitful discussions

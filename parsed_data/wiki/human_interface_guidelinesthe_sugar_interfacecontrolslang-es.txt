@@ -1,0 +1,505 @@
+Title: Human Interface Guidelines/The Sugar Interface/Controls/lang-es
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/The_Sugar_Interface/Controls/lang-es
+--------------------------------------------------------------------------------
+Traducción de
+HIG-Controls
+original
+english
+|
+español
+|
+한국어
++/-
+cambios
+←
+Marquesinas
+Controles
+Cursor
+→
+Contents
+1
+Controles
+1.1
+Zonas de Control
+1.2
+Botones
+1.2.1
+Botón con Texto
+1.2.2
+Botones con Texto e Icono
+1.2.3
+Botones con Icono
+1.2.4
+Botones con Estado
+1.2.5
+Botones de Paleta
+1.3
+Controles de Selección Básicos
+1.3.1
+Checkboxes
+1.3.2
+Botones Radio
+1.3.3
+Menús
+Popup
+1.3.4
+Paletas
+Popup
+1.3.5
+Combo Boxes
+1.4
+Controles Avanzados de Selección
+1.4.1
+Paleta de Colores
+1.4.2
+Selector de Fecha
+1.4.3
+Selector de Objeto
+1.4.4
+Paleta de Búsqueda/Remplazo
+1.5
+Controles de Ajuste
+1.5.1
+Paso-a-Paso
+1.5.2
+Sliders
+Básicos
+1.5.3
+Sliders
+con Indicador
+1.5.4
+Sliders
+de Color
+1.6
+Indicadores
+1.6.1
+Barras de Progreso Predeterminado
+1.6.2
+Barras de Progreso Indeterminado
+1.6.3
+Spinners
+de Actividad
+1.6.4
+Indicadores de Nivel
+1.6.5
+Indicadores de Puntuación
+1.6.6
+Indicadores de Relevancia
+1.7
+Controles de Texto
+1.7.1
+Campos de Texto
+1.7.2
+Campos de Texto
+Tokenizado
+1.7.3
+Campos de Búsqueda
+1.7.4
+Campos de Búsqueda
+Tokenizada
+1.7.5
+Campos de Claves
+1.7.6
+Campos de Texto Multilíneas
+1.8
+Controles de Vista
+1.8.1
+Barras de Ordenamiento Básico
+1.8.2
+Barras de Ordenamiento Avanzada
+1.8.3
+Controles de Vista de Barra de Ordenamiento
+1.8.4
+Barras de Tabulado
+1.8.5
+Barra Secundaria Tabulada
+1.8.6
+Triangulos de Muestra
+1.8.7
+Ayuda de Herramientas
+1.9
+Controles Agrupadores
+1.9.1
+Separadores
+1.9.2
+Bandejas
+1.10
+Controles Personalizados
+1.10.1
+Cuando Usar Controles Personalizados
+1.10.2
+Paleta de Control de Color
+1.10.3
+Tamañado de Controles
+2
+TRANSLATOR NOTE
+2.1
+Marquesinas y Paletas
+2.1.1
+Listas
+Popup
+Combinadas
+2.1.2
+Destinos de
+Drop
+2.2
+Controles Separadores
+2.2.1
+Regla Horizontal
+2.2.2
+Regla Vertical
+2.2.3
+Agrupamiento Lógico
+2.2.4
+Colores Personalizados
+2.3
+Barras de Herramientas
+Controles
+Sugar define su propio conjunto de
+widgets
+de control que forman la interfaz de usuario en las laptops. Si bien la mayoría de los controles disponibles coinciden con las espectativas de los desarrolladores, hemos desarrollado nuevos y modificado el comportamiento de algunos con el fin de lograr una mejor experiencia por parte del usuario. Estos nuevos desarrollos implican un nuevo conjunto de lineamientos para su uso y posicionamiento con el fin de satisfacer tanto las metáforas y objetivos dentro de Sugar así como también ayudar al desarrollo de ambientes de usuarios colaborativos.
+Sugar defines its own set of control widgets that will create the user interface on the laptops. Though most of the available controls will match developers' expectations, we've also developed some new controls and altered behaviors of others to better suit the user experience on the machines. With these new developments comes a new set of guidelines for their usage and placement which both maintains the broader set of goals and metaphors setup within Sugar and aids in the development of collaborative user interface environments.
+Dado que las especificaciones y guías de los elementos de control son una parte importante de este documento, su puede hacer un navegación interna a nivel de página haciendo clic en los titulares correspondientes de cada conjunto de controles. Cada página individual provee una especificación detallada de los controles y sus estados. Finalmente, estamos proveyendo a los desarrolladores un archivo Adobe Illustrator con la última versión de la Especificación de Controles en Sugar en
+.ai (07.04.05)
+y en
+.svg (07.05.18)
+con el fin de permitir el desarrollo de prototipos. Les pedimos que tengan en cuenta que dichas especificaciones y su correspondiente instrumentación se encuentran en un estadío temprano en su desarrollo, y que pueden cambiar a medida que la interfaz gráfica evolucione. Proveeremos los enlaces a la API de los controles a medida que esten disponibles; Gracias por su paciencia.
+As the control widget specification and guidelines compose a substantial portion of this document, internal page by page navigation is available by clicking on the header for any control set. In addition, the individual pages provide detailed specifications for the widgets and their various states. Finally, we're providing developers with an Adobe Illustrator file of the most up to date Sugar Control Specification in
+.ai (07.04.05)
+and
+.svg (07.05.18)
+in order to streamline early application layout and design mockups. Please understand these specifications and their implementations remain in early development, and their designs may change as the UI progresses. We'll provide links to APIs for the controls as they become available; Thanks for your patience.
+Zonas de Control
+En Sugar, un conjunto de regiones de control predefinidos proveen las zonas en las cuales los controles pueden ser puestos. Limitando los colores de fondo de las regiones de control permite definir tanto un conjunto de reglas visuales consistentes para los tipos y estados de los varios controles manteniendo suficiente contraste aún ante la ausencia de color. A la derecha se puede ver las zonas básicas que son la Tela, el Panel, la Barra de Herramientas y la Paleta.
+In sugar, a predefined set of control regions provide the surfaces upon which controls may be placed. Limiting the background colors that the controls sit on allows for a consistent set of visual rules to define both the type and state of various controls while maintaining sufficient contrast even without the use of color. Shown to the right, the basic regions are the Canvas, Panel, Toolbar, and Palette.
+Tela
+La tela (o lienzo—
+canvas
+) es el espacio de "creación" multi-propósito dentro de una actividad—la región para dibujar, escribir, o trabajar de algún modo. Dado que la creación es muy importante para nuestros objetivos, esperamos que ésta sea el área dominante en la pantalla para la mayoría de las actividades. La zona de la tela es específica a la generación de contenido y 'no debería' tener ningún elemento de control sobre ella. Como tal, la tela puede ser de cualquier color que decida tanto la actividad como el usuario, aunque Sugar especifica tanto el blanco como el negro por defecto.
+Canvas:
+The canvas is the general purpose "creation" space within any activity — the region for drawing, writing, or otherwise working within it. Since creation ranks high among our goals, we also hope that this is the dominant region of the screen in most activities. The canvas region is specifically for generating content and 'should not' have any controls placed upon it. As such, the canvas may be any color the activity or the user desires, though Sugar specifies both white and black as the basic defaults.
+Barra de Herramientas
+Las barras de herramientas de una actividad son de un gris oscuro particular que las distingue de otras zonas de control. El Marco también hace uso de esta tonalidad de gris particular para indicar su propósito como una barra de herramienta omnipresente que el chico puede activar dentro de cualquier vista o actividad. Cada actividad tendrá su barra de herramientas en la parte superior de la pantalla, aunque de ser necesario, barras de herramientas adicionales pueden ser especificadas.
+Toolbars:
+Activity toolbars have a unique dark gray color which distinguishes them from the other control regions. The Frame also uses this unique shade of gray to indicate its purpose as an omnipresent toolbar that a child may activate from within any view or activity. Each activity will have a toolbar at the top of the screen, though when necessary additional toolbars may also be specified.
+Paneles
+De ser necesario, una actividad puede dedicar partes de la pantalla a elementos de control adicionales que tienen más sentido dentro del contexto general de la actividad que en la barra de herramientas. Los elementos de control en esta zona deben ser relevantes durante todo momento, sin importar el estado asociado de la actividad o el contexto de edición.
+Panels:
+When appropriate, an activity may devote a portion of the screen to additional controls which make more sense outside of the toolbar and within the global activity context. Controls placed in this region should always remain relevant at all times, regardless of any other state associated with the activity or editing context.
+Paletas
+Las paletas sirven como un elemento de control multipropósito que aparecen en varios contextos. En una interfaz sin ventanas y menús tradicionales, las paletas proveen una solución versatil en muchos aspectos de la interfaz de usuario como una segunda capa de elementos de control. Para una descripción detallada de su uso, vea la sección de
+Marquesinas y Paletas
+.
+Palettes:
+Palettes serve as multipurpose control regions which appear in several contexts. In an interface without traditional windows and menus, palettes step in to provide a versatile solution in many aspects of the user interface as the second layer of control. For a full description of their uses, please see the section on Palettes and Rollovers.
+Controles
+El resto de esta sección describe principalmente cada elemento de control especifico y sus lineamientos de uso dentro de la interfaz de usuario de la actividad. El diseño de todos los controles aquí presentados siguen un conjunto básico de reglas en lo referente a los colores, grosor de las lineas, y sus tamaños para cada uno de sus estados. Las decisiones de diseño generales sobre este tema son discutidas en la sección de
+controles personalizados
+.
+Controls:
+The remainder of this section focuses largely on the specific controls and guidelines for their usage within your activity's UI. The designs of all controls presented here follow a basic set of rules regarding colors, line weights, and sizing for each of its various states. More detail about these broader design decisions is discussed in the custom controls section.
+Botones
+Botón con Texto
+Uso
+Los Botones con Texto sirven para seleccionar una opción rápidamente de una pequeña cantidad de alternativas. El texto guía la acción a realizarse en caso de ser presionado ese botón. El ejemplo del costado la opción OK (aceptar) ya está resaltada, de esta manera indicamos al usuario la opción de preferencia y la que tendrá lugar si presiona la tecla enter. Su uso se refiere a toma de decisión sobre acciones concretas, responde a la pregunta ¿qué hacer?
+Comportamiento
+Los botones se comportan como una <Interfaz de Control>. Reproducen el modo de un panel de un electrodoméstico o maquina herramienta. Congela la acción, la detiene, para solicitar una consulta al usuario antes de continuar. ¿Debo continuar o detenerme? ¿Esta bien realizar esta acción? ¿Cual de estas tres acciones prefiere que ejecute en este caso concreto? ¿Repito esta decisión sin consultar en casos similares de esta tarea?
+Lineamientos
+Los Botones con Texto deben ser claros para el usuario. El gran temor del botón de texto es la ambigüedad o la doble afirmación o negación. El Texto del botón asegura la comprensión de la acción a realizarse al presionarlo.
+Usage:
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Behavior:
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Guidelines:
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Botones con Texto e Icono
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Botones con Icono
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Botones con Estado
+Botones de Paleta
+Controles de Selección Básicos
+Checkboxes
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Botones Radio
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Menús
+Popup
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Paletas
+Popup
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Combo Boxes
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Controles Avanzados de Selección
+Paleta de Colores
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Selector de Fecha
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Selector de Objeto
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Paleta de Búsqueda/Remplazo
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Controles de Ajuste
+Paso-a-Paso
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Sliders
+Básicos
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Sliders
+con Indicador
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Sliders
+de Color
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Indicadores
+Barras de Progreso Predeterminado
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Barras de Progreso Indeterminado
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Spinners
+de Actividad
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Indicadores de Nivel
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Indicadores de Puntuación
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Indicadores de Relevancia
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Controles de Texto
+Campos de Texto
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Campos de Texto
+Tokenizado
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Campos de Búsqueda
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Campos de Búsqueda
+Tokenizada
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Campos de Claves
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+Campos de Texto Multilíneas
+Uso
+Comportamiento
+Lineamientos
+Usage:
+Behavior:
+Guidelines:
+TRANSLATOR NOTE
+the images [[Image:textfield_suggestions.png]], [[Image:searchfield_suggestions.png]], [[Image:textfield_multiline.png]] have been 'lost/removed'...
+Controles de Vista
+Barras de Ordenamiento Básico
+Barras de Ordenamiento Avanzada
+Controles de Vista de Barra de Ordenamiento
+Barras de Tabulado
+Barra Secundaria Tabulada
+Triangulos de Muestra
+REVIEW CONCEPT / TRANSLATION
+Ayuda de Herramientas
+Controles Agrupadores
+Separadores
+Bandejas
+Controles Personalizados
+Cuando Usar Controles Personalizados
+Hemos creado un conjunto de controles capaces de satisfacer la mayor parte de las necesidades básicas del desarrollo de una Actividad. Al usar estos controles siempre que sea posible se garantiza así que la interfaz de todas las Actividades permence constante y clara, al mismo tiempo que mantiene el estilo visual de Sugar. Sin embargo, su funcionalidad básica puede resultar en una limitación en algunos casos, y definitivamente deseamos estimular usos nuevos y exitantes de la funcionalidad de la laptop, incluyendo su característica colaborativa, y no deseamos impedir la creatividad y diseño. Para ello es que estamos proveyendo una serie de lineamientos generales para la creación de controles personalizados capaces de combinar con el estilo de Sugar y mantener cierto estándar básico de compatibilidad y usabilidad dentro de la interfaz de Sugar.
+We have created a set of controls to suit most basic needs for Activity development. Using these controls wherever possible ensures that interfaces across Activities remain consistent and clear, and also maintains the visual style of the Sugar interface. Nonetheless, their basic functionality may prove limiting in some cases, and we certainly hope to inspire new and exciting uses of the various capabilities of the laptops, including their collaborative nature, and don't want to stifle additional ideation and design. For this reason, we are providing a general set of guidelines for the creation of custom controls that match the visual style of Sugar and maintain some basic standards for compatibility and usability within the Sugar interface.
+Antes de hacer un control personalizado, asegurese que dicha necesidad realmente existe. En algunos casos, es posible que una combinación de controles más sencillos alcance. En otros casos, una funcionalidad más compleja puede ser lograda por medio del uso de la Paleta. Adicionalmente, asegurese que la necesidad sea funcional; los controles Personalizados deben tener nueva funcionalidad o un comportamiento diferente de los controles ya disponibles, y no simplemente definir una nueva estética. Nuevamente, medite cuidadosamente sobre los requerimientos del control, y asegurese que la funcionalidad amerita el trabajo asociado con la creacion de un nuevo control.
+Before implementing a custom control, be sure that the need truly exists. In some cases, you may find that a combination of simpler controls may suffice. In other cases, more complex functionality can be accommodated though use of a Palette. Additionally, be sure that the need is a functional one; Custom controls should have additional or different behavior that the current controls don't provide, and not simply define a different aesthetic for existing ones. Again, think carefully about the requirements for the control, and be sure that the functional need itself merits the work associated with creating the new control.
+Paleta de Control de Color
+La interfaz de Sugar define una paleta estricta para los
+widgets
+de control, así como los lineamientos en su uso para los diferentes estados y tipos de controles. Los controles personalizados deben adherirse al mismo conjunto de colores y sus reglas asociadas para asegurarse que su comportamiento simule al núcleo de los controles de Sugar, y puedan ser deducidos por quienes están familiarizados con ellos. Si bien los nombres y usos primarios definen estos colores, cualquier color incluido en la paleta abajo puede ser usado en varias partes de sus controles donde no interfiera con las reglas básicas asociadas a ellos.
+The Sugar interface defines a strict palette for the control widgets, along with guidelines for using these colors for various states and control types. Custom controls should adhere to the same set of colors and associated rules in order to ensure that their behavior mimics those of the core Sugar controls, and can be easily inferred by those who are familiar with them. Though their name and primary uses define these colors, any color within the palette provided below may be used for various parts of your control where it doesn't interfere with the basic rules associated with them.
+Nombre
+Usos Primarios
+Hex
+% Gris
+Black
+Paletas,
+Popups
+#000000
+100%
+Toolbar Grey
+Barras de herramientas, Bandejas, Agrupamientos de Paletas
+#404040
+75%
+Button Grey
+Estado de los Botones
+Default
+#808080
+50%
+Selection Grey
+Selecciones, Agrupamientos de Panel
+#A6A6A6
+35%
+Panel Grey
+Paneles, Escritorio
+#C0C0C0
+25%
+Text Field Grey
+Fondo para Campos de Texto
+#E5E5E5
+10%
+White
+Estados presionados, áreas de texto multi-líneas
+#FFFFFF
+0%
+{
+Tamañado de Controles
+TRANSLATOR NOTE
+TRANSLATOR NOTE
+The
+Rollovers and Palettes
+section has been removed, but iirc, there's a reference to it... yup, in the
+Panel
+section above...
+Marquesinas y Paletas
+TRANSLATOR NOTE
+### LEFT BEHIND?? ###
+Listas
+Popup
+Combinadas
+Destinos de
+Drop
+Controles Separadores
+Regla Horizontal
+Regla Vertical
+Agrupamiento Lógico
+Colores Personalizados
+Barras de Herramientas
+←
+Marquesinas
+Controles
+Cursor
+→

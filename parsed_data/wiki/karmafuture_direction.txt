@@ -1,0 +1,79 @@
+Title: Karma/Future Direction
+URL: https://wiki.sugarlabs.org/go/Karma/Future_Direction
+--------------------------------------------------------------------------------
+We have now converted around 80 lessons to Karma, so this might be a good time to look back and evaluate what we have done so far. The focus on this page will be on things that can be improved and possible future directions we could explore.
+Contents
+1
+Issues in the Current Incarnation of Karma
+2
+Generating Lessons
+2.1
+Base layer
+2.2
+Higher layer
+2.3
+Output from the Generator
+2.4
+CSS Positioning
+3
+Comparison with the eXe framework
+4
+Git Repositories
+Issues in the Current Incarnation of Karma
+If you look at the current Karma activities you'll see a lot of duplication:
+a number of lessons are variations on a theme. E.g. the 2_English_Vocabulary* lessons are all very similar. The only thing that varies are the pictures, positions and words.
+the html of a lot of lessons is very similar except for the title and maybe one or two JavaScript libraries. Html lacks the abstraction mechanisms to remove this duplication.
+You get very few errors if there is something wrong in your html (e.g. missing DOCTYPE declaration or wrong path to a JavaScript or CSS file). This is very painful if you are not familiar with web development.
+CSS is a big pain for layouts if you want to be able to resize them (CSS is ok if you only use absolute positioning).
+Generating Lessons
+Most of these issues can be alleviated if we generate html, css and (part of) the JavaScript from a higher level description.
+I would propose a stratified design with two layers.
+Base layer
+At the lowest level you would have a description language embedded in Python. This approach of embedding a language in Python is also used by SCons (www.scons.org), a replacement for Make. I have very good experience with it except for the speed in large projects (which is not a concern for us).
+To give you an idea of what such a description could look like:
+lesson_title('My lesson')
+ java_script('jQuery')
+ java_script('jQuery.UI')
+ java_script('karma')
+ #...
+ # Some code to configure header and footer
+ #...
+ css('JQuery.UI')
+ #...
+ for img in files_in('assets/images'): karma_preload(img)
+ #...
+ div(id='div1', left=10, top=20, width=30, height=40)
+ #...
+The base layer provides a number of primitives like: lesson_title, java_script, css,... You can combine and abstract them using the mechanisms built into Python.
+Notice that in the above description there is no mention of the specific version nor location of the javascript files. We can e.g. easily switch between minimized/non-minimized versions at generation time.
+Since it is embedded in Python, we can use the full power of Python (e.g. the for loop over all images in the assets/image directory).
+You can develop your complete lesson on this layer if you want to.
+Notice that you still have to write the logic of your lesson in JavaScript (what is now in lesson.js) and can still style your lesson with CSS (lesson.css).
+For many lessons a couple of divs in the body of the html suffice; the rest can be done in JavaScript. If you need more complex html you can use the markup library to generate html from Python or include the contents of an html file in the generated html.
+Higher layer
+On top of the base layer you can create a template lesson. E.g. a generic multiple choice quiz. Everything that is generic you put here (generic CSS and JavaScript code) and a small amount of Python code to read in a configuration file (xml, json) containing the questions and their answers.
+For the layout, one of the requests I got from the team here is a way to visually lay out the divs, because CSS is so difficult to work with (I agree). One way to do this is to make a small layout editor that runs in the browser and that generates the div part of the base layer description above.
+Similarly you can make a GUI where you can just check some checkboxes for which JavaScript and CSS files you want for your lessons and which assets you want Karma to preload.
+Output from the Generator
+The generator would generate:
+a (big part of) the html. Everything in the <head> part can be generated. The header and footer can be generated (other deployments than OLEN can easily plug in another header/footer). The divs in the body can be generated.
+a javascript file that contains a call to the Karma constructor to tell Karma about the assets that need to be preloaded
+a css file that contains the positions of the divs.
+optionally it can copy some js files (e.g. when it is a template lesson)
+it can do some of the things our current deployment script does. I am not familiar with it, but I imagine it does things like adjust paths, minimize js files, share resources between lessons, etc. The advantage would be that it doesn't have to grovel through the html files to adjust paths, but starts from the python description.
+CSS Positioning
+I would simplify our life and go for a fixed resolution (1200x900) and absolute positioning in CSS. The positioning of the elements would be done in the CSS editor, so at generation time we can always scale all coordinates with a fixed scale factor (flash does a similar thing).
+Comparison with the eXe framework
+Mike Dawson is using it in Afghanistan and he seems quite happy with it. There are some similarities and differences to the approach above (called KarmaNT below):
+we both have a higher (than html) level description of a lesson.
+we both have support for template lessons.
+we both generate (part of) the html, css, js.
+eXe is very focussed on the GUI part and is lacking the clear lowest layer that KarmaNT has. In my experience that is a big drawback (e.g. in VisualWorks you have a GUI to define GUIs, but the base layer is not really well designed and documented which leads to big problems when you want to reuse or generate parts of GUIs from code instead of using the provided GUI). A stratified design is much more robust.
+the GUI is a bit off-putting, with non-standard controls and lots of superfluous controls (probably due to XUL). You probably get used to it, but my first impression was not very positive. I'm not sure though that our GUI will be much better.
+eXe is quite big and I'm not sure it would be easy to tailor it to our specific needs. I envision something much smaller for KarmaNT.
+eXe is more mature and plugs into a number of other tools (IMS, SCORM,...)
+Git Repositories
+http://github.com/pg42/karma-generator
+: a simple generator for a lesson, with an example of a template lesson
+http://github.com/pg42/karma-editor
+: a sketch of a gui to edit karma lessons

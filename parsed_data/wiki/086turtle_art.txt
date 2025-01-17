@@ -1,0 +1,277 @@
+Title: 0.86/Turtle Art
+URL: https://wiki.sugarlabs.org/go/0.86/Turtle_Art
+--------------------------------------------------------------------------------
+Turtle Art
+Contents
+1
+Introduction
+2
+What is new for users
+3
+What is new for developers
+4
+Internationalization (i18n) and Localization (l10n)
+5
+Compatibility
+6
+Detailed changes
+7
+Open tickets
+8
+Credits
+Introduction
+Turtle Art is an activity with a Logo-inspired graphical "turtle" that draws colorful art based on snap-together visual programming elements.
+Turtle Art is intended to be a stepping stone to the Logo programming language, but there are many restrictions compared to Logo. (Only numeric global variables and stack items are available, no lists or other data-structures. The conditionals and some of the functions only take constants or variables, not expressions. Limited screen real-estate makes building large programs unfeasible.) However, you can export your Turtle Art creations to Berkley Logo. The sensor-enabled version of Turtle Art also has a facility for sensor input, so, for example, you can move the Turtle based upon sound volume or pitch.
+Turtle Art is in the same tradition as Etoys, Scratch, Lego Mindstorms™, and Lego Microworlds™.
+Turtle Art is used extensively in Sugar deployments and numerous materials for support in the classroom have been developed. Of course, since Turtle Art is a Logo derivative, many of the classic Logo exercises are well suited for engaging students in Turtle Art. For example, Bill Kerr has been blogging about the experiences of his students trying to tackle Barry Newell worksheet of 40 geometric shapes to be rendered using turtle graphics.
+More Info:
+Turtle Art Sugar Activity
+homepage
+Turtle Art gallery  (See
+[1]
+)
+Turtle Art Manual (See
+[2]
+)
+Turtle Art teacher guides from Uruguay (See
+[3]
+)
+Turtle Art teacher guides from Peru (See
+[4]
+)
+Turtle Art student guide (See
+[5]
+)
+Tony Forster blog on Turtle Art (See
+[6]
+)
+Bill Kerr blog on Turtle Art (See
+[7]
+)
+Barry Newell worksheet (See
+[8]
+)
+What is new for users
+The most visible change is the incorporation of the new Sugar Toolbar design.
+Turtle Art v65 with the 0.86 toolbar design has the project buttons: Hide Palette, Hide Blocks, Erase, Run, Step, Debug, and Stop Buttons, and four submenus
+The activity toolbar contains the Keep Button, Snapshot Button, Save to HTML Button, Save to Logo Button, Save as Image Button, and Load Python Code Button
+The edit toolbar contains the Copy and Paste Buttons
+The view toolbar contains the Fullscreen Button
+The help toolbar includes the Sample-Projects Button and hover help
+File sharing of Turtle Art projects from the Journal works between Sugar "buddies"; but only through a local connection, i.e., Salut (See
+Development_Team/Release/Releases/Sucrose/0.84#File_transfer
+)
+Minor bugs and feature changes include:
+73
+raise status flag when catching overflow error
+clean up of de, it, fr, es artwork
+fixed bug related to blocks running off the left edge
+cleaned up command-line code
+72
+cleaned up code for pre-0.86 palettes
+fixed keyboard shortcut bug in pre-0.86 palettes
+fixed problem with int(None) in unselect
+fixed problem with int(float) in unselect
+fixed fence-post problem with searching off the end of blocks
+work-around Rainbow problem with tmpfile
+71
+updated fr translations
+more sample Python code
+limiting abs(number) to max of 1000000 to prevent OverflowErrors
+70
+new translations/artwork for vi, it, fr
+added linewrap to help label (with rgs)
+added label to Help toolbar (to work around bug with small displays)
+caught some exceptions that prevented TA from running outside of Sugar
+fixed bug preventing simple save to HTML for pre-086 systems
+added missing icon for Save from Journal
+69
+chmod +x svg factory
+added missing import gettext from talogo.py
+renamed xo-man to xo-child
+caught missing attribute when running from outside of Sugar
+new translations/artwork for de, fr, es, it
+added translator comments
+fixed several bugs in export to Logo code
+68
+made case consistent on tool tips
+fixed bug re i18n in debug panel
+new artwork for es and fr
+fixed some problems with svg factory
+fixed bug in Export HTML
+fixed naming problem with all save_as functions
+fixed bug in Export Logo in regard to start block
+67
+added mime-type icon
+changed keyboard shortcuts to use Ctrl instead of Alt as per guidelines
+fixed bug re wait time (now in seconds)
+fixed problem with fractional wait times
+fixed i18n problem with labels in hover help
+reorganization of extras palette
+fixed problem of empty file with "Save as HTML" (saving screen capture)
+66
+fixed bug preventing launch on (0.82-0.84)
+work around Rainbow problem with Save as image
+fixed bug re activate Stop Button on launch (thanks to rgs)
+added open from journal button (with rgs)
+fixed bug re Erase Button (hides status blocks)
+cleaned up some broken sample code
+65
+fixed problem with View Toolbar
+moved Samples button to Help Toolbar
+64
+major refactoring for new toolbar design
+stop sign turns off after execution is finished
+added preliminary support for mg and ta
+moved hover help to help toolbar
+adjusted artwork on Turtle palette
+63
+more sample programs
+consolidated samples into one directory
+fixed mask bug that prevented palette hiding
+62
+first pass at hover help support (thanks Raul)
+put samples button, keep button on project toolbar
+fixed journal icons associated with html, python, logo
+improved compatibility with old Sugar builds
+images centered under turtle
+text vertically centered under turtle
+pop blocks snap into boxes
+improved masks for fewer block-selection errors
+61
+fixed es translation
+fixed problem with save/load on old systems
+60
+fixed sharing bug
+began work on 701 backward compatibility
+added more debugging code
+59
+fixed leading bug for OLPC XO portfolio
+enabled box to hold strings and journal objects
+58
+fixed unicode string compare in equal block
+fixed journal description bug introduced in v55
+fixed misaligned myfunc block problem
+57
+lots of artwork clean up
+elimination of lock block
+more dead key clean ups
+truncated strings
+56
+more dead key cleanup
+empty (undefined) box error message
+55
+dead key workaround
+54
+debug button
+no more decimals by default for print
+53
+es updates
+52
+first attempt at fixing the mimetypes
+default behavior of tamyblock.py is to draw a dotted line
+51
+caught ISO_Level3_Shift problem on OLPC XO keyboard
+50
+fixed some problems with taexportlogo
+cleaned up save/load icons
+print uses title for Journal objects
+cleaned up movie window destroy code
+more consistent template management internally
+support of a sort for show in taexporthtml
+49
+fixed character input bug
+48
+reworking of media blocks
+json cleanup
+What is new for developers
+The good news is that contributions are coming in from multiple sources. In particular, many thanks to Raúl Gutiérrez Segalés, who has contributed many patches. Raúl and I are working on a roadmap for a major refactoring for 0.88 which will include a block factory--a more object-oriented approach that should facilitate a more decentralized development approach.
+Internationalization (i18n) and Localization (l10n)
+We now have support for:
+mg
+ta
+Note:
+The artwork will be reworked once the translation team completes its work.
+Compatibility
+Compatible with all versions of Sugar although some functionality is lost with pre-0.82 versions.
+Detailed changes
+Version 71
+#893
+Show multimedia tile to support text formats
+#490
+Turtle Art should close video window properly
+#343
+Turtle Art doesn't start on amd64 due to 32bit alsaaudio.so in bundle
+#389
+Turtle Art with sensors needs special alsaaudio.so on XO
+#451
+Rainbow problem copying module from Journal to data directory
+#590
+Turtle Art user-defined block feedback
+#672
+Export picture as pdf or png
+#774
+Keep Error: json.encode() does not exist
+#883
+TAPortfolio fails to keep the current project
+#894
+Set scale is done in the object chooser tile should be in show tile?
+#1054
+TA Text input brick, text should be right aligned (or keep cursor in view)
+#1056
+TA showing Journal object (image) should be centered and rotated
+#1084
+Usability enhancements for Turtle Art
+#1186
+turtle art variables are not being saved
+#1205
+Turtle Art not starting
+#1269
+Strings in turtleart-activity.po in Fructose 0.84 need to have comments/notations for terms that should not be translated
+#1290
+Turtle Art is using <Ctrl><Shift>+Q for Quit, should be <Ctrl>+Q
+#1331
+Rainbow problem with Turtle Art save image
+#127
+Turtle Art: Demo images not centered when first loaded
+#241
+[portfolio] slide titles, stack labels and variable names do not truncate
+#549
+Turtle Art, implement canvas scrollbars
+#1288
+Key accelerators are all <Alt>, HIG specifies <Ctrl> is the default modifier
+#1073
+Units of wait brick smaller than seconds
+#1424
+Long help strings can't be seen at all
+#1425
+Should the 'Hide blocks' button hide the blocks palette as well?
+#1426
+lots of missing strings for spanish (probably for all other languages)
+#1455
+int overflow crashes Turtle Art
+Open tickets
+#472
+Remove unexpected 'save/load' tab from toolbar
+#489
+Turtle Art text entry should use Entry widget
+#673
+Logo program should be displayable in the document View Source
+#1057
+Turtle Art feature to add support for "pages"
+#1188
+Load samples from turtleart.org
+#1203
+Rebase Turtle Art graphics on Cairo
+#155
+Turtle Art with Sensors has different requirements for non-XO hardware
+#491
+Turtle Art sharing needs new logic
+#548
+Turtle Art: read and write to text file
+#552
+Turtle art: reinstate sensor input
+Credits
+Walter Bender and Raúl Gutiérrez Segalés (with help from Simon Schampijer)
+Especially helpful community feedback from Tony Forster and Bill Kerr
+Brian Silverman is the first author of Turtle Art

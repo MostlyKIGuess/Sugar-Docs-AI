@@ -1,0 +1,36 @@
+Title: Karma/Anti-conventions
+URL: https://wiki.sugarlabs.org/go/Karma/Anti-conventions
+--------------------------------------------------------------------------------
+Contents
+1
+Not closing <img /> or <meta /> tags
+2
+Using document.write()
+3
+Manually constructing an html sequence rather than passing a string
+4
+Putting style information inline
+5
+Mixing naming conventions, like camelCase and not_camel_case
+Not closing <img /> or <meta /> tags
+You can usually get away with not closing these tags but they could cause weird rendering of elements that follow them. If you don't close <img>, the browser might think that any following elements are children rather than siblings and display them accordingly.
+Using document.write()
+Using document.write('<div>some html</div>');  instead of $('#parentDiv').html('<div> some html </div>');
+document.write is just bad in general. Some browsers don't like it (chromium) and in all browsers it freezes all other execution while it is writing to the page.
+Manually constructing an html sequence rather than passing a string
+The former is  not incorrect per se, but it is much, much slower than passing a string to .html(), at least according to the jQuery Cookbook.
+$parent = $(document.createElement('div'))
+                 .appendTo('#someId')
+                 .attr({id: 'foo', class: 'foobar baz'})
+                 .text('hello world');
+According to jQuery Cookbook this is much, much faster
+$parent = $('#someId').append($('<div id="foo" class="foobar baz">Hello World</div>'));
+FYI, prefixing cached jQuery reference w/ a "$" is a good practice.
+Putting style information inline
+<div style="display:none;"> </div>
+This makes the lesson much harder to debug as you have to look both in the .css file
+and at the html. As the lesson grows, which it will, it gets harder and harder to 
+pin down small bugs
+Mixing naming conventions, like camelCase and not_camel_case
+Neither of these naming conventions is the "correct" convention but mixing them makes it hard for others to work w/ your code
+<div id="topbtn_right"> would be better written as <div id="topBtnRight">

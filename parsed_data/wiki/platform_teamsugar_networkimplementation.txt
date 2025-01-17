@@ -1,0 +1,166 @@
+Title: Platform Team/Sugar Network/Implementation
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Sugar_Network/Implementation#sugar-network-client
+--------------------------------------------------------------------------------
+Sugar Network
+version cycle: |
+1.0
+|
+Contents
+1
+Summary
+2
+sugar-network-node
+3
+sugar-network-client
+4
+Usage
+5
+Sources
+6
+See Also
+7
+Getting involved
+Summary
+The design and implementation are tailored by the following intentions:
+Implementation should be as lightweight as possible to run all components on restricted hardware like XO laptops;
+Minimize any maintaining costs as much as possible to use Sugar Network in environments like offline schools where the only maintainers are not IT skilled people;
+Assume decentralization scheme when Sugar Network nodes might be started on different servers with further online or offline synchronization with the master.
+To accomplish above tasks, Sugar Network content is handled by the
+active-document
+library which uses Xapian to index content and simple filesystem storage (might be changed in the future).
+Sugar Network is represented by two major applications to run on Sugar Network node or users side:
+sugar-network-node
+, and,
+sugar-network-client
+.
+In both cases, applications provide RESTful
+API
+as the only access point for outer usage. Any end users related functionality implemented in Sugar Network
+clients
+on top of API providers.
+sugar-network-node
+This application provides Sugar Network server functionality. Such functionality served via the Sugar Network
+API
+.
+The configuration occurs based on several sources (sorted by applied order):
+/etc/sugar-network.conf
+system-wide configuration file,
+/etc/sugar-network.d
+directory with system-wide configuration files,
+~/.config/sugar-network/config
+user-wide configuration file.
+Command-line arguments (configuration names equal to command-line arguments),
+To get the current configuration, call:
+sugar-network-node config
+The major configuration options are:
+[node]
+# path to a directory to place server data
+data-root = /var/lib/sugar-network
+
+# hostname to listen for incomming connections and using for publicly visible urls
+host = 0.0.0.0
+
+# port number to listen incomming connections
+port = 8000
+Note that `sugar-network-node` needs OpenSSH-5.6 or later to verify users' credentials. If you don't have such version, enable `--trust-users` to disable any verification:
+[node]
+# switch off user credentials check; disabling this option will require OpenSSH-5.6 or later
+trust-users = True
+Assuming that configuration was set properly, use the following commands to manipulate `sugar-network-node` daemon:
+sugar-network-node start
+sugar-network-node stop
+sugar-network-node status
+To run application in the foreground instead of switching to daemon mode, call:
+sugar-network-node -F start
+Optionally (next releases might have WebUI as a separate application), it is possible to run
+Web UI
+client from the same process if the following configuration options were set:
+[webui]
+# start web application to serve Sugar Network content
+webui = True
+
+# hostname to bind
+webui-host = 0.0.0.0
+
+# address to listen for Web clients
+webui-port = 5000
+sugar-network-client
+This is a client side application. The reasons to have such client application (instead of direct using of server API) are the following:
+Provide access to local Sugar Network data (providing
+API
+from the localhost), e.g., from remote devices;
+Being not connected to a server, users might create postponed changes in Sugar Network content, they will be applied to a server right after getting connected;
+Having locally provided API as a proxy to a server, it is the only way (for now) to be authenticated on the server;
+Provide features that can't served from a servers, e.g., launching activities;
+Keeping in mind two previous points, run
+Web UI
+and
+Contributor Hub
+clients locally.
+The configuration occurs based on several sources (sorted by applied order):
+Command-line arguments (configuration names equal to command-line arguments),
+/etc/sweets.conf
+system-wide configuration file,
+/etc/sweets.d
+directory with system-wide configuration files,
+~/.config/sweets/config
+user-wide configuration file,
+~/.sugar/
+current-profile
+/sweets.conf
+configuration specific to a Sugar profile, this configuration file is being created by Sugar Integration code in Sugar and better to avoid setting these options directly.
+To get the current configuration, call:
+sugar-network-client config
+The major configuration options are:
+[client]
+# url to connect to Sugar Network server API
+api-url =
+http://api-testing.network.sugarlabs.org
+# port number to listen for incomming connections from IPC clients
+ipc-port = 5001
+
+# path to Contributor Hub site directory to serve from /hub location for IPC
+# clients to workaround lack of CORS for SSE while using Hub from file:// url
+hub-root = /usr/share/sugar-network/hub
+
+[webui]
+# start web application to serve Sugar Network content
+webui = False
+
+# hostname to bind
+webui-host = 127.0.0.1
+
+# address to listen for Web clients
+webui-port = 5000
+Contributor Hub
+is a pure JavaScript application, i.e., it is possible to open it in a Web browser from local files system. But since Server-sent events doesn't support Cross-origin resource sharing, Contributor Hub has to be provided from the same locations as API, here, from
+/hub
+path:
+http://localhost:5000/hub
+Usage
+Depending on use-case, follow one of existing
+usage scenarios
+.
+Sources
+Clone sources from Git repository:
+git clone
+git://git.sugarlabs.org/network/network.git
+--recurse-submodules
+See Also
+Sugar Network
+API
+.
+Distribution
+options
+.
+Sugar Network
+clients
+.
+Getting involved
+Submit
+your bug report or feature request.
+Browse our implementation
+discussions
+, and post your feedback. (You should
+join
+this discussion list in order to avoid having your messages postponed for moderation.)

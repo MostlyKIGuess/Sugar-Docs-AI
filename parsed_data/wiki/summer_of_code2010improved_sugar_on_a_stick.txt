@@ -1,0 +1,85 @@
+Title: Summer of Code/2010/Improved Sugar on a Stick
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2010/Improved_Sugar_on_a_Stick
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+What is your name? Sebastian Dziallas
+What is your email address? sebastian@when.com
+What is your Sugar Labs wiki username?
+sdz
+What is your IRC nickname? sdziallas
+What is your primary language? German; English and French work fine, though.
+Where are you located, and what hours do you tend to work? Located close to Hannover in Germany with variable work hours; might be in different time zones during the summer.
+Have you participated in an open-source project before?
+http://fedoraproject.org/wiki/User:Sdz
+http://wiki.sugarlabs.org/go/User:Sdz
+About your project
+What is the name of your project? Improving Sugar on a Stick
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+I'm going to work on improving the means of communication between users, like students or deployments, and developers to reach out for feedback and interact. One of the biggest issue Sugar on a Stick has been facing in recent times is a lack of specific feedback. This is especially of importance, since Sugar on a Stick unites the Sugar learning environment with the Fedora linux distribution. Different, not-entirely-aligned release cycles have been a source for issues.
+I plan to integrate features addressing this lack of feedback directly in the Sugar control panel -- or within a set of activities -- by making heavy use of various upstream projects. This proposal mentions a number of possible projects, which are all related, since they all partially address a certain area of these issues and would all have to be integrated in the control panel. This integration requires knowledge of Python, as well as of the general Sugar on a Stick build process using kickstart files.
+The project I will tackle first is integrating Fedora's
+Smolt
+initiative in Sugar. Since Sugar on a Stick relies on the underlying distribution, understanding what hardware our users are using is crucial, especially when it comes to understanding and eventually fixing issues. By integrating this functionality, the process of fixing hardware related issues will improve significantly, as users will not need to execute cryptic commands and upload logs anymore, but will rather be able to post a link to their profile.
+If, at this point, time should be left, I will continue to investigate on integrating upstream projects, such as
+ABRT
+into Sugar. Giving users a way of reporting crashes in Sugar automatically is another aspect, that will allow even less experienced students to contribute to the community by simply reporting their experiences with Sugar on a Stick.
+Finally, working on a
+PackageKit
+interface to provide users with an actual upgrade path using the distribution's RPM packages would be a huge improvement, compared to requiring users to wait for the next release and start from scratch each time. This is a key part of Sugar on a Stick's way to become actually deployable in masses. However, since time is scarce, this aspect will only be tackled if the other ideas are completed early.
+I'll be evaluating options of different options on file system usage for Sugar on a Stick, if time permits.
+This also includes work on the
+LiveUSB Creator
+, towards which this propsal might shift. Generally, I'll be trying to improve SoaS through providing, integrating or improving essential tools.
+What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week.
+While the timeline is set in stone here already, the projects I'll be working on may shift with regard to the proposal above.
+May 24 - 30: initial gathering of information, diving into python
+May 31 - June 6: creation of first mockups
+June 7 - 13: evaluation of upstream code base
+June 14 - 20: further python knowledge gathering
+June 21 - 27: attempt to integrate smolt into the control panel
+June 28 - July 4: coding
+July 5 - 11: evaluation of smolt integration, possible cleanups
+--- mid-terms ---
+July 12 - 18: creation of mockups for abrt
+July 19 - 25: evaluation of upstream code base
+July 26 - August 1: further python knowledge gathering
+August 2 - 8: attempt to integrate abrt into the control panel
+August 9 - 15: evaluation, possible cleanups and look at packagekit
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I've been part of the Sugar Labs community for probably two years now. However, my story starts earlier, when I was in high school and looking for an open source operating system. Somehow, I found my way into the Fedora Project and met people like Greg DeKoenigsberg. Suddenly I was not only leading the Fedora Education SIG, but also working on OLPC's operating system for the second G1G1 program. Later on, I worked on the Fedora Sugar Spin, which ultimately merged with the early Sugar on a Stick efforts, making the latter what it is now. I've been experienced several release cycles of open source software engineering thus far and am especially looking forward to work on coding over the summer.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Sugar on a Stick is a project that "enables children to reclaim computers". It's a project that reaches even further than other approaches seen before, as it significantly lowers the entry barrier for people to get their hands on their own personalized Sugar Learning Experience. By making this experience even better -- which is what this project aims for -- the general improvements arrive at one of Sugar's main ways of distribution. However, Sugar on a Stick is not just a distribution, it's a way of deploying Sugar. Successful pilots are taking off right now in Berlin and Boston and these kids there won't be the only ones to get their hands on the resulting improvements. Instead, the improvements will be included in the next iteration of Sugar on a Stick, enabling them to interact directly with our developers, resulting in a better product.
+Sebastian Dziallas
+Sugar on a Stick is a cornerstone of the Sugar Labs strategy for reaching out to parents, teachers, and children. It provides a simple way for someone to give Sugar a test drive and it provides a cost-effective way to initiate and expand Sugar-based deployments (every child can use Sugar even though not every child can yet be given a computer of their own). This GSoC project is addresses some critical aspects of the Sugar-on-a-Stick project: user feedback and documentation. Specifically, the integration of Smolt will greatly enhance our ability to monitor the conditions under which Sugar on a Stick is being used, capturing a detailed record that will be invaluable to the development and support teams as they strive to make the project both more far reaching and robust. While it is not glamorous, it is critical to our being able to sustain and support Sugar on the variety of hardware found in the field.
+Walter Bender
+Sugar on a Stick is a bridge between the Fedora and Sugar communities as well as other upstream communities. Increasing the ability for the users to work with both projects through hardware profiles and issue reporting is going to be a significant benefit for both projects. Integration of upstream projects within the Sugar environment whether it be in the Control Panel or as Activities are also going ensure good compatibilty within the projects. The reuse of code allows provisioning of  advanced features within Sugar quickly and allows the Sugar community to easily contribute upstream to the Fedora community in testing and bug reporting while reuse of code and functions within the upstream community. Integration of Smolt, ABRT and PackageKit will provide advanced functionality in Sugar while allowing the Sugar community to easily contribute to upstream communities for the benefit to both.
+Peter Robinson
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+I've been leading and coordinating technical support for a small XO deployment in a school here. While this might be an option, there are also other Sugar on a Stick related deployments currently going on in Berlin (Simon) and Boston (Mel) -- cooperating with these might be a good way of getting actual results from the field.
+What will you do if you get stuck on your project and your mentor isn't around?
+Generally, I'd either try to get in touch with people I know from previous work who are aware of the issues I'd be facing or simply attempt to ask for more help in the appropriate channels, such as #sugar for directly development related topics and #fedora-olpc or #fedora-devel for questions related to the distribution itself. In case the latter one wouldn't be successful, I'd send emails off to the mailing lists, asking for help with a specific issue.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+My blog is currently aggregated on both the Fedora Project's and Sugar Labs' planets, which is also where I'm going to post continuously about the state of my project and its progress. For more concrete questions, I'll be using the mailing list and IRC channels to interact directly with other developers.
+Miscellaneous
+We want to make sure that you can set up a development environment before the summer starts:
+click here
+What is your t-shirt size?
+L
+Describe a great learning experience you had as a child.
+The experience I'm going to describe didn't exactly in my childhood, but rather when I was growing up, actually not too long ago. It was when a good friend of mine gave me a Dr. Seuss book:
+"Oh, the Places you'll go"
+! It's one of the most wonderful books I ever read -- and so is its message. It encourages you to keep going, no matter what happens, no matter how hard or lonely the world may seem. Because in the end, you'll succeed -
+"Yes! You will, indeed! (98 and 3/4 percent guaranteed.)"
+. So you'll move mountains. And that's what I learned.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+I apparently like Mirabelles and Cloudberries.

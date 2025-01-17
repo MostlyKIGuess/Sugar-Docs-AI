@@ -1,0 +1,145 @@
+Title: Features/Remove Presence Service
+URL: https://wiki.sugarlabs.org/go/Features/Remove_Presence_Service
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+Connection management
+9.1
+Connecting to gabble
+9.2
+Falling back to salut
+10
+Buddy presence
+11
+Activity presence
+12
+Activity invitations
+13
+Friends
+14
+File transfer
+14.1
+User Experience
+14.2
+Dependencies
+14.3
+Contingency Plan
+14.4
+Documentation
+14.5
+Release Notes
+14.6
+Comments and Discussion
+Summary
+This features removes the need for the Presence Service, meaning that activities and the Shell need to interact directly with non-Sugar-specific services such as Telepathy.
+Owner
+Name:
+Tomeu Vizoso
+Email: tomeu.vizoso@collabora.co.uk
+Current status
+Targeted release: 0.90
+Last updated: 11/08/2010
+Percentage of completion: 100%
+Detailed Description
+The Presence Service caches all the information about presence and provides an API that is closer to what Sugar activities would need. But the presence information is of use only to the Shell, and the simpler API can be provided to activities with means of a library, so there's no real need for a session service that consumes memory, introduces one more layer of interprocess communication and makes activities only work inside the Sugar environment.
+This work moves the functionality that the Shell used into the Shell itself and moves the simpler API implementation into the sugar.presence package, and it does so without changing the python activity API.
+For Etoys, as it used the Presence Service API directly, a legacy PS will be provided until it is modified to use the telepathy APIs directly. Etoys developers have expressed interest on this work.
+Benefit to Sugar
+This is the first step in making the collaboration features of Sugar stable and maintainable. The immediate benefit will be that bugs in collaboration will get fixed (yay!) and the total memory footprint will be reduced.
+Benefits coming in future releases will be:
+simplify the code by using Telepathy-GLib via introspection instead of DBus calls,
+drop the custom extensions and move to standard specs that will allow activities work outside of Sugar,
+use other protocols such as ICQ, MSN, GSM, etc
+interact with services not specific to Sugar (ie. public Jabber servers),
+benefit from improvements to the Telepathy framework from other desktops such as Meego, GNOME and KDE.
+Scope
+sugar: move the presence code and connection management from the PS into neighborhood.py
+sugar-toolkit: move the code that sets up a shared activity from the PS into sugar.presence.activity
+sugar-presence-service: remove the connection management code, retrieve activity and contact information synchronously so it's inmediately available when the service is auto-activated.
+UI Design
+The user experience should be unchanged.
+How To Test
+We should test both the backend that uses a server (gabble) and the one that doesn't (salut). Sugar will use gabble if it can connect successfully to the server specified in the Network section in the control panel and will fall back to salut if it can't. You can verify which backend is running with the 'ps' command.
+Also, we should be testing both with other clients running 0.90 and with clients running earlier versions.
+Connection management
+Connecting to gabble
+Check that the server in the control panel is jabber.sugarlabs.org
+Wait a minute
+Check that telepathy-gabble is running
+Check that some buddies are shown in the neighborhood view
+Falling back to salut
+Change the server setting to a fake server name
+Check that telepathy-gabble isn't running
+Check that telepathy-salut is running
+Buddy presence
+Check that the neighborhood view displays the expected buddies depending on the backend in use and the server configured
+Check for the correct nicks and colors
+Check that buddies disappear from the view when they disconnect
+Activity presence
+Start an activity
+Share it in the neighborhood
+Check other buddies see the activity and the initiator next to it
+Make another instance join the activity
+Check both buddies appear around the activity
+Activity invitations
+Start an activity
+Invite another buddy to it
+Check that an alert appears in the top-left corner and an icon is added to the top level frame
+Check in the invited neighborhood view that the activity appears
+Join the activity by every of the available methods
+Check the activity is properly displayed in both neighborhood views
+Friends
+Make friend one of the buddies in the neighborhood view
+Check it appears in the friends view
+Power off the friend's machine
+Check it appears as being offline in the friends view
+Restart
+Check it appears as being offline in the friends view
+Start friend machine
+Check it appears as online
+File transfer
+Make sure you have a friend online
+From the journal, initiate a transfer
+Make the friend accept the transfer
+Check that the transfer completed successfully
+From the journal, initiate a transfer
+Make the friend accept the transfer
+Make the friend cancel the transfer
+Check the transfer was properly cancelled in both sides
+User Experience
+No changes.
+Dependencies
+Will add a dependency on
+telepathy-mission-control
+and will need updated versions of telepathy-gabble and telepathy-salut.
+Contingency Plan
+None necessary, revert to previous release behaviour. I will be able to invest 3-4 days per week until the 0.90 release making sure the feature is more stable than the code it replaces.
+Documentation
+http://wiki.sugarlabs.org/go/Development_Team/Collaboration_Refactoring
+http://wiki.sugarlabs.org/go/Development_Team/Presence_Service_Removal
+http://lists.sugarlabs.org/archive/sugar-devel/2010-August/025857.html
+http://lists.sugarlabs.org/archive/sugar-devel/2010-August/026076.html
+http://bugs.sugarlabs.org/ticket/416
+http://bugs.sugarlabs.org/ticket/2157
+http://bugs.sugarlabs.org/ticket/2158
+Release Notes
+The collaboration code in Sugar has been completely rewritten and the users should notice more reliability and stability. This work will be the base for improvements in the collaboration stack in future releases.
+Comments and Discussion
+See
+discussion tab for this feature

@@ -1,0 +1,95 @@
+Title: Features/3G Support
+URL: https://wiki.sugarlabs.org/go/Features/3G_Support#How_To_Test
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+Allow the Sugar user to connect to 3G networks.
+Owner
+Name:
+Martin Abente
+Email: mabente at paraguayeduca.org
+Current status
+Targeted release: 0.88
+Last updated: 11/01/2010
+Percentage of completion: 100%
+Detailed Description
+An icon will be added to the frame when a modem is connected, and the user will be able to connect and disconnect from there. Also, a section will be added to the control panel that will allow entering the details needed by the connection.
+Benefit to Sugar
+Users will be able to access internet in more situations. This has been requested from Uruguay and Paraguay.
+Scope
+We'll need to add an extension for the device icon and another extension for the control panel. Also will need to modify the SettingsManager so it provides the 3G settings that NetworkManager needs.
+UI Design
+How To Test
+Test Case 1 - Sim doesn't requires Pin/Puk configuration:
+Go to control panel, Modem Configuration
+Set username, password, number, and apn
+Save changes and restart
+Connect the device and wait until the device icon appears
+Click on connect item
+Check that connection information is ok.
+Click on disconnect item
+Test Case 2 - Sim  requires Pin/Puk configuration
+Go to control panel, Modem Configuration
+Set username, password, number, apn and a wrong Pin/Puk configuration
+Save changes and restart
+Connect the device and wait until the device icon appears
+Click on connect item- The system shows "Authentication Error" "Sim requires Pin/Puk configuration"
+Click over the message "Sim requires Pin/Puk configuration"
+Go to control panel, Modem Configuration and set a valid Pin/Puk configuration.
+Save changes and restart
+Click on connect item- The system shown the connection information
+Click on disconnect item
+User Experience
+Users will notice a new icon in the frame when a 3G modem is plugged and also will see a new control panel section where the connection settings can be entered.
+Dependencies
+None.
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+Network Manager Settings specs
+http://projects.gnome.org/NetworkManager/developers/settings-spec-07.html
+Network Manager Dbus interface specs
+http://projects.gnome.org/NetworkManager/developers/spec-07.html
+Release Notes
+Ticket with the working patch
+http://dev.sugarlabs.org/ticket/1622
+Another improvements
+Daniel Castelo
+:
+http://bugs.sugarlabs.org/ticket/1652
+(Connection Information)
+http://bugs.sugarlabs.org/ticket/1654
+(Pin/Puk Configuration)
+http://bugs.sugarlabs.org/ticket/1759
+(Show connection errors) - erikos finish this patch
+Comments and Discussion
+See
+discussion tab for this feature

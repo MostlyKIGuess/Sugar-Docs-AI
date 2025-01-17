@@ -1,0 +1,352 @@
+Title: Fedora 19
+URL: https://wiki.sugarlabs.org/go/Fedora_19#Finish_partitioning
+--------------------------------------------------------------------------------
+Fedora
+®
+version page:
+17
+|
+18
+|
+19
+|
+20
+|
+21
+|
+22
+|
+23
+|
+24
+|
+25
+|
+26
+|
+27
+|
+28
+|
+29
+|
+30
+|
+31
+|
+32
+|
+Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+some of the older versions listed here ^ may be security risks- for archive purposes only
+Contents
+1
+f19 live Respins
+2
+How to Upgrade to f19 from f18
+2.1
+Credits
+3
+Notes
+3.1
+Install multiple Desktops
+3.2
+gnome-classic-session
+3.3
+mate 1.6 released
+3.3.1
+netinstall in f19 has 1.6.0 Mate
+3.4
+Pxeboot Install
+3.4.1
+Credits
+4
+Soas-f19 Sugar on a Stick v9 Avocado
+4.1
+Notes
+4.2
+Soas-f19-img file
+4.2.1
+Make
+.img file
+with dd
+4.2.2
+Write
+.img file
+with dd
+4.2.3
+Download
+4.3
+SoaS VirtualBox Appliance
+4.3.1
+How to add your user to the vboxusers group
+5
+Install to HD or USB/SD
+6
+Install Sugar-desktop 0.98.7 in another f19 desktop
+6.1
+Activities
+7
+Fedora 19 anaconda installer
+7.1
+Older version used for this tutorial
+7.2
+Welcome
+7.3
+Main Hub
+7.4
+Date & Time
+7.5
+Installation Destination
+7.5.1
+full disk summary & options
+7.5.2
+Installation Options
+7.5.2.1
+Partition Scheme
+7.5.2.2
+Customize partition of the disks
+7.5.2.3
+Manual Partitioning
+7.6
+Customize
+7.6.1
+Finish partitioning
+7.7
+Begin Installation
+7.7.1
+gnome-initial-setup
+7.7.2
+initial-setup
+7.7.3
+Enter root password and user with password
+7.8
+References
+7.8.1
+Sugar Test Cases for #fedora-qa
+7.8.2
+sugar0.88 on CentOS 6
+7.8.3
+gnome.org Summer Of Code2013 ideas
+7.8.4
+Chromium
+7.8.5
+Security Enhanced Linux
+f19 live Respins
+updated f19 live.isos
+http://alt.fedoraproject.org/pub/alt/live-respins/
+How to Upgrade to f19 from f18
+1-)
+Fedora Instructions
+2-)Tested-install f18 from one of these files:
+Default gnome install - this is fully updated due to netinstall
+http://alt.fedoraproject.org/pub/fedora/linux/releases/18/Fedora/x86_64/iso/Fedora-18-x86_64-netinst.iso
+http://alt.fedoraproject.org/pub/fedora/linux/releases/18/Fedora/x86_64/iso/Fedora-18-x86_64-netinst.iso
+Update to f19
+Root terminal-2448 files
+yum distro-sync --releasever=19 --nogpgcheck --skip-broken
+Credits
+elad: (IRC GIMPNet #fedora-desktop)
+adamw: #fedora-qa   03/28/2013
+Notes
+Install multiple Desktops
+Updated 05/20/2013
+This screenshot is from an earlier Beta TC4 version
+Boot f19 Beta-RC4 Netinstall x86_64
+https://dl.fedoraproject.org/pub/alt/stage/19-Beta-RC4/Fedora/x86_64/iso/Fedora-19-Beta-x86_64-netinst.iso
+Scroll down in the left column to Basic Desktop and choose the 4 Desktops listed in the right column.
+gnome-classic-session
+gnome-classic-session
+is a reprise of a psudo gnome2 desktop.
+It is not installed by default in f19 desktop installs
+In root terminal of gnome3:
+# yum install gnome-classic-session
+Mate Desktop (see below) is another alternative to gnome3
+mate 1.6 released
+release announcement and features
+In root terminal of gnome3:
+# yum install @mate-desktop
+netinstall in f19 has 1.6.0 Mate
+Choose Mate in software selection in anaconda
+Pxeboot Install
+"boot Anaconda and install the system by direct kernel+initrd boot. That can be achieved either by using PXE boot or by booting the kernel directly in a virtual machine."
+PXE install booting in KVM
+A PXE boot menu
+Credits
+spstarr #fedora-qa
+Soas-f19 Sugar on a Stick v9 Avocado
+http://download.fedoraproject.org/pub/alt/releases/19/Spins/i386/Fedora-Live-SoaS-i686-19-1.iso
+Updated 8/16/2013
+A Sugar on a stick version for f19 that boots and installs from a live cd to USB/HD/VirtualBox
+sugar 0.98.8
+fedora-release f19
+Live CD boots
+directly into sugar
+(Name______) (>Next) (Color_____) (>Done)
+Goes to f3 Home screen
+For Details go to:
+Introduction to the Sugar Interface
+Notes
+"su" switches to root terminal [#____]
+Install with "liveinst" in root sugar terminal
+See Below
+Soas-f19-img file
+Install with liveinst - "Custom formatting of USB"
+4 GB EMTEC USB
+/ ext4 3 GB + swap 500 MB
+Root password=sugarroot
+user=sugar; password=sugaruser
+Sugar name and color not set
+Make
+.img file
+with dd
+NOTE
+Use mount command to confirm device name for mounted USB eg: /dev/sdb; /devsdc; /dev/sdd...etc
+This is very important as you can distroy your hard disk if you use the wrong device name.
+dd if=/dev/sdb of=Soas-f19-i686.img bs=2M
+1850+1 records in
+1850+1 records out
+3880452096 bytes (3.9 GB) copied, 230.609 s, 16.8 MB/s
+Write
+.img file
+with dd
+This can be repeated as many times as needed for multiple duplication of USB's
+dd if=Soas-f19-i686.img of=/dev/sdb bs=2M
+Download
+http://people.sugarlabs.org/Tgillard/Soas-f19-i686.img
+SoaS VirtualBox Appliance
+Download and import this file into VirtualBox:
+http://people.sugarlabs.org/Tgillard/fedora_live_SoaS_x86_524-DL.ova
+781M
+Root=sugarroot
+User= sugar password= sugaruser
+lightdm login will display
+sugar
+Blank Bar (enter login: sugaruser)
+sugar
+Boots to (Name_____) and (Color_____) then f3 Home sugar screen
+How to add your user to the vboxusers group
+Required to allow USB access to sugar
+(This cannot be done from gnome or KDE users)
+sudo usermod -a -G vboxusers username
+In this case it will be:
+sudo usermod -a -G vboxusers sugar
+Install to HD or USB/SD
+Installs with "liveinst"command in root; sugar-terminal
+(hidden in the bottom of the
+list view
+of the F3 home view as
+terminal
+)
+list view
+is in top right corner of top bar; click on the icon (stacked horizontal lines)
+Install Sugar-desktop 0.98.7 in another f19 desktop
+Root terminal #
+yum install @sugar-desktop sugar-emulator
+XO-hover menu: My Settings/ About my Computer
+F3 (home)
+F1 Network Neighbourhood with XO-hover menu activated.
+Activities
+Most activities work
+Not working:
+ruler      27
+https://bugzilla.redhat.com/show_bug.cgi?id=957194
+Memorize   43
+https://bugzilla.redhat.com/show_bug.cgi?id=957206
+Physics    11          cursor freezes
+Write      79          "failed to start"
+Fedora 19 anaconda installer
+Older version used for this tutorial
+No longer available to download
+This section needs to be updated for Alpha TC3
+--
+Satellit
+09:13, 29 March 2013 (EDT)
+http://kojipkgs.fedoraproject.org//work/tasks/2340/4912340/Fedora-19-Nightly-20130129.10-x86_64-Live-xfce.iso
+Boots fine and installs to VirtualBox
+Installs to USB HD from dd usb
+dd if=Fedora-19-Nightly-20130129.10-x86_64-Live-xfce.iso of=/dev/sd(x) bs=2M
+Use "mount" in terminal to see device name /dev/sd(x) x=b,c,d,,,
+Annotated screen-shots 01/31/2013
+Fedora-19-Nightly-20130129.10-x86_64-Live-xfce.iso
+NOTE this is a live install so there are less options on the main hub
+log in to wireless AP in while running live CD
+Values will be added to install
+Welcome
+check the box to set the keyboard to match your language selection if using non-uS keyboard
+Main Hub
+Date & Time
+NOTE: This function is now repeated in Gnome-initial-setup and initial-setup in f19 Alpha anaconda  04/25/2013
+Installation Destination
+full disk summary & options
+Installation Options
+==>
+For Multi-Disk Raid Setup Click Here
+Partition Scheme
+Customize partition of the disks
+Manual Partitioning
+Automatic selected
+Customize
+You can edit each partition for file type and label
+IF 2 or more disks were selected in "Installation Destination"
+Raid would be available
+(grub will be installed on the disk selected in set as boot device screen)
+Finish partitioning
+Begin Installation
+Enter root password
+(Back 2 times)
+Enter User and password  (In f19 Alpha anaconda 04/25/2013)
+(Back 2 times)
+Installing
+gnome-initial-setup
+screenshots
+initial-setup
+screenshots
+Enter root password and user with password
+click link ^ for details
+set Timezone; then as you are installing; enter root password and user with password in anaconda if installing gnome3 using the anaconda included in f19 Beta.
+gnome-initial-setup will then bypass these steps
+Do NOT enter
+user
+in anaconda if installing gnome3 using the anaconda included in builds prior to f19 Alpha.
+gnome-initial-setup will create the user.
+BUG:
+https://bugzilla.redhat.com/show_bug.cgi?id=929289
+If you enter a user in anaconda; you will have to create a 2nd user later.
+References
+f19 Alpha Release Criteria
+Anaconda
+new write up on Anaconda Installer
+https://fedoraproject.org/wiki/Anaconda/NewInstaller#Storage_workflow
+Rawhide Info
+Draft version 04/11/2013
+Bugs and feature requests
+Info on when and how to file a Bug
+Koji build Repo:
+http://kojipkgs.fedoraproject.org/mash/bleed/x86_64/
+Contains latest build .rpm files
+Package Maintainers:
+https://fedoraproject.org/wiki/Join_the_package_collection_maintainers?rd=PackageMaintainers/Join
+Testing secureboot with KVM:
+https://fedoraproject.org/wiki/Testing_secureboot_with_KVM
+Sugar Test Cases for #fedora-qa
+http://wiki.sugarlabs.org/go/Fedora_19-sugar_test_cases
+sugar0.88 on CentOS 6
+Early unsuccessful work to try to install sugar on CentOS
+Too many missing dependencies
+gnome.org Summer Of Code2013 ideas
+Chromium
+Fedora wiki page
+mozzila certutil (from irc):
+"i tried to import the cacert.org root, mainly for use in chrome
+http://code.google.com/p/chromium/wiki/LinuxCertManagement
+chrome uses mozilla's nss database, but for some reason that isn't shared with firefox, so just 
+importing in firefox doesn't work
+the trick is to set NSS_DEFAULT_DB_TYPE="sql" before running those commands from the chromium wiki page.
+chrome stores all the other certs somewhere else, though. the nss db was empty
+check your $home folder for .pki folder
+http://www.mozilla.org/projects/security/pki/nss/tools/certutil.html
+should also be a good read."
+Security Enhanced Linux
+SElinux
+Confining Users
+Managing Confined Services

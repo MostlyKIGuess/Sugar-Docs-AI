@@ -1,0 +1,149 @@
+Title: Platform Team/Package Management System/Getting started
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Package_Management_System/Getting_started
+--------------------------------------------------------------------------------
+Sweets introduction
+Aleksey
+has prepared a new distribution model for Sugar called
+Sweets
+, and asks about introducing it to non developers,
+#3249
+.
+Sorry, but the ticket was about
+Sweets Usage
+, not about
+Sweets Distribution
+.
+alsroot
+01:18, 3 December 2011 (EST)
+OK, good example of the confusion possible.  From
+Platform Team/Sweets
+, the assumption is made that,
+"It is important to stimulate users into becoming doers—to modify existing activities, and to share the results of their experiments with other people, viz., a distribution method should handle different variants of the same project.";
+so Sweets seems to be aimed at those about to graduate to the software sharing stage of Sugar learning.  Do you think that this stage can be assumed for someone who has not launched or loaded Sugar before?  (
+Someone
+, here, refers to a significant fraction of the population of beginning Sugar learners.)  To this goal, significant stimulation efforts seem to be focused on providing malleable software at the Activity level, so learners can discover the gratification of creating new 'code' products.  Sweets seems a bit advanced from that early stage.  Clearly, a, or
+the
+, goal is to lower the effort required for robust doer<->doer sharing. Seems like we need to advance by iteration with 'early adopters' and continue to eliminate all the 'hitches' and obstacles that discourage the vast majority of new users yet to become doers.  --
+FGrose
+22:49, 3 December 2011 (EST)
+From one side, it is original intention to make Sweets useful for 'early doers', e.g., instead "./setup.py dist_xo && run Browse && go ASLO and login there && upload your .xo" it is only "sweets commit". From another side, Sweets is only low level technical tool, PMS, with strong idea exactly to "It is important to stimulate users into becoming doers—to modify existing activities, and to share the results of their experiments with other people, viz., a distribution method should handle different variants of the same project.". And it is possible to create several frontends for different levels of 'early adopters' to make them doers. The one effort is might be undertaken within Peru pilot program, where it requires new application/activity for having "offline ASLO" (and this application/activity might be also stimulate people to become doers). --
+alsroot
+08:15, 5 December 2011 (EST)
+Could you [originally addressed to
+Inkyfingers
+] look at the documentation with the eye toward drafting an introductory posting and page for new non-technical users?  If you could outline, or outright draft, an introduction, it would be a great service to us (and we need to exploit your 'newness' before it rapidly expires, if it hasn't already.) and much appreciated!  --
+FGrose
+21:23, 2 December 2011 (EST)
+Much of the wiki documentation for Sweets is highly technical and aimed at Platform packagers.  This page,
+Platform Team/Infrastructure
+, with its graphics and short summary helped me grasp the big picture.  The problem is now to extract the essential minimum for a new interested learner to try this new technology.  It will take some effort and, no doubt, some iterations.  --
+FGrose
+21:43, 2 December 2011 (EST)
+Also look at:
+Sweets Installation
+satellit_
+9:03 2 December 2011 (PST)
+Sure. I will test Sweets on (Debian (kernel 2.6.32) n/w - wait for wheezy) or Mint 11 (n/w) or Mint 12 (kernel 3.0.~) and see what my notes look like. --
+Inkyfingers
+06:10, 3 December 2011 (EST) and edit --
+Inkyfingers
+10:45, 4 December 2011 (EST)
+Here is my log for fedora 16 gnome3-shell install of sweets-sugar:
+http://wiki.sugarlabs.org/go/Talk:Platform_Team/Guide/Sugar_via_Sweets#Installing_sweets-sugar_in_Fedora-16_gnome3-shell
+--
+satellit_
+8:03 3 December 2011 (PST)
+My introduction to the Package Management System might be a brief summary of these pages:
+These pages could be very roughly classified as
+overview
+,
+conceptual
+,
+technical
+,
+or
+Let's try it
+Introductory page, Sweets is a
+Package Management System
+Infrastructure
+This page describes the infrastructure map that the Platform Team provides.
+Architecture
+This guide covers basic Sweets concepts.
+Sweets Packaging
+,This guide describes how to prepare software projects for sweets.
+Sweets glossary
+Some useful terms.
+This guide describes how to run Sugar using Sugar via sweets
+Sugar via Sweets
+This guide describes how to use Sugar Labs' Packaging Management System
+Sweets Usage
+.
+Harmonic_Distribution
+is a systems approach to provide all  software tools.
+This page, and all its sub-pages, covers implementation of
+Sugar Network
+.
+These are overview and usage pages regarding the
+Sweets Distribution
+.
+These are technical pages regarding the
+Sweets Distribution
+.
+But that might not actually cover in detail, Sweets Usage. I do see a need to provide further entry level explanation of the difference between sweets and sweets distribution.
+I would put in a suggestion for the eventual removal of duplication between
+Sugar via Sweets
+and
+Sweets Usage
+. --
+Inkyfingers
+05:16, 28 June 2012 (EDT)
+Target Audience
+What sort of presentation to use?
+Features
+Just to record my first impressions, these three links got me up to speed....
+http://0install.net/why.html
+...
+http://packages.debian.org/wheezy/gnome-packagekit
+...
+Platform Team/Guide
+. Followed by
+sweets --help
+and
+man 0install
+Advantages
+- What are the advantages? Are we talking educational or productive?
+Benefits
+- What are the benefits?
+I find
+Sweets Distribution
+easier to use for Ubuntu' and its Derivatives (Adding an additional Repository to synaptic) as the packages are pre-configured, ready to use.
+Sugar via Sweets
+has a wider applicability to linux OS's but requires a more experienced user.
+satellit_
+7:17 4 December 2011 (PST)
+" For now, sweets knows only enough about the glucose dependencies to install them from native packages in Debian, Ubuntu, Fedora, Mandriva, openSUSE, and Gentoo."
+In terms of "Target Audience", currently Sweets has only one high-level entrance for non-doers for now:
+it is relatively simple (e.g., compared to jhbuild) to run any (within reasonable limits) Sugar Shell version,
+including the one that is in development, e.g., to help developers to test it,
+additionally, it can run Sugar Shell versions that are modified by doers, e.g., Dextrose,
+on any (see TODO) major GNU/Linux distribution.
+In this case, TODO:
+what major distros we have,
+test current Sweets there,
+make Sugar Shell launch as simply and obviously as possible for early adopters,
+add new entrance for non-doers, the way to run activities via Sweets (big task that requires special treatment).
+Perhaps the new web page could help to point the 'way in'. --
+Inkyfingers
+18:08, 9 January 2012 (EST)
+Explore further documentation
+Based on my limited experience of installing sweets on only two distros, Mint-12 and Debian, testing, Wheezy I have two possible suggestions for improved documentation.
+To write man sweets. I looked up man 0install and found it quite helpful. I liked the tone, style and layout. It seemed well balanced in delivering entry-level material at the start. Could a working start to man sweets be made by just replacing '0install' with 'sweets' in man 0install?
+Worked example / human testing page. Aim to actually encourage non-tech users to try installing sweets. A set of instructions covering only download, install and test one variant of sweets on any distro, in the form of an entry-level worked example. The text would aim to demonstrate just a few commands, including use of a few diagnostic commands if known to work on a partially installed sweets project. Try to flag up the point where a less experienced user should file a help enquiry. Include - how to generate a 'log', 'request-help-enquiry', or Bug report in order to report any difficulties or ask for help.
+This approach would hope to encourage testing and exploration by less experienced users. How this page is flagged up to those users is a different matter.
+With an entry level 'install page' to support
+Sugar via Sweets
+,
+Sweets Usage
+could be more focused on covering usage once sweets was up and running. --
+Inkyfingers
+17:51, 9 January 2012 (EST)

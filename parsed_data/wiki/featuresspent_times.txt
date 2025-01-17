@@ -1,0 +1,52 @@
+Title: Features/Spent Times
+URL: https://wiki.sugarlabs.org/go/Features/Spent_Times
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope and implementation
+7
+How to access this metadata
+8
+User Experience
+Summary
+Track and store the time (in seconds) spent on each activity, since the activity was started until it was closed.
+Owner
+Martin Abente Lahaye
+Manuel Quiñones.
+Current status
+Targeted release: 0.104
+Last updated: 04/09/14
+Percentage of completion: 100%
+Detailed Description
+This feature is a request from the Australian OLPC deployment, this information is used for reflection and statistics generation. Considering all the different efforts (XoVis, Harvest, etc) for reflecting students work, this feature can benefit all the other deployments.
+For this feature, "time" is defined as: the number of seconds for when the activity was active, since it was launched until it was closed. The activity is "active" when occupies the main screen, in other words, the time when the activity was in the background will not be accumulated.
+Each journal object will contain an array for spent times, for each time the entry was launch. This created a 1-to-1 relation between spent times and the current launches times. This way, the entry metadata can reflect not only "when" but also "for how long".
+Benefit to Sugar
+Improve the journal's reflection capabilities.
+Scope and implementation
+This feature is already implemented and working on Australian au1c images. The implementation requires a small modification to sugar-toolkit and sugar-toolkit-gtk3
+see initial implementation
+.
+The change consist in modifying the base Activity class, using the launch time timestamp in conjuction with "set_active" and "save" methods, to calculate and accumulate the seconds for when the activity was "active". The spent time is stored as a string of comma separated integers, each for each time the entry was launched. The new metadata array is called "spent_times".
+The scope of this feature is the time accumulation and metadata storage.
+How to access this metadata
+from sugar3.datastore import datastore
+
+entries, count = datastore.find(self._query())
+for entry in entries:
+    raw_data = entry.metadata.get('spent-times', None)
+
+    if raw_data is not None:
+        spent_times = map(int, raw_data.split(', '))
+User Experience
+The user experienced is untouched.

@@ -1,0 +1,18 @@
+Title: Activities/Toaster/Disc
+URL: https://wiki.sugarlabs.org/go/Activities/Toaster/Disc
+--------------------------------------------------------------------------------
+This
+email outlines
+some of the issues we will need to tackle.
+I've just checked in bin/wodim.9 (391876 bytes) from my Fedora 9 machine and bin/wodim.11 (391,876 bytes) from my Fedora 11 machine.  This may not be the way we go but it should allow basic functionality to begin testing.  Since Activities have no dependencies the Activity will have to provide our own solution in one form or another.
+Using the python library for
+http://docs.python.org/library/subprocess.html
+will be used to gather the feedback as wodim does it's work.
+http://pypi.python.org/pypi/burn/0.4.6
+also sounds quite interesting too, something to look into.
+Many thanks to Almir for the pointer to
+Burner On Fire
+, a pygtk GUI application that works with wodim. The code is available using Mercurial (hg) from
+bitbucket
+When installing burneronfire I had to `sudo yum install python-devel`, a small 1 MB download, then it installed OK.  Thanks to the folks in #sugar for the help.
+Let's add to this page as we find what questions & answers we need in developing this activity.

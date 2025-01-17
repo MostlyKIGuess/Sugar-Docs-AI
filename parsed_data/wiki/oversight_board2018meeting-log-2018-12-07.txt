@@ -1,0 +1,475 @@
+Title: Oversight Board/2018/meeting-log-2018-12-07
+URL: https://wiki.sugarlabs.org/go/Oversight_Board/2018/meeting-log-2018-12-07
+--------------------------------------------------------------------------------
+[06:48:48] -*- octamois nips in for meeting
+[07:00:38] --> sammy has joined #sugar-meeting
+[07:01:44] --> walterbender has joined #sugar-meeting
+[07:01:57] <sammy> Hello all
+[07:02:04] <walterbender> hi
+[07:02:19] <ifeanyi_> Hi all
+[07:02:39] <FreddieNGCI> hi
+[07:03:21] <sammy> I am also samsongoddy
+[07:04:52] <amaan_iqbal9> Hi everyone
+[07:07:07] <sammy> walterbender, i think it is 21:00 already
+[07:07:22] <perrie>  hi
+[07:08:37] <sammy> hello perrie
+[07:14:35] <walterbender> IT IS 20UTC now. But I forgot to take into account US changed its clocks last month
+[07:14:48] <sammy> Oh
+[07:14:57] <walterbender> So I am guessing many people will be coming in an hour :P
+[07:15:08] <walterbender> Mea cupla
+[07:15:13] <sammy> Yeah timezone issues
+[07:15:27] <sammy> WAT time hardly change
+[07:15:35] --> vipulgupta2048 has joined #sugar-meeting
+[07:17:24] <perrie> yeah
+[07:21:26] --> iqra has joined #sugar-meeting
+[07:24:27] <-- iqra has quit (Client Quit)
+[07:26:59] <Quozl> oh, i see, 20utc was half an hour ago, and 4pm us/eastern is in half an hour from now.
+[07:36:09] --> iqra has joined #sugar-meeting
+[07:39:06] <-- iqra has quit (Client Quit)
+[07:40:17] <-- samsongoddy has quit (Remote host closed the connection)
+[07:40:31] --> MrBIOS has joined #sugar-meeting
+[07:46:54] <walterbender> Quozl, yes... I messed up
+[07:47:29] <walterbender> We could do the India thing and be on the half hour... or the Nepal thing and do 15 minutes from India :P
+[07:49:47] -*- walterbender is looking forward to not being the one to run meetings
+[07:50:18] <MrBIOS> what got messed up?
+[07:52:27] <Quozl> copy and paste error, is all.
+[07:52:37] <Quozl> some country somewhere changed their offset to utc.
+[07:53:35] <walterbender> I was a ploy to see if I could get some SLOB members to show up :P
+[07:55:13] --> callaurrea has joined #sugar-meeting
+[07:55:27] <callaurrea> good afternoon
+[07:56:07] <walterbender> hi callaurrea
+[07:56:07] <sammy> hello callaurrea
+[07:56:57] <callaurrea> Good to be here
+[07:57:06] <callaurrea> early
+[07:57:13] <callaurrea> and no drama with irc
+[07:57:15] <callaurrea> :)
+[07:57:23] <sammy> Lol
+[07:57:28] <amaan_iqbal9> Yes, lol
+[07:57:39] <callaurrea> hehe
+[07:57:44] <callaurrea> I was nervous
+[07:57:46] <amaan_iqbal9> Many times I had faced the problem of IRC blocking me
+[07:57:49] <perrie> lol
+[07:58:34] <Quozl> the irc blocking may return, it depends on the war.
+[07:58:44] <MrBIOS> so far, so good. For now.
+[07:58:49] <Quozl> so work on your registration.
+[07:59:01] <Quozl> and get a good irc client that knows how to do registration.
+[07:59:07] <walterbender> I heard it is some guy in his bedroom in New Jersey.
+[07:59:21] <MrBIOS> Quozl: s/bedroom/parent’s basement/g
+[07:59:33] <Quozl> i heard it was a rogue ai.
+[07:59:34] <callaurrea> that explains it all
+[07:59:38] <MrBIOS> walterbender: , rather
+[07:59:42] <Quozl> one of those silly chatbots nobody needs.  ;-)
+[07:59:54] <walterbender> Well... we should get started
+[08:00:01] <amaan_iqbal9> Yup
+[08:00:13] -*- MrBIOS returns to lurking
+[08:00:34] <walterbender> welcome to the last SL oversight board meeting of 2019.
+[08:00:43] <walterbender> Any SLOB members here?
+[08:00:45] <MrBIOS> is samson joining?
+[08:00:45] <walterbender> callaurrea,
+[08:00:54] <sammy> i am here
+[08:01:00] <sammy> samsongoddy is sammy
+[08:01:05] <MrBIOS> ah ok :)
+[08:01:10] <walterbender> One more and we have a quorum
+[08:01:26] <walterbender> But we start regardless.
+[08:01:35] <walterbender> #topic GCI
+[08:01:44] <walterbender> We are entering the last week of GCI
+[08:01:57] <walterbender> It has been really busy from the start
+[08:02:27] <callaurrea> great
+[08:02:34] <ifeanyi_> I'm here
+[08:02:47] <walterbender> more than 500 students are participating
+[08:03:08] <Quozl> i think the quantity and quality of coding is substantially down from last year, and i think that is reflection of the number of mentors who haven't made comprehensive contributions.
+[08:03:33] <Quozl> but then, i'm only measuring pull requests and commits.  not the stuff that generates nothing.
+[08:04:03] <walterbender> I think is it less about mentoring and more about the tasks we made available
+[08:04:07] <MrBIOS> is there a comprehensive list of GCI tasks that have been worked on and completed, outside of the GCI web UI?
+[08:04:17] <MrBIOS> it seems there is a transparency problem on that front
+[08:04:30] <walterbender> That is a structural problem.
+[08:04:50] <walterbender> Not sure how to fix it
+[08:05:04] <Quozl> MrBIOS: as it is a competition, there is a private group that has access, and limited review of task definitions.  the more people who have access, the greater risk of solutions being sold in advance to students.
+[08:05:19] <walterbender> But I didn't get much input from devel when making the initial task list before the contest began
+[08:05:38] <MrBIOS> I understand.
+[08:05:40] <amaan_iqbal9> Its also a problem
+[08:05:41] <callaurrea> hmmm
+[08:06:06] <MrBIOS> when does GCI wrap up?
+[08:06:12] <walterbender> One week
+[08:06:34] <amaan_iqbal9> Around 5 days
+[08:06:54] <callaurrea> It would be good to organize the tasks in different buckets and see if we have data that support the most successful ones
+[08:06:55] <walterbender> The bottom line, somewhat correlated with Quozl 's observation, is that the areas where there are active mentors get the most attention.
+[08:07:06] <walterbender> Lots of work done on Music Blocks, for example
+[08:07:11] <walterbender> and Sugarizer.
+[08:07:12] <callaurrea> great
+[08:08:06] <MrBIOS> has any work been done on Core Sugar during GCI?
+[08:08:13] <walterbender> very little
+[08:09:01] <Quozl> none on Sugar, some metadata fixes for activities, some API changes.
+[08:09:11] <walterbender> To be honest, I got caught by the earlier dates of the program this year. Not a good match with my work schedule.
+[08:10:45] <Quozl> thanks for the update, i'm fine to move on, i don't see any need to make a decision on this topic.
+[08:11:01] <walterbender> Just fodder for next year.
+[08:11:08] <walterbender> #topic election
+[08:11:16] <walterbender> sammy, can you give a quick update?
+[08:11:22] <sammy> Sure
+[08:11:28] <sammy> Everything is going fine
+[08:11:30] <sammy> So far
+[08:11:39] <sammy> About 40 voters already
+[08:11:46] <walterbender> One more week?
+[08:11:48] <sammy> No complaints yet
+[08:12:03] <Quozl> 40 out of how many again?
+[08:12:11] <sammy> 165
+[08:12:15] <Quozl> erk
+[08:12:19] <callaurrea> sammy: can you please change the invitation to callaurrea@gmail.com
+[08:12:24] <Quozl> how many undeliverable bounces?
+[08:12:28] <callaurrea> I don't use the laptop account
+[08:12:29] <sammy> Okay sure
+[08:12:31] <walterbender> better than the usual turnout in the States
+[08:12:32] <sammy> I will
+[08:12:39] <callaurrea> thanks
+[08:12:48] <sammy> Two bounces
+[08:12:52] <sammy> Fixed all
+[08:12:54] <Quozl> walterbender: none of us would think the united states to be a reasonable representation of a democracy.  ;-)
+[08:13:23] --> ibiam has joined #sugar-meeting
+[08:13:40] <walterbender> anything else on this topic?
+[08:13:54] <Quozl> next year i'd hope for seven days instead of 14.
+[08:13:56] <MrBIOS> would it make sense to try and organize a Q&A session, on IRC, between now and the end of the election cycle?
+[08:14:10] <ibiam> Hi, sorry I'm late
+[08:14:14] <Quozl> MrBIOS: isn't this it?
+[08:14:19] <sammy> callaurrea, done
+[08:14:30] <callaurrea> MrBIOS: great ideas
+[08:14:39] <callaurrea> thanks, sammy
+[08:14:46] <MrBIOS> Quozl: I would argue it’s a better idea to have more isolation between open campaigning and that, but sure, it could be
+[08:14:51] <sammy> +1 MrBIOS
+[08:14:56] <walterbender> is ahmed idris here??? from Kano?
+[08:15:17] <MrBIOS> is there anyone in this room who hasn’t voted yet? ;)
+[08:15:29] <sammy> You mean, Kano, Nigeria
+[08:15:35] <sammy> ?
+[08:15:42] <walterbender> sammy, yes
+[08:16:15] <sammy> I don't think ahmed idris is here
+[08:16:35] <MrBIOS> was he supposed to be?
+[08:16:50] <walterbender> anything else re the election?
+[08:16:54] <sammy> No
+[08:17:00] <sammy> I think i am done
+[08:17:01] <walterbender> #topic local lab in Kano
+[08:17:28] <walterbender> I was approached by Ahmed about getting a local lab started in Kano, Nigeria
+[08:17:41] <walterbender> He had developers and educators and interest.
+[08:17:45] <sammy> In person?
+[08:17:49] <ibiam> Great
+[08:17:59] <walterbender> I was hoping he'd be able to join us today, but apparently not.
+[08:18:20] <walterbender> But I will ask him to introduce himself by email
+[08:18:40] <ifeanyi_> Why Kano? How many active SL members are there?
+[08:18:58] <MrBIOS> Good question. Kano is big, 9 million+
+[08:19:05] <sammy> Yes
+[08:19:05] <perrie> great!
+[08:19:15] <ibiam> ifeanyi_: and it's probably where he resides too
+[08:19:16] <sammy> One of the biggest in Nigeria
+[08:19:25] <walterbender> I will follow through... would be great.
+[08:19:37] <ibiam> Yeah
+[08:19:40] <walterbender> Maybe we can transition to marketing...
+[08:19:46] <sammy> sammy, i am interested in the conversation too
+[08:19:54] <walterbender> It seems we have several vectors for growth
+[08:20:02] <walterbender> things like Kano...
+[08:20:05] <MrBIOS> perhaps it would make sense for it to be pan-Nigeria?
+[08:20:13] <walterbender> and platforms like RPi
+[08:20:27] <walterbender> and OS work like Quozl has been doing on Ubuntu
+[08:20:44] <walterbender> MrBIOS, let's see what their interests are...
+[08:20:45] <ibiam> Yeahhh
+[08:20:51] <MrBIOS> of course. Too bad he didn’t make it
+[08:21:39] <sammy> RPi will be a good move
+[08:21:47] <sammy> As per marketing
+[08:22:00] <sammy> We need hardware to our software
+[08:22:07] <walterbender> It has been a halfhearted effort to date, but should be a serious on
+[08:22:11] <walterbender> one
+[08:22:25] <walterbender> We keep getting distracted
+[08:22:47] <walterbender> But focus has to be the order of the day for a small org with few devel resources
+[08:22:48] <Quozl> i make hardware, you could always ask my ceo.
+[08:23:41] <walterbender> Quozl, I haven't spoken to the Zamoras in a few years :P
+[08:23:53] <Quozl> i think for marketing a big problem we have is a web site made by volunteers or students that hasn't been provably successful; i suggested a/b testing in one of my github comments.
+[08:24:07] <Quozl> leah is my ceo.
+[08:24:22] <walterbender> Oh. I didn't know she was the CEO.
+[08:24:23] <ibiam> Quozl: Leah Saddle?
+[08:24:25] <walterbender> Nice
+[08:24:34] <sammy> Oh i spoke with her some months back
+[08:25:07] <walterbender> I will reach out to her because it is kind of silly we have zero direct communication with our biggest user group
+[08:25:53] <Quozl> for the web site it isn't enough to say "let's add a video", the question should be does it increase the time on page or not.
+[08:26:32] <MrBIOS> yeah, low quality content is a problem
+[08:26:41] <MrBIOS> it deserves some attention
+[08:26:47] <sammy> Most of the stuff on the site was basically an upgrade of content from the old one
+[08:26:59] <walterbender> is that the right metric? or some action by the visitor to do something, e.g., contact us, download something...
+[08:27:01] <Quozl> i know we have stock of hardware, i just won't tell you how much.  contact leah.  you'll need to give a shipping address for quotation.
+[08:27:33] <sammy> I am thinking about getting an NL3
+[08:28:20] <MrBIOS> the PineBook is also something worth looking at, for bundling Sugar
+[08:28:23] <Quozl> just don't think of olpc as a web store.  ;-)
+[08:29:14] <walterbender> we should survey the possible platforms... haven't done that in a while...
+[08:29:24] <MrBIOS> RPi3+ is much more performant than its ancestors
+[08:29:42] <walterbender> but making it easy to opt in to Sugar on a platform should be our approach
+[08:29:59] <ibiam> Yeah
+[08:30:01] <walterbender> Sugar on RPi3 is more than adequate performance-wise
+[08:30:22] <Quozl> MrBIOS: selling preloaded microSD cards with Sugar would be a start, but nobody has offered to do so yet.
+[08:30:27] <MrBIOS> I’ll do it
+[08:30:28] <walterbender> we need someone(s) dedicated to each platfrom
+[08:30:30] <callaurrea> I also did not know Leah is the CEO
+[08:31:03] <walterbender> maybe time for a new org chart for Sugar Labs
+[08:31:04] <MrBIOS> I already buy SD cards in bulk for my side business.
+[08:31:33] <callaurrea> walterbender: have you been in touch with Paraguay?
+[08:31:39] -*- walterbender has thousands of USB drives we can hand out for free with Sugar on a Stick
+[08:31:45] <sammy> What about Rwanda
+[08:31:57] <callaurrea> Miguel Martin is the Secretary of Tech in Paraguay
+[08:31:58] <walterbender> callaurrea, not for a few months.
+[08:32:24] <callaurrea> And Cecilia is also an advisor to the president
+[08:32:36] <walterbender> :)
+[08:32:41] <callaurrea> I just saw news about a new Fab Lab
+[08:32:49] <ibiam> Yeah I did too
+[08:32:50] <callaurrea> we should connect with them
+[08:32:53] <walterbender> yes... I saw that
+[08:33:06] <callaurrea> I did meet with Miguel
+[08:33:09] <callaurrea> recently
+[08:33:19] <MrBIOS> to what extent are XO’s or Sugar actually in use in Paraguay these days?
+[08:33:22] -*- MrBIOS has no clue
+[08:33:23] <walterbender> I was hoping we'd get some GCI input from PY. That was when Pacita and I last spoke
+[08:33:37] --> amaan_iqbal9_ has joined #sugar-meeting
+[08:33:37] <walterbender> MrBIOS, they still use Sugar
+[08:33:43] <-- amaan_iqbal9 has quit (Ping timeout: 256 seconds)
+[08:33:43] <callaurrea> let's coordinate a meeting with Pacita and Cecilia
+[08:33:47] <walterbender> ok
+[08:33:54] <callaurrea> I will reach out
+[08:33:59] <callaurrea> and cc you
+[08:34:28] <walterbender> anyway, I think organizing around platforms and places might work for us...
+[08:34:39] <MrBIOS> yes, and the barrier to entry for that is low
+[08:34:41] <walterbender> and have a regular report of each
+[08:34:54] <walterbender> focus
+[08:35:24] <amaan_iqbal9_> Any suggestions for the website?
+[08:35:35] <sammy> Revise content
+[08:35:40] <walterbender> Revert back to the one we had in 2008?
+[08:35:49] <MrBIOS> it requires too much scrolling, and there is no actual explanation of what Sugar is and why you would want to use it
+[08:36:00] <MrBIOS> no, but some of that content is frankly of better quality, copy-wise
+[08:36:18] <MrBIOS> so I’d say bring the copy back, at the very least, and having it be in a CMS is also highly advisable.
+[08:36:25] <Quozl> i suggest stopping all style and appearance changes until there is a/b testing of content happening.
+[08:36:36] <walterbender> Quozl, +1
+[08:36:48] <MrBIOS> I would recommend Django, since it’s python based, or Wagtail, which is Django-based
+[08:36:52] <amaan_iqbal9_> Where can I find the 2008 website BTW?
+[08:36:53] <MrBIOS> and very widely used
+[08:36:55] <perrie> +1 Quozl
+[08:36:58] <MrBIOS> amaan_iqbal9_: archive.org
+[08:36:59] <Quozl> i suggest wordpress.  even more widely used.
+[08:37:03] <amaan_iqbal9_> Quozl +1
+[08:37:13] <MrBIOS> wordpress also has a much larger attack surface
+[08:37:18] <Quozl> yes.  ;-)
+[08:37:28] <walterbender> how about github.io
+[08:37:29] <MrBIOS> it’s a bit of a security nightmare
+[08:37:39] <walterbender> that would force us to keep it simple
+[08:37:44] <amaan_iqbal9_> We should think of collaborators from that domain too
+[08:37:54] <sammy> GitHub.io uses the jekyll
+[08:37:57] <sammy> I think
+[08:37:57] <Quozl> still, choice of tool or cms is not relevant.  we need content and testing.
+[08:38:05] <sammy> Which SL.org uses
+[08:38:17] <Quozl> the choice of tool or cms depends on who offers to maintain the content.
+[08:38:33] <sammy> yes, content is what is important
+[08:38:41] <Quozl> ultimately, the board is responsible for the content.
+[08:38:58] <Quozl> if the board can't get anyone to do it, the board must do it.
+[08:39:14] <amaan_iqbal9_> Hmm
+[08:39:32] -*- walterbender wrote all the original content... but lost interest in all the graphics fussing about.
+[08:39:33] <MrBIOS> amaan_iqbal9_: https://web.archive.org/web/20141221112218/http://sugarlabs.org/
+[08:39:36] <ifeanyi_> I agree completely with @Quozl, it wouldn't matter what tool/platform is used if the content is engaging enough and the CTAs are pointing correctly for a better user experience/interaction
+[08:39:46] <MrBIOS> you can scrub back and forth through the history of sugarlabs.org at the top of that page
+[08:40:05] <MrBIOS> the engagement on our website is awful, people leave after a minute and a half
+[08:40:12] <MrBIOS> that should be a point of concern
+[08:40:26] <amaan_iqbal9_> +1
+[08:40:30] <ifeanyi_> It's certainly a huge point of concern
+[08:40:38] <Quozl> they see a web site made by a bunch of students.  ;-)
+[08:40:40] <walterbender> not if they leave to download SoaS :P
+[08:40:55] <Quozl> if the download links operated on page, they wouldn't leave as they downloaded.
+[08:40:58] <MrBIOS> walterbender: that download page is pretty awful too, on the wiki
+[08:41:16] <Quozl> yes, the wiki looks like it was cobbled together by wiki editors.
+[08:41:17] <ifeanyi_> We also need to keep track of where users are coming from and where they go to after interacting with the website
+[08:41:19] <walterbender> yes... that was tongue in cheek
+[08:41:23] <MrBIOS> correct, ifeanyi_
+[08:41:25] <MrBIOS> Take a look at https://web.archive.org/web/20141223090335/http://www.sugarlabs.org/index.php?template=gallery&page=gallery
+[08:41:31] <MrBIOS> as far as I know, we have nothing like that on the replacement website
+[08:42:33] <amaan_iqbal9_> Thanks for the link, MrBIOS
+[08:42:34] <walterbender> the original website was not done by "a bunch of students"
+[08:42:35] <Quozl> i don't hear much of a consensus except "content".
+[08:42:56] <walterbender> Quozl, not sure what we as asked to agree on
+[08:43:01] <MrBIOS> I would personally argue that restoring old content that is still relevant, within the context of the new web site design, can and should be done
+[08:43:14] <MrBIOS> it’s the easiest move
+[08:43:51] <perrie> exactly a new website design
+[08:44:02] <MrBIOS> no, not a new design.
+[08:44:14] <Quozl> no, not a new design.
+[08:44:14] <amaan_iqbal9_> Yup, for now I agree with MrBIOS
+[08:44:28] <MrBIOS> I do think the navigation on the existing website kinda sucks, too, though, which contributes to the very short visit times
+[08:44:39] <MrBIOS> but that’s neither here not there, because the content is weak
+[08:44:43] <ifeanyi_> @walterbender: hinted about the graphics as well, that can immediately discourage interaction on a website (it all falls under content).
+[08:45:09] <Quozl> and we can't just guess what the right content is, it must be tested.
+[08:45:38] <walterbender> how do we set up an A-B test?
+[08:45:45] <MrBIOS> walterbender: CMS makes this trivial
+[08:45:46] <perrie> restucturing should come after the A-B
+[08:45:46] <walterbender> randomize where people land?
+[08:45:47] <Quozl> and with random strangers coming to our web site, the only option is a-b testing.
+[08:45:48] <perrie> yeah
+[08:45:54] <ifeanyi_> Testing is the first thing to do now before any other upgrade/update/changes
+[08:45:55] <MrBIOS> CMS with the right plug-ins
+[08:46:14] <callaurrea> it may be good to have something new...
+[08:46:14] <Quozl> there are tools to make that easier, but we have to want to do the testing.
+[08:46:15] <MrBIOS> ifeanyi_: well, it’s difficult to produce different content for different users with the existing static content
+[08:46:15] <callaurrea> but we would need to know the target audience, etc
+[08:46:46] <sammy> our Target audience from my research are Developers
+[08:46:46] <MrBIOS> we also need to pay attention to page load times, and not just from the continental US
+[08:46:51] <walterbender> I suspect (not an expert) that this is a well-understood process these days?
+[08:46:56] <sammy> Visiting the site
+[08:47:01] <sammy> India on top
+[08:47:01] <MrBIOS> how long pages take to load directly impacts visit duration. this is well documented.
+[08:47:01] <amaan_iqbal9_> We may think of developing the CMS in next year GSoC, but it will not be easy for someone now
+[08:47:08] <sammy> Nigeria second
+[08:47:21] <Quozl> i think we make our own target audience.  we pivot toward the demand.  we shouldn't pivot toward india and nigeria developers.
+[08:47:33] <MrBIOS> correct, we do. And we should.
+[08:47:56] <Quozl> one demand i've sensed is parents of children who want no advertising or tracking of their children.
+[08:48:05] <sammy> first the Sugar users are not meant to be on the website
+[08:48:12] <MrBIOS> which is probably a segment that’s only going to grow.
+[08:48:12] <sammy> In browse activity
+[08:48:19] <MrBIOS> sammy: we’re not talking about that, though.
+[08:48:47] <ifeanyi_> We need a typical persona to be able to get accurate stats of the target audience
+[08:48:50] <Quozl> i'd like to point the browse activity _away_ from the sugar labs landing page.
+[08:48:52] -*- walterbender needs to disappear in 10 minutes. Can we converge on a set of concrete actions?
+[08:48:56] <MrBIOS> on the original website, there was a section that said “more information for learners / parents / teachers / contributors”
+[08:48:59] <MrBIOS> with links to each page
+[08:49:06] <MrBIOS> we need to restore something like that
+[08:49:10] <amaan_iqbal9_> I guess chatbot will be best to know audience perspective
+[08:49:20] <sammy> That can work
+[08:49:24] <-- vipulgupta2048 has quit (Remote host closed the connection)
+[08:49:33] <MrBIOS> amaan_iqbal9_: I have very little confidence that a meaningful quantity of people will actually interact with a chatbot
+[08:49:40] <MrBIOS> but I could certainly be wrong
+[08:49:49] <Quozl> it woudl need a-b testing.
+[08:49:54] <MrBIOS> correct
+[08:49:56] <perrie> me too
+[08:49:58] <Quozl> because i too think it would fail.
+[08:50:09] <MrBIOS> and just make the page load times worse
+[08:50:17] <walterbender> so maybe Step 1 is to figure out how to set up A/B testing
+[08:50:31] <amaan_iqbal9_> Yes
+[08:50:32] <ifeanyi_> +1 @walterbender
+[08:50:53] <MrBIOS> https://github.com/mixcloud/django-experiments
+[08:50:58] <walterbender> Anyone want to take that task on?
+[08:51:07] <perrie> yeah
+[08:51:12] <perrie> I would
+[08:51:42] <walterbender> Maybe put together a plan and run it past devel?
+[08:52:01] <amaan_iqbal9_> That will be better
+[08:52:18] --> iqra has joined #sugar-meeting
+[08:52:24] <amaan_iqbal9_> But mostly as far as I have seen, nobody responds
+[08:52:38] <Quozl> it's the way to kill an idea; post to sugar-devel@
+[08:52:53] <Quozl> or pretty much any other forum we seem to inhabit.
+[08:52:54] <MrBIOS> correct. anybody can fork the existing git www-sugar repository
+[08:53:18] <MrBIOS> honesty, the percentage of people who actually care about the content on the website is probably 1% of the subscribership of sugar-devel, or IAEP for that matter
+[08:53:19] <Quozl> i don't think a plan is as good as a fork.
+[08:53:35] <walterbender> we need someone with tech chops to see this through
+[08:53:36] <MrBIOS> I didn’t mean to argue that it was :)
+[08:53:53] <walterbender> I am fine with a fork
+[08:54:01] <MrBIOS> I have personal experience running production websites with millions of visitors, however my problem is time.
+[08:54:28] <MrBIOS> if we can find someone with sufficient time, and a desire to learn and keep at it, I am happy to assist them
+[08:54:55] <walterbender> perrie -- maybe you could use MrBIOS as a sounding board?
+[08:54:56] <sammy> MrBIOS, i will
+[08:55:03] <sammy> Let work on it
+[08:55:15] <MrBIOS> agreed, let’s do it
+[08:55:20] <sammy> perrie?
+[08:55:21] <callaurrea> +1
+[08:55:24] <perrie> yeah
+[08:55:33] <amaan_iqbal9_> +1
+[08:55:49] <walterbender> #agreed perrie will set up an A/B testing mechanism with advice from MrBIOS
+[08:55:52] <MrBIOS> I propose a separate mailing list for discussion of this technical effort, and the content, since it’s not really “marketing” related.
+[08:55:53] <callaurrea> could I suggest, before we run out of time, that we talk about budget?
+[08:56:07] <MrBIOS> callaurrea: by all means :)
+[08:56:26] <walterbender> callaurrea, OK. I may have to mostly disappear, but go for it
+[08:56:29] <walterbender> #budget
+[08:56:38] <walterbender> #topic budget
+[08:56:43] <callaurrea> would it be possible to understand the funding we have available?
+[08:56:47] <Quozl> MrBIOS: i disagree with yet another mailing list; we need to remove them, not add them.  xkcd, standards.
+[08:57:03] <callaurrea> plan some activities and establish process for requesting findung?
+[08:57:06] <callaurrea> funding.
+[08:57:17] <ifeanyi_> I can help @perrie and the team
+[08:57:19] <MrBIOS> we have decommissioned some, I believe.
+[08:57:24] <walterbender> callaurrea, that falls under Adam's domain, but he hasn't made an appearance in many many months
+[08:57:37] <MrBIOS> we don’t want people to unsubscribe from -devel or -marketing because they don’t care about what’s being discussed.
+[08:57:44] <Quozl> MrBIOS: i do.
+[08:57:47] <walterbender> callaurrea, as far as I know, we have > $50000 US in the bank
+[08:58:06] <walterbender> but no budget regarding what it is for
+[08:58:14] <MrBIOS> and the budgeteer is AWOL
+[08:58:19] <callaurrea> how can we move that out of his plate, if he is not coming to meetings?
+[08:58:29] <Quozl> decide as a board to replace him.
+[08:58:43] <walterbender> As of next week, we can have the new board appoint someone new
+[08:58:47] <ifeanyi_> Probably contact him and see why he's been away
+[08:58:50] <MrBIOS> assuming he doesn’t get replaced?
+[08:59:00] <MrBIOS> ifeanyi_: I have been in contact with him
+[08:59:14] <walterbender> He did not run for reelection as far as I recall.
+[08:59:30] <MrBIOS> he did not.
+[08:59:30] <callaurrea> should we wait until end of elections, but have a plan for future discussion and funding allocation
+[08:59:31] <ifeanyi_> Ok, then his replacement is due
+[08:59:39] <callaurrea> and fund raising tasks
+[08:59:39] <MrBIOS> He wrote this to me on Sunday: “Yes but am wicked sick here in Boston,  Good luck in the ongoing election!”
+[08:59:50] <MrBIOS> if he wanted to be here, he would be here
+[09:00:03] <walterbender> we need to know who is on the board in order to make an appointment, unless you volunteer :)
+[09:00:30] <callaurrea> silence
+[09:00:37] <Quozl> next week, i'll decide.
+[09:00:37] <callaurrea> let's discuss you and I
+[09:00:44] <walterbender> ok
+[09:01:09] -*- walterbender needs to go to a meeting.
+[09:01:16] <Quozl> i suggest the board might set up a patreon account.  ;-)
+[09:01:40] <callaurrea> Thanks, Walter
+[09:01:49] <Quozl> bye walterbender.
+[09:02:00] <sammy> bye
+[09:02:06] <amaan_iqbal9_> Bye
+[09:02:08] <sammy> walterbender
+[09:02:09] <perrie> bye
+[09:02:48] <amaan_iqbal9_> Okay guys, I am too leaving now. Its already 3.30 AM in India.
+[09:02:57] <Quozl> amaan_iqbal9_: bye.
+[09:03:18] <ibiam> Bye
+[09:03:20] <sammy> perrie when are we meeting tomorrow?
+[09:03:21] <-- amaan_iqbal9_ has quit (Quit: Page closed)
+[09:03:27] <ifeanyi_> Bye @walterbender and @amaan_iqbal9_
+[09:03:36] <perrie> flight is by 1
+[09:03:45] <walterbender> bye everyone...
+[09:03:47] <walterbender> thanks
+[09:03:52] <walterbender> #end-meeting
+[09:03:53] <perrie> should be in ph by 2:30 at most
+[09:04:00] <sammy> I mean with MrBIOS
+[09:04:03] <callaurrea> thanks everyone
+[09:04:12] <callaurrea> to be continued... the budget topic
+[09:04:22] <ifeanyi_> Thanks @callaurrea
+[09:04:50] <perrie> oh, anytime other than 12 - 14utc is okay by me
+[09:05:10] <sammy> Great
+[09:06:24] <sammy> Bye everyone
+[09:06:28] <sammy> Make sure you vote
+[09:06:41] <sammy> Remember your votes count😋
+[09:06:46] <perrie> lol
+[09:06:48] <perrie> bye
+[09:07:09] <ifeanyi_> Is vote editing possible? @satellit
+[09:07:11] <callaurrea> bye
+[09:07:28] <ifeanyi_> @sammy:
+[09:07:37] <sammy> I am here
+[09:07:39] <ifeanyi_> Bye
+[09:07:56] <Quozl> MrBIOS: added self on jita, looking at meeting robot.
+[09:08:19] <-- iqra has quit (Quit: Mutter: www.mutterirc.com)
+[09:08:41] <-- ibiam has quit (Quit: AndroIRC - Android IRC Client ( http://www.androirc.com ))
+[09:08:50] <MrBIOS> Quozl: excellent
+[09:10:32] <-- callaurrea has quit (Quit: Page closed)
+[09:12:09] <-- sammy has quit (Quit: AndroIRC - Android IRC Client ( http://www.androirc.com ))
+[09:24:10] <-- meeting has quit (Remote host closed the connection)
+[09:24:42] --> meeting has joined #sugar-meeting
+[09:24:47] <Quozl> #startmeeting
+[09:24:48] <meeting> Meeting started Fri Dec  7 22:24:47 2018 UTC. The chair is Quozl. Information about MeetBot at http://wiki.debian.org/MeetBot.
+[09:24:49] <meeting> Useful Commands: #action #agreed #help #info #idea #link #topic #endmeeting
+[09:24:51] <Quozl> testing
+[09:24:52] <Quozl> testing
+[09:24:53] <Quozl> testing
+[09:24:57] <Quozl> #agreed finish the meeting
+[09:25:03] <Quozl> #link http://example.org/
+[09:25:08] <Quozl> #topic testing
+[09:25:11] <Quozl> #agreed finish
+[09:25:14] <Quozl> #endmeeting
+[09:25:16] <meeting> Meeting ended Fri Dec  7 22:25:14 2018 UTC. Information about MeetBot at http://wiki.debian.org/MeetBot. (v 0.1.4)
+[09:25:17] <meeting> Minutes: http://meeting.sugarlabs.org/sugar-meeting/meetings/2018-12-07T22:24:47.html
+[09:25:18] <meeting> Log:     http://meeting.sugarlabs.org/sugar-meeting/meetings/2018-12-07T22:24:47
+[09:26:03] <Quozl> MrBIOS: seems to be working now.  actions taken; familiarise, invoke-rc.d supybot {stop,start}
+[09:26:21] <MrBIOS> great
+[09:26:35] <MrBIOS> it was just not running
+[09:26:41] <-- perrie has quit (Remote host closed the connection)
+[09:26:50] <MrBIOS> is the service configured to start by default?
+[09:26:55] <Quozl> looking at logs above, i think it was running, just that walterbender did not startmeeting.
+[09:27:42] <MrBIOS> ah
+[09:27:52] <Quozl> yes, i'm fairly sure it is configured to start by default.  the process was present, as was the nick here.
+[09:28:12] <MrBIOS> also, for the record…correction, Kano, Nigeria is ~3.9 million, estimated, at present
+[09:28:52] <MrBIOS> we should probably capture the meeting logs somehow (put them in a github gist?)
+[09:29:08] <MrBIOS> I dont know how it was done before, when the meetbot was absent
+[09:29:10] <Quozl> i'll reply to walter's mail on sugar-devel@ with a copy and paste.

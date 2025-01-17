@@ -1,0 +1,164 @@
+Title: Sugar on a Stick/Boot
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Boot#Low_Memory.2C_RAM.2C_Hardware
+--------------------------------------------------------------------------------
+<
+Sugar on a Stick/Installation
+Contents
+1
+Computer booting basics
+1.1
+Changing operating systems (temporarily)
+1.2
+Boot device recognition
+1.3
+A bootable operating system image
+1.4
+Installation to a stick is required first
+2
+Boot it
+2.1
+Boot Helper CD
+3
+Troubleshooting
+3.1
+Low Memory, RAM, Hardware
+4
+Explore Sugar
+Computer booting basics
+Booting
+is short for bootstrapping, or the process a computer goes through to load the operating system software to get the computer running on that operating system copy.
+Changing operating systems (temporarily)
+Most computers have hardware (for example, central processing units, chips, disk drives, audio, video, and networking devices) that can work with other
+operating systems
+.  So a computer running the Microsoft Windows operating system can be booted with a different operating system, like one of the GNU/Linux variations that Sugar is built on.
+With
+Sugar on a Stick
+, computers that normally run with Windows, Mac, or another operating system, can be booted from the plug-in USB/SD device, and so, run Sugar without interfering with the hard drive or subsequent operation of the computer.  Following shutdown of a Sugar session, the computer can be booted as before with no traces of Sugar left behind.
+For more information on how to boot your computer off of a USB/SD device, see
+USB BIOS boot options
+and
+an example of setting the BIOS to boot from USB/SD
+. Also see an incomplete but
+comprehensive list of how (key to press) to access BIOS for various computers
+.
+Please add to the list below:
+computer
+key to press
+Thinkpad x201
+F12
+eeePC 701
+F2
+eeePC 900
+Esc
+Dell Inspiron
+F12
+Award Bios
+Del
+LanParty bios
+Ctrl Alt Esc
+Toshiba Qosmio
+F12
+Classmate PC
+F11
+HP desktop
+Esc
+Boot device recognition
+When a computer is powered up, a short piece of software saved in the computer's
+firmware
+gives it instructions to look for instructions to load an operating system from one or another standard devices, such as hard disk drives or CD/DVD/USB/SD storage devices.
+A bootable operating system image
+An image is a complete copy of a computer disk drive, and a bootable image is one that contains an operating system with additional instructions to load the system at computer start up.
+Sugar on a Stick
+provides
+a complete set of boot instructions (
+SYSLINUX
+),
+an operating system (
+Fedora
+-
+GNU/Linux
+), and
+the Sugar Learning Environment,
+all of which have been packaged by the SoaS team into the "SoaS.iso" image file.
+All these components must be made available to the computer in order to successfully boot into the Sugar Learning Environment.
+Installation to a stick is required first
+The SoaS software image can be booted, once it has been "installed", from
+a CD-rom that has been "burned" with the .iso image,
+a USB/SD flash storage device that has been "loaded" with the .iso image,
+a hard disk file that is treated as a CD-rom containing the .iso image by
+virtual machine
+software already running on a computer.
+(In each case, the software image is made to look like a bootable filesystem disk drive to the computer's firmware, and so each may be called a disk or drive.
+Sugar on a Stick/Installation
+describes the installation methods available for the various systems that might be used.
+Boot it
+Below, we describe how to boot
+Sugar on a Stick
+from a USB flash storage device:
+Insert the USB drive into a USB port on your computer. Ports directly connected to the mother board, or main circuit board, (usually made available on the back of the computer) are more likely to recognize the device at boot time.
+Set the option to "boot from USB" in your computer's
+BIOS
+, and then start up the computer. This can be done in a number of ways and will VARY from machine to machine. What you are looking for is the term "Boot Loader" or "Boot Order" or something to that effect. You may have to play around with the settings quite a bit to achieve success. The BIOS is usually not a graphical user interface. Your mouse will not work, generally, in the BIOS. Use the arrow keys. Read the help lines for each BIOS option. If you've not gone into the BIOS before, don't be afraid, you can't do too much damage there, if you pay attention.
+Here's a video of the BIOS on my
+compac tc4400
+.
+You should see the Sugar logo once the drive is booting.
+Proceed to the
+Explore Sugar
+page.
+Boot Helper CD
+In some cases, usually with older computers, the firmware does not support booting directly from a USB/SD device. In these situations,
+Download a SoaS boot helper:
+http://www.wronkiewicz.net/soas-4-boot-test.iso
+for Mango Lassi
+http://www.wronkiewicz.net/soas-3-boot-test.iso
+for Mirabelle
+http://download.sugarlabs.org/soas/releases/soas-2-boot.iso
+for Blueberry
+Use
+Windows 7 built-in Disk Image Burner
+or a free utility, like
+ImgBurn
+, to write the downloaded .iso file onto a blank CD.
+Use the
+Windows Explorer
+to name your USB flash drive FEDORA (from the Properties dialog for your device), as otherwise, it won't be recognized by the boot-helper CD.
+Put both the boot-helper CD and the USB flash drive in your computer and let it boot from the CD.
+Troubleshooting
+If your boot hangs, you may need to modify the boot command by appending:
+selinix=0
+You do this by interrupting the Helper CD boot by hitting the
+Esc
+key once the initial splash-screen appears. You should see a list of four boot options. At this point, hit the
+Tab
+key. The command line should appear. Add
+selinix=0
+to the end of the line and hit
+Enter
+(or Return). The boot should proceed from here as normal.
+Low Memory, RAM, Hardware
+This Fedora page -
+http://docs.fedoraproject.org/en-US/Fedora/19/html/Release_Notes/sect-Release_Notes-Welcome_to_Fedora_.html#hardware_overview
+- mentions that 768 MB RAM is now regarded as a minimum amount of RAM for Fedora Spins.
+If a Sugar LiveCD has failed to boot on low memory hardware, reboot the LiveCD and interrupt the boot process by hitting the tab key at the screen which invites you to "Hit
+Enter
+to Boot", "Hit
+Tab
+to Edit Command Line", or "wait 30 seconds for automatic boot"
+The Boot Command Line should appear.
+It is perfectly safe to use remove
+rhgb quiet
+(if it exists) from the command line, so that output is printed to the screen, this may provide a clue if the boot fails for a different reason.
+Add
+nomemcheck
+to the command line
+Then hit
+Enter
+(or Return). The boot should proceed from here as normal.
+Reference:
+https://fedoraproject.org/wiki/Anaconda_Boot_Options?rd=Anaconda/Options#nomemcheck
+.
+Explore Sugar
+Proceed to the
+Explore Sugar
+page.

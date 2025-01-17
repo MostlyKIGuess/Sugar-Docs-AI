@@ -1,0 +1,466 @@
+Title: Development Team/Meetings/Logs/September 01 2009
+URL: https://wiki.sugarlabs.org/go/Development_Team/Meetings/Logs/September_01_2009
+--------------------------------------------------------------------------------
+(06:03:08 PM) tomeu: hi all!
+(06:03:25 PM) garycmartin: tomeu: Hi!
+(06:04:20 PM) silbe [n=silbe@cl-1285.dus-01.de.sixxs.net] entered the room.
+(06:04:29 PM) tomeu: so, we have quite a bit of people already
+(06:04:34 PM) tomeu: but we miss our release manager
+(06:04:41 PM) tomeu: hi silbe
+(06:04:48 PM) silbe: hi all :)
+(06:07:23 PM) tomeu: let's give erikos 5 minutes more?
+(06:07:36 PM) tomeu: are alsroot and mtd with us?
+(06:07:38 PM) garycmartin: tomeu: sure, good for me.
+(06:08:00 PM) ***alsroot here
+(06:11:53 PM) tomeu: hmm, I'm going to sms him because we are going to talk mainly about the release process
+(06:14:04 PM) erikos [n=erikos@g225069124.adsl.alicedsl.de] entered the room.
+(06:14:09 PM) ***erikos is here
+(06:14:17 PM) ***erikos apologize for being late
+(06:14:39 PM) garycmartin: erikos: Hi!
+(06:14:52 PM) erikos: garycmartin: good afternoon
+(06:15:18 PM) tomeu: nice, everybody is here
+(06:15:29 PM) ***erikos listens to the head of the department
+(06:15:53 PM) tomeu:   Topics   Feature freeze: what missed the train, pending exception requests, improving the process, ...  Stability: worst issues, further testing, bugfixing, triaging, ... 
+(06:15:59 PM) tomeu: any other topics for today?
+(06:16:51 PM) tomeu: so, with the first one, I think alsroot and silbe worked on substantial stuff during this cycle that didn't got into the release
+(06:17:11 PM) tomeu: how do you feel about that?
+(06:17:17 PM) tomeu: any ideas how we can improve the process?
+(06:17:23 PM) erikos: tomeu: yup, so those were bigger fishes
+(06:17:40 PM) erikos: tomeu: the versions one at least
+(06:17:54 PM) erikos: tomeu: and work on the thumbs for example, just did start a bit late
+(06:17:59 PM) silbe: tomeu: i think timing was just too tight - feature freeze right after gsoc. not enough time for the review process.
+(06:18:20 PM) tomeu: silbe: yeah, we actually thought about it when we set the dates, but the distro dates are important for us
+(06:18:28 PM) erikos: silbe: and summertime, with holidays etc as well
+(06:18:40 PM) tomeu: gnome has the same problem
+(06:18:50 PM) erikos: tomeu: I imagine so
+(06:19:02 PM) tomeu: and I guess the rest of the projects that have their releases synced with the main distros
+(06:19:05 PM) silbe: we'll just get a more polished version in 0.88 then :)
+(06:19:25 PM) tomeu: that's the spirit, there's always a next release
+(06:19:49 PM) tomeu: alsroot: what about you? should we have communicated better the restrictions of the feature freeze?
+(06:20:11 PM) silbe: just hope 0.88 will make it into Debian squeeze then - the next Debian release is supposed to take another 2 years after squeeze...
+(06:20:39 PM) erikos: silbe: absolutely!
+(06:20:39 PM) alsroot: tomeu: dunno, in my case I took a wrong way by adding thumbs to 0.86, it would be much better to implements just plugins first in 0.86
+(06:20:46 PM) Alphinux [n=alphinux@unaffiliated/alphinux] entered the room.
+(06:21:15 PM) tomeu: alsroot: ok, we should discuss plugins ASAP
+(06:21:25 PM) silbe: what plugins?
+(06:21:27 PM) tomeu: alsroot: perhaps we can add it to the topics list of today?
+(06:21:55 PM) alsroot: tomeu: hmm.. but it could be implemented on in 0.88
+(06:22:03 PM) alsroot: silbe: view plugins for Journal
+(06:22:12 PM) alsroot: *only
+(06:22:19 PM) tomeu: alsroot: sure, it would be in 0.88
+(06:22:50 PM) tomeu: ok, let's discuss that a bit later?
+(06:22:52 PM) silbe: alsroot: playing devils advocate: what's the advantage of Journal plugins over an activity that interfaces with the data store?
+(06:22:52 PM) alsroot: anyway its a good idea to discuss plugins asap
+(06:23:10 PM) silbe: ok, let's postpone that
+(06:23:31 PM) alsroot: silbe: we could have view for specific purposes eg books, viedeo etc
+(06:23:33 PM) tomeu: alsroot, silbe, anyone: any input on the release process and how it is communicated?
+(06:24:26 PM) silbe: tomeu: i think the release process is fine so far. code review could be improved, but we're already on it.
+(06:24:53 PM) tomeu: ok, forgot to add code review to the topics, we cna also talk afterwards about it
+(06:25:18 PM) tomeu: pending feature freeze exceptions: we have one
+(06:25:44 PM) tomeu: hamilton chua has proposed that we merge his code for registering with a school server
+(06:25:50 PM) garycmartin: tomeu: feature freeze seemed a little 'slushy' this time, still some (small) things outstanding even now right? (I'm thinking toolbar stuff)
+(06:25:57 PM) tomeu: it has already one +1, it needs one more
+(06:25:58 PM) alsroot: we missed chance to have library.sl.o(or so) in 0.86 to share .xol/jobjects -- i think the problem is we dont have committee
+(06:26:21 PM) tomeu: alsroot: ok, which kind of committee?
+(06:26:29 PM) tomeu: garycmartin: do we have pending feature work on the toolbar?
+(06:26:45 PM) erikos: garycmartin: what was slushy in concrete?
+(06:26:54 PM) alsroot: tomeu: Engineering committee
+(06:27:03 PM) garycmartin: tomeu: on the core Activities, yes.
+(06:27:08 PM) erikos: tomeu: yeah, to move all the activities (has done some work sitting on his harddrive)
+(06:27:38 PM) ***garycmartin has some more icons for erikos to be sent later today
+(06:27:38 PM) tomeu: alsroot: which would be the responsibilities of this committee?
+(06:28:03 PM) erikos: garycmartin: so personally, from my point of view, the issue is: that we all have limited time :(
+(06:28:08 PM) tomeu: garycmartin: but the freeze only affects sucrose
+(06:28:10 PM) alsroot: tomeu: we could discuss(hot or cold) some topics on ml but dont take any steps to implements this because there is no consensus
+(06:28:18 PM) erikos: garycmartin: and things take longer then they would need to otherwise
+(06:28:44 PM) erikos: tomeu: yeah, and sucrose activities have not been moved yet - I am working with gary on it
+(06:29:00 PM) tomeu: alsroot: and how would the engineering committee help there?
+(06:29:12 PM) tomeu: garycmartin, erikos: ok, so that's pending features
+(06:29:26 PM) erikos: tomeu: yup
+(06:29:28 PM) garycmartin: tomeu: sucrose only! oh my I though freeze was sucrose + fructose. Thanks, I'd missed that.
+(06:29:29 PM) tomeu: erikos: how risky is that kind of work?
+(06:29:50 PM) tomeu: garycmartin: sucrose includes fructose and glucose
+(06:30:33 PM) erikos: tomeu: from my findings the sucrose activities changes are not that risky
+(06:30:41 PM) alsroot: tomeu: it could be like features, someone proposes something, discussing in ml, if there is no consensus committee decides how it should be
+(06:30:59 PM) erikos: tomeu: but, if strict - it would not happen after our freeze :/
+(06:30:59 PM) garycmartin: tomeu: (where's that blasted wiki diagram when you need it ;-)
+(06:31:00 PM) tomeu: alsroot: sounds good
+(06:31:01 PM) bemasc: alsroot: the mailing list is the committee.
+(06:31:13 PM) tomeu: bemasc: yeah, but what means silence?
+(06:31:21 PM) bemasc: It means no one cares.
+(06:31:34 PM) tomeu: bemasc: that's not true, I may care but missed the thread
+(06:31:41 PM) alsroot: bemasc: I could care about lots of things but I can't since it affect core system
+(06:31:44 PM) tomeu: I didn't cared so much to reply in the moment I read it
+(06:31:55 PM) tomeu: but that doesn't mean I wouldn't like to see it implemented if someone has time
+(06:32:08 PM) tomeu: I cannot reply to every email in every interesting thread
+(06:32:12 PM) alsroot: bemasc: its ok if its only about separate activity but what about library.sl.o
+(06:32:37 PM) bemasc: alsroot: if you want to do it, do it.
+(06:32:55 PM) alsroot: bemasc: I need changes in glucose
+(06:32:57 PM) tomeu: bemasc: yeah, but the person wants some kind of assurance that the design of her work is more or less ok
+(06:32:59 PM) tomeu: before coding it
+(06:33:24 PM) tomeu: we'll get to this point when we talk about the review process
+(06:34:07 PM) tomeu: bemasc: I see what you mean and that was the initial idea, but I think I understand now what alsroot means
+(06:34:17 PM) erikos: I think sugar differs from other open source projects in the following way:
+(06:34:32 PM) erikos: we do not only code for the fun or to scratch our own itch
+(06:34:42 PM) erikos: we need a design process included
+(06:34:50 PM) erikos: and a pedagocical one as well
+(06:34:54 PM) bemasc: alsroot: is there a concrete case in which someone asked for design advice from the mailing list and didn't get any?
+(06:35:15 PM) bemasc: When I ask a question, I usually get lots of advice.  Not necessarily very helpful advice, but lots of it.
+(06:36:20 PM) erikos: maybe we should discuss the commitee after 0.86?
+(06:36:35 PM) erikos: I think we have lots work to do on 0.86 first
+(06:36:38 PM) tomeu: erikos: well, such a thing needs to be discussed in the ml anyway
+(06:36:49 PM) erikos: tomeu: that too
+(06:36:58 PM) tomeu: yeah, certainly the committe is not going to help much with bugs, AFAICS
+(06:37:20 PM) erikos: right, we have bugs bugs bugs to fix
+(06:37:35 PM) alsroot: bemasc: in case of library.sl.o one thing was needed - take one particualar way(I personaly was for one way, someone was for others) -- so we need referee
+(06:37:41 PM) erikos: and we have a few things we want to fully land (toolbars)
+(06:38:37 PM) tomeu: bemasc: something very common is that someone proposes a project that person is willing to work on, then some bystanders point out some possible issues or propose some alternatives that nobody is going to implement
+(06:38:57 PM) garycmartin: bemasc: I see lot's of ideas that need design input float past, I try to grab and help where I can, but this is uaualy low hanging fruit only, or something I might have some work done on already, or if it's just really, really inline with something I'd like to see happen.
+(06:39:14 PM) tomeu: I think it would be good that those people can ask someone: what's your opinion: is this reasonable enough for me to start to code it or not?
+(06:40:50 PM) tomeu: in gnome, if someone doesn't contributes because of perceived lack of interest or gets its patch rejected about lots of work, nobody cares to lose a contributor
+(06:40:59 PM) tomeu: because there thousands of them
+(06:42:14 PM) tomeu: ok, we can discuss this further in the mailing list
+(06:42:19 PM) bemasc: I'm just trying to avoid the creation of more unnecessary committees, meeting, and IRC traffic.
+(06:42:30 PM) tomeu: alsroot: do you take the action item of starting this discussion?
+(06:42:35 PM) tomeu: bemasc: I understand that concern
+(06:42:50 PM) bemasc: Let's move on.
+(06:42:52 PM) alsroot: tomeu: I mailed to devel@
+(06:43:11 PM) alsroot: created Feature/ pages
+(06:43:23 PM) tomeu: alsroot: yeah, we need a committee to approve the creation of the committee ;)
+(06:43:58 PM) erikos: tomeu: ok, your opinion on the toolbars one, please?
+(06:43:58 PM) tomeu: alsroot: we need to give more power to contributors like you, right now we have power too concentrated on people with too much responsibilities
+(06:44:11 PM) tomeu: alsroot: that's why decisions stall sometimes
+(06:44:20 PM) tomeu: alsroot: for now, it's good to ping in those cases
+(06:44:29 PM) sdziallas left the room (quit: Read error: 110 (Connection timed out)).
+(06:44:43 PM) tomeu: erikos: well, I see the importance of the feature, but need to see the code first and see how invasive would be
+(06:44:47 PM) dirakx: i think the code review process is a major concern that  the one of the comittee.
+(06:45:08 PM) tomeu: dirakx: they are related, but we'll get to it later
+(06:45:15 PM) dirakx: ok
+(06:45:19 PM) tomeu: we are 45 minutes in th emeeting already
+(06:45:21 PM) erikos: tomeu: ok
+(06:45:32 PM) ***erikos listens to tomeu
+(06:45:56 PM) tomeu: so, if we don't have more pending features nor suggestions about how to improve the release process...
+(06:46:09 PM) tomeu: we get to the next point: stability
+(06:46:22 PM) tomeu: how do we make 0.86 a release that is more stable than the previous ones?
+(06:46:44 PM) tomeu: I think in 0.84 we had less testing than in previous releases
+(06:46:52 PM) tomeu: that means we have some terrain to gain here
+(06:47:04 PM) tomeu: also, we have landed quite a bit of new code
+(06:47:19 PM) tomeu: that brings bugs, some known, most still to discover
+(06:47:29 PM) tomeu: I'm quite a bit worried about this
+(06:47:45 PM) garycmartin: tomeu: How about fix Metacity layering issues with a big stick, would be a good start ;-b
+(06:48:05 PM) tomeu: garycmartin: ok, today I fixed window positioning and sizing with a big stick
+(06:48:23 PM) erikos: tomeu: awesome!
+(06:48:28 PM) silbe: tomeu: cool, so Terminal works again on my XO? can't wait to try it out :-P
+(06:48:33 PM) ***garycmartin dances around the room, and spills his tea!
+(06:48:33 PM) tomeu: but haven't looked at layering yet
+(06:48:51 PM) tomeu: if we cannot fix that right, we'll need to go back to matchbox
+(06:49:15 PM) tomeu: looks like metacity doesn't like transient windows on the desktop window, but nautilus has popups there, so...
+(06:49:26 PM) silbe: tomeu: +1 on going back to matchbox if we don't get everything fixed till the release
+(06:49:30 PM) tomeu: garycmartin: any other big issues that may impede testing?
+(06:49:39 PM) tomeu: silbe: or even earlier, yeah
+(06:49:43 PM) sdziallas [n=sebastia@fedora/sdziallas] entered the room.
+(06:49:49 PM) bemasc: I think the most helpful thing would be to release up-to-date emulation images.
+(06:50:26 PM) bemasc: Nightly, even.
+(06:50:29 PM) garycmartin: tomeu: no obvious testing blocaker that come to mind just now.
+(06:50:45 PM) tomeu: bemasc: a .iso is not enough?
+(06:50:57 PM) silbe: tomeu: xephyr/xnest is a blocker as usual
+(06:51:25 PM) tomeu: silbe: yeah, the alt key is quite flaky right now :/
+(06:51:32 PM) tomeu: well, also in real X
+(06:51:34 PM) bemasc: tomeu: A .iso could be enough if it's tested and working read/write with qemu and virtualbox and vmware.
+(06:51:35 PM) silbe: tomeu: i have some issues with alt, but can only debug that on the XO because it's the only machine running sugar "native"
+(06:51:43 PM) garycmartin: tomeu: Once new toolbars are done, I'll switch into a testing mode (run through large number of activities, try to push all the feature buttons I can).
+(06:51:54 PM) silbe: tomeu: ok, so you know about that bug already ;)
+(06:52:20 PM) tomeu: garycmartin: that will be awesome, make sure to mention it in the thread of the freeze exception request
+(06:52:43 PM) tomeu: silbe: we may have to drop that one if we cannot fix it properly in a short time
+(06:52:55 PM) bemasc: drop what?
+(06:53:15 PM) erikos: tomeu: we should see as well, how we organize the bug work
+(06:53:16 PM) tomeu: bemasc:
+http://dev.sugarlabs.org/ticket/1129
+(06:53:38 PM) tomeu: erikos: yeah, you took care of that in the past, what we can do about it?
+(06:53:39 PM) silbe: tomeu: i'd hate to see it go, though :-/
+(06:54:03 PM) tomeu: silbe: debugging X takes time and normally it's me who does it :/
+(06:54:09 PM) erikos: tomeu: we need to schedule triage sessions, and fix bugs
+(06:54:22 PM) erikos: tomeu: and of course there should be builds for people to test
+(06:54:24 PM) silbe: tomeu: i know :(
+(06:54:46 PM) bemasc: I think it should be a high priority for all bugs in trac to be correctly prioritized and targeted.
+(06:54:57 PM) tomeu: erikos: yeah, do you think soas will work for that?
+(06:55:00 PM) bemasc: I also think that we need an explicit functionality target.
+(06:55:15 PM) tomeu: bemasc: +1 about triaging
+(06:55:19 PM) erikos: tomeu: I guess, I would argue to use F11-soas for that
+(06:55:24 PM) bemasc: IMHO, our target should be "ready for deployment by OLPC to hundreds of thousands of children on the XO-1.5".
+(06:55:31 PM) tomeu: bemasc: "explicit functionality target"?
+(06:55:46 PM) tomeu: erikos: yeah, though we need to maintain a private repo for that
+(06:55:49 PM) tomeu: erikos: takes some time
+(06:56:08 PM) erikos: tomeu: ok, I don't know about the F12 state, sdziallas ?
+(06:56:13 PM) bemasc: tomeu: a way to determine whether a release candidate is stable enough to release.
+(06:56:32 PM) tomeu: bemasc: I see a bit of a problem there for us to know what means ready for deployment
+(06:56:34 PM) garycmartin: bemasc: All the noises I've seen seem to suggest OLPC are picking up 0.84, unfortunately.
+(06:56:53 PM) tomeu: garycmartin: yeah, but we want them to want to pick up next releases
+(06:57:34 PM) erikos: garycmartin: which countries are those?
+(06:57:36 PM) tomeu: bemasc, garycmartin: this is a bit related to having a LTS cycle
+(06:57:40 PM) erikos: garycmartin: uruguay? peru?
+(06:57:43 PM) bemasc: garycmartin: right.  They may start with 0.84, but we want to make sure that they _can_ upgrade to 0.86.
+(06:57:56 PM) dirakx: +1.
+(06:58:25 PM) bemasc: (Also, I'm not totally sure that 0.84 will survive OLPC's testing.)
+(06:58:25 PM) garycmartin: bemasc: +1
+(06:58:52 PM) tomeu: bemasc: do you know if OLPC has now a testing team?
+(06:59:12 PM) tomeu: bemasc: if they wanted, there could be bug fixes releases, but needs to be discussed in advanced
+(06:59:13 PM) bemasc: tomeu: no, I don't, but we can ask.
+(06:59:16 PM) erikos: bemasc: I don't think *we* need to make sure if it runs or not
+(06:59:29 PM) tomeu: to not get again in the situation of changing code in the last minute
+(06:59:36 PM) erikos: bemasc: we do not have resources for that
+(06:59:53 PM) dirakx: afaik OLPC doesn't have such a team.
+(06:59:59 PM) garycmartin: erikos: re: countries, well where ever the sales of XO-1.5s will be going. Looks like XO-1 support of 0.84 is mainly external side effect of the XO1.5 work.
+(07:00:01 PM) erikos: bemasc: and anyhow, I do not think it is our area
+(07:01:00 PM) erikos: garycmartin: yeah, I have not been following those discussions, so I really don't know ;p
+(07:01:19 PM) bemasc: erikos: We do have resources for that.  We have XOs.
+(07:01:50 PM) tomeu: bemasc, erikos: there's some part that needs to be played by downstreams and some part that needs to be played by upstreams
+(07:01:56 PM) tomeu: nothing that one side can solve by it alone
+(07:02:14 PM) erikos: tomeu: right, so it does not happen just magically
+(07:02:21 PM) erikos: tomeu: that is my point
+bemasc bernie 
+(07:02:48 PM) erikos: we do not even have the resources to manage our release sufficently, imho
+(07:03:01 PM) tomeu: bemasc: but we can do some testing, etc. would help having someone who wants to own that and coordinate the work
+(07:03:24 PM) erikos: how can I realistically say: yay I will make sure it runs fine on the xo?
+(07:03:27 PM) tomeu: silbe was interested in automated tests, for example
+(07:03:33 PM) bemasc: I agree.  I'm just saying that I want 0.86, when it's released, to be ready for OLPC to do its integration work.
+(07:03:53 PM) tomeu: bemasc: I think we all here want that ;)
+(07:04:00 PM) bemasc: That means, for example, that screen rotation has to work.
+(07:04:19 PM) bemasc: It means that the keyboard system has to be ready for OLPC customizations.
+(07:04:42 PM) garycmartin: bemasc: FWIW, I have 3 XOs here, I'm using two currently to test 0.84.x builds (together with an 0.82 XO and 0.85.x sugar-jhbuild)
+(07:04:43 PM) walterbender: it would be nice to have a priorty list from OLPC (or deployments)
+(07:04:44 PM) silbe: bemasc: sorry for the ignorance, but isn't screen rotation a hardware / distro issue?
+(07:04:51 PM) bemasc: It means that the system has to respond well to unexpected Out Of Disk errors.
+(07:05:00 PM) tomeu: bemasc: ok, this is normally done downstream, but if someone wants to create a subproject in sugarlabs that takes care of that, I think people will agree with it
+(07:05:02 PM) bemasc: silbe: it's easy to build a GUI that crashes when the screen size changes.
+(07:05:24 PM) bemasc: silbe: Sugar tended to crash during rotation for a long time.
+(07:05:42 PM) sdziallas: erikos: hey, sorry... I'm here now. you pinged?
+(07:05:42 PM) silbe: bemasc: ok, so it's more about bugs than about a feature.
+(07:06:00 PM) walterbender: bemasc: if I had to guess, I would say screen rotation is a low priority for deployments...
+(07:06:01 PM) bemasc: It means that enormous memory usage is unacceptable.
+(07:06:08 PM) walterbender: not that it should be broken...
+(07:06:09 PM) tomeu: bemasc: perhaps we should move on, do you take the action item to start a discussion about how SLs can make sure its releases have enough quality to be deployed by OLPC?
+(07:06:11 PM) bemasc: walterbender: a "crash my XO" button is pretty bad.
+(07:06:18 PM) erikos: sdziallas: yup, wanted to ask you if F12-soas is usable for sugar testing
+(07:06:23 PM) tomeu: we have been 66 minutes from the start of the meeting
+(07:06:25 PM) walterbender: crashing is another matter.
+(07:06:47 PM) erikos: sdziallas: or in a state where we run in a lot of F12 and soas bugs?
+(07:06:48 PM) bemasc: tomeu: I don't think there's much of a discussion to be had.  Who is the release manager?
+(07:06:55 PM) sdziallas: erikos: it will be *very* soon. but it will be a SL-only thing. since OLPC will - at least afaik - stick with F11 for now.
+(07:07:05 PM) tomeu: bemasc: erikos, not sure what it has to do
+(07:07:20 PM) bemasc: The release manager decides when the release is ready.
+(07:07:23 PM) tomeu: bemasc: I don't see clear at all how we can manage what you propose, so I would expect some discussion
+(07:07:23 PM) sdziallas: erikos: naw. I don't think it's state is too bad right now. However, I'll need to work with mtd to work some general (build) issues out.
+(07:07:38 PM) tomeu: bemasc: and how the release manager is going to know how things work on the XO?
+(07:07:42 PM) erikos: sdziallas: ok, awesome!
+(07:08:07 PM) tomeu: bemasc: we are having some discussion right now, btw ;)
+(07:08:07 PM) ***sdziallas runs for dinner, will be back in ten.
+(07:08:44 PM) tomeu: so, we have already talked about the worst bugs already known in 0.85
+(07:08:56 PM) tomeu: let me repaste the topic:
+(07:09:02 PM) tomeu:  Stability: worst issues, further testing, bugfixing, triaging, ... 
+(07:09:07 PM) tomeu: so, testing
+(07:09:14 PM) tomeu: how we can get the testing we need?
+(07:09:31 PM) tomeu: garycmartin has proposed his help on that, but we'll need much more
+(07:09:50 PM) tomeu: bemasc has pointed the need for emulation images
+(07:09:57 PM) erikos: tomeu: I would say - we need to propose a build on the ml and ask for testing
+(07:10:13 PM) erikos: tomeu: would be good to get the toolbars work in for that (if accepted)
+(07:10:13 PM) tomeu: erikos: will that be a soas build?
+(07:10:18 PM) tomeu: based on f12 or on f11?
+(07:10:26 PM) erikos: tomeu: yup, sdziallas says it is good to go!
+(07:10:37 PM) erikos: tomeu: F12, then I guess
+(07:10:52 PM) tomeu: ok so we should update the rpms, several fixes landed since the last ones
+(07:11:01 PM) erikos: yup
+(07:11:10 PM) tomeu: maybe I can do rpms tomorrow morning
+(07:11:12 PM) satellit: I can help here via vmware and usb/sd testing have f12 edu spin on sd now
+(07:11:15 PM) dirakx: i'll help withe testing, having the emulation images..
+(07:11:26 PM) erikos: tomeu: I will work with gary on toolbars
+(07:11:26 PM) tomeu: satellit, dirakx: excelent!
+(07:11:41 PM) tomeu: erikos: yeah, that's very important to do ASAP
+(07:11:51 PM) erikos: tomeu: tonight ;D
+(07:12:07 PM) tomeu: ok, so I own rpms, you two toolbars
+(07:12:12 PM) erikos: tomeu: I know - I am very unhappy how limited my time is those days ;p
+(07:12:18 PM) tomeu: yeah :/
+(07:12:31 PM) tomeu: next point: bugfixing
+(07:12:33 PM) garycmartin: tomeu: just remembered an outstanding feature (may be it's a bug?); the removal of the title/sort bars on the two list views (Journal and Home View), there's quite a bit of unusual behaviour cause by them (strange focus effects, odd highlights, etc).
+(07:12:41 PM) bemasc: dirakx: are you volunteering to help build emu images?
+(07:12:42 PM) tomeu: who is available to hunt bugs and squash then?
+(07:13:01 PM) dirakx: bemasc: nop just to test them when they are ready.
+(07:13:07 PM) tomeu: garycmartin: we may have to remove them instead of fixing the bugs, would be less invasive
+(07:13:13 PM) erikos: s/:p/:(
+(07:13:15 PM) satellit: f12 journal blocks popups on alpha sugar
+(07:13:24 PM) tomeu: garycmartin: maybe you can raise this issue in the mailing list?
+(07:13:45 PM) garycmartin: tomeu: understood.
+(07:13:50 PM) tomeu: satellit: do we have a ticket already?
+(07:13:54 PM) tomeu: that's an important one
+(07:14:00 PM) erikos: tomeu: I did sent once a list of those issues to the ml <- garycmartin
+(07:14:01 PM) tomeu: maybe it's the one about layering?
+(07:14:03 PM) satellit: not yet will do
+(07:14:04 PM) bemasc: tomeu: I think an official proclamation of a "Bug Hunt" on the mailing list would help, once we are ready.  Maybe with periodic updates as to who has discovered the most bugs, and who has killed the most?
+(07:14:11 PM) bemasc: almost like a competition.
+(07:14:17 PM) garycmartin: tomeu: raise on mail-list? You think there may be someone who can fix?
+(07:14:18 PM) dirakx: bemasc: i cannot spend too much time on that because i'm focusing on deployments and local labs.
+(07:14:22 PM) tomeu: erikos: about the header?
+(07:14:33 PM) erikos: tomeu: not only the header
+(07:14:34 PM) tomeu: garycmartin: just to discuss if we drop them or not
+(07:14:42 PM) ***erikos looks for the thread topic
+(07:14:48 PM) tomeu: garycmartin: so designers are kept in the loop
+(07:14:58 PM) tomeu: bemasc: that's a very good idea
+(07:15:07 PM) tomeu: bemasc: similar to the hundred paper cuts?
+(07:15:14 PM) tomeu: they are exposing pretty well this work
+(07:15:44 PM) erikos: garycmartin: 'Journal Listview (gtk.treeview)'
+(07:15:47 PM) silbe: bemasc: good idea. we should also ensure bugs get actually fixed. it's quite frustating to keep reporting bugs and only see very few of them fixed (general observation, not limited to Sugar).
+(07:16:07 PM) bemasc: tomeu: yes. Also a bit like
+http://www.gentoo.org/news/en/gwn/20070910-newsletter.xml#bugs-closed
+(07:16:32 PM) tomeu: silbe: yeah, without triaging, trac is a big black hole
+(07:16:56 PM) silbe: bemasc: ah, seems i missed the last word - yeah, good idea :)
+(07:17:15 PM) dirakx: i also have a request, maybe of benifit to new contributors, when somebody close a bug it woulfd be nice to have a link to the commit like alsroot does ?.
+(07:17:35 PM) tomeu: dirakx: ok, I haven't been doing that always
+(07:17:47 PM) erikos: tomeu: yeah, you are doing well
+(07:17:53 PM) garycmartin: tomeu: erikos gtk.treeview, OK I will email the ml about aheads up on that one (may drop if bugs don't get squashed soon).
+(07:17:57 PM) dirakx: it's a minor request but could be helpful
+(07:18:08 PM) silbe: dirakx: it may already be in the guidelines, but some of us keep forgetting. helps to nag them about it :)
+(07:18:16 PM) dirakx: :)
+(07:18:37 PM) erikos: garycmartin: that was the title of the thread already open, would be interesting if you found more issues
+(07:18:40 PM) tomeu: bemasc: would you like to take that action item? or the action item of finding someone to improve the visibility of bugs and bugfixes?
+(07:19:37 PM) bemasc: tomeu: Maybe... I don't really understand trac very well.
+(07:19:48 PM) silbe: how about the doing a bug hunt contest and the winner gets their favourite feature in? ;)
+(07:19:59 PM) bemasc: We also need to triage all the bugs in trac, but only the release manager can really do this.
+(07:20:03 PM) garycmartin: erikos: if I found more issues, they'll be in trac ;-)
+(07:20:03 PM) tomeu: bemasc: I think you could get access to sql queries if you needed it
+(07:20:22 PM) tomeu: bemasc: why only the release manager? we have had triage teams in the past and worked quite well
+(07:20:33 PM) erikos: bemasc: nah, I don't think only the release manager can do this
+(07:20:55 PM) erikos: bemasc: if you want to do bug work without being the release manager look at:
+(07:21:06 PM) bemasc: erikos: ok.  Then I will at least go through trac and start prioritizing bugs.
+(07:21:06 PM) tomeu: silbe: heh, you mean who fixes most bugs can invalidate the work of all the others? :p
+(07:21:20 PM) tomeu: bemasc: that would be really awesome
+(07:21:20 PM) erikos: bemasc:
+http://wiki.sugarlabs.org/go/BugSquad/Triage_Guide
+(07:21:37 PM) tomeu: we need to set the priority, check that the component is right, ask more more info when needed, etc, etc
+(07:21:38 PM) silbe: tomeu: no, just add some bugs to find in the next contest ;)
+(07:21:39 PM) erikos: bemasc: well, not priotorizing
+(07:21:48 PM) tomeu: silbe: oh, in the next release
+(07:21:54 PM) erikos: bemasc: look at the guide - it should be quite complete
+(07:22:11 PM) tomeu: silbe: well, if someone has been debugging and fixing bugs, I trust that person to have won an appreciation of maintainability
+(07:22:18 PM) bemasc: erikos: every bug in trac needs to have a target (0.86 or later) and a priority.
+(07:22:26 PM) erikos:   Severity of the bug
+(07:22:26 PM) erikos: Verify that the severity of the bug is set correctly. What you should not try to set is the milestone and the priority of the bugs, this is the duty of the component maintainer.
+(07:22:48 PM) erikos: bemasc: ^^
+(07:23:17 PM) tomeu: erikos, bemasc: who else can help with triaging?
+(07:23:24 PM) tomeu: fgrose did so in the past? maybe satellit?
+(07:23:24 PM) silbe: tomeu: IIRC that's how i started getting into the data store :-P
+(07:25:13 PM) erikos: tomeu: ok, I have my action item, anything else?
+(07:25:14 PM) garycmartin: tomeu: triaging team, I used to help a little, though mainly seemed to do my own bugs ;-)
+(07:25:36 PM) tomeu: well, that;s quite a bit
+(07:25:46 PM) erikos: garycmartin: that is already more then most do ;p
+(07:26:04 PM) tomeu: we don't have new soas bugs in trac any more, so triaging should b eless work
+(07:26:17 PM) erikos: yes, that is very very cool
+(07:26:22 PM) tomeu: anybody here would like to lead the triaging sessions?
+(07:26:25 PM) tomeu: maybe bemasc?
+(07:26:44 PM) silbe: tomeu: yeah, splitting up upstream/downstream bug trackers is a great idea IMO. just hope we won't switch to launchpad for upstream as well...
+(07:27:12 PM) erikos: silbe: we can discuss this after 0.86 ;p
+(07:27:17 PM) tomeu: silbe: lfaraone sent email about it, maybe you can share with us your concerns in that thread?
+(07:27:28 PM) tomeu: but yeah, not something we would be doing now
+(07:27:29 PM) silbe: erikos: good :)
+(07:27:30 PM) garycmartin: erikos: Just looking at Journal Listview (gtk.treeview) thread, do remember it. Amazed no one replied at all :-( Maybe I can reply with the 'reature may be reverted soon of bugs go unficed' type chat.
+(07:27:49 PM) tomeu: garycmartin++
+(07:27:57 PM) erikos: garycmartin: cool ;p
+(07:28:21 PM) tomeu: ok, so we are done with the topics in the wiki
+(07:28:25 PM) satellit: bug 422701 F12 journal blocks popups entered in launchpad
+(07:28:27 PM) tomeu: which were the topics that were added?
+(07:28:38 PM) sdziallas: erikos: sorry, missed a ping again. one thing I'd like to raise is that we might need immediate packaging after 0.86 is out (since we might otherwise conflict with F12's feature freeze)
+(07:28:47 PM) tomeu: satellit: can you from LP push the ticket to upstream?
+(07:28:59 PM) tomeu: sdziallas: ok, please remember us
+(07:29:06 PM) satellit: how?
+(07:29:12 PM) sdziallas: tomeu: :)
+(07:29:13 PM) tomeu: sdziallas: we cna also give ACLs to more people
+(07:29:20 PM) tomeu: satellit: not sure it's possible, just guessing
+(07:29:34 PM) erikos: sdziallas: I think we gained already a week, by F12 slipping
+(07:29:45 PM) erikos: sdziallas: but yeah, we should do it right away
+(07:29:52 PM) sdziallas: erikos: yeah, you're right... I missed that
+(07:29:54 PM) sdziallas: tomeu: yup, +1
+(07:30:21 PM) tomeu: alsroot: plugins and engineering committee
+(07:30:38 PM) tomeu: alsroot: about the committee, will you ping the mailing list again about it?
+(07:31:00 PM) alsroot: tomeu: will do
+(07:31:23 PM) tomeu: alsroot: about journal view plugins, would those be extensions like the cp sections are?
+(07:31:40 PM) alsroot: tomeu: yup, and bundles like activities
+(07:31:47 PM) alsroot: *bundeled
+(07:32:20 PM) garycmartin: tomeu: just a note on naming, should it be extensions and not plugins, it's like the feature we have already, just for the Journal.
+(07:32:52 PM) alsroot: garycmartin: "feature we have already" what do you mean
+(07:33:01 PM) tomeu: alsroot: you mean to have extensions in bundles?
+(07:33:30 PM) alsroot: tomeu: deploy extensions like from ASLO, at the end
+(07:33:45 PM) bemasc: alsroot: insecure.
+(07:33:45 PM) garycmartin: alsroot: answered above :-) I meant like the device frame extension ability.
+(07:33:51 PM) tomeu: alsroot: ok, I have thought a bit about that and I'm not 100% convinced of it
+(07:34:03 PM) silbe: alsroot: so what's the advantage of Journal plugins/extensions of activities interfacing directly with the data store?
+(07:34:17 PM) bemasc: Frame devices and control panel plugins are not designed to be easily modified, because they have tremendous system access.
+(07:34:32 PM) garycmartin: silbe: Security?
+(07:34:40 PM) alsroot: silbe: the advantage is having custom view, and having them out of gliucose release cycle
+(07:35:06 PM) silbe: garycmartin: what do these plugins need that an activity isn't allowed to do?
+(07:35:29 PM) silbe: alsroot: you get that custom view with an activity as well.
+(07:35:47 PM) alsroot: silbe: "what do these plugins need that an activity isn't allowed to do"  being as a regular journal view
+(07:36:03 PM) silbe: alsroot: can you elaborate on that, please?
+(07:36:22 PM) garycmartin: silbe: activities should not be allowed to access any entries without direct use action. Pippy scares me silly that it can do a slideshow of all images (though I think this is a security hole opened for Pippy?)
+(07:36:37 PM) garycmartin: (direct _user_ action)
+(07:36:58 PM) erikos: tomeu: ok, I will go and get some work done, if I may
+(07:37:08 PM) silbe: garycmartin: activities are allowed access to the whole data store by design (Bitfrost) - just not in conjunction with some other rights (e.g. network access)
+(07:37:17 PM) tomeu: garycmartin: no, we are not restricting activities to access the whole DS yet
+(07:37:18 PM) alsroot: silbe: for example in ObjectChooser -- like I want to sent my favorite book -- could be useful to use Books view for that
+(07:37:37 PM) bemasc: silbe: see
+http://lists.sugarlabs.org/archive/sugar-devel/2008-June/006598.html
+(07:37:38 PM) tomeu: erikos: actually, we still have the code review in the topics list :/
+(07:37:42 PM) ***garycmartin waves to erikos, will send more icons later (have a nice tools one for Log to replace the cog icon).
+(07:37:49 PM) tomeu: but I have to leave as well
+(07:37:55 PM) tomeu: we have been 1.5 hours
+(07:37:56 PM) silbe: alsroot: ok, so you're not just talking about the basic journal view, but about the object chooser as well?
+(07:38:08 PM) alsroot: silbe: as well
+(07:38:19 PM) erikos: tomeu: didn't work the code review well lateley?
+(07:38:29 PM) tomeu: erikos: people had some ideas
+(07:38:39 PM) aa__ [n=aa@r190-135-186-107.dialup.adsl.anteldata.net.uy] entered the room.
+(07:38:40 PM) alsroot: silbe: another reason, we cant package to glucose all possible(and valuable in some casess) views
+(07:38:43 PM) erikos: tomeu: people always have ideas ;p
+(07:38:49 PM) tomeu: anybody here wants to lead the rest of the meeting and afterwards sent the log and minutes to the ml?
+(07:38:59 PM) tomeu: erikos: I'm also not too happy about it myself
+(07:39:01 PM) erikos: tomeu: I was happy we actually got the code reviewed ;p
+(07:39:08 PM) ***garycmartin has to go work as well.
+(07:39:15 PM) tomeu: I wa snot too happy to have to review so much in such a short time :/
+(07:39:29 PM) erikos: tomeu: ok, that is a good point
+(07:39:31 PM) silbe: bemasc: interesting message, will talk about that one with Caspar as well (his work is more "data centric", as opposed to Sugars current "activity centric" design - your mail goes in the same direction he's already heading)
+(07:39:48 PM) erikos: tomeu: to be honest, most of the issues we have are lead by the fact that we are all volunteers
+(07:39:59 PM) erikos: tomeu: but have an amigious project
+(07:40:06 PM) garycmartin: erikos: +1 for tomeu code reviews. Scary as hell, but tough to argue against being a good thing.
+(07:40:14 PM) silbe: alsroot: if what we need can be done by an activity, it doesn't need to be bundled with glucose as well
+(07:40:48 PM) erikos: tomeu: and I am more and more unsure, what to do about it
+(07:41:07 PM) silbe: tomeu: how about just ending the meeting and continuing on list or just next week?
+(07:41:09 PM) tomeu: erikos: that's why would be good to hear people's ideas about it
+(07:41:15 PM) tomeu: silbe++
+(07:41:20 PM) silbe: tomeu: weekly meetings might be a good idea in any case
+(07:41:28 PM) alsroot: silbe: well, another reason shell integration, if I want to use only my view instead of Journal's
+(07:41:30 PM) silbe: tomeu: better than having few, long meetings
+(07:41:30 PM) tomeu: silbe: yup
+(07:41:32 PM) erikos: silbe: yeah, indeed if regular they are shorter
+(07:41:40 PM) erikos: silbe: and one can follow up on thing setc
+(07:41:58 PM) erikos: ok, looks like we at least agree on this one ;p
+(07:42:02 PM) tomeu: is evrybody ok with ending here the meeting?
+(07:42:08 PM) erikos: +1
+(07:42:15 PM) dirakx: +1
+(07:42:20 PM) garycmartin: +1
+(07:42:31 PM) silbe: +2
+(07:43:28 PM) tomeu: you can keep discussing, it's just that I need to start doing minutes, etc
+(07:43:51 PM) silbe: tomeu: what's up with the bot?
+(07:43:59 PM) tomeu: silbe: no idea, who took care of it
+(07:44:00 PM) tomeu: ?
+(07:44:13 PM) tomeu: let's add code review and journal view extensions to the next week meeting?
+(07:44:31 PM) silbe: tomeu: IIRC it's run by OLPC?
+(07:44:38 PM) garycmartin: tomeu: +1
+(07:44:49 PM) tomeu: silbe: dunno
+(07:45:04 PM) tomeu: alsroot: ok with that? you can of course bring the discussion to the ml if you wish
+(07:45:31 PM) alsroot: I'm ok w/ that
+(07:46:07 PM) silbe: alsroot: could you prepare some real-world example what journal plugins could achieve (and how, i.e. rough API draft) that cannot be done with an activity?
+(07:47:36 PM) alsroot: silbe: I'll going to start implementing it ofter 0.86 release
+(07:47:44 PM) tomeu: silbe: not sure it's matter only of what can and cannot be done, but also of user experience
+(07:48:29 PM) silbe: tomeu: maybe we should make the Journal feel more like an activity then? :-P
+(07:49:02 PM) tomeu: hehe
+(07:51:43 PM) garycmartin left the room (quit: Remote closed the connection).
+(07:52:32 PM) tomeu: so, thanks a lot for coming
+(07:52:44 PM) tomeu: we have a lot to talk about, sad we haven't been having weekly meetings
+(07:52:49 PM) tomeu: next week more

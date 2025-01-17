@@ -1,0 +1,717 @@
+Title: Translation Team/Wiki Translation
+URL: https://wiki.sugarlabs.org/go/Translating
+--------------------------------------------------------------------------------
+english
+|
+español
+HowTo
+[ID# 57748]
+Contents
+1
+List of Translators
+2
+A community reference, translatewiki.net
+3
+Priority Pages
+3.1
+Pages in need for translation
+3.2
+Pages needing active maintenance of the translation
+4
+Step-by-step summary
+4.1
+Setting up the source page: ensure it has a {{Translations}} template
+4.1.1
+Adding the language bar
+4.1.2
+Setting up the /translations
+4.2
+Modifying the language bar
+4.3
+Setting up the translated page
+4.3.1
+Adding the Translation template
+4.3.2
+Adding the Translation in Progress template
+4.3.3
+Translating section headers
+4.3.4
+Translating links
+4.3.5
+Linking to a page in particular language
+4.3.6
+Translating texts
+4.3.7
+Handling translated links that point to a non-existent page
+5
+Full example of a wiki-page
+5.1
+Anatomy of a wiki-page
+5.2
+Full finished example
+6
+Notes
+6.1
+Translation template notes
+6.2
+Translated text template notes
+List of Translators
+Area of Specialty
+Wiki Username
+brazilian portuguese
+Michelle Porto
+brazilian portuguese
+Rodrigo Padula
+spanish
+Pilar Saenz
+spanish
+Monyu
+Tamil(தமிழ்)
+Thangamani Arun
+german
+Rita Freudenberg
+A community reference, translatewiki.net
+http://translatewiki.net/wiki/Main_Page?setlang=en
+wiki for localization purposes
+Priority Pages
+This section address priorities for translation of pages on the Sugar Labs wiki.  The purpose is to help potential translators to know where to get started to help on the wiki.
+The first section lists wiki pages that needs translation, with the targeted languages between parentheses.  The second section lists pages that are already translated but need close watching and regular update.  Since not all pages are translated into all languages, some pages are listed in both sections.
+The third section explains how the translation system does work on this wiki.
+Pages in need for translation
+http://wiki.sugarlabs.org/go/Sugar_help
+(FR)
+http://wiki.sugarlabs.org/go/Sugar_Labs/Getting_Involved
+(FR, PT)
+http://wiki.sugarlabs.org/go/Sugar_Labs/Current_Events
+(FR, ES, PT)
+Pages needing active maintenance of the translation
+http://sugarlabs.org/go/Downloads
+(ES, FR)
+http://sugarlabs.org/go/Getting_Started
+(ES, FR, PT)
+http://wiki.sugarlabs.org/go/Sugar_Labs/Current_Events
+(FR, ES, PT)
+Taking part in translation projects can be fun and rewarding. However the volatile nature of wiki can make things difficult for the translator. These complications can be overcome by following a few simple rules and using standardized work practices. It is hoped that this will allow anybody to collaborate in the translating effort and at the same time have fun in the process.
+The translate templates now attempt to give help text to guide you through the process. This help-text is the best guide for translating. Try starting out by putting the {{Translations}} template on your home page and recursively following the instructions, saving the relevant page, and reading the new instructions. The material below is preserved in case the brief help texts leave you confused, yet in some cases it is out-of-date.
+Step-by-step summary
+From the point-of-view of the wiki, there are basically three tasks to hook up a translated page:
+[[Setting up the source page: ensure it has a {{Translations}} template|modify the source page]] — if it has never been translated;
+adding a reference
+— point/link to the translation in a standard way; and
+conditioning the translated page
+— adding some helper structure.
+Most of the time,
+translators
+will only deal with the last two steps (setting up and linking the translation).
+You can see an overview of the
+relevant structure
+of a page, and a
+full finished example
+towards the end of this page.
+Setting up the source page: ensure it has a {{Translations}} template
+If the page to translate already has a language bar, you can skip down to
+#Modifying the language bar
+.
+[[Original page]]
+(translated page does not exist—yet)
+== Some header ==
+
+Some text blah...
+blah... [[#Another header]]
+... blah
+
+
+== Another header ==
+
+Some other text blah...
+blah... [[Another page]]
+and [[Another page#section|section]]
+... blah
+Adding the language bar
+Although it is rare, it may be necessary to translate a page that nobody else has translated yet. In that case, a translations navigation bar must be added in the original page.
+[[Original page]]
+(translated page does not exist—yet)
+{{Translations}}
+== Some header ==
+
+Some text blah...
+blah... [[#Another header]]
+... blah
+
+
+== Another header ==
+
+Some other text blah...
+blah... [[Another page]]
+and [[Another page#section|section]]
+... blah
+Setting up the /translations
+You should follow the
+[[Original page/translations]]
+link in order to edit the page that groups the translations of a particular page, and should look something like this:
+To edit the page that groups the translations of a particular page, follow the
+[[Original page/translations]]
+link. It should look something like the following:
+[[Original page/translations]]
+{{translationlist | xx | origlang=en}}
+The resulting page will have a red colored link, denoting a missing/broken link to your future translation. Don't worry, you'll fix that in the next step.
+NOTE:
+The Translationlist template uses the form "
+Sugar Labs/lang-es
+" for translated pages. If you want to change it later so that the page title is in the target language (e.g. "
+Azúcar Labs
+"), use the "move" function of the wiki; this automatically creates a redirect link so that the inter-language links still work.
+Modifying the language bar
+Below is an example of a typical language bar. The page that may need translation would have a link shown as
++/-
+to the far right of the bar. (Not shown on this example.) This is a link to the editing page for the language bar. To create a link, for example when adding a new language on the language bar, follow this
++/-
+link to go to the editing page. Then add the appropriate code for the new language.
+Sugar Labs/translations
+HowTo
+[ID# 57748]
+When inserting the link to your page, please keep things
+in alphabetical order denoted by the
+/lang-
+xx
+sequence
+(if you're adding say
+/lang-de
+it should go before the link to 'english'). Also, note the spaces around the '|' that separate each language. See
+above on
+/translations
+for more info.
+Setting up the translated page
+Although the translator is given as much freedom to edit and to translate as possible when translating the wiki, there is one rule that must be adhered to at all times. The translated page must be declared as a
+{{Translation}}
+. (Please note the use of "singular". Plural is for the original page and it will have many translations.)
+There are couple of other bits of advice that may improve the quality of the translation process. First, please keep navigation and linking within the translated pages simple and easy to follow. Secondly, preserving the original text in the translation may simplify peer review and help with maintenance.
+The quickest way to set up a page is by going back to the
+original page, then copying the
+wiki-text
+. This can be done either by following the
+edit
+link or through
+view source
+if the page is protected. Then copy the whole page and paste it onto the new page.
+Adding the
+Translation template
+[[Original page]]
+[[Original page/lang-
+xx
+]]
+(translated page name)
+{{Translations}}
+
+
+== Some header ==
+
+Some text blah...
+blah... [[#Another header]]
+... blah
+
+
+== Another header ==
+
+Some other text blah...
+blah... [[Another page]]
+and [[Another page#section|section]]
+... blah
+{{Translation
+| lang =
+xx
+| source =
+Original page
+| version =
+yyyy
+}}
+== Some header ==
+
+Some text blah...
+blah... [[#Another header]]
+... blah
+
+
+== Another header ==
+
+Some other text blah...
+blah... [[Another page]]
+and [[Another page#section|section]]
+... blah
+For a full explanation of the parameters, see the
+Notes
+below, in short:
+lang
+— is the
+IANA language code
+(usually 2 letters, without any further segmentation—ie: instead of
+lang-pt-BR
+(brazilian portuguese), just
+lang-pt
+(portuguese)—just to keep things simple and neutral.
+Adding the
+Translation in Progress template
+[[Original page]]
+[[Original page/lang-
+xx
+]]
+(translated page name)
+{{Translations}}
+
+
+== Some header ==
+
+Some text blah...
+blah... [[#Another header]]
+... blah
+
+
+== Another header ==
+
+Some other text blah...
+blah... [[Another page]]
+and [[Another page#section|section]]
+... blah
+{{Translation
+ | lang =
+xx
+| source =
+Original page
+| version =
+yyyy
+}}
+{{Translation in Progress}}
+== Some header ==
+
+Some text blah...
+blah... [[#Another header]]
+... blah
+
+
+== Another header ==
+
+Some other text blah...
+blah... [[Another page]]
+and [[Another page#section|section]]
+... blah
+The main purpose of the
+{{Translation in Progress}}
+template is to inform the readers that a particular page is still not finished, therefore they can expect the presence of untranslated text or that it hasn't been reviewed enough and thus may not be quite done yet. Parallel to that notice to the reader, it does a grouping of them in the
+Translation in Progress
+, thus allowing other translators to find them and collaborate, review, make comments, etc. on them.
+Translating section headers
+When translating section headers, the best practice is to preserve them as anchors. Then add the translated header under it.
+For example if the section header is called "Some Section Header" and it is translated into German in the form of "Einige Paragraph Kopfzeile". Original text "Some Section Header" is preserved by wrapping it between curly braces like the following:
+{{anchor|Some Section Header}}
+Then the translated text "Einige Paragraph Kopfzeile" is placed under it. Together it will look like the following when finished:
+{{anchor|Some Section Header}}
+== Einige Paragraph Kopfzeile ==
+[[Original page]]
+[[Original page/lang-
+xx
+]]
+(translated page name)
+{{Translations}}
+
+
+== Some header ==
+
+Some text blah...
+blah... [[#Another header]]
+... blah
+
+
+== Another header ==
+
+Some other text blah...
+blah... [[Another page]]
+and [[Another page#section|section]]
+... blah
+{{Translation
+ | lang =
+xx
+| source =
+Original page
+| version =
+yyyy
+}}
+{{Translation in Progress}}
+{{anchor|Some header}}
+== Un titular ==
+
+Some text blah...
+blah... [[#Another header]]
+... blah
+{{anchor|Another header}}
+== Otro titular ==
+
+Some other text blah...
+blah... [[Another page]]
+and [[Another page#section|section]]
+... blah
+Translating links
+When translating links, the original text is preserved by using what is called "piped links". By placing the symbol "|" between original text and the translated text, both become connected together through a pipe. For example if "some-link" is to be translated into German as "einige-link", it will end up looking like the following:
+[[some-link|einige-link]]
+As a result, following "einige-link" will connect to "some-link". The reader will only see the translated link "einige-link".
+Linking to a page in particular language
+When linking to a translated page in a particular language use the /lang-xx to point to that particular translation.
+[[some-link/lang-de|einige-link]]
+Translating texts
+When translating text, it is useful to preserve original text by wrapping them inside
+{{Translated text}}
+function. "display =
+value
+" parameter
+can be used to control whether the original text is visible to the
+reader or not.
+Original text invisible to reader (display = none).
+{{ Translated text |   
+           original text
+           more original text
+           yet more original text
+           final original text
+       | display = none }}
+Original text visible to reader (display = block).
+{{ Translated text |
+           original text
+           more original text
+           yet more original text
+           final original text     
+       | display = block }}
+Please see
+here
+for more information.
+[[Original page]]
+[[Original page/lang-
+xx
+]]
+(translated page name)
+{{Translations}}
+
+
+== Some header ==
+
+Some text blah...
+blah... [[#Another header]]
+... blah
+
+
+== Another header ==
+
+Some other text blah...
+blah... [[Another page]]
+and [[Another page#section|section]]
+... blah
+{{Translation
+ | lang =
+xx
+| source =
+Original page
+| version =
+yyyy
+}}
+{{Translation in Progress}}
+
+{{anchor|Some header}}
+== Un titular ==
+
+Algo de texto bla...
+bla...
+[[#Another header|Otro titular]]
+... blah
+{{ Translated text |
+Some text blah...
+blah... [[#Another header]]
+... blah
+| display =
+block
+}}
+{{anchor|Another header}}
+== Otro titular ==
+
+Algo más de texto bla...
+bla... [[Another page
+/lang-
+xx
+|Otra página
+]]
+y [[Another page
+/lang-
+xx
+#section|sección
+]]
+... bla
+{{ Translated text |
+Some other text blah...
+blah... [[Another page]]
+and [[Another page#section|section]]
+... blah
+| display =
+block
+}}
+Handling translated links that point to a non-existent page
+At the beginning, any link you 'translate' will most likely point to a non-existing page; don't worry. There are two alternatives:
+let the wiki handle them through
+Special:Wantedpages
+make one last translating effort: dedicated redirects
+The first alternative is the simplest but also the hardest on the reader (lands them on the 'create page option' which is hardly the best alternative). Another downside, is that it'll be hard to detect those 'wanted pages' for a specific language, as they will be in the same list as all other 'missing translated pages' in other languages
+plus
+all the
+naturally missing pages in the wiki
+(a long list due to historical reasons).
+The second, recommended alternative, is to add the {{subst:requesttranslation}} template to the target page. This self-substitutes with the replacement:
+[[Another page/lang-
+xx
+|annuder paij]]
+#REDIRECT [[Another page]]
+[[Category:Translations wanted lang-
+xx
+]]
+{{translation | lang = es | source = Another page | status = wanted }}
+Note: the last option is only available for those languages whose "inline translation instructions" are not red in
+this table
+. Use the links there to create instructions for your language, based on English or Spanish, in a template named "translation/no translation/lang-xx".
+WARNING
+Make
+sure
+that the original page is
+not
+linking to a
+REDIRECT
+. If that is the case, you should change the target to the
+real page and create there the
+/lang-
+xx
+subpage
+. For example, if the
+[[Foo]]
+actually is a redirect to
+[[Bar]]
+, then you should create the
+[[Bar/lang-
+xx
+]]
+instead of
+[[Foo/lang-
+xx
+]]
+and change the referencing link accordingly.
+This will serve three purposes, first the page will at least take the reader to the right page (albeit not in the correct language). Secondly, the
+Category
+will allow a simple way to check 'what is missing'. Finally, and using the
+What links here
+from the
+toolbox
+you can find out how many references to the missing page exist, giving some sense of
+need
+for it and thus guiding the translating efforts.
+Please do NOT add
+these
+fake translation redirects
+to the
+/translations
+page, as it doesn't make sense to advertise a translation that doesn't yet exist. Only when the REDIRECT is made into a real translation (ongoing or otherwise) add the link to the language navigation page.
+Full example of a wiki-page
+Anatomy of a wiki-page
+This 'sample' page includes all of the elements that require some level of consideration when translating
+[[Original page]]
+Notes on the structure
+== Some header ==
+Some text blah...
+blah...
+[[#Another header]]
+... blah
+
+
+== Another header ==
+
+Some other text blah...
+blah...
+[[Another page]]
+and
+[[Another page#section|section]]
+... blah
+== Some header ==
+section headers act as anchors, and their translation is sensitive as they
+anchor
+incomming links.
+[[#Another header]]
+intra-page section linking may be simple to maintain as it's within the same page (you can search&replace local references) but will break external inbound links if changed.
+[[Another page]]
+the most common problem with links to other pages is to know how the page title has been translated...
+[[Another page#section|section]]
+links to specific sections in other pages pose the conflated problem of knowing
+both
+the target page name
+and
+the section name's translations.
+Full finished example
+[[Original page]]
+[[Original page/lang-
+xx
+]]
+(translated page name)
+Translated text deleted...
+(not really recommended)
+{{Translations}}
+
+
+== Some header ==
+
+Some text blah...
+blah... [[#Another header]]
+... blah
+
+
+== Another header ==
+
+Some other text blah...
+blah... [[Another page]]
+and [[Another page#section|section]]
+... blah
+{{Translation
+ | lang =
+xx
+| source =
+Original page
+| version =
+yyyy
+}}
+{{Translation in Progress}}
+
+{{anchor|Some header}}
+== Un titular ==
+
+Algo de texto bla...
+bla... [[#Another header|Otro titular]]
+... blah
+{{ Translated text |
+Some text blah...
+blah... [[#Another header]]
+... blah
+| display =
+block
+}}
+
+{{anchor|Another header}}
+== Otro titular ==
+
+Algo más de texto bla...
+bla... [[Another page/lang-
+xx
+|Otra página]]
+y [[Another page/lang-
+xx
+#section|sección]]
+... bla
+{{ Translated text |
+Some other text blah...
+blah... [[Another page]]
+and [[Another page#section|section]]
+... blah
+| display =
+block
+}}
+{{Translation
+ | lang =
+xx
+| source =
+Original page
+| version =
+yyyy
+}}
+
+{{anchor|Some header}}
+== Un titular ==
+
+Algo de texto bla...
+bla... [[#Another header|Otro titular]]
+... blah
+
+{{anchor|Another header}}
+== Otro titular ==
+
+Algo más de texto bla...
+bla... [[Another page/lang-
+xx
+|Otra página]]
+y [[Another page/lang-
+xx
+#section|sección]]
+... bla
+Supporting pages:
+[[Original page/translations]]
+[[Original page|english]] | [[Original page/lang-
+xx
+|
+shortNativeName
+]]
+[[Another page/lang-
+xx
+]]
+[[Another page]]
+#REDIRECT [[Another page]]
+[[Category:Missing translation]]
+some untranslated page...
+maybe the content is mutating rapidly,
+or is peripheric to the main corpus, etc.
+Notes
+shortNativeName
+should be in the native language;
+español
+instead of
+spanish
+.
+Translation template
+notes
+For the full documentation, please see
+Template:Translation
+.
+lang
+This parameter identifies the target language of the translation. See
+Translation Team/ISO 639
+for a select list of codes being used in the wiki. (Another source is
+IANA's lang codes
+).
+It serves several purposes, and is used in several contexts although it should be done in a homogeneous way.
+We are currently using
+ISO 639-1
+codes (two-letter codes)
+.
+source
+is the name of the page (not the link—in other words, without the enclosing square brackets).
+version
+Each original page has a unique version number. These version numbers appear on the far right of the 'blue language navigation bar', and appear in the form: [ID# yyyyy]
+When a page edit is submitted, the version number for that particular page is incremented.
+A translated page on the other hand does not have a visible version number on its own. It must be manually assigned by the translator when an edit is submitted. The version number of a translated page is the same as the version number of the original page which it is based on.
+For example if the original page has a version number ID# 54321, and the translatation is based on this particular version, the translated page is given the version number ID# 54321.
+The version number for the translated page is entered at the top of the page as a parameter for the
+{{Translation}}
+function.
+{{ Translation
+| lang    = de
+| source  = Translating/HowTo
+|
+version = 54321
+}}
+There is one use which results directly from the above manual assignment of a version number to the translated page. It allows the translator to easily lookup what new translations are needed by following the 'changes' link located to the far right of the 'blue language navigation bar'.
+Suppose translator 'A' is making a translation of page
+Bitfrost
+with version number ID# 65535 into español. As per this guide, translator 'A' assigns version number ID# 65535 to the Bitfrost/lang-es español translated page. Meanwhile editor 'B' arrives and edits the original
+Bitfrost
+page and its version number is incremented to ID# 6553
+6
+. Translator 'A' then can see what new translations are necessary by following the 'changes' link located on the blue nav bar. The 'changes' link compares the differences of two versions of the original page ID# 6553
+5
+and ID# 6553
+6
+. By observing the resulting output, translator 'A' could easily see what new text needs to be translated.
+Translated text
+template notes
+display
+is used to show or hide the enclosed translated text.
+While doing the translation, it comes in handy for comparing the original with the translation. When finished, you can replace the
+block
+with
+none
+and the source text is not displayed. Although it adds quite a bit of text and 'noise' to the source of the translated page, it comes in handy when trying to update or synchronize it with any changes in the original page—after all, this IS a wiki and pages are supposed to mutate!

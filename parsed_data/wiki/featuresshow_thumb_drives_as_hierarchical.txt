@@ -1,0 +1,71 @@
+Title: Features/Show Thumb Drives As Hierarchical
+URL: https://wiki.sugarlabs.org/go/Features/Show_Thumb_Drives_As_Hierarchical
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+There is a desire from many users to replace the part of the Journal UI that represents files on thumb drives and SD cards as if they were Journal entries, instead of what they actually are, which is files within directories.  I suggest that only Journal entries should be represented as such, and that thumb drives and SD cards should be represented conventionally.
+Owner
+This should link to your home wiki page so we know who you are
+Name:
+James Simmons
+Email: <nicestep@gmail.com>
+Current status
+Targeted release: (SUGAR_VERSION)
+Last updated: (DATE)
+Percentage of completion: XX%
+Detailed Description
+There is a desire from many users to replace the part of the Journal UI that represents files on thumb drives and SD cards as if they were Journal entries, instead of what they actually are, which is files within directories.  Representing these files as if they are Journal entries creates an expectation in the user that they will behave as Journal entries do, and in fact they do not.  It also makes it difficult, perhaps impossible, to deal with directories on the thumb drive or SD card.
+Benefit to Sugar
+Plan Ceibal has created an Activity "Leer Pendrive" which simply displays the contents of removable devices as a GTK file chooser and lets people copy selected files to the clipboard, from where they can be pasted into the Journal.  I understand there was a big demand for this.  I followed this up with my own Activity, Sugar Commander, which lets you copy files directly to the Journal without using the clipboard.  I understand that this Activity has a following and is routinely included on XOs in Australia.  Neither of these Activities allow you to copy from the Journal to a thumb drive, and there is a legitimate need to do this.
+The beneficiaries of this feature will be teachers, older students, and others who need to deal with thumb drives and SD cards and move data in and out of the Journal.
+Scope
+See the code for the Sugar Commander Activity for a simple implementation of this idea.
+UI Design
+Have a look at the Sugar Commander Activity:
+http://activities.sugarlabs.org/en-US/sugar/addon/4291
+How To Test
+Features/Show Thumb Drives As Hierarchical/Testing
+User Experience
+If this is done well, when the user switches from viewing the Journal to viewing the contents of a removable drive he will see a conventional representation of files and directories like a GTK file chooser and will be able to copy files from this into the Journal and copy Journal entries into the file system.  He'll also be able to create directories on the thumb drive, rename things, etc.
+If the feature is implemented well then children who never use thumb drives, etc. won't know the new feature is there.
+Dependencies
+What other packages (RPMs) depend on this package?  Are there changes outside the developers' control on which completion of this feature depends?  In other words, does your feature depend on completion of another feature owned by someone else or that you would need to coordinate, which might cause you to be unable to finish on time?  Other upstream projects like Python?
+Contingency Plan
+If you cannot complete your feature by the final development freeze, what is the backup plan?  This might be as simple as "None necessary, revert to previous release behaviour."  Or it might not.  If your feature is not completed in time, we want to assure others that other parts of Sugar will not be in jeopardy.
+Documentation
+Is there upstream documentation on this feature, or notes you have written yourself?  Has this topic been discussed in the mailing list or during a meeting? Link to that material here so other interested developers can get involved.
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+See
+discussion tab for this feature

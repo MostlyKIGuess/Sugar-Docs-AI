@@ -1,0 +1,81 @@
+Title: Talk:Sugar Creation Kit/sck/Advanced Topics
+URL: https://wiki.sugarlabs.org/go/Talk:Sugar_Creation_Kit/sck/Advanced_Topics
+--------------------------------------------------------------------------------
+Ubuntu on Chromebook
+Copied from:
+https://plus.google.com/109993695638569781190/posts/b2fazijJppZ
+Olof Johansson
+Oct 28, 2012 (edited)  -  Public
+[edited to fix some typos and the cgpt commandline and setting sector alignment]
+Sunday night is "Hack your Chromebook" time!
+A word of caution: be careful, there are some ways in which you can mess up your system below, in particular the steps that partitions and writes data to the SD card. If you're unsure of what you're doing, you're better off waiting until someone refines the instructions and makes them more user friendly.
+I got Ubuntu installed on my ARM Chromebook tonight. Here's a messy brain dump of what I did. The system was already in devmode when I started (see
+http://goo.gl/TSZxs
+for info on how to achieve that). I also already had a tarball of an Ubuntu filesystem, created with the "rootstock" tool. [edit: you can use the distributed ubuntu-core tarball directly from ubuntu as well, and then install additional packages on top]
+Get an SD card, insert it in a reader on your Ubuntu PC (mine was a 16GB card that ended up at /dev/sdd on the PC, so the below reflects that):
+First, the SD card needs a GPT partition table. I'm lazy and mixed tools here to make it easy for myself. First, I created the blank partition table in parted:
+sudo parted /dev/sdd
+(parted) mktable gpt
+(parted) quit
+Then edit it with gdisk (apt-get install gdisk), since the syntax is close to what I am used with regular cfdisk. The first part sets the sector alignment to 4M based on the recommendation from Arnd in the comments below:
+sudo gdisk /dev/sdd
+x
+l
+8192
+m
+n
+1
+<enter>
++16M
+7f00    (ChromeOS kernel)
+n
+2
+<enter>
++16M
+7f00
+n
+3
+<enter>
+<enter>
+<enter>
+This creates three partitions; two kernel ones and one for the root filesystem. I wanted two kernel partitions to make it easier to tinker with the kernel and have a fallback to a known-good kernel in case the one being tested fails.
+Then, create a filesystem on the root partition:
+sudo mkfs.ext4 /dev/sdd3
+mount /dev/sdd3 somewhere and extract your rootstock filesystem to it:
+sudo mount /dev/sdd3 /mnt
+cd /mnt
+sudo tar xvpf /work/rootstock/armel.tar.gz
+Then, since we are going to use the same kernel as we boot Chrome
+OS with, copy over the contents from /lib/modules and /lib/firmware
+from your running system into the same location on the SD card
+(i.e. /mnt/lib/modules /mnt/lib/firmware). I did it by creating a tarball
+on the Chrome OS machine and scp:ing it over to my PC. I'll leave the
+details as an exercise for the reader here.
+Now the only remaining piece is to put an actual kernel on the kernel
+partitions of the SD card.
+This is something I did on my Chromebook system directly. Be VERY careful here, mmcblk1 and mmcblk0 are very easy to mistype, and you won't like the results from doing it (I nuked my stateful partition by mistake once when I went through this because I dd:d a kernel to mmcblk0p1 instead of mmcblk1p1).
+The kernel command line is going to be different from what you use for
+Chrome OS, so you'll need to repack the kernel blob manually first. This
+is what I did:
+cd /tmp
+echo "console=tty1 debug verbose root=/dev/mmcblk1p3 rootwait rw" > /tmp/config
+vbutil_kernel --pack /tmp/newkern --keyblock /usr/share/vboot/devkeys/kernel.keyblock --version 1 --signprivate /usr/share/vboot/devkeys/kernel_data_key.vbprivk --config=/tmp/config --vmlinuz /boot/vmlinuz-3.4.0 --arch arm
+Then I moved the SD card to the Chromebook, and wrote out the kernel:
+dd if=/tmp/newkern of=/dev/mmcblk1p1
+dd if=/tmp/newkern of=/dev/mmcblk1p2
+Now, enable boot from "USB" (which includes SD card on these systems):
+crossystem dev_boot_usb=1
+Final step is to mark the partitions on the SD card as known good so
+that the firmware will try to boot them:
+cgpt add -i 1 -S 1 -T 5 -P 10 -l KERN-A /dev/mmcblk1
+cgpt add -i 2 -S 1 -T 5 -P 5 -l KERN-B /dev/mmcblk1
+I.e. mark both as successful, first partition as priority 10, second
+as priority 5. I don't think tries are technically needed here since
+the partition is already marked as successful, but I included it by
+habit. Same with the label names, they shouldn't be needed.
+Then reboot. At the devmode screen, you type ctrl-u to load the kernel
+and boot from the SD card.
+After a few seconds, you'll get the kernel log on the console, followed by
+(depending on what you have on your root filesystem) a login prompt. I
+had a very minimal install without X-windows first, so I just got a text login prompt. I later installed ubuntu-desktop, and it will boot up to login prompt and let you login with an UI environment. The trackpad isn't behaving perfectly though, so there's some tuning to be done.
+I'm sure there will be others more than happy to carry the flag on getting this going nice and smoothly from here though. I'm also looking forward to getting reports of other distros being functional, so bring them on!

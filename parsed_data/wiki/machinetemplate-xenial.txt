@@ -1,0 +1,186 @@
+Title: Machine/template-xenial
+URL: https://wiki.sugarlabs.org/go/Machine/template-xenial
+--------------------------------------------------------------------------------
+Contents
+1
+VM Creation (host part)
+2
+Partitioning
+3
+First boot
+4
+Switch the root filesystem to an LV
+5
+Configuration after system start
+5.1
+Network interface setup
+5.2
+Other configurations
+VM Creation (host part)
+virt-install -v --accelerate --nographics -x console=ttyS0,115200 \
+--name template-xenial --vcpus=3 --ram $((1 * 1024)) \
+--os-type=linux --os-variant=ubuntu16.04 --network bridge:br0 \
+--disk path=/var/lib/libvirt/images/boot/template-xenial-boot.img,bus=virtio,size=0.25,format=raw \
+--disk path=/dev/justice/template-xenial-root,bus=virtio,size=10 \
+--location
+http://ubuntu.media.mit.edu/ubuntu/dists/xenial/main/installer-amd64/
+Obs
+:
+format=raw
+is mandatory, otherwise qcow2 format will be used by default.
+raw
+format allows us to easily create device mappings for the image.
+The new VM will boot into the installer. Answer all questions with the defaults, except:
+Hostname: template-precise
+Mirror: enter information manually
+Mirror hostname: ubuntu.media.mit.edu
+(create your user with a strong password and no encrypted home)
+Partitioning: manual (see Partitioning below)
+Automatically install security updates
+Software selection:
+Basic Ubuntu Server
+OpenSSH server
+GRUB: let the installer setup grub on /dev/vba (which contains /boot)
+Partitioning
+The goal is to have a small disk file for the MBR and /boot, and a larger raw filesystem in
+an LVM Logical Volume. We don't want the LV to be partitioned because this makes it harder to
+resize, mount, etc.
+Now create a partition table in the smallest disk (256MB) and create a single partition in it.
+Format this partition as ext4, labeled "boot" and mounted as /boot.
+The installer won't let you format the entire disk as a filesystem, so go ahead and partition
+the 10GB disk too, then create a primary partition in it and format it as ext4, mounted as /
+and labeled "template-xenial" (
+"template-xenial-root" would exceed the ext4 limit
+).
+And yes.. just in case you're wondering. We don't use swap partitions.
+We'll have to fix the disk later.
+First boot
+After installation has finished and OS is restarted, it will boot but we won't have serial console access 
+(
+virsh console template-xenial
+). This is due the getty service for serial device is disabled by default on Ubuntu 16.04.
+We'll fix this later.
+Switch the root filesystem to an LV
+When the machine is offline, go to the host to recreate the root filesystem directly as an LV (as opposed to a partitioned volume)
+First of all, we need to set up the device mapping for the first and only partition where the root filesystem resides.
+kpartx -av  /dev/justice/template-xenial-root
+Mount the root partition:
+mkdir /mnt/template-xenial-root
+mount /dev/mapper/justice-template--xenial-root1 /mnt/template-xenial-root
+Now create and format a new LV:
+lvcreate -L 10G -n template-xenial-root2 justice
+ mkfs.ext4 -L template-xenial -O flex_bg,extent,uninit_bg,sparse_super /dev/justice/template-xenial-root2
+ tune2fs -c -1 -i 0 /dev/justice/template-xenial-root2
+ mkdir /mnt/template-xenial-root2
+ mount /dev/justice/template-xenial-root2 /mnt/template-xenial-root2
+Move the files over:
+rsync -HAXphax --numeric-ids /mnt/template-xenial-root/ /mnt/template-xenial-root2/
+NOTE
+: By default, Ubuntu 16.04 uses UUID in /etc/fstab in order to mount partitions. Since we have changed the root 
+partition to a new disk, the UUID will change. Aside from that, the grub.cfg also specifies the location of the root filesystem
+using UUID notation (ex: /vmlinuz-4.4.0-89-generic root=UUID=0ad5d004-e5dd-4b93-abe4-2bb0ba4fd94a).
+Before we umount the filesystems, let's create a chroot environment and fix previous issues:
+kpartx -av /var/lib/libvirt/images/boot/template-xenial-boot.img
+ mount /dev/mapper/loop0p1 /mnt/template-xenial-root2/boot
+ mount --bind /dev/ /mnt/template-xenial-root2/dev/
+ mount -t proc proc /mnt/template-xenial-root2/proc/
+ mount -t sysfs sys /mnt/template-xenial-root2/sys/
+ chroot /mnt/template-xenial-root2/
+Once inside the chroot environment:
+Fix serial console access by making getty listen on /dev/ttyS0:
+systemctl enable serial-getty@ttyS0.service
+Replace UUID with device name for root fs location inside /boot/grub/grub.cfg
+sed -i -r "s/root=UUID=[0-9a-f-]+/root=\/dev\/vdb/" /boot/grub/grub.cfg
+Adjust /etc/fstab to mount the filesystems from "LABEL=boot" and "LABEL=template-xenial".
+Finally (VERY IMPORTANT), umount all filesystems before starting the VM:
+umount /mnt/template-xenial-root2/boot/
+ umount /mnt/template-xenial-root2/dev/
+ umount /mnt/template-xenial-root2/proc/
+ umount /mnt/template-xenial-root2/sys/
+ umount /mnt/template-xenial-root2/ /mnt/template-xenial-root/
+Get rid of the old root and rename the new one on top of it
+lvremove /dev/justice/template-xenial-root
+ lvrename justice template-xenial-root2 template-xenial-root
+Configuration after system start
+After the installation, the machine will boot automatically and you'll be dropped into the serial console.
+You can return to the console at any time by doing:
+virsh console template-xenial
+Login with your installation username and password, then become root:
+sudo -i
+Adjust /etc/default/grub:
+Set `GRUB_CMDLINE_LINUX_DEFAULT="console=ttyS0,115200"` (and remove the obnoxious "quiet splash")
+Uncomment GRUB_DISABLE_LINUX_UUID
+Update grub: `update-grub`
+Get rid of the restricted repositories from /etc/apt/sources.list (virtual machines don't need any non-free drivers anyway).
+Add a few useful packages:
+apt-get install etckeeper bash-completion strace munin-node postfix vim aptitude
+Note: etckeeper uses git by default :)
+When prompted on how to configure postfix, say "Internet site".
+Afterwards, edit `/etc/postfix/main.cs` by hand and set `inet_interfaces = loopback-only` and restart postfix.
+Monitor mail for root:
+echo >>/etc/aliases "root: systems-logs@lists.sugarlabs.org"
+newaliases
+Switch to the virtual kernel:
+apt-get install linux-image-virtual linux-virtual
+apt-get purge linux-image-generic
+apt-get autoremove
+update-grub
+Network interface setup
+We use
+6to4
+to reach the closest IPv6 anycast relay.
+Append the following to /etc/network/interfaces:
+auto eth0
+iface eth0 inet static
+address 18.85.44.67
+	netmask 255.255.255.0
+	gateway 18.85.44.1
+	# dns-* options are implemented by the resolvconf package, if installed
+	dns-nameservers 18.71.0.151 18.70.0.160 18.72.0.3
+	dns-search sugarlabs.org
+auto tun6to4
+iface tun6to4 inet6 v4tunnel
+# printf "2002:%02x%02x:%02x%02x::1\n" `echo $IPV4ADDR | tr . ' '`
+	address 2002:1255:2c43::1
+	netmask 16
+	gateway ::192.88.99.1
+	endpoint any
+	local 18.85.44.67
+Other configurations
+Add these to /etc/sudoers:
+#bernie: forward ssh-agent
+Defaults    env_keep+="SSH_AUTH_SOCK"
+#bernie: 
+%sudo ALL=(ALL:ALL) NOPASSWD: ALL
+Install your ssh keys to /root/.ssh/authorized_keys and to your user account. Also install the wizbackup keys for
+Service/backup
+.
+Once your keys are installed, you might SSH in and start configuration using a SSH session.
+Log in with "ssh -A template-xenial.sugarlabs.org" to forward your ssh-agent and copy files from sunjammer
+rsync -aP <your-user>@sunjammer.sugarlabs.org:/usr/src/devtools/ /usr/src/devtools/
+ln -sf /usr/src/devtools/sysadm/bashrc.sh /etc/skel/.bashrc
+ln -sf /usr/src/devtools/sysadm/bashrc.sh /root/.bashrc
+ln -sf /usr/src/devtools/sysadm/zzz_profile.sh /etc/profile.d/zzz_profile.sh
+ln -sf /usr/src/devtools/conf/vimrc /etc/vim/vimrc.local
+vim /etc/bash.bashrc # comment out code messing with PS1
+vim /etc/login.defs # set umask 002
+Create /etc/zzz_profile.conf:
+HOST_COLOR='\033[1;40;37m'
+Disable PasswordAuthentication in /etc/ssh/sshd_config, then restart ssh
+Set a blank password for root, to be used to log in from the console only
+passwd -d
+Insert into /etc/munin/munin.node:
+#bernie
+allow ^208\.118\.235\.53$     # sunjammer.sugarlabs.org
+allow ^2001:4830:134:7::11$   # sunjammer.sugarlabs.org (IPv6)
+Add/remove munin plugins
+cd /etc/munin/plugins
+rm df_inode entropy forks fw_packets if_err_ens2 open_files open_inodes threads uptime processes proc_pri swap
+Disable unused services (They are dependencies of the ubuntu-server package):
+systemctl disable snapd.service
+ systemctl disable atd.service 
+ systemctl disable iscsid.service 
+ systemctl disable lvm2-monitor.service
+ systemctl disable open-vm-tools.service
+ systemctl disable lxcfs.service
+ systemctl disable lxd-containers.service

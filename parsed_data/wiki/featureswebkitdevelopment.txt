@@ -1,0 +1,213 @@
+Title: Features/WebKit/Development
+URL: https://wiki.sugarlabs.org/go/Features/WebKit/Development
+--------------------------------------------------------------------------------
+Contents
+1
+Browse functionality and the replacements
+1.1
+Activity toolbar
+1.2
+Edit toolbar
+1.3
+View toolbar
+1.4
+Home Button
+1.5
+Title entry
+1.6
+Go back and forward buttons
+1.7
+Favorite button
+1.8
+Stop button
+1.9
+Keystrokes
+1.10
+Multiple tabs
+1.11
+Downloads
+1.12
+Uploads
+1.13
+Link palettes
+1.14
+Start all instances in the same process
+1.15
+Authenticate with schoolserver
+1.16
+Internationalisation
+1.17
+Don't autoplay flash, embed in web page
+1.18
+Security
+1.19
+View Source
+1.20
+Set DPI
+1.21
+Identify Sugar version through Browser
+1.22
+Style bottom overlay
+1.23
+Display pdf in Browse
+1.24
+Playback audio and video in Browse
+1.25
+Flash and Java plugins
+1.26
+Backwards compatibilty
+Browse functionality and the replacements
+Activity toolbar
+session title (in the Journal), should be the title of the last page visited
+ENHANCE
+, works as in previous Browse but when you resume a session the title is not updated anymore when browsing.
+Bug ticket #3303
+share activity, the starred pages are shared, anything else? sharing in Borwse does not work at the moment, because the 'get_preferred_connection' API of the toolkit seem to be broken atm. Sharing in Read which does not use this API works.
+FIXME
+Reference:
+http://wiki.laptop.org/go/Browse#Collaboration
+Edit toolbar
+undo/redo/copy/paste
+DONE
+search in Document
+DONE
+style text found in search, put yellow background,
+ENHANCE
+we need to set the background color of the widget as well accordingly to make the currently selected match better visible as well
+View toolbar
+zoom in/zoom out
+DONE
+fullscreen
+DONE
+show/hide tray
+DONE
+style tray in the theme,
+DONE
+Home Button
+go back to home page
+DONE
+Title entry
+show Address/title
+DONE
+reload and stop button
+DONE
+normalize text entry and autosearch
+DONE
+auto completion
+DONE
+represent loading status, update the bottom overlay with a status message
+DONE
+we may add other ways to represent loading status in the future:
+change cursor to busy cursor?
+show spinning wheels in tabs?
+Go back and forward buttons
+History
+DONE
+Palettes showing history (see webtoolbar.py methods _session_history_changed_cb, _reload_session_history, _history_item_activated_cb)
+DONE
+Favorite button
+create a session bookmark
+create a thumbnail
+DONE
+Stop button
+quit activity (active downloads?)
+DONE
+Keystrokes
+ctrl + 'd': add link
+DONE
+ctrl + 'f': find
+DONE
+ctrl + 'l': focus url entry
+DONE
+ctrl + 'minus': zoom out
+DONE
+ctrl + ['plus', 'equal']: zoom in
+DONE
+ctrl + 'Left': go back
+DONE
+ctrl + 'Right': go forward
+DONE
+ctrl + 'r': reload
+DONE
+ctrl + 't': add tab
+DONE
+Multiple tabs
+page title
+DONE
+restore tabs
+DONE
+tabs size
+ENHANCE
+always the same height
+fixed width depending on the number of tabs, see message for commit 959f86e0406914267047dc10302f98a059b6ba21
+Downloads
+download a file
+DONE
+check for active downloads when closing
+DONE
+Uploads
+#3411
+upload a file, rewrite filepicker.py for webkit, Epiphany will not help us in this one it just let webkitgtk handle it which uses the standard GtkFileChooser dialog,
+asked on the list for ideas
+. The html field is <form><input type=file>
+FIXME
+This will be added to WebKit, this ticket is the one to track:
+https://bugs.webkit.org/show_bug.cgi?id=78491
+Link palettes
+follow link, start download: the tricky bit is how to invoke the palette
+FIXME
+Start all instances in the same process
+Browse using xulrunner is a single process activity where all instances are in the same process. WebKit does handle the same well.
+DONE
+Authenticate with schoolserver
+Create a HTTP Cookie to authenticate with the Schoolserver, Epiphany is as well using the 'cookies.sqlite'  database, we can reuse that, you can use libsoup for the management, the session we get with
+WebKit.get_default_session()
+, see
+embed/ephy-embed-single.c
+and
+lib/ephy-profile-migrator.c
+for a migrator.
+FIXME
+Internationalisation
+Display pages based on locale specific information
+DONE
+Don't autoplay flash, embed in web page
+see agent-stylesheet.css in Browse how we did this before (test with njambre.org web page)
+FIXME
+There is a free Safari (using WebKit) plugin that does the same:
+https://github.com/rentzsch/clicktoflash
+Security
+CAcert
+FIXME
+View Source
+The view source feature in Browse, should show the html page source, added to the activity source.
+DONE
+Set DPI
+#3428
+The page should be zoomed for the screen in use
+DONE
+.
+Links about the subject:
+what we used to set in hulahop:
+layout.css.dpi
+attribute in webkitgtk
+set zoom level
+safari - dpi
+Identify Sugar version through Browser
+This can be done using the user agent
+DONE
+Style bottom overlay
+Make it gray toolbar background, white foreground.  Add a bit of padding so the text gets more readability.
+Display pdf in Browse
+- either display the pdf in Browse or add a way to open it in Read
+DONE
+Playback audio and video in Browse
+- check if playback is still working etc
+VERIFY
+Flash and Java plugins
+#3410
+- check Flash and Java plugins
+FIXME
+Backwards compatibilty
+test backards compatibility: resume activity sessions created with the old Browse version
+FIXME

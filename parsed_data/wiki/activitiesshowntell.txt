@@ -1,0 +1,48 @@
+Title: Activities/ShowNTell
+URL: https://wiki.sugarlabs.org/go/Activities/ShowNTell
+--------------------------------------------------------------------------------
+Contents
+1
+Description & Goals
+2
+Creating Presentations
+2.1
+Packaging The Image Files
+3
+Bugs/Issues
+4
+Source
+Description & Goals
+The ShowNTell Activity is based on the
+ClassroomPresenter activity
+or
+alternate link
+implemented for Sugar by Brian Mayton and Kristofer Plunkett at the University of Washington. It adds the capability to create a presentation directly on the XO. It also adds the capability to record an audio narration about each slide in the presentation. ShowNtell allows a presenter via collaboration to show the presentation to a few friends or to the whole class. Those viewing the presentation can submit comments by drawing on the slide, entering text, or recording an audio clip. The presenter, e.g. a teacher, can view the submissions and can choose to share them with the other viewers.
+The presentation consists of one or more images with the addition of ink (drawing on the image), an audio clip narrating the slide, and/or a text entry. An image may be .jpg, .png, or .svg. A special form of presentation is the 'step-by-step' in which the images are screenshots (.png). A step-by-step can show how an activity may be used along with an audio explanation. In the next version of ShowNTell, step-by-steps will be provided to show how the ShowNTell activity itself may be used.
+The user can create a new presentation (Presentation tab on the toolbar). On the toolbar, the user gives the presentation a name which will be shown in the journal entry. In addtion, the user can give a title to each slide. From the toolbar, the user selects images in the journal or a usb drive to add as slides to the presentation. The user can change the order of the slides or remove slides which are needed. Audio controls are provided to allow the user to record and playback an audio narration of the slide. The narration can be corrected or translated by recording it again. The user can draw on the images to emphasize features. A text caption can also be added.
+The ShowNTell activity can be used by students to share an experience, for example images from a trip or of local plants and animals. It can also be used by teachers to present a lesson. The teacher can have the students submit comments showing their understanding of the lesson. For example, a teacher could have a slide presenting a problem in addition. The students could be asked to solve the problem by drawing on the image and commenting verbally on how they solved it. The teacher could immediately see who has understood the process and who is having trouble.
+In a future version, it should be possible for the lesson to be done as homework. The teacher shares the presentation with the students. The students go through the presentation submitting responses 'offline'. The next day, the students relink with the teacher to submit their responses. Presently, the teacher can upload the presentation to the schoolserver. The students can download it to their journal using Browse. However, in this mode there is no easy way for the teacher to see the student's responses.
+Creating Presentations
+When launched from the Home View, ShowNTell provides a 'new' presentation consisting solely of the title slide. The user should change the presentation title in the presentation tab of the toolbar. This title will be shown in the journal.
+Clicking on the first icon shows a list of all presentations currently available in the Journal or mounted usb drive. The user selects
+a presentation by double-clicking on it's title. The selected presentation is loaded replacing the current one.
+The Journal icon shows a list of all images available in the Journal. Clicking on a list entry adds that image to the presentation.
+If a USB drive is mounted, the pendrive icon shows a list of all images available on that drive. Note: if more than one removable drive is mounted, only one will be shown. In a future version, it should be possible to see multiple drives with a tooltip identifying which is which. Clicking on an entry will add that image to the presentation.
+The first text entry is the title of the presentation. For a new presentation, the user should enter a title. This title will be shown in the Journal.
+Note: the entry occurs on 'enter' (carriage return). The first (title) slide will be changed to show the presentation title and date of creation.
+The second text entry is the title of the current slide (shown in the main panel).
+The sidebar shows thumbnails of all of the slides. Click on a thumbnail, and that slide becomes the current slide. A right-click on a thumbnail, shows a context menu giving the option to remove the slide or to move it. If the 'move' option is chosen (left-click), then a left click on another thumbnail moves the slide in front of that one. To move a slide to the last position, move it in front of the last slide and then move the last slide in front of it.
+The user can draw on the current slide (except the title slide) using 'ink'. The ink tab allows a choice of three colors, erasing the ink, and changing from pencil to brush. The user can also enter a caption for the slide using the text entry below the main panel.
+The audio controls on the bottom left allow recording narration relating to the current slide. The controls are toggles. Click on record and speak clearly into the microphone. Click on record again when finished! The process is complete when the record button returns to normal. This will take some time because the clip must be compressed in ogg format. When recording is complete (button returns to normal), click on play to hear the recording. Click on play again to stop (or, it will stop automatically when the clip has been played). If the clip is not satisfactory, record again. The new recording will replace the first one.
+A presentation can be easily converted to a second language by a bilingual speaker who records over the source language in the target language. Of course, it would be prudent to save a copy of the original. A simple way to do this is to select the source presentation and change it's title (e.g. to the target language). This version will be saved to the journal independently of the original.
+Packaging The Image Files
+The presentation is stored in the datastore with the presentation title saved as the metadata 'title'. The file has the mime_type
+application/x-classroompresenter. It is a zip file consisting of deck.xml plus the images (.jpg, .png, or .svg) and the audio clips (.ogg). The thumbnails appear as 'slide1_thumb.png', etc. The presentation can be saved by copying from the Journal to a usb drive.
+Bugs/Issues
+This is a first release and needs extensive testing to determine how the UI works, how it can be made more intuitive and effective, what additional capabilities are needed, and to find errors in the implementation.
+The collaboration capability needs to be tested.
+The audio clip may not be transmitted to laptops sharing the presentation.
+Many steps take a long time to complete. In some cases, this may be unavoidable and some sort of progress alert will be needed.
+Source
+http://git.sugarlabs.org/projects/showntell
+Sugar Activity Library page

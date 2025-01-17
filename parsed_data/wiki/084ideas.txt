@@ -1,0 +1,98 @@
+Title: 0.84/Ideas
+URL: https://wiki.sugarlabs.org/go/0.84/Ideas
+--------------------------------------------------------------------------------
+Contents
+1
+Glucose
+2
+Telepathy
+3
+Control panel
+4
+Journal
+5
+Browse
+6
+Read
+7
+Chat
+8
+Write
+9
+Release Management infrastructure
+Glucose
+Implement the source key feature for sugar (i.e. add a modal alert like the objectchooser with a filetree on the left and a non-editable gtksourceview on the right)
+#7911
+Integrate speech synthesis.
+(erikos, hemantg)
+Implement grab/scroll key
+#4470
+(erikg?)
+Incrementally remove PS functionality in favour of implementing Buddy and Activity directly in Sugar toolkit, opening the way to use other unmodified Telepathy backends and clients.
+Make it possible to subscribe to users ("add friends") who you can't see through the server and/or find via Gadget. This means making JIDs human readable, letting the user discover their own JID, providing a way to type them in, and getting the user to approve incoming friend requests.
+Autosave more intelligently.  Currently, Activities are autosaved on every "context switch", which makes many things slow.  We should add a "dirty bit" so that Activities only get saved when something has changed, and autosave at most once every N minutes.
+Telepathy
+Implement peer-to-peer connections in Telepathy Gabble so that one-to-one tube data doesn't go via the XMPP server.  Big performance/reliability wins.
+Control panel
+Make layout language 'independent' using hippo
+#8148
+Add section to set the keyboard layout
+#6780
+Add section for the speech settings
+Better use of localization in the language and date&time section
+#8312
+Get rid of the modify_bg hacks and get this into the theme
+Check box on control panel to turn jabber service on/off
+#833
+(
+satellit
+07/03/2009)
+Journal
+Add start-with option to the entry palette. This is useful in the main view of the journal but as well in the
+home view activity management
+. Use cases are for example the opening of a web-page source in either write or browse without having to reveal the entry's detail view.
+Add filter functionality to objectchooser. For example when adding an image into Write the objectchooser should only provide the caller with images
+#3060
+.
+The activity palette in the home view should allow to resume recent journal entries.
+Mockup
+.
+Encourage to title entries
+#6128
+Organization with tags.
+File sharing. Implement
+file transfer
+(HTML)
+for gabble. Implement the UI for file transfer in the Sugar UI (
+Object Transfer
+).
+Add a Portfolio Activity that children use to select key Journal entries. The Portfolio activity would let them sequence and annotate the entries to make a multimedia presentation of their work.
+Browse
+palette option to download linked file
+#2903
+object chooser and download alert in the right window
+#7498
+Read
+Improved relationship between ebook mode and collaboration
+#7017
+#6537
+#6538
+#6645
+#6736
+Push evince changes upstream
+Chat
+Switch UI to GTK to enable text selection
+#8472
+Wrap as a widget for use in other activities (Andres Ambrois)
+Write
+Elect new master for collaboration when the sharer leaves
+#3445
+Colored backgrounds for edits by different participants, as per mockups on
+Write
+Use one-to-one tubes such as stream tubes when doing any bulk transfers (if they get implemented as P2P; see below).
+Release Management infrastructure
+An official home page per Sugar component, where you can find:
+an official description
+a link to the source with a description of which release series is related to which Sucrose development cycle/branch/release
+changelogs for each release
+Automation for publishing releases with changelogs for the above

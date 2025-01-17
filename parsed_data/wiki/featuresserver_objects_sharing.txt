@@ -1,0 +1,81 @@
+Title: Features/Server Objects Sharing
+URL: https://wiki.sugarlabs.org/go/Features/Server_Objects_Sharing#Detailed_Description
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Share sugar datastore (Journal) objects on a standalone server.
+The main purpose is having one place to share users Journal objects like
+[1]
+does for Scratch community (that doesn't exclude possibility of having storages for local community needs), i.e., having something similar to
+Activity Library
+but for Journal objects.
+,
+Owner
+Name:
+Email:
+Current status
+Targeted release: 0.86
+Last updated: Thu Jul  9 01:37:37 UTC 2009
+Percentage of completion: 0%
+Detailed Description
+Let users store sugar objects on standalone server. So, users can share theirs objects for broad audience.
+The idea is keeping this feature as simple as possible from Shell point of view.
+Utilize Browse for browsing/download/upload (?)
+Minimal changes in Shell or even nothing (use Browse in all cases)
+Server should return
+object bundle
+if web client is Browse and plain Journal entries otherwise (for non-sugar users)
+Benefit to Sugar
+Storing objects on a server, user shouldn't be online all time to share objects for other users. Users can treat server as a standalone additional storage as well.
+Scope
+depends on
+Features/Object Bundles
+Choose/adapt web framework
+How To Test
+Create a new Turtle Art activity
+Upload the new entry to the SL wiki using Browse
+Use Browse to download the entry back to Journal
+Resume it from Journal
+This should ideally work for all Activities, then folks can actually
+start creating and distributing content/activities directly using
+Sugar, for other Sugar users.
+User Experience
+In progress
+Dependencies
+In progress..
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+ml thread
+blog post
+Release Notes
+In progress
+Comments and Discussion
+See
+discussion tab for this feature

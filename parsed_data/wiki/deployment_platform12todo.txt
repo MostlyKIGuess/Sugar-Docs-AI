@@ -1,0 +1,53 @@
+Title: Deployment Platform/1.2/Todo
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/1.2/Todo
+--------------------------------------------------------------------------------
+The major tasks:
+Gathering statistics,
+Server on an XO.
+Contents
+1
+More sugar-server-templates templates
+2
+Glucose patches
+3
+Usage statistics
+4
+Avoid compromised school servers
+5
+sugar-client
+6
+Deployment
+7
+Testing
+8
+Documentation
+9
+(?) Mothership
+More sugar-server-templates templates
+Depending on whether mace configuration will be used in Sugar Server based deployments or not, implement configurations for all needed services:
+Content filter. Options are: Dans Guardian (MinD fork?), SquidCache, OpenDNS
+Monitoring support. If connectivity is good, then, no question, there are a bunch of ready-to-use solutions like Munin, Nagious, etc. The problematic use case is having servers that are mostly or entirely offline. A solution might be collecting data on school servers and passing them to the mothership somehow via sneakernet. Options: run
+http://collectd.org/
+daemons on school servers and provide a useful uploading method.
+Glucose patches
+Provide shell patches to use
+Client API
+.
+Usage statistics
+Handle reports and statistics from XOs around a school server, and securely send such to the mothership. This feature might be useful from a pedagogical point of view, e.g., what activity is being used most of all.
+Avoid compromised school servers
+Switch to HTTPS for sugar-server RESTfull API to check its certificate on sugar-client side to make sure that client is not interacting with a fake server.
+sugar-client
+Support
+OLPC XS school servers.
+Deployment
+as much as possible a plug&play solution for SSK based school servers
+Testing
+more system tests of SSK infra using sugaroid to cover various deployment workflows
+using sugaroid bots, stress test prosody to compare with ejabberd;
+Documentation
+in-code documentation for SSK components.
+(?) Mothership
+Interaction with other motherships
+Initial sugar-mothership implementation, regarding only the current sugar-server functionality
+Need to collect more experience from XS deployments before any implementation...

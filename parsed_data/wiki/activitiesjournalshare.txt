@@ -1,0 +1,44 @@
+Title: Activities/JournalShare
+URL: https://wiki.sugarlabs.org/go/Activities/JournalShare
+--------------------------------------------------------------------------------
+Collaboration Activity
+The main objective of this activity is provide a simple way to share Journal objects from one to many users, and collect the work of all this users.
+The use case is a teacher share some journal items, all the kids in the classroom download them, do some work, and later upload to the teacher xo the work they did.
+Should be useful to the teacher see who already downloaded the files.
+We can implement 3 way to select the items to share, and the teacher can select the way to use:
+Share all the favorite items in the journal. This option is similar to Portfolio activity, then can be the easiest to explain.
+Select one by one the items to share with a ObjectChooser.
+Select items by tag. While tags are not very used, can provide more flexibility to the teacher, and avoid need select/unselect as favorites items for every case.
+When the kids upload items to the teacher xo, the items should be marked according to the selection done, to be easily found in the journal.
+Later, we can add the possibility of add comments to the shared items, in line with the web services work proposed for sugar.
+Actual Implementation (JournalShare 2)
+Right now all the UI is a webkit view and the server is a web server.
+The client use a html page and javascript to request the data needed as json, and format it as needed.
+The activity starts the server only when is not joining another xo, if joining connect to the webserver through a StreamTube
+Pros:
+Can be a solution easily portable to android or to a school server.
+A web view provide flexibility to experiment. Can be accessed using any browser pointing to
+http://0.0.0.0:2500/web/index.html
+to develop.
+Different messages needed by collaboration are easy to implement
+Cons:
+We need a mechanism to notify to the clients they should update the view.
+A web view provide less control over the ui than the gtk controls.
+Not implemented yet:
+Only the sharing of favorites items is implemented, the other two methods are not.
+Upload a item to the teachers xo copy the metadata (including preview), but downloading do not do it.
+We need a button to reescan the journal if favorites has changed.
+When a kid download a item, the teacher does not receive any information about that. We should show in the page who are the kids who succesfully downloaded every item.
+Comments are not implemented.
+Known Bugs:
+When a user try to download, the ui is not responsive and do not show the alert until the download finish. The download manager is copied from Browse activity, but I don't know why is not working ok.
+When a user upload a file, the page show a message "3 files selected" because internally is uploading a file with the metadata and another with the preview. May be we can upload all zipped in one file.
+The server is running in another process, due than trying to run in a thread blocked the webkit ui (should be possible, wikipedia do it). At times, the activity closes but the child process (the web server) not, theen after that the only way to run the activity is kill the old process.
+Try to download a shared image open the image in the webkitview instead of download it.
+UI in the server
+UI in the client, similar, but with buttons to download/upload
+More info
+Repository:
+https://git.sugarlabs.org/~godiard/journalshare/godiards-mainline
+ASLO:
+http://activities.sugarlabs.org/es-ES/sugar/addon/4656

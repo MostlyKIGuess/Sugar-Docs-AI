@@ -1,0 +1,99 @@
+Title: Features/Smart Objects/Shared Actions
+URL: https://wiki.sugarlabs.org/go/Features/Smart_Objects/Shared_Actions
+--------------------------------------------------------------------------------
+Contents
+1
+The purpose
+2
+Conception
+2.1
+Buddies
+2.2
+Activities
+2.3
+Journal objects
+2.4
+Tags
+2.5
+Actions
+3
+Teacher workflow
+4
+Students workflow
+The purpose
+To have a Sugar tool that let students and teachers to be more concentrated on particular subject(s) during the class time
+Make this tool looks like a regular teaching workflow (in the class) as much as possible
+Keep this concentration for off-line mode, i.e., students' home work
+The cloud based approach but only on purpose, i.e., only for particular objects when clouds make sense and keep the rest student objects local and private. Thus:
+protect teaching related objects from being removed by students to have more local space
+easy access for teachers to all students' work
+no need in special backup routines, everything is shared from the beginning and implicitly
+Conception
+Within this feature, people deal with several types of entities that are located on the server and accessible, in some level, for all players:
+buddies
+activities
+journal objects
+tags
+actions
+Buddies
+These are teachers and students registered on the server via XO identification mechanism.
+Activities
+Canonical activities located on the server. Canonical means that exactly these versions are recommended for teaching process, people might have different versions of the same activities on XOs but only (the process of recognizing what versions XO user has and fetch canonical ones from the serve will happen under the hood) canonical activities will be used in Shared Actions.
+Journal objects
+Objects that were used in process of using Shared Actions. After being initially created, such objects will be singular, i.e., if teacher created an Calculate activity object "How to learn tangent function", all students will work with the same object but server will keep (implicitly) per student copies of "How to learn tangent function" object and any particular student will see only his own copy but teacher will manage to see all variants to track what students do.
+Shared objects' state might be also per action, i.e., all shared objects might be reused in several actions. For example, "How to learn tangent function" might be used in two actions, the action that represents class time when teacher explained the topic and in another action that represents student's home work that was given by teacher in the class. In all cases "How to learn tangent function" is the same object but it has two sorts of states, for class time action and for home work action. Such per-action behaviour might be useful since it represents learning process history.
+Tags
+All other types of entities might have tags. Tags will help with categorizing all objects. The UI will support some of predefined tags so it will have more useful browsing by tags not just typing tags in the search entry.
+Tags might be hierarchically linked to each over, e.g., subject tags might be:
+Subject
+Mathematics
+Geometry
+Trigonometry
+Tangent function
+Such tags, e.g., will help a teacher with browsing objects that relate only to his subject.
+Actions
+Actions represent the real activity with participation of all other types of objects. This is just a time footprint of what happened or happenning this time, e.g., lesson might be represented by one action that is:
+has tag "Tangent function", i.e., the subject was Subject/Mathematics/Geometry/Trigonometry
+buddy, teacher
+buddies, students
+Calculate activity that teacher was using to show lesson topic
+Calculate objects that students created trying to learn the topic
+Actions are linked to each other, e.g., previous geometry lesson is linked to current one, current one will be linked to the next geometry lesson. It will help teachers and students browse the learning process history.
+- object + tag + time = action, i.e., each action has duration
+- everything is on server
+- objects and actions might have tags
+- parental relationships for actions, action threads
+- the same objects might be used in several actions,
+  objects have different states associated with different
+  actions - object's history.
+- all (j)object are composite, they have different history
+  for different users
+- action thread loops, useful for teachers since they teach the same
+  from year to year and having a chance to compare what they do
+  at this moment a year ago is useful
+- two views for the same action, one for students (viewer/actor)
+  and one for teachers (initiator/moderator)
+Teacher workflow
+Teacher creates a plan for future lesson in actions builder UI
+in actions browse, find an action for the last lesson (of the class teacher is planing new lesson) among already happened actions/lessons that are stored on the server
+click "Next Lesson" button to start planing new lesson
+the builder will add already existed (but not yet finished) "Home work" action attached to previous lesson actions, that action will be used to check how students' home work in the class
+client "New action" to start action "New topic"
+new action will be automatically inherit objects:
+teacher himself
+students
+will indirectly inherit tags from inherited objects:
+the subject of the lesson, from teacher
+the class number from students
+UI will help with inheriting:
+action tags
+activities
+journal objects
+teacher sets new action tag "Next Topic" according to the teaching plan and adds:
+new activities for that topic
+journal objects to show students new topic on examples
+teacher creates last action the lesson - "Home work" and
+inherit activities form the 2nd one
+creates seed object with that activity with useful initial state
+During the class:
+Students workflow

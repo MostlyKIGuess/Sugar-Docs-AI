@@ -1,0 +1,84 @@
+Title: Activities/Tux Paint
+URL: https://wiki.sugarlabs.org/go/Activities/Tux_Paint
+--------------------------------------------------------------------------------
+Contents
+1
+Overview
+2
+Sugar features
+3
+Build from sources
+4
+Get more stamps
+5
+Getting involved
+6
+Resources
+Overview
+This page is about Sugar support in Tux Paint.
+Tux Paint is a drawing app for tiny kids. Most 3-year-old kids and many 2-year-old kids are able to use it, yet 10-year-old kids (and kid-like adults) enjoy it too. Tux Paint features Tux the penguin, like Clippy but not so annoying. Tux Paint uses stereo sound according to where the mouse pointer is. Tux Paint is translated into about 70 different languages, including big-alphabet and right-to-left ones.
+Sugar features
+The Sugar patch adds the following features:
+Integrate Tux Paint window into the Sugar Shell.
+Following the regular Journal paradigm, save the current drawing to the Journal on exit, and load a saved drawing on resuming its Journal object.
+Use the Journal as a file picker on importing images.
+Build from sources
+Install dependencies, for Fedora they are:
+sudo yum install cmake gperf glib2-devel gtk2-devel libgee06-devel GConf2-devel dbus-glib-devel pango-devel librsvg2-devel python-devel pygtk2-devel pycairo-devel libpaper-devel cairo-devel fribidi-devel SDL-devel SDL_image-devel SDL_mixer-devel SDL_ttf-devel SDL_Pango-devel
+and for Ubuntu they are:
+sudo apt-get install cmake gperf libglib2.0-dev libgtk2.0-dev libgee-dev libgconf2-dev libdbus-glib-1-dev libghc-pango-dev librsvg2-dev python-dev python-gtk2-dev python-cairo-dev libpaper-dev libcairo2-dev libfribidi-dev libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libsdl-pango-dev
+Fetch sources:
+mkdir -p ~/src/tuxpaint
+cd ~/src/tuxpaint
+wget
+http://download.sugarlabs.org/sources/external/polyol/polyol-1.2.tar.gz
+tar xzpvf polyol-1.2.tar.gz
+git clone
+https://github.com/DakshShah/sltuxpaint
+Build Polyol:
+cd ~/src/tuxpaint/polyol-1.2
+cmake -DCMAKE_INSTALL_PREFIX=$HOME/Activities/tuxpaint.activity && make && make install
+Build TuxPaint:
+cd ~/src/tuxpaint/sltuxpaint
+PKG_CONFIG_PATH=$HOME/Activities/tuxpaint.activity/lib/pkgconfig make PREFIX=$HOME/Activities/tuxpaint.activity SUGAR=1
+make PREFIX=$HOME/Activities/tuxpaint.activity SUGAR=1 install
+Link activity directory:
+cd ~/Activities/tuxpaint.activity
+ln -s ~/src/tuxpaint/sltuxpaint/activity .
+Make .xo:
+cd $HOME/Activities && zip -r  ~/tuxpaint-(Version_Number).xo tuxpaint.activity
+Install Run-time Dependencies: (from Sugar's Terminal)
+cd sugar-build
+./osbuild shell
+sudo yum install libpaper SDL_Pango libgee06
+Get more stamps
+There are two options,
+1. You download the latest one's from the sourceforge repository's 
+For that, go to
+this folder
+and select the latest date's folder. From that, download a zip and extract all it's contents. Copy the contents from `TuxPaint/data/stamps` from the extracted zip and paste it under `sugar-build/activities/tuxpaint.activity/share/tuxpaint/stamps` if you want to add them after making xo or to `~/src/tuxpaint/sltuxpaint/stamps` if you want to do it before making the xo (Just after cloning the tuxpaint repository)
+2. Rather than cloning the master branch of
+https://github.com/DakshShah/sltuxpaint
+, you can clone it's with
+stamps branch
+. To do that, rather than running the command
+git clone
+https://github.com/DakshShah/sltuxpaint
+Do,
+git clone -b withstamps
+https://github.com/DakshShah/sltuxpaint
+Getting involved
+For non-Sugar related changes, go to
+http://tuxpaint.org/help/
+.
+Report
+on Sugar bugs.
+Resources
+Home page
+Sugar patch sources
+Sugar Activity Library page
+Tux Paint on OLPC wiki
+Trac tickets:
+OLPC
+,
+Sugar Labs

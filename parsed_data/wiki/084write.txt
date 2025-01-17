@@ -1,0 +1,46 @@
+Title: 0.84/Write
+URL: https://wiki.sugarlabs.org/go/0.84/Write
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+What is new for users
+2.1
+New Color Picker
+3
+What is new for developers
+4
+Internationalization (i18n) and Localization (l10n)
+5
+Compatibility
+6
+Detailed changes
+7
+Credits
+Introduction
+More Info:
+Activities/Write
+What is new for users
+New Color Picker
+The Text Toolbar has been changed to make use of the new ColorToolButton widget introduced by Benjamin Berg.
+The Object Chooser can now be filtered by data type. The dialog opened by the import image functionality in the Image toolbar will now only display Journal entries that are images.
+What is new for developers
+No News
+Internationalization (i18n) and Localization (l10n)
+Compatibility
+Write depends on Libabiword >= 2.6.8 in order to be able to show thumbnails in the Journal Detail View.
+Detailed changes
+61
+Make use of the ColorToolButton that benzea landed in sugar-toolkit
+Filter object chooser so it shows only images #3060
+Save to OpenDocument if we cannot export in the original format #8972
+_on_members_changed: ignore bus_name if it's None
+62
+Initialize threads ASAP (alsroot) #356
+63
+Update to API change, render_page_to_image starts now with 1. #152
+Override get_preview #152
+Deprecation fix: Use bundle_id instead od service_name
+Credits
+Guillaume Desmottes, Aleksey Lim, Tomeu Vizoso, Simon Schampijer

@@ -1,0 +1,207 @@
+Title: Summer of Code/2013/Turtle Blocks Python export
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2013/Turtle_Blocks_Python_export
+--------------------------------------------------------------------------------
+My name is
+Marion Zepf
+and I have been accepted to work on the project
+Python export functionality for TurtleBlocks
+. Please find my project proposal below. An up-to-date progress report on this project can be found on
+its wiki page
+.
+Contents
+1
+Abstract
+2
+About me
+2.1
+What is your name?
+2.2
+What is your email address?
+2.3
+What is your Sugar Labs wiki username?
+2.4
+What is your IRC nickname?
+2.5
+What is your primary language?
+2.6
+Where are you located, and what hours do you tend to work?
+2.7
+Have you participated in an open-source project before?
+3
+About my Project
+3.1
+Project description
+3.2
+What is the timeline for development of your project?
+3.3
+My Background
+4
+Me and the Community
+4.1
+Impact on the Sugar Labs community
+4.2
+Sugar pilot deployment
+4.3
+What will you do if you get stuck on your project and your mentor isn't around?
+4.4
+Keeping the community informed about problems and questions
+5
+Miscellaneous
+5.1
+Screenshot of my Sugar development environment
+5.2
+What is your t-shirt size?
+5.3
+Describe a great learning experience you had as a child.
+5.4
+Additional information
+6
+References
+Abstract
+Turtle Blocks teaches children an important skill in today's world: programming. Its block-based graphical interface makes abstract concepts like loops easy to understand and fun to play with. But it does not yet support the next step in learning: writing code in a 'real' programming language. My project fills this gap by automatically converting block programs to Python code. It enables the children to transfer their knowledge to a text-based language and to focus on acquiring the new syntax.
+About me
+What is your name?
+Marion Zepf
+What is your email address?
+marion.zepf@gmail.com
+What is your Sugar Labs wiki username?
+Marion Zepf
+What is your IRC nickname?
+I do not have a fixed nickname, but I try to use "mzepf" if it is available.
+What is your primary language?
+(We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My native language is German, but I am more comfortable in English when it comes to computers and programming.
+Where are you located, and what hours do you tend to work?
+(We also try to match mentors by general time zone if possible.)
+I am located in Stuttgart and Tübingen, Germany. My time zone is Central European Summer Time (CEST) or UTC+02:00 during summer.
+I plan to work on this project Thu-Sun, approximately from noon until midnight.
+Have you participated in an open-source project before?
+If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+This is my first open-source project. In the past, I have benefited from open-source software countless times. Now I want to give something back to the community.
+About my Project
+Project description
+What is the name of your project? Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+Turtle Blocks Python export
+lets the user export their programming project from the Turtle Blocks activity to a Python script. The generated Python code can be run outside of Turtle Blocks, for example from the command line or in the Pippy IDE.
+This tool is designed for users who are already proficient Turtle Block programmers and want to move on to text-based programming. It helps them transfer their knowledge and skills from block-based to text-based programming, as they can see their own creations in a new programming language. Thus, they can focus on the new language rather than the content of the program.
+The Python export functionality will be implemented in pure Python, drawing on the internal block code interpreter of Turtle Blocks to convert the blocks to a representation of the program flow. I will then use the
+ast
+module
+[1]
+to build the Python syntax tree from this representation. In order to serialize the syntax tree to a string, which can then be written to a file, I plan to use either the
+codegen
+module
+[2]
+[3]
+or the
+unparse
+module.
+[4]
+The exported Python code will need to import a few classes from Turtle Blocks to set up a window etc. I will isolate these classes from the Turtle Blocks code, so it can easily be imported into the generated code.
+What is the timeline for development of your project?
+The Summer of Code work period is June 17 - September 23; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (August 2); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+June 17 – June 30 (2 weeks): Determine what code needs to be shared by Turtle Blocks and the exported code. Restructure the modules to isolate this part, so it can easily be imported. Only cover the modules that are necessary to run blocks from the 'Turtle', 'Pen', and 'Pen colors' palettes. Deal with the other modules when implementing the corresponding blocks.
+July 1 – July 21 (3 weeks): Implement the first transformations from blocks to Python code. Only cover the following blocks from the 'Turtle' palette: 'forward', 'back', 'left', and 'right'. Make sure the exported code imports the correct modules from Turtle Blocks and can be run on the command line (or in Pippy). Keep the implementation modular, so more blocks can be added easily.
+July 22 – July 28 (1 week): Implement transformations of the rest of the 'Turtle' palette, and the complete 'Pen' and 'Pen colors' palettes. (These should be similar enough to the first four blocks that they can be implemented quickly.)
+July 29 – August 2: Midterm evaluation: Block programs can be exported to Python code that can be run outside of Turtle Blocks. The export functionality is limited to blocks from the 'Turtle', 'Pen', and 'Pen colors' palette, but it can easily be extended to cover the other blocks.
+August 3 – September 15 (6 weeks): Implement transformations of all other blocks to Python code:
+August 3 – August 11 (1 week)
+Numeric operations from the 'Numeric operators' palette and screen dimensions from the 'Presentation templates' palette
+[note 1]
+Boolean operations from the 'Numeric operators' palette and conditionals from the 'Flow operators' palette
+August 12 – August 18 (1 week)
+Variables from the 'Action stacks' palette and heaps from the 'Extra options' palette
+Loops from the 'Flow operators' palette and functions from the 'Action stacks' palette
+August 19 – August 25 (1 week)
+Runtime control (e.g., exit, suspension) from the 'Flow operators' palette
+External functions (chr, int, mathematical function, tamyblock.py) from the 'Extra options' palette
+[note 1]
+August 26 – September 1 (1 week)
+Comments from the 'Extra options' palette: This is especially difficult because Python's
+ast
+module does not support comments natively.
+September 2 – September 8 (1 week)
+Events and user input from the 'Sensors' palette
+[note 1]
+Sounds and sprites from the 'Media' palette and presentation templates from the 'Presentation templates' palette
+[note 1]
+September 9 – September 15 (1 week)
+Multiple turtles and custom turtle shells from the 'Extra options' palette
+[note 1]
+Display management (hide/ show blocks, toggle full screen) from the 'Presentation templates' palette, and printing and loading blocks and palettes from the 'Extra options' palette:
+[note 1]
+September 16 – September 23 (1 week): Test exporting different kinds of blocks in combination. Fix the last bugs. Clean up.
+Notes
+↑
+1.0
+1.1
+1.2
+1.3
+1.4
+1.5
+This may require importing additional modules from Turtle Blocks.
+My Background
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I am a student of computational linguistics in my 6th semester.
+I have three years of experience in writing Python programs of various kinds - from simple command line utilities to GUI applications (using pygame and tkinter) and code generators for Java code.
+I also have strong competence in the object oriented programming paradigm.
+Moreover, I am familiar with commonly used frameworks and tools like version control software (svn, git), the Eclipse IDE, and autotools.
+I learn quickly, so I expect to acquire good skills in GTK before the start of the coding phase.
+Through my linguistic education, I can draw on substantial experience with grammars, parsers, and syntax trees.
+This experience will help me with analyzing the block code and transforming it into Python code.
+My interest in educational software was sparked during my work on
+VIEW
+(Visual Input Enhancement of the Web), an online language tutoring system.
+During the past two years, I have made many contributions to VIEW, including, for example, the automatic recognition of main content, headlines, and boilerplate on web pages.
+I also improved the user interface of its browser toolbar, and decreased the server's response time by enabling multi-threading.
+My working style is characterized by a high level of documentation, be it inline comments or commit messages.
+I also keep my code modular, which makes it easy for others to build on my work.
+Thus, the Sugar Labs community can profit ideally from my contribution, even after the end of the GSoC.
+Me and the Community
+Impact on the Sugar Labs community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Many Sugar activities allow exporting the user's creations as a sound file, a picture, a video, or a simple text file, which can then be imported into other activities. In the case of this project, the user can export their block program to Python code and view, edit, and run it in the Pippy and Terminal activities. Combining several activities to create a single piece of work inspires users' creativity. Moreover, it makes Sugar a coherent system, rather than just an arbitrary collection of activities. Users will view it as a tool kit that helps them realize their ideas, no matter which forms they take. This unlimitedness is an important aspect of Sugar's quality, and thus it ensures continued interest in Sugar in the future.
+Walter Bender
+, mentor of this project:
+The primary goal of Turtle Blocks is to engage children in programming, specifically the joy of debugging. But also to give them a sense of empowerment over the tools that they use. Hence Turtle Blocks (as opposed to its sister project Turtle Art) exposes the learner to as much of the system as possible, through sensor blocks, Python blocks, etc. At the same time, Turtle Blocks is not an end in of itself. The further goal is to encourage the learners to move beyond block-based projects and get acquainted with the more expressive text-based languages. This project is an experiment to determine if providing a Python version of the block-based programming environment might provide a stepping stone to making this transition. Until we implement Sugar itself as a Turtle Blocks project, this experiment is a worthwhile bet at turning Sugar users into Sugar developers.
+Raúl Gutiérrez Segalés
+, Turtle Art contributor:
+In my mind, the big take away here is that we'll enable portability of
+Turtle Art projects. Being able to translate TA internal
+code into external languages (initially Python, eventually Javascript
+perhaps, or others) will allow this fundamental learning activity to
+reach other platforms and a much broader audience. The question we've
+got in front of us is not if Sugar or Turtle Art belong in the Cloud;
+it's just how fast can we get there.
+This project is a key step towards our goal of getting Sugar/Turtle
+Art onto more hands.
+Sugar pilot deployment
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+My old primary school has an immigrant rate of about 80%, and many kids are socially disadvantaged. This results in a big difference in learning speed between individual children in one class, which is problematic for traditional "chalk and talk" teaching methods. I think that Sugar would enable each child to learn at its own pace without feeling left out if they are slower than their classmates. Faster learners can easily move on to other activities when they are done and no longer disturb the lesson because they are bored.
+In the first year, the school often faces the difficulty of teaching children who do not speak the class language (German). With its clean graphical interface and recognizable icons, Sugar could help these children understand the material without the need to translate everything into their mother language.
+I can set up contact to the school and act as an interpreter if necessary.
+What will you do if you get stuck on your project and your mentor isn't around?
+From experience I know that physical activity often helps me with getting rid of a thinking blockade. So, I will first take a short walk or do some household work to get fresh ideas into my head. If that does not help, I will suspend work on the feature that is causing the problem and work on a different feature in the meantime, until my mentor becomes available again.
+Keeping the community informed about problems and questions
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I plan to document the progress of my work through commit messages in an online repository. When I am faced with an important design decision, I will discuss it with other developers on the mailing list or on IRC. In addition, I will set up a Wiki page to announce the outcomes of such decisions and to keep track of my timeline.
+Miscellaneous
+Screenshot of my Sugar development environment
+We want to make sure that you can set up a development environment before the summer starts. Please send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "Restart." See the image on the right for an example. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+What is your t-shirt size?
+(Yes, we know Google asks for this already; humor us.)
+S (female)
+Describe a great learning experience you had as a child.
+When I looked out of my window, I could see a hill with houses on the top. I would often move my head around, especially up and down, to see how the position of the houses would change with respect to the window frame. It took me a long time, but I eventually figured out that I had to imagine a straight line going out from my eyes to the house I wanted to see. If that line was interrupted by the window frame, I could not see the house. By moving my head around, I would change the angle of the line and some previously hidden houses would become visible. From this experience I learned that I can figure out how things work just by taking a closer look at them and playing around with them.
+Additional information
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+My project will also make Turtle Blocks more attractive for older learners (youths or adults). It allows them to learn the basic concepts of programming first, without having to hassle with the syntax of a text-based programming language. Once they have understood the basics, they can move on to learning the syntax of Python. This way, my project can help increase 'programming literacy' all over the world.
+References
+↑
+http://docs.python.org/2.6/library/ast.html
+↑
+http://dev.pocoo.org/hg/sandbox/file/b2aea937f5bb/ast/codegen.py
+↑
+https://gist.github.com/mattbasta/791312
+↑
+http://svn.python.org/view/python/trunk/Demo/parser/unparse.py?view=markup

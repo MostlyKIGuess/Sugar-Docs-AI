@@ -1,0 +1,182 @@
+Title: Webified
+URL: https://wiki.sugarlabs.org/go/Webified
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+The results of this project are now in the
+Browse
+activity and at
+a branch of Browse
+. See also complementary work on
+Karma
+.
+About you
+What is your name?
+Lucian Branescu Mihaila
+What is your email address?
+lucian dot braneNOSPAMscu at gmail dot com
+What is your Sugar Labs wiki username?
+lucian
+What is your IRC nickname?
+lucian. backups are lucian1900 and sindbad1900
+What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+English and Romanian, either is fine.
+Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+Mostly in the UK, perhaps a short while in Romania during the summer break.
+I don't have a 'coding time' in my schedule, anything goes. I also often stay up late at night.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I've started a small project on freshmeat called statusPidgin that fetched text from various sources and made it a status message in Pidgin. It's now abandoned, but you can find the source
+on softpedia
+I have also released one of my school projects as open source (a small web imap/pop3 client), but I doubt it's still hosted anywhere since there was little interest. You can get it from
+my dropbox
+. I haven't contributed in a significant way to open source projects before, beside bug reports and small patches.
+I am a user of open source (linux, KDE, gcc, python, firefox, webkit) and am absolutely delighted by the concept. I am convinced it is the most efficient way of developing software, and perhaps not only software.
+I am especially interested in the Sugar project, as I have myself experienced the closed-mindedness that schools instill in their students by teaching them using closed source software. I have been fortunate enough to get some exposure to linux and kde early enough and I would like to help others by showing them the alternatives.
+About your project
+What is the name of your project?
+Webified
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+I'm making a template
+SSB
+activity and a small utility that can create activities out of websites using that template. This combination will make sugarizing web apps almost entirely automatic.
+The purpose of this project is twofold:
+it would make it easy to "sugarize" web apps (like gmail).
+Users could press a button in the Browse activity (or there could be a separate activity for this) and a small tool would help them create a sugarized web app as a new activity.
+there are a lots of web developers out there that are familiar with HTML(5), CSS and JavaScript and it would be great to take advantage of their skills.
+Web developers could use Webified to port their web apps to sugar using only web technologies, without having to learn Python.
+I have been inspired by
+Fluid
+, which creates custom SSBs for websites. Fluid has Gears and GreaseMonkey plugins and provides a simple JavaScript API to websites for common native calls (like sounds, notifications, badges, etc.),  which makes it very easy to extend web apps to provide more integration. For example, GMail in a custom Fluid SSB feels like a native application.
+There are two main strategies for implementing this:
+Running a standard browser, as light as possible, that points to a small local webserver (SimpleHTTPServer). It would use AJAX or a wrapper on top of that (like jsonrpc) to provide the bridge to python. The biggest downside would be that the SSB would have to call the python backend for persistence and interaction with Sugar. Another problem would be that this process could not easily be automated. Some python code would have to be written for any semi-interesting application. It would also be harder for web developers to hack Webified itself.
+In a small controller application, embed a browser runtime (with hulahop). The resulting activity would be completely standalone and would not depend on a web server anymore. Gears would have to be installed as a plugin for xulrunner. Some form of
+GreaseMonkey
+would be very useful. Javascript dbus access through
+this bridge
+,
+XOCOM
+, pyxpcom directly or, in a worst case scenario, AJAX. It would be very similar to other efforts to bring web apps to the desktop and it could also provide better integration with Sugar.
+Browse could be used as a base for the Webified SSB. A small utility (probably an extension to the Browse activity) would create activities (XO bundles) out of websites.
+I will be focusing on the second stragety.
+Why not use existing solutions like Mozilla Prism or Titanium?
+Prism. It's just a stripped-down firefox. To make it useful, at least Gears would have to be installed and there would still remain the issue of integration, since Prism is designed for regular desktops. Building on hulahop and the existing Browse activity would yield better integration. There may still be useful code in Prism, like the SSB creation utility.
+Titanium. Titanium is more interesting, as it already is an SDK for creating desktop applications with web technologies. It's only real technical disadvantage is introducing a new dependency (webkit) in Sugar. However, it's
+design
+is largely incompatible with Sugar, as it focuses on traditional desktops. Refactoring all that to fit into Sugar would be too much work.
+What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (July 6-13); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Milestones
+Legend: - todo, + prototype done, # done
+Webified SSB can load a website (hello world)
+Requires:
+# getting more familiar with Sugar and Browse code
+# building the Webified SSB.
+Week 1
+Both Browse and Webified SSB can use GMail in offline mode (through Gears)
+Requires:
++ getting the Firefox Gears extension working in Browse and the Webified SSB
+Week 2, at worst 3
+Browse (with its utility extension) can successfully "sugarize" GMail and the resulting activity works.
+Requires:
+# activity template as host for the Webified SSB
+Week 3
+# python tool that packages up activities, using the activity template
+Week 3, at worst 4
+# button in Browse that uses the python tool
+Week 4
+JavaScript from inside a Webified SSB can call dbus stuff
+Dbus is vital for good integration, but there may not be enough time in GSoC for making a nice JavaScript-side API. So I will at least provide a javascript-dbus bridge that web developers can build on.
+Requires investigating:
++
+This
+javascript-dbus bridge
+- if that is not appropriate, try marshalling calls to Python with
+JSON-RPC
+- through PyXPCOM (hulahop). almost as good as a direct bridge
+- through AJAX. sounds like the easiest way, but doing some
+XSS
+would be needed
+Week 5
+The remaining time could then be spent on polishing things up and for any eventual emergencies.
+If I have extra time. In no particular order.
+Webified SSB can save and restore its state with the Journal.
+Save & restore the browser state. possibilities:
+# Browse does this
+Save & restore Gears state
+# do nothing. Gears provides resuming state. The only real drawback is that only the latest version will be available to resume. No actual data would be stored in the Journal.
+- save the entire Gears profile. Could be very slow for large profiles.
+- save just the sqlite databases. Could be very slow for large databases (GMail).
+Build a JavaScript-side API for basic functionality that cannot be achieved easily with HTML and Gears
+- similar in concept to
+Fluid's
+, but tailored for Sugar. Based on the javascript-dbus bridge
+Webified SSB can run a userscript (GreaseMonkey)
++ should be as easy as injecting some JavaScript in the page
+- a GUI like the one GreaseMonkey has is outside the scope of this project
+- there will be instructions for how to add/remove userscripts
+Webified SSB can use a userstyle (CSS)
+# a user stylesheet can be made in data/style.user.css
++ there's a GUI for it
+Beyond GSoC, I would like to keep working on this.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+Python is my favourite programming language and JavaScript is a close enough second.
+I have some experience with python and I've built various things, from small utilities to websites with it. My most interesting project was helping to port a scientific application from c++ and Qt3 to Python and Qt4. It involved writing some Pyrex as well. It was lovely to see just how much the code shrunk, while keeping the application itself just as speedy.
+I have used JavaScript and HTML to build a small web game, Mousebuster (not online, get it from
+my dropbox
+). Although at first I did not like javascript at all, I quickly realised it's immense advantage: huge existing install base.
+I also had some contact with C# and Java and have been thoroughly disappointed by their general lack of expressiveness. I did one small schoolwork in C#, that dealt with a
+database of students
+. Recently, I did another small schoolwork in Java, dealing with a
+cricket club
+. After finishing each, I was amazed at how much of my code was just boilerplate or fighting the type system, code that I wouldn't have had to write in a more dynamic language.
+I also used various linux distros for several years, until last year. I got a macbook as a gift and broadcom drivers are still a mess, but that'll get fixed at some point. I found unix in general so intriguing that I set up a small home server with a 300mhz CPU. I put debian on it and used it for various purposes, from web hosting, file serving, distcc node to a router for my home.
+Since I was using a lot of open source at home, I tried to push it in school as well. I managed to make students and teachers aware of GCC as a replacement for Borland C/C++, Mono and SharpDevelop as a replacement for the not-quite-free Visual Studio. With the help of a friend, I even managed to convince the head of school to install Ubuntu in one of the labs.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Myself
+The result of my project would be something akin to Fluid (and Prism), but tailored for Sugar. It would allow users to make separate activities out of websites and, if those websites support Gears, also take them offline.
+The web is moving towards websites-as-applications and there are many projects to help integrate these new applications with the various desktop environments (
+AIR
+,
+Silverlight Out-of-Browser Experience
+,
+Mozilla Prism
+,
+Fluid
+). There is also the bold
+webOS
+from Palm, that fully embraces web technologies by making them the default toolkit for building applications for the platform.
+It would be great to bring these ideas to Sugar, as they would enable easier usage of web applications and in general more orientation towards the web. It would also allow web developers to easily extend those websites to better integrate with Sugar, increasing the developer pool of and raising awareness towards Sugar.
+Bryan Berry
+mailing list thread
+Again, this requires people to learn python, a whole new language that they don't necessarily use at work. We need to enable developers to be very productive in just 2-3 hours per week. For them to be productive they need to be using tools they are already familiar w/.
+Python is a tool popular among sysadmins and hackers. It is great tool. But folks who develop web UIs use css, html, javascript, and flash. I highly doubt that will change in the near or distant future. These are people we need to recruit as activity designers.
+Tomeu Vizoso
+same mailing list thread
+Without needing to get into what is better for our deployments, I do see value in making easier to make Sugar activities using technologies such as HTML, CSS, etc.
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+I'm not familiar with schools near where I live, as I am an international student. [Any suggestions?]
+What will you do if you get stuck on your project and your mentor isn't around?
+Google, check sugarlabs/olpc forums/mailing lists/wikis. Ask on #sugar/mailing list.
+Ask other mentors and GSoC students or developers of related open source software.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+In the worst case scenario, just emails to my mentor and commits. IRC has proven itself time and again and I intend to proudly announce any advances made.
+I intend to set up a blog and use that as well. Identi.ca or Twitter may also prove useful.
+Miscellaneous
+My development environment with the small hack.
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "Restart." See the image on the right for an example. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Picture to the right.
+What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+XL
+Describe a great learning experience you had as a child.
+The most important thing I ever learned was to never be certain of anything and to always be prepared for the worst.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Web technologies are remarkably flexible and it would be great to encourage students to play around with them.

@@ -1,0 +1,19 @@
+Title: Xevents
+URL: https://wiki.sugarlabs.org/go/Xevents
+--------------------------------------------------------------------------------
+Xevents it's a TurtleBlocks plugin for design different types of accessibility interfaces in an easy way for users that doesn't know about programming, using TurtleBlocks and different types of sensors
+Actually a simple scrolling prototyped in this plugin is being ported to sugar[1], it means better speed because it's a Sugar service, and could be configured in Sugar control panel.
+Speaking with X, using Xlib, it's possible use the plugin inside or outside Sugar in any GNU/Linux system with a GUI.
+This is an example of a basic scrolling made with TurtleBots and Xevents
+When starts first do the X axe scrolling until butiá button is pressed.
+Executes barrido_x function
+That changes the X position of the line to the actual mouse position + 2px until arrives to the screen's border and then start again. The Y position it's changed to 0
+then in Y
+That executes barrido_y function
+the task of this function is to change the X position of the line by the last mouse X position, and the Y position by the actual mouse position in Y + 3px, until arrives to the screen's border and then starts again.
+Then, when you press butia button again, the line stops, hides and makes a click in the mouse position.
+Now the prototype designed in TurtleBots is integrating to sugar as a service
+this could be personalized in the sugar control panel in an easy way
+[1]
+[1]:
+https://www.google-melange.com/gci/task/view/google/gci2014/5784136845361152
