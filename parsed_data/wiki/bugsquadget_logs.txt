@@ -1,0 +1,94 @@
+Title: BugSquad/Get Logs
+URL: https://wiki.sugarlabs.org/go/BugSquad/Get_Logs#Enabling_Sugar_debug_logging
+--------------------------------------------------------------------------------
+Contents
+1
+What are the logs useful for
+2
+The Log Activity
+3
+Enabling Sugar debug logging
+3.1
+Where are the logs placed
+3.2
+Using sugar-launch
+3.3
+Using the sugar-emulator
+3.4
+Presence service
+4
+On the XO-1 (using Sugar 0.82.x)
+5
+On other machines (Sugar.84)
+What are the logs useful for
+If you provide debugging logs to a ticket, you'll be making it much easier to developers to fix the issue. In most of the cases it will be easiest for you to reproduce the bug.
+The Log Activity
+The
+olpc:Log
+Activity, is a Sugar-based log viewer that is in most distributions to help you view software logs. You can copy text from the view pane into the Sugar clipboard, then from the clipboard keep it into the Journal, and then attach that Journal item into the
+bugs.sugarlabs.org
+or
+dev.laptop.org
+[Attach file] > [Browse...] dialogs, or paste relevant pieces directly into the bug description.
+You can use the Log Collector to easily export all logs to the journal in a handy zip bundle:
+Enabling Sugar debug logging
+A shell script file,
+~/.sugar/debug
+, is run when Sugar starts up.  All environment variables exported by the file will be inherited by the Sugar shell and activity processes.
+From Sugar 0.83 to 0.98, the file is prepared with commented lines.  From Sugar 0.102, the file must be created by you.  Use your editor to add a line, or remove the '#' before the line, to ensure SUGAR_LOGGER_LEVEL is exported with the value
+debug
+, like this:
+export SUGAR_LOGGER_LEVEL=debug
+From Sugar 0.83 to 0.98, the prepared file looks like this:
+# Uncomment the following lines to turn on many sugar debugging
+# log files and features
+#export LM_DEBUG=net
+#export GABBLE_DEBUG=all
+#export GABBLE_LOGFILE=$HOME/.sugar/default/logs/telepathy-gabble.log
+#export SALUT_DEBUG=all
+#export SALUT_LOGFILE=$HOME/.sugar/default/logs/telepathy-salut.log
+#export GIBBER_DEBUG=all
+#export PRESENCESERVICE_DEBUG=1
+#export SUGAR_LOGGER_LEVEL=debug
+
+# Uncomment the following line to enable core dumps
+#ulimit -c unlimited
+Where are the logs placed
+Perform the minimal steps to reproduce the bug.
+The relevant logs are stored in
+~/.sugar/default/logs
+, (e.g, org.laptop.WebActivity-1.log for the log of the first Browse instance).
+Using sugar-launch
+To enable debug logging for one run of one specific activity, use sugar-launch in Terminal, to set the SUGAR_LOGGER_LEVEL environment variable and start the activity by bundle id:
+SUGAR_LOGGER_LEVEL=debug sugar-launch org.laptop.Chat
+Using the sugar-emulator
+If you are using a version older than the development release 0.83, run the emulator with the following command:
+SUGAR_LOGGER_LEVEL=debug sugar-emulator
+Presence service
+If your bug involves the presence service, you might also want to follow the steps for
+BugSquad/Telepathy Debugging
+.
+On the XO-1 (using Sugar 0.82.x)
+These are general steps to follow when providing logs for a bug:
+Start the Terminal activity.
+Type the following:
+echo 'export SUGAR_LOGGER_LEVEL=debug' >> /home/olpc/.xsession
+Reboot, or just restart X using ctrl+alt+erase
+The file
+~/.xsession-example
+contains other settings useful for debugging. You can copy individual lines from this or copy the entire file to
+~/.xsession
+.
+On other machines (Sugar.84)
+Sugar activities have logs
+~/.sugar/default/logs/
+so go to
+someuser
+type
+ls -al
+then drill down to
+~/.sugar/default/logs/
+for the error messages.
+Another useful command is:
+dmesg
+It prints out all of the kernel's messages and warnings for this session, with any new stuff at the end.

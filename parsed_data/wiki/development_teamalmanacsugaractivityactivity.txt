@@ -1,0 +1,335 @@
+Title: Development Team/Almanac/sugar.activity.activity
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/sugar.activity.activity#How_do_I_create_a_new_activity_that_is_derived_from_the_base_Activity_class.3F
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Sugar Almanac
+for Developers
+Development Team/Almanac
+Main Page
+Package: sugar
+sugar.env
+sugar.profile
+sugar.mime
+Package: sugar.activity
+sugar.activity.activity
+sugar.activity.registry
+Package: sugar.graphics
+sugar.graphics.alert
+sugar.graphics.toolbutton
+sugar.graphics.toolbox
+Package: sugar.datastore
+sugar.datastore.datastore
+Logging
+sugar.logger
+Notes on using
+Python Standard Logging
+Internationalization
+Internationalization
+The sugar.activity.activity package includes several important classes that are needed to run a basic activity.
+Contents
+1
+Helper Functions in sugar.activity.activity
+1.1
+How do I get the file path for my activity bundle?
+1.2
+How do I get the file path where I can write files programmatically?
+1.3
+How do I get the name of my activity?
+1.4
+How do I get the version number of my activity?
+2
+Class: Activity
+2.1
+How do I set the canvas (main work area) of my activity to a specific UI widget?
+2.2
+How do I ensure the canvas is of maximum size and how do I get the size the canvas?
+2.3
+What are activity id's? How do I obtain the activity id for an instance of my activity?
+2.4
+How do I create a new activity that is derived from the base Activity class?
+2.5
+How do I implement a write_file method for my activity in order to persist my activity in the journal?
+2.6
+How do I implement a read_file method for my activity so that I can resume activities from the sugar journal?
+2.7
+How do I run a specific block of code (eg. for cleanup) when my activity is closed?
+2.8
+How do I programmatically make my activity available for sharing?
+2.9
+How do I know if my activity is being started from the Journal?
+3
+Class: ActivityToolbox (Toolbox)
+3.1
+What is the standard toolbox needed in most activities and how do I create it?
+3.2
+How do I get a handle on the standard activity toolbar given an ActivityToolbox object?
+4
+Class: ActivityToolbar (gtk.Toolbar)
+5
+Class: EditToolbar (gtk.Toolbar)
+5.1
+How do I add a standard edit toolbar to my activity?
+5.2
+How do I hide a button in the edit toolbar that is not needed in my activity?
+5.3
+How do I disable and enable a button on the edit toolbar?
+6
+Notes
+Helper Functions in sugar.activity.activity
+How do I get the file path for my activity bundle?
+In the sugar model, all files needed to run an activity (the python code, icons, etc.) should be located under one directory:
+"Every activity in the Sugar environment is packaged into a self-contained 'bundle'. The bundle contains all the resources and executable code (other than system-provided base libraries) which the activity needs to execute. Any resources or executable code that is not provided by the base system just be packaged within the bundle."
+[1]
+At present, the most direct way to get a handle on the directory where your activity code is saved is to use the activity.get_bundle_path() method. The following code retrieves the bundle path and prints it to screen - you can reuse it and do whatever you like to save files or manipulate data in your activity bundle directory.
+from sugar.activity import activity
+   ...
+       print activity.get_bundle_path()
+       ...
+How do I get the file path where I can write files programmatically?
+The activity package also has a activity.get_activity_root() helper function that gets the root directory where your activity may write files. There are three
+specific writable subdirectories
+within your activity root: instance, data and tmp.
+from sugar.activity import activity
+    import os
+    ...   
+       #print out the root directory where this activity will be writing
+       print activity.get_activity_root()
+       #print out the names of the different root subdirectories to which 
+       #I can write. 
+       print os.path.join(activity.get_activity_root(), "instance")
+       print os.path.join(activity.get_activity_root(), "data")
+       print os.path.join(activity.get_activity_root(), "tmp")
+How do I get the name of my activity?
+from sugar.activity import activity
+    ...
+       #print out the name of this activity
+       print activity.get_bundle_name()
+How do I get the version number of my activity?
+#print out the version number of this activity
+       print os.environ['SUGAR_BUNDLE_VERSION']
+Class: Activity
+Any activity has two major parts: a canvas and a toolbox. The activity class allows you to manipulate both UI sections of any activity.
+How do I set the canvas (main work area) of my activity to a specific UI widget?
+Generally, you will set the main canvas of your activity to be either a GTK
+container widget
+or a
+packing box
+that arranges other widgets. The code below demonstrates how a gtk.VBox object (which is later packed with other UI widgets) is set as the canvas for your activity. Usually, you will put this code in the __init__() method for your main activity class.
+#Assign self._top_canvas_box to be the top level widget on the canvas
+       self._top_canvas_box = gtk.VBox()
+       self.set_canvas(self._top_canvas_box)
+How do I ensure the canvas is of maximum size and how do I get the size the canvas?
+What are activity id's? How do I obtain the activity id for an instance of my activity?
+The activity id is sort of like the unix process id (PID). However, unlike PIDs it is only different for each new instance (with create_jobject = True set) and stays the same every time a user resumes an activity. This is also the identity of your Activity to other XOs for use when sharing.
+You can use the get_id() method in the Activity class to get the activity id for your activity. Since most activities should inherit from the Activity class, you can actually just get a handle on the top level object for your activity and use that to call get_id.
+### TOOLBAREXAMPLE IS AN ACTIVITY THAT SUBCLASSES SUGAR'S ACTIVITY CLASS
+ class ToolbarExample(activity.Activity):
+     def __init__(self, handle):
+         activity.Activity.__init__(self, handle)
+         ...
+         #store the activity id for this variable in the variable my_id
+         my_id = self.get_id()
+         ...
+How do I create a new activity that is derived from the base Activity class?
+All activities must implement a class derived from the 'Activity' class. The convention is to call it ActivitynameActivity, but this is not required as the activity.info file associated with your activity will tell the sugar-shell which class to start.
+from sugar.activity import activity
+...
+class ToolbarExample(activity.Activity):
+
+    def __init__(self, handle):
+        activity.Activity.__init__(self, handle)
+How do I implement a write_file method for my activity in order to persist my activity in the journal?
+Most basic activities can be frozen in the datastore by implementing the write_file() method within the main activity class. This method is then called by sugar to save the activity when it is closed or when user or program commands request that the activity be saved to the datastore. Once saved, the activity can be accessed and reloaded from the journal.
+The following simple write_file() method shows how both metadata and files are written. write_file() must point to a created or existing journal entry.
+Your program can explicitly create a file in write_file() and write to it. Then, the journal entry can be created from scratch.
+You can download or save a file to a particular location and then change the file path for yoru datastore object to point to this file.
+If your Activity is always resumed from an existing Journal entry using the Journal entry's MIME type you can use the write_file() method to save metadata without actually writing a file.  An example of this is the Read activity, which is always resumed from a Journal entry that contains a PDF.  It uses write_file() to save metadata like the page the user was reading, the zoom level of the text, etc. but does not need to write the PDF it is using back to the journal.  The existing PDF is preserved.
+The code below creates a small text file (with "hello world" written in to it) within the body of write_file itself.
+class AnnotateActivity(activity.Activity):
+ ...
+     def write_file(self, file_path):
+         logging.debug('WRITING FILE ...')
+         #save some metadata
+         self.metadata['current_page'] = '3'
+         #save the file itself
+         f = open(file_path, 'w')
+         try:
+             f.write("Hello World")
+         finally:
+             f.close()
+How do I implement a read_file method for my activity so that I can resume activities from the sugar journal?
+For most activities, you can implement a read_file() method that will be used by the journal to load your activity. This method is called when the user choses to resume an activity that was running previously. Thus, after ensuring that you write all the necessary data using write_file(), you should implement a read_file() method that reads relevant file data and metadata. This information can then be used to set state variables for your activity so that it resumes in the earlier state chosen by the user.
+The following code shows how both file data and activity metadata are read. Notice the call at the end of read_file that actually sets up the activity UI once the state of the activity class is set.
+"""Read saved data from datastore and resume activity based on a previous state
+    """
+    def read_file(self, file_path):
+        logging.debug('RELOADING ACTIVITY DATA...')
+
+        #load data from file for this datastore entry in to the data variable
+        data = self._get_data_from_file_path(file_path)
+        
+        #Access different metadata mappings and change any relevant state 
+        #variables for this activity instance. 
+        cp = self.metadata['current_page']
+        self._CURRENT_PAGE = int(cp)
+
+        #call any code that will actually initialize the activity with 
+        #data that is read from datastore
+        self._create_ui(data)
+        
+
+    """This method simply returns data that is stored in a given 
+    file_path"""
+    def _get_data_from_file_path(self, file_path):
+        fd = open(file_path, 'r')
+        try:
+            data = fd.read()
+        finally:
+            fd.close()
+        return data
+How do I run a specific block of code (eg. for cleanup) when my activity is closed?
+The activity.Activity class has a can_close() method that you should override in any of your own activities where you want to run some specific code when an activity is closed.
+from sugar.activity import activity
+...
+class AnnotateActivity(activity.Activity):
+   def __init__(self, handle):
+      # Put activity initialization code in here
+      ...
+
+   #Override activity.Activity's can_close method
+   def can_close(self):      
+      ...
+      # PUT CLOSING CODE HERE
+      ...
+
+      #Return True at the end to ensure activity does close properly
+      return True
+It is important to note that the can_close method will only be called when the activity is cleanly closed using the "Stop" button on the Activity Toolbar. In cases where an activity is terminated using a kill signal or through some other OS-driven method, then the can_close() method will not necessarily be called.
+How do I programmatically make my activity available for sharing?
+Use the share() method that is included in the Activity class. This method takes a boolean argument that specifies whether the sharing should be private (only visible to those buddies that are invited to share) or public (visible to the entire neighborhood).
+The following code shows how to share the activity with all buddies in your neighborhood:
+from sugar.activity import activity
+...
+class AnnotateActivity(activity.Activity):
+    #### Method: __init__, initialize this AnnotateActivity instance
+    def __init__(self, handle):
+         ...
+         self.share(private=False)
+         ...
+If you wanted to just share the activity with a particular buddy, then first you would need to have access to your buddy's key and then you can send him a personal invite (without inviting everyone else in your neighborhood).
+The code below shows how personal invites can be achieved. First, the _populate_buddy_box gives UI controls for inviting specific buddies through the activation of toggle buttons. Each toggle button corresponds to a specific buddy and is connected to a callback (_buddy_toggled_cb) which then personally invites a buddy. Notice that we pass buddy.get_property("key") to our callback. This is needed because personal invites require a buddy key (as used in sugar.presence.buddy) in order to identify who you are inviting.
+#### Method: _populate_buddy_box, which updates the list of buddies available for this
+    # XO and then updates the _buddy_box UI widget accordingly. 
+    def _populate_buddy_box(self):
+        buddies = self._ps.get_buddies()
+        self._buddy_box = gtk.VBox()
+        for buddy in buddies:
+            tb = gtk.ToggleButton(buddy.get_property("nick"))
+            tb.connect("toggled", self._buddy_toggled_cb, tb, buddy.get_property("key"))
+            self._buddy_box.pack_start(tb, expand=False, fill=False, padding=10)
+
+        
+    #### Method: _buddy_toggled_cb, which is called when a togglebutton for a buddy
+    # has its state changed (indicating user wants a specific buddy to join or exit
+    # the conversation). 
+    def _buddy_toggled_cb(self, widget, tb, buddy_key):
+        if tb.get_active():
+            self.invite(buddy_key)
+How do I know if my activity is being started from the Journal?
+You can check handle.object_id in the constructor of your Activity class:
+from sugar.activity import activity
+...
+class AnnotateActivity(activity.Activity):
+    #### Method: __init__, initialize this AnnotateActivity instance
+    def __init__(self, handle):
+         ...
+         if handle.object_id is None:
+             print "Activity is started anew (from the home view)"
+         else:
+             print "Activity is started from the journal and the object id is %s" % handle.object_id
+         ...
+Class: ActivityToolbox (
+Toolbox
+)
+What is the standard toolbox needed in most activities and how do I create it?
+The ActivityToolbox is the standard toolbox that should be a part of any sugar activity. This toolbox starts out with an ActivityToolbar, which contains standard controls for saving to the journal, closing the activity and other basic activity tasks.
+To create a standard ActivityToolbox for your activity, place the following code in your activity's __init__ method:
+#### CREATE TOOLBOX
+       # Creates the Toolbox. It contains the Activity Toolbar, which is the
+       # bar that appears on every Sugar window and contains essential
+       # functionalities, such as the 'Collaborate' and 'Close' buttons.
+       toolbox = activity.ActivityToolbox(self)
+       self.set_toolbox(toolbox)
+       toolbox.show()
+How do I get a handle on the standard activity toolbar given an ActivityToolbox object?
+Use the get_activity_toolbar() method in ActivityToolbox to get a handle ont he activity toolbar.
+#Get the activity toolbar from our ActivityToolbox object
+       activityToolbar = toolbox.get_activity_toolbar()
+Class: ActivityToolbar (
+gtk.Toolbar
+)
+Class: EditToolbar (
+gtk.Toolbar
+)
+How do I add a standard edit toolbar to my activity?
+The activity package has a standard edit toolbar with the following members:
+undo  -- the undo button
+redo  -- the redo button
+copy  -- the copy button
+paste -- the paste button
+separator -- A separator between undo/redo and copy/paste
+You can create a standard edit tool bar using code similar to the following in the __init__ method of your activity's class after you have created a toolbox:
+#### EDIT TOOLBAR
+       # Create the edit toolbar:
+       self._edit_toolbar = activity.EditToolbar()
+       # Add the edit toolbar:
+       toolbox.add_toolbar(_('Edit'), self._edit_toolbar)
+       # And make it visible:
+       self._edit_toolbar.show()
+How do I hide a button in the edit toolbar that is not needed in my activity?
+The following code shows how to hide the undo button. You can also apply similar code to hide the redo, copy and paste buttons.
+#hide the undo button
+       self._edit_toolbar.undo.props.visible=False
+How do I disable and enable a button on the edit toolbar?
+Some buttons, such as copy, may need to be disabled under certain circumstances (eg. there is nothing to copy). This can be done by changing the sensitivity of the widget, as the following code shows:
+#disable the use of the copy button for now. 
+       self._edit_toolbar.copy.set_sensitive(False)
+You can enable buttons by simply passing True to the set_sensitive() method.
+Notes
+↑
+OLPC Austria - Activity Handbook for Sugar

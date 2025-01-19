@@ -1,0 +1,66 @@
+Title: Sysadmin/Add shell account
+URL: https://wiki.sugarlabs.org/go/Sysadmin/Add_shell_account
+--------------------------------------------------------------------------------
+Users looking for a Sugar Labs account should go to
+Service/Account
+.
+Contents
+1
+Guidelines
+2
+Account creation on shell.sugarlabs.org
+3
+Adding accounts on other machines
+4
+See also
+Guidelines
+Ask users to follow diligently the
+Service/shell#Requesting_a_shell_account
+procedure.
+Users should briefly motivate their request. A sufficient justification could be:
+"I have these Sugar-related files that I'd like to distribute on people.sugarlabs.org".
+Shell accounts shouldn't be granted to untrusted individuals without referrals.
+Shell accounts that are known to be unused should be disabled with
+system-userdel
+.
+Account creation on shell.sugarlabs.org
+To create an account, become root on
+Machine/sunjammer
+and type:
+system-useradd <username> <first_name> <last_name> <email>
+Note that accents in the first_name or last_name would break the script.
+NOTE: You have to become root with 'sudo -i'. Prefixing the command with sudo won't work because it doesn't switch $HOME to /root, which is necessary to make the ldap commands source
+/root/.ldaprc
+.
+At some point the script will prompt you to paste the user's ssh key.
+You can skip this part and edit ~user/.ssh/authorized_keys manually.
+The procedure automatically sends a welcome email to the user.
+The email is also copied to ~user/welcome, in case they loose the
+original message.
+Adding accounts on other machines
+Please
+do not create accounts directly with useradd!
+Instead, copy the existing credentials from sunjammer:
+Log into sunjammer, forwarding your ssh keys with the ssh-agent:
+ssh -A sunjammer
+Run this shell script to create a user and copy the credentials from sunjammer:
+remote-useradd <remotehost> <user> <groups...>
+Needless to say, remote-useradd requires your ssh key to be already installed in the remote server.
+Typically, you'll want to add users to groups
+sudo
+,
+adm
+,
+libvirtd
+and
+docker
+.
+See also
+Sysadmin/User_management
+-- all other operations on user accounts
+Service/Account
+-- Account information for users
+Service/shell
+-- ssh access to shell.sugarlabs.org
+Machine/sunjammer
+-- shell account server

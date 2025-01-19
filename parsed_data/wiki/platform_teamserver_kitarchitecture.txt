@@ -1,0 +1,127 @@
+Title: Platform Team/Server Kit/Architecture
+URL: https://wiki.sugarlabs.org/go/Sugar_Server_Kit/Architecture#Black_box_model
+--------------------------------------------------------------------------------
+Contents
+1
+The purpose
+2
+Components
+3
+Server functionality models
+3.1
+Only sugar-server package
+3.2
+Dumb school servers
+3.3
+Highly maintained school servers
+4
+Client functionality models
+5
+Distribution model
+6
+Deployment model
+7
+Development model
+The purpose
+The Sugar Server Kit initiative is an attempt to achieve the following major goals:
+Provide a split between the community level project (Sugar Server Kit) and any number of downstream solutions based on the community project. This should stimulate the downstream community to contribute to this upstream community project, facilitating reuse of its experience in all other downstreams;
+Treat the community project as a collection of useful tools, created and supported by community contributors, that might be composed into a final deployment solution on purpose, i.e., Sugar Server Kit is not an OS or a final solution, but rather a bunch of tools that might be launched on any major GNU/Linux distribution at the deployment level. And because some of these tools might be implemented in several ways, it should make the acceptance process of new features by upstream more flexible;
+The whole system should be as reliable as possible. Thus, the community project will provide a decent testing environment (several levels of automatic and human driven tests at the top level), which might be used not only for Sugar Server Kit itself, but for deployment solutions as well;
+Be GNU/Linux distribution agnostic, different deployments might decide to use different GNU/Linux distributions;
+It is not only about supporting XO laptops, but about any Sugar based environments.
+Components
+There are several major Sugar Server Kit project components that will be mentioned on this page:
+sugar-server
+provides basic sugar specific services, such as:
+OLPC anti-thief support,
+students registration,
+share information about accessible services,
+Journal backup and restore.
+sugar-server-templates
+provide configuration templates that might be reused in a downstream solution,
+mace
+processes configuration sources, e.g., from sugar-server-templates,
+They all have the following in common:
+sugar-server-templates contain basic configuration for sugar-servers.
+sugar-server-templates make sense only after its content is processed by mace.
+These are building blocks for the final solutions in downstream deployments.
+Server functionality models
+Sugar Server Kit components are being designed to accomplish different functionality models, where the particular model might include only a limited number of ingredients. The following models might describe a Sugar Server Kit design, the final model might be an intermediate variant of them.
+Only sugar-server package
+The model with minimal Sugar Server Kit design influence.
+The key points:
+Existing and configured out of Sugar Server Kit servers at schools.
+School admins need to take care about setting up a sugar-server specific
+requirement configuration
+for the external environment.
+School admins install the sugar-server package from an upstream binary repository, and just launch it.
+sugar-server starts to serve all sugar boxes around, providing only
+basic sugar specific
+functionality.
+sugar-server doesn't break the system configuration (it touches nothing).
+The maintenance process is the same as for any other service launched on a server.
+Dumb school servers
+The model where the server at school is entirely dependent on Sugar Server Kit design decisions. There are two types of machines:
+Dumb servers at schools under Sugar Server Kit control. The explicit intention is to minimize maintenance intervention as much as possible.
+The Mothership, used to minimize control of school servers and handle any additional functionality that people in schools need.
+The key points:
+Functionality of school servers is simple, only basic services.
+Complex—thus, non-trivial for maintenance—services are on the mothership and singular, so to minimize maintenance costs and allow effective support with the minimum number of skilled personal.
+A set of school server's services tends to be constant, at least it doesn't require regular intervention to add/remove services.
+All school servers have exactly the same set of services.
+This functionality model involves Mace and sugar-server-templates components. The entire content of school servers is as follows:
+a set of packages, including the main one that contains
+all services as dependencies,
+upstream Mace configuration as a sugar-server-templates dependency,
+downstream Mace configuration;
+Mace environment file, e.g., the one from sugar-server-templates
+examples
+;
+pure data, like leases and content black lists, to fetch as-is from the Mothership.
+After installing the main package, it will provide the possibility to fetch pure data from the Mothersip, and finally run Mace to complete the school server setup.
+The maintenance process will be as follows:
+sugar-server-templates provide unattended packages updates on school servers; packages to update come from
+GNU/Linux official repositories with security updates,
+Sugar Server Kit upstream repository that follows the
+Statement of purpose for releases
+, i.e., declares that newly appearing updates should not break already deployed systems;
+taking care that pure data on the Mothership is up-to-date, e.g., leases are properly created, content filtering blacklists are fresh, etc.;
+do occasional changes in the main school server package to add new services or tune downstream Mace configuration and upload it to the repository that will be used for unattended updates on school servers.
+Highly maintained school servers
+Servers at schools might not be so simple as in the previous model. They might contain complex services like content management systems. This use case might require more regular maintenance scenarios, e.g., using configuration tools like Puppet or CFEngine, or having more detailed monitoring, etc.
+It seems that the only useful Sugar Server Kit component here is the sugar-server.
+Client functionality models
+There is only one Sugar Server Kit component to work on the client side,
+sugar-client
+that implements
+Client API
+. Sugar-client works directly with sugar-server using its public
+API
+.
+Distribution model
+Sugar Server Kit is designed to avoid patching its sources in downstream. Reusing upstream binary packages as-is from repositories on
+http://download.sugarlabs.org
+is how Sugar Server Kit is being designed. Downstream might create new packages, which must not have file collisions with upstream packages, in order to have tweaks for the local environment. This is accomplished by the following:
+sugar-server project has services formed as plugins, from downstream packages. Such services might be
+enabled/disabled
+newly added services, e.g., variants of existing services that are highly tuned for local needs
+mace
+does not create any final configuration level logic and might be used to process any downstream configuration for services that it supports.
+Core packages are per-
+component
+and might be reused as-is in downstream, in a way that is most practical for them.
+Deployment model
+It is an entirely downstream decision as to how to deploy Sugar Server Kit based solutions.
+Development model
+Having a decent testing infrastructure is the major intention for
+Sugar Server Kit
+components. Every component needs to have, at least, unit tests for its internals. Components like
+sugar-server
+also have integration tests to cover integration issues for its parts.
+Except for component specific tests, it is important to have system integration testing when all components are being tested in collaboration. In that case, the
+sugar-unit
+component, sugar client bot, will help.
+The reliable testing environment should help with avoiding regressions while following the
+Sugar Server Kit
+statement of purpose
+for releases.

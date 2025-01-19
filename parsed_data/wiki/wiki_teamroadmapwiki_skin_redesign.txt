@@ -1,0 +1,97 @@
+Title: Wiki Team/Roadmap/Wiki skin redesign
+URL: https://wiki.sugarlabs.org/go/Wiki_Team/Roadmap/Wiki_skin_redesign
+--------------------------------------------------------------------------------
+Contents
+1
+Design goals
+1.1
+Accessibility
+2
+wiki-devel test design
+2.1
+Design discussion
+2.1.1
+Systems
+2.1.2
+Linkbar
+2.1.3
+Color
+2.1.4
+Underscores on links
+2.1.5
+[edit] section links
+2.1.6
+Fixed width page or 100% of window
+This is a
+Redesign idea workshop page
+- Please contribute your ideas!
+Design goals
+From Bernie in this
+discussion thread
+, "I'd like our linkbar to be:
+consistent in style across all webapps (maybe also in content)
+reminiscent of Sugar's UI elements or colors
+in harmony with the look of all our sites
+maybe well detached from the rest of the page (like the gnome one)
+written in very tidy html + css for easily maintainability
+free of frames/iframes, marquees and non-standard html crap
+perfectly readable in text-only browsers, even without css
+ordered the same way across all sites (= easy to memorize)
+wrapping nicely on small screens
+These are just my personal wishes, not strict requirements. ...
+Accessibility
+We should plan to have an 'Accessibility Features' highlight box on our Main page that alerts users to features and options that will assist their use of the wiki.  There we can describe how to take advantage of the new options and preferences that will be provided with new software.  We could prepackage these into specialized skins, and show users how they can customize significant features with skin-specific .css and .js pages for their accounts.
+This would serve to educate all users about accessibility and provide new capabilities that can advantage usability for everyone, better accommodating the various minorities, without degrading functionality or aesthetics for the majority.  --
+FGrose
+wiki-devel test design
+http://wiki-devel.sugarlabs.org/
+Design discussion
+Please use this space to share, respond to, and refine comments, in context within the topical areas.
+Systems
+MediaWiki 1.16 beta has been announced,
+http://lists.wikimedia.org/pipermail/mediawiki-announce/2010-March/000089.html
+, with new features supporting skin changes. They also will be introducing features to support a new default skin, Vector, developed by the
+Wikimedia Usability Initiative
+. It would probably server us to base any major changes on the pending default software and skin. See the reference for the many engineering and usability features that will be enabled.
+Bernie has proposed
+http://wiki-testing.sugarlabs.org/
+to pursue this (not yet MW 1.16).
+Linkbar
+Consider using a larger/different typeface to better distinguish these inter-site links from the personal wiki navbar links on the same, top line and on the right of the page.
+Link sites - drop people, add translate, ideas?
+Color
+Underscores on links
+show on hover only - like the Wikipedia MonoBook and Vector skins, I prefer not to clutter the content area with lots of horizontal lines that interfere with the typeface descenders, make reading the text more difficult, and tire the eyes. --
+FGrose
+The bottom-border underscores move them below the descenders (at many resolutions), so this is an improvement in readability.  The excess of horizontal lines in the content text remains an issue, in my opinion. I've found that the excess ink and horizontal lining of solid underlines can be reduced by using a dotted, lightgray bottom-border underline {text-decoration:none;border-bottom:1px dotted;border-color: gray}. (But see also just below.) --
+FGrose
+(
+discussion post
+)
+From
+Josh Williams, web designer working on the redesign: I'm with you on having the underscores only appear on hover for the main content, but there's a really big usability problem there for color blind people or users with a grayscale monitor. If you go to
+http://sugarlabs.org
+on the XO and set the screen to gray scale it's extremely difficult to find links because there's no visual cue other than color.
+This is something the new version of MediaWiki has addressed with a new 'Link underlining' preference. It's on the 'Appearance' tab, Advanced options section, and allows Never, Always, & Browser default. Unfortunately, this feature doesn't seem to work with the border-bottom underlines (which do improve readability).  Perhaps we can adjust this with the skin.php or skin.js or request that the feature be coded to work with alternate underlining methods. --
+FGrose
+[edit] section links
+left or right position - I find the left position of these links, just preceding the section title, interferes with the clarity of reading and scanning the titles. I prefer that the [edit] section links be moved to the right like in the MonoBook and new Wikipedia Vector skins.
+contrast - I also suggest that they be slightly less dense or grayed from the rest of the text, so that they are easier to ignore when one is concentrating on reading the content on a page.
+underscores - like the other non-direct content links, if they only show an underscore when hovered with the mouse pointer, we could reduce the amount of unessential 'ink' on the page that distracts, tires the eyes, and changes the graphic feel of the page. For those on monochrome displays, links that are inline with content text are the ones that can't be found. The side bar, table of contents box, editsection, and other links on utility pages are always links—a fixed feature of MediaWiki. These don't need the underline distinction. Arbitrary links like those in content text are the ones that benefit from a distinguishing underscore.  --
+FGrose
+Fixed width page or 100% of window
+Bernie
+and
+Sascha
+expressed concerns about the use of fixed width content, and
+Josh
+explained his preference, "...That's true, you can always resize the window. I'm in the camp that it's better to set a maximum width because I think it's harder to read long 
+strings of text. Also I don't enjoy resizing the window just for sites that do this..." and explained some options as well as requested further discussion.
+I find that I want to reflow text into wide windows often so I can compare versions and different pages by stacking them above and below each other.  I'm frustrated by sites with fixed width because this prevents reflowing the text into long windows. Because of this, more text is hidden from single view and reducing my effectiveness by forcing me into vertical scrolling and shorter comparisons. (Side-by-side window comparisons are often frustrated by images and other features that float the text into unusual jumbles.)
+This seems to be an issue of which configuration provides more capability and freedom to use it, and optimizing convenience without  restricting capability. See
+#Accessibility
+. We could set a default that most prefer and include the capability to set personal preferences. --
+FGrose
+Eben entered
+comments
+that he prefers a maximum width, explaining that adjusting the width in a tabbed browser is frustrating when you are working with multiple windows.

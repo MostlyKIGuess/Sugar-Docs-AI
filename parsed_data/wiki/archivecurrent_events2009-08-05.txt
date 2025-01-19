@@ -1,0 +1,115 @@
+Title: Archive/Current Events/2009-08-05
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2009-08-05#Help_wanted
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Help wanted
+3
+In the community
+4
+Sugar Labs
+Sugar Digest
+1. Greg Morris from Nexcopy, the company that donated one of their USB Duplicators to Sugar Labs, has been busy with another generous effort. Check out
+http://recycleusb.com
+, a website "dedicated to turning used flash drives into portable learning devices for children, schools and education institutions." They are featuring "Sugar On A Stick" and offer to load Sugar onto recycled USB flash drives and sending them to Sugar Labs for global deployment.
+So, don't throw away those old flash drives: donate them!
+2. It was great to hear from Bill Kerr, who has some of his students trialling Sugar on a Stick. Check out
+Bill's blog
+(which also appears in our Planet) and read up on his students impressions of Sugar, which are linked from the sidebar.
+3. I forget how exhausting teaching can be, even part time. I've been teaching five Sugar classes per week this summer: two for second graders, one for third graders, and one for middle-school youth. The
+reports from the Gardner School
+describe much of what I have been doing. The demands of the children being what they are, I keep biting off more and more as the summer has progressed. (One of the dangers of putting developers and teachers in the same room.) Lately, I have been exploring how the children might use Turtle Art to create some geography games similar to
+Conozco Uruguay
+. Without too much effort, I managed to create a simple framework that I used to sketch out a few games (See
+Continent Game
+and
+State Game
+.) This morning, I made
+a game specific to the Gardner School
+, leveraging the work they had been doing with maps and pictures of their neighborhood. We played all the games as a group--the kids were animated and engaged. Then I shared the Gardner Game with their Sugar neighborhood and asked them to launch it.
+Here is where the trouble began. First of all, the version of Turtle Art I used to build the game is newer than the version they had installed on their machines. Normally, this wouldn't be an issue, but I had used a block that they didn't have, so the sharing halted part way through. The good news is that Sebastian Dziallias pushed a change for Sugar on a Stick to contain all activities packaged as XO files, meaning that all activities can update. (Presently, it is non-trivial to update activities that had been distributed as RPM.) The bad news is, Turtle Art, being part of Fructose, had been distributed as RPM on the Gardner School sticks. So I will have to update them by hand.
+But had sharing worked, I still would have run into some problems, since once, shared, always shared. I discussed the problem with Ben Schwartz in IRC:
+<walterbender>
+bemasc: here is my use scenario: the current sharing mechanism with its automatic resume doesn't work...
+<walterbender>
+I designed a game template for the kids to use in Turtle Art.
+<walterbender>
+I then shared my construction with them.
+<walterbender>
+So far so good.
+<walterbender>
+(of course, I had a version mismatch that caused the sharing to fail part way through, which I have subsequently fixed.)
+<walterbender>
+but the problem is, once shared, always shared.
+<walterbender>
+I want the kids to each modify the template their own way, not as a group.
+<walterbender>
+and then share their individual results with the group at check points. So the feature is that sharing is punctuated. But also involves explicit forking. the merge is perhaps the least important.
+<walterbender>
+but the current model is always merging all the time...
+<walterbender>
+(I suppose I could make TA share in only one direction, using the current model).
+<walterbender>
+but then how would a kid share her cool innovation?
+<bemasc>
+walterbender: hmm. Why not use object transfer?
+<bemasc>
+walterbender: as I've suggested with my mockups, we could have a system in which every time a user launches a previously shared activity, they have the option to work privately.
+<bemasc>
+I haven't implemented this, mostly because I'm not much a GUI programmer, but it's a possibility.
+<walterbender>
+bemasc: Does object transfer work for objects other than text?
+<bemasc>
+walterbender: I mean the Journal-based object transfer. You can send any journal item to anyone in 0.84.
+<bemasc>
+The problem in 0.84 is that this is "push only", so you have to click N times to send it to N people.
+<walterbender>
+bemasc: I hadn't tried it lately, but I wasn't able to get to work for TA objects.
+<bemasc>
+Also, I think you have to make them all "friends" first.
+<bemasc>
+walterbender: well, that's certainly mysterious.
+<walterbender>
+bemasc: I'll try again.
+<walterbender>
+bemasc: but I still like the idea of doing this through the collaboration model so that they results and be shared/merged more directly...
+<bemasc>
+walterbender: If everyone is working independently on separate projects that will not be merged, then I have difficulty seeing in what sense they are working collaboratively, even if they all forked from a common template.
+<bemasc>
+I think, as a rule, we should only show people "collaborating" in a single session in the Neighborhood if they are actually working together on a single "document".
+<walterbender>
+bemasc: they plan to work in small teams
+<walterbender>
+for example, each adding a question to a quiz show
+<bemasc>
+walterbender: ok. So each team can get a session. That much makes sense; the question is how to seed the sessions.
+<bemasc>
+If we had a copy function in the Journal, I would say "make a template, copy it once for each team, and share each copy"
+<walterbender>
+bemasc: I think that makes the most sense in the short term. Thanks.
+<walterbender>
+but I look forward to trying your framework.
+<bemacs>
+walterbender: if you get object transfers working, you could transfer to a "team initiator" for each team, who would then share, and the others would join.
+<bemacs>
+This should be workable in 0.84, with a smallish number of clicks, except for bugs.
+I'll report back how things work out tomorrow with the third graders.
+Help wanted
+4. We are a still
+soliciting candidates
+for the Sugar Oversight Board. Luke Faraone has been looking into whether or not
+SPI
+might be able to run the election for us, which would guarantee some level of distance and transparency to the process. Meanwhile, we also have to get our membership list in order. I've asked the Membership Team to get moving, but we need your help as well. Please add yourself to the
+Membership List
+if you are not already listed. (We have a seemingly intimidating
+membership criteria
+, but remember that there are many ways to contribute and that asking even a single question represents a contribution.
+In the community
+5. Gonzalo Odiard reports that there will be a Sugar Day in Argentina on 8 August 2009 beginning at 13:30 on the first floor of the Radio FM La Tribu Lambaré 873 Buenos Aires, Almagro.
+Sugar Labs
+6. Gary Martin has generated a SOM from the past week of discussion on the IAEP mailing list (Please see
+SOM
+).
+Caegory:Sugar Digest

@@ -1,0 +1,107 @@
+Title: Service/lists
+URL: https://wiki.sugarlabs.org/go/Service/lists
+--------------------------------------------------------------------------------
+Contents
+1
+Hostnames
+2
+Hosted on
+3
+Administrative contact
+4
+Sysadmins
+5
+Requesting a new mailing list
+6
+Sysadmin Recipes
+6.1
+Adding a new a mailing list
+6.2
+Change virtual host of a list
+6.3
+Change a parameter on all lists
+6.4
+Disabling digests for all users
+6.5
+Migrating lists from one host to another
+7
+See Also
+Hostnames
+https://lists.sugarlabs.org/
+Hosted on
+Machine/sunjammer
+Administrative contact
+For problems concerning a specific mailing-list, please contact the individual administrator reported on in the mailing-list summary page
+Technical contact for Mailman and general sugarlabs.org email routing:
+postmaster AT sugarlabs DOT org
+Sysadmins
+For non-emergency calls, preferably send email to the administrative contact above.
+Bernie Innocenti
+Ignacio Rodríguez
+Requesting a new mailing list
+The best way to start a new mailing list is to begin a discussion on a related list that already exists,
+and once the discussion becomes active, to ask for a separate list for that topic or that sort of traffic.
+When you have a critical mass of people regularly talking about the same topic, request a mailing list by
+emailing the following information to the administrative contact:
+The name you want for your mailing list, with alternative names if the first one is taken
+A description of the list, its purpose, and why it's needed (being able to say "we've been talking on this other list for a while, and the discussion has grown too big - see these archive links" is helpful)
+The name/email of the list admin, and of at least one other moderator (minimum one admin and one moderator)
+At least 10 names/emails of people who want to be the initial subscribers
+It may take up to 48h to hear a response back, so please be patient!
+Sysadmin Recipes
+Adding a new a mailing list
+Create the list:
+sudo newlist --urlhost=lists.sugarlabs.org --emailhost=lists.sugarlabs.org LISTNAME
+Send additional instructions to list administrator
+I created the new list LISTNAME@lists.sugarlabs.org.
+
+You are the list admin, and should have received a welcome message
+with your admin password. You can share this role with others, if
+you wish, or nominate one or more moderators.
+
+Feel free to make any configuration changes you need. In particular,
+you may want to add a meaningful summary and description of what this
+list is about. Please, notify systems@ if you change security or privacy
+related settings.
+Change virtual host of a list
+withlist -l -r fix_url bolivia -u lists2.ole.org
+Change a parameter on all lists
+echo "nondigestable = True" >bar
+for l in `list_lists -b`; do config_list -i bar -v $l ; done
+rm bar
+Disabling digests for all users
+Create a nodigests.py with this content:
+from Mailman import mm_cfg
+
+def nodigests(m):
+    for addr in m.getMembers():
+        if m.getMemberOption(addr, mm_cfg.Digests) == True:
+            print "turning off digests for " + addr
+            m.setMemberOption(addr, mm_cfg.Digests, 0)
+    m.Save()
+    m.Unlock()
+Then, execute:
+withlist -l -r nodigests -a
+Migrating lists from one host to another
+To migrate lists from solarsail to sunjammer, I did the following:
+Lower TTL for lists.sugarlabs.org to 30 minutes
+Copy over config before cut-off:
+ssh solarsail
+ cd /var/lib/mailman/lists/
+ rsync -aP aslo bugs colombia community-news dextrose fourthgrademath gsoc iaep italia marketing slobs soas somosazucar sugar-desarrollo sugar-devel sugar-reports  systems systems-logs root@sunjammer:/var/lib/mailman/lists/
+ cd /var/lib/mailman/archives/private
+ rsync -aP aslo* bugs* colombia* community-news* dextrose* fourthgrademath* gsoc* iaep* italia* marketing* slobs* soas* somosazucar* sugar-desarrollo* sugar-devel* sugar-reports* systems* systems-logs* root@sunjammer:/var/lib/mailman/archives/private/
+Copy over the lists.sugarlabs.org bits from the Postfix configuration (
+/etc/postfix/main.cf
+and
+/etc/postfix/transport
+)
+Test admin pages and archives on the new site (hint: set the new IP for lists.sugarlabs.org in /etc/hosts)
+Announce downtime
+on all affected lists
+Stop mailman on solarsail
+Switch over DNS records (with default TTL values)
+Remove mailman transport map from solarail, leaving the relay, so that anything@lists.sugarlabs.org gets sent to sunjammer
+Restart mailman on solarsail
+See Also
+Mailing_Lists

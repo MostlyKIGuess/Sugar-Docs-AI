@@ -1,0 +1,69 @@
+Title: Development Team/Almanac/Sugar.presence.presenceservice
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/Sugar.presence.presenceservice#How_do_I_share_an_activity_with_other_buddies_in_my_neighborhood.3F
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Class: PresenceService (gobject.GObject)
+How do I share an activity with other buddies in my neighborhood?
+Sharing an activity means that you make the activity visible in other users' neighborhoods so that they have the option to join the activity.
+The standard
+ActivityToolbar
+already contains a dropdown menu that allows users to make their activities public or private on the mesh network. To use this toolbar, you can simply use the
+ActivityToolbox
+in your activity, which adds the ActivityToolbar by default. You can see code on how to do this by reading the entry on
+creating a standard toolbox
+.
+In your activity, you may want users to be able to control the public/private share settings outside of just using the standard ActivityToolbar menu. This can be done by using the
+Activity.share()
+method.
+How do I get a list of buddies that are presently available on my mesh network?
+The PresenceService class has a helper method called get_buddies() that will return a list of sugar.presence.buddy.Buddy objects. The code below shows how you can get a list of available buddies and print out some relevant properties for each.
+from sugar.presence import presenceservice
+    ...
+    #### Method: _print_buddy_info, which finds all the buddies detected for this 
+    # XO and then prints their relevant properties. 
+    def _print_buddy_info(self):
+        ps = presenceservice.PresenceService()
+        buddies = ps.get_buddies()
+        for currBuddy in buddies:
+            print '----------------------- ' + currBuddy.get_property('nick') + ': '
+            print currBuddy.get_property('key')
+            print currBuddy.get_property('color')
+            print currBuddy.get_property('current-activity')
+            print currBuddy.get_property('owner')
+            print currBuddy.get_property('ip4-address')
+            print ''

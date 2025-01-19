@@ -1,0 +1,16 @@
+Title: Lemonade Stand/Developer Documentation
+URL: https://wiki.sugarlabs.org/go/Lemonade_Stand/Developer_Documentation
+--------------------------------------------------------------------------------
+There are three files which handle the running of Lemonade Stand.  They are broken up into data, logic, and GUI drawing.
+Data: constants.py
+The easiest file to get into is constants.py.  This file has collections of all the different modifiable elements in the game, along with any important constants, like starting money or lemonade price.
+Each section consists of a dictionary or list, possibly containing more dictionaries.  To change a value in the game, simply make the corresponding change in the file.  For example, to make sugar cost $.07 per unit instead of $.05, change  'cost': 5 to  'cost': 7 under 'Sugar'.
+Logic: LemonadeMain.py
+There are a lot of methods for querying the state of the logic in here, but the most important ones are process_day_logic(), process_change(), and process_day_end()
+process_day_logic() is the main method which calculates how many items you can buy, how many customers shop at the stand, and how many drinks sold that day.  In other words, it runs to calculate the outcome of each 'day' phase.
+process_change() runs the user's input against the change-counting algorithm to see if the user has picked the correct amount.  If the amount is right, it allows the player to proceed, otherwise it prompts the player that he has not succeeded and restarts the input.
+process_day_end() simply calls all events that happen at the end of the day, like random events, weather changes, etc.  If a new type of event is introduced, it should probably get called here.
+GUI: LemonadeGui.py
+This file is broken up into a number of small methods each tasked with drawing one discrete element of the GUI.  These methods are then called by the draw() method which is in turn called when the game engine detects that something has changed on the screen.
+Methods should be as modular as it makes sense for them to be, with an eye towards keeping the XO from having to draw too much too often.  In other words, try to build as much as possible at once, but move anything that gets reused often to its own method.
+Note that there should be no 'print()' statements in the production version. This is a graphical application.

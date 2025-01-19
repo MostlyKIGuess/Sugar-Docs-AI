@@ -1,0 +1,662 @@
+Title: Activities/Turtle Art/Uso de Tortuga Arte Sensores
+URL: https://wiki.sugarlabs.org/go/Activities/Turtle_Art/Uso_de_Tortuga_Arte_Sensores#Medici.C3.B3n_de_amperios_de_corriente_directa
+--------------------------------------------------------------------------------
+English
+PRECAUCIÓN. LA CONEXIÓN DE FUENTES DE VOLTAJE EXTERNO A LA ENTRADA DE MICRÓFONO DEL LAPTOP XO PUEDE CAUSAR DAÑO PERMANENTE. NO TE OLVIDES DE LEER Y ENTENDER LO SIGUIENTE ANTES DE CONECTAR FUENTES DE VOLTAJE A TU COMPUTADORA PORTÁTIL. NO LA CONECTES A VOLTAJES PELIGROSOS
+Contents
+1
+Especificaciones
+2
+Modo de Voltaje
+2.1
+XO-1
+2.2
+XO-1.5
+2.3
+XO-1.75
+3
+Modo de Resistencia
+3.1
+XO-1
+3.2
+XO-1.5
+3.3
+XO-1.75
+4
+Modo de Frecuencia
+5
+Modo de Sonido
+6
+Modo de Volumen
+7
+Representación gráfica de la salida
+8
+Medición de Temperatura
+8.1
+Registro de las temperaturas durante 24 horas
+9
+Medición de la Humedad del Suelo
+10
+Medición de la salinidad del agua
+11
+La generación de corriente eléctrica a partir de un cambio de campo magnético
+12
+Micrófono de Carbón
+13
+Batería de limón
+14
+Campanilla de puerta (Timbre) / Alarma antirrobos
+15
+Alarma de dos tonos
+16
+Medición de intensidad de corriente alterna (AC)
+16.1
+Medida de la potencia AC
+17
+Medición de intensidad de corriente continua (DC)
+18
+Importación de datos registrados en otras actividades
+18.1
+Guardar los datos registrados en el portapapeles
+18.2
+Ejemplo, importación de las temperaturas registradas en la hoja de cálculo Gnumeric
+18.3
+Conservación de los datos registrados en el Diario
+19
+Medición a intervalos regulares de tiempo
+20
+Aceleración en un plano inclinado
+21
+Resistencia dependiente de la luz (LDR)
+21.1
+Usando un LDR para medir su pulso
+22
+Panel fotovoltaico
+23
+Descarga de un Capacitor a través de un resistor. Constante de tiempo RC
+24
+Relación Voltaje-Intensidad de corriente (Curva Característica)
+25
+La XO como un amplificador de audio
+26
+La XO como un generador de señal de audio
+26.1
+Frecuencia de batido
+26.2
+Longitud de onda y la velocidad del sonido
+26.3
+Generando un "diente de sierra"
+26.4
+Oscilador de audio controlado por el mouse
+26.5
+Usando Pippy para generar un tono
+26.6
+Control de dispositivos a través de frecuencias generadas
+27
+FSK Teletipo
+28
+La captura con la cámara
+28.1
+Brillo
+28.2
+Fotografía de la fauna
+28.3
+Microscopio
+28.4
+Telescopio
+28.5
+Fotografiando a intervalos regulares de tiempo
+28.6
+Efectos de Color
+28.7
+Fotografía infrarroja
+28.8
+Crear su propio bloque de 'cámara' con el código Python
+29
+Alarma piroeléctrica con foto
+30
+Juego del aro
+31
+Sensor de Campo Magnético (sensor de efecto Hall)
+31.1
+Ordenador de a bordo de bicicletas
+31.2
+Ley de Ampère
+31.3
+Medición de intensidad de corriente continua
+32
+Telemetría
+32.1
+Circuito cerrado de TV
+32.2
+Timbre de puerta remoto
+33
+Enlaces
+Especificaciones
+El OLPC XO puede medir señales externas a través de su entrada de micrófono.
+En la XO-1 puede medirse una señal externa a la vez, ya que su entrada es mono (no estéreo). La señal es medida por el canal izquierdo. En las XO-1.5 y XO-1.75 pueden medirse dos señales simultáneamente ya que se trata de entradas estéreo (canales izquierdo y derecho).
+Debe utilizarse un conector de audio macho mono de 3,5 mm ; seleccionable 2V DC bias (desplazamiento), modo seleccionable de sensor de entrada (DC o AC acoplado); seleccionable +20 dB de ganancia.
+En la XO-1, si se utiliza un conector de audio estéreo, deben utilizarse los cables conectados al terminal de la base de la ficha (común o tierra)y el conectado a la punta de la misma. Pueden identificarse los mismos utilizando un tester en modo "continuidad" (emite un sonido agudo cuando la resistencia entre los terminales en muy baja).
+La entrada de micrófono del XO-1 está protegida por un diodo zener de 5V. El rango de voltaje que admite la XO1 es de -0.5V a 5V. Si se conecta a la entrada voltajes fuera de este rango se generan corrientes excesivas y daño. Incluso una pila de 1.5V puede causar daños si se conecta con la polaridad invertida.
+La entrada de micrófono del XO1.5 está protegida por un resistor (1/16W 470 ohm SMD0402) y un par de diodos conectados a tierra y a +3,3 V, que la protegerían para en rango 6V a +9 V permanentes y voltajes más altos por períodos más cortos de tiempo. Una protección similar está prevista para el XO1.75.
+Para el XO1, el uso de una resistencia de 150k ohmios conectada en serie (esto se supone, no se garantiza) daría una sensibilidad reducida en el modo de voltaje (0-4V) pero permitiría entradas de +/- 100 V sin daño. Una tolerancia menor al daño, el volumen y la frecuencia,se daría si se coloca una resistencia serie de 1K ohm permitiendo entradas de +/-12V.
+Si se aplica una tensión externa a la XO1, es altamente recomendable que las puntas de prueba se monten con el conector de micrófono y con una resistencia en serie incorporada.
+Resistencia de 680 ohmios en serie en un conector de audio de 3,5 mm
+Se puede ampliar el rango de seguridad de las puntas de prueba agregando un diodo zener y una resistencia en serie. Aplicable a la XO1.5 y la XO1.75
+El daño también puede ser causado por la aplicación de voltaje en las tierras de cualquiera de las tomas exteriores.
+Modo de Voltaje
+XO-1
+Permite medir voltajes de corriente continua (DC) en el rango de 0.4V a 1.85V. Si se aplican Voltajes menores a 0.4 V la XO muestra el valor 0.4V, y en caso de conectar voltajes superiores a 1.85V,la XO muestra 1.85V. La precisión es de alrededor de 3% de la escala completa. La impedancia de entrada es de 140k ohmios (bias: 0.6V).
+XO-1.5
+Permite medir voltajes de corriente continua (DC) en el rango de 0.17V a 3.0V. La impedancia de entrada de 15k ohmios (bias:1.7V).(Aún con "bugs". Haz Click en "Parar" para eliminar el error).
+XO-1.75
+Permite medir voltajes de corriente continua (DC) en el rango de -3V a +3V, (impedancia de entrada de 1k ohm (+3V bias), pero esperamos mejorar esto)
+Modo de Resistencia
+XO-1
+Permite medir resistencias en el rango de 750 ohmios a 14k ohmios. Si se conectan resistencias menores a 700 ohmios la XO muestra el valor 700 ohmios, y si se conectan resistencias mayores a  14k ohmios, se muestra el valor 14k ohmios. La precisión es de alrededor de 5% con respecto a la tensión de fondo de escala medida a través de la resistencia, esto se traduce en alrededor de 50 ohmios en la escala inferior y 2k ohmios a escala superior. (si se conecta a en serie una  resistencia de protección alrededor de 700 ohmios daría un rango de medición de 0 ohm a 13k ohmios y la protección contra entradas +-8V)
+XO-1.5
+Permite medir resistencias en el rango de 2000 ohms (2k ohm) hasta circuito abierto (resistencia infinita).(Aún con "bugs". Haz Click en "Parar" para eliminar el error).
+XO-1.75
+Permite medir resistencias en el rango de 0 ohms hasta circuito abierto (resistencia infinita).
+Modo de Frecuencia
+Permite medir la frecuencia (expresada en Hertz) de la componente más intensa del sonido que detecta el micrófono. Por ejemplo: si se golpea un diapasón de A4 (LA 440 Hz), se muestra el valor "440"; Pero si se hace sonar la segunda cuerda de un violín (Nota LA), se muestra el mismo valor aunque se generen esa frecuencia de 440 Hz (frecuencia llamada
+fundamental
+, la cual le da el nombre a la nota emitida por la cuerda) y varias frecuencias más (llamadas armónicos)que son múltiplos de ella .
+Este modo está configurado para el micrófono interno, pero también se puede acceder a través del conector de micrófono(configuración: 2V DC bias on, AC coupled, +20dB boost on).
+Un afinador de guitarra
+La resolución es de +/- 8 Hz,
+Resolución = RATE/(max_samples * 4)
+donde:
+RATE = 48000   file audiograb.py
+self.max_samples = 1500  file talogo.py
+4 for i in range(4) in _get_pitch in talogo.py
+Estos ajustes pueden ser editados ver
+Activity_Team/Modifying_an_Activity
+en Inglés
+Modo de Sonido
+El rango de medición para la XO1 es de +/-32.000,y para la XO1.5 de +/-10.000.(La configuración del micrófono es: AC coupled, Bias on, Boost on. La sensibilidad es 2uV por unidad o escala 16mV, por lo que la onda de seno de recorte en la ronda de grupos en 10mV RMS en el XO1. Para el XO1.5, la sensibilidad es de aproximadamente 8uV por unidad.
+Utilizando el micrófono incorporado, el habla normal muestra valores en el rango de (aproximadamente) +/-1.000 (XO1) y +/-200 (XO1.5).
+Modo de Volumen
+Se muestran valores desde 0 hasta 32.000 (XO1), y de 0 a 10.000 (XO1.5)( La configuración para el micrófono es: AC coupled, bias on, boost on). El volumen es la media de la rectificación de sonido, es decir: volumen = medio (abs (sonido))
+Idea: se puede representar gráficamente la escala de 24 horas de sonido en un pasillo de la escuela o al lado de una carretera muy transitada
+Representación gráfica de la salida
+Fuente archivo como documento de archivo:
+File:Oscillo.doc
+Medición de Temperatura
+(Para obtener instrucciones sobre el uso del sensor LM35, vea
+http://wiki.laptop.org/go/Making_XO_sensors/Making_a_Temperature_Sensor
+y
+http://www.reducativa.com/xo/man-sis-sensoresdetemperatura.pdf
+- en español)
+Conecte el termistor TDC05C247, especificaciones:
+* NTC (coeficiente de temperatura negativo) Termistor
+   * Rango de temperatura: -20 ~ 125 celsius
+   * Máxima potencia: 500 mW
+   * Resistencia nominal a 25 grados Celsius 4.7K ohmios
+A la izquierda, se muestra la gráfica de la temperatura en función de la resistencia y la mejor curva logarítmica de ajuste. A la derecha se muestra cómo utilizar el bloque Python para calibrar el termistor: esto significa cómo calcular la temperatura a la cual se encuentra el sensor a partir de la resistencia medida por la XO (variable "x"). Los parámetros necesarios para este cálculo son los obtenidos a partir de la curva de ajuste de la gráfica de la izquierda.
+Ideas para aplicar en Enseñanza:
+* Medir la resistencia y la temperatura con un termómetro
+   * Construir su propia función de calibración
+   * Decaimiento exponencial
+   * La temperatura diurna
+   * Calor de la reacción, el ácido débil y base
+Registro de las temperaturas durante 24 horas
+El siguiente proyecto de Turtle Art consiste en el registro y gráfico de temperatura durante las 24 horas. Es posible que necesite configurar su zona horaria y desactivar la gestión de energía en 'Mi Configuración'.
+Archivo: Oscilo diariamente proyecto
+File:Oscillo daily temp.doc
+como doc (cambiar el nombre de ta fuera de contenido de azúcar o copiar a un proyecto de asistencia técnica.)
+Medición de la Humedad del Suelo
+Seleccionar el Modo Resistencia e introducir en el suelo dos sondas. Sólo son necesarios unos pocos centímetros de cable para poder obtener medidas en el rango de 700 ohmios de 14k ohmios (XO1) o de 2k ohmios hasta infinito(circuito abierto en XO1.5).
+Medición de la salinidad del agua
+El agua pura es un aislante, pero si se le agregan pequeñas cantidades de sal u ácido, se torna conductora. La conductividad se relaciona con la concentración de estos componentes agregados.
+Coloquen dos alambres de cobre en un vaso de agua. Prueben su propia agua y grosor de alambre, yo obtuve la medida de 5k ohmios usando agua de tanque y 12 cm de alambre.
+Usando el software para gráficar mostrado antes, pero fijando la coordenada "y" de la tortuga en "resistencia/50" para escalar la pantalla, se tendrá que a cada 100 unidades de la escala vertical se corresponderán 5000 ohmios.
+El gráfico muestra primero un circuito abierto (14k ohmios) y entonces el circuito se conecta. Se nota cómo la resistencia se eleva lentamente. En la mitad de la pantalla se nota cuando se invierten los terminales, se ve que la caída brusca y el aumento gradual son más pronunciados que antes. ¿Por qué sucede esto?
+En caso de utilizar agua pura con ácido sulfúrico (PRECAUCIÓN: SE TRATA DE UNA SUSTANCIA PELIGROSA POR LO CUAL SE RECOMIENDA USO CON ADULTO RESPONSABLE), se observan también los productos de la electrólisis como pequeñas burbujas de hidrógeno y oxígeno que se acumulan sobre de los electrodos.
+Pequeñas cantidades de sal se añaden al agua; Se ve como cae la resistencia de 5k ohmios a 2k ohmios. La sal fue añadida en dos ocasiones.
+La generación de corriente eléctrica a partir de un cambio de campo magnético
+Requiere un imán de heladera, de los que se distribuyen gratuitamente con publicidades adheridas a él.
+Enrollen 50 vueltas de alambre aislado sobre un clavo y conecten los dos extremos a un conector de audio, como se muestra en la figura, (si es un conector estéreo, deben utilizarse los cables conectados al terminal de la base y al terminal del extremo del conector). Enchufen el conector de audio en la entrada del micrófono. Grafiquen el bloque de sonido o volumen. Funciona mejor en la XO1 que en la XO1.5 porque es más sensible.
+* Raspen rápido con la punta del clavo la parte posterior del imán de heladera, prueben en ambas direcciones.
+  * Prueben con un número diferente de vueltas de alambre.
+  * Traten de mover el clavo más lentamente ¿Qué pasa?
+  * ¿Qué está pasando?
+  * ¿Por qué funciona mejor sobre un eje del imán? (Pista: froten dos imanes juntos)
+  * Grafiquen la frecuencia. Expliquen el resultado.
+Micrófono de Carbón
+Materiales requeridos:
+* Carbón
+   * Papel de aluminio
+   * Tapa de plástico
+   * Alambre
+   * Banda de goma
+Triturar el carbón de leña hasta obtener un polvo fino. Hacer un agujero en el centro de la tapa. Quitar una pequeña cantidad de aislante del cable, pasar el cable por el agujero. A continuación, coloque un pedazo de papel contra el alambre. Llene la tapa con carbón triturado. Coloque papel de aluminio sobre el carbón y asegure con una banda elástica. Conecte un cable a este papel de aluminio. Trate de colocar el papel bajo tensión.
+Experimente con la finura del carbón triturado y la tensión en el papel de aluminio. Cuanto más aplastado está el carbón de leña, menor será la resistencia. Recuerde que pueden medirse resistencias si los valores se encuentran dentro del rango de 700  a 14.000 ohms (XO1) o bien entre 2k e infinito (XO1.5). Construyan un gráfico de resistencia, presionando sobre el papel para registrar los cambios de resistencia. Ustedes han construido un sensor de presión. También puede sentir la presión del aire. Han construido un micrófono. Cambien a Modo sonido para la detección de sonido. En mi primer intento he podido medir un aplauso.
+Batería de limón
+Ver
+http://en.wikipedia.org/wiki/Lemon_battery
+Inserte un alambre de cobre y un clavo galvanizado en un limón y se obtendrá un voltaje de 0.93V, valor que puede ser medido cómodamente por una XO1 (ya que su rango de medición es de 0.4 a 1.85 V). (CUIDE LA POLARIDAD!). Si se utiliza alambre de cobre y un clavo sin galvanizar, se obtiene un voltaje de 0.49V. 
+Esto funciona bien si se utiliza una XO1 para la medición, ya que la resistencia interna de la batería de limón es de alrededor de 10k ohmios y la impedancia de entrada de la XO1 de unos 150k ohmios.
+Pero si se utiliza XO1.5, como su impedancia de entrada es de 15k ohmios, esta portátil introduce un error considerable en la medida.
+Experimente con diferentes materiales. Intente la conexión de baterías de limón en serie.
+Campanilla de puerta (Timbre) / Alarma antirrobos
+Los visitantes pueden conectar los dos cables para que suene el timbre de la puerta (puede utilizarse un pulsador para hacer este contacto). Por otra parte, usted puede hacer que los dos cables se conecten para que suene la alarma cuando su puerta se abre.
+Éstos son los bloques de la tortuga:
+El Bloque de código Python
+se usa para hacer sonar una alarma en los parlantes se su XO (o en parlantes amplificados de escritorio conectados a la salida de audio si desea que el sonido sea más intenso).
+A partir de la versión 106 de Tortugarte este bloque se descarga de los "ejemplos", bajo el nombre "sinewave.py". El mismo emite un sonido de frecuencia (en Hertz) indicada por el bloque numérico que se le conecta  a su derecha. Recuerde que si bien escuchamos frecuencias 20 y 20.000 Hertz, nuestros oídos son más sensibles a las frecuencias en el entorno de los 2500 Hz.
+Para versiones anteriores de Tortugarte, se procedía como se indica a continuación:
+Usted tiene que escribir lo siguiente en Pippy y guardarlo en el Diario. Escríbalo exactamente como se muestra, los guiones en las últimas tres líneas son importantes, para los caracteres 'l-1' la primera es una 'ele' y el segundo un "uno".
+Luego, en Turtle Art, cargar el código Pippy
+en el Bloque de código Python
+, a continuación, ejecute el programa.
+Alarma de dos tonos
+Utilice los siguientes bloques de tortuga y el ejemplo "sinewave.py" para ejecutar una alarma de dos tonos.
+Al poner en contacto los cables conectados a la entrada de micrófono, el programa detecta una resistencia menor a 3000 ohm y emite repetidamente un sonido de frecuencia 1000 Hz seguido por otro de frecuencia 1100 Hz.
+En versiones anteriores a Tortugarte 106 debía escribirse el código Pippy de una alarma de dos tonos:
+El código siguiente está construido en una muestra
+sinewave.py
+.
+def myblock(lc, x):
+  import os
+  os.system('speaker-test -t sine -l 1 -f %d' % (int(x)))
+Cómo funciona: los bloques 1000 y 1100 son los valores que toma la variable x en el código Python. La opción -f en la "prueba del altavoz" es la frecuencia, {0} es reemplazado por x, que a su vez es reemplazado por 1000 o 1100 por lo cual se envía a la "prueba de altavoz" -f 1000 o -f 1100  emitiéndose frecuencias de 1000 Hz o 1100 Hz .
+Medición de intensidad de corriente alterna (AC)
+Un
+transformador de corriente
+de bajo costo se puede construir para medir intensidades de corriente alterna.
+Se envuelven en una barra de hierro dulce 50 espiras de alambre de cobre aislado. Dos ejes roscados, tuercas y otra barra completan el circuito magnético.
+Se montan como se muestra con un aislante termocontraíble rojo (opcional). El dispositivo permite medir la intensidad de corriente alterna que circula por el cable negro (en la foto). Las 50 vueltas de alambre fino se conectan a la entrada de micrófono de la XO1 en el Modo de volumen. El máximo es de 15 amperios de CA antes de la saturación de la forma de onda de CA.
+Para cambiar la sensibilidad, debe modificarse el número de espiras.
+Volumen medido sobre XO1, 50 vueltas de alambre.
+Medida de la potencia AC
+NO CONECTE LA ENTRADA DE MICRÓFONO A LA RED ELÉCTRICA. NO TRABAJE CERCA DE CONEXIONES ELÉCTRICAS EXPUESTAS (sin aislación).
+Potencia AC = Voltaje AC x Intensidad AC x Factor de potencia.
+En los circuitos de corriente, el voltaje es generalmente conocido. Por lo general, el factor de potencia es de 0,8 o 1,0 en función de la carga conectada.
+ideas para lecciones
+(Español)
+Medición de intensidad de corriente continua (DC)
+NO CONECTAR A VOLTAJES PELIGROSOS. LAS LAPTOPS PUEDEN SER DAÑADAS POR EXCESO DE VOLTAJE O VOLTAJES INVERSOS EN LAS ENTRADAS DE MICRÓFONO O DE CORRIENTE Y POR EXCESO DE CORRIENTES ENTRE LAS CONEXIONES DE TIERRA ENTRE CUALQUIERA DE ESTAS ENTRADAS.
+La intensidad de corriente que fluye en un circuito de corriente continua se puede calcular (mediante la Ley de Ohm) midiendo el voltaje en los extremos de un resistor en serie de valor conocido. El valor de su resistencia se elegirá de tal forma que el voltaje en sus extremos se encuentre dentro del rango de medición de la XO (0.4-1.8V para XO1 o bien 0.17V-3.0V para XO1.5) y, además, para que su valor sea el menor posible en comparación con la impedancia de entrada de la entrada de micrófono (para reducir al mínimo las influencias en el circuito de medida).
+En la figura que se muestra a continuación, un XO1.5 mide la intensidad de corriente DC de carga de una XO1. Se mide el voltaje en los extremos de un resistor de 0,8 ohmios conectado en serie. El cable de audio de un ordenador portátil tiene un resistor en serie incorporado de 680 ohmios para protegerla contra la voltajes excesivos. (Si bien además se conectó un diodo en serie en el cable de alimentación para protegerla contra voltajes inversos, más tarde la información nos muestra que esto no era necesario ya que la entrada de alimentación del XO tiene un rango máximo absoluto de -30V a +40 V).
+Este circuito no se puede utilizar para medir la intensidad de corriente de carga de una misma computadora portátil porque en ese caso ambas conexiones de tierra estarían conectadas a dos puntos diferentes.
+(NOTA: en el dibujo, donde dice "resistencia proective" debe decir "resistor de protección")
+La computadora portátil se cargó a partir de estar totalmente descargada. El voltaje suministrado a ella fue sólo de (11,46 -0,7) V debido a las pérdidas en el resistor de medición de corriente y el diodo de protección. La escala de la gráfica es de 0.5V/cuadrado/0,8 ohmios = 0.625 amperios/cuadrado y  1.200 segundos/cuadrado o 20 minutos por cuadrado. La carga completa insumió 156 minutos a 0.775 amperios. El mínimo voltaje que puede medir el XO1.5 es de 0.17V lo cual corresponde a 0,21 amperios.
+Proyecto Turtle Art como doc
+File:Oscillo current.doc
+(Copie el texto que aparece en su navegador como archivo *.ta y péguelo en Tortugarte o renómbre el *.doc a *.ta fuera de Sugar, para abrir el *.ta dentro de Sugar)
+Importación de datos registrados en otras actividades
+Guardar los datos registrados en el portapapeles
+Los datos medidos pueden ser guardados en la "pila" mediante el bloque "empujar" y cuando la sesión de medición ha terminado, los datos almacenados en la "pila" se pueden colocar en el portapapeles para su uso en otras actividades.
+(Desde la versión 104 este código aparece dentro de los ejemplos Pippy)
+Copie el siguiente código en Pippy
+def myblock(lc, x):
+   from gtk import Clipboard
+   from tautils import data_to_string
+   Clipboard().set_text(data_to_string(lc.heap))
+   return
+Guardar en el Diario. A continuación, en Turtle Art, cargar el código Pippy
+en el Bloque de código Python
+. Cuando el Bloque de código Python se ejecuta, el contenido de la "pila" se coloca en el portapapeles.
+Ejemplo, importación de las temperaturas registradas en la hoja de cálculo Gnumeric
+Por ejemplo, se realiza la medida de temperaturas y luego se copian los datos en el portapapeles. Esto se basa en la medición con un termistor y el XO1 visto anteriormente. En primer lugar se carga
+código Pippy. La temperatura se mide y se empuja a la pila, entonces se agrega un retraso de 5 segundos. Esto se repite 20 veces. A continuación, el contenido de la pila se copia en el portapapeles.
+TurtleArt se puede ejecutar en Gnome en la XO. Los datos se pegan en una hoja de cálculo Gnumeric. Los datos se convierten en las columnas de texto (en el menú
+Datos
+), el principal '[' y posterior ']' se eliminan de forma manual, y los datos se representan gráficamente. (Desafortunadamente, en la XO, los cuadros de diálogo de
+Datos
+y de
+texto en columnas
+están fuera de la pantalla, "alt f alt f shift tab shift tab shift tab" permiten la conversión de datos separados por comas).
+Los datos de temperatura importados en la hoja de cálculo Gnumeric
+Conservación de los datos registrados en el Diario
+El código siguiente
+File:Saveheaptojournal.doc
+en el bloque de código Python guardará los datos como un archivo de texto llamado "pila" en el Diario (a partir de la versión 104 este código está incluido en los ejemplos). El archivo "Pila" se puede abrir con "Escribir" o "Editar".
+def myblock(lc, x):
+   from tautils import get_path, data_to_file
+   from sugar.activity import activity
+   from gettext import gettext as _
+   import os.path
+   from sugar.datastore import datastore
+   from sugar import profile
+   # Save the heap to a file (JSON-encoded)
+   heap_file = os.path.join(get_path(activity, 'instance'), 'heap.txt')
+   data_to_file(lc.heap, heap_file)
+   # Create a datastore object
+   dsobject = datastore.create()
+   # Write any metadata (specifically set the title of the file
+   #                     and specify that this is a plain text file).
+   dsobject.metadata['title'] = _('heap')
+   dsobject.metadata['icon-color'] = profile.get_color().to_string()
+   dsobject.metadata['mime_type'] = 'text/plain'
+   dsobject.set_file_path(heap_file)
+   datastore.write(dsobject)
+   dsobject.destroy()
+   return
+Medición a intervalos regulares de tiempo
+La siguiente programación toma lecturas de volumen a intervalos regulares de tiempo, en este caso 10 segundos y "empuja" el resultado a la pila. Por ejemplo, se puede registrar temperatura diaria, luz, potencia , el ruido. Tomando lecturas cada una hora, cada cuarto de hora, etc.
+Aceleración en un plano inclinado
+El portátil XO se puede utilizar para hacer experimentos sobre el movimiento (Cinemática), haciendo rodar una esfera por una rampa. El XO1.5 es más rápido y más adecuado para ello. Se pueden fabricar interruptores de  bajo costo con papel de aluminio. Los interruptores deben ser de 5 cm de ancho para proporcionar un intervalo de tiempo de encendido ("on") lo suficientemente largo para ser medido.
+(Nota: en la figura, "foil"-papel de aluminio, "tape"-cinta, "switches in parallel"-interruptores en paralelo)
+La frecuencia de muestreo se puede aumentar (Turtle Blocks 104) haciendo una modificación en el archivo de Turtle Art,
+talogo.py
+en la home/olpc/Activities/TurtleArt.activity/TurtleArt self.max_samples  haciendo el cambio de 1500 a 150; esto reduce el bucle de repetición de 12 mS a 4 ms, pero hay alrededor de 50mS de "quietud". Para poder hacer esto sin tener que hacer un parche en el archivo, deberán usarse los interruptores de un ancho suficientemente grande y un ángulo de inclinación de la rampa suficientemente pequeño tal que los intervalos de tiempo puedan ser registrados de acuerdo a las capacidades de la computadora portátil XO.
+A continuación se muestra una programación osciloscopio con umbral de disparo ("trigger") con base de tiempo calibrada. La "Acción 1" borra la pantalla y elige la escala, el programa espera en "Acción 2" hasta que se desencadena al accionarse el primer interruptor. La gráfica se inicia a continuación, "tiempo ()" en segundos se multiplica por 500 para establecer la escala horizontal de tal forma que 500 unidades de pantalla o 5 cuadrados corresponden a un segundo.
+File:Singleshottriggerableoscilloscope.doc
+TurtleArt proyecto como documento
+Los interruptores fueron puestos a 20cm, 60cm, 100cm, 140cm, 180cm y a lo largo de una rampa de 180 cm de longitud y 25 cm de altura.
+Los datos del osciloscopio se muestran a continuación, cada cuadrado corresponde aproximadamente a 200 ms.
+El acuerdo entre la teoría y el experimento se muestra a continuación. Tenga en cuenta que la física que describe el movimiento de una esfera rodante no es simple, la energía potencial gravitatoria se convierte en energía cinética de traslación, Kt y en energía cinética de rotación, Kr.
+Mgh = Kt + Kr = 1 / 2 ^ mv 2 + 1 / 2 ^ Iw 2
+Para una esfera sólida, Kt / Kr = 2.5 (véase
+Work and energy in rolling motion
+or
+Wikipedia
+)
+File:Acceleration.ods
+Un experimento simple consiste en hacer que una esfera acelere por una rampa curva, medir la velocidad de salida horizontal con dos interruptores y predecir la posición de aterrizaje, como se muestra a continuación. La rampa es preferentemente curva, para que la esfera no rebote cuando golpea los interruptores.
+h = 1 / 2 g t ^ 2
+t = sqrt (2 h / g)
+distancia horizontal = vt = v x sqrt (2 h / g)
+En este caso, la distancia entre interruptores es de 0,5 m, h= 0,6 m, tiempo 1,9 cuadrados @ 200 ms por cuadrado, g = 9,8 y la distancia horizontal fue de 0,4 m
+v = distancia x sqrt (2 h / g)
+X = 0.5/0.38 sqrt (2x 0.6/9.8)
+= 0.46m (mide 0,4 m)
+Resistencia dependiente de la luz (LDR)
+El ORP12 es un fotorresistor "clásico" de sulfuro de cadmio. Las pruebas se realizaron en un LDR que es similar al "Philips ORP12".
+http://www.jaycar.com.au/productView.asp?ID=RD3480
+Para esta LDR, la calibración en lux puede calcularse a partir de la siguiente relación:
+Lux = 3 * 10 ^ 8 * (R ^ -1.5034)
+Para el XO1 (700 ohmios-14k ohmios) el rango es de 170 lux a 15000 lux (desde niveles de iluminación correspondientes a luz brillante artificial dentro su casa hasta luz solar al aire libre a cubierto).
+Para el XO1.5 (2k ohmios - circuito abierto), el intervalo es de 2 a 4000 Lux Lux (iluminación casera mediante luz artificial tenue hasta luz de día en el interior de su casa).
+Turtle Art proyecto como documento de archivo: Tortuga lux.doc Arte
+Usando un LDR para medir su pulso
+Cada pulsación cardíaca incrementa la cantidad de sangre en el extremo de tus dedos. Cubre la yema de tu dedo con un LDR y coloca una luz brillante en el extremo opuesto. Podrás ver tu pulso medido a través de la variación de resistencia del LDR.
+Tienes que experimentar con distintos valores de la constante 3000 o diferentes distancias entre el LDR y el foco luminoso para lograr que el trazo se muestre en la pantalla.
+Puedes ver también este vídeo (por Guzman Trinidad
+http://sites.google.com/site/solymar1fisica/fisica-con-xo-investigacion-
+):
+http://www.youtube.com/watch?v=7TdpkDmWFdw
+Física con XO: PULSÓGRAFO.
+Un "pinza" de ropa enfrenta un LED blanco que ilumina un LDR. Si entre ambos se presiona una zona de piel traslúcida como el lóbulo de la oreja o la zona entre el dedo pulgar e índice, el programa Tortugarte monitorea el pulso a través del cambio en el porcentaje de luz trasmitida. Puede programarse la medida del ritmo cardíaco.
+Panel fotovoltaico
+SE RECOMIENDA INCORPORAR UN RESISTOR DE PROTECCIÓN EN SERIE ENTRE EL CONECTOR DE AUDIO Y LAS TERMINALES EN EL CASO DE USAR UNA TENSIÓN EXTERNA
+Lo que se muestra es la célula solar de la S250 LUZ D.
+[1]
+Cuenta con una célula solar de 6V, la conexión externa es -ve y la interna + ve
+Un divisor de tensión es necesario para ponerla en el rango de la XO1 0.4V a 1.85V (XO1.5 0,17 a 3,0). Con los valores indicados, la sensibilidad se reduce
+1k / (1k + 2,7 k) = 1/3.7
+dando un máximo de 6.8V (XO1) o 11.1V (XO1.5).
+(En la figura donde dice "protection resistor recommended" debe decir "se recomienda conectar resistor de protección en serie")
+Descarga de un Capacitor a través de un resistor. Constante de tiempo RC
+SE RECOMIENDA INCORPORAR UN RESISTOR DE PROTECCIÓN EN SERIE ENTRE EL CONECTOR DE AUDIO Y LAS TERMINALES EN EL CASO DE USAR UNA TENSIÓN EXTERNA
+La constante de tiempo teórica RC que caracteriza la descarga de un sistema compuesto por un  Resistor conectado en paralelo a un Capacitor previamente cargado es:
+T = RC
+T en segundos, R en ohmios y C en faradios
+Proyecto Turtle Art como doc
+File:Oscillo with trigger 1rc.doc
+La gráfica a continuación fue elaborada por Turtle Art (las líneas de negro y las anotaciones se añadieron más tarde). C fue 4uF, la resistencia de la entrada de mic de la XO1 es del orden de 100 k ohmios. En las dos gráficas, Rx es 100k ohmios y circuito abierto. La resistencia calculada del XO1 es
+R = T / C
+= 0,32 / (4x10 ^ -6) = 80k
+y la resistencia en paralelo de 100k y la XO1 se estima en
+R = T / C
+= 0,14 / (4x10 ^ -6) = 35k
+Este proyecto Turtle Art
+File:Turtle Art Activityrcpushstack.doc
+(como doc, cambie el nombre de .doc a .ta en Windows o Linux o abra como .doc y pegue en un Turtle Art) hace la gráficas y también escribe los instantes de tiempo y los valores de tensión en la pantalla .
+Este proyecto también  copia los instantes de tiempo y los valores de tensión en el portapapeles si el código de ejemplo Pippy copy_from_heap.py  se copia en el Diario
+y se carga en el Diario en el Bloque de código Python
+(haga clic en el bloque de código) . Se muestran a continuación, los instantes de tiempo y los valores de tensión pegados en una sesión de Escribir.
+Relación Voltaje-Intensidad de corriente (Curva Característica)
+Ciertos dispositivos incluyendo lámparas de incandescencia presentan una relación no lineal Intensidad de corriente/Voltaje (en este caso debido a la dependencia de la resistividad con la temperatura). En este experimento la gráfica I= f(V) correspondiente a una lámpara es dibujada utilizando la entrada de micrófono estéreo de una XO1.5.
+File:Turtle Art Activity VI.ta
+Las características de la lámpara y del resistor fueron seleccionadas de la siguiente forma: El voltaje máximo que admite la entrada de micrófono de XO 1.5 es de +3.0 V, de modo tal de obtener aproximadamente 1.5V en el resistor y 1.5V en la lámpara, la cual estará cercana a su máximo brillo. Se utilizó una lámpara de 2.8V & 0.85A. La resistencia estimada de la lámpara es V/I, 2.8V/0.85A = 3.3 ohms, eligiendo un resistor que teníamos a mano (más ensayo y error)encontramos que uno de 2.2 ohms funcionaba bien. La potencia máxima que disipaba el resistor en esas condiciones es V*V/R, 1.5*1.5/2.2 = 1.02W, por lo cual debe utilizarse uno de 1W o mayor.
+Se utilizó una fuente de alimentación de laboratorio. Es más segura si provee un rango de voltaje de salida entre -6 y 9 V, el máximo admisible por la entrada de XO 1.5. Las opciones de bajo costo incluyen la selección de asociaciones de pilas con diversas cargas. Puede ser práctico construir un resistor variable (también conocido como "potenciómetro") utilizando la mina o grafo de un lápiz.
+El eje X es el Voltaje de la lámpara, (voltaje2-voltaje), el eje Y es la intensidad de corriente la cual es proporcional al voltaje en el resistor o el voltaje del canal izquierdo (CHL). 
+Ver también:
+http://youtu.be/37vJEUr5nRI
+y
+http://www.youtube.com/watch?v=_iSXHsGvLaY
+(en Español) para experimentos donde se grafican  relaciones V-I lineales y no lineales utilizando la placa USB4Butia.
+La XO como un amplificador de audio
+En este caso Turtle Art no es necesario. El siguiente comando en Terminal
+pasa los datos de la entrada de micrófono al altavoz. Puede que tenga que desactivar la administración de energía.
+arecord | aplay
+Es posible que desee ajustar la configuración después de la lectura arecord - ayuda y aplay - ayuda
+Por ejemplo, puede utilizarse para amplificar la salida de una radio de cristal (también conocida como Radio Galena), ¡UN RECEPTOR DE RADIO AM QUE FUNCIONA SIN PILAS!
+Esto funcionó mejor en el XO1.5, presumiblemente debido a su velocidad de procesamiento superior. Los auriculares no están conectados, en su lugar, un  capacitor (también llamado "condensador") de 0.1uF está conectado entre la salida de la radio y la entrada de XO para aislar el diodo detector de la bias  DC de la XO. La teoría predice que una resistencia a tierra sería necesaria en la salida de radio, pero la práctica indica lo contrario.
+Usted puede construir la mayor parte de la radio de cristal a partir de materiales comunes
+El inductor (o "bobina") del circuito de sintonía puede construirse devanando ("bobinando") 75 vueltas de cable aislado usando como núcleo en cilindro de cartón de un rollo de papel higiénico.
+f
+El condensador del circuito de  sintonía: dos hojas de papel de aluminio de aproximadamente 10cm x 10cm presionadas débilmente entre sí y separadas por film transparente dio una frecuencia de resonancia de aproximadamente 1 MHz con el inductor de más arriba.
+El condensador de 0.1uF se puede hacer de la misma manera, el condensador de ajuste se calcula en 100pF (10 ^ -10 F) cuando se sienta floja. El acoplamiento de condensadores necesaria es del orden de 0.1uF (10 ^ -7 M). Enrrollando firmemente las capas reduce la separación de las placas y un condensador de acoplamiento viable hizo bien rodando sólo 10cm x 10cm placas.
+El diodo de GERMANIO sigue siendo necesario para rectificar la señal sintonizada por la antena. En los receptores de Galena originales esta función se realizaba con un conector en forma de alambre fino conocido como "bigote de gato" que se ponía en contacto con el cristal de galena.
+3
+Otros materiales que se utilizan son la pirita de hierro ("el oro de los tontos", disulfuro de hierro), el silicio, molibdenita (MoS2) , y el carborundum (carburo de silicio, SiC). También es posible utilizar una hoja de afeitar oxidada (óxido de hierro).
+He aquí otra interesante aplicación: un Gramófono con XO (de  Guzman Trinidad
+http://sites.google.com/site/solymar1fisica/fisica-con-xo-investigacion-
+):
+Es posible escuchar el sonido registrado en un disco de vinilo mediante el procedimiento anterior; una aguja de coser se adhiere a la membrana de un estetoscopio (instrumento de uso médico para escuchar los latidos cardíacos). Mediante un tubo plástico flexible el sonido capturado es enviado a un micrófono conectado a una XO1 y ¡Música!. Ver en video:
+http://www.youtube.com/watch?v=9QUlsX003fc
+.
+La XO como un generador de señal de audio
+En los proyectos del timbre de la puerta, timbre a distancia y teletipo se muestra cómo utilizar el bloque de Python
+para generar un tono de audio en Turtle Art.
+def myblock(lc, x):
+  import os
+  os.system('speaker-test -t sine -l 1 -f %d' % (int(x)))
+El nivel de volumen puede ser amplificado con un CD o un reproductor de cinta o altavoces amplificados para PC. Esto puede ser usado para los experimentos de resonancia incluyendo las placas de Chladni (patrones estacionarios en placas, membranas y anillos, G. Trinidad)
+[2]
+o
+[3]
+y
+un aro
+y también para los experimentos con frecuencias de ritmo y patrones de interferencia.
+Frecuencia de batido
+En acústica se conoce con el nombre de "batido" al sonido generado por la superposición de dos sonidos de frecuencias ligeramente diferentes, que se percibe como variaciones periódicas en el volumen, cuya tasa es la diferencia entre las dos frecuencias.
+http://en.wikipedia.org/wiki/Beat_%28acoustics%29
+Se necesitan tres ordenadores portátiles. Dos de ellos emiten sonidos de frecuencias 1000 Hz y 1002Hz. El bloque de Python
+se carga con el código
+sinewave.py
+El tercer portátil hace la gráfica del nivel de sonido que su micrófono recibe. (ver
+Representación gráfica de la salida
+)
+Longitud de onda y la velocidad del sonido
+Se mide la longitud de onda de un sonido y se calcula la velocidad del sonido en el aire utilizando dos XO: una de ellas (XO1) emite el sonido utilizando Turtle Blocks mientras que la otra (XO1.5) realiza la medida a través de la Actividad Medir. Inspirado en:
+http://www.ted.com/talks/lang/en/clifford_stoll_on_everything.html
+http://www.youtube.com/embed/l3vKVTW1LQA
+Generando un "diente de sierra"
+Este es el programa para generar un sonido cuya función se conoce como "diente de sierra". Asegúrese de cargar el bloque de Python "sinewave.py" incorporado en los ejemplos Pippy.
+File:Turtle Art Activity gliding tone.doc
+del proyecto ta tone.doc como doc
+Oscilador de audio controlado por el mouse
+Aquí está el código para generar sonidos de frecuencia ajustable mediante el uso del mouse. Asegúrese de cargar el primer bloque de Python con el
+push_mouse_event.py
+muestra incorporado Python y el segundo con el
+sinewave.py
+muestra incorporado el código Python
+File:Turtle Art Activity mouse controls tone.doc
+proyecto ta tone.doc como doc
+Usando Pippy para generar un tono
+El timbre de la puerta, timbre a distancia y teletipo se muestra cómo generar un tono de audio en Turtle Art, el siguiente código en la actividad Pippy puede generar un tono de duración variable (de Guzmán Trinidad).
+import pippy
+f= input ("Ingrese la frecuencia a generar (Hz):")
+t= input ("Ingrese el intervalo de tiempo (s):")
+pippy.sound.playSine(f, 5000, t, 0)
+pippy.sound.audioOut()
+Control de dispositivos a través de frecuencias generadas
+Se programa en Tortug Arte la síntesis de dos sonidos de diferente frecuencia. La salida de auriculares de la XO se conecta a un par de integrados LM567
+LM567
+decodificadores de tono, cada uno de los cuales enciende un led cuando está presente en su entrada la señal de frecuencia adecuada. Con este principio podríamos controlar la conexión/desconexión de cualquier dispositivo en función de la frecuencia que emita la XO. 
+De "Física con XO", Guzmán Trinidad,
+[4]
+video
+FSK Teletipo
+Enviar un texto de una XO a otra, codificado en forma de ondas de sonido.
+El Bloque de código Python
+se utiliza para que emita un tono en el altavoz, el tono recibido identifica la tecla pulsada.
+El siguiente código ahora se encuentra incluido en el ejemplo Python
+sinewave.py
+. Si se escribe en la Actividad Pippy, las indentaciones son importantes. Haga click en el bloque Python para cargar el código.
+def myblock(lc, x):
+ import os
+ os.system('speaker-test -t sine -l 1 -f %d' % (int(x)))
+El remitente
+El receptor
+desafíos adicionales
+* Mostrar una línea de texto recibido
+   * Deshacerse de error
+- chr () arg no está en el rango(256)
+emitiendo un sonido de alta frecuencia
+   * Utilizar una clave, tales como ESC o ENTRAR para borrar una línea
+   * Codificarlo como serie de datos binarios
+   * Agregar una suma de comprobación
+   * Dos vías de comunicación
+   * Encriptado
+La captura con la cámara
+A partir de la versión 106 se incluyen bloques para capturar la imagen de la cámara y mostrar el brillo medio.
+La cámara se puede usar para tomar fotografías a intervalos regulares de tiempo, sensar movimiento, medir el nivel de luz, sensado de color y más.
+Brillo
+El brillo promedio de la imagen se calcula mediante el bloque de brillo
+. Hasta la versión 106, el control automático de ganancia (AGC) de la cámara sigue funcionando. La cámara trata de corregir el brillo de la imagen a un brillo estándar, a continuación, calcula el brillo medio. El resultado es una relación no lineal entre el brillo real y el brillo medido. Además, algunas partes de la imagen son más brillantes que otras lo cual complica aún más las cosas. El uso de un difusor, por ejemplo, un material translúcido como una bolsa de plástico, puede ayudar.
+Fotografía de la fauna
+Estirar un alambre fino a través de una pista de animal para que se rompe o se desconecta cuando el animal utiliza la pista. Conecte los dos extremos a la toma de micrófono. El siguiente código toma una sola fotografía. Puede modificar el código para tomar una secuencia de fotos o para el redisparo cuando un segundo animal pasa.
+Las fotografías podrían accionar similar en voltaje, frecuencia, volumen, color o brillo. Se muestra a continuación, mover una mano delante de la cámara cambia el brillo y toma una foto.
+File:Turtle Art Activity motion photo.ta
+Microscopio
+ver
+http://wiki.laptop.org/go/Microscope
+para más sobre el uso de la XO como un microscopio.
+La colocación de una lente maginfying delante de la lente de la cámara permite cerrar fotografías a realizar. Cuanto más corta sea la distancia focal, mayor es el maginfication.
+Izquierda, cerca del bolígrafo, la derecha, un XO tiene un primer plano de otra pantalla XO
+Telescopio
+Children of the Moon (Hijos de la Luna)
+Enfant de la lune (Hijos de la Luna)
+Fotografiando a intervalos regulares de tiempo
+Tomando una foto cada 600 segundos o 10 minutos
+File:Turtle Art Activity timelapse.doc
+proyecto TurtleArt como doc
+Efectos de Color
+Aquí está un ejemplo donde se puede tomar una foto y aplicar efectos de color. (Nota, 'fijar color' no es lo mismo que 'tortuga ve', si desea que el real valor RGB de un píxel, utilice el bloque 'obtener pixel' También hay ejemplo de código Python disponibles para configurar el valor RGB de un archivo. píxeles).
+File:Camera proc.doc
+Proyecto ta como doc
+Como en el Turtle Art V106 no es una construida en la muestra
+psuedo-color.ta
+que sólo difiere en que se carga la imagen de la revista en lugar de la cámara.
+Fotografía infrarroja
+See
+User:M_anish#Partial_near-IR_photography_with_the_XO_camera
+Crear su propio bloque de 'cámara' con el código Python
+A partir de TurtleBlocksV106, esta sección ha sido ampliamente superado. El show de la cámara de bloque
+ahora tiene la función del código de Python y Mostrar bloques de los medios de comunicación
+. Esta información se ha mantenido sólo para mostrar cómo un poco de código Python se puede utilizar para crear su propia 'cámara espectáculo'.
+Carga el siguiente código en el bloque de Python
+def myblock(lc, x):
+   import gst, time
+# grab a frame from camera to file
+   pipeline = gst.parse_launch('v4l2src ! ffmpegcolorspace ! jpegenc ! filesink location=/tmp/turtlepic.jpg')
+   pipeline.set_state(gst.STATE_PLAYING)
+# pause for a second to allow the camera frame to be grabbed
+   time.sleep(1)
+# stop the camera frame grabbing
+   pipeline.set_state(gst.STATE_NULL)
+Esto ahorra una foto para /tmp/turtlepic.jpg
+Este es el programa Turtle Art como un archivo doc
+File:Camera ta.doc
+.  El bloque Mostrar los medios de comunicación se codifica para que apunte al archivo /tmp/turtlepic.jpg
+["journal", "/tmp/turtlepic.jpg"]
+Hay dos maneras de hacer que el punto de mostrar el resultado de los medios de comunicación del azulejo para el sistema de archivos y no el Diario
+1 Mano editar el código en el archivo *.ta con la actividad Write
+2 Ejecute Turtle Art en Gnome que tiene una choser archivo en lugar de un objeto choser Diario, los ajustes en el bloque se mantienen si el proyecto se guarda más tarde se ejecutan en azúcar
+Alarma piroeléctrica con foto
+El sensor piroeléctrico o infrarrojos pasivos (PIR) sensor se activa cuando se cambia la radiación infrarroja que le llega. Es alimentado por 12 V y se conecta a la entrada de micrófono de un XO1. Cuando el sensor se activa, el programa emite un tono de 1000 Hz y muestra una fotografía del cuerpo en movimiento caliente que ha disparado la alarma.
+Además de los sensores y el ordenador portátil, una fuente de 12V CC. Para el sensor se muestra, requerimiento de energía es de 9 a 16 V DC y el consumo de corriente de 12 V es de 12 mA, su salida es un relé NC (normalmente cerrado, circuito abierto cuando se activa)
+video
+File:Alarma con foto.ta
+by Guzman Trinidad
+http://sites.google.com/site/solymar1fisica/fisica-con-xo-investigacion-
+Juego del aro
+por Guzman Trinidad
+http://sites.google.com/site/solymar1fisica/fisica-con-xo-investigacion-
+Debes pasar el aro a lo largo del alambre de un extremo al otro pero sin hacer contacto entre ellos.
+El programa "TurtleBlocks" mide permanentemente la resistencia a través de su entrada de micrófono. Para comenzar a jugar, debes tocar el alambre con el aro una vez. En adelante, el programa te avisará cada vez que haya contacto entre ambos metales. Cuando alcances el extremo opuesto del alambre presiona el interruptor y el programa resumirá tu desempeño, y te invitará a mejorarlo. Luego se reinicia para un nuevo intento.
+http://www.youtube.com/watch?v=KrD3-0HnYwg
+File:Juego del aro-5.ta
+Sensor de Campo Magnético (sensor de efecto Hall)
+Un sensor de efecto Hall, como el Allegro UGN3503UA Hall Effect Sensor
+http://www.jaycar.com.au/products_uploaded/ZD1902.pdf
+($6ea.) se puede utilizar para medir campos magnéticos. (The Allegro1302
+http://www.alldatasheet.com/datasheet-pdf/pdf/120806/ALLEGRO/A1302EUA.html
+es una alternativa a la Allegro3503).
+El sensor requiere de un voltaje de alimentación de +5 V, el cual está disponible en los conectores USB de la XO.(PRECAUCIÓN: TENGA ESPECIAL CUIDADO EN MANIPULAR LAS TENSIONES Y SUS POLARIDADES CORRECTAMENTE, YA QUE DE LO CONTRARIO PODRÍA DAÑAR LA XO EN FORMA IRREVERSIBLE).
+(
+image
+http://www.homebrewusb.com
+)
+véase también
+http://wiki.laptop.org/go/Making_XO_sensors/How_to_connect_sensors
+El sensor tiene una salida de media tensión de alimentación (2.5V) a cero el campo magnético con una sensibilidad de 1.3mV/Gauss. Esto hace que sea conveniente para la conexión a la XO1.5 (rango de entrada de 0,17 - 3,3). Para el XO1 (rango de entrada 0,4 - 1.85V) es necesario un divisor de tensión 2:1.
+XO1.5 con la izquierda, XO1 derecha con divisor de tensión 2:1
+Comparar la sensibilidad, 1.3mV/Gauss común con los campos magnéticos
+http://en.wikipedia.org/wiki/Gauss_%28unit%29
+* 0.31-0.58 Gauss: el campo magnético de la Tierra en su superficie
+    * 50 gauss: un imán de refrigerador típico
+    * 100 gauss: un imán de hierro pequeño
+    * 2000 gauss: un pequeño imán de neodimio-hierro-boro (NIB)
+Los altavoces contienen imanes de gran alcance de ferrita. El imán del altavoz de PC (en la foto, completa la izquierda, derecha desmontado) produce una oscilación de voltaje de +-1V
+Sí, el sensor es lo suficientemente sensible para su uso como una brújula, la diferencia entre hacia el norte y el sur es de aproximadamente 1 mV. Pruebe los siguientes bloques:
+por siempre imprimir voltaje x 1000
+La lectura máxima no se encuentra en el horizontal, salvo en el ecuador. Mientras más cerca esté del polo, más tiene que inclinar. ¿Por qué? ¿Por qué las agujas de las brújulas todavía del nivel del punto?
+Ordenador de a bordo de bicicletas
+El imán está montado en el volante y los sentidos de efecto Hall sensor de su campo magnético, una vez una revolución. El programa espera en acción1 hasta que llega el imán, y un voltaje de 2.6V> se detecta, entonces espera en Acción 2 hasta el imán ha pasado, 2,5 V <. El tiempo actual en segundos se almacena en box1. El programa espera a que el imán para llegar y pasar de nuevo. La circunferencia de la rueda, 2,1 millones se divide por el tiempo transcurrido (tiempo-corriente caja 1) y el resultado se imprime.
+La operación confiable depende de la alineación del imán y el sensor y los puntos de ajuste de voltaje superior e inferior. El programa se ejecutará más rápido si los bloques están ocultos. ¿Cuál es la velocidad máxima que se puede medir confiablemente? ¿Qué sucede con la pantalla a mayor velocidad?
+File:Turtle Art Activity tripcomputer.doc
+Proyecto Turtle Art como doc
+Retos
+* gran pantalla a pantalla completa
+    * velocidad media
+    * La distancia total
+    * velocidad máxima
+    * reloj y cronómetro
+El sensor de efecto Hall cuesta $6, una opción más económica puede ser un interruptor de láminas $2
+[5]
+Ley de Ampère
+A diferencia del transformador de corriente anterior, que sólo puede medir intensidad de corriente alterna (AC), el sensor de efecto Hall también puede servir para medir intensidad de corriente continua (DC). Esto se hace midiendo el campo magnético que crea una corriente.
+http://en.wikipedia.org/wiki/Amp%C3%A8re%27s_circuital_law
+μ0 = 4π×10^−7 N·A−2
+B en tesla (1 gauss = 10^-4 tesla)
+l en metros
+I en amperes
+En el caso especial de un alambre en el espacio libre, la integral es fácil de evaluar. En un radio r, el campo es uniforme en una trayectoria circular alrededor del alambre, la longitud del camino es 2πr. Así que por el campo magnético B en un radio r de un alambre en el espacio libre,
+Esto puede ser verificado experimentalmente. En un radio de 2,5 mm de un alambre que lleva 1,5 amperios, el campo es (4π10^-7x1.5)/(2πx2.5x10^-3) = 1.2x10^-4 tesla o 1.2 gauss, en 1.3mV/gauss, la tensión de espera es 1.56mV y mide aproximadamente 1.5 mV.
+Medición de intensidad de corriente continua
+Aunque útil para probar la Ley de Ampère, lo anterior es demasiado insensible para la mayoría de los casos prácticos de medición de corriente.
+Para aumentar la sensibilidad, se bobinaron (devanaron) 50 vueltas de alambre aislado en torno a un clavo de 100 mm, se lo curvó en forma de C con el sensor Hall colocado entre los extremos enfrentados. El voltaje de salida del sensor Hall (mV) se grafican contra la corriente a través del cable en amperios.
+Véase también
+Activities/Turtle Art/Uso_de_Tortuga Arte_Sensores#Medici.C3.B3n_de_amperios_de_corriente_directa
+Telemetría
+TurtleBlocks (o Tortug Arte) puede compartir 'mostrar el texto','mostrar imagen', la posición de la tortuga, trazos de la pluma y relleno. Esto significa que los datos del sensor leídos por una XO pueden ser transmitidos a otra computadora portátil XO.
+Circuito cerrado de TV
+Abra una sesión de la Tortuga Arte para compartir en un ordenador portátil
+y unirse a la sesión en otro ordenador portátil
+El siguiente programa transmitirá la salida de la cámara desde un ordenador portátil a otro. Transmitir grandes cantidades de datos  sobrecarga la red por lo cual para evitar esto la imagen se muestra en un tamaño de 20% y se envía cada 2 segundos.
+Timbre de puerta remoto
+Basado en el ejemplo anterior del timbre de puerta, en este caso se muestra un procedimiento que permite que suene una alarma en una computadora portátil cuando se realiza una conexión eléctrica en otra. Abra una sesión de "TurtleBlocks" para compartir en un ordenador portátil
+y unirse a la sesión en otro ordenador portátil
+La posición de la tortuga se utiliza para transmitir la resistencia medida por la primera computadora portátil a la segunda computadora.
+laptop emisora
+En este caso, el envío de la computadora portátil se llama 'tony'. Para seleccionar la tortuga, por su nombre, 'tony', conecte un bloque de texto en el bloque de la 'tortuga' en lugar del bloque número normal. Cargue el bloque de Python con el código de onda sinusoidal de la muestra
+y suena un tono de 1 kHz, cuando el valor recibido es inferior a 3000.
+laptop receptora
+Podría ser utilizado para que suene una alarma a distancia indicando el nivel de agua en un tanque, etc.
+Enlaces
+http://wiki.laptop.org/go/Hardware_specification
+http://wiki.laptop.org/go/Talk:Measure
+http://wiki.laptop.org/go/Measure/Hardware
+http://bugs.sugarlabs.org/attachment/ticket/552/sensor%20gain.xls
+http://wiki.laptop.org/go/Making_XO_sensors
+http://lists.laptop.org/pipermail/devel/2010-November/date.html
+http://wiki.laptop.org/go/File:Ext_audio_1.5.png
+http://sites.google.com/site/solymar1fisica/fisica-con-xo-investigacion-
+(en español)

@@ -1,0 +1,195 @@
+Title: School Server
+URL: https://wiki.sugarlabs.org/go/School_Server
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+Software
+2.1
+Projects
+3
+School Server Wish List
+3.1
+References
+Introduction
+The
+X
+O school
+S
+erver, or
+XS
+, is one of the products of the OLPC project, designed to complement the
+OLPC:XO
+laptop. It is a
+GNU
+/
+Linux
+-based OS (a
+Fedora
+-based distribution
+) engineered to be installed on generic, low-end servers. OLPC outlines
+hardware recommendations
+and in the future, they may offer a hardware platform specially designed for the role.
+Educational deployments of Sugar must also provide infrastructure to extend services for learners, teachers, and their support communities.  While the Sugar software may be self-sufficient for many learning activities, other activities and services depend on the School Server to provide connectivity, shared resources, and other services. Services, tools and activities running on the School Server allow asynchronous interaction, can take advantage of larger storage capacities, and possibly greater bandwidth and more powerful processors in the XS.
+The Sugar Labs wiki pages for the School Server will focus on software that runs on the XS and how software can support Learners and their community using the
+Sugar Platform
+.
+For installation and configuration details, one should visit the
+OLPC:School server
+and
+OLPC:Category:SchoolServer
+pages.
+Software
+The School Server provides an
+Apache
+web server, the
+PostgreSQL
+database,
+ejabberd
+for collaboration via the Jabber
+Extensible Messaging and Presence Protocol (XMPP)
+, and
+Moodle
+for a
+learning management system
+.
+Projects
+http://schools.sugarlabs.org/
+takes you to an instance of Moodle hosted by Solution Grove for Sugar Labs.
+Collaboration server
+jabber.sugarlabs.org
+runs on this School Server.
+Sugar on a Stick
+deployments are supported.
+Note:
+The contents of this section have been transcluded from another page,
+School Server Wish List
+:
+School Server Wish List
+This is a first attempt to organize my thoughts based on the XS Wish List. It attempts to organize 
+the wish list roughly along the lines of the current division between XS and XC as deployed by OLE Nepal.
+I have attempted to include current features as a rough checklist of what is in the two builds. Please feel free to edit/fix/correct it.
+In concept XS contains the software components and XC loads the content (into the /library partition). For historical reasons, the library (e-Pustakalaya) is loaded from XC including the Fedora Commons and Fez packages.
+There is no technical reason why other software packages such as Dan's Guardian and Moodle could not be included in XC.
+In principle, an XS build should run on a school server without an XC install and satisfy the essential needs such as registration, lease-activation, mesh network support, Journal backup/restore and system administration by SSH.
+XC should install the software needed to support the associated content. The decision whether a particular software package goes in XS or XC will have more to do with art than science.
+XS in 25 words or less
+XS is a LAMP stack.
+Build Options
+The current intent is to use SUSE Open Build System to allow a deployment to select the 
+architecture (i386, X_64) and packaging (Fedora, Debian) at build time. Whichever of these options is chosen 
+obviously affects the XC build.
+The overall functionality is similar to XS-0.6 with some changes and additions discussed below.
+Base system
+Fedora: 15
+Apache:
+MySQL:
+PHP:
+Additional Components:
+Python 2.x
+Python 3.x
+including python-devel to support 'python setup.py install'
+Python 2 is probably required and Python 3 a build option.
+Sugar Support
+This is not a complete list but some examples include:
+idmgr - registration of XOs
+Journal backup and restore
+XO lease-activation
+XS configuration
+Currently each component of XS is configured as it is added. It might be nice to configuration clearly separated so that it is easy to see what to do for local customization. This is particularly important for the network setup.
+Network
+The default is that an XS install configures the baseboard (RJ45) port for the LAN (172.18.0.1). A separate script
+such as netsetup.sh should be available to configure the WAN network. This script should not be required unless the schoolserver has a WAN connection. It would be easier if the script were a file on the XS install key rather than a file in the XS build. This would make it possible for a deployment to edit the script without modifying the XS build.
+The network install and/or the netsetup.sh script should support access by the schoolserver using a gsm network.
+XMPP
+Currently this is ejabberd. XS needs to support XO sharing in the classroom by this or other means. This is another case where it would be helpful if the package install was separated from the configuration. Currently this configuration is fixed; however, some deployments may want to set up separate groups for each class. This would simplify the network view and probably improve performance.
+Usbmount
+Daniel Drake's usbmount should be installed in XS. The specific script configuration may be limited to a generic: if XC-install is present run it. This would allow the builder of XC to match the install scripts with the content without needing to rebuild XS. It would allow usbmount to be 'turned off' by renaming the script when the same hard drive is used for another purpose (e.g. backup).
+Root et al
+It should not be possible to log in as root directly (also su is possible with a password). It should be possible to log in as admin via SSH with a known password (i.e. known to authorized support staff). It is necessary for support staff to know how to administer the server by ssh even though they did not go to the school to attend to a server problem. This is not good security practice, but is better than having someone go to the school, be told there is a problem with the server, and have to send someone else later to deal with it.
+Basic Self Tests
+XS is composed of stable production upstream packages. The sugar-specific packages may need some 
+sort of self-test; however, at the end of the day these are developer tests.
+The questions in deployment are 'is the XS build ok' and 'has it been correctly installed on a specific 
+server'.
+In Nepal, this is satisfied by 
+	#mkusbinstall works, 
+	#the install works, and 
+	#it is possible to access the server from an XO via SSH.
+It would be desirable to have the second ethernet port configured in XS for a direct SSH connection 
+(patch cable) to test problems with the LAN network and router configuration (easily the most common problems 
+are httpd not started or the router not configured correctly).
+There should be a netsetup.sh script to configure the WAN network (second port). This should only have to be run when the school server has a connection to the internet. Currently this script is in the XS build. It would be easier for a support person to find and use if it were on the XS usb drive as a separate file. This way it could be edited on an XO.
+"It would be great to have basic self
+tests embedded into the XS, which
+will help the school side to diagnose and fix the problem easily.
+Individuals at the school looking after the school server might not be
+proficient with GNU/Linux and would have a hard time to diagnose and
+fix a problem with XS; this is a case with the Nepalese deployments.
+Adding to this, for a fix, either the support team needs to be
+dispatched to the school (which might be located in a remote place),
+or the ask the school to bring back the school server to the support
+centre. Given the scenario in Nepal, with just a single support
+centre, this fix can cost a lot of time, effort, and money. Basic self
+tests, with mechanism to provide instructions on now to fix simple
+problems is greatly going to ease the hassle. The self tests can
+contain testing services, network status and such."
+IMO this is a 'holy grail'. Anyone who has used Microsoft diagnostic wizards knows the frustration and uselessness of trying to anticipate and provide automated corrections of problems.
+XS has proven very stable. In a normal school evvironment new releases are probably only needed (or desired) one
+time per year, prior to the start of the new school year. This suggests that the critical requirement is extensive testing of the build prior to deployment.
+New packages:
+systemd: a replacement for SysVinit and Upstart that acts as a system
+and session manager.
+usb-modeswitch: a library/utility for handling Mode-Switching USB
+Devices on Linux. This package is required to access internet through
+3G cards (e.g. Mobile broadband).
+ipcheck: a Dyndns.org client to register your dynamic IP address. It
+helps to configure the server with dynamic dns and with port
+forwarding enabled on the Internet gateway, eases accessing the
+schoolserver from anywhere on the Internet.
+Expect: a Unix automation and testing tool and used to automate
+interactive applications such as telnet, ftp, passwd, fsck, rlogin,
+tip, etc. E-Pustakalaya uses Fedora Commons which has a interactive
+setup; we use expect to automate the installation by providing all
+answers to the setup program. Expect is useful to create headless
+installers, and it also has a python wrapper.
+libicu and unicode support: Adding unicode support in XS will help to
+have localized web applications hosted on the XS (using gettext
+framework).
+< OLPC
+There are two scenarios. One, a student with a defective laptop gets a replacement. The records on the schoolserver need to be updated to reflect the change. Two, students are in two shifts. The afternoon shift on Monday is the morning shift on Tuesday. In this case two students, one in each shift, could share a laptop (0.5 LPC). In Rwanda this would have allowed 100,000 laptops to service 200,000 students. This requires (1) a login to identify the student using the laptop, (2) two datastores - with a symbolic link at login, and (3) A and B backup folders on the school server.
+XC in 25 words or less
+XC provides all of the software and content required in the school server but not included in XS.
+Library
+In Nepal this is Pustakalaya (www.pustakalaya.org). It is supported by Java, Fedora Commons and Fez. This installation is in XC.
+There is a project to develop a library based on Django. This would be an alternate in XC.
+Wiki4Schools
+XC in Nepal includes the Wiki4Schools (2008 version - which apparently is the most recent). This is based on mediawiki.
+There is a project to provide the same capability using openZim, this could be an alternate in XC.
+Dictionary
+XC in Nepal includes Wiktionary and a Nepali dictionary (Sabdakos). This will clearly be very deployment-specific.
+Sugar Activities
+XC includes a repository of Sugar Activities. This allows students to download and install activities of their choosing from the school server.
+Dan's Guardian
+Web filtering requires lots of disclaimers. Whoever is the authority for deploying a schoolserver needs to sign off that the filtering offered is accepted as adequate. This is part of XS in Nepal but moving it to XS might make the XS build easier.
+Moodle
+This is installed in XS in Nepal but could be installed in XS. It is dependent on the configuration of the LAMP stack in XS (Apache, MySQL or PostGreSQL). This might be a good time to move to Moodle 2. AFIK no deployment is currently using Moodle so there would be a minimum of issues with backward compatibility.
+SchoolTool
+While not directly related to the OLPC mission, one of the first uses of computers in schools is to automate the administration (attendance lists, academic calendar, and so on). There is a possibility to integrate SchoolTool with Moodle.
+Mothership or Content Update
+The model in Nepal and Rwanda is that the central development group provides the same software and content to each school. The school is not expected to make any changes and, if it did, they would be erased on the next update.
+It is unlikely that schools will have sufficient broadband access to support concurrent browsing for every XO.
+However, there should be a mechanism where each school server can connect with the mothership (e.g. cron job) and receive updates and upload changes (e.g. email). The mothership could then include this information in the next connection opportunity for the other schools. There would have to be a parallel mechanism using usb keys (e.g someone from the school goes to town with the usb drive and connects from an internet cafe).
+The schoolserver, in turn, provides updates to the XOs.
+Socializing/Communication
+Open Atrium is based on Drupal. Providing a way for teachers to communicate with the central support group and with each other is very important.
+Moodle may offer an alternate way to do this.
+WordPress and Planet may also be an option.
+In any case, these tools need support from the mother ship.
+_______________________________________________
+References
+http://www.mail-archive.com/server-devel@lists.laptop.org/msg04185.html
+http://www.mail-archive.com/server-devel@lists.laptop.org/msg04196.html
+http://www.mail-archive.com/server-devel@lists.laptop.org/msg04215.html
+olpc:Nepal Wish List

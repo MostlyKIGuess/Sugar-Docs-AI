@@ -1,0 +1,88 @@
+Title: Talk:Features/Edit panel on Frame
+URL: https://wiki.sugarlabs.org/go/Talk:Features/Edit_panel_on_Frame
+--------------------------------------------------------------------------------
+<lucian_>	walterbender: so any thoughts about how to abstract that TextEditor class? maybe even move it outside Browse?
+<lucian_>	walterbender: (i don't mean to rush you)
+<walterbender>	lucian_: that is an abstraction problem I have also been strucggling with...
+<lucian_>	walterbender: i could make the TextEditor subclass gtk.Widget
+<walterbender>	lucian_: I would prefer to have these edit functions outside... for example, I want to sue Pippy to edit Python code that users modify in Turtle Art rather than putting a Python editor directly into Turtle Art
+<lucian_>	walterbender: but it would lose a lot of functionality it has now as a window
+<walterbender>	It would be good to have a general sytles editor that you could use outside of Browse...
+<walterbender>	lucian_: I could use ^^ to edit the styles for the epxort of HTML in Turtle Art for example
+<walterbender>	lucian_: so I am in favor of the stand-alone approach.
+<lucian_>	walterbender: but wouldn't that involve the Journal?
+<walterbender>	lucian_: also it keeps the individual activities simpler.
+<walterbender>	lucian_: yes.
+<lucian_>	walterbender: i don't really want users to know that there's a style.user.css file somewhere
+<walterbender>	lucian_: you save the styles to the journal and import them into the activity at run time
+<walterbender>	lucian_: why not, if they are editing the style, should they not know that there is an object associated with that edit?
+<walterbender>	lucian_: that they can refer to whenever they want it?
+<lucian_>	walterbender: but then how can i include the styles in the SSB bundles created by Browse?
+<walterbender>	lucian_: this is part of the issue I had with Turtle Art... the Rainbow stuff gets a bit in the way...
+<lucian_>	walterbender: yeah, it does
+<lucian_>	walterbender: why do we need it again?
+<walterbender>	lucian_: I tried to override some imports -- a reload -- in Python, but it was not robust inside of Rainbow... never really got it to work the way I wanted it to...
+<walterbender>	they can import the code from the Journal that they wrote in Pippy
+<lucian_>	walterbender: hmm
+<walterbender>	lucian_: the problem I had was that I tried to just import the code as a module from the journal and I ran into Rainbow problems.
+<walterbender>	lucian_: less eloquent and a bit restrictive, as I have trouble with imports
+<lucian_>	walterbender: that seems an arbitrary restriction to me
+<lucian_>	walterbender: if activities can read the code, they can eval it. so why block imports?
+<walterbender>	lucian_: I think it is a bug.. either in my code or Rainbow
+<walterbender>	lucian_: let me find the ticket that describes some of the approaches I took...
+<silbe>	walterbender: it's a restriction caused by the way you're doing it
+<walterbender>	silbe: I know, but I tried doing it all different ways, with no luck.
+<walterbender>	silbe: :(
+<lucian_>	walterbender: hmm
+<lucian_>	walterbender: so i want users to be able to go to userstyles.org, copy/paste some CSS, paste it into and editor and immediately apply it to see how it looks
+<lucian_>	walterbender: i'm not sure that effect can be achieved with an external style editor
+<walterbender>	lucian_: I think it can be... perhaps with at most one additional step...
+<walterbender>	lucian_: Rainbow purposefully puts restrictions in place in terms of one activity talking directly to another...
+<walterbender>	lucian_: you may not agree with the rationale, but it is spelled out in the Bitfrost spec.
+<lucian_>	walterbender: with an external activity, users would at least have to switch windows to edit and see results
+<walterbender>	lucian_: I argue that editing it a context switch already, so what difference does it make?
+<walterbender>	lucian_: and then the editing experience would be consistent from activity to activity
+<lucian_>	walterbender: that's biggest incentive for an internal editor. you write CSS in that small window, hit apply (or save) and you can see stuff instantly
+<walterbender>	lucian_: yes. As I said, I think you need to add one step to do it externally: pull the file from the Journal.
+<walterbender>	lucian_: once you have it, you can remember and pull it automatically when you want to revisit the page...
+<walterbender>	lucian_: but the first time, you need that extra step
+<lucian_>	walterbender: but i'm not comfortable with having a delay between editing css and seeing results
+<lucian_>	walterbender: right now you don't even need to reload the page, it's really instant
+<walterbender>	lucian_: I think you can work around it as follows:
+<walterbender>	lucian_: (1) download the css into the Journal (you need to download regardless of internal or external)
+<walterbender>	lucian_: (2) open the file into the editor (from the Journal) this is an extra step in the external version
+<walterbender>	lucian_: (3) refresh the browser, which by default is reading from the file you saved to the Journal
+<walterbender>	lucian_: I suppose by automatic, you want to avoid the refresh step in (3)
+<lucian_>	walterbender: this would be acceptable
+<lucian_>	walterbender: but it's not acceptable for when you want to tweak css
+<walterbender>	lucian_: I think this will work... It is essentially what I do for Turtle Art
+<walterbender>	lucian_: you lost me again... it is or it isn't?
+<lucian_>	walterbender: you'd have to (4) find the object in the Journal, open it (5) edit css, save (6), (7) switch to Browse to see results
+<walterbender>	lucian_: no.
+<lucian_>	walterbender: it's fine for when you initially add a stylesheet
+<lucian_>	walterbender: but if you want to tweak that css, you have to keep switching
+<walterbender>	lucian_: yes. but you'd be switching between the context of viewing and editing regardless
+<lucian_>	walterbender: not really, they'd both be visible
+<walterbender>	lucian_: the only difference is you always have to start tweaking by finding the style sheet in the Journal.
+<walterbender>	lucian_: how can they both be visible? Browse runs full screen
+<lucian_>	walterbender: with an internal editor, they are both visible
+<lucian_>	walterbender: the editor is a small window
+<walterbender>	lucian_: maybe we should propose an editor extension to the Frame?
+<lucian_>	walterbender: like having an editor box attached to the frame somewhere?
+<walterbender>	lucian_: yes. that you can drag in and use to edit a small amount of code/text from any activity
+<walterbender>	lucian_: we can add it to the feature requests for 0.86 (and drive Tomeu and Erikos crazy :)
+<lucian_>	walterbender: a bit like view source, but attached to the frame?
+<lucian_>	walterbender: i rather like that
+<walterbender>	lucian_: yes...
+<tomeu>	walterbender: just follow the process and everything_will_be_alright
+<walterbender>	lucian_: me too
+<tomeu>	but as sdziallas would say: "you cannot get always what you want"
+<walterbender>	tomeu: even if you wirte the patch yourself? :)
+tomeu	is now figuring out the features process
+<tomeu>	walterbender: yeah, depends on the patch itself :p
+<daveb>	tomeu: we need a way to make copy to/frm frame (clipboard) more discoverable. never knew you could drag there. very cute.
+<walterbender>	tomeu: of course... and we can always fork... nutrasweet
+<lucian_>	walterbender: so for now, i'll try to make a SourceEditor class that inherits gtk.Widget (or gtk.textview)
+View Source dialog addition
+Hi, have you considered using the view source dialog to make such changes?
+http://dev.sugarlabs.org/ticket/803#comment:3

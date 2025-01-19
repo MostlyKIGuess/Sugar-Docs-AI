@@ -1,0 +1,75 @@
+Title: Activity Team/Git Introduction
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Git_Introduction#Commit_message_guidelines
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+Git
+1.1
+A short overview of a version control system
+2
+Gitorious
+3
+Commit message guidelines
+Git
+Git
+is a revision control system (sometimes called a "version control system") for programmers used to track and manage changes to code and other data. Git is a decentralized system, with no "master" tree, and was originally written by Linus Torvalds to manage the Linux kernel sources.  Git is used by many open source projects to manage development among programmers, and is used by the OLPC as its preferred version control system.
+A short overview of a version control system
+The version control system provides the detailed information on the source code.  Using the repository, a user can:
+Browse or download the current source code and data files .
+Browse or download any version that was ever put in the repository.
+See the comments explaining why changes were made.
+See what changed betweens versions.
+See which versions were picked for which releases, also known as 'heads'.
+Users that have write access (or
+commit access
+) to the repository can do more:
+Add new files to a project.
+Add changes back into the repository, creating new versions.
+Edit comments to explain why changes were made.
+Merge changes made from two different people into a single version.
+Create a separate branch of development to keep changes separate from others.
+For more information about version control systems, see
+Wikipedia
+Gitorious
+Gitorious
+provides open source infrastructure for hosting open source projects that use Git. The central entity in Gitorious is the project, which contains one or more top-level repositories and any repositories managed by the project's contributors.
+This allows you, as a project administrator, to keep an eye on what people are working on in their individual clones of your repositories. It also lets you merge or provide feedback on their contributions.
+Likewise, as a project contributor, you get a place to host your contributions and provide feedback back into the projects ecosystem and easily collaborate with others on the same project. You get your own personal clone of the project on the site that you can work freely in and a way to package up your changes and notify the other project members about your changes.
+Commit message guidelines
+These are guidelines to enhance the readability of the commit messages and the release notes which are made with
+git-shortlog
+. Please try to follow them as much as possible and make suggestions in the
+sugar devel mailing list
+if you find things missing, the guidelines completely insane or just want to demonstrate your appreciation.
+The commit message should start with a single short line summarizing the change (less than 50 characters), followed by a blank line and then a more thorough description (wrapped to 72 characters per line).  This is because tools that turn commits into email, for example, use the first line on the Subject: line and the rest of the commit in the body.  Also, the git-shortlog command that we use to write the release notes will strip the more detailed description.
+If your commit does fix a certain bug make sure that the summarizing line contains the bug number prepended by a '#' at the
+end
+of the line (e.g. #14). Please prepend an identifier indicating the bug tracker, e.g.
+SL#342
+,
+OLPC#9358
+,
+RH#482949
+,
+Debian#555965
+,
+Ubuntu#480407
+.
+Start your commit message with a capital letter.
+Suffix no dot at the end of the summarizing line.
+Fixes for typing errors and pylint fixes happen quite often. Just mark them _Typo and respectively _Pylint for easier reading.

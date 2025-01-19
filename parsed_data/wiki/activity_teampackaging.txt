@@ -1,0 +1,49 @@
+Title: Activity Team/Packaging
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Packaging
+--------------------------------------------------------------------------------
+Packaging is the making of a software package for use by a
+package manager
+in Linux distributions such as Fedora, Debian, or Ubuntu.
+Contents
+1
+Common issues
+1.1
+Publish source tarballs for each release
+1.2
+Create a trac component for your activity
+1.3
+Check copyright and licensing
+Common issues
+Publish source tarballs for each release
+Some packagers prefer to work from tarballs rather than the activity bundles.  This is because activity bundles contain built components instead of only source code.
+If your activity is part of Fructose follow
+Module Release
+instead.
+Make a source tarball as follows. It will be placed inside the dist/ directory.
+python setup.py dist_source
+Upload it on the web. If you need a server to upload it to,
+ask for a shell account
+.  When you have access, create a directory under /upload/sources/honey for your activity and copy the tarball to it.
+Update the Honey table on the
+Source Code
+page with a link to the latest version. Add an entry if your activity is not yet listed.
+Create a trac component for your activity
+Users or packagers may report problems with your activity, either;
+enable the Issues feature in the GitHub repository, or;
+open a ticket on
+http://bugs.sugarlabs.org
+, under the trac component, to request a
+component
+for your activity.
+Check copyright and licensing
+Many translations lack copyright and licensing info completely or they provide just a boilerplate.The package maintainer should edit the .pot file to replace these:
+SOME DESCRIPTIVE TITLE
+THE PACKAGE'S COPYRIGHT HOLDER
+PACKAGE
+When that is done, they should get in contact with each translator to
+make them adopt that improved boilerplate and themselves replace these:
+FIRST AUTHOR <EMAIL@ADDRESS>
+YEAR
+When doing above, it makes good sense to also tidy the gettext hints to
+have proper info too, but that is just nice-to-have for semi-automated
+processing, not crucial as the licensing problem.

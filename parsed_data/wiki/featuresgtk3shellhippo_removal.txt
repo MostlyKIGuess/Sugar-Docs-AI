@@ -1,0 +1,63 @@
+Title: Features/GTK3/Shell/Hippo Removal
+URL: https://wiki.sugarlabs.org/go/Features/GTK3/Shell/Hippo_Removal
+--------------------------------------------------------------------------------
+Contents
+1
+Toolkit
+2
+Shell
+2.1
+Home View
+2.2
+Group View
+2.3
+Neighborhood View
+2.4
+Journal Detail View
+Toolkit
+The main thing in the toolkit is to remove the hippo dependency from the SugarCanvasIcon (icon.py) which is used in the shell in the Views (e.g. the activity icons, the buddy icons and the network icons) and in the Journal. The requirements to that widget are that it is an icon that can receive events. Attention has to be made to make sure that there is no visual nastiness when the icons are drawn closely together (e.g. buddy icons grouped around an activity).
+A
+GtkEventBox
+can be used to receive the events even so the widget you place into that box does not have it's own window. We can put the IconBuffer from icon.py into that box, which is only used for drawing the icon, all the events are then handled by the GtkEventBox.
+There is an attribute whether the event box uses a visible or invisible child window. However in GTK3, windowed widgets are no longer windows at the X level, so they can theoretically overlap without visual nastiness.
+toolkit-gtk2 implementation
+toolkit-gtk3 patch
+Shell
+In the Shell we need to adopt to the new SugarCanvasIcon. There had been a rename to SugarEventIcon to better match the implementation. Furthermore we have to adjust to the API change that the size' property is now called 'pixel-size' to reflect that we expect a 'pixel-size' and not a
+GtkIconSize
+as we use for most of the cases in the SugarIcon.
+Then the hippo-based layout in the Views has to be switched to use a GTKContainer instead of a the hippo layout management. The layout is the following:
+Home View
+Requirement: In the center of the view we do have an the owner buddy at a fixed position in a specified size and the current activity icon below it. We have different layouts that can be applied to position the icons and have them at different sizes. A special mode is here the random layout where icons can be dragged around to change their position.
+Implementation: Implements a
+SugarViewContainer
+a GTKContainer which provides adding/removing of children. It expects to be passed an owner_icon and optionally an activity icon and a LayoutManager to take care of the positioning and sizing of the icons. There are different LayoutManagers adopted to the specific needs in each view. When the allocation happens the first time a setup is run to
+create a grid
+and allocate and position the owner icon. The grid is part of the ViewLayout: we will always have at least the owner icon in the Views with a fixed position so we need the grid in all of the views, the Grid is created the first time we are called to allocate the icons because we make it dependent on the requested allocation size of the container
+The owner icon (+ activity icon) is positioned in the center: this is done when we do allocate the icons because we need to know the allocation size requested for the container in order to calculate the exact position, this is only done once on setup of the ViewLayout, this must happen before we add the other icons otherwise we risk collisions (maybe that is a bug in the grid, ideally if you add an icon with a fixed position and there is an icon at this position already the non-fixed one should be moved away, but this is not the case at the moment). The icons are added only once to the grid: when we need to allocate the size for the icons we do check if they are in the grid already, we use the positions if they are in the grid otherwise add them to the grid and get the position from the grid, this way the icons keep their positions when new icons are added or removed.
+In the ViewLayout used in the Home View only the owner and current activity icon are added to the grid. The activity icons do already have collision detection in their layout algorithms.
+Group View
+Requirement: In the center of the view we do have an the owner buddy at a fixed position in a specified size. We have here an N number of buddy icons spread out over the view. There has to be some error handling that the icons do not overlap.
+Implementation: In the Group view we use the
+SpreadLayout
+to position the icons. All the icons are part of the grid in order to do collision detection.
+Neighborhood View
+Requirement: In the center of the view we do have an the owner buddy at a fixed position in a specified size. We have here an N number of buddy icons, activity icons and network icons spread out over the view. In addition the buddy icons can be grouped around an activity icon. There has to be some error handling that the icons do not overlap.
+Implementation: In the Neighborhood view we use the
+SpreadLayout
+to position the icons. All the icons are part of the grid in order to do collision detection. We use the exiting
+snowflakelayout
+to do the grouping of the buddy icons around an activity.
+Journal Detail View
+To get back the layout of the Journal Detail View a few things have been done.  However we should look forward to do them with CSS in GTK+3.  They are:
+Setting the background color of the
+ExpandedEntry
+is done wrapping the container inside a gtk.EventBox as explained
+here
+.
+Setting the paddings of the different widgets is done wrapping them inside gtk.Aligment widgets. Example
+here
+.  Paddings were managed before using hippo.CanvasBox.
+As said above, the intermediary code could be simplified after the switch to GTK+3.  Today seems not possible, but should be doable in the future.  There is a bug filed upstream:
+https://bugzilla.gnome.org/show_bug.cgi?id=678790
+shell port repository

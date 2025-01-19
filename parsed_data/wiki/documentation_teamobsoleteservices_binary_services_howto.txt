@@ -1,0 +1,148 @@
+Title: Documentation Team/Obsolete/Services Binary Services HOWTO
+URL: https://wiki.sugarlabs.org/go/Documentation_Team/Obsolete/Services_Binary_Services_HOWTO
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Was only draft content.
+Contents
+1
+Support several ABIs of service dependencies
+2
+Development tools support
+2.1
+Autotools
+Work flow for services that require a compilation stage:
+Create a local, initial service.info file by invoking
+0sugar init
+, then tweak the newly-created
+service/service.info
+file.
+Provide a relevant value for the
+build-command
+field in the
+service.info
+file.
+If you want to support binaries for different dependency environments, add additional sections to the
+service.info
+file with
+requires
+fields that describe the dependency's versions for the particular environment.
+Increase/change the version field in the
+service.info
+file.
+Execute
+0sugar dist
+to add the sources tarball to
+dist/
+and change the local feed correspondingly.
+For every platform you are trying to support binaries on, run
+0sugar dist_bin
+to build, and add to local field, binaries for this particular platform.
+If you added additional sections to the
+service.info
+file, run
+0sugar dist_bin <section-name>
+in every environment that
+services.info
+has additional sections for.
+Run
+0sugar push stable
+to rsync changed files from
+dist/
+to the server.
+See
+#Release workflows
+for other release scenarios.
+Support several ABIs of service dependencies
+The file
+service.info
+could contain other sections for various binary implementations. These sections are intended to describe a particular dependency's environment and should contain only
+the
+requires
+that overwrite
+Service'
+s section
+requires
+values.
+For example, if a service developer is going to add binary implementations for F9/F11, and the same service dependency in these distributions has different ABIs, the activity developer has to build two additional binaries, for F9 and F11. In that case, the developer creates two sections
+F9
+and
+F11
+, putting the exact dependency versions (to separate a particular section from others), and invoke
+0sugar dist_bin <section-name>
+in the appropriate F9/F11 environment.
+Development tools support
+There are useful addons for popular development tools. These are optional features that simplify the service development process.
+Autotools
+Add the
+service.m4
+macros file to your project. It provides the following:
+SERVICE_INIT
+, a macro to initialize services support, use it after other (AC|AM)_INIT macros, like in
+[1]
+It takes an optional string to define prefix value for
+DIST_
+variables,  in most cases it should be just
+sugar
+Macro exports follows variables:
+SERVICE_NAME
+, name of service in service.info file
+SERVICE_VERSION
+, version of service in service.info file
+SERVICE_REVISION
+, revision number from dist/revision file
+DIST_NAME
+, combines prefix macro argument with
+SERVICE_NAME
+to use it as a distribution name (see example below)
+DIST_VERSION
+, combines
+SERVICE_VERSION
+and
+SERVICE_REVISION
+to use it as a distribution version (see example below)
+SERVICE_SUMMARY
+, summary from service.info file
+SERVICE_EXTRA_DIST
+, extra files to include to sources tarball
+SERVICE_DISTCLEANFILES
+, auto generated files to cleanup
+macro also changes
+PACKAGE
+and
+VERSION
+variables with values from proper
+DIST_
+, so it rewrites
+AC_INIT
+arguments (you have to use fake values for
+AC_INIT
+macro)
+if
+[Library]
+section exists in service.info file, macro will
+check if
+SERVICE_VERSION
+is a plain number
+export
+SERVICE_AGE
+, age from
+[Library]
+section
+export
+SERVICE_LIBRARY_VERSION
+which is libtool's -version-info parameter
+if
+service.pc.in
+is present in root directory, rename it to
+DIST_NAME
+.pc.in
+SERVICE_ECHO
+, a convenient macro to print various variables
+These macros could be used like in the
+Toolkit
+service.

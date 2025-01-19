@@ -1,0 +1,188 @@
+Title: Features/Plain Query Format
+URL: https://wiki.sugarlabs.org/go/Features/Plain_Query_Format#System_terms
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+System prefixes
+4.2
+Users predefined prefixes
+4.3
+Result set control parameters
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Provide a simple string query format for the Datastore find() method to cover all kinds of requests.
+Owner
+Name: ?
+Email: ?
+Current status
+Targeted release: ?
+Last updated: Tue Aug 25 07:59:58 UTC 2009
+Percentage of completion: 90%, core part was implemented within
+Version support for datastore/Proposal
+Detailed Description
+Let users create complex queries with all possible terms (see Xapian
+glossary
+) including system ones. Users can use in query string
+system
+prefixes and predefined set of
+custom
+prefixes.
+Prefixes in query string could look like
+<prefix>:<one-word-value>
+<prefix>:"<multi-word-value>"
+Values for system prefixes, Sugar fills on its own, i.e., if
+title
+metadata field is
+My activity
+, user can type
+title:"My activity"
+in query string to search
+My activity
+substring only within
+title
+fields.
+Values for
+custom
+prefixes user should place to
+tags
+metadata field in the same form like in query string.
+If value is multi-worded, any of these words could be used in query, e.g.,
+title:My
+or
+title:activity
+.
+System prefixes
+Datastore field
+Flags/Parameters
+Dublin Core
+Notes
+uid
+identifier
+bundle_id
+postponed until we decide to use Journal to represent activities
+mime_type
+format
+title
+sorted
+title
+activity
+activity_id
+timestamp
+ranged sorted
+keep
+tags
+see
+#Users predefined terms
+filesize
+ranged sorted
+postponed for
+Features/Unified Browser for Objects
+participant
+sorted
+description
+description
+Users predefined prefixes
+Datastore field
+Flags/Parameters
+Dublin Core
+Notes
+contributor
+sorted
+contributor
+coverage
+sorted
+coverage
+creator
+sorted
+creator
+date
+ranged sorted
+date
+language
+sorted
+language
+publisher
+sorted
+publisher
+relation
+sorted
+relation
+rights
+sorted
+rights
+source
+sorted
+source
+subject
+sorted
+subject
+type
+sorted
+type
+track
+ranged sorted
+disc
+ranged sorted
+Result set control parameters
+New find() method still has optional dictionary argument to control final result set.
+Dictionary key
+Notes
+offset
+limit
+order_by
+lang
+to setup stemming
+Benefit to Sugar
+Feature lets users specify exact metadata fields to search for.
+Scope
+implementation in Datastore
+How To Test
+This does not need to be a full-fledged document.  Describe the dimensions of tests that this feature is expected to pass when it is done.  If it needs to be tested with different hardware or software configurations, indicate them.  The more specific you can be, the better the community testing can be.
+Remember that you are writing this how to for interested testers to use to check out your feature - documenting what you do for testing is OK, but it's much better to document what *I* can do to test your feature.
+A good "how to test" should answer these four questions:
+What special hardware / data / etc. is needed (if any)?
+How do I prepare my system to test this feature? What packages need to be installed, config files edited, etc.?
+What specific actions do I perform to check that the feature is working like it's supposed to?
+What are the expected results of those actions?
+User Experience
+feature just expands query dictionary
+Dependencies
+Just regular glucose dependencies.
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+Xapian query language
+Using Dublin Core
+Relator Terms and Dublin Core Elements
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+See
+discussion tab for this feature

@@ -1,0 +1,85 @@
+Title: Translation Team/Workflow
+URL: https://wiki.sugarlabs.org/go/Translation_Team/Workflow
+--------------------------------------------------------------------------------
+Contents
+1
+Overview
+2
+Goals (current)
+3
+The workflow
+3.1
+At the translator's side
+3.2
+At the developer's side
+4
+Typical Responsibilities
+4.1
+Translator (normal)
+4.2
+Translator (with administrative privileges)
+4.3
+Developer
+5
+Open Issues
+6
+Notes
+Overview
+The current localization workflow mainly deals with translation of the software user interface (for example, the UI of an activity like Browse, or the Sugar Control Panel). We are working on getting content (wiki, website, educational material) integrated into our workflow - please see the Challenges section below.
+Goals (current)
+The goals of localization are
+To ensure that software in the shipped laptops supports at least, the primary language spoken in the deployment region. This means ensuring
+Script support (eg: For a deployment in Ethiopia, you need to make sure that the Amharic script can be rendered in the user interface, and activities such as write support them)
+Reasonable level of user interface translation (at least greater than 80% of sugar and the core activities translated)
+To ensure that other regional conventions aspects (keyboard layouts, date/time formats) are also supported as much as possible by the laptops
+The workflow
+At the translator's side
+A mirror (clone) of the relevant git repositories (from dev.laptop.org) exists on the crank.laptop.org filesystem.
+Strings from the software are extracted by an utility called
+intltool
+and collated into a POT (Portable Object Template) file.
+A cron job on periodically runs intltool to ensure that the extracted strings are up to date
+Copies of the POT file exist for each language being translated into. The copies of the POT file are called PO (Portable Object) files.
+The PO files are merged with the POT file to avoid "stale" translations on a weekly basis
+[1]
+[2]
+A web based software called
+Pootle
+accesses the PO files and presents them in a simplified manner to the translators
+Translators log in via Pootle, and translate the strings into their own language
+Translators also have the option of offline translation (ie, they can download a PO file, translate it, and then re-upload it back again)
+An administrator (a translator with extra privileges in Pootle) can commit a translated PO file (using the web based interface) - which triggers a "git push" of the translated PO file into the dev.laptop.org Git repository
+At the developer's side
+Before making a package release, developers pull the latest translations from the dev.laptop.org Git repository into their personal repositories.
+The build system (both autotools based as well as bundlebuilder based) converts the PO files into MO (Machine Object) files
+[3]
+The MO files are loaded at runtime (based on the value of the LANGUAGE or LC_ALL or LC_MESSAGES or LANG environment variable) and the translated strings are extracted out of the files and shown to the user via the UI.
+Typical Responsibilities
+Translator (normal)
+Translate strings correctly, taking care of
+Format specifiers such as %s, %d, etc
+New lines in strings (multiline strings, though rare, do exist in PO files)
+Review (and optionally accept) suggestions submitted against strings
+Translator (with administrative privileges)
+Review translation made by others
+Run the various
+Translation_Team/Testing#Utilizing_the_tests_available_from_within_Pootle
+available from within Pootle
+Commit files
+Grant access and privileges to other translators
+Developer
+Pull the latest translations from dev.laptop.org Git periodically and integrate them into their packages
+Adhere to string freeze policies during the release cycle (string freeze indicates a period in the release cycle where strings of the software UI should not be changed, to ensure that translators can achieve 100% coverage at the time of the final release). This involves
+Avoiding adding any strings during string freeze
+In case of a freeze break - appropriate notification of the localization mailing list (localization@laptop.org)
+Open Issues
+Decoupling of the release process and the translation management. It should be ideally possible to get a language pack, or a language support key (similar to a customization key) which can be used by deployments later on to add enhanced language support for a given language.
+Better intra-team communication. People working on the same language must be able to communicate within themselves via the Pootle interface (instead of shouting on the localization mailing list)
+Content and wiki translations. The Pootle infrastructure must be use-able for content and wiki translation as well.
+Notes
+↑
+This is not as smooth as it ideally should be. Merging of files are normally done on Friday night (IST) manually. Depending on the system load, larger projects such as Etoys are often skipped. This should not ideally happen.
+↑
+In case of string frozen modules, the merging is done as soon as a string freeze break is approved and the relevant code goes into Git.
+↑
+Translations marked as fuzzy are skipped

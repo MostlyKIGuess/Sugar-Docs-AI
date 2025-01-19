@@ -1,0 +1,281 @@
+Title: Development Team/Presence Service Removal
+URL: https://wiki.sugarlabs.org/go/Development_Team/Presence_Service_Removal
+--------------------------------------------------------------------------------
+Some notes follow about how we can replace the implementation of the signals and methods in the Presence Service by another that uses more fully the telepathy framework and is stateless.
+See here for some related information:
+http://wiki.laptop.org/go/Activity_sharing
+http://wiki.laptop.org/go/Presence_Service
+Collaboration state of the art
+(Guillaume Desmottes)
+Future of collaboration
+(Guillaume Desmottes)
+Interface org.laptop.Sugar.Presence
+@dbus.service.signal(PRESENCE_INTERFACE, signature="o")
+def ActivityAppeared(self, activity):
+    pass
+Used by: Shell to display activities in the neighborhood and friends views
+Present: Is fired when the properties contained in org.laptop.Telepathy.ActivityProperties become all non-None. We start tracking an ActivityProperties when a Buddy we track joins/shares an activity, and we know that via the ActivitiesChanged signal in the interface org.laptop.Telepathy.BuddyInfo.
+Future:
+@dbus.service.signal(PRESENCE_INTERFACE, signature="o")
+def ActivityDisappeared(self, activity):
+    pass
+Used by: Shell to display activities in the neighborhood and friends views
+Present: Is fired when the properties contained in org.laptop.Telepathy.ActivityProperties stop being all non-None, and also when the last buddy leaves the activity. A buddy is known to have left an activity when disappears (see BuddyDisappeared) and when the MembersChanged signal in org.freedesktop.Telepathy.Channel.Interface.Group says so.
+Future:
+@dbus.service.signal(PRESENCE_INTERFACE, signature="o")
+def BuddyAppeared(self, buddy):
+    pass
+Used by: Shell to display buddies in the neighborhood and friends views
+Present: Is fired when the properties contained in org.laptop.Telepathy.BuddyInfo become all non-None. We start tracking a BuddyInfo when it appears as online in the signal PresenceUpdate of org.freedesktop.Telepathy.Connection.Interface.Presence.
+Future: Listen contact list channels (Roster in the future) for the contacts we are subscribed to, and track their presence through the SimplePresence interface.
+@dbus.service.signal(PRESENCE_INTERFACE, signature="o")
+def BuddyDisappeared(self, buddy):
+Used by: Shell to display buddies in the neighborhood and friends views
+Present: A buddy is known to have disappeared when PresenceUpdate notifies us it has gone offline.
+Future: Same as BuddyAppeared.
+@dbus.service.signal(PRESENCE_INTERFACE, signature="oos")
+def ActivityInvitation(self, activity, buddy, message):
+    pass
+Used by: Shell to display a new invitation in the frame
+Present: Gets fired when a new channel that communicates with a room becomes ready.
+Future: Should be fired on reception of an incoming channel (TODO: check the API in MC5 for this)
+@dbus.service.signal(PRESENCE_INTERFACE, signature="soos")
+def PrivateInvitation(self, bus_name, connection, channel, chan_type):
+    pass
+Used by: Shell to display an invitation from a non-Sugar XMPP client
+Present: Gets fired when a new channel that communicates with a contact is created.
+Future: Should be fired on reception of an incoming channel (TODO: check the API in MC5 for this)
+@dbus.service.method(PRESENCE_INTERFACE, in_signature="", out_signature="ao")
+def GetActivities(self):
+    pass
+Used by: Shell to display shared activities
+Present: Returns a list of activities cached locally, this list is kept up to date by listening to ActivitiesChanged in org.laptop.Telepathy.BuddyInfo.
+Future:
+@dbus.service.method(PRESENCE_INTERFACE, in_signature="s", out_signature="o")
+def GetActivityById(self, actid):
+    pass
+Used by: at activity startup to know whether this is a shared instance.
+Present: Returns the activity identified by actid from the list mentioned in GetActivities.
+Future:
+@dbus.service.method(PRESENCE_INTERFACE, in_signature="",
+                        out_signature="ao")
+def GetBuddies(self):
+    pass
+Used by: shell to display all buddies in the neighborhood view and to retrieve the contact of a friend.
+Present: returns all tracked buddies, see BuddyAppeared.
+Future:
+@dbus.service.method(PRESENCE_INTERFACE, in_signature="ay", out_signature="o",
+                        byte_arrays=True)
+def GetBuddyByPublicKey(self, key):
+    pass
+Used by: activities to send invites.
+Present: returns one of the tracked buddies, see BuddyAppeared.
+Future:
+@dbus.service.method(PRESENCE_INTERFACE, in_signature="sou",
+                        out_signature="o")
+def GetBuddyByTelepathyHandle(self, tp_conn_name, tp_conn_path, handle):
+    pass
+Used by: shell to get the buddy that offers/receives a file transfer from its contact handle, activities using SugarTubeConnection
+Present: returns one of the tracked buddies, see BuddyAppeared
+Future:
+@dbus.service.method(PRESENCE_INTERFACE, in_signature="", out_signature="o")
+def GetOwner(self):
+    pass
+Used by: shell to represent the buddy icon for the owner, activity to get owner colors for saving to DS
+Present: color, tags and nick are retrieved from GConf, the public key from the owner.key.pub file
+Future: move this to the shell and keep the personal information in all accounts synchronized through MC5
+@dbus.service.method(PRESENCE_INTERFACE, in_signature="", out_signature="so")
+def GetPreferredConnection(self):
+    pass
+Used by: activities to interact with a connection manager, shell to transfer files
+Present: returns the gabble CM if available or the salut one otherwise
+Future: shell and activities should know which is the relevant connection for the current context
+@dbus.service.method(PRESENCE_INTERFACE, in_signature="sssa{sv}",
+        out_signature="o", async_callbacks=("async_cb", "async_err_cb"),
+        sender_keyword="sender")
+def ShareActivity(self, actid, atype, name, properties, async_cb,
+                    async_err_cb, sender):
+    pass
+Used by: activities to become shared publicly or privately
+Present: requests a room from the CM, then requests a text channel and tubes channel on this room
+Future: create a muc tube and publish it to pubsub
+@dbus.service.method(PRESENCE_INTERFACE, in_signature="as", out_signature="")
+def SyncFriends(self, keys):
+    pass
+Used by: shell every time that the local friends list changes
+Present: add local friends to the contact list in the server
+Future: should be the shell process to do what we currently do
+@dbus.service.method(PRESENCE_INTERFACE, in_signature="", out_signature="")
+def RestartServerConnection(self):
+    pass
+Used by: shell when the jabber server name is changed
+Present: disconnects the gabble CM and starts it again
+Future: use the account API in MC5
+Interface org.laptop.Sugar.Presence.Buddy
+@dbus.service.signal(_BUDDY_INTERFACE, signature="ay")
+def IconChanged(self, icon_data):
+    pass
+Used by: avatars aren't used in Sugar as-of-yet
+Present: fired when the buddy avatars are changed and when the local buddy's avatar is changed
+Future: directly use the Avatar interfaces
+@dbus.service.signal(_BUDDY_INTERFACE, signature="o")
+def JoinedActivity(self, activity_path):
+    pass
+Used by: shell to know when the owner has accepted an invitation
+Present: emitted when the buddy joins a valid activity, or an activity the user is in becomes valid
+Future:
+@dbus.service.signal(_BUDDY_INTERFACE, signature="o")
+def LeftActivity(self, activity_path):
+    pass
+Used by: apparently not used
+Present: emitted when the buddy leaves an activity or the activity becomes non-valid
+Future:
+@dbus.service.signal(_BUDDY_INTERFACE, signature="a{sv}")
+def PropertyChanged(self, updated):
+    pass
+Used by: Shell to update the nick, colors and current activity of other buddies
+Present: fired on PropertiesChanged in org.laptop.Telepathy.BuddyInfo
+Future:
+@dbus.service.signal(_BUDDY_INTERFACE, signature='sou')
+def TelepathyHandleAdded(self, tp_conn_name, tp_conn_path, handle):
+    pass
+Used by: apparently not used
+Present: fired when a contact has come online and for the owner when a CM gets connected
+Future:
+@dbus.service.method(_BUDDY_INTERFACE, in_signature="", out_signature="ay")
+def GetIcon(self):
+    pass
+Used by: avatars aren't used as of yet
+Present: retrieved from org.freedesktop.Telepathy.Connection.Interface.Avatars with RequestAvatars
+Future:
+@dbus.service.method(_BUDDY_INTERFACE, in_signature="", out_signature="ao")
+def GetJoinedActivities(self):
+    pass
+Used by: not really used
+Present: returns the activities a buddy is participating. This list is maintained via the MembersChanged signal in the org.freedesktop.Telepathy.Channel.Interface.Group interface of the channel associated to each activity.
+Future:
+@dbus.service.method(_BUDDY_INTERFACE, in_signature="", out_signature="a{sv}")
+def GetProperties(self):
+    pass
+Used by: shell and activities to represent buddies
+Present: returns the cached properties, which are maintained by listening to *Changed signals in org.laptop.Shell.Owner or via PropertiesChanged and GetProperties in BuddyInfo
+Future:
+@dbus.service.method(_BUDDY_INTERFACE, in_signature=
+, out_signature='a(sou)')
+def GetTelepathyHandles(self):
+    pass
+Used by: shell for starting a file transfer with a buddy, and maybe by activities (couldn't verify)
+Present: a dict of contact handles is maintained for each buddy, indexed by CM
+Future:
+Interface org.laptop.Sugar.Presence.Activity
+@dbus.service.signal(_ACTIVITY_INTERFACE, signature="o")
+def BuddyJoined(self, buddy_path):
+    pass
+Used by: etoys
+Present: we know a buddy has joined either by ActivitiesChanged in BuddyInfo when we aren't in this activity, or by GetAllMembers and MembersChanged in org.freedesktop.Telepathy.Channel.Interface.Group if we are already in. We also emit this signal for each buddy in an activity that has become valid.
+Future: BuddyJoined is deprecated by BuddyHandleJoined
+@dbus.service.signal(_ACTIVITY_INTERFACE, signature="ou")
+def BuddyHandleJoined(self, buddy_path, handle):
+    pass
+Used by: shell to keep updated the friends tray, and activities to notify that one more buddy has joined
+Present: see BuddyJoined for current implementation
+Future:
+@dbus.service.signal(_ACTIVITY_INTERFACE, signature="o")
+def BuddyLeft(self, buddy_path):
+    pass
+Used by: shell to keep updated the friends tray, and activities to notify that one more buddy has joined
+Present: we know a buddy has left either by ActivitiesChanged in BuddyInfo when we aren't in this activity, or by GetAllMembers and MembersChanged in org.freedesktop.Telepathy.Channel.Interface.Group if we are already in. We also emit this signal for each buddy in an activity that has become valid.
+Future:
+@dbus.service.signal(_ACTIVITY_INTERFACE, signature="a{sv}")
+def PropertiesChanged(self, properties):
+    pass
+Used by: shell to display shared activities
+Present: fired when ActivityPropertiesChanged in org.laptop.Telepathy.ActivityProperties is fired.
+Future:
+@dbus.service.signal(_ACTIVITY_INTERFACE, signature="o")
+def NewChannel(self, channel_path):
+    pass
+Used by: couldn't find any use of it
+Present: fired when the text and tubes channels get created
+Future: drop it?
+@dbus.service.method(_ACTIVITY_INTERFACE, in_signature="", out_signature="a{sv}")
+def GetProperties(self):
+    pass
+Used by: shell to display shared activities
+Present: returns the cached properties, which are updated by SetProperties for local activities, or by ActivityPropertiesChanged and GetProperties from org.laptop.Telepathy.ActivityProperties
+Future:
+@dbus.service.method(_ACTIVITY_INTERFACE, in_signature="", out_signature="s")
+def GetId(self):
+    pass
+Used by: not used
+Present: returns cached property
+Future: drop?
+@dbus.service.method(_ACTIVITY_INTERFACE, in_signature="", out_signature="s")
+def GetColor(self):
+    pass
+Used by: not used
+Present: returns cached property
+Future: drop?
+@dbus.service.method(_ACTIVITY_INTERFACE, in_signature="", out_signature="s")
+def GetType(self):
+    pass
+Used by: not used
+Present: returns cached property
+Future: drop?
+@dbus.service.method(_ACTIVITY_INTERFACE,
+                     in_signature='os', out_signature=
+,
+async_callbacks=('async_cb', 'async_err_cb'))
+def Invite(self, buddy_path, message, async_cb, async_err_cb):
+    pass
+Used by: activities when the shell calls the Invite method in org.laptop.Activity
+Present: calls AddMembers on the text channel for this buddy
+Future:
+@dbus.service.method(_ACTIVITY_INTERFACE,
+                     in_signature="", out_signature="",
+                     async_callbacks=('async_cb', 'async_err_cb'),
+                     sender_keyword='sender')
+def Join(self, async_cb, async_err_cb, sender):
+    pass
+Used by: activities on resume to join an existing instance
+Present: Create a room (if the activity is local), request a text and a tubes channels, then join the room with AddMembers
+Future:
+@dbus.service.method(_ACTIVITY_INTERFACE,
+                     in_signature="", out_signature="",
+                     async_callbacks=('async_cb', 'async_err_cb'))
+def Leave(self, async_cb, async_err_cb):
+    pass
+Used by: activities when stopping
+Present: closes the text channel, updates the buddies in the activity.
+Future:
+@dbus.service.method(_ACTIVITY_INTERFACE, in_signature="", out_signature="ao")
+def GetJoinedBuddies(self):
+    pass
+Used by: shell for the friends tray, activities t know who is in the activity when it is joined
+Present: returns cached list of buddies in the activity, see BuddyJoined for how this list is maintained
+Future:
+@dbus.service.method(_ACTIVITY_INTERFACE, in_signature="", out_signature="soao")
+def GetChannels(self):
+    pass
+Used by: activities to get a handle to the text and tubes channels.
+Present: returns the text and tubes channels created when the activity was shared or joined.
+Future:
+@dbus.service.method(_ACTIVITY_INTERFACE, in_signature="", out_signature="soa(osuu)")
+def ListChannels(self):
+    pass
+Used by: python activities when joining an existing activity
+Present: same as GetChannels but with more useful info to reduce roundtrips
+Future:
+@dbus.service.method(_ACTIVITY_INTERFACE, in_signature='a{sv}', out_signature=
+)
+def SetProperties(self, new_props):
+    pass
+Used by: local activities to set name, color, tags, etc
+Present: calls SetProperties from org.laptop.Telepathy.ActivityProperties
+Future:
+@dbus.service.method(_ACTIVITY_INTERFACE, in_signature="", out_signature="s")
+def GetName(self):
+    pass
+Used by: not used
+Present: returns cached property
+Future: drop?

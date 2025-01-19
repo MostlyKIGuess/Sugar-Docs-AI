@@ -1,0 +1,58 @@
+Title: Sugar Creation Kit/sck/MAC Ubuntu USB-Stick
+URL: https://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/MAC_Ubuntu_USB-Stick
+--------------------------------------------------------------------------------
+Make an Ubuntu Mac-Boot-stick on the Mac
+Ref:
+http://www.ubuntu.com/download/ubuntu/download
+We would encourage Mac users to download Ubuntu Desktop Edition by burning a CD for the time being. But if you would prefer to use a USB, please follow the instructions below.
+Note: this procedure requires an .img file that you will be required to create from the .iso file you download.
+TIP: Drag and Drop a file from Finder to Terminal to 'paste' the full path without typing and risking type errors.
+1. Download the desired file
+   2. Open the Terminal (in /Applications/Utilities/ or query Terminal in Spotlight)
+   3. Convert the .iso file to .img using the convert option of hdiutil (e.g., hdiutil convert -format UDRW -o ~/path/to/target.img ~/path/to/ubuntu.iso)
+   4. Note: OS X tends to put the .dmg ending on the output file automatically.
+   5. Run diskutil list to get the current list of devices
+   6. Insert your flash media
+   7. Run diskutil list again and determine the device node assigned to your flash media (e.g. /dev/disk2)
+   8. Run diskutil unmountDisk /dev/diskN (replace N with the disk number from the last command; in the previous example, N would be 2)
+   9. Execute sudo dd if=/path/to/downloaded.img of=/dev/rdiskN bs=1m (replace /path/to/downloaded.img with the path where the image file is located; for example, ./ubuntu.img or ./ubuntu.dmg).
+  10.
+          * Using /dev/rdisk instead of /dev/disk may be faster.
+          * If you see the error dd: Invalid number '1m', you are using GNU dd. Use the same command but replace bs=1m with bs=1M.
+          * If you see the error dd: /dev/diskN: Resource busy, make sure the disk is not in use. Start the 'Disk Utility.app' and unmount (don't eject) the drive.
+  11. Run diskutil eject /dev/diskN and remove your flash media when the command completes
+  12. Restart your Mac and press alt while the Mac is restarting to choose the USB-Stick
+Example Run
+Load .iso on Desktop
+Terminal
+hdiutil convert -format UDRW -o ubuntu-10.04.2-desktop-i386.img ubuntu-10.04.2-desktop-i386.iso
+
+Desktop (user)$  hdiutil convert -format UDRW -o ubuntu-10.04.2-desktop-i386.img ubuntu-10.04.2-desktop-i386.iso
+Reading Ubuntu 10.04.2 LTS i386          (Apple_ISO : 0)…
+...............................................................................
+Elapsed Time: 35.947s
+Speed: 19.1Mbytes/sec
+Savings: 0.0%
+created: /Users/(user)/Desktop/ubuntu-10.04.2-desktop-i386.img.dmg
+Desktop (user)$
+Command:
+diskutil list:
+/dev/disk1
+#:             TYPE          NAME                SIZE     IDENTIFIER
+0:     FDisk_partition-scheme                    *2.0 GB   disk1
+1:       Windows_Fat_32      LIVE                 2.0 GB   disk1s1
+Command:
+diskutil unmountDisk /dev/disk1
+Unmount of all volumes on disk1 was successful
+Command:
+sudo su
+password
+cd Desktop
+
+dd if=ubuntu-10.04.2-desktop-i386.img of=/dev/rdisk1 bs=1m
+Command:
+diskutil unmountDisk /dev/disk1
+Unmount of all volumes on disk1 was successful
+Will Not boot on MacBook Pro i7?--
+Satellit
+18:44, 3 March 2012 (EST)

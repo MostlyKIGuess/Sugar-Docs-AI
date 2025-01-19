@@ -1,0 +1,268 @@
+Title: Summer of Code/2016/SugarizerActivitySet
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2016/SugarizerActivitySet
+--------------------------------------------------------------------------------
+Sugarizer Activity Set
+Contents
+1
+About You
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About You
+What is your name?
+My name is Batchu Venkat Vishal, I am a 2nd-year undergrad student from
+International Institute of Information Technology Hyderabad
+(IIITH)
+What is your email address?
+vishal.batchu@students.iiit.ac.in
+Alternate,
+vishalvenkat71@gmail.com
+What is your Sugar Labs wiki username?
+erilyth
+What is your IRC nickname on irc.freenode.net?
+erilyth
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My native language is Telugu, I am fluent in English and speak a bit of Hindi.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I'm located in Hyderabad (Telangana), India.
+I'm planning to work 12:00 UTC - 18:00 UTC on Monday, Tuesday, Wednesday, Thursday, Friday and Saturday and 8:00 UTC - 19:00 UTC on Sundays.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I am new to open source, but I have contributed to some open source organizations which were founded in my college (
+College Fest Website
+(
+https://github.com/felicity-iiith/
+),
+College OSDG website
+(
+https://github.com/OSDG-IIITH
+) ). Sugar Labs and OLPC have amazed me, I have always wanted to do something which would help others learn especially when I think of all the kids out there who are unable to get a quality education. When I stumbled upon SugarLabs I knew it was the way in which I could use my knowledge and help spread educational tools to millions of others out there. Open source is the best way to get exposure and collaborate with lots of others just like us, and get to know about their views and what others think. It's a means by which I can make a difference in the society.
+About your project
+What is the name of your project?
+Sugarizer Activity Set
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using? What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+The project is a full rewriting of a few Sugar apps which will be ported to Sugar Web:
+Moon - Moon is a Lunar phase activity, including upcoming Lunar eclipse information and simulated visual effect during an eclipse.
+Speak - Speak is a talking face for Sugar. It can respond to a wider range of queries from the user.
+Fototoon - Fototoon lets users add comic effects and allows the creation of a collage to their pictures.
+(and more if time permits)
+These activities will be ported using the Sugar Web Framework in order to reach a much larger audience. The Sugarizer/Web apps are available to a lot of children since they are supported by any Web Browser or an XO. This would enable every child to have access and use these activities at their convenience. Children should be able to have the same learning capabilities no matter what platform they are using to run the activities which can be achieved with Sugarizer.
+The main technologies that will be used are HTML5 and Javascript. Understanding Python source code will be required to understand the current versions of the activities so that the activities created on Sugar Web for the Sugarizer should have similar features to the ones right now.
+A few problems I might face during the implementation in javascript:
+Storage of data (audio, images) on the Sugar Web platform.
+Compatibility and adaptability with devices of different sizes(phones, tablets etc) and also touch screen capabilities, if they can be used effectively.
+Browser portability and compatibility.
+Libraries in consideration and methods of implementation:
+Here are some of the libraries I am considering to use for the project to ease the development process. This is not a static list and can change as and when I am implementing the features of the activities.
+speak.js
+or
+mespeak.js
+for text to speech generation in javascript for the ‘Speak’ activity. (GNU GENERAL PUBLIC License)
+Google Translate to generate the audio for given text, also to be used with the ‘Speak’ activity. (This requires us to be online while using the activity but the speech synthesized is of a higher quality).
+masonry.js
+for clean and simple grid layouts for the ‘Fototoon’ activity. (MIT License)
+hammer.js
+[1]
+for recognizing and using touch gestures and multi-touch gestures (if needed). (MIT License)
+draggabilly.js
+for simple draggable interfaces for the ‘Fototoon’ activity.
+Some standard JS libraries I am considering to use:
+jquery
+for a lot of added functionality to javascript
+canvas
+to make drawing a lot simpler on javascript
+These are some libraries that I will look into in order to accelerate the development. I will use an Agile development process also including some iteration and incremental implementation.
+I have downloaded the Moon, Speak and Fototoon xo files and have used them thoroughly to analyze and understand what are the features that each of them provides which I will be implementing. I will try my best to keep the look and feel of the activities to be as similar as possible to the current implementations.
+My timeline:
+Week
+Work Scheduled
+Week 0
+Setup a basic MVC architecture in javascript which can be used by the activities (If needed).
+Compatibility checks of libraries with different devices.
+Setup sample codes using the libraries which can be used in the activities as and when needed.
+Take a look at how touch screen capabilities can improve the user experience on mobile devices.
+Week 1 - 19 May
+Speak Activity:
+Basic UI for the face with eyeballs following the cursor.
+Basic text to speech conversion and use a suitable library for the ‘Type something to hear it’ mode.
+Pitch, rate and language features.
+Number of eyes feature.
+Week 2 - 25 May
+Speak Activity:
+Mouth motion for the face.
+‘Ask the robot’ mode and add some basic AI to respond to users.
+Add the ‘Voice Chat / Chat ’ mode. (basic)
+Add types of eyes which the user can select.
+Add types of mouths which the user can select.
+Week 3 - 1 June
+Speak Activity:
+‘Set face from photo’ feature.
+Improve the AI which runs on the ‘Ask the robot’ mode.
+Improve ‘Chat’ mode and make it functional.
+FotoToon Activity:
+Image upload from journal/local machine.
+Basic box globe(chat box) addition feature and movement lines, enable them to be dragged in the image.
+Full-screen mode.
+Week 4 - 8 June
+FotoToon Activity:
+Save as image option.
+Add other types of globes.
+Add text customization features for text within the different globes.
+Rotation of globes.
+Deletion of globes.
+Add background image for activity.
+Week 5 - 15 June
+FotoToon Activity:
+Reordering of images.
+Slideshow and slideshow with timing modes to view the pictures.
+Save as pdf and movie options.
+Moon Activity:
+Basic UI and moon image.
+Grid view overlay for the image.
+Display information regarding the current state of the moon.
+Week 6 - 22 June
+Moon Activity:
+Shade parts of the moon depending on the day.
+Toggle hemisphere views.
+Save as image option to save the current state of the moon.
+Midterm Evaluations
+Week 7 - 29 June
+Respond to evaluations:
+Depending on the evaluations improve/fix bugs on the activities etc.
+Week 8 - 6 July
+Speak Activity testing and reviews:
+Get detailed feedback on the Speak activity from the mentors.
+Test the activity thoroughly.
+Fix any errors/bugs that I come across.
+Week 9 - 13 July
+FotoToon Activity testing and reviews:
+Get detailed feedback on the FotoToon activity from the mentors.
+Test the activity thoroughly.
+Fix any errors/bugs that I come across.
+Week 10 - 20 July
+Moon Activity testing and reviews:
+Get detailed feedback on the Moon activity from the mentors.
+Test the activity thoroughly.
+Fix any errors/bugs that I come across.
+Week 11 - 27 July
+All Activities testing:
+Ensure the documentation is done properly.
+Do a final test of all the activities.
+Relax a bit as well :)
+Week 12 - 3 August
+All Activities review and evaluation from the Sugar community:
+Ask other members who use these activities on Sugar to review this on Sugarizer and ensure they are satisfied with their experience.
+Start working on a 4th activity if there is time
+Week 13 - 10 August
+Respond to reviews:
+If anything needs to be done after the reviews, I will do it.
+Continue working on a 4th activity if there is time
+Week 14 - 17 August
+Final Activity checks:
+Ensure everything works properly and I am ready to submit my project to google.
+Final Evaluations - 21 August
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I have a strong passion for programming and feel content when I code. I never leave work unattended or halfway through since I feel that not starting the work at all is a lot better than leaving it halfway. I do quite well in other areas as well, my GPA is 9.8/10. I often like to spend time talking to others about their experiences developing something or working for an organization since it helps me learn more about others and how I can improve my ways.
+I don’t have any other commitments this summer apart from this, so spending around 6 hrs a day won’t be a problem at all. I often like to take up leadership and responsibility of work that needs to be done as part of college when we work in groups and always finish work on time or earlier if possible.
+I have started developing the Speak activity in JS and have got the basic features such as eye motion, mouth motion, number of eyes, text to speech, automated bot responses (AIML based) etc working. This is just a starting prototype kind of thing which I will build up on during my project and make it work as similar to the original Speak activity as possible. Here is a link to the
+demo
+.
+I have also fixed quite a few bugs and added some features to Sugar, so I am quite familiar with the development environment used for developing on Sugar and Sugar-Web. I have also tried to make a simple activity on sugar for testing purposes, it's the
+Simon Says game
+. I have worked both with python based activities in Sugar and also with Sugar-Web based projects (musicblocks etc) which is what this project needs in order to port python based activities to web-based activities to be used with Sugarizer.
+Projects I have worked on:
+Trendspace
+- A shopping website made using the web2py framework.
+Cannon Game
+- A 2D cannon shooter game made entirely using OpenGL and C++.
+Adventure Game
+- A 3D survival game made using OpenGL and C++ with models created using Blender.
+Donkey Kong
+- A 2D version of the Donkey Kong game made using Pygame.
+Tangram Game
+- A version of Tangram(Block Puzzle) developed using Cocos2D-JS targeting mobile devices mainly.
+File Transfer Protocol
+- A simple file sharing client using which we can share files, check validity using hashes and index based searching. It uses the TCP and UDP (handling losses) protocols for transfer.
+FPS Shooter
+- A 3D basic first person shooter game made using Unity in C#.
+Box Stacking Game
+- A simple click and drag box stacking game made using Unity in C#.
+I have also worked on a lot of other smaller projects and also do competitive programming, you can take a look at my
+github profile
+and
+codeforces profile
+.
+Here are some screenshots of the games I developed,
+Cannon Game:
+Adventure Game:
+Donkey Kong:
+Tangram Game:
+Box Stacking Game:
+First Person Shooter:
+I use
+my website
+and my blog to share my projects (
+https://github.com/erilyth/My-Website
+). I have used Node.js along with Angular.js to develop the website.
+I often try to follow the principles of “
+DIY
+” (Do It Yourself) and have also worked with electronics and made a few simple robots in the past. My profile on
+instructables.com
+.
+Some of the projects I have made,
+POV Display
+Wall Avoiding Robot
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My answer:
+A lot more students and teachers around the world would get access to  some of the best activities on sugar. These activities can then be used on any device which would make them a lot more handy and useful. Some of the most popular apps on Sugar would now be available to use on any Sugarizer device so they can use them wherever they want at their convenience. This would help students learn at their own pace anywhere they want as long as they have a Sugarizer enabled device. Using the Moon activity sitting outside watching the moon during the night and analyzing it, using the Speak, Fototoon activities to learn while travelling etc will allow users to have a much more thorough and immerse experience of using these activities.
+Lionel Laské:
+Activities in the Sugarizer Activity Set are 3 of most famous Sugar activities. It's very important to have a full experience of Sugar on any device that these activities must be available into Sugar-Web. Plus these activities was proven during deployment to be very attractive for children using Sugar and at least Speak and Fototoon allow them to express their creativity.
+Walter Bender:
+Speak and Fototoons are nice examples of tools that let encourage exploration of narrative. It is central to our pedagogy that we engage learners in constructing and expressing.
+What will you do if you get stuck on your project and your mentor isn't around?
+I will try to see if I can figure it out myself, using the internet (Google, Stackoverflow, Quora etc) or use some books. If this doesn’t help then I will try to seek help from the Sugar community on the IRC or send a mail on the developer mailing list. I would also ask my friends here who have great amounts of knowledge on a wide variety of topics and they could help me sort the problem out.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I have a blog set up accessible from
+my website
+,
+my blog
+. I will be updating the status of the project and anything else related to Sugar over there every week. I will use the IRC to get reviews on my work by others and also learn what I need to improve from others. I will document my code properly and use appropriate commit messages (git) so others can take a look at my work easily. If required, I will also create pages on the Sugar Wiki.
+Miscellaneous
+We want to make sure that you can set up a development environment before the summer starts. Please do one of the following: Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Add a CollabWrapper based Text Editor to Sugar:
+https://github.com/samdroid-apps/collabwrapper/pull/1
+Merged
+Add export matrix feature to Music Blocks:
+https://github.com/walterbender/musicblocks/pull/97
+Merged
+Collaboration Refactoring in Story:
+https://github.com/walterbender/story/pull/4
+Merged
+Save and Load file buttons in Music Blocks:
+https://github.com/walterbender/musicblocks/pull/115
+Merged
+Notification drag to act like a clipboard entry:
+https://github.com/sugarlabs/sugar/pull/633/files
+Merged
+Add icon hover effects:
+https://github.com/llaske/sugarizer/pull/32
+Merged
+And a lot more minor bug fixes and feature requests,
+My contributions to SugarLabs
+If you plan to work on Sugar-Web projects we want to be sure that you're familiar with web technologies, so:
+Clone the
+[2]
+Sugarizer repository
+Using instructions
+[3]
+here
+develop your first Sugar-Web activity
+Send us a screenshot of your new activity executed in Sugarizer
+Describe a great learning experience you had as a child.
+When I was younger I always used to have a negative feeling towards teachers. I used to make fun of them and felt that they come to teach only because they don’t have anywhere else to go. I guess I got these feelings since I didn’t like it when they yelled at us (of course for our own mistakes, but I didn’t realize that then). One day I was called up to teach something to the entire class, it was a topic that I was fairly familiar with so I went up there and started teaching. This is when everything changed, I felt a huge amount of joy and excitement. I realized that teaching is not a profession that is chosen because there is nothing else to choose but because it is probably one of the best things to do! From that point on I have always respected teachers and have always loved to share my knowledge with others, just like teachers do.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Nope, everything is just fine!

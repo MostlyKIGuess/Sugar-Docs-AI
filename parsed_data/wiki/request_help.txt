@@ -1,0 +1,174 @@
+Title: Request help
+URL: https://wiki.sugarlabs.org/go/Request_help
+--------------------------------------------------------------------------------
+Contents
+1
+Requesting help
+1.1
+Method
+1.2
+Example
+2
+on Usage
+3
+on  the Wiki
+4
+on Submitting a bug
+5
+on Releases
+6
+on Distributions
+7
+on Sugar hardware ports
+8
+on Sugar activities
+9
+on Sugar deployments
+10
+on Sugar Labs
+11
+Requesting New Features
+You will find the first place to look for help is in the navigation bar on the left of every page.
+From the drop down menu under Sugar at the top, click on
+Get started
+to review
+Getting Started
+.
+Click on
+Find help
+for an index of Sugar help.
+Follow the link to
+Sugar Labs/FAQ
+(Frequently Asked Questions) to find a compilation of questions and answers indexed in categories.
+Requesting help
+If you can't find your answer, please request one or
+supply one!
+below:
+Please note:
+If you accompany your question with a post to either of these
+mailing lists
+,
+It's An Education Project, IAEP
+(for general) or
+sugar-devel
+(for development-related) questions, you will reach many more Sugar Labs followers who are not currently following changes on this wiki.
+We can later reference the discussion thread in the wiki and also provide a consolidated summary.
+Method
+Click on an
+[edit]
+link next to a topic paragraph below to enter your request or an answer (you will see more instructions on the edit form).
+But first
+, if possible, login or register on the wiki, leave an email address (secured by your login password), and then you can choose to 'Watch' any page on the wiki (such as this one) by clicking the 'Watch tab', and you will receive an email if the page changes.  Plus, others can respond to you privately by using the 'E-mail this user' link in the sidebar of your user page.
+Example
+I find this wiki so hard to navigate - I just want to see the help pages. --
+Inkyfingers
+20:14, 27 October 2011 (EDT)
+At the bottom of this page it is tagged
+Help
+. Please click on the tag and you will be taken to all other pages with the Help Tag.
+There are also links for new questions on the
+Category:FAQ
+pages. Those are pages with the FAQ Tag.
+on Usage
+First, see the help links above.
+I would like to install
+Adobe Flash
+Player in order to access the learn-to-read website www.starfall.com with Browser.  (i) Can the Sugar Browser run the Adobe Flash Player plug-in?  (ii) If so, please modify the YUM instructions from Adobe (copied below) as needed for the Sugar environment.  I'm a Windows user, so please include all necessary Terminal instructions (e.g., to change to the correct directory).  Thanks in advance.
+Installation instructions for the YUM repository definition
+Click the download link to begin installation. A dialog box will appear asking you where to save the file.
+Save the .rpm file to your desktop and wait for the file to download completely.
+In terminal, navigate to the desktop and type # rpm -Uvh <rpm_package_file>. Click Enter. (Note: This must be done as a root user).
+Once the installation is complete, in terminal, type # yum install flash-plugin. Click Enter. (Note: This must be done as a root user).
+To verify the plugin is installed in Mozilla, launch Mozilla and choose Help > About Plug-ins from the browser menu.
+(See
+http://www.adobe.com/products/flashplayer/productinfo/instructions/#section-3
+.) -
+David Kergyl
+23:14, 10 March 2010 (UTC)
+on
+the Wiki
+First, see the
+Wiki Team/Resources
+page.
+on Submitting a bug
+Please report problems or bugs on
+Submit Bugs/Problems page
+.
+on Releases
+First, see these pages:
+Development Team/Release
+,
+0.114/Roadmap
+, and
+Features/Policy
+.
+on Distributions
+First, see the
+Supported systems
+and
+Category:Supported systems
+pages.
+Live CD in Spanish
+Purport: I see as one of the selling points of Sugar that a non-expert user can use computers "off the bat".  It has been reported to me that currently the LiveCD requires some tweaking at startup to adjust it to a given locale, which I feel is to ask too much precisely from users that are not skilled.
+Goal: a LiveCD version that is localized in Spanish from startup, with no tweaking required, to be distributable among the Spanish-speaking public.
+Contact: yamaplos at bolinux.org
+on Sugar hardware ports
+First, see the
+Supported systems
+page.
+on Sugar activities
+First, see the
+Activity Team
+pages.
+Hello, We're trying to use the Jukebox Activity to play a CD, is this possible?  We would think so, but how can this be done?  We have tried and tried, and looked and looked around the help pages though cannot find the answer.  This feature would be very beneficial to us.  We very much forward to contributing to the Sugar community.  Any help you could provide would be greatly appreciated!  Best regards,  Andy & Kaitlyn (4 years old) Paullin
+Andy Paullin
+03:36, 17 January 2013 (EST)
+I downloaded Sugar on a Stick and ran it on my computer -- however, the project I'm working with is about the Calculate activity. I found how to download the Calculate activity from your Activities page, however I don't know how to take that downloaded activity and incorporate it into my USB device/environment. So my question is: How can I take a downloaded activity and use it with Sugar on a Stick?
+There are a number of ways to install new Activities into Sugar:
+Using the Browse Activity in Sugar, navigate to the
+Sugar Activity Library
+(
+http://activities.sugarlabs.org
+), find the Activity you want and click the 'Download Now' button.  In Sugar, you should see an alert that counts down the transfer. Once the download is saved, a new alert offers to show the new Activity in your Journal. Clicking the 'Show in Journal' button will take you to a detail view of the <ActivityName>.xo entry.  Clicking the icon at the top left of this view will launch the Activity. The Home view favorites and Journal will show the new Activity installed.
+If the Activity is downloaded to another computer, the downloaded activity is contained in the <ActivityName>.xo file that is saved on the computer that did the download. If you have another USB device, copy that file to the root folder, "/", at the base of your USB device.  Then boot Sugar on a Stick and go to the Journal. When the second USB device is inserted, it should appear in the bottom bar of the Journal. Clicking on the USB device icon will show its contents. Drag the <ActivityName>.xo file to the Journal icon at the far left of the bottom bar.  Then click on the Journal icon and the <ActivityName>.xo entry will display at the top of the Journal. Click the icon for <ActivityName> and it will launch.
+If the downloaded <ActivityName>.xo file is copied to the SoaS USB device, and that device is booted into Sugar, one may use the Terminal activity to unzip the file into the /home/liveuser/Activities folder using these commands:
+cd /home/liveuser/Activities/
+(The /home/liveuser/ path may be substituted with /home/olpc/ on an XO.)
+unzip /mnt/live/<ActivityName>.xo
+(The /mnt/live/path-to-.xo may be substituted with an accessible <ActivityName>.xo path.)
+The Activity will appear in the Home view favorites, and after it has been launched, it will appear in the Journal.
+According to this review,
+Scratch
+requires some setup in Terminal:
+... Scratch lacks Sugar integration but it does have the benefit that you can store and retrieve Scratch in file folders which the user can setup. Unfortunately this does require some help with setting up files under Linux and giving the user write permission on those files. The plus side of all of this is that the user can read and write to a USB memory stick and share Scratch files with Scratch on other computers....  Rated 4 out of 5 stars by Bill on February 28, 2010
+Is this correct?  Is such setup also required to use the Scratch included on the Blueberry SoaS?  If so, please add a wiki section containing specific instructions for performing this setup in Terminal.  The Scratch activities page should also link to the instructions. -
+David Kergyl
+16:36, 11 March 2010 (UTC)
+Please add a Scratch activity page on the Sugar Labs wiki, with a link to
+Scratch
+.  --
+David Kergyl
+21:55, 13 March 2010 (UTC)
+All users can create a page in our wiki, see this
+guide page
+. In this case, I've created a pending page just by entering the internal link syntax
+Activities/Scratch
+.  Users may also move pages to adjust the name or location. --
+FGrose
+03:08, 14 March 2010 (UTC)
+on Sugar deployments
+First, see the
+Deployment Team
+pages.
+on Sugar Labs
+See the
+Sugar Labs
+page. Sugar Labs was created to provide a mechanism for supporting the Sugar community of volunteers. These volunteers are engaged in a variety of activities: some are writing software to improve Sugar; some are porting Sugar to new platforms; some are developing new activities that run in Sugar; some are helping to debug Sugar and help with quality assurance; some are writing documentation for Sugar developers and for those who use Sugar in the field; some are developing new scenarios for learning with Sugar; some are using Sugar and reporting upon their experiences to the community; and some are providing help and support.
+Since we started Sugar Labs, we have been receiving a number of requests for help: porting Sugar to new distributions; tuning Sugar on a specific hardware platform; developing specific Sugar activity; helping with support in specific deployments, etc. Please use this page both to make requests and respond to requests for help.
+Requesting New Features
+If you want more out of Sugar,
+Please visit
+Request New Features
+or
+Wish list
+.

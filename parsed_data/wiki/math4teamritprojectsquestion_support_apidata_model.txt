@@ -1,0 +1,174 @@
+Title: Math4Team/RIT/Projects/Question Support API/Data Model
+URL: https://wiki.sugarlabs.org/go/Math4Team/RIT/Projects/Question_Support_API/Data_Model
+--------------------------------------------------------------------------------
+Contents
+1
+Data Model
+1.1
+Table Dictionary
+1.2
+Questionnaire
+1.3
+Question
+1.4
+Answer
+1.5
+AnswerType
+1.6
+Survey
+1.7
+Response
+1.8
+School
+1.9
+Person
+2
+Comments
+Data Model
+Here is a potential data model: (It was built for a corporate medical department's medical records. I've already renamed Clinic and Provider to School and Teacher.)
+Table Dictionary
+Questionnaire
+A collection of questions that might be used in a Survey, Quiz, Exam, etc., or when its key appears in the Category field, a group, class, or category of Questionnaires (a recursive entity)
+Question
+A problem seeking an answer
+Answer
+A potential solution to the problem
+AnswerType
+The class of answer suitable for the problem or question
+Survey
+An event in time instance, at which Answers to Questions or problems are gathered. Survey events can reference other surveys, such as follow-up Surveys (a recursive entity).
+Response
+An event in time instance, at which the Student provides an answer to a question on a Survey or Quiz, etc.
+School
+An organization
+Person
+An individual, such as a Teacher, Student, etc.
+Questionnaire
+A collection of questions that might be used in a Survey, Quiz, Exam, etc.
+,
+or when its key appears in the Category field making a recursive entity,
+a group, class, or category of Questionnaires
+ID
+primary key
+Title
+Short name for questionnaire
+Category
+Category ID, the ID of a Questionnaire group, class, or category of Questionnaire (the parent of a recursive relationship with other Questionnaire records)
+Notes
+Description, Image link, rich format data
+StartDate
+Effective date for this instance of the Questionnaire
+EndDate
+Expiry date of this instance
+Question
+A problem seeking an answer
+ID
+primary key
+Questionnaire
+ID of parent questionnaire
+Sequence
+number to order question among questions on questionnaire
+Question
+text problem statement
+AnswerType
+ID of the suitable answer type
+Jump
+conditional number to redirect survey question sequence
+Notes
+Description, images, rich format data
+StartDate
+Effective date of this question instance
+EndDate
+Expiry date of this instance
+Answer
+A potential solution to the problem
+ID
+primary key
+Question_ID
+ID of parent question
+Sequence
+number to order answer among answer choices for question
+Answer
+text of solution or answer
+Notes
+Description, images, rich format data
+StartDate
+Effective date of this answer instance
+EndDate
+Expiry date of this instance
+AnswerType
+The class of answer suitable for the problem or question
+ID
+primary key
+AnswerType
+text for the class of answer. Example, text, numeric, multiple choice, tabular, yes/no, etc.
+Category
+ID for class of answer type
+Survey
+An event in time instance, at which Answers to Questions or problems are gathered. Survey events can reference other surveys, such as follow-up Surveys
+(a recursive entity).
+ID
+primary key
+BaseID
+ID of parent Survey. Used to identify families of Surveys, such as version
+School
+ID of the School or organization sponsoring this Survey instance
+Teacher
+ID of Person extending this instance of the survey or quiz
+Student
+ID of the Person taking this instance of the survey or quiz
+Notes
+Description, images, rich format data for this instance of the survey or quiz
+DateTime
+DateTime that this Survey instance was taken
+ReviewDate
+Date that this Survey instance was reviewed by the Teacher
+ChangeDate
+Date that this instance of the Survey was changed (reasons are provided in the Response record).
+Response
+An event in time instance, at which the Student provides an answer to a question on a Survey or Quiz, etc.
+ID
+primary key
+Answer_ID
+ID of selected answer (when one of a choice)
+Question_ID
+ID of the Question instance for this Response instance
+Survey_ID
+ID of the parent Survey or Quiz instance for this Response
+Response
+text of Response
+ResponseValue
+numerical Response
+Notes
+Description, images, rich format data for this Response
+ChangeDate
+DateTime that this instance of the Survey was changed,
+i.e.,
+initial response, update by Student, override by Teacher, etc.
+ChangePerson
+ID of Person who changed this Response instance,
+i.e.,
+Student, Teacher
+ChangeReason
+text reason this Response instance was changed,
+i.e.,
+initial response, update by Student, override reason
+School
+An organization
+ID
+primary key
+School
+School or organizational name
+Person
+An individual, such as a Teacher, Student, etc.
+ID
+primary key
+Last Name
+Family name for Person
+First Name
+Primary name for Person
+Comments
+Authorship and history attributes for Questions could be provided through a new Person ID field in Questionnaire and recursive links.
+For reference, here is the Moodle
+Question database structure
+.

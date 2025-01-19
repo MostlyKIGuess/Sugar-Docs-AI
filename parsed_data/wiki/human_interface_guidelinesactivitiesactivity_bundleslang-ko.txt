@@ -1,0 +1,115 @@
+Title: Human Interface Guidelines/Activities/Activity Bundles/lang-ko
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/Activities/Activity_Bundles/lang-ko
+--------------------------------------------------------------------------------
+번역근원
+HIG-Activity Bundles
+원문
+english
+|
+español
+|
+한국어
++/-
+차이
+←
+활동 기초
+활동 번들
+보안
+→
+Contents
+1
+활동 번들
+1.1
+번들 유형
+1.2
+번들 버전
+1.3
+활동 이름짓기
+1.3.1
+동사로서의 활동
+1.3.2
+의미있는 이름짓기
+1.3.3
+신뢰
+1.4
+활동 태그
+1.5
+활동 번들 얻기
+1.5.1
+암묵적 번들 공유
+1.5.2
+명시적 번들 공유
+1.6
+번들이 보관되는 곳은?
+1.7
+번들 지우기
+활동 번들
+Referencia API
+활동 번들 기술적 사양
+API Reference
+Activity Bundle technical specifications
+활동은 번들 형태로 존재합니다. 이 번들은 어느 한 활동을 구성하는 연관 파일들의 그룹입니다; 소스코드, 이미지, 문서 등. 활동의 배포와 설치는 해당 활동 번들을 노트북에 전송하는 것으로 완료됩니다. 번들 내에 보관된 속성들은 버전과 제작자 등의 정보입니다.
+Activities will exist in the form of bundles. These bundles will manifest as groups of related files—source code, images, documentation, etc—that compose a given activity. As self-contained modules, the distribution and installation of an activity distills to a simple transfer of the activity bundle to a laptop. Properties stored within a bundle provide information about its version and its creator(s).
+번들 유형
+OLPC는 laptop.org 또는 국가의 공식 단체가 테스트하고 검증한, 서명된 "공식" 번들 타입을 지원합니다.
+OLPC will support a signed "official" bundle type. Signed bundles have been tested and verified by an authority such as laptop.org or any other organization through which children obtain bundles in some official capacity, such as a country's official repository. This system may support a trickle-up metaphor through which locally signed bundles propagate upward to higher authorities, allowing wider distribution of newly created activities and content to other regions and countries.
+개인용 번들은 공식적 검증을 거치지 않고, 제작자와 수정자들의 워터마크가 첨부된 것으로, 어느 한 노트북 공동체에 속한 개인이 만들거나 수정한 것입니다.
+Personal bundles, on the other hand, have been created or modified by an individual among the laptop community. A personal bundle isn't signed or verified by an official source; instead, it is signed or watermarked with the identity of the individual who modified it. This watermark remains attached to the bundle throughout its lifetime. As others modify or change it, their own watermark should be appended to the bundle. This gives a personal bundle some sense of origin and a means through which it is possible to give credit or responsibility.
+번들 버전
+번들은 자동적으로 해당 네트워크 내의 최신 버전으로 업그레이드 됩니다.
+Bundles always automatically update to the latest officially signed version present within the laptop's network. If a child's friend has a more recent version of a signed bundle, Sugar will download that newer version and update the laptop automatically. This requires bundles to communicate a unique bundle identifier and version, as well as their signature if they have one.
+활동 이름짓기
+OLPC는 창조를 통한 표현을 고무하는 플랫폼 제공을 지향합니다. 이에 따라, (응용프로그램이 아니라) 활동은 오브젝트가 만들어지는 주요 도구를 제공합니다. 가능하면, 활동의 이름은 "귀하가 하는 일"로서 그 기능을 강조하기 위해,  설명적인 동사나 동사 유형으로 지어야 합니다.
+OLPC aims to provide a platform which encourages expression through creation. In support of this idea, activities — not applications — provide the main tools through which objects are created. Whenever possible, activities should be named with descriptive verbs, or suitable pseudo-verbs, in order to emphasize their function as
+things you do.
+동사로서의 활동
+활동
+은
+동사입니다. <내 친구들과 <활동>"은 말이 됩니다.
+Activities
+are
+verbs. As such, the phrase "<activity> with my friends" should make sense. For instance "draw with my friends," "browse with my friends", "chat with my friends" and "edit text with my friends" all make much more sense than "text editor with my friends." Similarly, "Tam-tam with my friends" reads as an action, even though you may have never heard "tam-tam" before. Treating the activity as an action (verb) and not as a thing (noun) maintains the interaction model that the laptop tries to embody.
+의미있는 이름짓기
+플랫폼이 지원할 활동의 유형이나 종류를 제한하지는 않습니다.
+Of course, we don't mean to impose arbitrary limits on the types and number of activities that the platform has the potential to support. Just because there is a "Draw" activity doesn't mean that one must either find a synonym or come up with a different activity. (However, note that the former can be a very reasonable approach, as a synonym might actually have subtly different connotations which better support the concept of the activity. For instance, drawing and painting typically imply two very different types of media, dry and wet respectively. Much is gained when these types of differences are reflected in the nature of the activity, and are not simply arbitrary.) In modern language,
+verbification
+has become common practice in speech. Many words function as both nouns and as verbs, indicating the action of creation and the resulting product of that action; additionally, many nouns can also function as verbs. For instance, you've probably "Googled" something in the past few days. Many nouns, not just proper ones, can be used in a similar manner.
+"손가락 페인트"와 같은 복합어도 괜찮습니다. 그러나, "슈퍼" "울트라" "캡숑" "짱" 등 의미없는 강조어 사용은 자제해 주십시오.
+Additionally, while straightforward names can simplify the interface and provide a means of understanding an activity before entering it, compound names may also be used. Providing a modifier, such as an adjective, can personalize the activity and provide that extra bit of information which differentiates it from similar ones. For instance: "Finger Paint." However, please refrain from resorting to simple one-upsmanship in the form of "Super Sketch" or "Ultra Paint," especially if another activity already uses the modified base. Such names only serve to indicate superiority, and don't provide any useful feedback about the particular activity which makes it unique or useful. Providing a meaningful name goes a long way to making the activity intuitive and enticing to the children using it.
+신뢰
+귀하의 이름이나 귀하가 속한 회사 이름을 넣는 일은 패해 주십시오.
+Finally, please avoid integrating the name of yourself or of your company into the name of your activity. As an open-source initiative we fully believe in giving due credit, but the name of your activity doesn't provide the appropriate place for accreditation.
+활동 태그
+아직 지원되지는 않지만, 활동의
+.info
+파일은 일련의 관련 태그들을 요구합니다.이 태그들은 특정 활동에 대한 부가 정보를 제공하며, 검색 기능을 강화합니다.
+Though not yet supported, the .info file for an activity will require a list of associated tags. These tags provide additional information about the context of a specific activity, enabling powerful searching on the Mesh for generalizations or categories of activities. For instance, searching for "game" should return the "Memory," "Chess," and "Tic-Tac-Toe" activities. Likewise, searching for "drawing" should return any activities that relate to drawing, painting, sketching, etc.
+활동 번들 얻기
+공식 서명된 번들은 메쉬 이웃들 간에 자유로이 배포되어야 합니다.
+Officially signed bundles should spread freely across the mesh Neighborhood; their information and the bundles themselves should be readily available to anyone within communication range. Installation and updates should occur implicitly.
+While personal bundles are slightly more restricted, current thinking would limit distribution of personal bundles amongst a child's friends only. This should help limit the destructive power of a malicious bundle from spreading across the Neighborhood, yet still allow people to open up their bundle source code, improve it and share it explicitly.
+암묵적 번들 공유
+암묵적 번들 공유는 네트워크가 허용할 때 아이의 노트북에 설치된 서명된 번들을 자동 업데이트합니다. 아이가 메쉬 이웃에서 재미난 활동을 발견하고, 참여하게 되면, 자동적으로 해당 활동이 다운로드 및 설치됩니다. 또한, 해당 모임에 참여하기 전에 설치된 옛 버전은 새 버전으로 교체됩니다. 물론, 해당 활동이 시작되기 전에 다운로드 시간이 필요하며, 시작까지의 남은 시간이 시각적으로 표시됩니다.
+Implicit bundle sharing will automatically update signed bundles on a child's machine when the network allows. If a child finds an interesting activity running on the mesh Neighborhood, she will implicitly download and install the activity on her own machine when she joins that activity. Additionally, this provides a means of obtaining completely new bundles, since she doesn't necessarily need to have an older version of the bundle installed prior to joining. Of course, since there will likely be some download time before the activity can begin, a visual indication of the progress will appear during launch.
+In cases where a child joins a group running an older version of an activity she has a newer version of, the same will happen. Her laptop will silently download the older version of the activity so that when she joins, her active instance is service and communication level compatible. However, in such instances the old version will not overwrite the newer version, and will instead remain a transparent detail for compatibility reasons. The newer will remain present on her machine, so that future activities which she initiates begin with the new version, ultimately encouraging the spread of newer bundles.
+This article is a
+stub
+. You can help Sugar Labs by
+expanding it
+.
+We might need some kind of warning when joining an activity on the mesh whose bundle is not signed...
+명시적 번들 공유
+일부 개인용 번들은 명시적 공유가 요구되는데, 많은 아이들이 다양한 새롭거나 변경된 소프트웨어 번들 버전들을 편집하고 재배포하기 때문입니다; 그러한 수정의 자동 배토는 안전하지도 효율적이지도 않습니다.
+In the case of personal bundles, explicit sharing will be required. This results from the fact that many children may ultimately edit and redistribute new and altered bundle versions of a variety of software; automatic distribution of such modifications is neither secure nor efficient.
+In these cases, activities may be posted to private Bulletin Boards, or distributed directly to a child's friends through the drag and drop metaphors used elsewhere in the interface.
+번들이 보관되는 곳은?
+저널은 해당 노트북에 있는 모든 번들의 기록을 유지합니다.
+The Journal keeps a record of all bundles on the laptop. Installing a bundle creates an entry that indicates who the child downloaded the bundle from and its version. If she installed the bundle through the joining of an activity, the activity entry in the journal will reference the newly updated bundle. Of course, once stored within the journal, the Bundle will be available for activation within the Actions section of the Frame.
+번들 지우기
+저널 상의 다른 아이템들과 마찬가지로 번들은 언제든지 시스템에서 지울 수 있습니다.
+The journal entry for an activity bundle also allows for its removal; it is deleted in the same way one would remove any other item from the Journal.
+←
+활동 기초
+활동 번들
+보안
+→

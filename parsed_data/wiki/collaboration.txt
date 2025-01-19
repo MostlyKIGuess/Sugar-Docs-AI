@@ -1,0 +1,111 @@
+Title: Collaboration
+URL: https://wiki.sugarlabs.org/go/Collaboration
+--------------------------------------------------------------------------------
+Contents
+1
+Parents and kids
+2
+Technologists
+2.1
+Local Collaboration on a Wired Network
+3
+Poet's Guide to Collaboration
+3.1
+Activity Developers
+3.2
+Core Sugar Developers
+3.3
+Collaboration Developers
+4
+Testing
+5
+See also
+Parents and kids
+Collaboration in the Sugar sense is simply helping kids play together (where "play" is our name for the hardest work children do, and the most important way they
+discover
+how the world (physical and social) works).  Kids play together all the time.  They talk, they run, they pretend, they throw balls back and forth.  Sugar supports kids talking and playing and learning together.
+Activities
+- Activities, in the Sugar world, are the programs and applications on which kids learn.
+Neighborhood
+- Kids find people to play with in their neighborhood view.  Who will be in my kids neighborhood?
+Once we show children
+how to use Sugar collaboration
+, that is all there is to the mechanics when everything works.
+But sometimes there are problems.
+Technologists
+(School/Camp IT person, Tech Savvy Teacher, and others)
+There are two routes for collaboration.
+You can collaborate "locally" without a server. If you remove the name of the Jabber server from your settings, or it fails to connect for some reason, then Sugar tries to connect locally. Sugar machines will be able to collaborate if they are connected to the same wireless network or wired port.  It will not work over your entire LAN, you have to be on the same segment.
+You connect up to a Jabber Server.  You can either use one on the Internet or you can install your own as part of an XS server installation.  To use a Jabber server, go to 'My Settings' -> Network and put in the name of the server you want to use.
+Local Collaboration on a Wired Network
+To turn on local collaboration go to 'My Settings' -> Network and remove the server name.  A blank setting will enable local collaboration.
+In many situations, computers in the same computer lab will automatically find each other.
+Bug
+#1113
+is an example of a situation where this didn't work. Can we give people some guidance on how to make local collaboration work?
+Poet's Guide to Collaboration
+----------------------------------------------
+|
+|             Activities
+|
+ ----------------------------------------------
+|
+|           Presence Service
+|
+ ----------------------------------------------
+|
+|               D- bus
+|
+ ----------------------------------------------
+|
+|             Telepathy
+|
+----------------------------------------------
+|
+|         Telepathy-gabble 
+|
+ ----------------------------------------------
+|
+|             XMPP      
+|
+ -----------------------------------------------
+|
+|           Jabber Server  
+|             
+ ----------------------------------------------
+Activity Developers
+Presence Service
+- The Presence Service is a set of APIs which allow developers to enable collaboration features on Sugar.
+That is all you need to know.  The rest is under the covers.
+Core Sugar Developers
+Telepathy
+- Telepathy is another set of APIs which has a 'plug-in' design so that various communication protocols can be 'plugged-in' without affecting what the user of activity developers sees.
+Collaboration Developers
+Telepathy-gabble
+- Telepathy-gabble is a plug-in backend that uses the XMPP protocol to talk to a server.
+XMPP
+- Extensible Messaging and Presence Protocol (
+XMPP
+) is an open, XML-based protocol originally aimed at near-real-time, extensible instant messaging (IM) and presence information. (buddy lists)
+XMPP Server
+- At the bottom to the stack is a XMPP server.  These are often referred to as jabber servers because the first popular XMPP Server was called jabberd.
+Testing
+To test collaboration using a single development system, you can run multiple Sugar instances on the
+same machine:
+Create a test user
+user$ sudo useradd -m test1
+Become the test user. If $DISPLAY is not preserved, you may have to set it manually. And you may have to unset XAUTHORITY.
+user$ sudo -i -u test1
+test1$ export DISPLAY=:0
+test1$ unset XAUTHORITY
+Copy-paste the output of "xauth list" ran from your regular account
+test1$ xauth add giskard.codewiz.org/unix:0  MIT-MAGIC-COOKIE-1  9be6c305b20ee7803a7280da553f170e
+This requires your home to be world-accessible
+test1$ cd ~user/src/sugar/sugar-jhbuild
+test1$ ./sugar-jhbuild run sugar-emulator
+Repeat the above procedure as many time as desired to test N-way collaboration
+See also
+OLPC:Collaboration Central
+OLPC:Activity sharing
+OLPC:Tubes
+OLPC:Collaborative Discovery

@@ -1,0 +1,153 @@
+Title: 0.88/0.87.7 Notes
+URL: https://wiki.sugarlabs.org/go/0.88/0.87.7_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.87.7 Release Notes
+1.1
+Announcement
+1.2
+Compatibility
+1.3
+Update to this version
+1.4
+Glucose modules
+1.4.1
+Updated
+1.4.2
+Not updated
+1.5
+Glucose news
+1.5.1
+sugar
+1.5.2
+sugar-toolkit
+1.5.3
+sugar-datastore
+1.5.4
+sugar-artwork
+1.6
+What is new for packagers
+Sucrose 0.87.7 Release Notes
+Announcement
+This is our 0.88 Release Candidate! The Features have been landed, we are in UI and String freeze and only critical bug fixes can be landed by now. Many thanks to the community members that helped in the last days to clean up the review queue and fixing bugs! Now it is time for another big round of testing and fixing the bugs found. Let's go and make this release a big success!
+See the
+0.88/Roadmap#Schedule
+for more details.
+Thanks everyone for your great contributions!
+Compatibility
+There are no known compatibility issues, as of today.
+Update to this version
+Please use the instructions for your distribution (SoaS, Fedora, Ubuntu, Debian etc) of choice to upgrade to this release. Note that it may take a while until the release is packaged for each distribution. Please stay tuned for distribution specific announcements and watch out for updates at
+Get Sugar
+.
+Glucose modules
+Updated
+sugar-toolkit 0.87.8
+sugar 0.87.8
+sugar-datastore 0.87.4
+sugar-artwork 0.87.3
+Not updated
+sugar-base 0.87.3
+etoys 4.0.2340
+Etoys 114
+sugar-presence-service 0.87.1
+hulahop 0.7.1
+Glucose news
+sugar
+datastore.log moved away
+#1807
+---
+Aleksey Lim
+Clean up some .xoj registry code
+#1098
+---
+Aleksey Lim
+Enable maintainer mode #1662 ---
+Bernie Innocenti
+jarabe.journal.model defaults to invalid order_by=-mtime
+#1653
+---
+Sascha Silbe
+Use evdev as the default keyboard model
+#1717
+---
+Sayamindu Dasgupta
+Do not use not valid symbols for preferable activities gconf keys
+#1811
+---
+Aleksey Lim
+Add support for OLPC Powerd
+#1774
+---
+Paul Fox
+View source functionality should be more robust against buggy activities
+#1775
+---
+Raúl Gutiérrez Segalés
+Logging cleanup failure prevents session start
+#1720
+---
+James Cameron
+Do not transfer ownership while copying objects
+#1688
+---
+Aleksey Lim
+Keep preferable activities
+#1493
+---
+Aleksey Lim
+Display a message when an activity fails to start
+#1447
+---
+Aleksey Lim
+sugar-toolkit
+autogen.sh: pass --enable-maintainer-mode to configure ---
+Bernie Innocenti
+Check the private key syntax to detect corrupted files
+#1568
+---
+Sascha Silbe
+Log saving errors in activities
+#1703
+---
+Tomeu Vizoso
+Removes the use of O_SYNC on logs
+#1656
+---
+James Cameron
+Do not fail while closing object less activities
+#1714
+---
+Aleksey Lim
+Override canvas property in Activity class
+#1795
+---
+Aleksey Lim
+Display a message when an activity fails to start
+#1447
+---
+Aleksey Lim
+sugar-datastore
+Rebuild index on migration
+#1787
+---
+Aleksey Lim
+Do not remove internal metadata fields while rewriting object
+#1813
+---
+Aleksey Lim
+Auto detect mime type in copy-to-journal
+#586
+---
+Tomeu Vizoso
+sugar-artwork
+autogen.sh: pass --enable-maintainer-mode to configure ---
+Bernie Innocenti
+Add icons for data upload/download Author ---
+Gary C Martin
+What is new for packagers
+sugar: cjson -> simplejson: Sugar moved back to use simplejson instead of cjson. cjson has a big bug dealing with slashes, this is a significant long-term bug and upstream has not been responsive other than acknowledging it. This bug breaks journal entry bundles
+#1553
+.
+sugar-toolkit: the python module dateutil has been added. Please add this to the requires (i.e. in Fedora python-dateutil).

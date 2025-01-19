@@ -1,0 +1,73 @@
+Title: Features/Notification Urgency
+URL: https://wiki.sugarlabs.org/go/Features/Notification_Urgency
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Benefit to Sugar
+5
+Scope
+6
+UI Design
+7
+How To Test
+8
+Dependencies
+9
+Contingency Plan
+10
+Documentation
+11
+Release Notes
+12
+Comments and Discussion
+Summary
+Add 3 levels of urgency for notifications.
+Owner
+Name:
+Sam P.
+Email: samDELETEME@sugarlabs.org  (You need to get rid of the DELETEME)
+Current status
+Targeted release: 0.104
+Last updated: 10/Aug/2014
+Percentage of completion: 50% - needs discussion
+Benefit to Sugar
+The ability to have silent notifications - e.g.: auto activity update notifications
+Compatibility with the rest of the Linux desktop world
+Scope
+It is a small change that does not break compatibility.
+UI Design
+Normal notifications remain unchanged
+Low priority notifications get no flashy icon popup corner thing - but they still get a place in the frame
+Critical notifications get a flashy corner thing like this:
+How To Test
+Run and change this in Pippy:
+import dbus
+BUS_NAME = 'org.freedesktop.Notifications'
+OBJ_PATH = '/org/freedesktop/Notifications'
+IFACE_NAME = 'org.freedesktop.Notifications'
+bus = dbus.SessionBus()
+notify_obj = bus.get_object(BUS_NAME,OBJ_PATH)
+notifications = dbus.Interface(notify_obj,IFACE_NAME)
+
+# 0=low, 1=normal, 2=critical
+# CHANGE ME!!!
+urgency = 1
+
+notifications.Notify("Software Update", 0, "", "New activities are available!", "Please check your activities list", [], {'x-sugar-icon-name': 'module-updater', 'urgency': urgency}, -1)
+Dependencies
+None!
+Contingency Plan
+People are sad :(
+Documentation
+The standard:
+https://developer.gnome.org/notification-spec/#urgency-levels
+Release Notes
+Added notification urgency functionality.
+Comments and Discussion
+https://github.com/sugarlabs/sugar/pull/393

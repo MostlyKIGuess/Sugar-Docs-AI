@@ -1,0 +1,169 @@
+Title: Summer of Code/2010/Adaptive UI Framework for Different Age Groups
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2010/Adaptive_UI_Framework_for_Different_Age_Groups
+--------------------------------------------------------------------------------
+Contents
+1
+About me
+2
+About my project
+3
+Myself and the community
+4
+Miscellaneous
+4.1
+TODO
+About me
+1. What is your name?
+Mohan Raj Rajamanickam
+2. What is your email address?
+google id: mohanraj . cit
+3. What is your Sugar Labs wiki username?
+Mohanr
+4. What is your IRC nickname?
+mohanr
+5. What is your primary language?
+English for all verbal, written communication. (Mother tongue: Tamil)
+6. Where are you located, and what hours do you tend to work?
+University of British Columbia, Vancouver, Canada. I am a morning person and usually not very productive after 9pm.
+7. Have you participated in an open-source project before? If not, why do you want to work on an open-source project this summer?
+Regrettably, I have not contributed code so far. My contributions have been limited to a number of bug reports and ideas spread across several projects. This limitation has been a constant source of frustration. My deep desire to contribute and be part of the community would often turn to guilt, especially when I would be awed by the quality of some feature in the Open-source software stack I use every day (Linux has been my Primary OS since 2002).
+I was instrumental in introducing Linux in my undergraduate CS department back in 2001. I have been wanting to contribute to Open-source ever since. I had dreamed of making significant contributions when I quit my corporate job and joined a non-profit as their IT manager. But my time there was spent in developing and deploying the IT infrastructure using 100% Open-source software stack (Plone, Django, Zope, MySQL, Apache, TeX, Ubuntu).
+I am back in school now doing my Computer Science Masters in Human Computer Interaction and I think this summer, this SoC could enable me to finally contribute to the community in the capacity of a developer/designer.
+About my project
+1. What is the name of your project?
+Adaptive UI Framework for Different Age Groups
+2. Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+At no other phase in the life of a human being does the cognitive and physical abilities attain such a rapid growth as during childhood. Yet we expose a single interface for all children from the age of 5 to 12 (and beyond) though their cognitive and motor skills have changed enormously during that period. Can we design UI targeted at younger children so that it improves their experience with the system ? Can UI designed specifically for different age groups facilitate learnability of the UI and the system features that it abstracts, especially as they move from one age group to another ? (culminating in a desktop, for e.g. from Ubuntu-sugar-remix to Ubuntu).
+Scope
+: We would need to architect and build a UI abstraction layer that would enable users of different age groups to experience the system differently. This should be achieved requiring minimal change on part of the rest of the code base, especially activities. But a UI abstraction framework is a lot of work, for something that we aren't even sure we need. Hence I could start paving way for what could eventually become a framework, but still manage to contribute something significant and useful for the community in these 3 months. Lets take the feature of discoverability of context menus and keyboard shortcuts. I could work on bringing this feature into Sugar as part of GSoC. But do younger children need context menus or keyboard shortcuts ? Can the clues for enhancing discoverability of such features lead to confusion for those who dont need it ? So depending upon the age of the user using the system (obtained from user profile), the system could choose to expose clues to certain features or not. (We can even think about exposing/hiding certain features depending upon age. But I am hesitant to go in that direction unless there is a clear reason/evidence to do so). I will limit my target groups to two. The exact age ranges of the two groups can be fixed after a bit of exploration (6-10 and 11-15 ? Work by
+Allison Druin and Ben Bederson
+seems to suggest that Children start thinking differently after 10). I believe that this part can be done in 3 months. I believe that this effort could also evolve to help
+senior citizens
+eventually.
+Maintainability
+: One concern that I have and is shared by
+TimClicks
+(via #sugar) is about the maintenance challenges. There is a wide range of approaches we can take to implementing the UI abstraction layer. At one end of the spectrum we have the simple but cumbersome solution wherein each target system feature is tagged manually according to the target age, for example. But this would eventually lead to a maintenance nightmare, requiring changes whenever a relevant part of the system (for e.g., glucose) is changed. On the other end we have a complex elegant system that categorizes features automatically. This again I think is not realistic to achieve. What could work is a system that takes the middle ground. I could start off from the manual end of the spectrum with a very limited set of features (e.g. context menu and/or keyboard shortcuts) and get it done within GSoC. After GSoC, we could evolve the system crystallizing design guidelines based on user studies and using it to slowly push the system further along the spectrum and bringing more of the system under the abstraction layer along the way.
+Similar efforts
+: Some of the more popular programs have started developing a version for children. For example Openoffice has
+Ooo4kids
+. Inkscape is considering a
+version targeted at children
+. But these efforts are different from this proposal in that they were built for adults and are now being re-designed for children. Still, I think that there is an opportunity for learning from these and similar efforts.
+3. What is the timeline for development of your project?
+This work will be part of my Masters thesis. I would hence be working on the project for the next 1.5 years. My thesis supervisor has extensive experience in designing systems targeted at specific user groups (senior citizens, people with various physical/cognitive disabilities).
+May 1 - May 23
+:
+Familiarize with the code base and the developers behind it.
+Back ground research of prior work concerning technology and children.
+It would be great if I can conduct an informal user study at a deployment center observing children from the 2 target age groups using the system.
+Week 1
+May 23 - 30
+Brainstorm different designs based on observations and community knowledge. Form sample mockups for the different age groups. Improvise with feedback from mentor & community. These principles would guide the rest of my GSoC work.
+Week 2
+May 30 - June 6
+Start building the necessary support structures in the core system for Adaptive UI.
+Week 3
+June 6 - 13
+Continue building support structures for Adaptive UI. Code review and commit. No changes to experienced system behavior at this point.
+Week 4
+June 13 - 20
+Start work on improving discoverability of keyboard shortcuts.
+Week 5
+June 20 - 27
+Code review and commit. Blog. System should now have enhanced age agnostic discoverability of keyboard shortcuts.
+Week 6
+June 27 - July 4
+Hook up the keyboard shortcuts discoverability feature with the Adaptive UI mechanism. Give user the ability to turn-off this hook.
+Week 7
+July 4 - 11
+Code review and commit. System should now have discoverability of Context menu feature depending upon the age of the user.
+Week 8
+July 11 - 18
+Refactoring week. Review all committed code. Refactor, code review and commit. Blog.
+Week 9
+July 18 - 25
+Start work on improving discoverability of keyboard shortcuts.
+Week 10
+July 25 - Aug 1
+Code review and commit.
+Week 11
+Aug 1 - 8
+Hook it up with the Adaptive core.
+Week 12
+Aug 8 - 15
+Finish work, core review and commit.
+Signoff GSoC
+Week 13
+Aug 15 - 22
+Document work. Blog. Put up a presentation summarizing my work and experience so far.
+Week 9 - Week 12 is the safety zone. If everything goes well, I should be able to go through it as planned. Otherwise, I can use this time to finish any pending work from previous weeks.
+Plan and conduct a detailed user study in stages and keep improving the code base based on feedback and observation for the next 1 year.
+4. Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described.
+Over 6 years experience in Python
+I have been working as a software engineer in different capacities for the past 6 years and have been programming in Python for most part of it.
+Worked as a contractor at Google for 1 year 5 months (Python programming)
+Obtained Python readability (Google's internal seal of approval that I can write readable Python code according to their guidelines) from
+Alex Martelli
+Improved quality of code by performing code reviews on daily basis for the team (for about 6 months)
+Passionate about Opensource
+Quit my job as software engineer in an MNC and took up the position of IT manager for a local non-profit organization
+Had the opportunity to fully realize my long-time passion for Open Source Software (OSS)
+Delivered the solutions using exclusively OSS
+Instrumental in the introduction of Linux into the undergraduate CS lab
+Penchant for clean and efficient design
+Won appreciation award for the self-initiative of single-handedly developing a custom test automation framework for streamlining QA
+Received first prize in intra-college software competition
+At the non-profit, managed the development of web applications and increased the number of unique visitors to the website over 30 fold within a year. Saved around 20% in operational costs through streamlining various processes.
+Myself and the community
+1. If your project is successfully completed, what will its impact be on the Sugar Labs community?
+Sugar (& OLPC), I believe, is based on the principles of Constructionism. Discoverability and learnability of the system features with minimal external help hence becomes very important factors. This project will pave way for a framework for improving the discoverability of the features of the system in a customized manner depending upon the individual using the system. I am going to bank upon only one factor: age. But once the framework is mature (~12 months), I can imagine various extensions being developed that take into account other differences: culture, previous experience with technology, physical disabilities.. to name a few. This will immensely improve the system's reach and usability among the millions of children using it every day. This could also enable activity and system developers to target certain features at specific group of users without worrying too much about whether it makes sense to have the feature for all users or whether the UI is getting too cluttered/complicated or if the system is going to suffer from feature creep.. etc.
+TimClicks
+(via #sugar):
+I am really intruiged. I like the idea of sugar growing with the user.
+2.  Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+I would like a deployment center at UBC, Vancouver. I will also work with my university in locating students to try out the UI through the university's summer programs and other outreach efforts such as Science exhibition fairs. If possible I would like to observe children using the UI before beginning coding.
+Optionally after GSoC period: I am also interested in observing how children with radically different levels of exposure to technology react to Sugar. I will be travelling between Canada and India (once a year). Hence, if it is possible, I would also like to visit a center at India and observe how differently the children who have minimal (affordability and) exposure to technology react to the design of SugarUI / OLPC. I would then report my observations to the community and we could brainstorm about how to ways to improve the system.
+3. What will you do if you get stuck on your project and your mentor isn't around?
+Use the alternate contacts obtained from mentor beforehand. Fall back on community: IRC; if the problem still exists after 12h, contact mailing list. If nothing works and if it seems like I am slipping behind on schedule, contact the GSoC person: Tim McNamara.
+4. How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+Maintain a wiki page documenting progress, encountered problems and solutions obtained. Blog when a milestone is reached. Mail a weekly summary to the mentor, ccing other developers interested/knowledgeable in the area and if necessary, the developers mailing list.
+Miscellaneous
+Screenshot of my first modification to my development environment. Note that the drop-down menu text has my email address (in place of the word "Restart").
+What is your t-shirt size?
+XXL (I know, I have to lose weight :)
+Describe a great learning experience you had as a child.
+I have been a star-eyed kid passionate about energy conservation for as long as I can remember; drawing plans and trying to build perpetual motion systems. I am not sure when or how it happened, but eventually I began to realize that perfect energy conservation might not be possible/feasible. That friction, trade-offs and losses are an inevitable part of the equation.
+I still catch myself wanting to design the perfect architecture, build the perfect program or buy the perfect laptop that will last perpetually. I have to often remind myself that Engineering (and much of life) is a balancing act of making the most elegant compromises in the limited time frame (and improvising later). Its been a tough and valuable lesson.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Here are excerpts from my 'Statement of Purpose' which was submitted as part of my graduate application:
+After Ph.D. ?
+   After obtaining my Ph.D., I would like to 
+     work on selected Open source projects; esp. those aimed at children, for e.g OLPC project's Sugar 
+       build a team of volunteers and mentor them in areas of usability 
+     work as a professor in a research oriented university or 
+       as a research scientist in a usability lab
+     work with children in making computer a viable part of their creativity tool-set.
+Research Ideas
+   One exciting idea, that I have been dwelling on from my undergraduate years and 
+   made an unsuccessful attempt during my undergrad, is on adaptive interfaces. I want to research on interfaces 
+   that are a breeze to use irrespective of the different types of users and systems. The interface adapts 
+   statically and dynamically to both the users on one end and the system on the other. The static adaptations 
+   depends on pre-generated profiles for the systems and users. The dynamic adaptations depend on various 
+   factors like the current avg. load on the system, time of the day/year, weather, current social scenario 
+   and ultimately self-learning from the demonstrated preferences of the user.
+Some other ideas I am interested in
+: Children learn much more effectively as groups. A child shares his discoveries, for example features of Sugar, with his buddies. This is how I believe most of the knowledge propagates. I am interested in designing technology to support/accelerate these eureka moments and to help them transcend the immediate neighborhood. Vision: A child from one end of the world sharing his eureka moment with another at a different part of the world. Can we use a combination of
+ToolClips
+and
+CommunityCommands
+to achieve this? What other approaches can help us achieve this?
+I like to see myself grow to be a GSoC mentor for Sugar in approximately 2 years.
+TODO
+Obtain answers from members on the impact of this project on the community.
+Comment on the talk page of other applications
+Books I would like to read during summer:
+How Children Learn
+by John Caldwell Holt
+The Moral Judgment Of The Child
+by Jean Piaget

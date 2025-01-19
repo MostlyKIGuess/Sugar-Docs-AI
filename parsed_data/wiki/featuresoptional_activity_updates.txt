@@ -1,0 +1,60 @@
+Title: Features/Optional activity updates
+URL: https://wiki.sugarlabs.org/go/Features/Optional_activity_updates
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope and implementation
+7
+How to test
+8
+User Experience
+Summary
+Extend microformat updater to be able to mark activities as optional for automatic updates.
+Owner
+Martin Abente Lahaye
+Current status
+Targeted release: 0.104
+Last updated: 05/08/2014
+Percentage of completion: 90%
+Detailed Description
+This proposal is based around the needs of the OLPC project in Australia, but reflects a common need (current or future) of other OLPC implementations as well.
+The problem:
+Previously, Daniel Drake implemented a mechanism for automatic activities updates. This was of great help for OLPC deployments such as Australia. However, the current mechanism will update (or install) ALL the activities in the updates list. This becomes a problem when not all the activities are intended for automatic updates, ie., when the bundle size is too big for massive automatic installation. In the practice deployments do not enable automatic updates because this kind of concerns.
+The proposed solution is to provide a way to mark activities in the microformat file as optional. Activities marked as optional will:
+Not be updated or installed during automatic updates.
+Not be selected by default in the activities updater UI.
+Benefit to Sugar
+The flexibility added by this feature will allow many deployments to enable the automatic updater, therefore users will benefit from receiving newer activities automatically.
+Scope and implementation
+A initial implementation can be found in
+here
+. The changes are:
+extend microformat parser to extract a new olpc-activity-optional field.
+extend BundleUpdate class to support this field so other updater components can access to this information.
+filter activities that are marked as optional when running in automatic mode.
+do not select activities marked as optional in the updater UI list.
+This implementation is backwards compatible. Deployment that don't need to use this feature can simply ignore it. This field is used only on entries that need to be marked as optional.
+How to test
+Modify your microformat file (ie., wiki or
+bundletools
+) and only mark optional activities entries as follows:
+<tr>
+<td class="olpc-activity-info">
+<span class="olpc-activity-id">net.flossmanuals.LevelActivity</span>
+<span class="olpc-activity-version">1</span>
+<span class="olpc-activity-url"><a href="http://localhost:8000/some/deeper/path/bundles/level-1.xo">download</a></span>
+<span class="olpc-activity-optional">1</span>
+</td>
+</tr>
+User Experience
+User experienced is untouched.

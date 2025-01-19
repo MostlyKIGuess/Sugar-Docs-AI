@@ -1,0 +1,88 @@
+Title: Sugar Cordova
+URL: https://wiki.sugarlabs.org/go/Sugar_Cordova
+--------------------------------------------------------------------------------
+Contents
+1
+Instructions to set up Sugar Cordova
+1.1
+The procedure below is for GNU/Linux (must run for Mac OS too)
+1.1.1
+Setting up Cordova development environment
+1.1.2
+Addition for setting up the Sugar platform
+1.1.3
+Run and Check
+1.2
+For Microsoft Windows
+1.2.1
+Setting Cordova CLI and adding Sugar
+1.2.2
+Run and Check
+Instructions to set up Sugar Cordova
+The procedure below is for GNU/Linux (must run for Mac OS too)
+Setting up Cordova development environment
+Pre-Requirements: must have node and npm installed
+Git clone :
+https://github.com/apache/cordova-cli
+,
+https://github.com/apache/cordova-lib
+and
+https://github.com/apache/cordova-plugman
+in a directory
+Go inside cordova-lib, you'll find another cordova-lib inside it, issue the command npm install, npm link inside it.
+Now cd to cordova-cli, and issue npm install in it then issue npm link cordova-lib
+cd to cordova-plugman, and repeat the steps for cordova-cli here - ( issuing npm install - same way to correct if any error , issue npm link cordova-lib)
+Addition for setting up the Sugar platform
+1. Add the following in cordova-cli/node_modules/cordova-lib/src/cordova/platforms.js [Note the s in platforms, it differentiates from platform.js] :
+'sugar':{
+ parser: './metadata/sugar_parser',
+ url : 'https://github.com/puneetgkaur/sugar-cordova.git',
+ version: '3.5.0'
+ }
+2. Add the following to cordova-cli/node_modules/cordova-lib/src/plugman/platforms.js :
+'sugar': require('./platforms/sugar')
+3. Add the sugar_parser.js to cordova-cli/node_modules/cordova-lib/src/cordova/metadata from :
+https://github.com/puneetgkaur/cordova-lib/blob/master/src/cordova/metadata/sugar_parser.js
+4. Add sugar.js to cordova-cli/node_modules/cordova-lib/src/plugman/platforms
+https://github.com/puneetgkaur/cordova-lib/blob/master/src/plugman/platforms/sugar.js
+5. Unzip and add the sugar directory to home/.cordova/lib
+https://drive.google.com/file/d/0BxC58bMp7xjuNnpWTkRNRFNnY28/edit?usp=sharing
+Run and Check
+Go to cordova-cli/bin and run the command,
+./cordova create new_project
+cd to the new_project directory created inside the bin folder
+There run the command,
+.././cordova platform add sugar
+Then to build, run
+.././cordova build sugar
+The .xo generated would be present in cordova-cli/bin/new_project/platforms/sugar/cordova/HelloCordova.xo
+For Microsoft Windows
+Setting Cordova CLI and adding Sugar
+The setting up of cordova is same (get the nodejs msi to install both node and npm)
+​​
+​1. Add the following in cordova-cli\node_modules\cordova-lib\src\cordova\platforms.js [Note the s in platforms, it differentiates from platform] :
+'sugar':{
+parser: './metadata/sugar_parser',
+url : 'https://github.com/puneetgkaur/sugar-cordova.git',
+version: '3.5.0'
+}
+2. Add the following to cordova-cli\node_modules\cordova-lib\src\plugman\platforms.js :
+'sugar': require('./platforms/sugar')
+3. Add the sugar_parser.js to cordova-cli\node_modules\cordova-lib\src\cordova\metadata
+https://github.com/puneetgkaur/cordova-lib/blob/master/src/cordova/metadata/sugar_parser.js
+4. Add sugar.js to cordova-cli\node_modules\cordova-lib\src\plugman\platforms
+https://github.com/puneetgkaur/cordova-lib/blob/master/src/plugman/platforms/sugar.js
+5. Add the sugar directory to C:\Users\<your user name>\.cordova\lib
+https://drive.google.com/file/d/0BxC58bMp7xjuNnpWTkRNRFNnY28/edit?usp=sharing
+Run and Check
+Go to cordova-cli\bin and type
+cordova create <prj_directory> <prj_id> <prj_name>
+cd to the project directory created inside the bin folder
+There run the command
+..\cordova platform add sugar
+Then to build, run
+..\cordova build sugar
+Note:
+Windows users must install 7zip and set the environment variable ZIPCOMMAND with the command
+set ZIPCOMMAND="c:\Program Files\7-Zip\7z.exe" a -r -tzip -aoa
+before issuing the cordova build command.

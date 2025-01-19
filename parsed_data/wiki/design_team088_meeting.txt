@@ -1,0 +1,149 @@
+Title: Design Team/0.88 Meeting
+URL: https://wiki.sugarlabs.org/go/Design_Team/0.88_Meeting#Resume.2FStart_new_on_the_Home_View
+--------------------------------------------------------------------------------
+Contents
+1
+When/Where
+2
+Important Dates
+3
+Open
+3.1
+Resume/Start new on the Home View
+3.2
+3G Support
+3.3
+Write to Journal anytime
+3.4
+Font configuration
+3.5
+Thumbs View in Journal
+3.5.1
+Drag icon
+3.5.2
+Hover over mode
+3.6
+Enhanced Color Selector
+3.6.1
+'+' layout
+3.6.2
+'+' layout and do not mess changed/unchanged colors for "arrows"
+3.6.3
+grid of predefined colors
+3.6.4
+sliders
+3.6.5
+rows of XOs
+3.6.6
+static rows with separated fill/stroke
+3.6.7
+static rows
+4
+Moved
+4.1
+Tags in Journal
+4.2
+Multiple selections in the Journal
+5
+Done
+When/Where
+date: 2010-01-16 16:00 UTC == 17:00:00 CET == 11:00 EST
+date: 2010-01-23 15:30 UTC == 16:30:00 CET == 10:30 EST
+date: 2010-01-30 15:30 UTC == 16:30:00 CET == 10:30 EST
+place: #sugar-meeting on irc freenode
+Important Dates
+Jan 18 Feature Acceptance: Acceptance of the features following the Features/Policy.
+Feb 01 Feature Freeze: No new features will be accepted for this release period.
+Feb 15 UI Freeze: Major UI revisions or changes must be done before this date.
+Open
+Resume/Start new on the Home View
+Mailing list discussion
+Design:
+1. Go back to the "start new" behavior when you left click on the icon
+2. Keep the options to resume recent activities in the secondary options 
+of the palette
+3. Keep the palette behavior as they are
+4. Keep the alt-click shortcut to toggle the view
+5. Add the Journal to the activity ring (at the top) in the Home view, colored to make it accessible in the home view all the time
+6. Add a list of the n most recent activities to the Journal's secondary palette to be able to resume from
+Christian has phrased out a
+test case
+that will bring us data to evaluate 'Start new" vs "Resume in Home View". The tests will be conducted in the Pilot in Berlin and in the Pierre Van Cortlandt Middle School in Croton on Hudson, New York in the week of the 8-12th of February.
+Needed: Images that can be used in the test runs.
+Resume in Home View
+Start new in Home View
+Start new in Home View No Entries of activity typ yet
+Toggle Option
+3G Support
+Allow the Sugar user to connect to 3G networks.
+Feature Page
+Design: A device will be added to the frame when a modem is connected, and the user will be able to connect and disconnect from there. Also, a section will be added to the control panel that will allow entering the details needed by the connection.
+Needed: Icon to represent the connection in the frame and is used in the Control Panel section. First patch has been landed. Refinements are needed, especially feedback for the user in cases of errors.
+1. the disconnect option in the device icon palette should use an icon 
+just like other network devices.
+2. the connection time should be shown in the primary palette, eg. 
+"connected for 02:22" instead
+3. data sent: make that: [UP] 23kb [DOWN] 31 kb
+4. left align the options in the control panel
+5. ? help in the control panel section ?
+Write to Journal anytime
+Replacement for the Naming Alert that lets you write to the Journal at any time while working on an activity.
+Feature Page
+Mailing list discussion
+Proposal of option in the activity toolbar.
+Design: Instead of the naming alert when you close an activity for the first time we will switch to the Journal detail few of the activity. The back button on the detail page will bring you, like in general Journal use, to the main Journal page. The NamingAlert will go away.
+Needed: Patch to show new behavior.
+Font configuration
+Users need a way to be able to customize the Sugar font size.
+Feature page
+Design: A control panel section from within the learner can modify the Font size. The page will present the user with a slider to adjust the size and a preview of the changes he makes.
+Needed: Icon, Yevlempy is working on the implementation.
+Eben's design
+Thumbs View in Journal
+Feature Page
+implemented
+alsroot
+03:43, 26 January 2010 (UTC)
+Drag icon
+What image should be used for drag icon for:
+list view
+thumbs view
+Sugars <0.84 used nasty default icon, 0.86 uses default TreeView method - row snapshot. Last method will look nice especially for thumb view but there is an issue, draging large row(list view) or cell(thumbs view) user doesn't see target drop place e.g. icon in volume list
+Design_Team/Designs/Frame#15
+mockup was implemented
+alsroot
+02:52, 26 January 2010 (UTC)
+Is it right if only widgets(Journal related, pure text from could be dragged as usual) that could be dragged are object icon in list view and thumb in thumbs view?
+implementing scheme when any space in row(list view) and cell(thumbs view) could be dragged is(of course) possible in new journal but requires not obvious coding
+does it make sense if empty space(in list view row) could be dragged as journal object, moreover it's easy to make a mistake and drag wrong object
+objects could be dragged by icon/thumb or title
+alsroot
+05:24, 1 February 2010 (UTC)
+Hover over mode
+Should ObjectChooser highlight current item, <=0.84 has this feature, 0.86 doesn't.
+highlighting was reverted
+alsroot
+05:25, 1 February 2010 (UTC)
+Enhanced Color Selector
+This is an enhancement to the color selector used in the About Me control panel and the initialization screen (same behavior but a different code base). It enables the user to cycle through color choices as well as jump randomly, which is the current default behavior.
+Feature Page
+Mailing list discussion
+The latest question was: Do we need the color selector in the start-screen at all?
+'+' layout
+'+' layout and do not mess changed/unchanged colors for "arrows"
+grid of predefined colors
+sliders
+video
+rows of XOs
+video
+static rows with separated fill/stroke
+static rows
+Moved
+Tags in Journal
+Design Page
+moved to 0.90
+Multiple selections in the Journal
+Mailing list discussion
+moved to 0.90
+Done
+items landed in a release (next is 0.88)

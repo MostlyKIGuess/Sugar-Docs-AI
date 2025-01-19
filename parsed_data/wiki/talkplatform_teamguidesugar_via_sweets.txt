@@ -1,0 +1,393 @@
+Title: Talk:Platform Team/Guide/Sugar via Sweets
+URL: https://wiki.sugarlabs.org/go/Talk:Platform_Team/Guide/Sugar_via_Sweets#Installing_Sugar_via_sweets_-_in_Debian_testing_Wheezy
+--------------------------------------------------------------------------------
+Contents
+1
+Requirement GNOME?
+2
+Installing sweets-sugar from Fedora 16 GNOME 3 Terminal
+2.1
+Installation
+2.2
+sugar 0.88
+2.3
+sugar 0.94.1 (Unstable)
+2.3.1
+Activities that do not start
+2.3.2
+Notes on how to start 0.88 or 0.94
+3
+Installing Sugar via sweets - in Mint-12
+3.1
+Installation
+3.2
+Testing Sugar in a window
+3.3
+Testing Xephyr
+3.4
+Extended test: Two sweets running at once!
+3.5
+Check out the -S option
+Requirement GNOME?
+Comparison of these two reports
+Testing/Reports/Sweets on Debian Wheezy
+and
+Testing/Reports/Sweets on GNOME Debian Wheezy
+would suggest improvements can be made to wording in Debian section of
+Platform Team/Guide/Sugar via Sweets#Supported distributions
+--
+Inkyfingers
+06:57, 16 July 2012 (EDT)
+Installing sweets-sugar from Fedora 16 GNOME 3 Terminal
+12/03/2011 satellit
+Log of what I found
+With much help from alsroot
+Installation
+Zero Install (thus, Sweets') workflow requires having Internet connection
+Once the system is built; it is cached locally so it will start without rebuilding
+Default is sugar 0.88.1
+from alsroot:
+If you run several different Sugar versions via sweets, you will use the same profile; so, it might be a problem, e.g., the Journal version in Sugar 0.84 is different from Sugar 0.94; but for Sugar 0.88-0.94, it should be mostly ok.
+sugar 0.88
+Default is sugar 0.88.1
+GNOME Terminal
+sudo yum install gnome-packagekit
+wget
+http://download.sugarlabs.org/sweets/sweets/installer.sh
+sh installer.sh
+Restart (to reset dbus)
+Install GPG Key (as PK does not install it.)
+Installing in XFCE Beta TC1 x86-64 install is this next section still needed? --
+Satellit
+18:05, 12 March 2012 (EDT)
+I did it and no GPG Key was requested
+yum install pygobject2-devel
+packages will be installed... 1 + 3 dependencies  asks for gpg key and I said Y
+Importing GPG key 0xA82BA4B7
+Install and build
+sweets -S dextrose/sugar:emulator
+$ sweets -S dextrose/sugar:emulator                   
+-- Solve dextrose/sugar-base for building
+-- Solve dextrose/sugar-toolkit for building
+-- Solve dextrose/sugar-presence-service for building
+-- Solve dextrose/sugar-datastore for building        
+-- Solve dextrose/sugar-artwork for building   
+-- Solve sdk/etoys for building              
+-- Solve sdk/pyxpcom for building  
+-- Solve sdk/hulahop for building  
+-- Solve sdk/python-xklavier for building
+-- Solve dextrose/sugar for building      
+ -- Install pygobject2-devel libX11-devel libxkbfile-devel libXv-devel libXinerama-devel gtk2-devel libXt-devel libXres-devel 
+xorg-x11-apps python-lxml squeak-vm libfontenc-devel libXmu-devel gcc intltool xapian-bindings-python python-cjson libxklavier-devel 
+libXrender-devel python-devel libXext-devel libFS libXxf86dga-devel subversion libXtst-devel pygame libXScrnSaver-devel libXxf86vm-devel 
+pygtksourceview cairo-devel libXfont-devel gcc-c++ libXScrnSaver alsa-lib-devel pyabiword pygtk2-devel libSM-devel libXau-devel libFS-devel
+gnome-common libXvMC-devel libXp libtool libXdamage-devel libXrandr-devel python-dateutil xorg-x11-xtrans-devel python-elements libXi-devel libXft-devel
+gnome-python2-rsvg csound-python libXpm-devel libXdmcp-devel icon-naming-utils icon-slicer libdmx-devel xorg-x11-proto-devel 
+GConf2-devel libXcomposite-devel hippo-canvas-python libXcursor-devel libXfixes-devel libICE-devel libXp-devel libdrm-devel
+error:--
+Satellit
+18:05, 12 March 2012 (EDT) XFCE f17
+--Cannot solve dextrose /home/(user)/.cache/0install.net/implementations/ ....for building: Cannot find required implementations for
+http://sweets.sugarlabs.org/base/pygtk
+Sugar starts in Xephyr
+at color screen
+need to <== to rename it then ==> twice
+no activities on f3
+about my computer says Fedora release 16 (Verne) 0.88.1
+Exit
+Terminal
+sweets -S dextrose/sugar:emulator -f
+Hover over XO icon click on My Settings in drop down
+select "frame"
+Move bottom slider "edge" fully Left
+restart
+Terminal
+sweets -S dextrose/sugar:emulator -f
+Click on sugar journal icon in f3 screen
+Drag drop surf-115.xo from 2nd USB
+http://people.sugarlabs.org/Tgillard/Surf-115.xo
+Download to a USB and insert the USB in running sweets-sugar
+click on surf in f3
+Activities (upper right screen)
+Load the activities you want from ASLO (or from the 2nd USB by drag drop) irc;chat;...etc
+Have fun
+sugar 0.94.1 (Unstable)
+Terminal:
+sweets dextrose/sugar:emulator = 0.94
+Software update in 0.94 offers 39 updates (installs new activities)
+this seems a nice workaround for lack of activities in sweets-sugar
+Activities that do not start
+Turtle art 105
+Read 87
+Browse 116
+Colors 15
+Ruler 7
+Maze 9 (Hangs)
+Poll 27
+Get Books 5
+Tetris Mat 1
+surf-115.xo does not start here : (
+Firefox-6.xo does start
+Download to 2nd USB:
+http://people.sugarlabs.org/Tgillard/firefox-6.xo
+Browses web well; Firefox is not fully sugarized so it does not save to sugar-journal.
+Notes on how to start 0.88 or 0.94
+commands to start sweets-sugar in terminal:
+Full Screen
+sweets -S dextrose/sugar:emulator -f
+0.88
+sweets -S dextrose/sugar:emulator = 0.94 -f
+0.94
+after installing the activities in software update in 0.94 they remain in sugar 0.88 and work.
+Installing Sugar via sweets - in Mint-12
+17/12/2011 by inkyfingers
+Host environment: Mint-12 installed three days prior to start from:linuxmint-12-gnome-cd-nocodecs-32bit.
+Testing Mint-12 over three days, it is fairly sound, but some freezing when using Firefox 8. I wait 10 seconds for unfreeze, no crashes.
+My machine:
+http://www.smolts.org/client/show/pub_98841a4d-b674-4a44-804b-d7cee2872a09
+Installation
+iain@Mint2 ~ $ sudo apt-get install gnome-packagekit
+installs, no error reported, suggested packages:  packagekit-backend-apt packagekit-backend-smart
+iain@Mint2 ~ $ sudo apt-get install  packagekit-backend-apt packagekit-backend-smart
+installs, no error reported, suggested packages: python-rpm
+iain@Mint2 ~ $ sudo apt-get install python-rpm
+Restart
+iain@Mint2 ~ $ wget
+http://download.sugarlabs.org/sweets/sweets/installer.sh
+iain@Mint2 ~ $ sh installer.sh
+Sweets self extracting installer
+-- Scan
+ftp://download.sugarlabs.org/sweets/sweets
+for updates
+-- Downloading update from
+http://download.sugarlabs.org/sweets/sweets/sweets-1.0.5.tar.gz
+-- sweets launcher was installed to /home/iain/.local/bin                                  
+-- sweets-index service was installed to /home/iain/.local/share/dbus-1/services
+... sweets: command not found ... so, requires a restart.
+Restart
+iain@Mint2 ~ $ sweets upgrade
+-- Scan
+ftp://download.sugarlabs.org/sweets/sweets
+for updates
+-- No need in upgrading
+iain@Mint2 ~ $ sweets dextrose/sugar:emulator
+... top of output not copied
+-- Cannot solve /home/iain/.cache/0install.net/implementations/sha1new=3609c88732be7be0144e77220861a08733dfd1d3 for building: Cannot find requireed implementations for
+http://sweets.sugarlabs.org/base/x11-libs
+iain@Mint2 ~ $ sweets -S dextrose/sugar:emulator -f
+-- Cannot solve /home/iain/.cache/0install.net/implementations/sha1new=3609c88732be7be0144e77220861a08733dfd1d3 for building: Cannot find requireed implementations for
+http://sweets.sugarlabs.org/base/x11-libs
+Now there is a three day gap - I learn that the sweet "base/x11-libs" had a bug found in Mint.
+Now use -R option to refresh.
+iain@Mint2 ~ $ sweets -R sdk/sugar:emulator
+... top of output was not copied
+-- Install python-gtk2-dev python-xklavier libxt-dev xsltproc libdbus-1-dev telepathy-salut python-gobject-dev libxres-dev libxfixes-dev libdrm-dev python-dev libxcomposite-dev libxss-dev libfontenc-dev intltool libdmx-dev libice-dev python-cjson python-decorator libxdamage-dev libX11-dev libcairo2-dev libxpm-dev libxfont-dev libxxf86vm-dev libasound2-dev python-rsvg libxext-dev gnome-common python-telepathy xserver-xephyr libdmx1 libxft-dev libxxf86dga-dev libfs-dev libtool libtelepathy-glib-dev libxi-dev libxv-dev python-hippocanvas libxmu-dev libgtk2.0-dev libdbus-glib-1-dev libgconf2-dev libxp-dev icon-slicer icon-naming-utils libxinerama-dev libxtst-dev libxkbfile-dev libxrender-dev libxvmc-dev libxcursor-dev libxrandr-dev python-gtksourceview2 libsm-dev telepathy-gabble libglib2.0-dev
+-- Build sdk/sugar-artwork (0.94.0)                                             
+-- Build sdk/sugar-base (0.94.0)      
+-- Build sdk/sugar-toolkit (0.94.0)   
+-- Build sdk/sugar-datastore (0.94.0) 
+-- Build sdk/telepathy-mission-control (5.7.1)
+-- Build sdk/sugar (0.94.1)                    
+Gtk-Message: Failed to load module "pk-gtk-module"
+[dix] Could not init font path element /usr/share/fonts/X11/cyrillic, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/100dpi/:unscaled, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/75dpi/:unscaled, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/100dpi, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/75dpi, removing from list!
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+However this produces Sugar in a window.
+Testing Sugar in a window
+The product of this command under Mint-12 in GUI xterm: sweets -R sdk/sugar:emulator
+Title bar reads: Sugar in a window
+Build: Linux Mint 12 Lisa
+Sugar: 0.94.1
+Firmware: 6.00 PG
+Very first screen: icon colour change.
+Home view: Favourites view and list view appear, are empty
+F1 names of neighbours 'show on hover'
+From configuration screen
+About me, offers to colour change fine. Has correctly taken my name from Host.
+Frame adjust seems to work - asks for restart as expected. I respond - Later.
+Keyboard sttings changed and tested ok
+Hit software Updates ckecking for updates. Updating appears - no obvious activity in 7 seconds. Hit cancel.
+No updating seems to start.
+Date & time: Able to select TZ, asks for restart, I respond: Later.
+Function keys F1 to F6 all work - Journal appears.
+USB device, (which was inserted pre-start) is visible,
+Relationship between Host environment - typing this - and Sugar in a window is absoutely predictable, ok.
+In Host environment,the original xterm window:    last 3 lines are now:
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+   Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc003bd specified for 0
+   Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc02eda specified for 0
+Use Firefox on Host environment to download to USB flashdrive.
+Download:
+http://people.sugarlabs.org/Tgillard/Surf-115.xo
+. Save to USB flashdrive.
+Download from Aslo: Browse-129.xo and Terminal-35.xo. Save to USB flashdrive,
+In Sugar in a window:
+Start Software update: checking for updates ... no activity, 5 mins.
+Drag and drop Browse-129.xo and Terminal-35.xo and Surf-115.xo from flashdrive to Journal.
+Activities appear in F3 Home view, List,
+Click Browse, flashing icon ... reports, fails to start.
+Click Surf, flashing icon ... reports 'Surf failed to start.'
+Click Terminal, flashing icon and starts.
+uname -a - ok
+Download using Host environment: moon-13.xo and  irc-10.xo. Save to USB flashdrive.
+In Sugar in a window:
+Drag and drop from flashdrive to Journal, moon-13.xo and  irc-10.xo
+Click Moon, flashing icon and starts ok.
+Click IRC, flashing icon and starts ok. tx out appears to work.
+Close the host environment terminal.
+End of test.
+NOTE
+the above was carried out without the benefit of -S switch.
+Testing Xephyr
+Immediately follows the above.
+The product of this command under Mint-12 in GUI xterm: sweets dextrose/sugar:emulator
+Title bar reads: Xephyr on :30.0
+Build: Linux Mint 12 Lisa
+Sugar: 0.88.1
+PS Note this test is without benefit of -S switch.
+F1 to F6 work - pre-existing journal is intact.
+Terminal starts - simple commands work.
+About my computer: Sugar 0.88.1
+Keyboard settings survived.
+Pre-existing downloaded Activites are in Home View.
+Click irc, flashing icon, starts. Test tx in and out ok.
+Click Surf-115.xo, flashing icon, starts, is online.
+Write appears in journal. Right click, resume, - flashing icon, but reports fails to start.
+Using Surf, download Sugar file manager.
+Successful and Sugar File manager starts and works.
+Attempt to download Write again.
+Write icon in Home View, Click Write,- flashing icon - reports, 'fail to start'
+Back to Host environment
+xterm output is as follows. ie this is the last few lines of the traceback which launched the test in progress.
+-- Solve dextrose/sugar-base for building
+-- Solve dextrose/sugar-toolkit for building
+-- Solve dextrose/sugar-presence-service for building
+-- Solve dextrose/sugar-datastore for building        
+-- Solve dextrose/sugar-artwork for building   
+-- Solve dextrose/sugar for building         
+-- Build dextrose/sugar-base (0.88.0)
+-- Build dextrose/sugar-toolkit (0.88.1)
+-- Build dextrose/sugar-presence-service (0.88.0)
+-- Build dextrose/sugar-datastore (0.88.0)        
+-- Build dextrose/sugar-artwork (0.88.1)   
+- Build dextrose/sugar (0.88.1)         
+Gtk-Message: Failed to load module "pk-gtk-module"
+[dix] Could not init font path element /usr/share/fonts/X11/cyrillic, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/100dpi/:unscaled, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/75dpi/:unscaled, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/100dpi, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/75dpi, removing from list!
+/home/iain/.cache/0install.net/implementations/sha1new=c19654b00070887627e457daaaaaafbdeafb380a/.sweets/local/bin/sugar: 60: [[: not found
+/home/iain/.cache/0install.net/implementations/sha1new=c19654b00070887627e457daaaaaafbdeafb380a/.sweets/local/bin/sugar: 113: [[: not found
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+E: [pulseaudio] pid.c: Daemon already running.
+E: [pulseaudio] main.c: pa_pid_file_create() failed.
+Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc01955 specified for 0xc01988 (sugar-sess).
+Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc0347a specified for 0xc034a8 (sugar-sess).
+Window manager warning: last_focus_time (48387255) is greater than comparison timestamp (48387251).  This most likely represents a buggy client sending inaccurate timestamps in messages such as _NET_ACTIVE_WINDOW.  Trying to work around...
+Extended test: Two sweets running at once!
+Note
+this is not good practice, its a bit like riding a bike with no hands, showing off and might result in breakage.
+With Xephyr on :30.0 running on desktop 4.
+In host environment open new xterm
+iain@Mint2 ~ $ sweets sdk/sugar:emulator
+Gtk-Message: Failed to load module "pk-gtk-module"
+[dix] Could not init font path element /usr/share/fonts/X11/cyrillic, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/100dpi/:unscaled, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/75dpi/:unscaled, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/100dpi, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/75dpi, removing from list!
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc00223 specified for 0xc00260 (sugar-sess).
+Both sweets are running, both on desktop 4.
+Close both Sweets, by using close icon in top right corner.
+Back at Host environment
+xterm output, ref: sdk/sugar
+iain@Mint2 ~ $ sweets sdk/sugar:emulator
+Gtk-Message: Failed to load module "pk-gtk-module"
+[dix] Could not init font path element /usr/share/fonts/X11/cyrillic, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/100dpi/:unscaled, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/75dpi/:unscaled, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/100dpi, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/75dpi, removing from list!
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc00223 specified for 0xc00260 (sugar-sess).
+Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc00223 specified for 0xc02b34 (sugar-sess).
+Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc00223 specified for 0xc02c62 (sugar-sess).
+XIO:  fatal IO error 11 (Resource temporarily unavailable) on X server ":0.0"
+     after 23718 requests (23718 known processed) with 0 events remaining.
+Window manager warning: Fatal IO error 11 (Resource temporarily unavailable) on display ':31'.
+iain@Mint2 ~ $
+xterm output, ref: dextrose/sugar
+/... copy last lines only:
+/home/iain/.cache/0install.net/implementations/sha1new=c19654b00070887627e457daaaaaafbdeafb380a/.sweets/local/bin/sugar: 113: [[: not found
+ls: cannot access /usr/lib*/xulrunner-1.*: No such file or directory
+E: [pulseaudio] pid.c: Daemon already running.
+E: [pulseaudio] main.c: pa_pid_file_create() failed.
+Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc01955 specified for 0xc01988 (sugar-sess).
+Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc0347a specified for 0xc034a8 (sugar-sess).
+Window manager warning: last_focus_time (48387255) is greater than comparison timestamp (48387251).  This most likely represents a buggy client sending inaccurate timestamps in messages such as _NET_ACTIVE_WINDOW.  Trying to work around...
+Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc01955 specified for 0xc0f645 (sugar-sess).
+Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc08267 specified for 0xc1202e (sugar-sess).
+XIO:  fatal IO error 11 (Resource temporarily unavailable) on X server ":0.0"
+     after 176360 requests (176360 known processed) with 0 events remaining.
+(metacity:28952): GConf-WARNING **: Got Disconnected from DBus.
+Window manager warning: Fatal IO error 11 (Resource temporarily unavailable) on display ':30'.
+iain@Mint2 ~ $
+Check out the -S option
+Start xephyr session with
+iain@Mint2 ~ $ sweets -S dextrose/sugar:emulator
+asks for root password. Downloading.
+after 4 minutes Xephyr on :30.0 apears.
+Click on Surf, flashing icon and starts.
+Click on Physics, flashing icon and starts.
+Click on Chat, flashing icon and starts. Share a Chat session, F1 - Chat bubble icon is visible in my colours.
+Check contents of Frame. System resources and USB device seen and appear working.
+See repair Journal feature. Close all activities, Opporunity to rename activities not given by default.
+Click on repair journal. Reports, "Journal has been reindexed", and Sugar session is terminated without further warning.
+Restart with:
+iain@Mint2 ~ $ sweets -S dextrose/sugar:emulator
+Click on Sugar File Manager. Works as expected.
+In host environment there is now an icon representing a drive or partition labeled Journal. This will open with Nautilus, Write documents are seen and can be printed.
+Start Sugar in a window session with
+iain@Mint2 ~ $ sweets -S sdk/sugar:emulator
+Click on Write, flashing icon and starts.
+Able to write, save, rename Activity title
+Click on Surf, flashing icon and reports fail to start.
+Click on Terminal, flashing icon and starts.
+All seems to work, but no Surf,
+From Home View, List,
+Click Browse-129.xo. Flashing icon and starts, is online, three sites visited and logon ok.
+Using Activity Browse, download Reflection 3 from ASLO - Demonstrate Reflection, name, title, description and tag ok.
+Using browse, download Chat-73.xo, saves to Journal.
+Click on Chat, flashing icon and starts.
+Click neighbourhood icon to share.
+F1, neighbourhood view  no chat ballon to indicate shared Chat Activity.
+Change name in My Setting. Click for restart, Sugar in a window session closes.
+Host environment remains.
+This is the trace from the above session:
+iain@Mint2 ~ $ sweets -S sdk/sugar:emulator
+-- Download
+http://download.sugarlabs.org/sweets/sdk/sugar-presence-service/sugar-presence-service-0.88.1-r10-src.tar.gz
+-- Solve sdk/sugar-presence-service for building                                
+-- Build sdk/sugar-presence-service (0.88.1)     
+Gtk-Message: Failed to load module "pk-gtk-module"
+[dix] Could not init font path element /usr/share/fonts/X11/cyrillic, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/100dpi/:unscaled, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/75dpi/:unscaled, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/100dpi, removing from list!
+[dix] Could not init font path element /usr/share/fonts/X11/75dpi, removing from list!
+Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc02cc9 specified for 0xc02d2e (sugar-sess).
+Window manager warning: Invalid WM_TRANSIENT_FOR window 0xc06b70 specified for 0xc06ba3 (sugar-sess).
+Window manager warning: Fatal IO error 11 (Resource temporarily unavailable) on display ':30'.
+iain@Mint2 ~ $
+Start Sugar in a window session with
+iain@Mint2 ~ $ sweets -S sdk/sugar:emulator
+Name change has been applied.
+Resume Chat, I see on line message and countdown, but no chat balloon in F1.
+Later, download Chat-73.xo again. No change.
+Resume Chat, I see on line message and countdown, but no chat balloon in F1.
+Surf, flashing icon, reports fails to start.

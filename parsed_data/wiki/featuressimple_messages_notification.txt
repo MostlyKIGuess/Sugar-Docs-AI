@@ -1,0 +1,98 @@
+Title: Features/Simple Messages Notification
+URL: https://wiki.sugarlabs.org/go/Features/Simple_Messages_Notification
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+The current icons-only notification system is generally ineffective to fully communicate different kind of system events. This feature provides a set of extensions to the current system to display simple text messages.
+This feature will be use for special events and communications, it is not intended to replace the current logging system and Log activity viewer.
+Owner
+Name:
+Martin Abente
+,
+Anish Mangal
+Email: <tch AT sugarlabs DOT org>, <anish AT activitycentral DOT org>
+Current status
+Targeted release: 0.98
+Percentage of completion:
+Code: 80% (Tested and included in 0.94 based dextrose builds, needs porting to gtk3)
+Design: 40% (Was discussed with Gary Martin, but the discussion ended without a proper conclusion. Discussion needs to happen again)
+Detailed Description
+Extends our support for the
+fd.o Desktop Notifications protocol
+This feature requires a some re-factoring of jarabe.frame.notification(NotificationIcon, NotificationWindow) widgets.
+Also, requires minimal extensions to jarabe.frame.frame(Frame) to extract the notification text message details.
+Plus, since the corner notifications icons can't be seen for long periods of time (to avoid visual spam), a new tray bar can be added to the left side of the bottom frame window. This tray will contain current session's notifications.
+Benefit to Sugar
+Messages notification capabilities, useful in many different scenarios.
+Scope
+sugar/src/jarabe/frame/frame.py
+sugar/src/jarabe/frame/notification.py
+sugar/src/jarabe/frame/notificationstray.py (new file)
+sugar/src/jarabe/frame/Makefile.am
+UI Design
+New notifications are flashed briefly on the top-left corner of frame. Even if the frame is not visible, the notification icon will flash briefly. (Similar to a clipboard-copy icon). After a small period of time, the icon would move to the top bar of the frame alongside other activity icons, and will keep on flashing until clicked upon. After its clicked upon, a palette will popup showing the text of the notification. If there are other (older) notifications present, those will be shown as well. A button is provided to clear all notifications.
+Notification flashing on the top left corner of frame
+Notification present in the top bar of frame
+Notification palette visible upon clicking/hovering
+Notification items can be deleted
+View after notification icons have been deleted
+How To Test
+Running this python script should work (provided by Gonzalo Odiard):
+import dbus
+BUS_NAME = 'org.freedesktop.Notifications'
+OBJ_PATH = '/org/freedesktop/Notifications'
+IFACE_NAME = 'org.freedesktop.Notifications'
+bus = dbus.SessionBus()
+notify_obj = bus.get_object(BUS_NAME,OBJ_PATH)
+notifications = dbus.Interface(notify_obj,IFACE_NAME)
+notifications.Notify("HelloWorld",0,'',"Summary","Body",[],{},-1)
+Also, one may download Dextrose-2 or Dextrose-3 builds, fire up the terminal activity, and send this command to see a notification popup:
+$ dbus-send --system /org/sugarlabs/system org.sugarlabs.system.Reboot
+User Experience
+1. User notice the notification pulsing icon.
+2. User click on the icon to read its message.
+3. After a few seconds corner notifications icon will disappear.
+4. Notification icons can still be seen at  the notifications tray.
+Dependencies
+None
+Contingency Plan
+N.A.
+Documentation
+None
+Release Notes
+N.A.
+Comments and Discussion
+2012-July-18 Design Team meeting log
+'Softer', 'information' icon -
+--
+FGrose
+14:07, 18 July 2012 (EDT)
+Please follow the comments on Dextrose and sugar-devel mailing list.

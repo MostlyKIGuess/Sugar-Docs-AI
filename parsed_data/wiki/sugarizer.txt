@@ -1,0 +1,39 @@
+Title: Sugarizer
+URL: https://wiki.sugarlabs.org/go/Sugarizer
+--------------------------------------------------------------------------------
+Contents
+1
+Thin Client
+2
+Client
+3
+Server
+4
+Source Code
+Sugarizer is a way to use Sugar on any device using web technologies (HTML5/JavaScript). Strictly speaking, Sugarizer is not a port of Sugar. Sugarizer is based on
+Sugar Web library
+, which mimics the Sugar UI using HTML5 and CSS3 and reproduces Sugar views (Home, List, ...). Sugarizer reimplements features of Sugar Core (datastore and journal) in JavaScript and integrates a bunch of activities written for Sugar in Sugar Web. So basically, Sugarizer is "just" a launcher of Sugar Web activities. A Sugarizer server component allows collaboration and presence.
+Sugarizer could run any Sugar activities written in HTML5/JavaScript (Gears, Abecedarium, ...) and include a bunch of Sugar activities written initially in Python an ported in HTML5/JavaScript (Physics, Paint, ...).
+Sugarizer is distributed in the form of 3 components:
+Thin Client
+: remote access to Sugarizer using a browser,
+Client
+: Sugarizer running locally,
+Server
+: place to run remote Sugarizer features.
+Thin Client
+Sugarizer Thin Client is Sugarizer in a browser. Sugarizer Thin Client doesn't need any installation on the device but requires permanent access to a Sugarizer Server.
+Client
+Sugarizer Client is Sugarizer installed locally on the device so it does not require any access to the Server - it works stand-alone. Server access could be required only when it needs network features.
+Server
+Sugarizer Server is the back-end for network features of Sugarizer. It means: allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Thin Client (without Internet access). Sugarizer Server can also be used to provide collaboration features for Client and Thin Client on the network. Sugarizer Server could be deployed on any computer with Apache2, Node.js, and MongoDB.
+A test Sugarizer server instance is accessible
+here
+.
+Source Code
+The source code of Sugarizer is available on
+github
+.
+See the
+README file
+for installation instructions.

@@ -1,0 +1,105 @@
+Title: Features/Social Help
+URL: https://wiki.sugarlabs.org/go/Features/Social_Help
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+User Interface Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Release Note
+13
+Comments and Discussion
+Summary
+Social Help adds away for users to post questions on an open forum for developers or other users to answer.
+Owner
+Name:
+Prasoon Shukla
+Email: <prasoon92.iitr AT gmail DOT com>
+Name:
+Sam P.
+Email:  <samNOSPAM AT sugarlabs DOT org> Remove the
+NOSPAM
+Current status
+Targeted release: 0.106
+Last updated: 18/April/2015
+Percentage of completion: 75%
+Detailed Description
+To create an easily accessible, highly usable platform that Sugar users can use to discuss, debate and share ideas about everything related to Sugar.  It is a forum, activity and item in the current activity palette.
+Sugar Labs provides a forum.  Using the Sugar Labs forum requires creating a forum account, which is offered on first use.
+Alternative forums can be provided by deployments.  These forums must be designed for the purpose, and configured into the build of Sugar.
+An alternative forum is configured by setting the
+social-help-server
+key in the
+org.sugarlabs.collaboration
+schema, for example by using a vendor override.  See also
+olpc-os-builder
+and
+GSettings
+.
+Benefit to Sugar
+Walter says:  People are social and learning is social. Having a forum for sharing ideas and help is invaluable -- especially in light of the decentralized nature of the Sugar community. While the developer community is comfortable with IRC, we have not been successful in getting our user community to use it: they are seeming more comfortable with web tools (e.g. there is a large community of teachers using Facebook to discuss Sugar.) It would of course be better to have a FOSS solution. But also one that didn't require a lot of maintenance and support by the Sugar developer community. Hence, a connection to an existing FOSS platform would be attractive.
+Prasoon says:  If this project is successfully completed, the users will have instant access to a discussion platform on which they can ask any question related to Sugar. Over time, this information will develop itself into a repository of information where most common questions related to the platform would be present. This repository of information will be hugely beneficial for the Sugar community.
+Sai Vineet says:  There is currently no way to get instant help from real people from inside Sugar, except the IRC activity, which sadly is too complicate and distributed(hard to find stuff which one needs, no logs, there are security problems). We really need a way to get children help quickly, and this is what this project will give us. It will, with time, also become a full help repository, and also a way for children to talk and discuss things in a more social manner than it is now. Thus the Social Help project is invaluable to Sugar and it's vision, that learning is a social process.
+Scope
+The old design is just an activity and a menu item... not too big.  Look at the
+pull request #391
+.
+The new design is a menu item and a popup.
+The forum is hosted on Sugar Labs server
+freedom
+.  See the service page (
+Service/Social Help
+).
+User Interface Design
+Social Help popup
+Social Help section in the Network settings
+This adds a view-switcher in the help view to let users view social help.
+This adds an extra configuration item in the settings.
+How To Test
+Apply the patches,
+Start TurtleBlocks (for example),
+Open the frame, right click the activity icon, and click the help menu item (or type Alt-Shift-H),
+Select the social help option.
+User Experience
+They will be able to access easy help from the developers and community.
+Dependencies
+New design:  SoupGNOME (already a
+Browse
+dependency)
+Old design:  It depends on the social help activity (another browse clone):
+https://github.com/prasoon2211/sugar-social-help
+Contingency Plan
+This is not a blocker.
+Release Note
+Added Social Help.  Social Help lets users connect with each other and developers to fix bugs, get help and discuss activities.
+Include video summary link, if updated by release time (
+old version
+)
+Comments and Discussion
+Latest patch:
+https://github.com/sugarlabs/sugar/pull/494
+Design 2 patch:
+https://github.com/sugarlabs/sugar/pull/483
+Design 1 patch:
+https://github.com/sugarlabs/sugar/pull/391
+See
+the discussion tab for this feature.

@@ -1,0 +1,269 @@
+Title: Summer of Code/Tarun Kumar Singhal
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/Tarun_Kumar_Singhal
+--------------------------------------------------------------------------------
+Contents
+1
+About Me
+2
+About My project
+3
+Week Task
+4
+Me and the community
+5
+Miscellaneous
+About Me
+What is your name?
+My Name is Tarun Kumar Singhal.
+What is your email address?
+My personal email address is tarunsinghaliitd@gmail.com and my university email address is
+tarun.singhal@mail.utoronto.com
+What is your Sugar Labs wiki username?
+Tarun Singhal
+What is your IRC nickname on irc.freenode.net?
+My IRC nickname on irc.freenode.net is tarunsinghal92
+What is your first language? (We have mentors who speak multiple languages and can match you
+with one of them if you'd prefer.)
+My first languages are English and Hindi. My language of communication is English.
+Where are, you located, and what hours (UTC) do you tend to work? (We also try to match mentors
+by general time zone if possible.)
+I live in Toronto, Ontario, Canada. The time zone is Eastern Time Zone (UTC - 5). I tend to work in
+evening till late night. It makes it 3 pm to 1 am (UTC), but it is adjustable. I will try to be active with
+mentors on IRC chat and emails.
+Have you participated in an open-source project before? If so, please send us URLs to your profile
+pages for those projects or some other demonstration of the work that you have done in opensource.
+If not, why do you want to work on an open-source project this summer?
+I have worked on various open source projects which are available on my Github repository
+(
+https://github.com/tarunsinghal92/
+). There are mostly related to the application of Civil engineering
+in Computer science along with some projects that are related to WebGL. But apart from that, I haven’t
+contributed to any existing open source projects but I always wanted to. I think with Sugar labs, it will
+a great opportunity for me to learn and contribute in open source. Becoming a part of a community,
+which involves several people working together in a coordinated fashion, would help me to learn and
+contribute more in open source projects.
+About My project
+We are looking for projects that will enhance the Sugar Learning Platform. Please consider how your
+project will have impact on children learning.
+What is the name of your project?
+Sugarizer backend Dashboard
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why
+do they need it? What technologies (programming languages, etc.) will you be using?
+The goal of the project is to create the "Sugarizer Server Dashboard" for teachers and deployment
+admin which can be used to control and manage the work of learners and manage and analyze all
+activity on a Sugarizer Server. This would increase user engagement from both learner and teacher
+side. It can be explained through a lot of use cases. Here are few of them:
+1. Today, leaners give the result of their works (a drawing, a text, a video, ...) to the teacher in USB
+drives which is quite inefficient. With the Sugarizer Dashboard, the teacher can access all submitted
+Journals directly from dashboard and would be able to launch each activity exactly as it was on
+the learner’s device.
+2. To analyze usages on a deployment, it's important to know which activities are used and how often
+they are used. With the dashboard, the admin could view detailed statistics on activities usage and
+adapt content to the field. Currently, it is being done by backing up each laptop individually but
+it this process can be hugely automated through the dashboard.
+3. To supervise a deployment, admins need to know the exact memory and storage on devices and
+on the server. With Sugarizer Server Dashboard, admins could retrieve stats on storage usage for
+all devices and adapt the infrastructure accordingly.
+We will try to explain this by the means of a flow chart. As we can see, there are three types of users:
+Leaners, Teachers & Admin. The learners would work on different activities and store their data on XO
+server. On the other hand, Learners would use the dashboard to access and view learner’s activities. 
+Admin would be interested every possible information. Sugarizer APIs would act as a data source for
+the dashboard.
+The final Sugarizer Dashboard is expected to have the following features:
+• Users: how many users has been registered on the server, how many users currently connected,
+top users on the server, last user’s connection, create/edit/remove a user.
+• Journal: how many Journals and how many entries in Journal on the server, last Journal, and last
+entries, the size of Journals, top Journals, edit a journal (see/update/remove) entries.
+• Application: how many applications are available on the server, change application visibility from
+Client, update order and way to appear in the favorite view.
+• Graphic and request: display graphics and report on previous data.
+To implement the dashboard, we would be enhancing the existing Sugarizer Server API and would
+also be integrating an authentication mechanism. For the same purpose, we need to four new fields
+to the user’s route as mentioned below:
+• Email: This would act as a medium for the user to receive their dashboard password and act
+as the user ID while logging in the dashboard. Not required for Learners but would be a
+required field for Admins and teachers.
+• Type: This would be used to distinguish between the student, admin or learner. Role
+segregation is defined as follows:
+o Student: Can’t access the dashboard, will work on XO only.
+o Teacher: Can access dashboard, but cannot access the general memory and storage
+stats.
+o Admin: Can access everything.
+• Password: Encrypted Password of the user
+• Timestamp: Last access timestamp of the dashboard. Valid only for admin & teachers.
+{
+"name": "Lionel",
+"color": {
+"stroke": "#A700FF",
+"fill": "#FF8F00"
+},
+"favorites": [
+"org.olpcfrance.PaintActivity",
+"org.olpcfrance.TamTamMicro",
+…
+],
+"language": "fr",
+"private_journal": "56b271d026068d62059565e4",
+"shared_journal": "536d30874326e55f2a22816f",
+"_id": "56b271d026068d62059565e5",
+"email": "john.doe@email.com", /*[NEW FIELD]*/
+"type": "student", /*student or teacher or admin, [NEW FIELD] */
+"password": "536dd30da874326e55f2a22816f", /*encrypted [NEW FIELD]*/
+"timestamp": 1423341066909 /* last access timestamp [NEW FIELD]*/
+}
+Also, to store memory & storage stats, we need to create a log route in the API. Details are as follows:
+• Memory: Memory used in KB.
+• Storage: Storage used in KB.
+• Device Type: Whether activity was launched on Web or Mobile device.
+• User Id: To track down the user associated with this log.
+• Activity ID: Identifier for an activity.
+• Activity Name: just to give a quick idea about the activity. Though it can be removed as we
+can retrieve this data from activity id.
+• Launch Mode: From where the app was launched: Journal View | Home View | Neighbourhood
+View
+• Timestamp: Time when this log was generated.
+{
+"activity_id": "caa97e48-d33c-470a-99e9-495ff02afe01",
+"activity": "org.sugarlabs.Markdown",
+"user_id": "56b271d026068d62059565e5",
+"device_type": "web | mobile",
+"launch_mode": "journal | home | neighbourhood",
+"usage":{
+"memory" : 64, /* in KB */
+"storage": 128 /* in KB */
+},
+"timestamp": 1423341066909
+}
+To develop the dashboard, we would be using NodeJs as a server, Express for routing, & EJS as the
+templating engine. Apart from these, JQuery, Highcharts.js, and SketchUI would also be used to
+design and make an interactive user interface with lots of analytics related to the activities and users.
+Most of the programming would in JS, HTML, and CSS. Following is a snapshot of the prototype which
+I have developed using the above-mentioned technologies as proof of concept during the application
+period.
+What is the timeline for development of your project? The Summer of Code work period is from midMay
+to mid-August; tell us what you will be working on each week. (As the summer goes on, you and
+your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an
+idea of where you're headed.) Note that you should probably plan to have something "working and
+90% done" by the midterm evaluation (end of June); the last steps always take longer than you think,
+and we will consider cancelling projects which are not mostly working by then.
+Week Task
+27 April-19 May Explore the technologies to be used in developing Sugarizer
+Dashboard. Talk to the mentors to decide how to integrate the
+existing API with the Dashboard and think about possible
+changes to existing API so that they both work seamlessly.
+19 May – 25 May Begin coding for Sugarizer backend Dashboard and implement
+changes that are required for the API.
+25 May – 2 June Complete the Basic framework for the Dashboard.
+2 June – 9 June Implement authentication and user module of API on the
+Dashboard.
+9 June – 16 June Implement activities and journal Module and test the workflow.
+16 June – 23 June Implement main dashboard screen with all analytics required.
+23 June – 3 July Midterm Evaluation
+3 July – 31 July Complete the Remaining tasks and made modification from
+regular feedback.
+31 July – 7 August Start the performance testing and enhancement and fix any
+existing bugs.
+7 August – 14 August Buffer week
+14 August - 21 August Polish up the UI, and review the documentation.
+21 August – 28 August Final Evaluations
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the
+timeline you have described. This is usually where people describe their past experiences,
+credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or
+other resources as relevant.
+I completed my Bachelor’s from Indian Institute of Technology - Delhi, India and am currently a
+Master’s student at the University of Toronto in Toronto, ON, Canada. Being a part of such prestigious
+institutes famous for their strong competitive environment, I have excellent skills to manage time and
+deliver quality work within the prescribed deadline.
+Technology always fascinates me and gives me immense happiness when I see that just by writing few
+of lines of code, we can make a great product and it can help a lot of people to become more active
+in their day to day life. A simple example of this is a course project that I have worked in my 2nd
+semester of Master’s program (
+https://github.com/tarunsinghal92/3d-modal-analysis
+) which is
+basically a simulation tool to analyze an N story building under different types of the earthquake. This
+program can certainly help civil engineers to simulate their design under earthquake and come up with
+even better design strategies. Following is a screenshot of this project that describes the stress
+distribution at a certain time step of an earthquake in 5 storey building.
+Prior to my master’s, I was working with a Start-up named VMock (
+https://www.vmock.com
+), where we
+were working on a product that can automatically scans a candidate’s resume and gives feedback
+using natural language processing and machine learning on how to improve it. As it was a very early
+stage company, all the deadlines were used to be very hard but we tried our best and were able to
+meet almost all possible deadlines. This has taught me an important lesson of working in deadline
+based competitive environment.
+Apart from these, I have also made a small prototype for Sugarizer dashboard and some of the
+screenshots are as follows. It accessed using following link:
+http://35.167.50.63:8100/journals
+.
+Dashboard screen was created using SketchUI and different analytics were shown on the front page
+to give an overall idea of the activities usage (Dashboard not present in prototype). 
+Following is the screen for activities page and it is also available in the prototype.
+This prototype demonstrates my skills and capabilities required to complete the project in a systematic
+manner. The code for the prototype can be found on Github:
+https://github.com/tarunsinghal92/sugarizer-backend
+Me and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give
+3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be
+answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs
+GSoC mentor. Provide email contact information for non-GSoC mentors.
+Tarun
+The project aims to create a "Sugarizer Server Dashboard" for teachers and deployment admin which
+can be used to control and manage the work of learners and analyze all various activities on a Sugarizer
+Server. Teachers won’t have to locally transfer journals from the learners’ device and would be able to
+launch each activity exactly like it was on the learner’s device. This project would have great impact on
+the teachers as they would be able to manage their workflow in a more automated way which would
+also increase user engagement & product adoption by completing the loop which is missing right now.
+For the sugar labs community, it would be a great as they could view all the statistics directly from the
+dashboard and work on improving the system in a fact-based way using the information presented in
+the dashboard.
+Lionel Laske´
+Sugarizer has started this year its first deployment on the field. We learned that deploying a
+pedagogical tool in a classroom can't be efficient if not mix with teacher tools. The Sugarizer Server 
+Dashboard will allow teachers and deployment administrators to retrieve data and statistics and then
+to optimize Sugarizer deployment. It's a major item to favorise Sugarizer adoption in the classroom.
+Michael Ohayon
+The Sugarizer Dashboard is a new project to monitor and take actions for Sugarizer deployments.
+It will allow teachers to get feedback on the most used activities, read journal entries and manage
+users. The deployment team will get usage statistics and administration functionalities. This project is
+a major improvement for Sugarizer, it will allow to measure Sugarizer's usage and take useful
+decisions on future enhancements.
+What will you do if you get stuck on your project and your mentor isn't around?
+If I get stuck somewhere in the project, then the first strategy would be to get whatever help I can get
+from Google, Stack overflow etc. This should cover most the technology related issues. But in case, I
+got stuck in figuring out what should I do next then I would immediately contact my project mentors
+and community and seek their help using IRC and mailing list.
+How do you propose you will be keeping the community informed of your progress and any
+problems or questions you might have over the course of the project?
+Initially, I was thinking of writing a separate blog, but generally, they got lost after few years. So, I am
+planning to write an update blog on my project’s Github account so that it would be easy for me and
+for my mentors to keep track of the project and these updates would always be there with the code
+base so it would be easy to track even after a long time. Moreover, this would also help other
+developers to add additional functionalities in future.
+Apart from that I would be regularly hosting all the changes on my private server so that it becomes
+easy for the community to view and suggest possible feedback on it. For problems and questions, I
+would contact my mentor and the community on IRC and mailing list.
+Miscellaneous
+We want to make sure that you can set up a development	environment before	the summer starts.	Please
+do one of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification:	when
+you hover over the XO-person icon in the middle of Home view,	the drop-down text should have your email in
+place of "logout".
+This modification was made by changing the Language(EN) corresponding to Shutdown variable in
+the locale.ini file.
+Describe a great learning experience you had as a child.
+“Work hard and don’t worry about the outcome because if you have done enough then it is going to
+be alright. Failure and Success are mere the outcomes, what matters, in the end, is the journey you
+had for it. If there are instances, which makes you feel that something is wrong then it needs to change
+and nobody else is going to come and do it for. It’s only you who could make it right.” I am not sure
+whether this belief is an outcome my childhood or undergrad or job experience but it keeps me
+motivated to do well in life.
+Is there anything else we should have asked you or anything else that we should know that might make us like	
+you	or	your	project	more?
+A series of events, starting with a minor degree in Computer Science (CS) during Bachelor’s degree in
+Civil Engineering (CE), publishing a research paper involving heavy computational component of
+ABAQUS, two years of tech start-up experience in VMock has created a desire in me to work on
+improving the lives of common people by integrating Computer Science (CS) and (CE). My Master’s
+was purely an outcome of this decision. I believe that having a good understanding of both the fields
+can help me to develop Civil engineering related open source projects. With Sugarizer dashboard
+project, I can certainly understand better about contributing to the open source community.

@@ -1,0 +1,98 @@
+Title: Translation Team/Upstream localization
+URL: https://wiki.sugarlabs.org/go/Translation_Team/Upstream_localization
+--------------------------------------------------------------------------------
+It is important to understand that the Sugar user Interface is only part of what a user sees when using Sugar (say on an XO laptop or SOAS).  It is important that a large number of upstream projects get localized to have a fully translated user experience.  As one small example, when opening a PDF in Browse (web-activity) there is a string that appears "Loading..." that comes from the evince document viewer.  The only way to make that string appear in your native language is to contribute to the localization of evince in the upstream.
+Sugar Labs and OLPC benefit greatly from work done upstream (Fedora, GNOME, etc.).  These upstream projects typically host their own localization and in order for us to get the greatest benefit from these projects, it is important that we check on and contribute to their localization of the modules and languages of interest to Sugar Labs / OLPC.  The benefits of making these upstream contributions flow directly back to Sugar Labs / OLPC as we get our L10n bits for these packages from the upstream.
+Contents
+1
+Upstream Hosted Projects
+1.1
+OLPC Software project
+1.2
+GNOME modules
+1.3
+GNOME Tracking Ticket in Pootle
+1.4
+Translation Project Tracking Tickets in Pootle
+1.5
+Scratch
+1.6
+Firefox localization
+2
+Unhosted projects
+2.1
+Inkscape
+2.2
+Audacity
+2.3
+Batti
+Upstream Hosted Projects
+These projects have formal localization projects with a hosting server and typically a language team that acts as the gatekeeper for new L10n.  It is necessary to learn about their L10n process and possibly join their language team to contribute.
+OLPC Software project
+While this is hosted locally it is listed on this page again to emphasize that these are the strings involved in switching from the Sugar UI to the GNOME UI in recent OLPC builds.
+olpc-switch-desktop.po
+http://translate.sugarlabs.org/projects/olpc_software/
++++++++++++++++++++++++
+GNOME modules
+Recent OLPC builds are dual boot in Sugar and GNOME UIs.  We inherit the GNOME L10n bits from the upstream, so in order to have a fully localized XO laptop, it is critical to make sure that the L10n of the GNOME modules we pull into our build process are complete.
+Learn about the GNOME translation process
+http://live.gnome.org/TranslationProject/
+Create an account on the GNOME "Damned Lies" server and login
+http://l10n.gnome.org/login/
+Look to see if there is already a Translation Team for your language.
+GNOME Translation Teams
+http://l10n.gnome.org/teams/
++++++++++++++++++++++++
+GNOME Tracking Ticket in Pootle
+There are specific GNOME modules and packages that are pulled into OLPC builds.  The GNOME upstream has kindly provided us with a "release set" that allows us to track these specific packages on their upstream L10n server.
+http://l10n.gnome.org/releases/olpc/
+Please work on these packages first when you go to work on upstream L10n.  There is dummy PO file in the Pootle Upstream L10n project that is not meant to be translated literally, but instead serves the purpose of acting as link to the upstream L10n effort.
+DL-tracking-GNOME-OLPC-Release-Set.po
+Translation Project Tracking Tickets in Pootle
+The Translation Project hosts localization for a number of free and open source software (FOSS) packages, including some that are used in making Sugar and OLPC software releases.  In some cases. it is necessary to first fill out a form specifically giving up your inherent copyright (disclaiming) to the strings you contribute to assure that they can be shared freely anywhere in the world (local copyright laws differ, making this necessary).
+http://translationproject.org/html/welcome.html
+Scratch
+This is hosted by the Scratch team on their own Pootle server, but this PO serves the same "tracking ticket" function as the others.
+tracking-scratch.po
+http://translate.scratch.mit.edu/projects/scratch/
+Firefox localization
+Firefox is the default browser on the GNOME boot of an OLPC build.
+Learn about the Firefox translation process
+https://wiki.mozilla.org/L10n:Home_Page
+Find your team
+https://wiki.mozilla.org/Category:L10n_Teams
+Verbatim, the Mozilla Pootle server
+https://localize.mozilla.org/
+L10n on Mercurial
+https://developer.mozilla.org/En/L10n_on_Mercurial
+https://developer.mozilla.org/en/Localization_prerequisites
+Creating a Language Pack
+https://developer.mozilla.org/en/Creating_a_Language_Pack
+https://wiki.mozilla.org/L10n:Localizability/Web
+Unhosted projects
+These projects have less formal localization projects.  They typically employ a general L10n mailing list (or sometimes a language team specific list) and completed PO files are posted to the lists for review and commit.  In other cases, the completed PO is posted as an attachment to a ticket in their bug tracker.  It is necessary to learn about their L10n process and possibly join their language team to contribute.
+In some cases, we may decide to host a copy of the upstream POT file locally, but this is only for the convenience of allowing our localizers to work in a familiar tool (Pootle) and to allow us to track completion status.  To get the translated PO file submitted, it is still necessary to work though the upstream's process.
+Inkscape
+Learn about the Inkscape translation process
+http://wiki.inkscape.org/wiki/index.php/Translation_information
+http://wiki.inkscape.org/wiki/index.php/Translation_information#User_interface
+Inkscape's translator mailing list
+https://lists.sourceforge.net/lists/listinfo/inkscape-translator
+Location of the committed PO files in Inkscape's bazaar repository web interface.
+http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/files/head:/po/
+Audacity
+Learn about the Audacity translation process
+http://audacity.sourceforge.net/community/translation
+Check current status here:
+http://code.google.com/p/audacity/source/browse/audacity-src/trunk#trunk%2Flocale
+Post PO files to
+http://sourceforge.net/mailarchive/forum.php?forum_name=audacity-translation
+Subscribe to the audacity-translation mailing list, zip up the translated .po file(s) and attach to a message to the list. A member of Audacity Team will then commit the file to SVN for future Audacity release (or for the web site) and will send a message back to say this has been done.
++++++++++++++++++++++++
+Batti
+http://gtk-apps.org/content/show.php/batti?content=132291&PHPSESSID=xpfyvhcukye
+http://code.google.com/p/batti-gtk/
+http://www.transifex.net/projects/p/batti/
+https://www.transifex.net/projects/p/batti/r/all-resources/
+http://gitorious.org/batti/batti/trees/master/po
++++++++++++++++++++++++

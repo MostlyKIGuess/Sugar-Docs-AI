@@ -1,0 +1,86 @@
+Title: Education Team/Quest for Data
+URL: https://wiki.sugarlabs.org/go/Education_Team/Quest_for_Data
+--------------------------------------------------------------------------------
+This page collects information from various stakeholders in the OLPC Sugar community to determine which statistical data are important to gather and how to analyze an visualize the data to in a meaningful way. These stakeholders are
+learners
+teachers
+parents and guardians
+principals and school administrators
+deployment organizations
+educational policymakers
+sugar-core developers
+sugar activity developers
+researchers
+Contents
+1
+Learning Analytics
+2
+Deployments
+2.1
+OLE Nepal
+2.2
+OLPC AU
+2.3
+OLPC Jamaica
+3
+References
+Learning Analytics
+We have identified the following stages in the learning analytics workflow. Implementation of each stage is independent to provide for flexibility of use by different stakeholders:
+Measurement
+Data is generated at the source
+Journal metadata
+sugar-stats
+Collection
+:
+The measured data needs to be collected from the source, anonymized, aggregated, and prepared for processing.
+transfer of data from schools to central location
+anonymization: currently not implemented
+olpc_journal_processor:
+https://github.com/Leotis/olpc_journal_processor
+xo-stats:
+https://github.com/martasd/xo-stats
+Analysis
+Analysis of raw data or data aggregated in a database.
+spreadsheet application (LibreOffice)
+statistics application: SOFA Statistics, R, CouchDB views, etc.
+Reporting
+A meaningful report tailored to the needs of a particular audience is generated
+CouchDB + D3.js, HighCharts, InfoVIS Toolkit, jqPlot, dc.js within Flask templates-> HTML, PNG, PS, PDF, SVG, etc.
+Using CouchDB with InfoVIS Toolkit:
+http://bergie.iki.fi/blog/business_analytics_with_couchdb_and_noflo
+OLPC Dashboard:
+https://github.com/Leotis/olpc-datavisualization
+Sharing Results
+Analysis results and visualizations are shared across deployments.
+currently not implemented
+Deployments
+OLE Nepal
+These are the basic questions answered in the first stage of
+xo-stats
+project.
+Deployment Organizations:
+How many times do installed activities get used? How does the activity use differ over time?
+Which activities are children using to create files? What kind of files are being created?
+Which activities are being launched in share-mode and how often?
+Which part of the day do children play with the activities?
+How does the set of activities used evolve as children age?
+OLPC AU
+The
+Harvest
+system is being used to gather some basic stats; A visualization tool will be developed to enable stakeholders (funders, administrators, and classroom teachers) to monitor these data.
+OLPC Jamaica
+The OLPC Dashboard project was developed at
+The University of the West Indies, Jamaica
+. It is an ongoing project. It consists of a two part system. The data collection script runs on the XS (or XSCE) school server. The script traverses the
+/library/users/
+directory on the XS school server and gathers the metadata from Sugar Journal backups. The collected metadata are then expressed as a comma-separated or CSV file. An alternative export method exports the data as json. The dashboard is where the analysis and reporting happen. The dashboard system is a selective visualization setup with a
+CouchDB
+backend. The json is pushed into a CouchDB database on the XS. Then, selective data aggregates are produced via views in CouchDB and displayed using a JavaScript front end. This step happens on the local XS (views for teacher and principal). However, an aggregated view can happen centrally as well. The CouchDB on the XS can also be synchronized with a central CouchDB, where the visualization may be different, perhaps for personnel at the country's Ministry of Education. Code and test data can be found at
+olpc_journal_processor
+and
+olpc-datavisualization
+.
+References
+See this discussion list thread,
+The quest for data
+, begun on 02 January 2014.

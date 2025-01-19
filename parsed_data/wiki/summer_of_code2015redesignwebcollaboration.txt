@@ -1,0 +1,145 @@
+Title: Summer of Code/2015/RedesignWebCollaboration
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2015/RedesignWebCollaboration
+--------------------------------------------------------------------------------
+Contents
+1
+About Me
+2
+About the Project
+3
+Me and The Community
+4
+Miscellaneous
+About Me
+Name
+: Abhinav Anurag
+E-mail Address
+: abhinavanurag18@gmail.com
+Sugar Labs Wiki Username
+: Abhinav Anurag
+IRC nickname on irc.freenode.net
+: abhinav
+My first language
+: Hindi, English
+Where am I located, and what hours (UTC) do I tend to work?
+I am located at Pilani, Rajasthan,India. I tend to work in any 8 hours in the bracket of 7:30 AM to 8:30 PM UTC.
+Have you participated in an open-source project before?
+In these last two months, I have been continuously tweaking the code of turtleblocksjs and done some pull requests which were merged. 
+Openness, and accessibility of open source excites me. To contribute to and benefit from this immense pool of talent and knowledge is what drives me. Here are the reasons why I think I will love to work on an open-source project this summer :
+The opportunities provided by the organization are same as those I want my career in.
+It will open a door for me  to meet and work with brightest of the bright people working for Sugar Labs.
+About the Project
+What is the name of the project?
+:
+Redesign Collaboration with web technologies
+Description of the project in 10-20 sentences. What am I making? Who am I making it for, and why do they need it? What technologies (programming languages, etc.) will I be using?
+This project is all about redesigning the collaboration framework for javascript environment using
+implementations of websocket in node.js
+. As of now, Sugar has the collaboration mechanism for python-based activities(for python environment). But, the web activities are still devoid of it.
+This collaboration framework will enable a lot of collaborative applications on the sugar platform in javascript environment like  Collaborative File Editing, Collaborative TurtleblocksJS, File Sharing and what not. The functionality of the collaboration framework will be similar to that in python environment but implementation varies greatly to enhance the scalability and efficiency. This enhancement is clearly visible with the approach of using websockets. It will decrease the use of bandwidth greatly(no need to include HTTP Headers). At the same time, polling will also be ruled out from the scenario making the io independent and clutter-free.
+We also need to ensure the reusability of the code while designing the framework. Hence, inspirations have to be taken from the structure of collaborative framework used in the python version.
+The implementation of the project goes like this :
+Backend will consist of two parts. One for serving normal HTTP requests and other for web socket requests. For serving HTTP requests, I will use Node.js based MVC framework called
+Sails.js
+.
+Web socket server will be implemented using '
+ws
+' : simple to use and one of the fastest WebSocket implementation for node.js. For message handling and datastore, I propose to use
+Redis.
+Redis is an open source, BSD licensed, advanced
+key-value cache
+and
+store
+. It is often referred to as a
+data structure server
+since keys can contain strings, hashes, lists, sets,sorted sets, bitmaps and hyperloglogs.
+For permanent storage of data, I am proposing to use
+MongoDB
+. The agility and scalability of mongoDB inspired me use this for the project.
+What is the timeline for development of my project?
+Better ideas come to me while working; hence in my timeline I have stated my discussions with my mentor many times. This will help me better understanding and might add some new features to the program. I also intend to continuously assess the system based on continuous user based tests on the interface. I also intend to take continuous feedback on my progress from the community. I intend to keep enough time to assess the feedback and make further changes thus, ensuring the completeness of the system.
+Here, I present my proposed timeline :
+Week
+Assignment
+PreSummer Phase
+Community Bonding Period
+Discussions on the current proposed framework for the project and discussing its nitty-gritties with the community and my mentor.
+Week 1
+Coding phase 1
+Preparing Unit Tests
+Deliverables
+: Unit Tests which are to be used and improved upon throughout the project.
+Week 2
+Coding phase 2
+Making a simple Instant Messaging Application using websockets along with canvas sharing integrated with TurtleBlocksJS. This will give us the idea of how everything has to be developed.
+Deliverables
+: An open-to-all turtle canvas in which anyone can work and chat(like a main chat).
+Week 3 & 4
+Coding Phase 3
+Design the presence API.
+Create the UI for neighbourhood and integrate it with presence and chat API.
+Deliverables :
+Fully-functional Neighbourhood with the functionality to send request to collaborate.
+Week 5
+User Enhancement Request Phase
+Integration of the work of coding phase 2 and 3. Code will be open for community to submit user enhancement requests.
+Enhancing the reusability of the code to its fullest will also be one of the main concerns in this phase.
+Mid-Term Evaluation
+Week 6,7 & 8
+Listing down the collaboration features. Implementing the features decided after discussing. This period can also be used as buffer period.
+Implementing them weekly.Can also be used as buffer period.
+Week 8,9 and 10
+Soft Pencils Down
+The framework will be open to the community and unit tests will be carried out incrementally.
+Week 11 & 12
+Firm Pencils Down
+This time will be used for bug-fixing and preparation of design documentation.
+Week 13 - INFINITY
+Become an active contributor to Sugar Labs and keep in constant contact with the community.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+As a developer, I believe in the agile techniques of software development which I developed while working as webmaster and activities coordinator for BITS ACM(Student Chapter of Association For Computing Machinery, BITS Pilani, India). Hence, I can claim that I know the importance of effective planning and then executing it according to the plan taking into account all the UX responses and incrementally integrating them with the project without delaying the delivery of the application. All the chides of my seniors have made me learn it the hard way. :).
+Along with that, I have the experience of using sockets api for my course work in network programming which included modification of traceroute, building a chatroom with concurrent server(two approaches : prethread and epoll API) and many other assignments which made me confident with sockets API. This point proves that I am well aware of the field I am trying my hands in and I know the way to go as well.
+Along with academics and extra-curricular activites, I am a startup-enthusiast as well.  I developed an extensible rental e-commerce platform for a startup which uses HTML, Javascript, CSS for UI/UX and Django 1.7 provides the backend.Though the company is not doing the business as of now but I am proud of my code and application which was made in a month(from scratch).
+Link :
+Cocociti
+All these points proves that I enjoy working with deadlines as it motivates me only.
+Have a look of my past work :
+Checkmate
+: An online 2-hr event to test the intelligence of the participant. Users have to solve the questions and bid for a multiplier(like 2x means if correct, 2 times the base point of the question will awarded. Deduction will also be done in the same proportion.) on the basis of two metrics : no. of users already solved that question and the accuracy of the submissions. This two metrics helps user to decide the toughness of the question and hence, the bidding multiplier. This is a completely js-driven application having the support php for backend work.
+Network Programming Assignment
+: Problem statements are included in the repository. Language used : C.
+Compiler Assignment
+: I am making compiler for a Context-Free Language using LL(1) parser. This is an on-going assignment. Hence, code cannot be uploaded. Language used : C.
+ConnectUsers
+: A chrome plugin to link linkedin and Angellist. Any user going through linkedin profile of someone will get the link to same person on Angellist. An algorithm was designed to equate two profiles on two different websites. Language used : JavaScript.
+Imap
+: A plugin to display the no. of visitors of page(of a website) belonging to various places across the world(displayed on a google map). This feature is going to be used on www.infibeam.com. Language Used : Ruby with Ruby-On-Rails.
+Stock Market Simulation
+: An Online virtual trading application(simulation of stock trading).
+In relevance to the project, I am currently working on a collaborative canvas drawing application.
+Here
+is the link.
+Me and The Community
+If my project is successfully completed, what will its impact be on the Sugar Labs community?
+After the completion of the project, The Sugar Labs community will have its independent collaboration framework for javascript environment which will help the community to take a big step in the direction of browser-based sugar environment and its web application in sugar environment. It will make all the IO-communication real-time and efficient.
+In
+Sir Walter Bender
+’s words,
+“I hope it means we can use collaboration under more circumstances and hence expand its utility and the community.
+Quite simply, we want JS to be a first-class environment for Sugar, so we need a first-class collaboration mechanism.”
+What will I do if I get stuck on my project and my mentor isn't around?
+Firstly, I will try to get help from the community itself. Specially from the people whom I bonded with in the pre-application phase.
+Adding to that, I am a self learnt person and have learnt all that I know on my own through internet resources(Stack Overflow, Tech Blogs, Github, BitBucket and what not). And I am proud of this skill of mine. In case web fails, I will get back coding community comprising of seniors and professors in my college
+How do I propose I will be keeping the community informed of my progress and any problems or questions you might have over the course of the project?
+I am planning to maintain a wiki page for my project which I will updating time-to-time to keep the community updated about the project. Along with that, I am planning to write weekly blogs about my findings during the project in my own way ;).
+Miscellaneous
+Links to the pull requests I have made on a Sugar or Sugar activity bug.
+Pull 1
+Pull 2
+Pull 3
+Description of a great learning experience I had as a child.
+I have always been a very studious and obedient student who used to top the class all the time. Even after that, I was never very sure about what I will be pursuing in life. The world of computers used to sound cool to me .But, at the same time, they used to scare me as well because I was not fluent in using them like other students. The reason being not having a computer at home. So, One thing I was sure of was that computers is and will never be my cup of tea.
+I remember myself solving my first programming question(in which I had to find average and give grades to the students using switch cases) which incidently was the first open programming question encountered by the students of my batch. And I also remember those words spoken to me by my IT teacher, “If you ever choose this field as a career, you will earn a lot of name for you. ”. Till then, there is no looking back.
+Is there anything else you should have asked me or anything else that you should know that might make you like me or my project more?
+Sometimes, I think what if I would have got the access of something like sugar in my childhood days. I can clearly see myself stuck with my xo machine playing with turtle and chatting with my friend abroad. I would have loved those moments. We would have cooler and smarter kids.
+If not me, then why not the coming generation? This is the source of an enormous motivation for me to work for the development of this organisation. This project for me will always be driven by the motivation and the field of work ( which is my newly-found love : websockets. ). Hence, It will be completed with a lot of dedication and passion if given a chance.

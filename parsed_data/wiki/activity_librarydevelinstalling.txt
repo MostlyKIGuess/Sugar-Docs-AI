@@ -1,0 +1,135 @@
+Title: Activity Library/Devel/Installing
+URL: https://wiki.sugarlabs.org/go/Activity_Library/Devel/Installing
+--------------------------------------------------------------------------------
+Contents
+1
+Activities.sugarlabs.org
+1.1
+Background
+1.2
+Why base a.s.o on a.m.o
+1.2.1
+Pros
+1.2.2
+Cons
+1.3
+Sources
+1.4
+Install server
+1.5
+Set up server
+1.6
+Configure ASLO
+1.7
+Optional steps
+1.7.1
+Install php-memcache
+1.7.2
+Install memcached
+1.8
+TODO
+Activities.sugarlabs.org
+Over the last several months, there have been on and off discussions about how to adapt the addons.mozilla.org server software to manage Sugar activities.
+Background
+Information about Remora, the codename for a.m.o version 3, is at
+https://wiki.mozilla.org/Update:Remora
+.
+Why base a.s.o on a.m.o
+Pros
+The function of a.m.o is exactly the same as the desired functionality of a.s.o.
+Cons
+A.m.o is currently only used by mozilla.
+A.m.o is written in cake-php (yet another web framework)
+Sources
+http://git.sugarlabs.org/projects/slo-activities
+Branches structure:
+master
+branch, last ASLO codebase
+master-theme
+rebased to
+master
+branch, last ASLO codebase with sugar theme
+v<version>
+branch, released ASLO version
+v<version>-theme
+rebased to
+v<version>
+branch, released ASLO version with sugar theme
+production
+tag to last stable branch
+Install server
+NOTE
+The followed instructions tested on Ubuntu 9.04(Jaunty).
+Install apache, php and mysql.
+sudo apt-get install apache2 mysql-server
+sudo apt-get install php5 php5-dev php5-gd php5-cli php-pear php5-mysql
+Install required php modules.
+pear config-set preferred_state beta 
+pear install Archive_Zip
+To check out sources you need git and subversion.
+sudo apt-get install git subversion
+Checkout our fork.
+git-clone
+git://git.sugarlabs.org/slo-activities/mainline.git
+/var/www
+Fetch external dependencies:
+cd /var/www/site/vendors/
+svn co
+http://svn.mozilla.org/libs/product-details
+svn co
+http://svn.mozilla.org/libs/fizzypop.mozdev
+fizzypop
+svn co
+http://svn.mozilla.org/libs/phorms
+svn co
+http://svn.mozilla.org/libs/zxtm-api
+Set up server
+Setup apache. Add followed lines to the end of VirtualHost section in /etc/apache2/sites-enabled file:
+DocumentRoot /var/www/site/app/webroot
+<Directory /var/www/>AllowOverride All</Directory>
+Enable all apache mods.
+cd /etc/apache2/mods-enabled
+ln -s ../mods-available/* .
+Setup mysql(you need to enter mysql root password for these commands).
+mysqladmin -u root password remora
+mysqladmin -u root -p create remora
+mysql -u root -p
+
+GRANT ALL ON *.* TO 'remora'@'localhost' IDENTIFIED BY 'remora';
+exit;
+Add our server to /etc/hosts file.
+127.0.0.1 a.sl.o
+To test server create /var/www/site/app/webroot/php.php:
+<?php phpinfo(); ?>
+Open
+http://a.sl.o/php
+in browser and make sure mysql is enabled.
+Configure ASLO
+cd /var/www
+aslo/db-create-stub.sh
+Open a.sl.o in browser. To login use:
+login
+admin@sugarlabs.org
+password
+test
+Optional steps
+Install php-memcache
+yum install php-devel gcc zlib-devel
+
+pecl install memcache
+vim /etc/php.ini
+You should add "extension=memcache.so" to php.ini
+service httpd restart
+Install memcached
+rpm -Uhv
+http://apt.sw.be/redhat/el5/en/i386/rpmforge/RPMS/rpmforge-release-0.3.6-1.el5.rf.i386.rpm
+yum install memcached
+service memcached start
+chkconfig --levels 235 httpd on
+TODO
+Fix search
+Fix downloads
+Lots of testing, debugging and fixing
+Upstream all patches that can make easier future rebases (and have a chance of being accepted)
+Translate our new strings
+Change the design accordingly to the Sugar image

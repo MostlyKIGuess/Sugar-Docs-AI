@@ -1,0 +1,203 @@
+Title: Design Team/Meetings/2010-07-10
+URL: https://wiki.sugarlabs.org/go/Design_Team/Meetings/2010-07-10
+--------------------------------------------------------------------------------
+Design Team/Meetings#Saturday 10 July 2010 14:30 UTC
+[10:31] == christianmarcsch [~christian@cpe-69-203-208-242.nyc.res.rr.com] has joined #sugar-meeting
+[10:32] <christianmarcsch> hi everyone
+[10:32] <walterbender> hi christianmarcsch
+[10:32] <christianmarcsch> hi walter!
+[10:33] <christianmarcsch> is gary there?
+[10:33] <walterbender> not yet, it seems
+[10:33] <christianmarcsch> did you see the PDF?
+[10:34] <walterbender> yes... It looks good... but I think it is overkill
+[10:34] <christianmarcsch> yes, we should discuss what the best solution would be
+[10:35] <christianmarcsch> showing palettes sooner may work, though i think there may be some usability issues since they cover up so much of the screen (and hide other objects that you could interact with)
+[10:36] <walterbender> if the initial pop-up is just start-resume-most-recent, that is pretty compact
+[10:37] <silbe> oh, so 14:30 UTC already, not 15:30?
+[10:39] <walterbender> We are +4 this time of year on the East Coast
+[10:40] <walterbender> err. -4
+[10:41] <silbe> that's why it's always a good idea to agree on times based on UTC, so everyone can do the calculation based on UTC instead of introducing errors while doing the offset calculation twice.
+[10:41] <silbe> date -d '<date> <time> UTC' will always print the correct local time
+[10:42] <silbe> (it's important to use <date> of the meeting in case it's near a change of DST)
+[10:43]  * walterbender would prefer to wait until 15:30UTC...
+[10:44] <christianmarcsch> i may not be able to do 15:30...
+[10:44] <christianmarcsch> we could try tomorrow?
+[10:45] <christianmarcsch> walter, i think that a shorter palette delay may work, but i'm a bit concerned about immediate visibility
+[10:45] <christianmarcsch> i've run into similar situations, where hover behavior causes elements to appear over other objects, making them hard to reach
+[10:46] <walterbender> christianmarcsch: then we are still back to the question of resume vs new...
+[10:46] <christianmarcsch> right, yes
+[10:46] <christianmarcsch> well,
+[10:46] <christianmarcsch> one possibility is that we show a smaller palette on click
+[10:46] <christianmarcsch> (instead of the modal dialog)
+[10:47] <christianmarcsch> so, something in between the modal dialog, and the hover palette
+[10:48]  * walterbender trying to picture it...
+[10:51] <christianmarcsch> gary had a sketch of something similar a while ago
+[10:51] <christianmarcsch> maybe we should have that for comparison
+[10:53] <walterbender> maybe we can sketch out each of these ideas and try them... the two-item pop up should be easy enough to try...
+[10:54] <christianmarcsch> you mean in code? that would be ideal
+[10:54] <christianmarcsch> then we can really get a sense for the interaction
+[10:54] <walterbender> yes... code...
+[10:55] <christianmarcsch> when you say two-item pop up, are you thinking the "resume" item would open up into a secondary menu?
+[10:55] <christianmarcsch> or would it go to the journal?
+[10:55] <walterbender> not sure which...
+[10:55] <christianmarcsch> or would it resume the last activity?
+[10:55] <christianmarcsch> with only two items i don't think there is a usability issue
+[10:56] <walterbender> I think new or most recent is a reasonable compromise...
+[10:57] <christianmarcsch> i agree
+[10:57] <christianmarcsch> that seems low-cost, and addresses the issue
+[10:58] <walterbender> and also, a small change from the UI perspective, so it is likely to be accepted down stream...
+[10:58] <silbe> what exactly are you envisioning? I don't quite get it from your descriptions...
+[10:58] <christianmarcsch> so, is resume then still the default click behavior?
+[10:58] <christianmarcsch> i'll create a quick mockup
+[10:59] <walterbender> that is debatable...
+[10:59] <walterbender> silbe: the idea is as I described it in my email: an instant (or very quick) pop up of a choice of start new or resume most recent.
+[10:59] <walterbender> silbe: a longer delay (as we currently have) for the full palette of choices
+[11:00] <silbe> walterbender: so like the mockups Michael and Gary (IIRC) produced some months ago?
+[11:01] <walterbender> silbe: yes
+[11:01] <walterbender> and no modal dialog
+[11:02] <walterbender> I worry about adding an extra step and I worry about introducing a radical change to the behavior that won't be accepted downstream
+[11:02] <walterbender> so I like the Gary/Michael proposal
+[11:03] <walterbender> and I like the additional simplicity of just two choices to start: new and resume
+[11:03] <silbe> no modal dialog sounds good (though I'd just spawn the dialog in a new window instead of making it modal)
+[11:04] <christianmarcsch> hang on, about to send a sketch
+[11:04] <silbe> but I'd need to try it out to say anything about how good it might work
+[11:06] <christianmarcsch> ok, just send another PDF
+[11:06] <christianmarcsch> the idea is that a single click would resume, and selecting from the (immediate) hover would start new
+[11:06] <christianmarcsch> this could be inverted based on the user-settings
+[11:07] <silbe> what exactly would a single click resume? the most recent instance?
+[11:07] <silbe> and how would it be different from what we have now?
+[11:08] <christianmarcsch> the most recent instance, yes
+[11:08] <christianmarcsch> the difference is that the hover preview appears immediately, not on delay
+[11:09] <christianmarcsch> the reason it can appear immediately is that it doesn't obstruct much content below (a usability issue with the current size of our hover palettes)
+[11:09] <christianmarcsch> anyway
+[11:09] <christianmarcsch> i liked walter's idea of mocking up both options and evaluating which performs better
+[11:10] <silbe> so delay removed, but also only a single entry so users have to go to the Journal if the want an instance that's not the most recent one, but need to use the home screen to start a new one and can use it to resume the most recent one?
+[11:10] <christianmarcsch> yes
+[11:11] <christianmarcsch> it seems like a fair compromise
+[11:11] <christianmarcsch> the modal dialog would be the more extensive of the two options
+[11:11] <christianmarcsch> so we can put both side-by-side, and evaluate how much functionality is needed
+[11:11] <silbe> I don't think it's a good choice.
+[11:12] <christianmarcsch> you don't think the last option is? or both?
+[11:13] <christianmarcsch> i think there is a certain elegance to walter's proposal
+[11:13] <silbe> the reason I use the home screen for resuming is because it has a list of instances filtered by activity. So I can choose the activity by moving the mouse onto it and then choose the instance I want, instead of having to move through a huge listbox in the journal and then choose from the resulting list.
+[11:14] <christianmarcsch> well so that's the choice
+[11:14] <silbe> Most of the time the instance I'm resuming is not the most recent one.
+[11:14] <christianmarcsch> for what you are describing, the modal dialog could work
+[11:14] <christianmarcsch> because we would still retain the hover palette
+[11:14] <christianmarcsch> but of course, we can also evaluate these two options against what we have today
+[11:14] <christianmarcsch> if today's version wins out, then perhaps there is no need for a change
+[11:14] <silbe> that's why I like it. I imagine it as a Journal grid view pre-filtered by activity
+[11:15] <christianmarcsch> yes, i agree that's what i like about that idea, as well
+[11:15] <christianmarcsch> but personally i'm on the fence as to which i'd prefer
+[11:15] <christianmarcsch> which is why i like the notion of prototyping both
+[11:16] <christianmarcsch> then we can all make a more informed decision
+[11:16] <silbe> I don't think having only resume-most-recent in the home screen is useful. Either remove it completely and improve the Journal, or leave the option to choose from multiple instances.
+[11:17] <christianmarcsch> do you still have a mockup of the gary/michael proposal?
+[11:17] <christianmarcsch> i want to make sure i remember it correctly
+[11:18] <silbe> it should be in the list archives
+[11:19] == garycmartin [~garycmart@95.146.9.144] has joined #sugar-meeting
+[11:19] <christianmarcsch> hi gary
+[11:19] <garycmartin> Hi christianmarcsch, just signing in early :)
+[11:19] == scorche [~scorche@rockbox/administrator/scorche] has quit [Disconnected by services]
+[11:19] <christianmarcsch> hah
+[11:20] == scorche` [~scorche@rockbox/administrator/scorche] has joined #sugar-meeting
+[11:20] <christianmarcsch> i thought we were on at 10:30/2:30
+[11:20] <christianmarcsch> but i fear i caused some confusion with the time conversion
+[11:20] <garycmartin> Aaaaagh!
+[11:21] <christianmarcsch> :)
+[11:21] <garycmartin> Has the meeting happened?
+[11:21] <christianmarcsch> well, sort of
+[11:21] <christianmarcsch> we were still discussing
+[11:21] <christianmarcsch> take a look at the two pdfs i sent
+[11:21] <christianmarcsch> walter had proposed an option similar to the last one
+[11:22] <christianmarcsch> which i personally find quite elegant, as an alternative for the more extensive modal dialog
+[11:22] <silbe> has anyone started meetbot, BTW?
+[11:22] <christianmarcsch> i also wanted to ask if you could forward the sketch you and michael had produced earlier?
+[11:22] <christianmarcsch> silbe: no, i don't believe so
+[11:22] <silbe> #startmeeting
+[11:22] <meeting> Meeting started at 11:25 UTC. The chair is silbe.
+[11:22] <meeting> Commands Available: #TOPIC, #IDEA, #ACTION, #AGREED, #LINK
+[11:23] <christianmarcsch> let me recap the options as i currently see them
+[11:23] <silbe> #topic Start New/Resume from home screen
+[11:23] <garycmartin> Hmm, been looking at the first pdf, the second looks borked. May just have a bad extension name.
+[11:23] <christianmarcsch> i'll resend
+[11:23] <garycmartin> christianmarcsch: yea just a bad name,  needs .pdf
+[11:24] <christianmarcsch> ok, i also resent as a single PDF (all three options)
+[11:24] <christianmarcsch> so...
+[11:24] <christianmarcsch> Option 1A: Modal dialog with full hover palette
+[11:24] <christianmarcsch> Option 1B: Modal dialog with only hover preview
+[11:24] <garycmartin> christianmarcsch: fwiw I was just mocking up Walters pi menu suggestion.
+[11:25] <christianmarcsch> Option 2: Immediate hover palette with only two options: resume the latest (on click), or start new
+[11:25] <christianmarcsch> garycmartin: that's great--can you share it yet?
+[11:25] <garycmartin> christianmarcsch: Pie menus have some advantages but are notoriously painful to implement and get working right.
+[11:25] <christianmarcsch> garycmartin: yes, i agree. worth looking at, though
+[11:26] <garycmartin> christianmarcsch: not done yet, having trouble with the layout myself :)
+[11:26] <christianmarcsch> so, walter had made a suggestion that we code each of these options and compare them
+[11:27] <christianmarcsch> i think that might be a good idea, so we can better evaluate each
+[11:27] <silbe> Option 3: New full-screen window with Journal grid view pre-filtered by activity
+[11:27] <garycmartin> christianmarcsch: So is Walter offering to code them? ;)
+[11:27] <christianmarcsch> silbe: isn't that similar to the modal dialog?
+[11:28] <silbe> christianmarcsch: similar, but distinctive enough to list separately
+[11:28] <christianmarcsch> silbe: so it basically takes you to a prefiltered journal?
+[11:29] <silbe> christianmarcsch: exactly
+[11:29] <christianmarcsch> silbe: on click?
+[11:29] <christianmarcsch> silbe: i feel that it could be an option in the hover palette, but on click it may feel too indirect
+[11:29] <christianmarcsch> silbe: that's why we ended up with a modal dialog--it still keeps you in context of the home view
+[11:29] <silbe> christianmarcsch: yep. Start New should be an option in the full-screen window as well.
+[11:30] <silbe> christianmarcsch: how would you trigger and dismiss the modal dialog?
+[11:30] <christianmarcsch> silbe: so, i view this option as a variation of the modal dialog. we keep the dialog, but make it more extensive
+[11:30] <garycmartin> Seeing as we suddenly have so many new suggestions, perhaps we should skip the realtime meeting and take some time to look at them using the mail-list?
+[11:30] <christianmarcsch> silbe: look at the pdf: you can either click the X, or click the grayed out background around it
+[11:30] <silbe> and make it non-modal because modal is a PITA
+[11:30] <christianmarcsch> PITA?
+[11:31] <silbe> christianmarcsch: and how do you trigger it? clicking on an activity?
+[11:31] <christianmarcsch> silbe: yes
+[11:31] <silbe> pain in the backside ;)
+[11:31] <christianmarcsch> silbe: so, imagine we took this dialog and added a scrollbar
+[11:32] <christianmarcsch> silbe: then we would have what you are describing, right?
+[11:32] <christianmarcsch> silbe: it sounds like what you are looking for is to show more activities
+[11:33] <silbe> more or less - except that I'd use the grid view (=> preview images) and make it non-modal.
+[11:33] == m_anish [~anishmang@59.178.155.177] has joined #sugar-meeting
+[11:33] <christianmarcsch> and by the way, we can also try list of grid view
+[11:33] <christianmarcsch> silbe: yes, we can do that
+[11:33] <silbe> and showing the start new in the "dialog" as well
+[11:33] <christianmarcsch> ok, i'll record that as another design exploration
+[11:33] <silbe> so they can decide whether to start new or resume based on the full list of old instances
+[11:34] <christianmarcsch> silbe: ok, that makes sense.
+[11:34] <christianmarcsch> i'll mock up that variation
+[11:34] <silbe> I don't think it's optimal, but it might be a good step in the right direction
+[11:35] <silbe> christianmarcsch: thanks!
+[11:35] <silbe> IIRC garycmartin mentioned Apple doing something similar on the iPad
+[11:35] <christianmarcsch> silbe: oh, that would be good to see
+[11:36] <garycmartin> silbe: sorry, this meeting is not working for me, no idea what is being discussed. Was about to bail and ask folks to offline ideas to the mail-list.
+[11:36] <christianmarcsch> gary, i can create a mockup
+[11:37] <garycmartin> christianmarcsch: fab. I'll plough on with the pie menu mockup and will mail it to the list.
+[11:37] <christianmarcsch> it's a more extensive version of page 3 in the pdf
+[11:37] <christianmarcsch> great
+[11:37] <christianmarcsch> i can talk again tomorrow if that works?
+[11:40] <garycmartin> Can we try and get some threads going on the mail-list? Would find that easier, then use realtime chats only if we need to flesh things out or try to make a final call.
+[11:40] <christianmarcsch> ok, sure
+[11:40] <christianmarcsch> should we keep using the thread walter started?
+[11:41] <garycmartin> Sure, remember to adjust the subject if needed.
+[11:41] <christianmarcsch> will do
+[11:42] <silbe> please start a new thread - the current one was about bernies pending patches and is already huge
+[11:43] <christianmarcsch> ok...
+[11:43] <garycmartin> LOL :)
+[11:45] <christianmarcsch> well, to be continued!
+[11:45] <christianmarcsch> i need to sign off
+[11:45] <christianmarcsch> looking forward to the next round
+[11:45] <silbe> so are we meeting again tomorrow or not?
+[11:45] <christianmarcsch> i can if necessary
+[11:45] <christianmarcsch> but i think gary preferred to do it asynchronously
+[11:45] <garycmartin> Sorry, not me.
+[11:45] <silbe> ok, then let's postpone it.
+[11:45] <christianmarcsch> let's discuss via email thread for now
+[11:46] <christianmarcsch> and reconvene here when it becomes necessary
+[11:46] <silbe> as long as we keep the emails flowing that's fine with me
+[11:46] <garycmartin> Thanks christianmarcsch, I'll catch up on the list.
+[11:46] <silbe> we have a rather large backlog already and quite a bit of it was on the mailing list
+[11:47] <christianmarcsch> sorry, i have to sign off now
+[11:47] <silbe> #endmeeting
+[11:47] <meeting> Meeting finished at 11:49.
+[11:47] <meeting> Logs available at http://me.etin.gs/sugar-meeting/sugar-meeting.log.20100710_1125.html
+[11:47] <christianmarcsch> bye everyone!

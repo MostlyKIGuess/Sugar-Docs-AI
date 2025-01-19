@@ -1,0 +1,199 @@
+Title: 0.82/Notes
+URL: https://wiki.sugarlabs.org/go/0.82/Notes
+--------------------------------------------------------------------------------
+Please do not edit unless you are part of the Sugar Release Team!
+Contents
+1
+Sucrose 0.82 Release Notes
+1.1
+Introduction
+1.2
+What's New For Learners
+1.2.1
+Sugar
+1.2.1.1
+Graphical Control Panel
+1.2.1.2
+Session management
+1.2.1.3
+New activity startup notification
+1.2.1.4
+Object chooser improvements
+1.2.1.5
+Multiple layouts in the home view and ability to move icons around
+1.2.1.6
+Window navigation using tab
+1.2.2
+Journal
+1.2.2.1
+Options in entry palette
+1.2.2.2
+Launch activity by clicking on thumbnail
+1.2.3
+Browse
+1.2.3.1
+Autocompletion of bookmarks and history
+1.2.3.2
+Find in context
+1.2.3.3
+Certificate exceptions
+1.2.3.4
+Contextual palettes
+1.2.4
+Chat
+1.2.4.1
+Chat with non-sugar Jabber clients
+1.3
+What's New For Developers
+1.4
+Internationalization (i18n) and Localization (l10n)
+1.5
+Getting the sources
+1.5.1
+Glucose modules
+1.5.2
+Fructose modules
+1.6
+Installing Sucrose
+1.7
+Looking at the release cycle details
+1.8
+Looking Forward to 0.84
+1.9
+Credits
+Sucrose 0.82 Release Notes
+Introduction
+Sucrose 0.82 is the latest version of the Sugar education platform, consisting of
+Glucose
+, the base system environment; and
+Fructose
+, a set of demonstration activities.
+Sucrose is released every six months and contains many new features, improvements, bug fixes, and translations. Sucrose 0.82 continues this tradition and is our most well-planned release to date.
+To learn more about Sugar, visit the
+Sugar Labs wiki
+.
+What's New For Learners
+Sugar
+Graphical Control Panel
+Sucrose 0.82 introduces a graphical user interface to modify the preferences. The command line interface is still available. Due to many requests, we added an option that you can adjust the activation delay of the frame. The activation by hot corners can be turned off completely. Detailed information on each section and how to use the panel can be found
+here
+.
+The main page of the control panel with the available sections
+Session management
+In previous releases, if you shut down the system without closing the activities you would risk losing your work. This is now fixed, all the learners' data is saved on shutdown.
+New activity startup notification
+The new visual feedback for activity startup integrates much better with the zoom level metaphor.
+The browse activity starting up.
+Object chooser improvements
+The object chooser allows one to place objects from the journal into activities. In this release, we have added search, filtering, removable devices support, and a much better look.
+Choosing an image to place in a Write activity
+Multiple layouts in the home view and ability to move icons around
+People have asked insistently for a better way to organize lots of activities in the Sugar shell, so we have implemented new ways to list activities and operate on them.
+All installed activities are shown in a list that can be searched. Activities can be removed from there and marked as "favorite". This means that these favorite activities will appear in the more restricted views shown below. The goal is to offer a simpler view with just the most used activities.
+All installed activities are presented in a searchable list
+Favorites organized in a ring and layout switcher
+Favorites organized freely by the user
+Window navigation using tab
+Cycling through activities with alt+tab (forward) and alt+shift+tab (backward) has been greatly improved in this release. To aid in finding the activities, the frame will be shown when cycling through windows. In addition the speed has been improved for an overall smooth experience.
+Cycling through the list of available activities using alt+tab
+Journal
+Options in entry palette
+As part of the redesign of the journal, some options that were only present in the detailed view are now present as well in the main view. The palette associated with each entry icon does provide a quickstart option, the possibility to copy the entry and to erase it from the journal. Another feature is that you can directly edit the title of an entry in the main page by clicking on it.
+Start, copy or erase an entry using it's palette
+Launch activity by clicking on thumbnail
+You can launch an activity directly from the thumbnail in the detailed view of an entry.
+Launch an activity directly from the thumbnail in the detailed view of an entry
+Browse
+Autocompletion of bookmarks and history
+If you type a word in the address entry you will be presented with a list of sites that you already visited, bookmarked, or saw in a shared browsing session.
+The autocompletion dialog will offer you pages that you already visited before
+Find in context
+The search interface, placed in the edit toolbar, let you locate text in the content of a page. You can use the ctrl+f keystroke from any other tab of the browse activity to reveal the focused search entry. The search is type ahead like.  You can use enter to get the next occurrence or you can use the next and prev buttons to find other occurrences.
+The search interface let you locate text in the content of a page
+Certificate exceptions
+Some websites have custom or invalid SSL certificates, which Browse usually refuse to load for security reasons. Unfortunately this is very common and prevents access to several web sites. We added Firefox 3's feature for one to make an exception and load the site anyway.
+Contextual palettes
+Palettes provide secondary information and ways to invoke actions on graphical elements. In this release we have added to Browse the ability to copy links and images to the clipboard (drag and drop is more discoverable but less convenient sometimes) and following links.
+Palette allowing to copy images to the clipboard
+Palette allowing to follow links and copy them to the clipboard
+Chat
+Chat with non-sugar Jabber clients
+Computers not running Sugar can initiate Chat connections to Sugar, by running a Jabber (XMPP) client, either with both registered on the same Jabber server or by running a link local XMPP account such as Empathy with salut or Pidgin with Bonjour.
+See Sugar machine in buddy list
+Initiate a chat with the Sugar client:
+Start chatting
+Sugar will display an invitation to Chat:
+Chat invitation
+This launches the Chat activity:
+Chat in progress
+View from Jabber client
+What's New For Developers
+Faisal Anwar has done a fantastic work in documenting the Sugar API. This tutorial style
+guide
+is a nice starting point for new developers and an interesting read up for the pros.
+David Farning has set up a great
+site
+where the Sugar code can be browsed. The code for the site is based off api.kde.org. The documentation is dynamically generated from the git tree using doxygen and a modified version of kdocs.
+Internationalization (i18n) and Localization (l10n)
+Thanks to members of the worldwide
+OLPC Translation Project
+, who can be found on the
+localization mailing list
+, we have the following languages which have significant support (more than 80% of the user interface translated):
+Dutch
+French
+German
+Greek
+Italian
+Japanese
+Kinyarwanda
+Kreyol
+Marathi
+Mongolian
+Nepali
+Sinhala
+Spanish
+Telugu
+Turkish
+Urdu
+Moreover, a number of languages have attained "partially supported" status, with more than half of the user interface strings translated.
+Screenshots of the translated Sugar interface
+Sinhala
+Mongolian
+Getting the sources
+If you want to package Sugar for your favorite distribution or just want to examine Sugar's lovely code ;) you can find all the source code of each module at the links below.
+Glucose modules
+sugar-toolkit 0.82.1
+sugar 0.82.0
+sugar-artwork 0.82.0
+sugar-base 0.82.1
+sugar-datastore 0.82.0
+sugar-presence-service 0.82.1
+etoys 3.0.2076
+Journal 97
+Fructose modules
+read-activity 49
+chat-activity 45
+terminal-activity 15
+browse-activity 95
+etoys-activity 87
+write-activity 57
+calculate-activity 23
+log-activity 13
+pippy-activity 25
+Installing Sucrose
+Sucrose 0.82 packages are included with OLPC joyride builds from build 2289.
+Ubuntu packages are available:
+See
+Ubuntu#Sucrose_0.82
+Looking at the release cycle details
+You can browse the notes of each development release in
+Development Team/Release/Roadmap#Schedule
+. Their respective sources are listed there as well.
+Looking Forward to 0.84
+Planning of the next release cycle has started at
+0.84/Roadmap
+.
+Credits
+Many people contributed to this release indirectly, including testing, documentation, translation, contributing to the wiki, outreach to education and developer communities. On behalf of the community, we give our warmest thanks to the developers and contributors who made this Sugar release possible
+.

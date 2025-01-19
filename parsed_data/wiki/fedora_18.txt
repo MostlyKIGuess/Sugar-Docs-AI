@@ -1,0 +1,440 @@
+Title: Fedora 18
+URL: https://wiki.sugarlabs.org/go/Fedora_18#Fedora_18
+--------------------------------------------------------------------------------
+Fedora
+®
+version page:
+17
+|
+18
+|
+19
+|
+20
+|
+21
+|
+22
+|
+23
+|
+24
+|
+25
+|
+26
+|
+27
+|
+28
+|
+29
+|
+30
+|
+31
+|
+32
+|
+Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+some of the older versions listed here ^ may be security risks- for archive purposes only
+Released  Jan 15 2013
+http://alt.fedoraproject.org/pub/fedora/linux/releases/18/Fedora/
+http://alt.fedoraproject.org/pub/alt/releases/18/Spins/
+Mirrors:
+http://mirrors.fedoraproject.org/publiclist/
+Anaconda Defaults to LVM format from 18.23
+This can be changed in custom- (See tutorial below)
+Contents
+1
+Tutorial:How to use newUI Anaconda in F18
+2
+Fedora 18 Documentation
+3
+rpmfusion
+4
+How to install from the repo on the DVD
+5
+Caching remote data for multiple computers
+6
+Change hostname in Fedora 18
+7
+UEFI Secure boot
+8
+Booting-Linux-using-UEFI-can-brick-Samsung-laptops
+9
+Sugar on a Stick v8 ʻŌhelo ʻai
+9.1
+fedora_18_live_SoaS_x86_64.iso
+9.1.1
+Fedora 18 live SoaS x86 64-login
+9.1.2
+Tutorial: Make a SoaS.img file for repeated installs
+9.2
+How to install VirtualBox in fedora 18
+9.3
+Tutorial: How to do an install in VirtualBox
+9.4
+Install from SoaS live CD/dd USB
+9.5
+Install Sugar 0.98.2 from another Desktop
+9.6
+More information
+9.7
+Customize with kickstart files
+9.7.1
+sample /root/anaconda-ks.cfg
+10
+MATE Desktop
+10.1
+Debian Fork of Mate
+11
+Cinnamon desktop
+12
+Gnome Shell
+13
+How to Upgrade to f19 from f18
+13.1
+Credits
+14
+Upgrading Fedora
+14.1
+fedup
+15
+Chromium
+16
+fedora 18 on a macbook pro
+17
+Fedora on an OLPC XO
+18
+A preliminary look at Fedora 19 Anaconda
+19
+A preliminary look at Fedora 19.12-1 Anaconda netinstall
+19.1
+Do not install kernel if upgrading to f19
+20
+Install of sugar-desktop in Fedora_anaconda_19.6
+21
+Rawhide
+22
+steam repo
+23
+Advanced Topics
+23.1
+Publican
+23.2
+Build Your Own Remix with Fedora
+23.3
+Kernel_modules
+23.4
+Live media Creator
+23.5
+sugar-build
+23.6
+linux-foundation-secure-boot-system
+23.7
+systemd/dbus
+23.8
+Updating GRUB 2 configuration on UEFI systems
+23.9
+GPT Disks Reference
+23.10
+Pulseaudio fixes and workarounds
+23.11
+Punji
+23.12
+Koji
+23.12.1
+How_to_create_an_RPM_package
+Tutorial:How to use newUI Anaconda in F18
+Details on how to use the new installer - with screenshots
+DevConf_2013 newUI Slide show (.pdf):
+http://vpodzime.fedorapeople.org/Anaconda_DevConf_2013.pdf
+Details on how newUI works.
+Fedora 18 Documentation
+Release annoncement:
+https://fedoraproject.org/wiki/F18_release_announcement
+Installation Guide:
+https://docs.fedoraproject.org/en-US/Fedora/18/html/Installation_Guide/index.html
+"To install Fedora to your hard disk in Fallback Mode, press Alt+F2 together. In the box that appears, type 'liveinst' (without the quotation marks) and press Enter."
+anaconda
+NuUI installer
+is NEW and has bugs:
+https://fedoraproject.org/wiki/Anaconda/Kickstart
+http://qa.fedoraproject.org/blockerbugs/current
+http://www.redhat.com/about/news/press-archive/2013/1/fedora-18-features-updated-user-interfaces-and-desktop-environments
+A major feature of Fedora 18 is the development of newUI, a new anaconda.
+How to add startup programs in GNOME 3
+rpmfusion
+"RPM Fusion provides software that the Fedora Project or Red Hat doesn't want to ship. That software is provided as precompiled RPMs for all current Fedora versions and Red Hat Enterprise Linux 5 and 6; you can use the RPM Fusion repositories with tools like yum and PackageKit."
+How to install from the repo on the DVD
+[Bug 888307]--
+Satellit
+12:35, 18 December 2012 (EST)
+--- Comment #1 from Andre Robatino <robatino@fedoraproject.org> ---
+I've found (testing on F17) that if I create a local.repo file in
+ /etc/yum.repos.d/ with the contents:
+
+ [local]
+ name=Local
+ baseurl=file:///dev/sr0/
+ enabled=0
+ gpgcheck=0
+
+I  can then use the DVD as a local repo (disabling all other repos to avoid
+downloading updated packages) with a command such as
+yum --disablerepo=\* --enablerepo=local install XXXXX
+Caching remote data for multiple computers
+yum wiki
+Change hostname in Fedora 18
+The step by step procedure shows the simplest way to change the hostname on a Fedora machine.
+UEFI Secure boot
+Booting-Linux-using-UEFI-can-brick-Samsung-laptops
+Read this first before trying to run linux
+The Ubuntu bug report includes posts from users reporting that the problem also affects
+300E5C, NP700Z5C, NP700Z7C and NP900X4C series laptops
+http://thread.gmane.org/gmane.linux.kernel.efi/551/focus%3D1426515
+Sugar on a Stick v8 ʻŌhelo ʻai
+ʻŌhelo ʻai is the name of a native
+Hawaiian berry
+.
+fedora_18_live_SoaS_x86_64.iso
+New 05/29/2013
+Download :
+http://people.sugarlabs.org/Tgillard/fedora_18_live_SoaS_x86_64.iso
+Notes:
+A
+Remix
+done from a modified fedora nightly compose
+kickstart
+file in a Fedora 18 install using livecd-tools.
+Fedora 18 live SoaS x86 64-login
+Uses lightdm for login
+Live System User
+[ ]openbox (Do not use)
+[X]Sugar (Select Sugar)
+See
+Sugar on a Stick v8 ʻŌhelo ʻai
+.
+Tutorial: Make a SoaS.img file for repeated installs
+Note
+: The following are .img files are provided to workaround the bug that SoaS 8 fails to run a non-Live install to a hard disk or USB drive.
+https://bugzilla.redhat.com/show_bug.cgi?id=893218#c15
+Prebuilt sugar.img files to dd write to a USB drive
+Look at the tutorial above to see how to write to a USB drive.
+firstboot has not been run
+http://people.sugarlabs.org/Tgillard/Soas_8.img
+3.7G
+netinstall of sugar-desktop to / ext4 (real install)
+http://people.sugarlabs.org/Tgillard/Soas_8_litd.img
+1.9G
+liveiso to disk img of SoaS-8-live with persistence
+Note USB drives used with these files seem to require Fedora "liveusb-creator --reset-mbr" to be run on them to make them boot-able again for other uses.
+How to install VirtualBox in fedora 18
+Updated 03/08/2013
+RECOMMENDED:
+Oracle VirtualBox downloads
+VirtualBox downloads
+Windows/Linux/Intel Macs
+Oracle VirtualBox install does not start as downloaded and installed (dkms and gcc are not installed in f18)
+In root terminal:
+yum install dkms gcc
+
+/etc/init.d/vboxdrv setup
+Tutorial: How to do an install in VirtualBox
+Pre built Sugar-Desktop Virtual Box appliance to import
+Install from SoaS live CD/dd USB
+NOTE the following method does not seem to always work for SoaS live spins (Installs to VirtualBox do work).
+In terminal application:
+su
+liveinst
+Install Sugar 0.98.2 from another Desktop
+Terminal:
+yum groupinstall sugar-desktop
+yum install sugar-emulator
+Start Sugar from Education/Sugar
+More information
+Fedora 18 Feature List
+Fedora 18 Preliminary Notes:
+NewInstallerUI
+, Anaconda Rework for Fedora 18,
+Secure Boot
+, Draft version info
+Customize with kickstart files
+Fedora 18 anaconda will now promote a kickstart file for customization.
+http://fedoraproject.org/wiki/Anaconda/Kickstart
+http://fedoraproject.org/wiki/Anaconda/Kickstart#Chapter_3._Package_Selection
+http://docs.fedoraproject.org/en-US/Fedora/18/html/Installation_Guide/sn-automating-installation.html
+Anaconda Boot Options:
+http://wwoods.fedorapeople.org/doc/boot-options.html
+https://fedoraproject.org/wiki/Anaconda_Boot_Options?rd=Anaconda/Options
+sample /root/anaconda-ks.cfg
+After an install of Fedora 18 look for this file.
+Put it in a USB stick and anaconda will use it to repeat install.
+This file can be modified and still will work
+sample .ks for Fedora 18 Live desktop install
+SAMPLE DO NOT USE
+Autogenerated by anaconda
+Can be used for multiple automatic installs
+#version=DEVEL
+# System authorization information
+auth --enableshadow --passalgo=sha512
+# Network information
+network  --bootproto=dhcp --hostname=localhost.localdomain
+# Run the Setup Agent on first boot
+firstboot --enable
+ignoredisk --only-use=sda
+# Keyboard layouts
+keyboard 'us'# System language
+lang en.UTF-8
+# Installation logging level
+logging --level=info
+# Root password
+rootpw --iscrypted $6$f/DeD7AZFW91051J$Av3OQOPsY8syofC6ysN63psWjHzH.Pdr7D/s3CTfNuYLm1jLlJ.ZyUzICMjBlXz4i88wm9MfNALVsBXXx1Kl3.
+# System services
+services --enabled="chronyd"
+# System timezone
+timezone America/Los_Angeles
+# System bootloader configuration
+bootloader --location=mbr --boot-drive=sda
+autopart --type=plain
+# Partition clearing information
+clearpart --all --initlabel --drives=sda
+
+%packages
+authconfig
+chrony
+e2fsprogs
+grub2
+system-config-firewall-base
+
+%end
+MATE Desktop
+Debian Fork of Mate
+Point Linux is a GNU/Linux distribution that aims to combine the power of Debian GNU/Linux with the productivity of MATE, the Gnome 2 desktop environment fork.
+Cinnamon desktop
+Working in f19 05/17/2013
+Use f19 BetaTC4 Netinstall:
+https://dl.fedoraproject.org/pub/alt/stage/19-Beta-TC4/Fedora/x86_64/iso/Fedora-19-Beta-TC4-x86_64-netinst.iso
+Was broken in 3.8 kernel due to changes by gnome3 developers.
+updated 05/09/2013
+Gnome Shell
+Details and links
+How to Upgrade to f19 from f18
+1-)Fedora Instructions:
+https://fedoraproject.org/wiki/Upgrading_Fedora_using_yum#Fedora_18_-.3E_Fedora_19_.28pre_release_branched.29
+2-)Tested-install f18 from one of these files:
+Default gnome install - this is fully updated due to netinstall
+http://alt.fedoraproject.org/pub/fedora/linux/releases/18/Fedora/x86_64/iso/Fedora-18-x86_64-netinst.iso
+http://alt.fedoraproject.org/pub/fedora/linux/releases/18/Fedora/x86_64/iso/Fedora-18-x86_64-netinst.iso
+Update to f19
+Root terminal-2448 files
+yum distro-sync --releasever=19 --nogpgcheck --skip-broken
+Gdm sessions:
+gnome
+gnome-classic
+Credits
+elad: (IRC GIMPNet #fedora-desktop)
+adamw: #fedora-qa   03/28/2013
+Upgrading Fedora
+updated 04/24/2013
+The simplest way to get Fedora 18
+back up /home and /etc and do a fresh install.
+http://fedoraproject.org/wiki/Upgrading
+f17 > f18 ;
+https://fedoraproject.org/wiki/Upgrading_Fedora_using_yum#Fedora_17_-.3E_Fedora_18
+f18 > f19 :
+https://fedoraproject.org/wiki/QA:Testcase_upgrade_fedup_cli_previous_desktop
+05/21/2013
+Still -work in progress May change
+Backup first
+http://fedorasolved.org/Members/fenris02/post_upgrade_cleanup
+fedup
+Latest:
+https://github.com/wgwoods/fedup
+Older Drafts:
+https://fedoraproject.org/wiki/User:Tflink/FedUp_Draft
+https://fedoraproject.org/wiki/FedUp
+http://ohjeezlinux.wordpress.com/2012/11/13/fedup-a-little-background/
+url/path that fedup needs
+--instrepo?
+http://dl.fedoraproject.org/pub/fedora/linux/development/18/
+<arch>/os/
+well, should be releases/etc now right
+http://dl.fedoraproject.org/pub/fedora/linux/releases/18/Everything/i386/os/
+(well, <arch> for i386, but you get the idea)
+Updated 01/15/2013
+Chromium
+Fedora does not include Chromium web browser in the official repository due to problems
+look at this link for details
+http://repos.fedorapeople.org/repos/spot/chromium-stable/fedora-18/
+fedora 18 on a macbook pro
+Fedora on an OLPC XO
+A preliminary look at Fedora 19 Anaconda
+Annotated screen-shots
+01/31/2013
+Fedora-19-Nightly-20130129.10-x86_64-Live-xfce.iso
+Live Install in VirtualBox
+A preliminary look at Fedora 19.12-1 Anaconda netinstall
+NEW 03/20/2013 - Does not yet complete an install
+F19 Buglist:
+http://qa.fedoraproject.org/blockerbugs/milestone/19/alpha/buglist
+Alpha-TC2:
+https://dl.fedoraproject.org/pub/alt/stage/19-Alpha-TC2/Fedora/
+Do not install kernel if upgrading to f19
+"... So I installed fedora-release from the F19 repo and did a yum 
+distro-sync today. Then I installed a new kernel build. Then I rebooted.
+Then nothing would boot at all.
+It turns out this is because the release name of Fedora 19 is:
+Schrödinger's Cat
+with a single quote used as an apostrophe. That release name gets 
+written into the grub entry for a kernel when you're installing it.
+...The single quote in the release name terminates the quotes early, and leaves the rest of the 
+stuff that's meant to be inside the single quotes as garbage lying 
+around the config file. ..."
+Install of sugar-desktop in Fedora_anaconda_19.6
+Annotated screen-shots
+02/14/2013
+anaconda-19.6-boot.iso
+Install of sugar-desktop in VirtualBox 4.2.6
+Rawhide
+Draft of info page
+"Rawhide is the name given to the current development version of Fedora."
+steam repo
+Advanced Topics
+Publican
+https://fedorahosted.org/publican/
+https://fedoraproject.org/wiki/Publican?rd=DocsProject/Publican
+"publican is a single source publishing tool based on DocBook XML"
+Build Your Own Remix with Fedora
+Build a live Remix CD/DVD.iso with livecd-tools and spin-kickstart files.
+Tutorial with narrated screenshots
+Kernel_modules
+Kernel_modules are pieces of code that can be loaded and unloaded into the kernel upon demand. They extend the functionality of the kernel without the need to reboot the system.
+Live media Creator
+livemedia-creator is now included in Lorax as of release 17.1 and can be used to create live iso's using modified spin kickstarts.
+Fedora 17 LiveCD's will continue to use livecd-creator.
+Fedora 18 will use livemedia-creator to create LiveCDs. This will require changing how koji is used for the LiveCD builds.
+sugar-build
+http://sugarlabs.org/~buildbot/docs/build.html
+Daniel Narvaez has made a number of improvements to sugar-build,
+which has by-and-large replaced sugar-jhbuild as the preferred development environment for Fedora and Ubuntu.
+linux-foundation-secure-boot-system
+http://blog.hansenpartnership.com/wp-uploads/2013/PreLoader.efi
+http://blog.hansenpartnership.com/wp-uploads/2013/HashTool.efi
+systemd/dbus
+http://www.freedesktop.org/wiki/Software/systemd/dbus
+http://www.freedesktop.org/software/systemd/man/systemd.unit.html
+Detailed information
+systemd:
+http://unix.stackexchange.com/questions/47695/how-to-write-startup-script-for-systemd
+Updating GRUB 2 configuration on UEFI systems
+https://fedoraproject.org/wiki/User:Tflink/FedUp_Draft#Updating_GRUB_.28UEFI_systems.29
+https://fedoraproject.org/wiki/GRUB_2#Updating_GRUB_2_configuration_on_UEFI_systems
+GPT Disks Reference
+Pulseaudio fixes and workarounds
+Punji
+Build boot.iso and DVD.iso's
+Koji
+Build rpms
+How_to_create_an_RPM_package

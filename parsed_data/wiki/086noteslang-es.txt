@@ -1,0 +1,299 @@
+Title: 0.86/Notes/lang-es
+URL: https://wiki.sugarlabs.org/go/0.86/Notes/lang-es
+--------------------------------------------------------------------------------
+Traducción de
+0.86/Notes
+original
+english
+|
+spanish
++/-
+cambios
+Contents
+1
+Lo nuevo para los usuarios
+1.1
+Rediseño de la barra de herramientas de actividad
+1.2
+Cambio al manejador de ventanas Metacity
+1.3
+Actividades Flash
+1.4
+Pestañas en Navegar
+1.5
+Redes Ad Hoc
+1.6
+Leer
+1.7
+Actualización de Software
+1.8
+Accesibilidad Mejorada
+1.9
+Configuración del teclado
+1.10
+Mejoras en la Vista de Favoritos en el Hogar
+1.11
+Transferencia de Archivos Mejorada
+1.12
+Nuevo botón Compartir
+1.13
+Reordenamiento de los ítems en el menú de Amigo
+2
+Actualizar a esta versión
+3
+Lo nuevo para desarrolladores
+3.1
+Widgets
+3.2
+API
+3.3
+Dependencias
+3.4
+Guía para autores de actividades
+4
+Lo nuevo para empaquetadores
+5
+Internacionalización (i18n) y Localización (l10n)
+6
+Compatibilidad
+7
+Cambios detallados
+7.1
+Glucose
+8
+Obtener los fuentes
+8.1
+Glucose
+8.2
+Fructose
+8.3
+Dependencias de Fructose
+Lo nuevo para los usuarios
+Rediseño de la barra de herramientas de actividad
+La barra de herramientas usada en las actividades ha sido rediseñada. El 
+diseño anterior usando pequeñas pestañas de texto para agrupar opciones de la 
+barra causaba un número de dificultades de usabilidad. Muchos de estos 
+problemas fueron solucionados en el rediseño. Por ejemplo, el rediseño provee 
+una solución para el problema de "cómo paro una actividad" (el diseño anterior 
+de la barra no siempre mostraba un botón "Parar" visible, causando confusión 
+en los aprendices pequeños). Entre las actividades, Navegar, Escribir, 
+Calcular, Terminal, Leer, VisorDeImagenes, y TortugArte ya han sido portadas 
+para usar el nuevo diseño de la barra, mientras se continúa trabajando en 
+muchas otras.
+Cambio al manejador de ventanas Metacity
+Sugar ha cambiado de Matchbox a un nuevo manejador de ventanas: Metacity. 
+Matchbox fue diseñado para dispositivos pequeños; fuerza a todas las 
+aplicaciones a correr maximizadas. Sugar puede ser ejecutado en dispositivos 
+con pantallas mucho más grandes, y mientras las actividades nativas a Sugar 
+están diseñadas para ser ejecutadas maximidadas (en pantalla completa), 
+algunas aplicaciones no específicamente diseñadas para Sugar pueden comportarse 
+de maneras inesperadas cuando se corren bajo Matchbox. El cambio a Metacity 
+significa que muchas aplicaciones "no-sugarizadas" correrán mejor dentro de 
+Sugar (ej. Inkscape, Gimp). Nos disponemos a asegurar que las aplicaciones de 
+escritorio "tradicionales" corran bien en Sugar, sin requerir cambios en la 
+programación o el comportamiento.
+Actividades Flash
+Gnash ha sido añadido a la plataforma Sugar, lo cual significa que los 
+autores de contenido educativo pueden usar herramientas de Flash para crear 
+actividades de primera clase para Sugar.
+Pestañas en Navegar
+Algunas páginas web contienen enlaces diseñados para ser abiertos en una 
+ventana nueva. La actividad Navegar ahora abre estos enlaces en nuevas 
+pestañas dentro de la ventana principal de la actividad, de forma similar al 
+comportamiento de los navegadores web más comunes, otorgando una mejor 
+experiencia de navegación. Cabe destacar que esta funcionalidad aún no permite 
+al usuario abrir un enlace en una pestaña nueva o crear una explícitamente.
+Redes Ad Hoc
+La nueva infraestructura para redes ad-hoc le permite conectarse con otros 
+usuarios de Sugar sobre red inalámbrica en forma ad-hoc sin depender de 
+ninguna infraestructura de red inalámbrica. Este es el escenario llamado 
+"Debajo de un árbol", donde los niños pueden trabajar, jugar, y aprender 
+colaborativamente en cualquier lugar imaginable, sin requerir ningún punto de 
+accesso inalámbrico, el cual para muchos niños no está disponible o lo está 
+únicamente en la escuela. (La computadora XO-1 de One Laptop Per Child provee 
+una funcionalidad similar con su red 802.11s (mesh) basada en firmware.)
+La red ad-hoc permite a Sugar usar esta funcionalidad con la mayoría del 
+hardware comúnmente hallado en las computadoras. Además, le permite compartir 
+una conexión a internet utilizando el mismo mecanismo.
+Leer
+La actividad Leer ahora soporta archivos Epub. Epub es un formato estándar 
+para libros electrónicos el cual esta ganando aceptación rápidamente en la 
+comunidad de publicación y distribución de libros digitales. Un número de 
+sitios web como feedbooks.com, epubbooks.com y Google Books proveen libros 
+Epub de alta calidad para la descarga sin cargo. Además del soporte de Epub, 
+esta emisión de la actividad Read también le permite asociar (añadir y editar) 
+notas con marcadores, y tiene una vista de pantalla completa más útil que 
+marca el nivel de la batería sin invocar el marco de Sugar.
+Actualización de Software
+El panel de control de Actualización de Software ahora está incluído en 
+Sugar estándar. Utiliza la Biblioteca de Actividades de Sugar en
+http://activities.sugarlabs.org
+para comprobar e instalar las últimas 
+actualizaciones de actividades disponibles. Esto facilita a los usuarios la 
+actualización a la última versión de una actividad dada, y hace más fluida la 
+publicación y distribución de nuevas versiones para los desarrolladores.
+Accesibilidad Mejorada
+Algunas partes de Sugar (el Diario y la vista en lista de Hogar) han sido 
+modificadas para usar widgets Gtk+, en lugar de HippoCanvas, el cual no tenía 
+soporte para accesibilidad. Esto es parte de un esfuerzo en marcha para hacer 
+que Sugar funcione sin problemas con herramientas de accesibilidad como 
+lectores de pantalla y lupas para que todos puedan beneficiarse de Sugar, 
+independientemente de sus habilidades físicas o mentales. Entre otras mejoras 
+de accesibilidad, más herramientas de Sugar ahora muestran sus atajos de 
+teclado para asistir su descubrimiento y las actividades en el marco usan 
+paletas que muestran sus nombres y sus títulos en texto.
+Configuración del teclado
+El panel de control de Sugar (que se encuentra bajo "Mis ajustes") tiene una 
+nueva sección para seleccionar múltiples disposiciones y modelos del teclado. 
+Esta funcionalidad permitirá al usuario que no usa un teclado QWERTY 
+Norteamericano cambiar fácilmente a su configuración preferida.
+Mejoras en la Vista de Favoritos en el Hogar
+Retomar y lanzar nuevas actividades desde la vista de Favoritos en el Hogar 
+han sido mejoradas simplificando las paletas de actividad de manera tal que las 
+actividades no puedan ser borradas o removidas de la vista de favoritos 
+accidentalmente. Toda la administración de actividades ahora se hace a través 
+de la vista de Lista en el Hogar. Consejo: Para iniciar una nueva actividad 
+rápidamente sin usar el menú contextual (paleta), presione la tecla "Alt" 
+mientras hace click en el ícono de la actividad.
+Transferencia de Archivos Mejorada
+La funcionalidad de "Enviar a un amigo" del Diario, ha sido extendida para 
+soportar transferencias mediante un servidor Jabber, anteriormente esto solo 
+funcionaba en máquinas en la misma red local. Esto le permite ahora transferir 
+entradas del Diario a cualquier amigo disponible, independientemente del 
+mecanismo de comunicación subyacente (un servidor Jabber remoto, o la red 
+local). Uno puede usar la vista de Vecindario para agregar nuevos amigos.
+Nuevo botón Compartir
+El diseño del botón de Compartir ha sido cambiado. Esperamos que sea más 
+fácil de descubrir esa funcionalidad ahora.
+Reordenamiento de los ítems en el menú de Amigo
+Como fue pedido desde el campo, el órden en el menú de amigo ha sido 
+alterado. Las opciones de apagado ahora están ubicadas primeras, ya que son 
+las más frecuentemente utilizadas. La opción de Reiniciar ha sido quitada.
+Actualizar a esta versión
+Por favor use las instrucciones de su distribución (SoaS, Fedora, Ubuntu, 
+Debian, etc) para actualizarse a esta versión.
+Lo nuevo para desarrolladores
+Los siguientes cambios son importantes para desarrolladores usando la 
+plataforma de desarrollo Sucrose 0.86.
+Widgets
+Nuevas barras de herramientas: Sugar se ha cambiado a un nuevo diseño de la
+barra de herramientas. El ejemplo más simple se puede encontrar en la 
+actividad Hello World. Si desea agrupar funcionalidad en una barra de 
+herramientas secundaria, puede consultar la actividad Terminal. Para tener una 
+disposición consistente a través de las actividades,por favor agrupe la barra 
+Editar y Ver a la izquierda. Los elementos en la barra deben estar alineados 
+hacia la izquierda.
+Nuevo botón Compartir: El diseño del botón Compartir ha cambiado. Si su
+actividad to soporta colaboración puede asignar al miembro de la clase 
+Activity max_members el valor 1, lo cual hace insensible al botón.
+CellRenderIcon: Éste nuevo widget permite agregar íconos SVG de Sugar a
+gtk.TreeView. El "CellRendererInvoker" es usado para la paleta 
+consecuentemente.
+RadioPalette: Clase base para ShareButton.
+PaletteWindow: Se ha agregado un widget PaletteWindow.
+API
+Para agregar la toolbar_box a la actividad, usamos una propiedad toolbar_box
+en vez del método set_toolbox.
+Dependencias
+Cambio de Matchbox a Metacity. Para los autores de actividades esto significa
+que el tamaño de sus ventanas debe poder ser modificable por el usuario, lo 
+cual a su vez requiere que la disposición se adapte a cambios en el tamaño de 
+la ventana.
+Guía para autores de actividades
+Los módulos md5 y sha se han marcado como obsoletos en Python 2.6. Por favor 
+actualice sus fuentes consecuentemente. Alentamos a cada autor, de Fructose u 
+otras actividades, seguir las Code_guidelines 
+(
+http://wiki.sugarlabs.org/go/Development_Team/Code_guidelines
+). Por favor ten 
+en mente que tenemos la funcionalidad de "Ver fuente" activada y que los niños 
+pueden ojear el código. Esperamos que encuentren actividades consistentes y 
+bien escritas.
+Lo nuevo para empaquetadores
+sugar-base: nueva dependencia: python-decorator:
+http://pypi.python.org/pypi/decorator
+Sugar: Metacity: El cambio al manejador de ventanas Metacity depende de
+este:
+http://git.gnome.org/cgit/metacity/commit/?id=b625ec30d99b2dcf86d8fa78b09f6d04dce3a6e0
+commit que agrega una opción de la línea de comando para deshabilitar el
+poner en pantalla completa los ventanas maximizadas sin decoraciones 
+automáticamente.
+Sugar: El panel de control de teclado:
+http://www.freedesktop.org/wiki/Software/LibXklavier
+libxklavier >= 4.0,
+http://download.sugarlabs.org/sources/external/python-xklavier/
+python 
+bindings >= 0.2
+Actividades Flash: Las distribuciones necesitan empaquetar la última versión
+de Gnash (v9).
+Tabs en Navegar: Hulahop versión >= 0.5
+Escribir: Abiword 2.8 será lanzado en breve y será parte de la Plataforma
+Sugar 0.86, así que debemos tener la última versión de la seria 2.7.x para 
+comenzar a probarlo.
+Leer: Nuevas dependencias para Leer versión >= 70 (necesario para soporte
+Epub ): webkitgtk (Nota:
+http://code.google.com/p/pywebkitgtk/downloads/list
+pywebkitgtk debe ser >= 1.1.6), python-lxml, python-BeautifulSoup
+sugar-datastore: Los archivos LICENSE.GPL, README.txt fueron renombrados a
+COPYING y README; agregado archivos AUTHORS y NEWS.
+Internacionalización (i18n) y Localización (l10n)
+Gracias a los miembros del equipo de traducción global, que pueden ser 
+contactados en la lista de correos de localización 
+(
+http://lists.laptop.org/listinfo/localization
+), tenemos las siguientes 
+lenguas (listadas alfabéticamente) con una proporción significativa de la 
+interfáz traducida (más del 75%):
+Arábico
+Holandés
+Francés
+Alemán
+Griego
+Italiano
+Japonés
+Portugués
+Castellano
+Tamíl
+Vietnamita
+En total, 25 lenguajes cuentan con más del 50% de la interfaz de usuario 
+traducida.
+Compatibilidad
+La colaboración entre actividades Escribir no funcionará cuando las versiones 
+de abiword no son las mismas (libabiword 2.6, 2.8).
+Cambios detallados
+Glucose
+sugar
+sugar-toolkit
+sugar-base
+sugar-presence-service
+sugar-datastore
+sugar-artwork
+etoys
+Obtener los fuentes
+Si quieres empaquetar Sugar para tu distribución favorita, o simplemente 
+examinar el hermoso código de Sugar ;), puedes encontrar el código fuente de 
+cada módulo en los enlaces abajo.
+Glucose
+http://download.sugarlabs.org/sources/sucrose/glucose/sugar-toolkit/sugar-toolkit-0.86.0.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/glucose/sugar/sugar-0.86.0.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/glucose/sugar-artwork/sugar-artwork-0.86.0.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/glucose/sugar-base/sugar-
+base-0.86.0.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/glucose/sugar-datastore/sugar-datastore-0.86.0.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/glucose/sugar-presence-service/sugar-presence-service-0.86.0.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/glucose/etoys/etoys-4.0.2319.tar.gz
+Fructose
+http://download.sugarlabs.org/sources/sucrose/fructose/Read/Read-75.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/fructose/Chat/Chat-66.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/fructose/Terminal/Terminal-27.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/fructose/ImageViewer/ImageViewer-13.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/fructose/Jukebox/Jukebox-8.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/fructose/TurtleArt/TurtleArt-69.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/fructose/Browse/Browse-114.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/fructose/Etoys/Etoys-108.tar.gz
+http://download.sugarlabs.org/sources/sucrose/fructose/Write/Write-67.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/fructose/Calculate/Calculate-28.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/fructose/Log/Log-23.tar.bz2
+http://download.sugarlabs.org/sources/sucrose/fructose/Pippy/Pippy-34.tar.bz2
+Dependencias de Fructose
+http://download.sugarlabs.org/sources/sucrose/glucose/hulahop/hulahop-0.6.0.tar.bz2

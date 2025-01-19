@@ -1,0 +1,656 @@
+Title: Sugar on a Stick/Installation
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Installation#SoaS_on_VirtualBox
+--------------------------------------------------------------------------------
+Contents
+1
+SoaS installation on USB/SD devices
+1.1
+with Microsoft Windows
+1.2
+Notes
+1.3
+with Apple Macintosh
+1.3.1
+Fedora 15 and Fedora 16
+1.4
+with GNU/Linux
+1.5
+Sugar on a Stick on Raspberry Pi 2/3
+1.6
+on an OLPC XO
+2
+Hard disk and alternate USB stick installations
+2.1
+with a Netinstall CD
+2.2
+with the liveinst command
+3
+SoaS on VirtualBox
+4
+VirtualBox
+4.1
+Install VirtualBox
+4.1.1
+on Mac OS X
+4.1.2
+on Microsoft Windows
+4.1.3
+on GNU/Linux
+4.2
+Setup a Virtual Machine for Sugar on a Stick
+4.3
+Setup a Virtual Machine for Ubuntu Sugar
+4.4
+Issues
+4.5
+Resources
+5
+Chat room help
+6
+Backup and Restore
+7
+Subpage index
+Sugar on a Stick is best installed by following the
+Fedora Installation Guide
+.
+The rest of this Wiki page is outdated, or superceded by the Fedora Installation Guide.
+Important:
+The content of this page or section is outdated.  If you have checked or updated this page or section and found the content to be suitable, please remove this notice.
+Microsoft Windows
+GNU/Linux
+OLPC XO
+VirtualBox
+Apple Mac OS X
+Backup and Restore
+Following
+download
+,
+Sugar on a Stick
+may be
+Installed
+(instructions here), then
+booted
+.
+Then you are ready to
+start exploring Sugar
+.
+SoaS installation on USB/SD devices
+with Microsoft Windows
+There are three ways to do this:
+1. Burn a CD-ROM disc, boot from it, then run the script,
+livecd-iso-to-disk
+Use
+Windows 7 built-in Disk Image Burner
+or a free utility, like
+ImgBurn
+, to write the downloaded Sugar on a Stick .iso file onto a blank CD.
+Insert a USB flash drive (or SD Card
+Notes
+) with 2 GB or more of free space into your computer.
+Boot your computer
+with the CD-ROM disc.  You probably need to press F1, F10, F12, Esc, or a similar key as the computer starts up in order to set the boot source for your computer to the CD-ROM device.
+A successful boot will take you into
+Sugar on a Stick
+.  You can From there, open the Terminal Activity,
+, from the
+Home list View
+.
+Switch to run commands with 'root' user permissions by entering
+su -
+on the command line.
+Change the working directory, by entering
+cd /run/initramfs/live/LiveOS
+Verify the USB/SD
+s
+csi
+d
+rive node name (such as sda, sdb, etc.) and partition (such as 1, 2, etc.) for your USB/SD device.
+It would look like, for example,
+/dev/sd
+b
+1
+.
+The
+df -Th
+command shows your device filesystem on a device node, for example, /dev/sdb1, mounted on a directory
+mount point
+, such as /run/media/liveuser/<USBdeviceManufacturer>
+You should see something like the following:
+[root@localhost ~]# df -Th
+Filesystem          Type      Size  Used Avail Use% Mounted on
+/dev/mapper/live-rw ext4      2.9G  2.1G  773M  74% /
+devtmpfs            devtmpfs  2.0G     0  2.0G   0% /dev
+tmpfs               tmpfs     2.0G   72K  2.0G   1% /dev/shm
+tmpfs               tmpfs     2.0G  632K  2.0G   1% /run
+tmpfs               tmpfs     2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/sr0            iso9660   670M  670M     0 100% /run/initramfs/live
+tmpfs               tmpfs     2.0G   32K  2.0G   1% /tmp
+varcacheyum         tmpfs     2.0G     0  2.0G   0% /var/cache/yum
+vartmp              tmpfs     2.0G     0  2.0G   0% /var/tmp
+/dev/sdb1           vfat      3.8G  4.0K  3.8G   1% /run/media/liveuser/SanDisk
+Unmount the USB device filesystem with this command:
+umount /run/media/liveuser/
+MyUSBdiscMountPoint
+, where
+MyUSBdiscMountPoint
+is
+SanDisk
+in the dropdown example, above.
+Execute this command line:  (Substitute the
+/dev/sd
+?
+1
+, below, with the node name you determined in step 7, above.)
+./livecd-iso-to-disk --reset-mbr --overlay-size-mb
+500
+--home-size-mb
+800
+--delete-home --unencrypted-home /run/initramfs/livedev /dev/sd
+?
+1
+(The
+500
+and
+800
+size values, above, are suitable for a 2 GB USB device. For a 4 GB device, one might use
+1000
+and
+1600
+megabytes instead.)
+The installation transcript should look like the following:
+[root@localhost LiveOS]# livecd-iso-to-disk --overlay-size-mb 500 --home-size-mb 800 --unencrypted-home /run/initramfs/livedev /dev/sdb1
+Verifying image...
+/dev/sr0:   b0a9414ff7eb79b680d5c86440e19587
+Fragment sums: 9bfe23577651c88dcfb78c76ac3a28a5c53eead4561e3bdc5921b8b2e748
+Fragment count: 20
+Press [Esc] to abort check.
+Checking: 100.0%
+
+The media check is complete, the result is: PASS.
+
+It is OK to use this media.
+Copying live image to target device.
+squashfs.img
+    630,784,000 100%    1.96MB/s    0:05:06 (xfr#1, to-chk=0/1)
+osmin.img
+          8,192 100%    0.00kB/s    0:00:00 (xfr#1, to-chk=0/1)
+Updating boot config file
+Initializing persistent overlay file
+500+0 records in
+500+0 records out
+524288000 bytes (524 MB) copied, 216.717 s, 2.4 MB/s
+Initializing persistent /home
+800+0 records in
+800+0 records out
+838860800 bytes (839 MB) copied, 344.643 s, 2.4 MB/s
+Formatting unencrypted /home
+mke2fs 1.42.8 (20-Jun-2013)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+51296 inodes, 204800 blocks
+10240 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=209715200
+7 block groups
+32768 blocks per group, 32768 fragments per group
+7328 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+tune2fs 1.42.8 (20-Jun-2013)
+Setting maximal mount count to -1
+Setting interval between checks to 0 seconds
+Installing boot loader
+Target device is now set up with a Live image!
+Shutdown the physical machine.
+Reboot your computer
+from the newly-installed Live USB with Sugar on a Stick.
+2. Use Fedora Live USB Creator
+(This installation method is NOT recommended for LONG-TERM usage of Sugar on a Stick!!  Catastrophic data corruption may occur when the USB stick gets full!
+See why.
+)
+Download the Live USB Creator from
+Fedora
+.
+Insert a USB flash drive (or SD Card
+Notes
+) with 2 GB or more of free space into your computer.
+Launch Live USB Creator.
+Select Either
+1) the 'Browse' button to 'Use existing Live CD' and find the downloaded .iso file image on your system.
+2) Download Fedora and select  Fedora-SoaS-{i386|x86_64}-{22|23}  (This automates the download and checksum routine and directly  burns to the USB/ SDCard
+Adjust the Persistent Storage slider. This enables you to save changes to the system and additional Sugar Activities onto the device. (aka persistence file or Overlay --this space  by default is write once  only)  --see below for  additional way to make /home a  rw overlay
+Select your flash drive as the target, and click the
+Create Live USB
+button.
+With the latest version of Fedora LiveUSB Creator you have TWO (2) option for burning method
+1) CP (non destructive) -- meaning you can still use the unused space on a larger (8-16-32-64Gb) usb for whatever post burn.
+2) DD ( the old school way) Note:  THIS WILL destroy any previous data make sure you properly  select the drive to use AND make backups of any pre-existing important data (you will not be easily able to retrieve overwritten data)
+Wait for the process to finish, then close the Live USB Creator program.
+Stop your flash drive with the
+Safely Remove Hardware and Eject Media
+notification area icon dialog, and eject it.
+See a
+screenshot tutorial
+for this.
+See a
+video
+of an earlier version of this process.
+3. Launch a virtual machine with the Sugar on a Stick .iso file, then run the script,
+livecd-iso-to-disk
+Download and install
+VirtualBox
+(for example; you could do something similar with another vm).
+Create a new virtual machine.
+Choose Linux for the Operating System and Version Fedora (64 bit) if available, or Fedora, on systems lacking 64-bit functionality.
+Attach the Sugar on a Stick .iso file as a CD in the Storage Section
+Insert a USB storage device into your physical computer and enable the VirtualBox USB controller.  Then add a filter to recognize the inserted device in the USB section of the VirtualBox machine setup.
+Start the new virtual machine.
+Verify that the USB device is recognized in the running virtual machine.
+Your device appears in the hover box for the USB stick icon in the virtual machine bottom frame.
+df -Th
+shows your device filesystem on a device node, for example, /dev/sda1, mounted on a directory
+mount point
+, such as /run/media/<AccountName>/<USBdeviceManufacturer>
+You should see something like the following:
+[root@localhost LiveOS]# df -Th
+Filesystem          Type      Size  Used Avail Use% Mounted on
+rootfs              rootfs    4.0G  2.5G  1.5G  63% /
+devtmpfs            devtmpfs  1.6G     0  1.6G   0% /dev
+tmpfs               tmpfs     1.6G   84K  1.6G   1% /dev/shm
+tmpfs               tmpfs     1.6G  1.2M  1.6G   1% /run
+/dev/sr0            iso9660   509M  509M     0 100% /run/initramfs/live
+/dev/mapper/live-rw ext4      4.0G  2.5G  1.5G  63% /
+tmpfs               tmpfs     1.6G     0  1.6G   0% /sys/fs/cgroup
+tmpfs               tmpfs     1.6G     0  1.6G   0% /media
+varcacheyum         tmpfs     1.6G     0  1.6G   0% /var/cache/yum
+tmp                 tmpfs     1.6G   40K  1.6G   1% /tmp
+vartmp              tmpfs     1.6G     0  1.6G   0% /var/tmp
+/dev/sda1           vfat      3.7G  2.1G  1.7G  56% /run/media/liveuser/TOSHIBA
+Continue from step #4 in the
+Burn a CD-ROM disc
+section above.
+Shutdown the virtual machine.
+Reboot your physical computer from the newly-installed Live USB with Sugar on a Stick.
+Notes
+A Secure Digital (SD) card may not be marked as a bootable device. To check this, use these instructions at a Linux terminal or console:
+Check the disk partition table for a device, such as
+/dev/sdc
+,
+sudo fdisk
+-l
+/dev/sdc
+<----that's a lowercase letter 'L' for the
+l
+ist option.
+You should see something like the following:
+$ sudo fdisk -l /dev/sdc
+
+Disk /dev/sdc: 4012 MB, 4012900352 bytes
+124 heads, 62 sectors/track, 1019 cylinders, total 7837696 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x0000a9c7
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1   *          62     7834071     3917005    c  W95 FAT32 (LBA)
+The asterisk,
+*
+, under the Boot column indicates that the partition is bootable.
+If it is missing, then execute the commands here:
+parted /dev/sd
+c
+toggle 1 boot
+quit
+with Apple Macintosh
+See and adapt the instructions at
+Macintosh
+.
+Fedora 15 and Fedora 16
+Sugar on a Stick CD boots in a Mac -
+Testing/Reports/Sugar on a Stick#MacBook Pro i7 CD Boot
+The following work on some Intel MacBooks
+Persistent USB for Mac -
+Testing/Reports/Sugar on a Stick#MacBook Persistent SoaS v5 and SoaS v6 EFI Boot USB
+dd writable USB.img -
+Testing/Reports/Sugar_on_a_Stick#dd_writable_1_GB_EFI_Boot_.28MAC.29_USB_Soas-v6-Pineapple_x86-USB_.img
+with GNU/Linux
+Download
+the latest
+Sugar on a Stick
+.iso file.
+Prepare
+: (with
+root
+user
+permissions at a terminal or
+console
+command line)
+Create a mount point directory:
+mkdir /run/soas
+Mount the .iso file to make it accessible as a disk:
+mount
+/path/to/downloaded
+.iso /run/soas/
+(Where
+/path/to/downloaded
+.iso is the
+filesystem
+path, or fully specified name,
+of the downloaded .iso file.)
+This is the source for the installation, and must remain
+mounted
+until the installation is complete.
+Insert a USB stick of 2 GB or greater capacity into your computer.
+With
+root
+user
+permissions at a terminal or
+console
+command line, use the command
+sudo df -Th
+or
+sudo blkid
+to get the USB device node name.
+(Items in angle brackets, such as <MyAccount> are descriptive placeholders.)
+You should see something like the following:
+[<user>@<system> <working directory>]$ sudo df -Th
+Filesystem     Type      Size  Used Avail Use% Mounted on
+devtmpfs       devtmpfs   16G     0   16G   0% /dev
+tmpfs          tmpfs      16G   33M   16G   1% /dev/shm
+tmpfs          tmpfs      16G  1.8M   16G   1% /run
+tmpfs          tmpfs      16G     0   16G   0% /sys/fs/cgroup
+/dev/sda1      ext4      123G   17G  100G  15% /
+tmpfs          tmpfs      16G   80K   16G   1% /tmp
+tmpfs          tmpfs     3.2G   10M  3.2G   1% /run/user/1000
+/dev/sdb1      vfat      233G   90G  143G  39% /run/media/<MyAccount>/<filesystem label>
+/dev/loop0     iso9660   942M  942M     0 100% /run/soas
+(The
+/run/media/<MyAccount>/
+path is the standard mount point for removable media.
+/media/<MyMountPoint>
+is common on other operating systems.)
+[<user>@<system> <working directory>]$ sudo blkid
+/dev/sda1: LABEL="Fedora30" UUID="dddf4ae0-e1fd-43c3-bacc-91acbafb3a34" TYPE="ext4" PARTUUID="000b2340-03"
+/dev/sdb1: LABEL_FATBOOT="Fat" LABEL="Fat" UUID="D082-05E1" TYPE="vfat" PARTLABEL="Fat" PARTUUID="53132329-808c-4a44-adf6-e98ad17546ff"
+/dev/loop0: UUID="2019-04-26-02-18-05-00" LABEL="Fedora-SoaS-Live-30-1-2" TYPE="iso9660" PTUUID="37f2045d" PTTYPE="dos"
+(Additional disk drive partitions may be listed on your computer.)
+The mount point (Mounted on), Filesystem, Size, and LABEL should help you identify what you want.
+Unmount the USB device filesystem:
+umount /run/media/<MyAccount>/<MyUSBdiscMountPoint>
+(The
+/run/media/<MyAccount>/
+path is the standard mount point. Other operating systems may use
+/media/<MyMountPoint>
+.)
+(You should have the isomd5sum package installed so that the following installation script can verify the download.)
+Load
+: Execute the following installation command, as the
+root
+user
+, in
+one
+command line with many options:
+/run/soas/LiveOS/livecd-iso-to-disk --reset-mbr --overlay-size-mb
+500
+--home-size-mb
+500
+--unencrypted-home
+/path/to/downloaded
+.iso /dev/sd
+?
+1
+The '
+?
+' in the final parameter represents the target USB device
+s
+csi
+d
+rive
+node, such as
+sd
+b
+1
+or
+sd
+c
+1
+, etc., and
+/path/to/downloaded
+.iso
+is the location and name of the .iso file.
+The operating system will occupy ~960 MB, and the overlay and home size arguments,
+500
+and
+500
+, were selected to fit in a 2 GB device. These may be adjusted depending on your preferences and device capacity (see
+LiveOS image
+). On a 4 GB device, one might use
+1000
+and
+1600
+for the size arguments.
+The installation transcript should look something like the following:
+[<user>@<system> <working directory>]$ sudo /run/soas/LiveOS/livecd-iso-to-disk --reset-mbr --overlay-size-mb 500 --home-size-mb 500 --unencrypted-home /<path to>/Fedora-SoaS-Live-x86_64-30-1.2.iso /dev/sdc1
+Verifying image...
+/<path to>/Fedora-SoaS-Live-x86_64-30-1.2.iso:   bac65eaf45ad370f6e9ddf793f436e33
+Fragment sums: 82358a8de12fab19be3e83c22431837827fbe4b8be6d9be46695f853676f
+Fragment count: 20
+Supported ISO: no
+Press [Esc] to abort check.
+Checking: 100.0%
+
+The media check is complete, the result is: PASS.
+
+It is OK to use this media.
+
+Copying LiveOS image to target device...
+squashfs.img
+    887,312,384 100%  379.28MB/s    0:00:02 (xfr#1, to-chk=0/1)
+
+Syncing filesystem writes to disc.
+    Please wait, this may take a while...
+Setting up /EFI/BOOT
+Updating boot config files.
+Initializing persistent overlay...
+500+0 records in
+500+0 records out
+524288000 bytes (524 MB, 500 MiB) copied, 0.354372 s, 1.5 GB/s
+Initializing persistent /home
+500+0 records in
+500+0 records out
+524288000 bytes (524 MB, 500 MiB) copied, 0.346354 s, 1.5 GB/s
+Formatting unencrypted home.img
+mke2fs 1.44.6 (5-Mar-2019)
+Creating filesystem with 512000 1k blocks and 128016 inodes
+Filesystem UUID: b32a4987-627e-4131-a863-7f6c9bcc2178
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729, 204801, 221185, 401409
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (8192 blocks): done
+Writing superblocks and filesystem accounting information: done 
+
+tune2fs 1.44.6 (5-Mar-2019)
+Setting maximal mount count to -1
+Setting interval between checks to 0 seconds
+Installing boot loader...
+Target device is now set up with a Live image!
+Boot
+: Insert the USB stick into a bootable USB port on your computer. Set the option to "boot from USB" in your computer's
+BIOS
+setup, and then start up the computer.
+To create more Sugar Sticks on other 2 GB or greater USB or SD devices, while running
+Sugar on a Stick
+, one may run the
+Terminal Activity
+, and execute this command as the root user:
+livecd-iso-to-disk --reset-mbr --overlay-size-mb
+500
+--home-size-mb
+500
+--delete-home --unencrypted-home /run/initramfs/livedev /dev/sd
+?
+1
+Replace
+/dev/sd
+?
+1
+with a new device node for the second USB/SD device that you want to load with
+Sugar on a Stick
+.
+(See
+Sugar on a Stick/Linux
+for more details.)
+Note
+: The graphical Liveusb-creator is an alternative installation method (see the first Windows
+method
+), but it does not create the separate home.img filesystem, and so, the write-once persistent storage on the disk is more quickly consumed (see
+LiveOS image
+). If the USB device does not boot after running Liveusb-creator, the command
+liveusb-creator --reset-mbr
+may help.
+Sugar on a Stick on Raspberry Pi 2/3
+Moved to
+https://github.com/sugarlabs/sugar/blob/master/docs/rpi-soas.md
+on an OLPC XO
+See
+F16 SoaS Pineapple USB boot image for XO-1
+Very slow but works
+Hard disk and alternate USB stick installations
+with a Netinstall CD
+Fedora with the Sugar graphical environment
+Installs to a hard disk or to a 4 GB USB stick (not a LiveOS image like SoaS, but all of Sugar).
+This requires a high-speed Internet connection for software component downloading during installation.
+with the
+liveinst
+command
+..from a booted Fedora 16 SoaS Live CD/USB
+Installs to a hard disk or a 4 GB USB stick. You start with a SoaS LiveOS image, and then load an uncompressed version onto the hard disk or USB stick.
+The Fedora-16-Live-SoaS.iso file is a 443 MB download.
+SoaS on VirtualBox
+See instructions from the
+VirtualBox
+page (transcluded here):
+VirtualBox
+With
+VirtualBox
+®
+one can run
+Sugar
+on Microsoft Windows, Intel-based  Apple Macintosh, or GNU/Linux host computers from within a virtual machine window.
+See this
+VirtualBox overview
+. VirtualBox is a large software installation with many features and operating system options. A
+User Manual and other documentation
+is available online. Those who have not used VirtualBox before, might find it more easy to understand and install than expected.
+VirtualBox Downloads:
+https://www.virtualbox.org/wiki/Downloads
+(See
+VirtualBox/Technical
+for some collected details.)
+The following instructions are intended for those Learners interested in using VirtualBox to run Sugar.  The process is not fully mature as the technology is evolving both in the VirtualBox and operating system software.
+Online IRC support is available from
+http://www.virtualbox.org/wiki/IRC
+Various VirtualBox experiments may be found on the
+discussion page
+.
+Install VirtualBox
+on Mac OS X
+Follow the instructions on the VirtualBox
+Downloads page
+for Mac OS X.
+on Microsoft Windows
+Download from
+http://www.virtualbox.org/wiki/Downloads
+.
+on GNU/Linux
+Use the VirtualBox packages available in your GNU/Linux distribution.  For example, on Ubuntu, it is available in Ubuntu Software Centre.
+Or, use the most recent packages from VirtualBox, see
+Linux Downloads
+.
+Also, see
+Talk:VirtualBox
+page for experimental installation variations.
+Setup a Virtual Machine for Sugar on a Stick
+Notice:
+Prebuilt VirtualBox 4.1 Appliances
+are available. Just click "import" on one of the .vmdk or .ovf files.
+One may also use these instructions,
+VirtualBox/Preparing a disk image
+, to prepare one's own.
+You can watch a screencast video of the process with an earlier version of SoaS on a Mac here:
+In VirtualBox click New
+Click Next
+Enter a name "Sugar"
+Operating System: choose Linux
+Version: choose Fedora
+Click Next
+For memory leave 256 MB
+Click Next
+Virtual Hard Disk click Existing
+Click the little folder to the right of the selection box
+A new window pops up
+Click Add button in the toolbar
+Browse to the location where you extracted the .vdi disk image
+Click Open
+Click Select
+Click Next
+Click Finish
+Select Sugar on the left
+Click Start in the toolbar
+After a minute or two you should see the Sugar screen asking for you name
+Enter your name
+Click Done at the bottom of the window. You might have to scroll.
+From now on you can start VirtualBox and start the "Sugar" virtual machine
+Setup a Virtual Machine for Ubuntu Sugar
+Use Ubuntu Software Centre to install the
+virtualbox-guest-utils
+package, so that your virtual machine display can be resized to fit your computer.
+Issues
+Activating the Frame might be a little difficult. The lower 2 corners are easiest and you may want to configure edge activation in the My Settings > Frame panel.  With VirtualBox Guest Additions installed (see
+here
+), only the bottom edge and corners are available for Frame activation.
+On Mac keyboards, you might wish to change the Virtual Box default key for switching the Sugar cursor to the normal one, as the default key (control right arrow on Mac keyboards) is trapped by Sugar. (Windows and Linux keyboards use Right Ctrl.) You may do this change in File/settings of the Virtual Box menu.
+Resources
+http://www.virtualbox.org/
+OLPC:VirtualBox
+How To Install Virtualbox Guest Additions in Fedora Guest
+(Based on Fedora 8)
+install the virtualbox guest additions
+on Debian, Ubuntu, or derived distributions
+sudo apt install virtualbox-guest-utils
+Chat room help
+Sugar chat room in English
+Sugar chat room in Español
+(with translations to English)
+Pida ayuda a través de este canal #sugar-es Por favor, sea cortés y hacer sus preguntas.
+Los voluntarios no pueden estar en línea todo el tiempo.
+Sea paciente y permanecer conectado durante varios minutos para ver su respuest.
+(Utilizar la función de meeting para la traducción de estos artículos.)
+Backup and Restore
+Some backup and restore options for Sugar on a Stick include the following:
+Backup
+and
+Restore
+- these are Activities that can be used on any Sugar installation to backup or restore the Sugar Journal.
+olpc:School Server
+- requires a server installation.
+Sugar on a Stick/Sugar Clone
+- full image (operating system and home folder) cloning.
+Subpage index
+Sugar on a Stick/Installation/OLPC
+Sugar on a Stick/Installation/OLPC/lang-es
+Sugar on a Stick/Installation/OLPC/lang-fr
+Sugar on a Stick/Installation/Variations
+Sugar on a Stick/Installation/Windows

@@ -1,0 +1,81 @@
+Title: Talk:Development Team/Jhbuild
+URL: https://wiki.sugarlabs.org/go/Talk:Development_Team/Jhbuild
+--------------------------------------------------------------------------------
+Contents
+1
+sugar-build
+2
+got errors as well
+3
+discussion
+4
+Old info
+5
+"ERROR: Dependencies information is missing (unknown distribution/version)."
+6
+Ubuntu 10.4 hints
+sugar-build
+Please use
+sugar-build
+instead of sugar-jhbuild
+got errors as well
+Command given on main page didn't work for me either,
+but I was able to get sugar-jhbuild from the http link (not git:) in the git repo page...
+Danceswithcars
+10:39, 5 April 2011 (EDT)
+discussion
+I just tried
+./sugar-jhbuild update
+on a new fresh install.  The first line of output seems normal
+Initialized empty Git repository in ...sugar-jhbuild/jhbuild/.git/
+then it says
+fatal: The remote end hung up unexpectedly
+and gives a traceback.  Any suggestions? --
+Grantbow
+04:00, 28 January 2009 (UTC)
+Seems to be working now, the server must have been unavailable for some reason.  --
+Grantbow
+09:50, 28 January 2009 (UTC)
+Old info
+Removed from the page:
+In addition to the dependencies listed, you may want to install the
+gtk-doc-tools
+package (this allowed me to build hippocanvas on Ubuntu Hardy).
+Mchua
+22:01, 15 May 2008 (EDT)
+gtk-doc-tools is (now) listed as a dependency for Ubuntu 8.10. Hardy's not supported any more for jhbuild as its GNOME is too old. --
+Morgs
+09:09, 21 January 2009 (UTC)
+If you run into an error during
+sugar-jhbuild build
+that looks something like "aclocal: macro `AM_PATH_PYTHON' required but not defined" try installing or updating your packages for
+autoconf
+and
+automake
+and running
+sugar-jhbuild build
+again. (worked for me on Ubuntu Hardy)
+Mchua
+17:10, 15 May 2008 (EDT)
+automake1.9 is listed as a dependency for Ubuntu 8.10. It depends on autoconf, so this should be handled by jhbuild's dependencies. --
+Morgs
+09:14, 21 January 2009 (UTC)
+"ERROR: Dependencies information is missing (unknown distribution/version)."
+This is a new error and doesn't seem very helpful. I'd much prefer the list of packages not detected that we used to get.
+ETA
+: was able to trick it into continuing by copying a file in config/sysdeps/ over and :
+export SJH_DISTRIBUTION='darwin-unstable'
+Adricnet
+21:47, 20 July 2009 (UTC)
+Ubuntu 10.4 hints
+There seems to be a conflict with GTK on Ubuntu 10.4. If you get an error message:
+Error fatal de E/S 11 (Recurso no disponible temporalmente) en la pantalla «:30»
+then check ~/.sugar/default/logs/shell.log to see if there is this error:
+.../libsugar.so: undefined symbol: GTK_WIDGET_HAS_FOCUS
+If so, try a clean rebuild of sugar-artwork. (I went to extremes to make sure everything built fresh.)
+rm -rf ./source/sugar-artwork
+./sugar-jhbuild buildone sugar-artwork
+Note that there is a problem with hulahop, but this should not impact Sugar other than the Browse activity.
+Thanks to Sascha for helping me with this minor roadblock. --
+Walter
+09:54, 13 May 2010 (EDT)

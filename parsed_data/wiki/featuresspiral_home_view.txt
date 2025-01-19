@@ -1,0 +1,84 @@
+Title: Features/Spiral Home View
+URL: https://wiki.sugarlabs.org/go/Features/Spiral_Home_View#Detailed_Description
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+3.1
+Summary of the discussion with the Design Team
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+This is an enhancement to the Home View to enable the display of more icons. The idea is that after the circle becomes too large, rather than shrinking the icons, it morphs into a spiral. Only after the spiral no longer fits on the screen do the icons shrink.
+Owner
+Name:
+Walter Bender
+Email: <walter at sugarlabs dot org>
+Current status
+Targeted release: (0.90)
+Last updated: (6 Aug 2010)
+Percentage of completion: 100%
+Comment: Reviewed bby design and deployment teams
+This feature is being tracked in
+Ticket 2143
+.
+Summary of the discussion with the Design Team
+We've discussed this extensively and there was consensus that a morph to a spiral would be an acceptable solution to the Home View sparsity problem. See
+http://lists.sugarlabs.org/archive/sugar-devel/2010-August/025874.html
+Note that this enhancement is orthogonal to the discussion about replacing the List View with the Journal and/or enabling multiple collections of activities to be viewed on separate Home Views.
+Detailed Description
+Experimental screenshots of the spiral layout at various stages of development:
+This version progresses from the inside out.
+These versions progress from the outside in, making for a less abrupt change between the ring and the spiral. There is also an intermediate icon size introduced between STANDARD ans SMALL.
+These versions have a looser spiral and more intermediate steps.
+And some spiral out versions.
+Approximation of Gray's even looser spacing.
+Screenshot of released spiral feature showing 40 activity favourite icons. When testing the layout on various screen resolutions the spiral triggers on 800x600 (SUGAR_SCALING=72)  @ ~27 activities; on 1024x768 (SUGAR_SCALING=72) @ ~37 activities; on 1200x900 (SUGAR_SCALING=100) @ ~29 activities.
+Benefit to Sugar
+As we continue to grow the number of activities, there is more pressure to be able to include more on the Home View. This enhancement allows a smooth transition from the current ring view into a spiral, so it should be minimally disruptive while offering a solution to the problem.
+Scope
+To implement this feature, I needed to make changes in one file:
+sugar/src/jarabe/desktop/favoritelayout.py
+How To Test
+Apply the patch attached to
+http://bugs.sugarlabs.org/ticket/2143
+Add activities from the List View until the circle becomes too full -- after ~30 icons on an OLPC XO computer
+Observe the morph to a spiral
+Remove some activities
+Observe the morph back to a circle
+Add many more activities
+Observe icon size changing in the spiral
+User Experience
+Anyone who has tried to load too many activities onto their Home View has experienced the problem that the Ring View does not scale well. This is a remedy to this problem.
+Dependencies
+No additional dependencies are required to implement this feature.
+Contingency Plan
+None necessary, revert to previous release behavior.
+Documentation
+Release Notes
+As more Sugar Activities become available, the Home View ring has become less effective as a means of laying out the available choices. The "spiral" extension to the ring enables more Activity icons to fit onto the Home View while still retaining a visual connection to the iconic Sugar ring. The Home View starts off with the familiar ring, but morphs into a spiral as more (30+ on an OLPC XO) icons are added.
+Comments and Discussion
+See
+discussion tab for this feature

@@ -1,0 +1,98 @@
+Title: Features/Touchpad control panel section
+URL: https://wiki.sugarlabs.org/go/Features/Touchpad_control_panel_section
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+3.1
+Comment
+4
+Benefit to Sugar
+5
+Scope
+6
+How To Test
+7
+User Experience
+8
+Dependencies
+9
+Contingency Plan
+10
+Documentation
+11
+Release Notes
+12
+Comments and Discussion
+Summary
+This is an enhancement to the Control Panel that enables the selection of resistive or capacitative mode for the Touchpad on the OLPC XO-1 CL1 laptop.
+Owner
+Name:
+Walter Bender
+Email: <walter at sugarlabs dot org>
+Current status
+Targeted release: (0.90)
+Last updated: (16 Aug 2010)
+Percentage of completion: 100%
+Comment: feature accepted, patch pushed
+This feature is being tracked in
+Ticket 2006
+.
+Comment
+After further consideration, it was decided to move this feature to the device section of the Frame.
+The new device code (and related artwork) are attached to Ticket 2006.
+It was also decided to default to capacitive mode upon reboot (See
+http://lists.sugarlabs.org/archive/sugar-devel/2010-August/025955.html
+).
+Benefit to Sugar
+There are approximately 1000000 XO-1 CL1 deployed. Many have very flaky capacitive touchpads, which makes the Sugar experience very tedious. This patch would enable users to switch to the resistive touchpad and in theory have a better experience. (Tests are being conducted in Peru, Paraguay, and Nigeria.)
+Scope
+To implement this feature:
+two new icons were added to share/icons/sugar/scalable/devices:
+capacitive.svg and resistive.svg
+a new section was added to sugar/extensions/cpsection
+touchpad
+a new icon was added to sugar/data/icons
+module_touchpad.svg
+We still need a script to be added to olpc-utils that is executed at boot time to: (1) change the mode of
+/sys/devices/platform/i8042/serio1/ptmode to 666; and (2) write a 1 to that node if a flag file exists ("/home/olpc/.olpc-pentablet-mode").
+How To Test
+I'm not sure how to make this easier.
+Preparation:
+download
+File:Touchpad.tar
+and extract the files onto a USB drive
+sudo chmod o+w /sys/devices/platform/i8042/serio1/ptmode
+sudo cp /media/YOURUSB/module-touchpad.svg /usr/share/sugar/data/icons/
+sudo cp /media/YOURUSB/capacitive.svg /usr/share/icons/sugar/scalable/devices/
+sudo cp /media/YOURUSB/resistive.svg /usr/share/icons/sugar/scalable/devices/
+sudo mkdir /usr/share/sugar/extensions/cpsection/touchpad
+sudo cp /media/YOURUSB/*.py /usr/share/sugar/extensions/cpsection/touchpad/
+sudo rm /usr/share/icons/sugar/*.cache
+Notes:
+This feature requires Fedora 11+ and Sugar 0.84+ (e.g., the build from Paraguay).
+You'll have to do Step 2 every time the you reboot the system.
+Substitute the name of your USB key for YOURUSB in the above instructions
+Test:
+Open the Control Panel
+Click on the Touchpad icon
+Click on the icons and observe that the touchpad switches modes
+User Experience
+Anyone who has used Sugar in a high-humidity or dust environment on the CL1 hardware has probably experienced the jumping cursor due to the malfunctioning capacitive touchpad. Using a stylus is a different experience, but more predictable and robust in these situations.
+Note that the section only will appear on CL1 hardware. There is no change to user experience with Sugar on other hardware platforms, including the more recent versions of the XO-1.0.
+Dependencies
+No additional dependencies are required to implement this feature.
+Contingency Plan
+None necessary, revert to previous release behavior.
+Documentation
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+See
+discussion tab for this feature

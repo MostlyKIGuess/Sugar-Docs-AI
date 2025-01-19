@@ -1,0 +1,175 @@
+Title: Sugar on a Stick/Sugar Clone/lang-es
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Sugar_Clone_es
+--------------------------------------------------------------------------------
+Contents
+1
+Introducción
+1.1
+Algunos tecnicismos
+2
+Aplicación
+2.1
+Prueba de uso
+2.1.1
+Opción de Instalación Live USB
+2.2
+Usos posibles
+2.2.1
+Empaquetamiento Curricular
+2.2.2
+Compartir o respaldar la imagen completa
+2.2.3
+También revisar
+2.3
+Notas
+3
+Se necesita:
+4
+Fuente
+4.1
+Clon de Sugar
+4.2
+Zótano de Sugar (Sugar Cellar)
+4.3
+Agrupación (Bundle)
+4.4
+Lanzador (Launcher)
+Introducción
+Sugar Clone
+(clon de Sugar) hace que sea fácil compartir tus versiones personalizados de
+Sugar on a Stick
+(SoaS).
+Comienza con una nueva
+instalación de Sugar on a Stick
+(o utiliza tu imagen favorita de trabajo).
+(Para mayor flexibilidad y fiabilidad, utiliza la opción livecd-iso-to-disk, --home-size-mb NNN )
+Agregar Actividades, cambios en los favoritos de Inicio, guardar marcadores en Navegar, proyectos Etoys, plantillas modelo de Física, descargar ebooks distribuibles, etc...
+Inserta una segunda memoria USB o SD.
+Con la actividad Terminal, ejecuta
+3 comandos simples
+.
+Voilà
+, así obtienes un
+clon de Sugar
+! Y el clon de Sugar puede crear nuevos clones con un simple comando en la Terminal.
+Algunos tecnicismos
+Sugar Clone es hoy (Agosto 2010), un Bash script (conjunto de comandos para Bash, programa informático cuya función consiste en interpretar órdenes al computador) que ayuda en la copia de una
+LiveOS image
+personalizada (sistema operativo que corre desde una memoria virtual, sin necesidad de instalarse), tal como
+Sugar on a Stick
+, en un dispositivo secundario. Trabaja desde una sesión Live (sistema operativo que corre sin instalarse en el disco duro) para copiar esa imagen. O puede ser usado para copiar una sesión Live entre 2 dispositivos de almacenamiento USB o SD. Su objetivo es apoyar los proyectos de personalización de Sugar.
+Un script pequeño y útil
+Sugar Cellar
+(zótano de Sugar) está disponible en el conjunto de actividades (bundle) o por separado. Se utiliza para informar sobre el espacio de almacenamiento disponible en el revestimiento persistente (persistant overlay), directorio de Inicio, y otros espacios de archivo adjuntos a la imagen en ejecución.
+*
+http://people.sugarlabs.org/fgrose/SugarClone
+http://people.sugarlabs.org/fgrose/SugarClone
+*
+http://people.sugarlabs.org/fgrose/SugarCellar
+http://people.sugarlabs.org/fgrose/SugarCellar
+Revisa este posteo de anuncio,
+You scream, I scream, we all scream for Mirabelle ice cream in a Sugar Clone
+.
+Y este hilo de discusión,
+[SugarClone] -was: You scream, I scream, ...
+.
+Posteo más reciente:
+Aplicación
+Consulta la documentación de ayuda integrada en el script que se
+muestra a continuación
+.
+Prueba de uso
+Opción de instalación previo al arranque (boot):
+Obtener el script para SugarClone en
+http://people.sugarlabs.org/fgrose/SugarClone
+.
+Previo a iniciar el dispositivo SoaS que será la fuente para un nuevo clon de Sugar, copia el script de SugarClone en la raíz de tu sistema, '/', carpeta en la base del sistema de archivos del dispositivo, o, a /mnt/live (si es que te encuentras corriendo una sesión Live).
+Arranque:
+Arranca el computador desde un SoaS, e inserta un segundo dispositivo de almacenamiento USB.
+Clonar:
+En la actividad
+de la sesión de SoaS, ingresa el comando,
+/mnt/live/SugarClone
+Si hay más de un dispositivo de almacenamiento USB o SD, un menú de los dispositivos aparecerá permitiendo seleccionar el dispositivo de destino.
+Los scripts copiarán la imagen de la sesión Live en ejecución al dispositivo de destino. Cuando ese dispositivo se inicia, se gatilla una nueva sesión de inicio. El Diario previamente personalizado y el sistema operativo estarán presentes en el Sugar Clone.
+Opción de Instalación Live USB
+En un imagen Live en ejecución, la carpeta root (raíz o base) del segundo dispositivo USB o SD se encuentra disponible en el punto de montaje /mnt/live. El script SugarClone se puede obtener (asumiendo que hay conectividad a Internet) de la siguiente forma:
+En la actividad Terminal
+,
+cambia el directorio en el que trabajas:
+cd /mnt/live
+Obtener el archivo script de SugarClone:
+wget
+http://people.sugarlabs.org/fgrose/SugarClone
+Clone:
+SugarClone
+Usos posibles
+Empaquetamiento Curricular
+Un profesor quiere preparar una imagen SoaS con un conjunto personalizado de actividades Sugar instaladas o un Diario con instancias de actividades para el próximo semestre.
+El profesor modifica su imagen SoaS de trabajo agregando o eliminando paquetes de actividades de la vista del escritorio (Home), añadir o eliminar entradas del Diario con contenido específico (por ejemplo, una plantilla modelo de Física o un proyecto Etoys), incluso, guardar e-books distribuibles, o los Favoritos (Marcadores) en la actividad Navegar que llevan el nombre de destinos web específicos (por ejemplo el despliegue de un sitio web sin necesidad de conectividad).
+El profesor elimina todas las contraseñas personales u otro registro histórico que no debe ser ofrecido en las nuevas copias.
+Una memoria USB nueva o reciclada se inserta en un equipo que ejecuta la imagen SoaS personalizada, y el script SugarClone se ejecuta.
+Compartir o respaldar la imagen completa
+Un estudiante ha modificado su entorno Sugar, tal vez añadiendo actividades y preparó proyectos específicos, tales como una simulación en la actividad
+Activities/Physics
+.
+Their modifications include changes to their operating system installed through  or  to obtain some new core functionality.
+Sus modificaciones incluyen cambios en su sistema operativo instalado a través de
+yum
+o
+RPM
+para obtener alguna funcionalidad base nueva.
+El aprendiz quiere archivar o compartir esta imagen con sus amigos o para respaldar.
+La información personal o privada se elimina del Diario o el historial en Navegar y otros registros posibles.
+El usuario crea una o más clones de Sugar.
+También revisar
+Otros
+usos avanzados
+para el script modificado livecd-iso-to-disk.
+Notas
+Estos scripts han sido probados en
+SoaS-Mirabelle
+(disponible en
+http://alt.fedoraproject.org/pub/alt/nightly-composes/soas/
+) pero debiera funcionar con otras versiones de SoaS.
+La actual versión del scrip tiene el shell (interprete de comandos) /bin/bash espeificado sin la opción -x (xtrace). Setea esta opción, #!/bin/bash -x, en la primera línea del script para ayudar en las pruebas. Cuando se establece, el script muestra su operación en la pantalla mientras se ejecuta.
+El script se copia a todo nuevo dispositivo clon de Sugar a partir de esta secuencia de comandos para que las imagenes clon de Sugar fácilmente se propaguen. Esto también aplica a todas las nuevas instalaciones de SoaS que se preparan con estos scripts.
+Se necesita:
+Mayor revisión y pruebas.
+Tarjetas SD
+UN PROBLEMA en el Acer Aspire One 532H:
+"Sucede que el adaptador SD usa un bus PCIe"
+y no es reconocido por Sugar y el script
+¿alguna forma para detectar esto en el script? (Está siendo utilizado en pruebas de implementación)
+La ranura SD slot no es bootable (no puede iniciar el computador) en este modelo pero puede ser usado para crear clones personalizados de SD para el uso en otros netbooks (EeePC900)
+satellit 04/26/2010
+Presentación de modified_livecd-iso-to-disk script .
+https://bugzilla.redhat.com/show_bug.cgi?id=448030
+Modificaciones para OLPC-XOs.
+Modificaciones para computadoras Intel Macintosh.
+https://answers.edge.launchpad.net/soas/+question/95622
+Extracción del nombre de la imagen de Sugar para el etiquetado del clon.
+(Disponible el 14 de abril 2010)
+Una actividad Sugar que llama o controla los scripts. Revisa
+Activities/Toaster
+.
+Una manera de identificar automáticamente las particiones adicionales en los dispositivos con más de una partición disponible.
+Una manera de identificar automáticamente las imágenes Live en dispositivos secundarios y las particiones que podrían ser utilizados como fuentes de un clon de Sugar.
+Agrupación de scripts para mayor comodidad, hasta que se incluyan en los SoaS.
+(Disponible 23 de abril 2010)
+Extender la capacidad de escribir archivos de imagen CD-ROM para una distribución de bajo costo.
+Extender la facilidad a cualquier imagen de Sugar.
+Estos deben ayudarnos a preparar mejor un kit de personalización de SoaS.
+Fuente
+Clon de Sugar
+El script está disponible en
+http://people.sugarlabs.org/fgrose/SugarClone
+y se despliega a partir de ahí abajo.
+Ayuda integrada, que describe los scripts y su uso en mayor detalle, puede consultarse en el script más abajo (después de las cabeceras de acciones, haga clic 3 a 5 veces en la barra de desplazamiento vertical y busque 'shortusage()' y luego las funciones más completas de 'usage()').
+http://people.sugarlabs.org/fgrose/SugarClone
+Zótano de Sugar (Sugar Cellar)
+http://people.sugarlabs.org/fgrose/SugarCellar
+Agrupación (Bundle)
+http://people.sugarlabs.org/fgrose/bundle
+Lanzador (Launcher)
+http://people.sugarlabs.org/fgrose/launcher

@@ -1,0 +1,136 @@
+Title: Activity Team/Packaging Ideas
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Packaging_Ideas
+--------------------------------------------------------------------------------
+Contents
+1
+Goal
+2
+Problems to solve
+3
+Proposal schemas
+3.1
+Distro teams should take care of it
+3.2
+Invent-own/reuse-existing packaging format
+3.3
+Sugar is like Firefox and activities are like addons
+3.4
+Use distro-specific activities installer
+3.5
+combined Source+Binary package
+3.5.1
+Package contents
+3.5.2
+Software dependencies
+3.5.3
+Hardware dependencies
+3.5.4
+Prebuilding
+3.6
+Sugar Platform
+Goal
+Installing activities on every sugarized GNU/Linux distribution (not only the XO)
+just by clicking on an icon in activities.sugarlabs.org is the goal.
+Problems to solve
+Install proper dependencies.  Most activities rely on a standard set of Sugar dependencies like PyGTK, Squeak, GStreamer, and PyGame.  But others have special dependencies that need to be installed on the target system before the activity can run.
+Install the activity itself.
+Blobs in activities.  Some activities (Colors, Oficina, Bounce, WikiBrowse) include compiled code, like executables or Python extension modules.
+Should we build non-pure-python activities while installing, or use binary packages?
+And in general, how to treat a variety of platforms: x86, x86_64 and future ARM, MIPS?
+Proposal schemas
+Distro teams should take care of it
+It could be a meta package that is linked to frequently used dependencies (like csound/pygame/etc.).
+Pro
+That's enough for the XO
+alsroot
+12:36, 13 January 2009 (UTC)
+Many activities just rely on the standard Sugar dependencies, it's really just a few special ones.
+Contra
+That's not enough for the rest of the distros
+each distro team has to work out the same work
+like inventing their own mechanisms to treat activity dependencies, etc.
+alsroot
+12:36, 13 January 2009 (UTC)
+Invent-own/reuse-existing packaging format
+Pro
+Could possibly come up with a solution that works very well specifically for Sugar.
+Contra
+A lot of work solving a problem has been solved already on each system.
+Might conflict with the target system's native package manager.
+Package managers tend to present confusing user interfaces to the user.
+Sugar is like Firefox and activities are like addons
+Pro
+Simplest version, what we have now.
+Con
+What about the variety of possible dependencies, should we pre-install them all?
+alsroot
+12:36, 13 January 2009 (UTC)
+Use distro-specific activities installer
+This is a kind of
+#Invent-own/reuse-existing packaging format
+packaging format, but it moves the center of gravity to a distro-specific installer from the packaged activity itself.
+The activity.info file would include a list of dependency names, which come from a predefined list.  The distro-specific installer backend would be responsible for parsing the list and installing the correct dependencies.
+Pro
+Dependencies in activity could be formatted in a simple way (like 'Require: pygames'), and the installer should resolve it to the proper native package(s); in that way, it demands a common naming scheme
+alsroot
+12:36, 13 January 2009 (UTC)
+Contra
+That says nothing about installing activity itself.
+alsroot
+12:36, 13 January 2009 (UTC)
+combined Source+Binary package
+This is a new package format fitted to the special needs of Sugar. Unlike Java (where--at least in theory--compiled bytecode 
+suffices); we need to cope with architecture-dependent files.
+Some of the ideas are already mentioned in other solutions outlined above, but each on its own doesn't solve the whole problem.
+Using a whole new format (even if recycling parts of other formats, e.g., the current Bundle format) will require some
+engineering, but
+I
+MO trying to fit existing formats to ours will take nearly as much time near-term, and
+cause more trouble, long-term. If designed properly, it might even get used as a standard interchange format for other systems.
+Package contents
+* metadata (title, author, etc.)
+* software dependency information
+* hardware dependency information
+* source code for all architecture-dependent files
+* optional: source code for dependencies
+* optional: prebuilt architecture-dependent files with a checksum of the source used at build time
+* Rainbow security information
+Software dependencies
+Dependencies are a rather hard problem. We need to ensure that the right package (naming) in exactly the right version 
+(forward and backwards compatibility), linked against the right libraries (recursive dependencies) using a matching
+ABI (architecture dependency).
+The easiest way to ensure this is to bundle all dependencies with the Activity. But this might have severe drawbacks:
+* Bundles might get very large (imagine adding half of Gnome to Read)
+* Installation might take several hours (think of building xulrunner on an XO)
+* old, buggy versions of libraries might get used (can be quite annoying)
+Thus, it makes sense to let at least some of the dependencies get handled by the underlying OS. The new bundle format will
+contain a dependency tree with the following information for each entry:
+* generic package name (usually the name chosen by the original author)
+* minimum version
+* maximum version
+* source code URL (optional, but recommended)
+Part of the installer will be OS-dependent: the generic name needs to be translated to an OS specific one (e.g., according
+to Debian Python Policy) and dependencies need to be resolved (e.g., via apt for Debian). If there's Internet connectivity,
+it might try to download the source from the given URL (advanced voodoo: check for new versions as well), if no OS package
+is available.
+The dependency tree will get processed bottom up: each time a dependency cannot be met (not available, conflicts with
+already-installed package, ...), all higher-level dependencies will need to get built from source as well (to make 
+sure the ABI matches).
+Packages might also
+provide
+dependencies to other packages (thus there might be "library packages" bundling libraries
+required by a lot of Activities). The security implications of this need to be carefully considered, though.
+Hardware dependencies
+Some Activities require special hardware (e.g., sensor module) or are known not to work on certain (sets of) architectures, e.g.,
+because the code is not 64-bit-clean. When trying to install an Activity, it's better to warn the user about this than wasting his/her time
+(but of course, with the option to install anyway, so it could be adapted to the available hardware).
+Prebuilding
+As building from source might take a significant amount of time, it might be useful (bundle size/build time tradeoff) to
+ship with prebuilt architecture-dependent files.
+Usually, each architecture can only build files for itself (native compilation), not for others (cross-compilation). To ensure
+outdated files are rebuilt, a checksum of the source code used for building will be added. It doesn't need to be a cryptographic hash,
+just ensure that source changes cause a rebuild.
+Sites like activities.sugarlabs.org might provide several packages, each prebuilt for a different platform (using buildbots), or none at
+all to reduce download size.
+Sugar Platform
+Maybe most reasonable decision (at least for 0.84) is declaring "Sugar Platform" to be a set of all non-sugar components that activity developers could rely on.

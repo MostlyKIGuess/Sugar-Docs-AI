@@ -1,0 +1,44 @@
+Title: Talk:Tutorials/Introduction to the Sugar Interface
+URL: https://wiki.sugarlabs.org/go/Talk:Tutorials/Introduction_to_the_Sugar_Interface#Language_and_Keyboard_Settings
+--------------------------------------------------------------------------------
+OLPC:Sugar Control Panel
+Some thought should go into maintaining this reference,
+Sugar Control Panel
+and not diverging resources. --
+FGrose
+15:15, 8 December 2011 (EST)
+I wonder if this is an entry level presentation? Perhaps there is a bit too much "expansion of ideas" if that were the case. Secondly, the navigation bar may work better once we have more pages "at a certain level" or "belonging to a group". I originally pinched the nav-bar from
+Human Interface Guidelines
+. In that case the "map" aids navigation. As a sort of map of work in progress I have contributed
+Tutorials, Work in progress
+. Possibly some of the material here would fit a "Tips and Tricks" page? --
+Inkyfingers
+07:35, 12 December 2011 (EST) We already have one with most of them.
+The Undiscoverable
+--
+Satellit
+09:08, 12 December 2011 (EST)
+Language and Keyboard Settings
+Fedora 16 SoaS Pineapple
+defaults to English (USA) keyboard and English language.
+You can set other Keyboards and languages in the "My Settings" section
+See details below
+Trisquel 5.0-Sugar - (TOAST)
+allows these to be set up at the boot splash screen before starting Sugar.
+How To clear Sugar of these keys and the name and color entries
+To clear Sugar of these keys and the name and color entries
+, enter the command
+rm ~ rf /.sugar
+in the Terminal activity. Then shutdown sugar
+su shutdown -h now
+. This will clear all Learner information and let you start with a fresh install. Skipping this will result in collisions in the Neighborhood view of the Jabber network. Verify the presence of the
+.sugar
+directory by entering
+ls -a
+in Terminal.
+To reset only the ssh keys
+, in order to keep the Journal and installed .xo Activities, use
+rm ~/.sugar/default/owner.key*
+in the Sugar Terminal, and then shutdown sugar
+su shutdown -h now
+. This leaves the Journal entries and removes only the previous Learner's identity key files.

@@ -1,0 +1,111 @@
+Title: Features/Write to journal anytime
+URL: https://wiki.sugarlabs.org/go/Features/Write_to_journal_anytime
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Considerations for 0.98 and beyond
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+7.1
+Preparation
+7.2
+Testing
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Replacement for the Naming Alert that lets you write to the Journal at any time while working on an activity.
+Owner
+Name:
+Walter Bender
+Email: <walter at sugarlabs dot org>
+Current status
+Targeted release: 0.96
+Last updated: 01.12.2012
+Percentage of completion: 100%
+patch to widgets.py
+new icon
+review thread
+Detailed Description
+Old Description:
+The Naming Alert is loved by some and despised by others. This enhancement makes it be available on demand from the
+activity toolbar
+Frame instead of automatically imposed when closing an activity. The goal is to encourage more writing and reflection throughout the activity, not just at the end.
+New Description:
+The Naming Alert is loved by some and despised by others. This enhancement replaces it with a mechanism whereby notes can be added to the description field on demand from within an activity. Note that the only other user-midifiable fields in the Extended View of a Journal entry are Title, Tags, and Star (Favorite). (Note that the title has a mechanism for changing it in the toolbar already.) There is a separate
+proposal for modifying tags
+. By using the same mechanism as the Alerts, it is non-modal and doesn't interfere with the action of the activity itself. The goal remains to encourage more writing and reflection throughout the activity, not just at the end.
+The open questions in my mind are:
+How is this alert evoked? A dedicated icon (See above) on the Activity toolbar (replacing for example the spot taken by the deprecated Keep button)? or a dedicated key on the keyboard (perhaps the unused Bulletin Board key)? or some other mechanism (such as always appearing when the Activity toolbar is opened)?
+Should it be the entire entry or just a text field for augmenting the entry?
+Should it be folded into activity.py for all activities or just a mechanism reserved for activity authors who want this feature?
+Should it be optional and/or the default behavior?
+Should there be a separate mechanism for jumping to the Journal entry of an activity? (Again, a possible use of the Bulliten Board key).
+Simon's alternative to the Alert mechanism is shown below:
+We had a productive
+discussion
+that has led to a mashup of the various mock-ups above. New sketches will be available shortly.
+First pass re the above discussion (modification of activity/widget.py):
+Here is the the text-view version, which shows the entirety of the description field.
+Considerations for 0.98 and beyond
+Why not add a Write to Journal for taking notes (from the Sugar Frame) as a general utility above and beyond the activity-specific notes???
+I imagine a future Sugar having the ability to map the location of the pointer with a software component (much like right clicking in Etoys, or the picker in
+GNOME 3 Looking Glass
+) and then having a data model and code to link learner annotations to any active Activity or visible software element.  (Container objects could reveal subobjects or respond to subsequent requests.)  A 'show annotations' gesture or control would reveal the appropriate content visibly and logically tied to the current view.  --
+FGrose
+17:18, 24 January 2012 (EST)
+Benefit to Sugar
+Being able to write to the Journal at any time is a feature requested both from the field and from pedagogist. And adding this ability would mean that the "annoying" naming alert could be removed as it would be redundant.
+Scope
+The basic functionality is complete. I just made some simple changes to sugar-toolkit/src/sugar/activity/namingalert.py (eliminated the call to activity.close() and changed the button shortcut from Return to <Ctrl>s). We need: (1) a better icon; (2) decide if we want this to be a part of the standard activity toolbar; (3) decide whether the pop-up window or some toolbar widget is a better choice; and (4) eliminate the Name Alert invocation in activity.py.
+I decided to implement this by adding write to Journal as a menu option to the activity's Frame instance in the shell. This will mean that we need no modifications to the toolbar, but it also means we need to find a way to notify the shell of the activities's object_id, since currently the shell only tracks activity_ids.
+How To Test
+Preparation
+Install the patch to widget.py
+Install the icon
+Testing
+Launch any Sugar activity
+Open the activity toolbar
+Observe whether or not the Write-to-Journal icon is on the toolbar
+Click on the Write-to-Journal icon to open the palette
+Observe whether or not a palette and text box appear below the icon
+Observe whether or not the description metadata is displayed in the text box (if there was no description already written, the text box will be empty)
+Type some text into the box
+Exit the activity
+Open the Detail View of the activity instance in the Journal
+Observe whether or not the text entered above is visible in the Description field
+User Experience
+Users may notice that the Naming Alert is missing and they may notice a new icon on the activity toolbar.
+Dependencies
+No new dependencies
+Contingency Plan
+What I have done to date is implement this as an activity button as oppose to integrate it into Sugar. This is a reasonable fall-back if we cannot reach consensus as to a path forward.
+Documentation
+See
+[1]
+Release Notes
+The Write-to-Journal-Anytime feature facilitates the process of writing notes and making reflections upon the work being conducted in an activity, while the activity is open. A new icon on the Activity Toolbar brings up a palette used to edit the activity Description Field. These notes are stored to the activity metadata, subsequently available for editing and viewing in the Journal and the Portfolio activity.
+Comments and Discussion
+See
+discussion tab for this feature

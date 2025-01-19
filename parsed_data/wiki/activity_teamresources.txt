@@ -1,0 +1,261 @@
+Title: Activity Team/Resources
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Resources#Python_Reference_.26_Tutorials
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+Getting started in Activity development
+1.1
+Activity development tutorials
+1.1.1
+Setting up a Sugar environment
+1.1.2
+Python Reference & Tutorials
+1.1.3
+PyGTK Reference & Tutorials
+1.1.4
+Sugar Activities
+1.1.5
+Cairo Graphics
+1.1.6
+Pygame
+1.1.7
+Sugar Human Interface Guidelines (HIG)
+1.1.8
+i18n (Localisation) Best Practices
+1.1.9
+JSON introduction
+1.1.10
+Git introduction
+1.1.11
+XML routines
+1.1.12
+Speech synthesizing
+2
+Activity Development Resources
+2.1
+Hosting
+2.2
+Sample code
+2.3
+Profiling in Python
+2.4
+References
+2.5
+Tutorials and Whitepapers
+2.5.1
+Old tutorials
+2.6
+Community resources
+2.7
+Non-English resources
+3
+Stuck?
+Getting started in Activity development
+If you have no experience developing Sugar activities, these resources will help get you started.
+Activity development tutorials
+The official introduction to writing Sugar activities is the Flossmanuals book
+Make Your Own Sugar Activities!
+by James Simmons.
+Setting up a Sugar environment
+Please see
+Get Sugar
+for details on how to best get Sugar running.
+If you decide to use a Virtual Machine (VM) or a secondary machine (such as an OLPC XO) for testing your activities, an editor with support for editing files over an SSH or SFTP connection can come in handy.
+Komodo Edit
+with the Remote Drive Tree extension, emacs with tramp and magit, and
+Eclipse
+with the
+SFTP Plugin
+are examples.
+Python Reference & Tutorials
+Think Python: How to Think Like a Computer Scientist
+http://docs.python.org/
+http://diveintopython.org/
+PLEAC - Programming Language Examples Alike Cookbook
+http://code.google.com/edu/languages/google-python-class/
+Online Python Tutor
+- Online stepping & visualization of Python code
+6.00SC Introduction to Computer Science and Programming
+http://www.babarehner.com/ewrench1011/Python/index.html
+Python is the language Sugar is written in and is also used by most activities.  If you don't already know Python well, you should familiarize yourself with it before continuing.
+PyGTK Reference & Tutorials
+http://www.pygtk.org/docs/pygtk/index.html
+http://www.pygtk.org/docs/pygobject/index.html
+PyGTK is the user interface toolkit used by Sugar activities.  Bookmark these two links as you will reference them frequently during development.
+http://www.pygtk.org/pygtk2tutorial/index.html
+The following sections of the PyGTK tutorial are most relevant to activity development.
+1. Introduction
+2. Getting Started
+3. Moving On
+4. Packing Widgets
+5. Widget Overview
+6. The Button Widget
+7. Adjustments
+8. Range Widgets
+9. Miscellaneous Widgets
+10. Container Widgets
+12. Drawing Area
+Also see:
+http://www.majorsilence.com/PyGTK_Book
+Sugar Activities
+Sugar Almanac
+The Sugar Almanac contains all the information you need to start writing Sugar activities, ranging from directory structure to bundle format to API reference.  It also contains answers to common questions and examples of common tasks.
+https://developer.sugarlabs.org/sugar3
+This automatically updated site contains the official API documentation for Sugar.  Though it is currently quite sparse, the source code is included with the documentation and it's useful to have that at your fingertips.
+Low-Level  Activity API
+Activities can be written in any programming language, as long as it can connect to D-Bus and provide an X11 interface. This documents Sugar's low-level API, in particular for use by activities written in languages other than Python.
+Cairo Graphics
+http://www.tortall.net/mu/wiki/CairoTutorial
+Cairo is the graphics library used in Sugar.  The tutorial is a good introduction to the API as well as vector graphics programming in general.
+Pygame
+http://www.pygame.org/
+Development_Team/sugargame
+Pygame is a library for developing 2D sprite-based games using Python.  Sugargame is a package which makes it possible to embed Pygame into a Sugar activity.
+Sugar
+Human Interface Guidelines
+(HIG)
+Human Interface Guidelines
+.
+Required reading before planning the user interface for your activity.  These pages give a good introduction to the thought process behind the Sugar environment and will help a lot when designing your activity.
+i18n (Localisation) Best Practices
+Translation_Team/i18n_Best_Practices
+.
+Once you have strings in your Activity, here are some general tips which will make your translators happy :-)
+JSON introduction
+http://www.json.org/fatfree.html
+JSON is a data format commonly used to store activity data in the Journal.
+http://simplejson.googlecode.com/svn/tags/simplejson-2.0.8/docs/index.html
+Currently, the recommended JSON library is simplejson.  It has also become the standard JSON library in Python 2.6+.
+NOTE: There is an odd thing about simplejson - in python25 it lives in
+simplejson
+module, but in python26 it uses
+json
+module. So, use something like
+this
+to wrap it.
+Git introduction
+Git is the version control software used by Sugar Labs.  It is a distributed version control system and is quite powerful, but may require a lot of command line use.
+Git
+GitHub
+XML routines
+There are
+dozens
+Python classes to satisfy the XML standard, but if you want just save/load parameters use "Zen of XML" in Python -
+ElementTree
+library. It's supported out of the box in Python 2.5 (xml.etree.ElementTree module).  In previous versions you'll have to install library by yourself.
+But if you just need a simple configuration format to read/write Python objects, check out JSON instead.
+Speech synthesizing
+If you want to add a speech synthesizer for English and other languages, use the sugar3.speech module, or try the
+gst-plugins-espeak
+plugin for gstreamer.
+Activity Development Resources
+This is an open area for posting links related to activity development.
+Hosting
+https://github.com/sugarlabs
+may host your Sugar related code.
+Sample code
+Hello World
+activity.
+An example of
+a simple activity that uses Cairo graphics
+An
+OpenOffice presentation
+that touches on many of the issues encountered by first-time Sugar developers. Some items covered are: What is Sugar and Sugar Labs; What are some development environments; Some Sugar specific python statements for a PyGTK activity; Activity distribution. You can also
+listen
+to the creator (
+ossfm
+) give the presentation at a LUG meeting (starting at 9 minutes and 55 seconds).
+Profiling in Python
+import os
+       import cProfile
+       import lsprofcalltree
+profiler = cProfile.Profile()
+       profiler.enable()
+# code to profile goes here
+profiler.disable()
+       profiler.dump_stats('/tmp/profile')
+Use kcachegrind to view the results.
+References
+http://docs.python.org/
+The official Python documentation.
+http://www.pygtk.org/docs/pygtk/index.html
+PyGTK API reference
+http://www.pygtk.org/docs/pygobject/index.html
+PyGObject API reference.  Contains a few important things missing from the PyGTK API such as timers and idle callbacks.
+http://api.sugarlabs.org/
+The official Sugar API documentation (quite sparse but includes all the source code).
+Development Team/Almanac
+Detailed Sugar API overview.  Quite in depth and offers answers to common questions.
+http://pygstdocs.berlios.de/
+Python GStreamer bindings.
+Human Interface Guidelines
+The design behind the Sugar interface.  Very important to read and understand before planning your activity's user interface.
+http://cairographics.org/documentation/pycairo/
+Cairo Python API reference.  Very sparse, use the tutorial instead.
+Development Team/Low-level Activity API
+Information on how activities interact with Sugar independent of programming language.
+http://www.pygame.org/
+The Pygame game development library.
+Development Team/sugargame
+Python package which makes it possible to embed Pygame in a Sugar activity.
+Tutorials and Whitepapers
+http://diveintopython.org/
+An online book which teaches Python step by step.
+http://www.pygtk.org/pygtk2tutorial/index.html
+A very informative step-by-step introduction to PyGTK.
+http://www.olpcaustria.org/mediawiki/index.php/Activity_handbook
+Introduction to activity development by OLPC Austria.
+OLPC:Sugar Activity Tutorial
+Another introduction to activity development.
+http://www.tortall.net/mu/wiki/CairoTutorial
+A great introduction to Cairo in PyGTK and vector graphics drawing in general.
+http://www.json.org/fatfree.html
+An overview of the JSON data format.
+http://simplejson.googlecode.com/svn/tags/simplejson-2.0.8/docs/index.html
+Documentation for the recommended JSON library.
+OLPC:Shared Sugar Activities
+High level overview of collaboration.
+OLPC:Collaboration Tutorial
+Step by step tutorial on integrating collaboration into an activity.
+Activity_Team/Modifing_an_Activity
+Information describing simple modifications that can be made to common Sugar activities.
+Activity Team/Compatibility Tips
+Information on ensuring your activity is portable to the various distributions that run Sugar.
+Old tutorials
+Porting a PyGTK game to Sugar,
+Part 1
+and
+Part 2
+, Red Hat Magazine.
+Beyond Hello World
+, wiki.laptop.org
+Community resources
+http://bugs.sugarlabs.org/
+Bug tracking for Sugar and activities.  Go here to report bugs in the Sugar toolkit.  Each activity should have its own component here.
+http://git.sugarlabs.org/
+Gitorious source code hosting.
+http://git.sugarlabs.org/events.atom
+RSS feed of all Sugar development activity.  Great for keeping an eye on the project as a whole.
+Non-English resources
+http://sites.google.com/site/sugaractivities/
+Spanish language activity development site in Uruguay.
+Stuck?
+If you have a question, don't hesitate to ask the activity team.  We are happy to help and can often save you a lot of hunting for answers.
+We hang out in #sugar on irc.freenode.net, and you can always
+subscribe
+and post questions to sugar-devel@lists.sugarlabs.org.

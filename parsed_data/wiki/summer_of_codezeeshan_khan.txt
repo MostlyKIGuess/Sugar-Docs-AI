@@ -1,0 +1,224 @@
+Title: Summer of Code/Zeeshan Khan
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/Zeeshan_Khan
+--------------------------------------------------------------------------------
+Contents
+1
+Just Say No to GTK2
+1.1
+About me
+1.2
+About my project
+1.3
+Days TASK
+1.4
+Me and my community
+1.5
+Miscellaneous
+Just Say No to GTK2
+About me
+What is your name?
+My name is Zeeshan Khan and I am a 3rd year undergraduate student at Institute of
+Technology Nirma University, Ahmedabad, Gujarat, India.
+What is your email address?
+zeeshank606@gmail.com
+What is your Sugar Labs wiki username
+--
+What is your IRC nickname on irc.freenode.net?
+zeecoder
+What is your first language? (We have mentors who speak multiple languages and can
+match you with one of them if you'd prefer.)
+My first language is Hindi and I am also fluent in English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match
+mentors by general time zone if possible.)
+I am located in Ahmedabad, India. The time zone is Indian standard time i.e (UTC + 5:30). I tend
+to work around 6:00 to 15:00 (UTC), however it's adjustable as I don’t have any prior
+commitments as of now, if I’m selected for gsoc 2017 then it will be my only job this summer. I
+can manage my time and will be active whenever the mentors are available.
+Have you participated in an open-source project before? If so, please send us URLs to
+your profile pages for those projects, or some other demonstration of the work that you
+have done in open-source. If not, why do you want to work on an open-source project this
+summer?
+No, this is my first open source experience. I like the idea of anyone could contribute a patch on
+his/her own schedule and developing something which would be used globally where you also
+have the opportunity to tap the knowledge of the world’s best developers, and work with them.
+Why Sugar Labs?
+Sugar Labs is based on imparting education with fun using technology. It is a platform where I
+could actually develop activities and games which would be used by millions of kids for learning
+and fun purpose. Nothing could be more satisfying than looking at children enjoying the activities
+I develop.
+About my project
+What is the name of your project?
+Say no to Gtk2
+Describe your project in 10-20 sentences. What are you making? Who are you making it
+for, and why do they need it? What technologies (programming languages, etc.) will you
+be using?
+Sugar has been using GTK2 as its primary toolkit, for many years. But recently major
+changes have occurred in the sugar’s technology which includes an upgrade to a newer
+version of GTK+ i.e. the GTK3 toolkit and PyGI. Because of these changes in technology
+sugar is divided on these old and new distributions.
+This project is all about porting a dozen of major and minor activities of sugar which were
+based on “GTK2 and GST0”.10 to “GTK3 and GST1.0” in order for sugar to remain
+innovative stable and fully updated with newer technology.
+For Sugar:
+As the PyGI is introduced PyGTK is no longer maintained and hence it is outdated now, so shifting toward PyGI means shifting towards new technology.
+PyGI is better than PYGTK and less maintenance is needed as compared to PyGTK.
+Major activities are divided between the recent distributions of GTK, After Migration of all the files of these activities to GTK3/PyGI, every activity will be running on its latest version with fully updated features.
+Move toward GTK3 will guarantee faster processing and lower memory usage.
+Number of new widgets, tab switches, animated widgets, sliding switches, titlebars, toolbars etc are added in GTK3, providing a better UI to sugar.
+Number of CSS classes are added in GTK3 which provides a good control over how the widgets will appear. And overall GTK3 will provide more flexibility, new technology better UI, and faster speed.
+This project include migration from GTK2 to GTK3 and GST0.10 to GST1.0 of a
+dozen activities some of them are:
+Turtle activity, chat activity, record activity, calculate activity, convert and few more
+Features proposed:
+These are the changes which will be implemented for migrating the proposed
+activities from Gtk2 to Gtk3. Although there are many more changes which will be
+implemented but these are the major ones.
+HippoCanvas removal​ - As HippoCanvas library is no longer maintained, the first thing to be done before porting to GTK3 is to remove from all the activities the use of HippoCanvas library. It would be very difficult to port to GTK3 with HippoCanvas. And HippoCanvas users can easily switch to custom GTK container widgets. There are many activities like chat that uses HippoCanvas so it must be removed from these activities.
+Adopting the API changes in sugar-toolkit-gtk3 ​- The old API is removed in sugar-toolkit-gtk3. So the activities will be adjusted accordingly, for example the keep button and the old style toolbar has been removed completely, so the activities should not use these.
+Porting the activity from GTK2 to GTK3 ​- Starting from changing the import statement, every call using GTK2 will be changed. All the calls for accessing services and widgets in the sugar-toolkit-gtk3 will be changed. For example: “from sugar.activity import activity” will be changed to “From sugar3.activity import activity”. Setup.py will also point to the new sugar-toolkit-gtk3.
+Constructor considerations ​- Now it is possible with PyGI to use python-like constructors. And now names must be given to the constructors if they takes parameters. Eg : button = Gtk.button(label=”foo”).
+Using GtkBox directly than using Vbox and Hbox ​- Hbox and Vbox have been deprecated in GTK3 instead of this, GtkBox should be used directly, as Hbox and Vbox may get removed in GTK4.
+GTK Alignment considerations ​- although the alignment constructor in GTK3 takes optional parameters only, x,y; align,scale, but the default values of the parameters are changed in GTK3, so according to the changed values of the parameters the codes of different activities will be changed.
+Using cairo for drawing ​- In GTK3 Gtk drawable objects are not supported, the GDK drawing API has been removed so all the drawing are done with the help of cairo. So the idea is to run the activity under cairo. It also includes changes when pango is used with cairo, changes when drawing a bitmap and when reading pixel from xlib.
+Gtk Widget::draw signal ​- A new draw signal has replaced GtkWidget
+expose-event signal, and now the Widget will draw itself using its allocated
+size. And all the GtkStyle drawing functions are now changed which will take
+a cairo_t instead of a window, and many more. So these changes will all be implemented in the activities proposed.
+Gtk ProgressBar orientation​ - in Gtk3 both the cell renderer and the widget will implement the GtkOrientable with additional features. There will be a minute change in the set orientation call. Instead of one call there will be two calls now.
+No GtkObject​ - GtkObject will not be used in GTK3, as it is removed. The
+remaining functionality ”destroy signal” will be now a part of GtkWidgetClass. So changes will be there wherever the Gtk object class is used.
+Other changes ​- It includes changing the syntax for drag and drop and clipboard. GdkColormap will be replaced by GdkVisual. For using GtkPlug and GtkSocket widgets, different headers will be used i.e. (<gtk/gtk3.h>). Scrolling changes will be there. Replacement of size_request By get_preffered_width/height. Constants will be having a different format, allocation property will be Changed, import method for Pixbuff will also change.
+Many changes will be implemented for porting to Gst1.0​ like changes in; Imports,
+Gst.init(), element _factory_make(), element_link_many(), Pipeline.add(),
+one.link(), STATE_PLAYING, Buffer.data, buffer.timestamp ​and many more
+which can be easily implemented (but are not possible to explain here).
+Languages and libraries​ - Python, GTK3/PyGI, GST1.0
+What is the timeline for development of your project? The Summer of Code work period is
+from mid-May to mid-August; tell us what you will be working on each week. (As the
+summer goes on, you and your mentor will adjust your schedule, but it's good to have a
+plan at the beginning so you have an idea of where you're headed.) Note that you should
+probably plan to have something "working and 90% done" by the midterm evaluation (end
+of June); the last steps always take longer than you think, and we will consider cancelling
+projects which are not mostly working by then.
+Days TASK
+10 May to 19 May
+Go through the Gnome.developer webpage and figure out the differences between GTK2 and GTK3 commands, imports and calling methods.
+Get my hand over the differences
+between GST0.10 and GST1.0
+Get my concepts clear over migration from GTK2 to GTK3.
+20 May to 27 May
+Go through the codebase of major sugar activities like turtle, chat, calculate ​and record.
+28 May to 3 June
+Start changing the codes of a major activity, turtleart ​where GTK2 is used, according to the way described in the project features.
+4 June to 5 June
+Test the activity and send the patches to the community for review and make necessary changes.
+6 June to 12 June
+Start changing the codes of record activity according to the basic migration steps and features proposed.
+13 June to 14 June
+Test the activity and send the patches to the community for review and make necessary changes.
+15 June to 21 June
+Start changing the codes of chat activity according to the basic migration steps and features proposed.
+22 June to 23 June
+Test the activity and send the patches to the community for review and make necessary changes.
+24 June to 25 June
+Discuss about the changes, problems and working of these 3 major activities with the mentors and make necessary changes .
+26 June
+Prepare for the mid-term evaluation and re evaluate the submitted patches.
+27 June to 29 June
+Mid-term evaluation
+30 June to 5 July
+Start changing the codes of calculate activity according to the basic migration steps and features proposed.
+6 July to 7 July
+Test the activity and send the patches to the community for review and make necessary changes.
+8 July to 17 July
+Taking two minor activities, Colors and Stopwatch ​ and changing their codes according to the basic migration steps and features proposed.
+18 July to 26 July
+Changing the codes of two minor activities, Dots and Boxes​ and Slider-puzzle-branch​ according to the basic migration steps and features proposed.
+27 July to 28 July
+Test the 4 activities and send the patches to the community for review and make necessary changes.
+29 July to 7 August
+Changing the codes of two minor activities, Classroom broadcast ​and Convert ​according to the basic migration steps and features proposed.
+8 August to 16 August
+Changing the codes of two minor activities, Arithmetic​ and Pukllanapac ​and according to the basic migration steps and features proposed.
+17 August to 18 August
+Test the 4 activities and send the patches to the community for review and make necessary changes.
+19 August to 23 August
+Improve the code efficiency
+A last test of all the activities refactored and make sure that each activity is running perfectly and faster.
+24 August to 27 August
+Bug fixes
+Documentation of features that are implemented, on wiki pages.
+28 August to 30 August
+Final Evaluation
+Convince us, in 5-15 sentences, that you will be able to successfully complete your
+project in the timeline you have described. This is usually where people describe their
+past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be
+creative. Link to prior work or other resources as relevant.
+It’s been around two months that I have been contributing to sugar, I am quite
+familiar with the sugar codebase, I was always interested in the GTK and pygame
+libraries of python and I am quite comfortable in using them. I am also good at bug
+tracking and solving, which made me proficient in reading large codebases.
+Starting from Mid May till mid August I have my summer vacations in my college,
+during summer I have no other commitments and Gsoc will be my first priority.
+There would be no problem with time availability. Also I have prior experience in
+python and GTK3.
+I have been participating in competitive coding on codechef.com from past 2 years.
+Projects :
+I have created a Database management system about the information of different
+people in C++, using data structures and pointers. In my school.
+Wormgame : designed a Gaming program in python using Pygame and Gtk libraries.
+Here is the link for the same.
+https://github.com/zeecoder606/Wormgame
+This game also runs on sugar and is uploaded on activities.sugarlabs.org, here is the
+link for the same.
+http://activities.sugarlabs.org/en-US/sugar/addon/4801
+Me and my community
+If your project is successfully completed, what will its impact be on the Sugar Labs
+community? Give 3 answers, each 1-3 paragraphs in length. The first one should be
+yours. The other two should be answers from members of the Sugar Labs community, at
+least one of whom should be a Sugar Labs GSoC mentor. Provide email contact
+information for non-GSoC mentors.
+My answer :
+It would be a great shift towards new generation technologies. As sugar is already
+broken into different versions because of the introduction of new technologies like
+GTK3 and PyGI it becomes difficult for sugar to be innovative and stable. So shifting
+of all the major and minor activities as proposed will make sure that these sugar
+activities will remain innovative and stable with faster speed of processing, with the
+introduction of tons of new widgets, new tab switches, sliding switches, toolbars,
+titlebars, etc these sugar activities will get updated with the latest development
+technology.
+Abhijit :
+“Upgrading activities to the newer version of their dependencies would trigger the
+future development of such activities. This project will help in upgrading some of the
+important activities.”
+What will you do if you get stuck on your project and your mentor isn't around?
+First and foremost, I’ll figure what exactly is the problem I’ll work on it step-by-step. I can ask for
+help from my community members who are very supportive and helpful. Also with the help of IRC
+chats, I will communicate with other developers and can ask for new ideas to solve my problem.
+I would also ask for help from my seniors in college; who are experienced open source
+developers.
+How do you propose you will be keeping the community informed of your progress and
+any problems or questions you might have over the course of the project?
+To keep my members updated, I’ll create a Thread on mailing list. For me to keep
+track of the initiative I’ll Impart my project links to my mentors from whom I can
+get feedback as well.
+If I’d be allowed, I am planning to manage a Wiki page to post my accomplishments
+timely.
+Miscellaneous
+We want to make sure that you can set up a ​development environment​ before the summer
+starts. Please do ​one​ of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug.
+https://github.com/sugarlabs/reflect/pull/10
+[reflect] added a collapse button to close the overlay area.
+https://github.com/sugarlabs/sugar/pull/743
+[journal] fixed; selected entry count could not be updated when journal is in
+editing mode.
+Describe a great learning experience you had as a child.
+As a child, the “two switches for one light” assembly always used to fascinate me. I
+used to crave for its explanation and logical reasons but was always unsatisfied until
+one day in school when I learnt about electrical circuits. I thought this was the end
+of my childhood curiosity. But then algorithms introduced me to how computer can
+be used to solve such problems. Using the circuits knowledge, I created an
+algorithm for my switch problem. This enhanced my interest in learning more of
+algorithms and programming languages.

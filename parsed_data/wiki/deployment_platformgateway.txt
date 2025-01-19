@@ -1,0 +1,125 @@
+Title: Deployment Platform/Gateway
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/Gateway
+--------------------------------------------------------------------------------
+Contents
+1
+Background
+2
+Server side
+2.1
+Run Sugar Network node
+2.2
+Synchronization with master node
+3
+Client side
+4
+Getting involved
+Background
+This is
+one of the possible
+deployment scenarios for
+Deployment Platform
+. This page is intended to describe procedures for school servers that behave as gateways for school students.
+Targeting environment
+The standard targeting environment assumes:
+Dedicated hardware for school server;
+Client machines connected via Intranet to the server.
+The final environment might be similar.
+Server side
+Run Sugar Network node
+Attach
+0.94:SugarNetwork
+Sweets Distribution
+repository and install the
+sugar-network
+package.
+Before running installed server, populate the
+/etc/sugar-network/config
+configuration file with content similar to the following (to get the full list of configuration options, call the
+sugar-network-node config
+command):
+[main]
+# debug logging level; 0 means only warning and errors
+debug = 3
+
+# path to a directory to place log files
+logdir = /var/log/sugar-network
+
+# path to a directory to place pid files
+rundir = /var/run/sugar-network
+
+# if specified, use this directory for cached files; such files might take
+# considerable number of bytes
+cachedir = /var/cache/sugar-network
+
+[node]
+host = 0.0.0.0
+port = 8000
+
+# directories to place server data
+data-root  = /var/lib/sugar-network/db
+files-root = /var/lib/sugar-network/files
+stats-root = /var/lib/sugar-network/stats
+
+# switch off user credentials check; disabling this option will require
+# OpenSSH-5.6 or later
+trust-users = True
+Make sure that all directories in the config file are created and the current user has write permissions there.
+Run node server:
+sugar-network-node start
+Server will start serving Sugar Network
+API
+for clients from
+host
+:
+port
+specified in configuration file.
+Synchronization with master node
+Note that the newly installed Sugar Network node will be empty, its content should be fetched from the master node.
+If school server has Internet connectivity, launch
+sugar-network-node
+and start online synchronization:
+sugar-network-node online-sync
+If only
+sneakernet
+is available:
+sugar-network-node offline-sync
+PATH-TO-PLACE-SYNCHRONIZATION-FILES
+The
+PATH-TO-PLACE-SYNCHRONIZATION-FILES
+path will contain files that should be uploaded to the master to download response. Postponed synchronization will happen by running the
+sugar-network-sync
+shell script (which will be created by
+offline-sync
+command in targeting path) in environment with Internet connectivity. Then, re-run
+offline-sync
+command specifying path with new file synchronization files.
+Client side
+Configuration
+Clients should be pointed to the Sugar Network node launched on a school server. Populate the
+/etc/sweets.conf
+configuration file with the following options:
+[client]
+api-url = http://
+SCHOOL-SERVER-HOST-HERE
+:8000
+Run Sugar Network clients
+Follow the
+Try it
+install instructions to setup Sugar Network client.
+While working, Sugar Network client logs can be found in the
+~/.sugar/default/logs/sugar-network-client
+file. The logging verbosity level depends on the
+global Sugar setting
+.
+Getting involved
+Subscribe to the
+sugar-devel
+mailing list and email with the subject prefixed with
+[PLATFORM]
+.
+Ask your question on IRC channels,
+#sugar
+(not logged) or
+#sugar-newbies
+(logged).

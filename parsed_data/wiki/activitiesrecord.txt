@@ -1,0 +1,64 @@
+Title: Activities/Record
+URL: https://wiki.sugarlabs.org/go/Activities/Record
+--------------------------------------------------------------------------------
+Contents
+1
+Record developers' page
+1.1
+Overview
+1.2
+Usage
+1.2.1
+Environment variables
+1.3
+Using Record with external cameras
+1.4
+Resources
+Record developers' page
+Overview
+Record is the basic rich-media capture activity for the laptop. It lets you capture still images, video, and/or audio. It has a simple interface and works in both laptop and ebook mode. An interface for sharing pictures among multi XOs during a picture-taking session is a hallmark of the Record activity.
+Usage
+Record Activity Manual
+Environment variables
+GST_DEBUG
+enable gstreamer logging
+0
+NONE
+1
+ERROR
+2
+WARNING
+3
+INFO
+4
+DEBUG
+5
+LOG
+Using Record with external cameras
+If the camera is recognized, a device /dev/video1 will be created.  You may need check using Terminal.
+The internal device is usually /dev/video0, but this is not guaranteed.
+To use a external camera, you can apply this patch
+diff --git a/glive.py b/glive.py
+index 9f8c5fa..d2207e7 100644
+--- a/glive.py
++++ b/glive.py
+@@ -83,6 +83,7 @@ class Glive:
+ 
+     def _detect_camera(self):
+         v4l2src = gst.element_factory_make('v4l2src')
++        v4l2src.set_property('device', '/dev/video1')
+         if v4l2src.props.device_name is None:
+             return
+Supporting more than one camera without a patch is the subject of ticket
+#4859
+.
+Resources
+Sources
+Sugar Activity Library page
+OLPC:Record
+Trac tickets:
+OLPC record-activity
+,
+OLPC camera-activity
+,
+Sugar Labs

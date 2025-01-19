@@ -1,0 +1,69 @@
+Title: Features/Buddy Positioning
+URL: https://wiki.sugarlabs.org/go/Features/Buddy_Positioning
+--------------------------------------------------------------------------------
+Contents
+1
+Buddy Positioning
+1.1
+Summary
+1.2
+Owner
+1.3
+Current status
+1.4
+Detailed Description
+1.5
+Benefit to Sugar
+1.6
+Scope
+1.7
+How To Test
+1.8
+User Experience
+1.9
+Dependencies
+1.10
+Contingency Plan
+1.11
+Documentation
+1.12
+Release Notes
+1.13
+Comments and Discussion
+Buddy Positioning
+Summary
+Use the identity of the neighborhood icons (buddy unique keyid, or AP identity as per colour generating process) to seed the position to get a more stable positioning in the neighborhood view.
+Owner
+Name:
+Simon Schampijer
+Email: simon AT sugarlabs DOT org
+Current status
+Targeted release: 0.88
+Last updated: 14.08.09
+Percentage of completion: 0%
+Detailed Description
+Right now the neighborhood view is disappointingly random from machine to machine, reboot to reboot, or even just over time as the view (seemingly randomly) refreshes. If the placement of the neighborhood icons is based on identity, the user can quickly learn where to expect resources to be spatially in the neighborhood view.
+Benefit to Sugar
+This is a stabilizing feature to the collaboration experience. It can be used to visually debug a networking situation as well.
+Scope
+This change will only affect the sugar shell.
+How To Test
+you need several machines running sugar (or several sugar-jhbuild instances)
+run several instances, the buddy should be positioned the same on all the neighborhood views
+restart Sugar, the position should be the same as well
+User Experience
+The user can quickly learn where to expect resources to be spatially in the neighborhood view. The positioning of the items in the neighborhood view should be constant between reboots, refreshes and different machines.
+Dependencies
+The change is only in the sugar shell and does not affect other packages.
+Contingency Plan
+Will be deferred to
+Sucrose 0.88
+.
+Documentation
+Ticket
+381
+contains some more information.
+Release Notes
+Comments and Discussion
+See
+Talk:Development Team/Buddy_Positioning

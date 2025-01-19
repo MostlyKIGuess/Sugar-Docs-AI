@@ -1,0 +1,67 @@
+Title: Features/GTK3/Theme
+URL: https://wiki.sugarlabs.org/go/Features/GTK3/Theme
+--------------------------------------------------------------------------------
+Contents
+1
+Testing the theme
+2
+Status
+2.1
+GtkRadioButton, GtkCheckButton
+2.2
+ColorToolButton
+2.3
+Selected text
+2.4
+GtkScale
+2.5
+GtkSpinButton
+2.6
+GtkComboBox
+2.7
+Style description
+2.8
+Style Sugar alert
+Testing the theme
+We are comparing the look of these test activities:
+http://git.sugarlabs.org/test-theme-gtk3
+http://git.sugarlabs.org/test-theme-gtk2
+The one using GTK+3 had a local CSS, with rules that were added to the CSS in sugar-artwork-gtk3.  The latter can be found here:
+http://git.sugarlabs.org/~erikos/sugar-artwork/gtk3
+Now, the GTK+3 test activity is using the sugar-artwork CSS.
+Status
+Reference, Gtk 2
+Gtk3, 2012-02-09
+The screenshots were taken in XO 1.5 with
+os2
+of olpc.
+GtkRadioButton, GtkCheckButton
+SVGs made for the button variants, (normal, normal and selected, active, active and selected).  The images seem to be cutted in the edges.
+DONE
+check if other variants are needed (inconsistent, insensitive)
+DONE
+ColorToolButton
+Check the look of the color selector palette.  Add it to the test activities.
+VERIFY
+Selected text
+Check the style of the selected text and also the style when the selected text is being drag.
+VERIFY
+GtkScale
+SVG for the slider sketched, two variants (normal and active).  Bar rounded.
+bar should be bi-colored. (Waiting landing of
+https://bugzilla.gnome.org/show_bug.cgi?id=665140
+)
+DONE
+active bar should have white border, seems doable in Adwaita.
+DONE
+GtkSpinButton
+theme up and down arrows with SVG (only possible in GTK git and gnome-themes-standard git, will be packaged for gnome 3.3.3, 19th december)
+GtkComboBox
+style down arrow with SVG, seems not possible at the moment (maybe same issue as GtkSpinButton?)
+Style description
+Description text should be black.  See
+screenshot
+.
+DONE
+Style Sugar alert
+The numbers in the countdown are white, should be black.  Currently they are not visible because the background circle is white too.  Test downloading a file with Browse.

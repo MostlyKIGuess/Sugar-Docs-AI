@@ -1,0 +1,155 @@
+Title: Platform Team/Guide/Sugar via Sweets
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Guide/Sugar_via_Sweets#Supported_distributions
+--------------------------------------------------------------------------------
+This guide describes how to run Sugar using Sugar Packaging Management System,
+Sweets
+. See also
+introduction page
+and more detailed
+Usage guide
+.
+Contents
+1
+Installation
+1.1
+Installation logs & tests
+2
+What Sugar to launch
+3
+Launch
+3.1
+Running sugar from X session
+4
+Upgrade
+5
+Supported distributions
+5.1
+Debian
+5.2
+Ubuntu
+5.3
+Trisquel
+5.4
+Mint
+5.5
+Fedora
+6
+Getting involved
+Installation
+Fedora specific instructions:
+sudo yum install gnome-packagekit
+Important notes for XO users:
+Some XO images might mount
+/var/cache/yum
+to the tmpfs. With this limited cache capacity, it will be mostly impossible to install anything of large size from the Fedora repositories. To work around this limitation, become a
+root
+user and enter the
+umount /var/cache/yum
+command in the Terminal activity or a console. To persist this change for subsequent boots, remove the corresponding line from the
+/etc/fstab
+file.
+Debian, Ubuntu (starting from 11.10), Trisquel (starting from 5.5), Mint (starting from 12) specific instructions:
+sudo apt-get install gnome-packagekit
+Ubuntu (before 11.10), Trisquel (before 5.5), Mint (before 12) specific instructions:
+sudo apt-get install packagekit-gnome
+Then, in all environments:
+wget
+http://download.sugarlabs.org/sweets/sweets/installer.sh
+sh installer.sh
+After installing PackageKit, you need to restart the DBus system bus. The easiest way is to just restart the machine. If PackageKit was already installed, you need to relogin from X session at least.
+See also
+Supported platforms
+notes.
+Installation logs & tests
+sweets-sugar 0.88 in Fedora 16 GNOME 3 Desktop
+Sugar via sweets - in Mint-12
+Testing/Reports/Sweets on Debian Wheezy
+Testing/Reports/Sweets on GNOME Debian Wheezy
+What Sugar to launch
+There are two types of Sugars that are accessible via Sweets:
+sdk/sugar
+, for pristine Sugar;
+dextrose/sugar
+, for Sugar based on
+Dextrose
+.
+Both Sugars can be used in the same way. This guide uses
+dextrose/sugar
+.
+Launch
+To launch recent stable Sugar in emulator mode, type in Terminal activity or in any other terminal:
+sweets dextrose/sugar:emulator
+To make it possible to have additional dependencies involved, e.g., to run Browse activity, use
+-S
+command-line argument:
+sweets -S dextrose/sugar:emulator
+To run a particular, but not the latest, e.g., 0.88 version:
+sweets dextrose/sugar:emulator = 0.88
+To get information about what exact versions are provided, use
+status command
+with
+-v
+argument:
+sweets status -v dextrose/sugar
+Running sugar from X session
+To start Sugar in the session mode, i.e., not from Xephyr, it will be useful to add a new X session. Place
+sweets
+invocation into your
+~/.xsession
+file:
+PATH=$HOME/.local/bin:$PATH
+sweets sdk/sugar
+and create a
+/usr/share/xsessions/sweets.desktop
+desktop file:
+[Desktop Entry]
+Encoding=UTF-8
+Name=Sweets
+GenericName=Sweets
+Exec=/etc/X11/Xsession
+Type=Application
+After getting a login screen, Sweets session should be present in the sessions list.
+Upgrade
+To upgrade Sweets itself, type in Terminal activity, or any other terminal:
+sweets upgrade
+To update information about new Sugar versions that come via Sweets, use
+-R
+command-line argument with any sweets launch variant, e.g., with
+status
+command:
+sweets status -R dextrose/sugar
+Supported distributions
+The list of GNU/Linux distributions where Sugar sweets has been tested.
+If there are problems with the following distributions or you need to run Sugar in another distribution,
+let us know
+. For new distributions, there are major requirements:
+PackageKit needs to be supported;
+Human help is needed to populate appropriate package names databases and for testing new sweets.
+Debian
+Wheezy
+Polkit authentication doesn't work with
+xdm
+display manager, use
+gdm3
+, at least, instead.
+Suggested dependencies, i.e.,
+-S
+sweets command argument, don't work for now.
+Ubuntu
+Oneiric (11.10)
+Trisquel
+Mint
+Fedora
+Getting involved
+Submit
+your bug report or feature request.
+Subscribe to the
+sugar-devel
+mailing list and email with the subject prefixed with
+[SWEETS]
+.
+Ask your question on IRC channels,
+#sugar
+(not logged) or
+#sugar-newbies
+(logged).

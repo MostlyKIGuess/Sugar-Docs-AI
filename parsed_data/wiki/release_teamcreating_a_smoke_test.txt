@@ -1,0 +1,18 @@
+Title: Release Team/Creating a Smoke Test
+URL: https://wiki.sugarlabs.org/go/Release_Team/Creating_a_Smoke_Test
+--------------------------------------------------------------------------------
+NOTICE:
+This page is a draft in active flux...
+Please contribute to these contents and discuss issues on the
+discussion page
+.
+This is a howto for creating
+smoke tests
+for various pieces of software.
+Make a list of the fundamental functionalities of the product. (If this feature doesn't work, Sugar should be considered fundamentally broken.)
+Triage the features into 3 lists.
+Priority 1: Without this feature, the product is unusable. (Example: If Sugar Activities don't start at all, you can't access most of the basic functionality in Sugar.)
+Priority 2: Without this feature, important subsets of the product are unusable. (Example: If Sugar can't connect to a Jabber server, you can't access the subset of functionality related to collaboration. However, you can access other important functionalities of Sugar; for instance, you can still run Activities and save work to your Journal.)
+Priority 3: This is a feature that should be working for the product to be considered working, but its failure does not cause other features to be inaccessible. (Example: Displaying the remaining battery charge is a fundamental feature; however, if it does not work, it does not affect other features in Sugar.)
+Come up with test cases that cover as many of the features as possible. Each test case should start and finish with the software in a neutral state. Focus on covering all the #1s first, then the #2s and #3s. At this point you should be writing at the detail necessary for you to run the tests again.
+Go through the test again and write instructions so that others can follow it. Have "do" instructions and "verify" instructions, and note the coverage of each test case (which features each test case verifies).

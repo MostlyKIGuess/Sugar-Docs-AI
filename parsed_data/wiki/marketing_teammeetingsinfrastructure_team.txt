@@ -1,0 +1,144 @@
+Title: Marketing Team/Meetings/Infrastructure Team
+URL: https://wiki.sugarlabs.org/go/Marketing_Team/Meetings/Infrastructure_Team
+--------------------------------------------------------------------------------
+Trimmed Log from
+Infrastructure Team meeting 2011 February 15
+21:59	dogi	#topic wanted services
+21:59		#info * new lists replacement
+21:59		#link http://lists.sugarlabs.org/
+21:59		#info possible replacement
+21:59		#link http://groupserver.org/groupserver/features/
+21:59		the other thing _bernie wanted ...
+21:59		+s
+21:59		#info * better planet
+21:59		#link http://planet.sugarlabs.org
+21:59		#info * better schooltool demo
+21:59		#link http://schooltool.sugarlabs.org:?port?
+21:59		#info * question/answer service
+21:59		#info what is a question/answer service?
+21:59		#link http://askubuntu.com/
+22:00		#info an AGPL/ruby solution:
+22:00		#link http://shapado.com/
+22:00		we can offer VMs for
+22:00	silbe	dogi: I thought groupserver is an enhancement rather than a replacement?
+22:01	dogi	silbe, ups
+22:01		yes
+22:01	silbe	We should be very careful about replacing the list software. The mailing lists are very
+                high priority, potentially even more important than the wiki.
+22:01	dogi	+1
+22:02		but we can always test that in a VM before
+22:02		VM = sandbox
+22:02		#info * new features in aslo?
+22:02		#link http://idea.sugarlabs.org/drupal5/
+22:03	silbe	we can't really. The "interesting" part is the software at the subscribers end.
+22:03	dogi	FGrose, ?
+22:03		you added this?
+22:03	FGrose	Is idea.sl.o a possible ?!server?
+22:04	dogi	?
+22:04		idea is search a maintainer
+22:04		ups searching
+22:05	FGrose	by configuring ideas to questions, etc.
+22:05	dogi	ohhh
+22:06		now i get you
+22:06		yes it is? and we have 160 users
+22:07	FGrose	If we find a maintainer, it might serve as sandbox for evaluation.
+22:07	dogi	wanted to move this userbase from ideatorrent to shapado
+22:08	dirakx	I like shapado more ;)
+22:08	dogi	which is more general
+22:08	FGrose	deferring to your judgment for infrastructure...
+22:08	dogi	:)
+22:09	FGrose	There's just a lot of teachers who are familiar with drupal
+22:09	dogi	FGrose, yes
+22:10	FGrose	But shapado looks suitable too.
+22:11	dogi	we will speak more about this when we have a volunteer willing to set this up
+22:12	FGrose	Will pass this by Marketing for ideas..
+{...}
+22:19		#topic www.sl.o redesign
+22:19		#info Marketing Team log:
+22:19		#link http://meeting.sugarlabs.org/s[…]11-02-15T15:05:53
+
+22:20	FGrose	Sugar Labs marketing has stalled for a number of reasons. High among them is the
+                difficulty of providing an easy Sugar demonstration for newcomers.  The Marketing Team is
+                wondering if the Infrastructure Team can help by providing something like Dogi's sugarbush
+                to provide an experience of a working Sugar to the public.
+
+22:24	dogi	hmm
+22:24		#info sugarbush demo
+22:24	silbe	FGrose: the way dogi did it (using VNC) is the only way that doesn't require major changes
+                to Sugar in order to work (assuming you're talking about "running" it from a web browser).
+22:25	dogi	#link http://one.treehouse.su/gar.html?host=one.treehouse.su&port=80
+22:26	dogi	FGrose, it is not so easy to get from a working prototype to a reliable demo for our 
+                endusers
+22:26	silbe	FGrose: sugarbush is nice for a short demo, but a) latency makes it a PITA when used across
+                a "long distance" link (e.g. across a continent). I'm also worried about the load that more
+                than a handful of users would cause.
+22:26		(the last sentence should have been b) )
+22:26	FGrose	silbe: yes, but can it support the traffic or are there ways to limit traffic or provide
+                some mirrors???
+22:27	silbe	FGrose: it runs Sugar on the server and copies the image to the browser pixel-by-pixel
+22:27		FGrose: so every "mirror" would need to be a server running Sugar
+22:28	dogi	FGrose, the only thing we could offer right new is this link to selected users
+22:28		silbe, +1
+22:28	silbe	FGrose: I would expect CPU and memory to be exhausted before we hit traffic limits
+22:29	dogi	but right now the only running example is located in North America
+22:29		what about other locations
+22:29	FGrose	OK, I follow.  So it would take a lot of resources, could Amazon cloud serve it?
+22:29	dogi	FGrose, +1
+22:30		and vmware.com
+22:30		is working on his vmware contacts
+22:31	silbe	FGrose: It could, but I wouldn't even want to think about the costs.
+22:32	dogi	silbe, maybe the are willing to donate some services
+22:32	FGrose	Good opportunity for corporate donation.
+22:33	dogi	FGrose, amazon cloud, rackspace and vmware are possible candidates
+22:33	silbe	dogi: There already was talk about using Amazon hosting for some other stuff in the past.
+                AFAIK Amazon wasn't interested in sponsoring.
+22:33		something related to Fedora... maybe mchua recalls the details
+22:34	dogi	silbe, oh good pint
+22:34		point
+22:34		we can ask on the Fedora Cloud list
+22:35		#action dogi FGrose : ask on the Fedora Cloud list for VMs
+22:35	silbe	feel free to go ahead. :)
+22:35	FGrose	So a technical strain, but something that might be considered.
+22:35	silbe	but remember that there are a lot of open source projects, all of them doing something
+                cool, and most of them wanting free hosting.
+22:35	dogi	FGrose, enough about the web demo
+22:35		back to the actual www
+22:36		#link http://www.sugarlabs.org
+22:36		is there a git repository of this page available
+22:37	silbe	FGrose: FWIW, I'd love to see us put up such a demo server. But we should be aware that it
+                doesn't require a Slashdot article to take down the server by friendly DDoS.
+22:37	dogi	silbe, invitation only ...
+22:37	FGrose	JT4sugar is considering coordinating a design firm who have offered Sean pro bono services,
+                some college students, + a teacher review panel
+22:38	dogi	FGrose, right now such a service would need a around the clock protection/monitoring crew
+22:39	FGrose	Right, I'm following your cautions.
+22:39	silbe	dogi: we could put it on an ex-WMF server. Then it wouldn't matter if it went down, so no
+                24/7 monitoring required.
+22:40	dogi	FGrose, right now I can setup 5 demos on dextra.media.mit.edu
+22:41		is working on the debian squeeze
+22:41	FGrose	OK, more planning needed.  Thanks for considering!
+22:41	dogi	version
+22:43		FGrose, bingo
+22:43		FGrose, who is the actual maintainer of the www
+22:44		#link http://wiki.sugarlabs.org/go/Service/000_other
+22:44	FGrose	Sean will provide meeting notes from today's Marketing meeting.  There will be other
+                infrastructure requests such as ?!server
+22:44		maybe unmaintained...
+22:44	dogi	ok
+22:44		#action dogi set up git for www
+22:45		new page should be i18n able
+22:45	FGrose	#link This has some other thoughts, for reference,
+                http://wiki.sugarlabs.org/go/Marketing_Team/Website
+22:45	silbe	dogi: FWIW, you could use a simple web frontend for registration (using OpenID, e.g.
+                https://ssl-test.sugarlabs.org/) and run each VNC instance as a separate unix user.
+22:46	dogi	silbe, yes - but right now not possible
+22:47		every other then :0 is gnome
+22:47	FGrose	Timeline is 3 to 6 months I presume.
+22:47	dogi	not sugardesktop
+22:47		ups display :0
+22:48		FGrose, that sounds realistic
+22:48	FGrose	dogi: I had more luck with display :# in Fedora than Ubuntu in December with Sugar
+22:49	dogi	the demo is in ubuntu cause I was not able to install soas on a kvm ...
+22:50		but debian is already next to finished
+22:50	FGrose	dogi: that is display :0 (but I was just playing and didn't do much more)
+22:50	dogi	and then I will do Fedora 14

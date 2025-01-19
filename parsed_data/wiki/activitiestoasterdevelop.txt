@@ -1,0 +1,64 @@
+Title: Activities/Toaster/Develop
+URL: https://wiki.sugarlabs.org/go/Activities/Toaster/Develop
+--------------------------------------------------------------------------------
+Please contribute to this collection. These are the resources we used in learning to develop our Activity
+SOAS & Builds
+http://spins.fedoraproject.org/soas/
+- Sugar on a Stick (SOAS) is now an official Fedora Spin.  This means Fedora 13 and beyond provide the newest versions of Sugar, however deployments of XOs are often using F11 or F9 based builds.  Toaster is targeting full support for F11 and F9.
+For Ubuntu machines until the
+Ubuntu Sugarteam
+make more progress the best advice is to run Sugar in a window with Virtualbox & Fedora or dual booting.
+Key References
+Reading python code of activities in any Sugar environment, on an
+XO
+, using
+Sugar on a Stick
+or using the above virtualbox environment will be helpful in learning how to create our own.
+http://en.flossmanuals.net/ActivitiesGuideSugar
+- the best resource so far.
+http://www.youtube.com/watch?v=gAJq02rCA8s
+- an excellent PyCon 2008 Activity creation overview
+http://wiki.sugarlabs.org/go/Activity_Team/Resources
+http://wiki.laptop.org/go/Developers/Setup
+http://wiki.sugarlabs.org/go/Activity_Team/Creating_a_New_Activity
+Python docs are quite good as references and for
+tutorials
+.
+I found a
+video series
+that led me to this video of
+Nicholas Negroponte from TED
+XO 1.5 Specific
+Disassembly
+and some electrical tape is required to
+prevent damage
+to the wifi cards of the XO 1.5 we received.
+Tools & Reference
+http://wiki.laptop.org/go/Sugar_Activity_Tutorial
+http://wiki.laptop.org/go/Hacking_Sugar
+Use the source, Luke!  It's well commented.  /usr/lib/pymodules/python2.6/sugar/activity/activity.py
+http://git.sugarlabs.org/about/faq
+is useful in changing git:// to gitorious@ when 'push'ing like I did
+http://www.vim.org/scripts/script.php?script_id=790
+- Newer Vim syntax highlight for your ~/.vim/syntax/ folder
+advice on bugs:
+http://catb.org/~esr/faqs/smart-questions.html
+is a useful resource yet from a very focused viewpoint.
+more advice on bugs:
+http://www.chiark.greenend.org.uk/~sgtatham/bugs.html
+kernel advice on bugs:
+http://www.kernel.org/pub/linux/docs/lkml/reporting-bugs.html
+To get white on black terminal edit ~/.sugar/default/terminalrc and swap #000000 and #ffffff
+sudo yum install vim-enhanced gives a more feature rich vim editor
+sudo vi /etc/fstab ; change the /var/tmp size= to 20%.  This is used by yum in some circumstances instead of /var/cache/yum
+sudo vi /etc/rc.d/rc.local ; add "mkdir --mode 777 /var/run/screen" required by screen
+git clone
+http://git.sugarlabs.org/git/hello-world/mainline.git
+git clone
+http://git.sugarlabs.org/git/hello-mesh/mainline.git
+ToDo
+file a bug advertising the Activity is
+ready for translation
+using Pootle, then make sure to run ./setup.py genpot every time a new string is added and ./setup.py fix_manifest to keep MANIFEST up to date, especially before a release.
+git tag -m "Release 1" v1 HEAD ; git push --tags
+create screen shots and .gif of .svg icon when uploading .xo file to activites.sugarlabs.org

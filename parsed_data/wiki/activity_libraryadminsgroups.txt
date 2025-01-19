@@ -1,0 +1,92 @@
+Title: Activity Library/Admins/Groups
+URL: https://wiki.sugarlabs.org/go/Activity_Library/Admins/Groups
+--------------------------------------------------------------------------------
+Contents
+1
+Permission Groups
+1.1
+Admins
+1.2
+Content Admins
+1.3
+Testers
+1.4
+Senior Editors
+1.5
+Editors
+1.6
+View Localization CP
+1.7
+{locale} Localizers
+2
+Creating Groups
+2.1
+Locale Groups
+2.2
+Other Groups
+Permission Groups
+Admins
+Rules: *:*
+Site administrators with access to everything.
+Content Admins
+Rules: Admin:EditAnyAddon,Admin:EditAnyLocale,Editors:*,Admin:lists,Admin:applications,Admin:addons,Localizers:*
+Content administrators with access to:
+Edit the details of any add-on
+Edit the translations for any locale
+Editor CP (all)
+Localizer CP (all)
+Admin CP
+Lists Manager
+Add-on types
+Categories
+Platforms
+Responses
+Application Manager
+Add-on Manager
+Testers
+Rules: Tests:*
+Can run tests in the test suite in production.
+Senior Editors
+Rules: Editors:*,Admin:EditAnyAddon
+Senior Editors can access all of the Editor CP, as well as edit the details of any add-on.
+Editors
+Rules: Editors:*
+Editors can access all of the Editor CP
+View Localization CP
+Rules: Localizers:View
+Can view all of the locales and translations in the Localizer CP, but cannot make any changes.
+{locale} Localizers
+Rules: Localizers:{locale}
+Can view all of the locales and translations in the Localizer CP and can change the translations in {locale}.
+Creating Groups
+Locale Groups
+If a new locale has been added, you can create a new group for accessing that locale in the Editor CP by:
+Go to the Groups Manager
+Click Create Group at the bottom
+Group Name: {locale} Localizers
+Access Rules: Localizers:{locale}
+Anyone placed in the group will have write access to {locale}
+Other Groups
+For details on access rules, see the
+Remora Permissions
+page, but in summary:
+Permissions are assigned in the form of Controller:Action, so Developers:add would give permission to the add() action of developers_controller, although some controllers are public and don't check access rules (such as the developers controller)
+A * grants access to all actions, so Editors:* grants access to everything in the Editor CP
+*:* grants access to everything and should never be assigned to anything except the admin group
+There are some "fake actions" that are used, generally identifiable by their capitalization:
+Rule
+Access
+Admin:EditAnyAddon
+Edit the details of any add-on
+Admin:EditAnyLocale
+Edit translations for any locale
+Admin:ConfigureAnyAddon
+Can change an add-on's type, trusted status, and locale info
+Admin:lists
+In addition to /admin/lists, also grants access to /admin/applications, /admin/addontypes, /admin/platforms, and /admin/responses
+Editors:DeleteAnyReview
+Delete any review
+Localizers:View
+View the Localizer CP
+Localizers:{locale}
+Grants write access to {locale}

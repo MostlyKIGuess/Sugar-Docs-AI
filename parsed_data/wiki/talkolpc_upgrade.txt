@@ -1,0 +1,171 @@
+Title: Talk:OLPC Upgrade
+URL: https://wiki.sugarlabs.org/go/Talk:OLPC_Upgrade#Edited_session_of_.23sugar_IRC_session_where_a_12_year_old_is_helped_in_upgrading_her_XO-1_to_the_latest_software
+--------------------------------------------------------------------------------
+Note:
+Edited session of #sugar IRC session where a 12 year old is helped in upgrading her XO-1 to the latest software.
+08/02/2011
+<child>how can i up grade my sestem cuz my sugar is 0.84.16 i need 0.86.00 atleast please please PLEASE!!!!!!
+......
+you can find instructions on
+http://wiki.laptop.org/
+<child> ok
+<child> how do i get flash  toooo plz
+try to search on
+http://wiki.laptop.org/
+(I don't use flash)
+<child> well i want to play facebook games
+http://wiki.laptop.org/go/Adobe_Flash
+describes how to install the Adobe Flash player on an XO, assuming the XO has a recent version of software on it.
+<child> how do i upgrade from a 0.84.16 into a 86 or high or
+ah, i have instructions for that, standby.
+you have an OLPC XO-1 with Sugar 0.84.16, right?  If so,
+http://wiki.laptop.org/go/Release_notes/11.2.0#XO-1
+... just that section, stop before the word Update.
+the instructions presume that you don't mind losing any data you have on the laptop.  if that's a problem, you could save the data to a USB drive first.
+<child>
+thanks and anytips cuz i am only 12
+the best tip i can give you is that every word in those instructions is important, we try to remove words that are unimportant.  so don't skip anything unless you are really sure.
+can you open Browse and get to Google?
+google for ... olpc 11.2.0 release notes installation
+<child>  ok i am on google
+that will take you to the same page.
+(the first hit in google for those five words)
+then you'll see a table of contents, click on the installation section 3.2, for XO-1
+<child>  ok i got i them wat do i read
+i guess i need to make sure of a few things first ... do you mind losing anything saved on the laptop?
+<child>  no
+okay, next thing is do you have a USB drive that you can plug in?
+how big is it?  GB?
+<child>  8 gb
+that's good.  and you only have an OLPC XO-1 to do this on, no other computer, right?
+('cause there's something special to do if that's the situation)
+okay, plug in the USB drive to the XO.  Then you gotta start Terminal.  And I'll get you to cut and paste a few commands into Terminal.
+<child>  how do i cut and past
+(for others here, i'm going to explain how to download the new build file directly to the USB drive,
+since Sugar and Browse would otherwise require more space for the download in the journal than would be available).
+It depends.  You're talking to us in Chat activity or in Browse?
+<child>  i hav the irc as an activity
+okay, the IRC activity, good.  I think you drag the mouse over words.  And then Ctrl/C.  I'll test.
+
+okay, here's how to cut and paste from irc to terminal.
+first, highlight the words in irc, here's the words between the quotes " cd /media/* && wget
+http://download.laptop.org/xo-1/os/official/874/os874.img
+"
+then press Control/C then switch to Terminal, then press Shift/Control/V
+then press enter and it will start to download.
+it will tell you on the far right how long it thinks it will take to download.
+<child>  it is doing it
+great, how long does it think it will take?
+(mine says "eta 1h 53m" which means one hour and 53 minutes)
+so the wget command is doing the first download, the big one.  after that there's another one to do, which is very small, then changing a file name, then it's nearly ready to install.
+okay, you see the wget command?  there's a way to change that command so that it grabs some of the file now and some another time.
+it's called the continue mode.  so if you have to shutdown ...
+" cd /media/* && wget --continue
+http://download.laptop.org/xo-1/os/official/874/os874.img
+"
+will resume from where it left off.
+when does terminal say it will finish this big download?
+<child>  up to 40
+that's annoying.  have you any way to write down or save instructions for next time?  or do you want to drop in here tomorrow to finish it off?
+<child>  i'll right it down
+write down the web page address or save it in bookmarks.
+http://wiki.laptop.org/go/Release_notes/11.2.0#XO-1
+next, write down that you are half way through "Download os874.img" step.
+and that you need to use the " --continue " method to resume next time you talk to an expert.
+<child>  wat is the continu method
+" cd /media/* && wget --continue
+http://download.laptop.org/xo-1/os/official/874/os874.img
+"
+what it means is that you can resume the download from where you left off, so if it has done 35 minutes out of 40, tomorrow you will only need 5 minutes.
+but still, i think you'll need another chat here to finish up.  i guess maybe half an hour.
+<child>  wat
+please type more in your question?
+<child>  wat were u talkin about
+i was talking about what you should write down to make it easier to finish doing the upgrade tomorrow or another day.
+so just to make a summary ... you are in the middle of downloading the big file, then we gotta download the small file,
+change the name of it, then you're set to do the install.  after install you will    need  to connect to internet again, and download the irc activity.
+so you know how to do those last two steps without help?
+<child>  no not at all!!!!!!!!!!!!!!!!
+how did they happen before?  did someone else do them for you?
+<child>  no i never hav updated
+they must have been done for you between the first update and when you got the laptop.
+<child>  ya
+hmm.  well, does your house have internet?
+<child>  ya i am on it now
+so your laptop remembers your house has internet.  after wiping it the laptop will have forgotten.  so you have to figure out how you get to the internet afterwards.
+how
+normally you just click on a circle in the main view, the key on the keyboard with many dots on it, above the w and 2 keys.
+but don't do this now.
+clicking on the circle in the main view at the moment will disrupt the download.
+<child>  ok
+but you can use the keyboard key to switch to that view and switch back to the activity.  you use those keys normally?
+or, if you use the frame key (top right corner), you can hover the mouse over the wireless icon (a circle with semicircles around it), to find out how you are connected.
+like i did the first time
+<child>
+WOW u r helpfull
+i want you to tell me when the download is finished, and i'll get you to cut and paste a special command that checks the download worked.
+<child>  ok it is
+okay, cut and paste this ... "   md5sum os874.img   "
+and then press enter.
+it will sit for a bit, then should say e629c1bf071c873e00248663cf70fd25 ... just check the first few letters and the last letters.
+<child>  ok hang on
+next cut and paste is a bit longer, let me know when you've checked the letters and numbers.
+<child>  it is sitting
+the sitting wait ... is because it is reading the file back off the USB drive just to check it, shouldn't take long.
+between a minute or three, depending on how expensive the USB drive is.
+<child>  ok it is correct
+good, here's the next long command ...
+"    wget --continue
+http://download.laptop.org/xo-1/os/official/874/os874.img.fs.zip
+&& mv os874.img.fs.zip fs.zip && md5sum fs.zip    "
+<child>  do u know them or do u look off  peeice of paper
+what this does is download the second file, change the name, and check the numbers.
+the numbers?  i have them written down in a file on a computer, so i check them there.  i also ran the same md5sum command to check.
+it's like saying "yes, this file is exactly right."
+<child>  ok it  is done
+the fs.zip numbers should be 151df8c344c1ba6a7938d74d89c21cf9
+<child>  it is
+good, you have the downloads done on the USB drive.
+<child>  ok wats next
+now, do you know how to install IRC?  i should let you see that first.  because you are going to have to do it AFTER.
+<child>  ok so i get irc the same way i did right
+thing is, you have the IRC activity running now, but it won't be on the laptop after the install is done.
+so you have to go get it after the install is done.
+so to see how to do that, Browse, click on Activities, search for IRC.
+good.
+<child>  that is how i got it first
+<child>  so the instalation is how
+okay, then it's time to try the installing.  here's how to do it.
+1.  with the laptop powered off, and the battery in place, and connected to power, hold down all four game keys (that's the keys above the power button),
+2.  then turn on the laptop,
+3.  then wait for "Release the game keys to continue", and releae the keys,
+4.  then wait for five minutes while it installs,
+5.  then it should reboot automatically.
+<child>  um i dont hav the barttery
+Oh!
+Where is it?
+<child>  it broke
+<child>  so  i just pug it in
+That means if you have a blackout during the install you have to start it again.
+Otherwise it should not be much of a problem.  You can buy new ones by the way.
+<child>  i know
+ilovemyxo.com has new ones, i think.
+<child>  ok is it free
+no, $30.  ouch.
+<child>  that aint bad the ones at walmart r 70
+how is the battery broke?  won't fit?  thrown away?
+<child>  it wont hold a charge at all!!!!
+ah, okay, i'm familiar with that problem, if you have the serial number of the battery i can check to see if it's the batch that has the problem.
+<child>  ok i am gona do  th instalation wait 5mkns plz brb ok here the number is 0082110422411000xxxx
+okay, that battery should not have that problem.  008 was a good starting number.
+when you've done the install, another day, i can help you test the battery further.  i've a few ideas.
+there are tricks to convince the laptop to try harder.
+so give the install a try.
+<child>  ok i will now
+i hope it works.  i've done hundreds.
+ <child>  ok brb
+* xxxxxx has quit (Remote host closed the connection)
+.......
+i think we need a "download a build to a USB drive" activity.  i should do that.
+(satellit_)I have a copy of this in x-chat...It should be in the wiki (edited) as a page on how to do this
+feel free

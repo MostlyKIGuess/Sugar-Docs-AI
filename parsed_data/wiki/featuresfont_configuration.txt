@@ -1,0 +1,135 @@
+Title: Features/Font configuration
+URL: https://wiki.sugarlabs.org/go/Features/Font_configuration#How_To_Test
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Solution for distributors
+4.2
+Solution for users
+4.3
+Consideration for activities
+4.4
+Additional fonts
+4.5
+Global scaling of other UI elements
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Distributors/deployers need a way to be able to customize the Sugar font size.
+Owner
+DanielDrake
+dsd@laptop.org
+Current status
+Targeted release: 0.88
+Last updated: 11.01.2010
+Percentage of completion: 10%
+The GConf keys have been implemented:
+During startup, sugar-session sets the default GTK+ font based on them.
+The font settings in sugar.graphics.style are now based on the same GConf keys.
+sugar.activity.activity sets the default GTK+ font based on them.
+Next steps (implemented in
+sugar-settings-manager
+) :
+Implement an xsettings daemon (hopefully in-process).
+This will eliminate the need to manually set GTK+ fonts in sugar-session and sugar.activity.activity, since GTK+ init routines will contact the settings daemon and learn of the settings.
+It will also mean that activities that are not based on sugar.activity.activity have an easy way to find out the font settings, and all GTK+ apps will "just work"
+TODO
+Deprecate FONT settings in sugar.graphics.style
+Add user interface
+Detailed Description
+It is not possible to select a one-size-fits-all font size. Screen sizes and resolutions vary drastically, their DPI resolutions too, and then there are also factors such as quality of eyesight of the user and the distance they are seated from the display. There needs to be the possibility of customization.
+Currently, Sugar uses 2 base font sizes: one defined in the GTK+ RC file, and another defined in style.py. Distributors shipping an alternative gtkrc is just-about possible cleanly, but as style.py is part of the Sugar package, it can only be changed with hacky methods.
+Another current possibility is to falsify the DPI value of the whole desktop, but this has various disadvantages such as working against freetype's visual optimizations (designed for truthful DPI values) as well as being a strange and confusing concept - if you want bigger fonts, the usual thing to do is to use bigger fonts, as opposed to changing the number of dots per inch of the screen which they are rendered upon.
+The proposed solution is one similar to the solutions used in GNOME and KDE: allow customization of the base font size used across the entire desktop platform.
+Solution for distributors
+Sugar will have a new gconf setting named "font/default_face" with default value "Sans Serif" and font/default_size" with value "10." This font would be used across the desktop in the places where the current default from the gtkrc and the value in style.py are used now (both are currently "Sans 10" as distributed).
+Distributors can then customize the font size by shipping different gconf defaults (as already happens for various other Sugar settings).
+Solution for users
+Somewhere in the control panel, 2 new buttons will be added:
+Increase font size
+Decrease font size
+These buttons will cause the default_font_size value to move incrementally up and down through these values: 5 6 7 8 9 10 11 12 13 14 16 18 20 22 24 26 28 32 36 40 48
+Instant application of this change could be achieved by generating an XChangeProperty() event on the Gtk/FontName xsettings property, otherwise the user could be requested to restart Sugar.
+I am not proposing a UI design for changing font face, I think that is unnecessary and am trying to keep this feature request simple (but could certainly be added later).
+The UI for changing font sizes can be implemented independently after the solution for distributors has been implemented. I would argue that the solution for distributors is a requirement and the UI part of this feature request is optional, but others have expressed strong desires in seeing a UI too, so I include the above design suggestions as part of this feature.
+Consideration for activities
+Activities should now be built around the following ideas regarding fonts:
+In general, font sizes should never be specified. Use the default Sugar font (e.g. which is what you get if you create a gtk.Label), as this is what the user has chosen as their preferred font size.
+also use variations using pango markup e.g. <big> <small> <b>
+If the user cannot or does not want to use pango markup in a particular scenario, Sugar could provide a helper function to scale the font size from the default for a given widget (see suggested code below)
+There may be exceptional cases where applications want to scale a font to fit nicely in a given space. In this situation, they should use the standard Pango rendering pipelines to render text offscreen (using a sensible seed size value), measure the resultant pixel size, and then retry the rendering based on a new font size if the result was too big or too small.
+The Memorize activity is one example of this - it dynamically chooses a font size which causes the text to fit nicely within the tiles of the game.
+There may be exceptional cases where activities do want to use a fixed font size (in terms of physical dimensions). They can do this by adjusting the font on any applicable UI elements to a hardcoded point size (e.g. Sans 12).
+They should assume that the DPI value is correct, so rendering at size 12 will always cause the resultant glyphs to be about 12/72" in size.
+This may come with downsides for the activity in question -- can you be sure that size 12 looks sensible on the display it will be run on in the field? If not, then users/distributors might file bug reports or simply reject your activity.
+sugar.style.FONT_* should be deprecated. They are pointless, a NORMAL font should be what you get by default, and a BOLD font is just the default font with a bold weighting applied.
+The deprecation could be done with a simple code comment for 1 release cycle, then a removal in the following one. This should be done after an effort has been made to remove all existing users.
+Not (unnecessarily) messing with font sizes will just become another step in "effective Sugarization" of an activity.
+Here is sample code for scaling fonts as described above:
+def scale_font(widget, scale_steps):
+    if scale_steps == 0:
+        return
+    font = widget.get_pango_context().get_font_description()
+    font.set_size(int(font.get_size() * pango.SCALE_LARGE * scale_steps))
+    widget.modify_font(font)
+The above function will work for any GtkWidget, allowing the font to be scaled. A scape_steps value of 0 will cause no scaling, -1 is equivalent to <small>,  2 is equivalent to <big><big> or <span font_size="x-large">,  etc. It works based on the fact that pango.SCALE_LARGE is the scaling factor for a single step up, which has value 1.2 as used in all pango font scaling (and the CSS world).
+Additional fonts
+I believe the simplicity of the Sugar desktop only requires selection of a single font sufficient for the entire desktop (with the simple variations that can be generated: <big>, <small>, bold/underline, etc). However, if this changes we could add further gconf keys in future that allow customization of any additional font selections that we add.
+Global scaling of other UI elements
+This feature is about fonts, but there are clearly desires for scaling of the UI in-general. For example, increasing font size may make text look uncomfortably large in the gtk.Button where it is displayed. This is an unsolved problem in the Linux desktop world and I am not attempting to tackle it in this simple feature request (which remains entirely about fonts).
+Solutions are being designed and developed to solve this in future, a sort of "global scale factor" for the whole desktop which would effect fonts, button sizes, scrollbars, etc. I think we should wait for these solutions to become available before attempting to tackle global scaling.
+Benefit to Sugar
+Sugar is brought more in-line with the desktop world
+Distributors like OLPC will be able to select font sizes without ugly hacks.
+Users will be able to customize font size to suit their needs (I have seen this requested during my field experience: one Ethiopian teacher who had eyesight trouble had to move his face relatively close to the screen, and a teacher in Paraguay expressed the desire to make the general desktop fonts bigger).
+Scope
+Sugar needs to adopt its default fonts from gconf.
+2 buttons need adding to the control panel to control one gconf setting
+How To Test
+Set font settings in GConf then launch sugar - do they take effect?
+To set the GConf key manually, use the gconftool-2 command from Terminal (
+gconftool-2 --set -t string /desktop/sugar/font/default_face Serif
+and
+gconftool-2 --set -t float /desktop/sugar/font/default_size 16
+)
+After setting the key, you need to restart Sugar
+(WARNING: This part of the Feature has not landed yet) Go into the control panel and change the font - whole desktop should be instantly updated.
+User Experience
+Users will be able to adjust the font size of the whole desktop platform.
+Dependencies
+None.
+Contingency Plan
+Don't implement it.
+Documentation
+http://dev.laptop.org/ticket/9324
+http://dev.sugarlabs.org/ticket/954
+https://www.redhat.com/archives/fedora-olpc-list/2009-August/msg00030.html
+Release Notes
+to be written after implementation
+Comments and Discussion
+See
+discussion tab for this feature

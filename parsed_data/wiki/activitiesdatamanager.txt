@@ -1,0 +1,55 @@
+Title: Activities/DataManager
+URL: https://wiki.sugarlabs.org/go/Activities/DataManager
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+To Do
+2.1
+Registration
+2.2
+SoaS Compatibility
+2.3
+Activities
+2.4
+Do Not Show Commons by Default
+2.5
+Search
+2.6
+Cache
+2.7
+Virtual schoolservers
+3
+Links
+Description
+The DataManager activity provides a unifed view of the user`s datastore including both documents on the schoolserver and those local to the XO. The user can choose which documents to keep local and which to keep only on the schoolserver. It also provides a Commons which has documents shared among all users registered to the schoolserver.
+Initial screen showing color codes
+Screen showing metadata in status bar and usage toolbar tab
+Entries are color-coded. Light green for documents located only on the schoolserver. Green for documents stored both locally and on the schoolserver. Cyan for documents in Commons. Blue for documents from Commons stored locally. Red for new documents not yet uploaded to the schoolserver. White for entries which do not have a document.
+The activity has three phases. In the first phase, the activity makes a list of all entries in the data store and shows the percentage of the local store in use. In the second phase, the user may double-click on entries. If the entry is local it will be removed. If the entry is only on the schoolserver, it will be downloaded. The user initiates the last phase by the quit button on the activity toolbar. In this phase the activity performs the requested upload, download and removal operations. Note: red documents will be uploaded to the schoolserver and after one day white entries will be removed.
+There is a `usage` tab on the toolbar with three buttons. If a document is selected and the information button is clicked, the user will see a display of the document`s metadata in the status bar. If a `green` document is selected and the up-arrow button is clicked, the document will be uploaded to Commons (shared with all registered XOs). If a local document is selected and the delete (-) arrow is clicked, it will be deleted (whether or not it has been
+saved on the schoolserver).
+To Do
+Registration
+Currently the public keys must be set manually by someone with system administrator priviliges. It should be possible to arrange for 
+this to be done automatically when the XO is registered with the schoolserver. In addition, the DataManager must be run as user olpc. Currently this requires a knowledgable installer to path activityfactory before the DataManager can be used. There needs to be an automatic process for this.
+SoaS Compatibility
+The physical layout of the datastore was changed after 0.82. The current version only works with the 0.82 datastore layout. There will need to 
+be a reliable way for the activity to detect which release it is running under so that it can use alternate code to access the datastore. In addition, the DataManager (as does XS) uses the XO serial-number to identify the datastore belonging to the user. There is currently a change proposed to enable Sugar running on non-XOs to simulate the serial-number which is necessary for DataManager to function.
+Activities
+Add the ability to download activities from Commons and installing them. The activity must detect if the requested activity bundle is already 
+installed. It is likely that installed activities will be shown as Blue while uninstalled activities will be shown as cyan.
+Do Not Show Commons by Default
+Do not show items in Commons (cyan) by default. Provide button to show this list on request. Once the Commons is populated, the list will be too long to be shown automatically. Items local to the XO (Blue) will need to be shown.
+Search
+Provide the capability to list only selected documents by tag or other metadata parameter.
+Cache
+It may be necessary to cache the list of documents on the schoolserver (datastore and commons) on the XO to speed up 
+the creation of the intial list.
+Virtual schoolservers
+It may be desirable to allow the url of the 'schoolserver' to be defined in a config file so that users who do not have a 
+schoolserver may designate a server where they would like to store their datastore and commons. It may be necessary to be able to split the stores so that the datastore may be on one server and the commons on another.
+Links
+DataManager activity
+source

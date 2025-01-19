@@ -1,0 +1,117 @@
+Title: School Server/RIT/File Distribution System
+URL: https://wiki.sugarlabs.org/go/School_Server/RIT/File_Distribution_System#Server
+--------------------------------------------------------------------------------
+Project Moved
+This project has been branched.  See
+FileShare Activity
+.
+An alternative to extending e-book readers -  a file distribution system for the server and a client for the XO.  The goal of this project is to build an easy system to host files on the server that can be downloaded using the browser activity and possibly a file distribution downloader activity.
+This project is broken into two sections, a server and the client.
+Contents
+1
+Project Status
+1.1
+Code
+1.2
+Status
+1.3
+Active Project Members
+2
+Server
+2.1
+Technologies
+2.2
+Proposed Features
+2.3
+Future Features
+2.4
+Mile Stones
+3
+Client
+3.1
+Technologies
+3.2
+Proposed Features
+3.3
+Future Features
+3.4
+Mile Stones
+Project Status
+The server is a php script, this was designed to be a quick prototype/test of concept which has been branched into a separate activity and server.
+See
+FileShare
+Code
+The code can be found at
+http://gitorious.org/jlew/xs-file-distro
+Status
+Server: Branched
+Client: Branched
+See
+FileShare
+for current project
+Active Project Members
+Justin Lewis
+Server
+The server will be a php script that will act as a file library for the XO Server (XS).  The goal of this script is to build sever that will act as the back end for an application on the XO PCs that will allow a central file library.
+Technologies
+Apache
+PHP
+Codeigniter Framework
+An sql engine.  (built on mysql, tested on mysql and postgresql)
+Proposed Features
+Upload/Download/Browse API as well as web browser access.
+All files will have searchable meta-data
+Files will be organized by tags which can be filtered
+Admins:
+Add/Delete/Edit files
+Configure admin and set basic permissions of users
+Future Features
+XML file list download API for future use with client
+Normal Users
+Have public file upload directory
+May manage their own files
+Disk quota for user accounts
+Logging user activity
+Ability to add metadata
+Automatically search known formats for metadata and text
+Mile Stones
+Ability to upload/download a file with browser
+Completed
+Modify File Description
+Completed
+Organize files by tags
+Completed
+Tag files from browser
+Completed
+Limit file and tag list by page
+Pending
+Search (filename, description, tags)
+Completed
+Add admin accounts
+Manage files as admins
+Completed
+Prepare code for localization
+Completed
+Client
+The second part of the school server file distribution system is a client that can run on the xo.  The purpose of the client is to allow a nicer interface to the server then the browser.  The client should be able to support all functions as the browser.  The advantage to using the client is that it will integrate better into the journal as well as perform better on spotty connections.
+I am currently developing a FileShare activity (I will update some documentation for that soon).  The source code for this project can be found here:
+[1]
+. I plan to then start adding these features into that activity once I get the FileShare up and running.
+Technologies
+Python activity.
+Potentially sql lite database system to mirror the server's database structure for local cache.
+Proposed Features
+Local Library index cache
+Ability to download any file to journal
+Ability to upload file to journal (if have permission)
+Mark files for download (used when running off local cache, download next time the server is found)
+Future Features
+Share files over mesh without server to other xo's
+Mile Stones
+Download File Lists
+Parse/tag/update file information
+Modify file information and sync back to the server
+Cache server information for off line browsing
+Download and Save file to journal
+Select files from journal to send to server
+User Interface

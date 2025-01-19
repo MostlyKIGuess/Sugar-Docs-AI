@@ -1,0 +1,162 @@
+Title: Summer of Code/2014/Activity Unit Tests
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2014/Activity_Unit_Tests
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+What is your name?
+Aneesh Dogra
+What is your email address?
+aneesh@sugarlabs.org ;)
+What is your Sugar Labs wiki username?
+AneeshDogra
+What is your IRC nickname on irc.freenode.net?
+lionaneesh
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I am located in India. UTC + 5:30. I usually tend to work in afternoons (2PM-6PM) and nights (9PM-2AM).
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I have worked with a couple of opensource projects. Majorly Libav, FFMPEG and of course Sugarlabs (oh! yeah I am a homeboy!). I got involved with sugarlabs 2 years ago as a GCI 2012 participant and later a GCI winner. Then I continued my contribution for and mentored a student for GSoC 2013 and then some more students for GCI 2013. I am currently maintaining around 6 activities including Level Tool, Calculate, IRC and some others. My work on Libav also started as a GCI 2011 participant and later a winner. I continued my contribution in Libav and FFMPEG for over a year and worked on the Sunrast encoder, the Bytestream2 API, Multithreading and a few bug fixes. It was all done in C. Besides this I am pretty active on
+Github
+. I love to create my little opensource projects and contribute to some.
+About your project
+What is the name of your project?
+Activity Unit Tests.
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+As a first time sugar user you see this spiral of activities on the home screen. These are the first expression of sugar. These define your experience. Our activities are awesome, they are great and children love it, but we have to make sure they are free of bugs and are consistent. Here's where Activity Unit Tests comes in. We'd have UI and Functionality tests written for each fructose activity to make sure they are in their proper shape. Secondly, tests are important to improve the development process as well. If we have Activity Unit Tests we'd have a more structured and a more easier review process for patches. The maintainers (and I can say this because I am, for some of the activities) will have a better time testing the patches they receive from contributors.
+The project doesn't end here. As activities are diverse these will serve as good examples for other activities. They'll serve as guides for porting of existing and new activities. I'd also document my findings and write a wiki page on how to write tests for activities (with some examples), so that it can serve as a guide for new activity authors.
+I'll be using the unittest library for writing unit tests. Its easy to write unittest for functions, that's pretty standard.
+Testing the GUI is a bit complex, the initial strategy is to simulate GUI triggers, like a mouse click, key down event etc using the uitree module in the sugar3 toolkit.
+- The initial GUI tests would be to check if all the buttons in the toolbar exists, and buttons and other elements on the screen/canvas exists as they are expected to. Basic structure of the code would look like:
+root = uitree.get_root()
+   activity = root.find_child(name="HelloWorld Activity",
+                                      role_name="frame")
+   toolbox = activity.find_children()[0] # we can safely assume that toolbar will be the first element in the Activity UITree 
+   stop_button = toolbox.find_child(name="StopButton")
+   assert (stop_button != None)
+   activity_button = toolbox.find_child(name="ActivityButton")
+   assert (activity_button != None)
+- The second stage would be to test if the buttons work as expected, we'd get the button reference using the uitree module and use the do_action method to run that particular action.
+one_button = activity_node.find_child(name="1",
+                                         role_name="push button")
+   one_button.do_action("click")
+# check if 1 is entered in the text box
+   result = activity.find_child(name="", role_name="text")
+   assert(result.get_text() == "1")
+Another complex testing domain we need to care about is network dependent ones. For example to test the chat API's UI, we'd have to send in a few messages and check if they are displayed. To invoke the receive method we'd have to actually send in a message from a different chat activity to this one and then test if its working. This isn't a viable approach to test network based triggers. Instead we'd have to mock up the network bits. By that I mean if we have a ChatActivity class that runs the receive method on the "message received" event we'd make a mock class and change the trigger to a manual one. Just run the receive method with some test/dummy data and check if the UI is updated accordingly.
+To further explain my approach I'd like to take an example from the Chat Activity. In the chat activity class:
+def _setup(self):
+       self.text_channel = TextChannelWrapper(
+           self.shared_activity.telepathy_text_chan,
+           self.shared_activity.telepathy_conn)
+       self.text_channel.set_received_callback(self._received_cb)
+       self._alert(_('On-line'), _('Connected'))
+       self.shared_activity.connect('buddy-joined', self._buddy_joined_cb)
+       self.shared_activity.connect('buddy-left', self._buddy_left_cb)
+       self._chat_is_room = True
+       self.entry.set_sensitive(True)
+       self.entry.grab_focus()
+       self._smiley.props.sensitive = True
+now this setup method is run at the time of instantiation and it sets the appropriate callback functions to their trigger signals. "self._buddy_joined_cb" is called when a "buddy" joins, self._received_cb is called when we get a message. If I need to test these functions I'd have to generate their signals, which won't be possible without the network. So, another way to test the functions would be to make a mock class where we call self._received_cb with a dummy buddy object and a text message.
+Another issue we need to consider about is that the UITree sugar3 module uses accessibility information to find UI elements. This information is there for almost all sugar-toolkit elements, but might not be there for elements used by activities. Some activities including Turtle Art would require adding accessibility information before the appropriate tests can be written.
+I'd start working on the simpler activities (Read, Write, Calculate) and work my way towards some relatively complex ones (Platipy and TurtleArt). I figure Turtle Art would take the most of the time, so I'd try to complete everything else and start on TurtleArt before the mid-evaluation week. Etoys is not python and doesn't share any code in the UI, so I think it will be out of this project.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Dates
+Week
+Work to be Done
+Pre - 5th May
+Talk to the mentors about the framework we are going to follow. This would include how the tests would be structured, what will be the key elements to target.
+6th May - 20th May
+Get the initial testing done on HelloWorld. Show samples to mentors and decide on a framework.
+20th May - 27th May
+1
+Start writing tests for Read / Write
+28th May - 3rd June
+2
+Tests for Log & Terminal.
+3rd June - 10th June
+3
+Tests for Calculate & Chat.
+10th June - 17th June
+4
+Tests for Image & ImageViewer.
+17th June - 24th June
+5
+Tests for Browse and start working on the initial tests for TurtleArt
+24th June - 1st July
+6
+Mid-Term Evaluations - Tests for TurtleArt and finish up any remaining work from preceding weeks
+1st July - 8th July
+7
+Tests for TaBasic, TaBlock, TaCanvas
+8th July - 15th July
+8
+Tests for TaExportLogo, TaExportPython, TaLogo
+15th July - 22nd July
+9
+Finish up Turtle Art and Start working on Pippy
+22nd July - 29th July
+10
+Buffer - Start with Tests for Pippy
+29th July - 5th August
+11
+Tests for Pippy
+5th August - 12th August
+12
+Tests for Pippy and Start writing guide on testing on the wiki
+12th August - 19th August
+13
+Finalizing guide, More review, some final touches
+19th August - 26th August
+14
+Firm Pencil Down & Final Evaluations
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I have plenty of experience and exposure to sugar code. I am not new to any fructose activity and have contributed patches to Calculate, Read, Write, JukeBox, Chat and Browse. I have contributed to over 20 activities, and a plethora of bug fixes. Besides sugar, I have a very active
+github
+profile, one of my code sharing service website [
+[1]
+] I built is being used in Vimeo internally for code review. One of my projects got featured on Lifehacker [
+[2]
+]. I have won GCI twice and have mentored for GSoC once before. I love coding in python, I have around 15 little baby projects on github, and a few shell scripts. Besides, programming. I am an A student in school. I know how to manage my deadlines, and hardly miss any. I am also no new to summer internships, last summer I interned with Activity Central and did some work with Pathagar Book Server and Newpootle. Regarding skill sets mentioned in the prerequisites, I have done a ton of Gtk2->Gtk3 ports as a part of my work for GCI 2012, so I have a fair amount of idea of both Gtk2 and Gtk3. I have worked on a couple of python projects (sugar being one of them) and I think I have a fair amount of python knowledge to take this project forward.
+I also have some research experience, Last winter I did a computer vision internship at school. More exhaustive list of my achievements and some recommendations can be found on my Linkedin [
+[3]
+] profile.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+I have mentioned this before in my proposal, I'll mention it again. From the user's perspective: The first time when you boot up an XO you see a little spiral of activities, these activities define sugar and our aim. The proper healthy functioning of these core activities are important to serve that first impression. The Activity Unit Tests (the project) will help to make sure this happens.
+Unit testing will give us much better stability and control over changes and it will make it easier to verify other platforms, which is ever more important for us. --
+Walter
+(
+talk
+) 16:12, 17 March 2014 (EDT)
+Would be a good addition have tests for our main activities, and a good start to include them in more activities. --
+Godiard
+(
+talk
+) 17:19, 18 March 2014 (EDT)
+What will you do if you get stuck on your project and your mentor isn't around?
+I'd try to ask on the mailing list. The mailing list is always active and am sure I'll get someone to help me there.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+My initial strategy would be to send daily or bi-weekly to mails my mentor or the mailing list about my progress. As far as I am aware we also have a weekly SOC meeting, that's another way to inform about my progress. I'll mostly ask questions on IRC and the mailing list and also directly mailing the mentors if required.
+Miscellaneous
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please do
+one
+of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug.
+There are plenty -
+https://git.sugarlabs.org/~lionaneesh
+Describe a great learning experience you had as a child.
+I got a computer when I was in 2nd grade. My mother won't let me stay up at night, so my father and I used to sneak out of the bedroom and he used to teach me about paint and some other basic utilities. These were the initial days when I really fell in love with computers. We then continued these little sessions and I learned some basic VB scripting from him till I reached the 3rd grade. It was my first impression of computer programming as I know it.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Well, I am passionate about sugar and that's why I have contributed to the project for some while now. I share the same vision and would love to continue my work in sugar as a part of GSoC.

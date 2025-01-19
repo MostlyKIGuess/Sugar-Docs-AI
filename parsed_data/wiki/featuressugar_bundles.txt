@@ -1,0 +1,146 @@
+Title: Features/Sugar Bundles
+URL: https://wiki.sugarlabs.org/go/Features/Sugar_Bundles
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Specification
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+One file format to transfer various types of content in/out to/from sugar environment with keeping metadata.
+Owner
+Name:
+Aleksey Lim
+Email:
+send an email
+Current status
+Targeted release: 0.88
+Last updated: Wed Nov 25 18:10:45 UTC 2009
+Percentage of completion: 0%
+Detailed Description
+In fact, this feature is an end users oriented(technically we not invent super format for various types of content, just unified sugar wrapper). Users all time know that there is only one type of sugar objects, they see it as a Journal item, one file with suffix
+.xo
+in non-sugar environments etc. So they need only upload this file to Journal and click to activate it.
+At present, we have several file types that user can encounter out of sugar:
+activity bundles(.xo)
+content bundles(.xol)
+journal bundles(.xoj)
+All these files have different suffixes and after uploading to Journal have different behaviour.
+Sugar Bundles are intended to unify object related workflow:
+one type of objects out of sugar - files with
+.xo
+suffix
+one type of behaviour after uploading such files to the Journal - you need to click on object in Journal to activate it
+So, Sugar Bundles not only changes import/export part of sugar but also change lauch workflow, uploaded objects from
+.xo
+files could be:
+activity_id
+less Journal entries, launch some activity to open this object
+just various files that were created out of sugar
+former Library bundles will be opened in Browse
+Journal entries with
+activity_id
+, launch poper activity to open this object
+activities, launch it with newly created object
+Specification
+Sugar bundle should have METADATA file in the top directory(or in <some_name>/ directory) of .xo bundle. This file is in
+INI
+format which describes how to setup bundle.
+METADATA file can have one or several sections(depends on content) that describe metadata fields of final entry(ies) in Journal and other data that could be useful for sugar(depends on content).
+Field
+Flags
+Notes
+entry
+optional
+(depends on content)
+defines access point within the bundle(e.g. index.html for library bundles)
+mime_type
+mandatory
+define MIME type for final Journal entry
+uid
+ignored
+*
+optional
+any
+system
+,
+users predefined
+and arbitrary Datastore field
+*
+optional
+any tag, depends on content(inherited from activity bundles etc.)
+Any field in
+METADATA
+file can have
+_file
+suffix, in that case content of this field(substring w/o
+_file
+suffix) will be fetched from file inside of the bundle.
+Benefit to Sugar
+Out of sugar environment, users know that there is only one type of sugar objects and only thing they should do to activate them is uploading
+.xo
+file to Journal and click it.
+So if one user uploaded Journal object(any type - activity, activity object, content library etc.) to the web, another user can download/transfer-through-many-non-sugar-environments it and open in his sugar environment with keeping all metadata(he will get the same Journal entry).
+We can also collect users object on public server like ASLO to have server like sharing feature.
+Scope
+sugar
+sugar-toolkit
+UI Design
+Nothing except related
+Features/Activity as a regular Journal Object
+feature.
+How To Test
+Features/Sugar Bundles/Testing
+User Experience
+Since we have only one type of sugar objects, user all time knows that if there is a file with suffix
+.xo
+he can download/open-in-journal it and need only click to activate it in sugar.
+Dependencies
+Nothing except existed sucrose dependencies.
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+Unified Bundles
+Unified Objects
+Journal entry bundles
+Bundle concepts
+MANIFEST specification
+Email threads
+Sugar Bundles request for inclusion to 0.88
+Activity as a regular Journal Object request for inclusion to 0.88
+Object Bundles review and inclusion to 0.86/Feature_List request Object Bundles
+multiple activity versions installed simultaneously
+Activity as regular objects proposal
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+See
+discussion tab for this feature

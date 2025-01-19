@@ -1,0 +1,124 @@
+Title: Development Team/Almanac/sugar.profile
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/sugar.profile
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Note:
+sugar.profile is largely depreciated. We are now using gconf for accessing most profile information.
+The profile package can be used to get access to user specific details such as his/her nick_name, XO colors, public key, etc. Much of these details are accessed by first creating a Profile object. However, there are several shortcut helper functions that provide access to some user details directly.
+Contents
+1
+Helper Functions
+1.1
+How do I get the user's nick name?
+1.2
+How do I get the XO colors set by the user?
+1.3
+How do I access this XO's public key?
+2
+Class: Profile
+2.1
+How do I get the nick name, color and public key information for this XO?
+2.2
+How do I get the school server with which this child is associated?
+Helper Functions
+How do I get the user's nick name?
+import gconf
+
+client = gconf.client_get_default()
+username = client.get_string("/desktop/sugar/user/nick")
+The following code is depreciated:
+from sugar import profile 
+...
+        #prof will refer to a Profile object used to access user information
+        prof = profile.get_profile()
+
+        # Two ways to print nickname: either through profile object, or through a helper function in sugar.profile
+        print prof.nick_name
+        print profile.get_nick_name()
+How do I get the XO colors set by the user?
+import gconf
+
+client = gconf.client_get_default()
+color = client.get_string("/desktop/sugar/user/color")
+stroke,fill = color.split(",")
+The following code is depreciated:
+from sugar import profile 
+...
+        #prof will refer to a Profile object used to access user information
+        prof = profile.get_profile()
+
+        # Two ways to get the XO colors: through profile object or using helper function
+        print prof.color.to_string()
+        print profile.get_color().to_string()
+How do I access this XO's public key?
+from sugar import profile 
+...
+        #prof will refer to a Profile object used to access user information
+        prof = profile.get_profile()
+
+        #Two ways to get the public key for this XO: through Profile object or with helper function
+        print prof.pubkey
+        print profile.get_pubkey()
+Class: Profile
+How do I get the nick name, color and public key information for this XO?
+See the documentation for
+Helper Functions
+.
+How do I get the school server with which this child is associated?
+Method on the 82: DEPRECATED
+from sugar import profile
+...
+        #prof will refer to a Profile object used to access user information
+        prof = profile.get_profile()
+
+        #Print out the name of the school server this XO is registered with
+        print prof.jabber_server
+        #Print out whether this XO is actually registered with a school server
+        print prof.jabber_registered
+Get school server with both older and new implementations.
+from sugar import profile
+...
+        prof = profile.get_profile()
+
+        jabber_serv = None
+        if hasattr(profile, 'jabber_server'):
+            jabber_serv = profile.jabber_server
+        else:
+            import gconf
+            client = gconf.client_get_default()
+            jabber_serv = client.get_string("/desktop/sugar/collaboration/jabber_server")

@@ -1,0 +1,80 @@
+Title: 0.84/Users
+URL: https://wiki.sugarlabs.org/go/0.84/Users
+--------------------------------------------------------------------------------
+Contents
+1
+What is new for users
+1.1
+Resume Activity
+1.2
+View Source
+1.3
+Journal
+1.4
+Control Panel
+1.5
+Clipboard
+1.6
+New logic for the device positions
+1.7
+XO Menu
+1.8
+File transfer
+1.9
+Palettes
+1.10
+New Fructose Activities
+What is new for users
+Resume Activity
+In order to make it easier to continue past work, the Home View will display recent entries in the activity Palette. You can choose to resume the entries or start a new instance of the activity with the Palette
+Start
+option.
+When clicking on the activity icon in the Favorites View, the last entry will be resumed by default. This is based on the assumption, that in most cases, one want to resume previous work rather than creating from scratch.
+View Source
+There were some great improvements to the View Source concept in this release cycle. You can display the source code of an activity using the activity Palette in the Frame or by using the keyboard short cut
+Shift+Alt+V
+when in an activity.
+The View Source dialog will allow you to examine the content of the activity bundle and display it's files respectively. Further it allows you to survey the source of the current activity instance (the document). In the case of the Browse activity this would be the source of the HTML page currently displayed.
+The coloured activity icon represents the source of the activity instance. The outlined activity icon represent the bundle source for the activity itself, the template. We use this to help draw a distinction between the activity instance and the activity bundle.
+Using the uncoloured outline to represent the bundle vs the coloured icon to represent an instance has been the design cue all along.
+Journal
+A lot of work has gone into bringing the Journal implementation closer to its design. The Object Chooser can now be filtered by data type, which improves the experience in activities like Write that can fetch content from the journal, eg images. A button has been added to the toolbar to filter for favorite entries to give a better way of marking entries as 'important'.
+Reading removable devices like usb sticks should be more reliable now that the journal doesn't depend on an index on the removable device.
+The Journal entry Palette shown in the list view has seen some great improvements. We added a
+View Details
+option that brings you to the details of the entry. Furthermore you do not need to go to the detail view any more to select the activity you want to start or resume the entry with - this option is now available in the Palette as well.
+The Journal's search and browsing capabilities are less useful if all entries are named the same regardless of their actual content or meaning to the user. That is why an alert has been added that encourages the user to set the title and other properties of a newly created Journal entry. This alert is only shown on the creation of a new Journal entry, not on resume.
+Control Panel
+Sugar now supports setting up a priority list of languages. Not all the activities have translations for all languages. You can create a list of languages in the Control Panel that are used to display messages in place of a non-existent translation.
+The
+About my XO
+section has been renamed to
+About my Computer
+to reflect the use of Sugar on non-XO hardware. As well the fields of the page has been changed accordingly. The
+Power Section
+is only displayed on XO hardware since the functionality is currently only available there.
+Furthermore you can change the jabber server without restarting Sugar.
+Clipboard
+For text clippings a preview is displayed. Several improvements were made to the detection of images dragged and dropped to the clipboard in the Frame.
+New logic for the device positions
+The logic to position the Frame devices has been reworked. Plug in your devices and try it out.
+[500 external devices eg. USB drive]
+[400 3rd party devices eg. speech]
+[300 transient connection devices eg. AP]
+[200 transient devices eg. camera]
+[100 static devices eg. battery]
+XO Menu
+A logout option has been added to the XO menu. It is displayed in cases where we have a multi user system and allows therefore returning to a Login Manager like KDM or GDM. The menu is now accessible as well from the Groups and Mesh View and the Friends Tray.
+File transfer
+Some basic file exchanging functionality has been added, with plans to expand it in the next release. You will be able to interchange files from the Journal to other computers running Sugar if they are on the same local network and are
+not
+connected to a Jabber server (check the Control Panel).
+Simon Schampijer has
+good notes
+on how to try it out.
+Palettes
+The Palette highlighting on tray icons has been fixed. The direct access on right click has been added to many places - for example the AP icons in the mesh view or the device icons in the frame.
+New Fructose Activities
+Three great activities have been added to Fructose, the Image Viewer activity,
+Turtle Art
+and Jukebox.

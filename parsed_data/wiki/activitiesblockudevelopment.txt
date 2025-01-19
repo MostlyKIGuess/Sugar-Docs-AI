@@ -1,0 +1,219 @@
+Title: Activities/Blocku/Development
+URL: https://wiki.sugarlabs.org/go/Activities/Blocku/Development
+--------------------------------------------------------------------------------
+Home
+|
+Development
+|
+Teacher
+|
+Student
+|
+Lesson Plans
+|
+Sketches/Screenshots
+|
+Tutorials
+|
+Suggestions/Comments
+This page displays the pertinent information regarding the development of Blocku.
+Contents
+1
+Members
+1.1
+Active
+1.2
+Inactive Members
+2
+Development Meetings
+3
+Updates
+4
+Milestones & Goals
+5
+Future Work
+6
+Bugs/Fixes
+7
+Public Git Repository
+8
+SVN For the Editor
+9
+Public IRC Channel
+9.1
+Server
+9.2
+Channel
+Members
+If you would like to help out with the development of Blocku then contact any of the active members. We would be happy with any help you can give.
+Active
+Members listed here are actively working on the project.
+Mark DeMayo
+email:
+mdemayo24@gmail.com
+Contribution:
+Designer, Artist
+Inactive Members
+Members listed here are not actively working on the project, but may be contacted for questioning or consult purposes.
+Kai Ito
+email:
+kxi8435@rit.edu
+Blog:
+http://kaeedo.wordpress.com
+Contribution: Lead programmer
+Ihudiya Ogburu
+email:
+ifogburu@gmail.com
+Contribution:
+Designer, Artist
+Ariel Zamparini
+email:
+arielzamparini@gmail.com
+Contribution:
+Programmer
+Fran Rogers
+email:
+fran@dumetella.net
+Contribution:
+Programmer
+Lorin Petersen
+email:
+Lorin.petersen@gmail.com
+Contribution:
+Documentation
+Matt Critelli
+email:
+mlc9545@g.rit.edu
+Contribution:
+Programmer
+Development Meetings
+4pm-6pm Wednesday January 20, 2010
+4pm Thursday January 28, 2010 (IRC)
+4pm-6pm Thursday February 18, 2010
+2pm-4pm Wednesday February 24, 2010
+5pm-6pm Thursday February 25, 2010
+6pm Tuesday September 21, 2010 - Meeting w/project creator (Mark DeMayo) to discuss the project's status and development to date.
+9am Friday September 24, 2010 - Initial group meeting, division of labor, discussion of project milestones
+3-5pm Friday October 1, 2010 - Work on Pythonistas presentation, milestones, and goal breakdown/update
+2pm Sunday October 10, 2010 - Work on puzzle editor, redeveloped/expanded milestones
+10am Thursday November 11, 2010 -  Merge final code,  create final presentation for tonights Pythonistas meeting.  Complete group documentation.
+10am Tuesday November 16, 2010 - Meet to turn in most updated versions of all materials. Update wiki with all relevant information to be used by future developers.
+Updates
+12.18.2013 Updated the Wiki Page with new contacts, Added more to the Git Repository including a ReadMe, updated the game to work with newer versions of Sugar
+01.14.2010 Updated the Wiki Page with New Links
+01.16.2010 Updated the Wiki Page with new suggestions
+01.21.2010 Updated the Wiki Page with new description, milestones, and logo
+01.27.2010 Added in Fran, Added in summaries for student/teachers
+02.02.2010 Developed Teacher Lesson Plan
+02.09.2010 Reformatted Wiki
+02.07.2010 Created the screenshot of the start menu and three game screens
+02.07.2010 Added the screenshots to the wiki
+02.09.2010 Added the Lesson Plan to the wiki
+02.09.2010 Added the active members and their contacts to wiki
+02.09.2010 Reformatted and Enhanced the Wiki
+02.24.2010 Fixed Size on Bugs Box, Added in more bugs encountered
+02.24.2010 Added in future work for possible co-ops for blocku at RIT
+02.25.2010 Added an image of the tutorial screen.
+09.23.2010 Added new group members to wiki.
+10.31.2010 Updated development page with new milestones and progress. Also added new screen shots and mock-up images. Updated Bugs/Fixes.
+11.09.2010 Another milestone crossed off the list (block rotation). Added the new public repository link and the svn link for the board editor. Board editor screen shots up as well.
+02.22.2011 Version 1.0 released
+Milestones & Goals
+Decide which program to use as a foundation. (Tetravex, Super Cube, Jigsaw-Puzzle)
+Display a graphical interface.
+Make squares movable.
+Display squares with numbers.
+Make squares able to be rotated.
+Display game grid.
+Blocks can snap to grid.
+Complete Software Requirements Specifications
+Complete Lesson Plan, and Instructional Documentation
+Block rotation
+Basic menu functions
+Allow use of GameBoy buttons
+Create art style
+Time Attack Mode
+Puzzle Mode
+Story Mode
+Scoring system
+Sugarize
+Translate
+For a complete list of tasks that need to be accomplished, please see the following
+http://kaeedo.wordpress.com/2010/12/01/start-of-co-op/
+Future Work
+Allow teachers to input any constraint not just Math ones.
+Change custom game screen to allow users to input matching pairs.
+Change custom game screen to allow users to input constraint.
+The ability to save games.
+The ability to load games.
+A leaderboard.
+Achievements/Trophies
+Save pair lists and constraints for future use.
+Add sound effects for snap to grid
+Possibility of
+Trololo
+song upon completion of puzzle during SOLVED! screen
+Getting fractions into the game and being able to display them properly
+Bugs/Fixes
+Bugs
+Problem
+Fix
+Rotation
+Blocks Warp when Rotating getting bigger the more you do it
+The Fix we derived for this will be that the blocks do not physically rotate only then numbers get passed around
+Rotation Variables
+Rotation variable are using place holds should be more dynamic
+Concatenated the string didn't work but casting it to str worked
+Sprite Lag
+Seems like there is redundant code in the works causing lag in the movement
+The blocks are now frozen to mouse. No more sprite lag
+Screen Size
+Screen is at the moment not dynamic should be changed to be full screen and dynamic for no problems in the future
+Screen resolution has been changed to XO native resolution
+Sprite Size
+They are too tiny at the moment make bigger ...
+Everything is bigger now. Much more easily readable
+Grid
+needs to be dynamic and not a png image
+Program randomly generates a board of individual squares so its no longer a png image.
+Snap to grid
+Snapping to grid still happened even after a block was released elsewhere
+Added a check to check if there was a block currently moving when snap to grid should occur
+Dragging switches target
+When dragging a block over another block, you could start dragging the other block instead. This depended on which block was created first in the code.
+Another check that only allows dragging to start if a drag isn't currently occurring
+Individual Rotation
+Only One Block can rotate make it so that any block can, maybe visual cue like a rotate symbol on a block
+Each individual block on screen can now be clicked and rotated.
+Elements on Top
+Certain elements that should be always on top aren't. Sometimes some blocks become on top. This has something to do with how the sprite rendering works.
+Changed render mode to Layered Updates.
+Cursor Transparency
+Cursor Image isn't transparent where it needs to be even though png image itself is.
+Used image.convert_alpha
+Load a board dragging
+When loading in a pre-constructed board, blocks cannot be dragged.
+Included the editMode boolean check
+Public Git Repository
+http://gitorious.org/blocku/blocku
+SVN For the Editor
+http://blocku.sourcefortsmod.com/svn
+Public IRC Channel
+Server
+irc.freenode.net
+Channel
+#blocku
+Contacts:
+Mark DeMayo
+|
+Ariel Zamparini
+|
+Ihudiya Ogburu
+|
+Fran Rogers
+|
+Lorin Petersen
+|
+Kai Ito
+|
+Matt Critelli

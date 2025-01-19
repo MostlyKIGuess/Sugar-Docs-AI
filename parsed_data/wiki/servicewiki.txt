@@ -1,0 +1,159 @@
+Title: Service/wiki
+URL: https://wiki.sugarlabs.org/go/Service/wiki
+--------------------------------------------------------------------------------
+Statistics:
+http://stats.sugarlabs.org/wiki.sugarlabs.org/
+Contents
+1
+Hostnames
+2
+Hosted on
+3
+Administrative contact
+4
+Account Creation
+5
+Local Labs contacts
+6
+Sysadmins
+7
+Wiki instances
+8
+Installation
+9
+Upgrading
+10
+Obsolete documentation
+10.1
+SemanticMediaWiki
+10.2
+Skins
+10.3
+Creating a Local Labs wiki
+Hostnames
+wiki.sugarlabs.org
+wiki-devel.sugarlabs.org
+pe.sugarlabs.org
+- Peru Local Lab (in maintenance mode)
+Hosted on
+Machine/sunjammer
+Administrative contact
+<webmaster
+at
+sugarlabs.org>
+Account Creation
+See
+https://www.mediawiki.org/wiki/Manual:Preventing_access#Restrict_account_creation
+Create account page:
+https://wiki.sugarlabs.org/index.php?title=Special:UserLogin&type=signup
+Local Labs contacts
+Peru:
+Sebastian Silva
+(in maintenance mode)
+Sysadmins
+Wiki Team/Contacts
+for wiki content and user accounts
+Bernie Innocenti
+for hosting issues -
+EMERITUS - PLEASE DON'T EXPECT SUPPORT
+Srevin Saju
+(
+srevinsaju
+on #sugar) for MediaWiki issues
+Sebastian Silva
+for the Local Labs wikis
+Wiki instances
+The main wiki lives here at
+/srv/www-sugarlabs/wiki/
+Except for trivial changes, work on the wiki should be carried in the parallel wiki-devel instance before landing onto the production instance.
+Note:
+The devel wiki has an out of date snapshot of the DB and a slightly different LocalConfig.php.
+Note:
+Often, the devel instance contains changes performed by various wiki admins to test extensions and configuration options. Do not sync LocalConfig.php blindly to the production wiki! Use vimdiff.
+Before overwriting the page database, please
+observe
+http://wiki-devel.sugarlabs.org/go/Category:Under_construction
+announce the plan on systems@ and to any collaborators who have signed their 'Under construction' pages in the template (such as by using the 'E-mail this user' link in the sidebar for the wiki user's page, even when it is a red link or not yet created).
+Installation
+Our MediaWiki instances are installed from git to allow easy rebasing of our changes on upgrades.
+For the full details on this installation method, see
+http://www.mediawiki.org/wiki/Download_from_Git
+The initial setup process (probably outdated now) lookd like this:
+git clone
+https://gerrit.wikimedia.org/r/mediawiki/core.git
+--branch REL1_34 wiki-devel
+cd wiki-devel
+git submodule update --init
+Checkout additional extensions we wish to enable. For ease of management, check them out into extensions-all and then symlink them from extensions/
+EXTENSIONS=CheckUser ContributionScores HTMLets LastUserLogin LdapAuthentication MobileFrontend TimedMediaHandler UniversalLanguageSelector UserMerge VisualEditor Widgets
+mkdir extensions-all
+for i in EXTENSIONS; do
+  git clone
+https://gerrit.wikimedia.org/r/mediawiki/extensions/$i
+extensions-all/$i --branch REL1_34;
+  (cd extensions && ln -s ../extensions-all/$i);
+  composer update --no-dev
+done
+Upgrading
+Note:
+Before blindly following the procedure below, check the official documentation for anything that might have changed:
+https://www.mediawiki.org/wiki/Download_from_Git#Keeping_up_to_date
+We update our MediaWiki instances by simply pulling from the remote git repo and then switching to a different stable branch:
+git fetch
+git branch -a | grep REL | sort -V
+git checkout -b REL1_XX origin/REL1_XX
+git submodule update --init --recursive
+The "extensions-all" directory contains a bunch of git repositories stitched together with 'git submodule'.
+To update it:
+cd extensions-all
+for ext in *; do (cd $ext && git fetch && git checkout -b REL1_XX origin/REL1_XX); done
+Along with the extensions, we would also need to update the skins to the latest release. We officially use Vector (fro Desktop) and Minerva Neue (for Mobiles, v1.35+, Minerva Neue is the official responsive theme used by Wikipedia).
+cd skins
+for skin in *; do (cd $skin && git fetch && git checkout -b REL1_XX origin/REL1_XX); done
+Please revise if the following steps are still needed:
+You also need to update some dependencies using a PHP manager called 'composer':
+composer update --no-dev
+Now run update script:
+php maintenance/update.php
+In the case of Local Labs wikis, the correct command for performing the updates is:
+php maintenance/update.php --conf /srv/www-sugarlabs/pe.sugarlabs.org/wiki/LocalSettings.php
+(replace pe.sugarlabs.org for the correct path for your local lab)
+Obsolete documentation
+SemanticMediaWiki
+If the SemanticMediaWiki extension is enabled (we don't use it), also refresh its tables:
+cd extensions/SemanticMediaWiki/maintenance
+php SMW_setup.php
+Skins
+As of this writing, the default skin vector is integrated into MediaWiki, and we don't load other skins in LocalSettings.php.
+The skins also need to be updated from time to time (particularly after a major release). Instead of checking out hundreds od skins using the official process, we refresh only the skins that are installed:
+cd skins
+for i in MonoBook Timeless; do
+  (cd $i && git fetch && git checkout -b REL1_34 origin/REL1_34)
+done
+Creating a Local Labs wiki
+Add a group for the wiki (vigr)
+cd /srv/www-sugarlabs
+cp -a co.sugarlabs.org pe.sugarlabs.org
+chown -R icarito:sugarwiki-pe pe.sugarlabs.org
+cd pe.sugarlabs.org/wiki
+rm -r images/*
+vim LocalSettings.php
+vim SecretSettings.php
+Create apache virtual host:
+cp -a /etc/apache2/sites-available/pe.sugarlabs.org /etc/apache2/sites-available/ar.sugarlabs.org
+ vim /etc/apache2/sites-available/ar.sugarlabs.org
+ a2ensite ar.sugarlabs.org
+Create DB with some clever trick. I reused
+config/index.php
+to setup a new MediaWiki instance and then I've thrown away the generated
+LocalConfig.php
+:
+mv LocalConfig.php LocalConfig.good
+ cp -a /srv/www-sugarlabs/co.sugarlabs.org/config .
+ (go to
+http://ar.sugarlabs.org/wiki/config/index.php
+)
+ rm -r config LocalConfig.php
+ mv LocalConfig.good LocalConfig.php
+Create tables for OpenID:
+mysql -u root -p pe_sugarlabswiki < extensions/OpenID/openid_table.sql

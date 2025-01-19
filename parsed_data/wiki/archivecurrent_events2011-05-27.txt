@@ -1,0 +1,61 @@
+Title: Archive/Current Events/2011-05-27
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2011-05-27
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+1.1
+In the community
+1.2
+Tech talk
+1.3
+Sugar Labs
+Sugar Digest
+1. I am just back from two weeks on the road. My primary destination was the EduJam event in Montevideo. As you have no doubt already heard, the meeting was very productive: a great opportunity for developers, teachers, and other community members from the region to share ideas—what works and what challenges remain ahead of us. Many thanks for Gabriel Eirea, Gonzalo Odiard, Pablo Flores, Andrés Ambrois, Adam Holt, and everyone else who helped to organize the event. Also, thanks to everyone who took the time to come from near and far—we had participants who travelled from as far away as Siberia in attendance. It really was a community effort.
+What struck me above and beyond the passion that the Sugar community has for providing great learning opportunities for children is that we have reached a turning point in the project. While software is never complete—see the discussion below—the bulk of the discussion was not about Python, Forth, or Smalltalk. Rather, it was about how to better utilize the tools we have in the classroom and how to provide support to teachers as they make the transition from instructors to guides and participants in a discovery process. Indeed, even my pre- and post-EduJam meetings at Plan Ceibal were primarily focused on pedagogy rather than technology.
+We got some further insight into how Sugar is being used in the classroom from a data-driven presentation given by Plan Ceibal (See
+[1]
+). While it was not surprising to see that Browse, Write, and Record were among the most used activities, and that the children enjoy Tuxpaint and games, it was heartening to see that Etoys and Turtle Art are also popular. There was a skew in the statistics between poor, rural schools and more well-to-do urban schools. In the latter, the use of Etoys and Turtle Art was much greater.
+We had a discussion about how to best reach out to teachers—for sharing best practice and so I asked if they had any data on where the Uruguayan teachers hang out. (There is lots of material available in our wiki—Valerie Taylor is leading a discussion as to how we can make it more useful to teachers—but apparently the teachers are not finding it. I think we also need to go to where the teachers are rather than expect them to come to us.) Alas, there are no data yet that we can leverage.
+The real take-away for me was the growing demand for better channels of communication between teachers and the broader Sugar community.
+I gave a talk at the end of the first day of the meeting (my slides are available
+here
+) in which I tried to remind everyone that we need to keep our eyes on where we want to go as a community and not to be distracted by short-term quick fixes. Quoting Skip Barber: "You go where you look, so you better look where you want to go." Going to specifics, I made some observations about the Sugar Journal. I reminded everyone that its primary purpose was to be a place of reflection for the learner and that we should not dilute that vision. To drive my point home, I made an analogy to the commit message that is required whenever someone submits a patch to git. We want our learners to compose a "commit message" every time they work on something, thus providing a history of not just what they did, but why they did it. (This "rant" was in response to a recent decision to remove the naming alert from the activity close dialog, where we presented an opportunity to write descriptive text in the Journal.) Sugar is a learning platform and our design and engineering decisions must consider the impact on learning in order that we remain relevant.
+2. Speaking of the Journal, one tangible outcome of the evaluation summit held in Cambridge last month was the call for a simple way to make a presentation from Journal entries. While you can use Turtle Blocks to make a "Power Point" presentation, it requires a fair degree of experience. At the Sugar Camp following EduJam I wrote a new activity,
+Activities/Portfolio
+, which lets you make a slide show from Journal entries that have been "starred" as favorites. It is easy to use: just star the entries you want included in the presentation and then launch the activity. It presents a sequence of slides that include the Journal entry's title, preview image, and any description written by the learner. It also has an export function to save the presentation as an HTML document that can be shared. Another step towards making "studio thinking" and portfolio assessment part of the Sugar learning experience.
+3. I struck gold in a meeting at Plan Ceibal. Mónica Báez arranged for me to meet with her team, which is driving the curriculum development and teacher training for the project. Among them is a math teacher who is responsible to the math teacher-training program and who was really taken with some of Tony Forster's Turtle Block examples and another teacher who is interested in a way to connect art and science; she is specifically interested in having the students interpret data from sensors graphically (along the lines of
+[2]
+). At her urging, I fixed some bugs in the SVG export function of Turtle Blocks (patches pushed to git and part of the upcoming v108 release). We also discussed ways to broaden outreach to the community as they see great value in what we are doing.
+4. I am going to be giving another talk in Uruguay at the end of the month at Squeakfest. I plan to pick up on a theme I only scratched the surface of at my EduJam talk: that learning software should not be complete. I have discussed this theme in the past in the context of breaking the mindset that learning is a service that can be downloaded. And again within the context of the "There's an app for that" discussion (
+[3]
+). But I want to go even further: we should be engaging the learner to always take the next step, whether in creating their own memory game to designing their own abacus to extending Turtle Blocks.
+5. I finally met Christofer, the 12-year-old hacker from Uruguay to whom I sent an XO laptop last year. He attended Sugar Camp where Martin Abente taught him how to use git and vi. He and I are going to work on an SVG editor together. Meanwhile, Ignacio, another 12-year-old is helping me with some extensions to the Portfolio project.
+6. The children in Uruguay built their own work-around to the problems with playing YouTube videos on the XO 1.0. The bajaryoutube activity downloads videos to the local machine from which they can be played without interrupts due to memory, processing, and bandwidth issues. "They solve problems and learn that they can solve problems!!"
+7. In case you haven't seen it, there is a very nice website for the La Rioja project (See
+[4]
+).
+8. Meanwhile, good progress is also being made in Paraguay. The Paraguay Educa efforts around Sugar and one-to-one computing have been declared a topic of national interest by the federal government of Paraguay. The recognition of these efforts is especially significant to the Sugar community because of the numerous contributions of code and pedagogy that have come from the Caacupé program.
+9. Did you know that there is a Unicode character for the XO man? ⨰ is the character for multiplication with a dot, but it is not a bad short hand to use when typing in plain text.
+10. One of the goals of Sugar is to engage young learners in the criticism of ideas. And as I have argued in the past, a love of debate is an aspect of Free Software culture that I hope is transferred to our users. Two weeks ago there was heated debate about software licenses. There are undoubtedly more opinions than licenses (and last time I looked, there were hundreds of licenses to choose from). While the discussion was passionate, for the most part, it was civil: reference to facts, expression of opinion, clarification of terms. We have not yet come to consensus on whether or not we should migrate from GPLv2 to GPLv3, but we are much better informed about the implications and consequences than we were when the discussion began. At the most recent Sugar oversight-board meeting, we agreed to use a referendum to take the pulse of the community (See
+[5]
+). Details to follow.
+Alas, there was a fork from the main thread where the discussion, while equally passionate, was far from civil. Unsubstantiated accusations of nefarious motivations were made that have no place in our community. “We are not going to be able to do it [meet our challenges] if we spend time vilifying each other. We are not going to be able to do it if we just make stuff up and pretend that facts are not facts.” —Barack Obama
+Please continue to express your opinions (which obliges you to do your homework), but we have to have a zero-tolerance policy towards disparaging speech.
+In the community
+11. Also in Montevideo, at the end of May (26–28), is Squeakfest. The theme for this year's conference is "How and why to use Etoys in Education" 
+(See
+[6]
+).
+Tech talk
+12. Notes from Sugar Camp can be found in the wiki:
+Todo/EduJAM
+.
+Sugar Labs
+Gary Martin has generated a SOM from the past few weeks of discussion
+on the IAEP mailing list.
+2011 Apr 30th–May 6th (49 emails)
+2011 Apr 23th–29th (102 emails)
+Visit our planet
+[7]
+for more updates about Sugar and Sugar deployments.

@@ -1,0 +1,149 @@
+Title: User:Mchua/soas notes
+URL: https://wiki.sugarlabs.org/go/User:Mchua/soas_notes
+--------------------------------------------------------------------------------
+y> 0. Sanity check - what do you think about this notion in general? We
+> apologize for the time crunch, but Beta Freeze is coming up on Tuesday,
+> March 23rd, and we need to have a clear notion of our forward path by then.
+The two options we discussed last night bear repeating:
+(1) Making Mirabelle a "Fedora Spin" vs (2) making Mirabelle a demo
+for teachers and parents and others wanting to try Sugar.
+I don't think these two options necessarily exclude each other. Rather, making Mirabelle a Fedora Spin is the logical next step - it brings us quite a number of improvements, not only infrastructure-wise, but also stability-wise, since we rely on a good amount of policies now, ensuring the overall quality.
+1 will presumably lead to more long-term stability and #2 will
+presumably lead to more short-term testing and feedback from
+end-users. But as we discussed last night, we could do #1 (and adhere
+to the Fedora deadline) and make a remix (when the activities are
+tested) to serve the purposes of #2.
+Absolutely no disagreement here! Making a remix is *totally* alright and makes perfect sense. Whenever there's something that needs to be adjusted, that can be done in a remix.
+> 1. There was concern expressed that a SoaS image that doesn't have a lot
+> of Activities "out of the box" would be less optimal for demo purposes.
+> Is there a need for instructions on how people can make their own "demo
+> sticks" with more Activities (any Activities they want)? Can this need
+> continue to be filled by Strawberry and/or Blueberry until the next
+> release (in November 2010)?
+I think that "people" is a very small subset of our potential users.
+So we need to acknowledge this. The typical end user has difficulty
+even managing LiveUSBCreator, so to expect them to do a remix is not
+realistic. Asking them to use Strawberry and/or Blueberry is fine, but
+this will not help re user feedback on Mirabelle. Making a Mirabelle
+remix available soon after the Spin seems a more fruitful path.
+As we said in an earlier email (LINK!) to the SoaS list, we can very well compose remixes for demonstration purposes, for example if Sugar Labs members attend conferences and gives talks. Also, I'm actively working on a Customization Guide (and would like to invite everybody who wants to write on that to join in) to make it a lot easier for people to create their own remix. However, it must be clear that these remixes won't reach the amount of stability the Sugar on a Stick spin has.
+> 2. How can SoaS engineering keep track of development releases in a way
+> that makes sense to us (for instance, this change would be a significant
+> departure from the past releases, and would therefore warrant a full
+> version number) while not interfering with Marketing's plans? (We
+> realize this release would not be marketed to users - it would be used
+> as a recruitment tool for contributors instead.)
+I leave this to marketing. But maybe the spin is 2.x and the remix is
+3.0? or we just keep 3.0 for Cloudberry?
+I'M NOT. TEH SPINZ IS TEH RELEAZE!!!
+Peter said in an earlier email that this was the next major release of Sugar on a Stick, which is why it should be called accordingly. I think he's right - it's important to see that this release won't suffer if we do it The Right Way. By chosing the way we did, aiming for stability, reliability and continuity - which goes hand in hand with the principles we stated before Blueberry was release - we're giving our users something they can trust in. And making that clear in a release announcement is one of the important things. I'm objecting to cut the value of this upcoming release, since it required a lot of work aimed at achieving exactly these goals. As long as we can *explain* why we're doing what we're doing and as long as it makes perfectly sense, it will be alright.
+> Feedback? Questions? Comments? Firestorm?
+>
+> We'll be tinkering further on this over the weekend - we can do another
+> kickstart on Saturday, Sunday, and Monday, so we have 3 drafts left to
+> figure this out with. Please join us (sdziallas & mchua on #sugar) and
+> ask questions if you have any, or join in and help if you have ideas on
+> how to improve this.
+> Sean: 
+> The problem with this approach is that it renders SoaS ineffective for
+> new tryers of Sugar (i.e. the overwhelming majority of teachers and
+> parents we are trying to reach).
+>
+> As SoaS is the pillar of our marketing strategy, this means cancelling
+> the planned SoaS media campaign in May. No big deal, since we are not
+> far along in the campaign planning and we have another campaign in the
+> pipeline. SoaS version numbers are tied to the media campaigns (cf.
+> [1]), so the next promotable version (Cloudberry in the fall) should
+> be v3.
+> We can position this release (Mirabelle) as a maintenance release and
+> concentrate on developer recruitment instead.
+Peter Robinson:
+> The fact is that its not though, its a new major release of Sugar
+> interface like all the other releases of SOAS.
+Martin and Yama and Gerald:
+> I read Sebastian's post... and is less drastic than that. He seems to
+> say: include only the well tested, known to work, actively maintained
+> activities, with an eye towards activitries that serve as a good intro
+> to the platform and that demo well.
+> But you say only 6... Which one is it?
+> 
+> The initial proposal I like; makes a lot of sense and raises the bar.
+> IT basically increases the chances of a satisfactory first use.
+>
+> Six activities not so much -- you need many steps + internet to add
+> activities... and it'll be "random activity from ASLO, may well be
+> unstable or useless". It significantly _reduces_ chances of
+> satisfaction.
+It's not for deployment.
+We can make remixes for demos, but can't support them.
+We can make remixes for deployments who know exactly what Activities they want, but again, can't support them.
+Sascha (in response to Gary) proposed alternative ways to download a lot of Activities to a lot of Sticks.
+FWIW, I think downloading activities to each individual stick is an utter waste of time. There are better ways to do that; off the top of my head, you can:
+a) Prepare / configure a single stick (the smallest one) and clone it by
+removing ~/.sugar/default/owner.key* and using dd to do an exact copy of
+   the stick or
+b) create a custom SoaS image[2].
+Yes, we could and should build tools that allow non-techies to do this easily. But anyone doing a deployment at this scale will need a system administrator anyway - even if just a teacher with a reasonable amount of Unix/Linux experience.
+good
+out of scope here
+as Sascha pointed out, at that scale you'd need a sysadmin anyway
+Gary:
+Listed the activities, then went
++1, six does seem rather slim, more of a technical taster for a developer audience (not necessarily a bad thing in the right context). Walter mentioned perhaps making this a Fedora spin, rather than an official SoaS release aimed at our real target users (teachers/children)?
+Martin:
+Are people saying _only 6 activities work reliably?_
+Yes.
+My question of "which is it?" was assuming there are more than 6 that
+run well, demo well, maintained, etc. So it meant "which plan is it, 6
+activities that allow downloading and installing of more, or the good
+ones?"
+If there are only 6 good ones...  would focus on making that list longer.
+You're lacking a subject there before "would". WHO is going to focus?
+Peter:
+We also want to get away from the point where a few people are running
+around doing 20 hour days trying to get the release out the door.
+I know just prior to to the last release that Sebastian was
+re-spinning the release into the early hours of the morning to fix
+Activity bugs to get the release out the door on time for marketing
+the day before an exam. If people aren't going to spend the time to
+make sure their activity works prior to a release there's only only
+limited time the main people have to do the testing along with all the
+other release process as well as getting on with the rest of their
+life. So I think its better we ship with less Activities better tested
+that cover the core functionality.
+what's the core functionality? I'd argue that
+boots
+activities run
+you can install more activities
+you can debug activities
+you can get help with activities
+everything else is a nice demo bonus, to be sure
+Ed Cherlin: 
+Not a bad minimum list, but what prevents us from installing a few
+more? What information do we have on which others work best? (Language
+support, no blocker bugs, really good demos of education...) I assume
+that we have to omit activities that depend on the camera or the sound
+system.
+we need to make that list, yes
+help us!
+action mchua make list of activity status of things people have reported in the thread
+action sdziallas to see whether he can turn a couple of issues into bugs
+Caryl:
+OK. Let's focus a bit here.  In the spirit of IAEP, I wonder who this version of SoaS will be for... educators and students or developers?  It seems like the discussion is favoring the latter.  That would be a big disappointment to those of us who are waiting to have a good stable version to share with the education community.
+While Physics is a "fun" Activity, the Memorize Activity can offer far more in educational value, and works fine in the version of SoaS I have (old... from June 2009... I sent the list of Activities in an earlier email).
+The folks at Sugar Labs Argentina did almost all of their teacher training in La Rioja using SoaS on PCs because only a few XO-1.5s had arrived when the training took place last month.  Why doesn't someone "techie" who is fluent in el Castellano communicate with them and find out what Activities and version they used? It might be helpful.
+Luke:
+> Sounds to me like it's for deployers, people looking to make derivatives of SoaS.
+> As Silbe said, there are tools for building new images with more activities.
+It's for contributors. I think that's the key thing - that people coming to SoaS as it stands *right now* shouldn't expect that we will "magically support them." They have to be willing to join the conversation and lend a hand, and we're happy to teach them how to do it.
+in order to make this stick usable with children as anything other than a minimal demo, people are going to have to do some legwork - at the very least, getting online and installing more Activities from ASLO (and again, we will be creating *excellent* materials for this, in cooperation with teacher/student testers). That sets a sort of "DIY" cultural expectation, and hopefully will pull more teachers deeper into conversation with our community. Perhaps fewer teachers will *use* this release of SoaS (and that's okay - the ones who need preinstalled Activities can run a SoaS Remix, or one of the older releases), but we hope more teachers will *participate.* And I think we'd all like more teachers participating in Sugar Labs.
+So it's for people who want to actively get involved in shaping their own SoaS experience. Maybe that's trying it out and giving feedback back to us (which is a form of QA). Maybe it's deployment, maybe it's development... but by including very few things by default, we're sending the message that right now, SoaS is something *you* help make, something *you* help figure out - it's just as much yours as it is ours.
+Does that help clarify a bit? I'm not sure if we directly answered your question.
+> On the other hand, it would be useful to have an "all inclusive" version of SoaS for 
+> "instant-on" usage of the system.
+Yep. Inspired by the email thread with Caryl on the other list, that's exactly what we'd like to do - for anyone who wants it - with anything they want. <LINK to thread> <LINK TO PAGE>
+action mchua make a SoaS Remix page (or whatever we call it) - yeah, that sounds good. gives me another reason to revamp the wiki.
+> Or, better, to have it be incredibly easy to download 
+> from ASLO activities that have been tested and QAd, and to have these activities 
+> widely promoted on the page.
+That's the ideal, but if all the Activities worth using are preinstalled on the stick, there's never going to be much pressure to make ASLO easier to use. In part, we're trying to create that pressure by saying "look, people *will* be using ASLO to download things - including excellent activities we know and love and are positive will work - so that they have an initial first experience with ASLO that's positive, and will return to it to find more things in the ecosystem." And that then becomes "okay, let's make ASLO work *really* well!" motivation.

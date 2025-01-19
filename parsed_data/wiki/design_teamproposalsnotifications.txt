@@ -1,0 +1,94 @@
+Title: Design Team/Proposals/Notifications
+URL: https://wiki.sugarlabs.org/go/Design_Team/Proposals/Notifications
+--------------------------------------------------------------------------------
+Contents
+1
+Frame Notifications
+1.1
+Activity corner pulse
+1.2
+Notification badges
+1.3
+Journal example
+1.4
+Browse example
+1.5
+Activity invite
+1.6
+Transfer from
+1.7
+Transfer to
+1.8
+School server messages
+2
+Alternative corner history design
+3
+Notification history as a device icon
+Frame Notifications
+Rationale:
+Notifications have so far only been partially implemented to cover activity invitations, journal object transfer, clipboard copy events, and an activity event (used by IRC to notify of user nick mention). This proposal attempts to show a more complete solution.
+Features:
+<1st feature here>
+<2nd feature here>
+Implementation Details:
+http://library.gnome.org/devel/notification-spec/
+Related Material
+Design_Team/Designs/Frame#12
+Features/Messages_Notification
+Reviewer Comments:
+comments here
+Activity corner pulse
+back |
+next
+New notifications pulse several times in their related frame corner and then are hidden as per
+Design_Team/Designs/Frame#12
+. In this example a notification from the Journal activity is shown pulsing in the top left corner (activity and shell notifications). The small notification badge allows for potentially different notification types or levels, and helps reinforce that this pulsing icon is indeed a notification (contrast with the copy to clipboard event icon pulse in the bottom left, where no badge is needed).
+Notification badges
+back
+|
+next
+Once the frame is revealed, activities with un-viewed notifications are badged with a notification icon. A square with an exclamation mark is the current stand-in for a notification badge, but there may be more than one icon to represent different states. Example: When an out of focus activity displays an alert strip, its frame icon should be badged (perhaps a triangle with an exclamation mark).
+Journal example
+back
+|
+next
+Hovering over a frame activity icon (or right click) reveals the full activity palette but also includes the notification message, or messages if there are more than one, at the bottom of the palette. Note that the badge is removed from the frame icon once the full palette is displayed. Lifetime of the notification would be based on the
+GNOME specification
+.
+Browse example
+back
+|
+next
+This mockup shows potential use of the notification system to indicate completion of a download. This would avoid needing the second alert currently using by Browse to indicate this message preventing 1) the page jumping at some random moment after instigating a download; 2) the confusion when the second alert immediately appears after dismissing the first. When showing multiple messages, it may be best to show the most recent in white, with older messages appearing in a grey to indicate their age (up-to a maximum of N entries, where a value of 5 for N seems a reasonable choice).
+Activity invite
+back
+|
+next
+Mockup showing an activity invite notification.
+Transfer from
+back
+|
+next
+Mockup notification for a completed file transfer from another users.
+Transfer to
+back
+|
+next
+Mockup notification showing a file transfer to another user that has been remotely declined. Note that having displayed each full palette the notification badges on the frame icons have all been cleared. Revealing a palette with an old, already displayed notification could display the notification in grey to indicate it has been viewed instead of white (if it has not timed out and been auto removed).
+School server messages
+back
+| next
+Messages from a schoolserver could use the same technique as the existing transfer to/from design. This could cover XS registration messages, institutional broadcast messages (the case shown above), and perhaps automatic updater messages (would make sense if schoolservers are being used to cache yum repos).
+Alternative corner history design
+For completeness, this was an initial attempt at a notification UI based on a
+feature proposal
+from
+Martin Abente
+.
+Pros.
+1) Simpler to implement. 2) All notification messages in a single place (well for each given corner type).
+Cons.
+1) Notification is not visually linked to the specific activity that generated it, e.g. if several uploads are ongoing which one was just declined? 2) Makes new use of the frame corner space, very lightly to interfere with the frame hot corners, accidentally triggering the notification palette when trying to open the frame. 3) Adds new full size icon clutter/complication to the frame corners (which must be different than the icon of the actual activity to avoid confusion, e.g. two journal icons in the frame would be confusing).
+Notification history as a device icon
+Walter suggested the possibility of having the notification history available as a device icon rather than in a frame corner.
+Placing the consolidated history of all notifications in as a device icon would avoid overloading the frame corners with new UI behaviours, though dilutes the spacial link between a corner notification and its frame edge. Would notification text appear both in this device icon and a frame menu?

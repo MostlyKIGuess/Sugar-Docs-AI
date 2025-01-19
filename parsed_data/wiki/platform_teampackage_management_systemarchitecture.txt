@@ -1,0 +1,60 @@
+Title: Platform Team/Package Management System/Architecture
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Package_Management_System/Architecture
+--------------------------------------------------------------------------------
+This guide covers basic Sweets concepts. See also the
+introduction page
+.
+Contents
+1
+Sweets delivery
+1.1
+Zero Install
+1.2
+Sources bundles
+1.3
+Self-contained binary bundles
+1.4
+Sweet packages
+2
+Glossary
+2.1
+Harmonic Distribution
+2.2
+Sweets Distribution
+2.3
+Sugar Network
+Sweets delivery
+Zero Install
+Sources bundles
+Self-contained binary bundles
+This mode is intended for special cases, when a sweet needs to be used without Zero Install and Sweets. In this mode all dependencies that are accessible via Sweets, i.e., not those that come from native packages, are bundled. For binary based sweets, the resulting bundle will contain binaries built only for the environment that is being used to create this bundle. Thus, make sure that the new bundle will be used in exactly the same environment as the original one.
+To build a self-contained binary bundle, use the
+bindist
+command:
+sweet bindist <SWEET>
+The resulting bundle will be placed into the current directory.
+After extracting, it might be used in several ways:
+for libraries, source the shell file in the
+<SWEET-NAME>/binding
+directory;
+for applications, execute the script
+<SWEET-NAME>/<APPLICATION>
+, the default application name is
+run
+.
+Sweet packages
+Glossary
+Harmonic Distribution
+A systematic approach to supporting the full cycle of discovery, learning, collaboration, and development within the Sugar Learning Platform ecosystem. Harmonic Distribution consists of software, services, and practices that make interacting within the Sugar community more useful and complete. Harmonic Distribution consists of two major parts, the
+Sweets Distribution
+and the
+Sugar Network
+.
+Sweets Distribution
+A set of repositories that provide base Sugar software within heterogeneous environments including the most popular GNU/Linux distributions and hardware platforms within the Sugar community. Sweets Distribution provides the easiest way to launch Sugar and start exploring the rest of the Sugar related content using the
+Sugar Network
+.
+Sugar Network
+A system that is designed to share within the Sugar community different kinds of content, e.g., Sugar Activities, artifacts created by Sugar Activities, books, lessons, reviews, comments, questions, etc. It uses
+social network
+mechanisms, to setup relationships between community members intending to improve Sugar Network content. The Sugar Network consists of one global server and an arbitrary number of distributed servers to support people who don't have direct access to the global one, e.g., due to lack of Internet connectivity.

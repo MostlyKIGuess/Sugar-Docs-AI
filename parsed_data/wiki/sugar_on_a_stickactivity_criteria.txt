@@ -1,0 +1,189 @@
+Title: Sugar on a Stick/Activity Criteria
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Activity_Criteria#Have_a_ticket_queue
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+Proposed requirements
+2.1
+Have some clear pedagogical purpose
+2.2
+Be installable via a package in the Fedora repositories
+2.3
+Be hosted on ASLO
+2.4
+Be translated in Pootle
+2.5
+Have a usage frontpage
+2.6
+Have a development frontpage
+2.7
+Have a ticket queue
+2.8
+Have and pass a smoke test
+2.9
+Journal interaction works
+2.10
+Collaboration works
+Introduction
+This page describes the requirements for Activity inclusion on the default
+Sugar on a Stick
+image. This is the criteria Activities will be evaluated against when they go through the
+Sugar on a Stick release process#Feature process
+.
+The table of activities mapped against these criteria can be found at the
+wiki page
+.
+Proposed requirements
+Have some clear pedagogical purpose
+Rationale:
+Sugar is being developed in service of learning. We should focus on activities that can convey this message and, ideally, be readily incorporated into a lesson plan.
+Test:
+Not really a test, but we can solicit feedback from teachers who use Sugar as to whether or not they think a particular activity has sufficient impact to merit making the short list.
+Instructions:
+Email iaep and sur lists to solicit feedback.
+Be installable via a package in the Fedora repositories
+Rationale:
+Since SoaS is a
+Fedora Spin
+, everything that ships on the default image must be a package in Fedora. This is an upstream requirement.
+Test:
+The version desired for inclusion should be in the
+Fedora repository
+for the current Fedora version under development (in this case, F14).
+Instructions:
+See
+https://fedoraproject.org/wiki/PackageMaintainers
+for more information on how to make a package (or get a package made) in Fedora. We may want to clean this up or make a Sugar-specific guide to packaging Activities in particular, or gather a team of volunteers who offer to do the packaging for Activity maintainers.
+Be hosted on ASLO
+Rationale:
+http://activities.sugarlabs.org
+is the Sugar Labs community's primary online mechanism for updating and installing Activities.
+Test:
+Go to
+http://activities.sugarlabs.org
+and search for the Activity name. You should:
+be able to find the Activity
+be able to see that the Activity is properly categorized in one or more categories
+be able to see that the Activity's metadata (version number, "works with", etc.) is up to date
+be able to read an accurate and up to date summary of the Activity on its ASLO page
+be able to successfully download and install the Activity from ASLO's web interface
+Instructions:
+We've instructions for activity authors how to upload their activities
+on the wiki
+.
+Be translated in Pootle
+Rationale:
+In order to support the usage of SoaS (and SoaS remixes) by students from around the world, it is important that Activities be translateable and set up for easy localization. Pootle is the system Sugar Labs uses for localization.
+Note, it may not be not absolutely essential that the localization is hosted on the Sugar Labs / OLPC Pootle instance
+[1]
+.  By way of example, see a number projects listed
+here
+, including GCompris and TuxPaint where localization is handled elsewhere. It may be more of a build-process issue than an L10n issue to pull the PO files from these other sites.  Requiring dual hosting of L10n doesn't sound like a win.
+Cjl
+17:04, 30 March 2010 (UTC)
+Test:
+I am not sure what a good set of minimal "you are translateable" criteria would be. Suggestions?
+1) Simplest would be presence of the PO file in the Honey (or sometimes Fructose) projects on translate.sugarlabs.org; however, this is not always the case.
+2) Alternative acceptable (localized elsewhere) with clear documentation of how to participate in localization and get the localized PO files from their primary hosting location.
+Cjl
+17:14, 30 March 2010 (UTC)
+Instructions:
+I can't find clear step-by-step instructions on how to get one's Activity into Pootle - can anyone else help find (or create) them?
+There are really only minimal instructions in the FAQ
+here
+, there is no question that we could use some improvement to our Translation Team documentation, including a better "Developer's Guide" entry point.
+Cjl
+17:14, 30 March 2010 (UTC)
+Have a usage frontpage
+Rationale:
+Users (particularly teachers) should be able to find a quick getting-started guide on usage that will let them evaluate whether they want to use an Activity for their classroom or not. They should be able to get a sense of what they can do with an Activity without having to spend an hour or two (per Activity!) exploring it in-depth - this page will provide what they need to decide whether they
+do
+want to spend an hour or two experimenting to figure out how they specifically want to use it with their class.
+Test:
+The ASLO page for an Activity should include a link called "instructions for users" (note: this is fairly arbitrary and we may want to standardize on a better title/format) that leads to a tutorial on how to start and run the Activity in question. This can be anything from a page on the Sugar Labs wiki with screenshots all the way up to a
+flossmanuals book
+on just that Activity.
+Suggested things for inclusion:
+what the Activity does
+intended audience (what assumptions does the design make? does it assume you can read, add, etc?)
+how to install it (can link to generic Activity instructions)
+how to start it (can link to generic Activity instructions)
+how to uninstall it (can link to generic Activity instructions)
+how to stop it (can link to generic Activity instructions)
+an explanation of the interface (what do the different buttons, etc. do?)
+how to begin exploring it (this can take several forms: a walkthrough of a few basic tasks, some hints on exercises/things-to-try, a link to galleries of existing work and classroom stories of that Activity's usage, etc.)
+Instructions:
+We need to write instructions and gather more examples for this. Right now the best examples are the
+flossmanuals books
+on various Activities, but to expect every Activity to do a book seems like too much - we need examples of a good minimum bar, which is likely to be a well-made wiki page.
+Have a development frontpage
+Rationale:
+If an Activity is included on SoaS, it will be used by many people; in order to hold to the Sugar Labs principle of hackability (particularly by children), we need a good resource to get new hackers started.
+Test:
+The ASLO page for an Activity should include a link called "get started with development" (note: this is fairly arbitrary and we may want to standardize on a better title/format) that leads to a place with instructions on how people can...
+view the source code
+download the source code
+modify the source code
+share their modifications
+view existing tickets/bugs/suggestions for things to work on
+You may notice that the first 4 entries on this list map to the
+4 essential software freedoms
+.
+Instructions:
+We need instructions/examples of this. Please help!
+Have a ticket queue
+Rationale:
+Users need a place to report bugs.
+Test:
+The ASLO page for an Activity should include a link called "report a bug / suggest an enhancement" (note: this is fairly arbitrary and we may want to standardize on a better title/format) that leads to the "new ticket" entry for that Activity's component (which may or may not be hosted on
+http://bugs.sugarlabs.org
+, especially in the case of an upstream project such as EToys). Since we may not be standardizing on bug trackers, each Activity ASLO page should also have a link to instructions on how to file a bug, perhaps something similar to
+this tutorial
+).
+Instructions:
+The simplest way to do this is to get a Trac component for your Activity. We need instructions on how to do this (although I believe it is as simple as filing a Trac ticket requesting a Trac component). We may want to discuss ways that students and teachers can report bugs without having to create a Trac username (which is, for some, a significant barrier to entry - not that it's difficult to make an account, but that there may be reluctance to create an account, particularly for children).
+Have and pass a smoke test
+Rationale:
+We need a quick way to make sure the Activity works, so the Activity needs to define what it means for it to "work," and then come up with a straightforward set of instructions that anyone can use to demonstrate and/or verify that it is working.
+Test:
+This should be fairly simple.
+Do you have a smoke test?
+Did you run it? (Can anyone else run it?)
+Did it pass? (Can you prove it?)
+Is there a place to file results? (Can people find them?)
+Instructions:
+We need a guide on how to make a good smoke test. Sample Activity tests can be found at
+http://wiki.laptop.org/go/Test_cases_8.2.0#Activity-specific_test_cases
+, but they're old and there's no guidance on which are good tests or not.
+Journal interaction works
+Rationale:
+The Journal is one of the most interesting aspects of the Sugar platform and it really showcases what makes Sugar different.
+Test:
+Test to make sure that the activity saves and resumes from the Journal.
+Instructions:
+(1) Launch the activity. (2) Use the activity. (3) Close the activity. (4) Open the Journal entry associated with the activity. Did a preview image get created? (5) Resume the activity. Was the previous state of the activity restored?
+Collaboration works
+Rationale:
+Collaboration is one of the most interesting aspects of the Sugar platform and it really showcases what makes Sugar different.
+Test:
+This only applies if the Activity supports collaboration; if the Activity explicitly states that it does
+not
+support collaboration, this test passes by default.
+If the Activity does support collaboration (or doesn't say whether it does or not):
+Make 2 SoaS thumbdrives and install the Activity being tested on both.
+Get 2 computers; boot an SoaS thumbdrive on each one. Ensure both computers are connected to the same Jabber server.
+Start the Activity on one of the sticks, and share it with Neighborhood. Ensure the other stick sees that shared Activity in Neighborhood.
+Have the 2nd stick join the 1st stick's Activity. Ensure you are able to do this.
+Have both sticks collaborate within the Activity (however it is designed to be played). Ensure you can see the right data during collaboration - in other words, does this
+seem
+like the right way for this particular activity to be multi-player?
+Have the 1st stick leave the Activity. Ensure that both sticks handle this (the originator leaving the activity) gracefully.
+If all of the above tests pass, the Activity meets this criteria for inclusion.
+Instructions:
+TODO: Information on how to code collaboration functionality into an Activity needs to be linked from here. Alternatively, if you don't
+think
+an Activity supports collaboration
+yet,
+you should (1) mark it as "Does not yet support collaboration" somewhere on its wiki page, and (2) file a ticket for it under that Activity's component so that developers can add that functionality later on.

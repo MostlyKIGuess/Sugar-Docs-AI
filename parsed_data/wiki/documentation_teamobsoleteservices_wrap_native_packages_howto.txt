@@ -1,0 +1,167 @@
+Title: Documentation Team/Obsolete/Services Wrap native packages HOWTO
+URL: https://wiki.sugarlabs.org/go/Documentation_Team/Services/Wrap_native_packages_HOWTO
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Was only draft content.
+Contents
+1
+Introduction
+2
+Workflows
+3
+Detailed description
+3.1
+Prime distributions list
+4
+service.info file
+5
+Workflow
+6
+Known issues
+Introduction
+The purpose of this Guide is to describe how to simplify the usage by activity or service developers of packages that are not included in the
+Sugar Platform
+but are well packaged by various GNU/Linux distributions.
+Workflows
+If the service you are planing to use already exists on
+http://download.sugarlabs.org/services/
+, just add its name to the
+requires
+field in your
+activity
+or
+service
+.info
+file.
+Otherwise, read the rest of this document to learn how to create a service that represents a native package.
+Detailed description
+To use native packages, they should be wrapped into services. Such services are lightweight and contain only the appropriate information about native packages. By having service wrappers, we can collect all distro-specific information in one place, because various GNU/Linux distributions could have different names for the same upstream application.
+Prime distributions list
+According to
+http://distrowatch.com/
+, there are several distributions whose names could be mentioned in a service. The following table is a list of primary distributions from the top 100 for year 2009 (excluding source-based and special distributions), in most cases, their names will be the same in all derivative distributions.
+Popularity
+Name in service.info
+Packages
+Sugar support
+2
+fedora
+RPM (yum)
+yes
+4
+suse
+RPM
+yes
+5
+debian
+DEB
+yes
+6
+mandriva
+RPM (urpmi)
+yes
+7
+puppy
+PET
+no
+10
+archlinux
+Pacman
+yes
+13
+slackware
+TXZ
+no
+38
+moblin
+RPM
+no
+40
+frugalware
+FPM (TAR.BZ2)
+no
+41
+pardus
+PiSi
+no
+74
+altlinux
+RPM (APT)
+yes
+89
+turbolinux
+RPM
+no
+91
+crux
+TAR.GZ
+no
+96
+linuxconsole
+LCM
+no
+99
+yoper
+RPM
+no
+Package wrappers are regular services, so read the
+Service Developers Guide
+first.
+service.info file
+In addition to the
+standard
+service.info
+file, the wrappers' file contains the following:
+Service
+section contains only
+name
+summary
+description
+homepage
+It should contain one or more
+Distro:<name>
+sections
+Distro:
+section with name
+*
+, describes common distro parameters.
+Each
+Distro:
+section
+should contain a
+name
+field which is a local package name for the service,
+an optional
+buildtime-name
+field, which goes to the buildtime.xml feed, by default
+name
+will be used.
+Applications could contain a
+main
+field with a full path to the exec file (which could be different for different distributions).
+Workflow
+Create a
+service.info
+file.
+Add a
+Distro:*
+section with common distro parameters.
+Add
+Distro:<name>
+sections, at least for
+sugar supported
+distributions.
+Execute
+0sugar push
+to upload changes to the server.
+If a service's application is not well packaged, please consider the possibility of
+adding
+source and binary service implementations.
+Known issues
+In RO mode (check if some package is installed), 0install can work only with deb and rpm based distributions or, if PackageKit is installed, all distributions that current PackageKit version supports.
+To install packages, the system should have PackageKit.

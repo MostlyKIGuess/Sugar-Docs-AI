@@ -1,0 +1,95 @@
+Title: Activities/FileShare
+URL: https://wiki.sugarlabs.org/go/Activities/FileShare
+--------------------------------------------------------------------------------
+Shared activity downloading files
+FileShare
+is an activity that allows the user to share files from their journal.
+The activity prompts the user for a list of files.  When a user joins the shared activity, they are shown the file list where they can choose which files they would like to download.
+The activity was based off a concept activity called
+Distribute
+Contents
+1
+Project Status
+2
+Features
+3
+Bugs
+4
+Future Plans
+4.1
+Functionality
+4.2
+UI
+5
+Change Log
+6
+Links
+6.1
+FileShare Activity
+6.2
+FileShare Server
+Project Status
+Status:
+Published/Maintaining
+Pending feature or bug requests
+Group Members:
+Justin Lewis
+FileShare is an activity that allows the user to share files from their journal.
+The activity prompts the user for a list of files. When a user joins the shared activity, they are shown the file list where they can choose which files they would like to download. Files may also be uploaded to a central server if it is running a compatible script.
+This activity has been released on activities.sugarlab.org.  At this time, development is pending community feedback and bug reports. I am not actively working on this project, but I am willing to pick it up anytime for bug reports or for feature requests.
+Bug reports and as well as suggestions for further improvement will be appreciated.
+If you have found a bug, please report it on sugar's
+bug tracker
+(competent: FileShare, owner: Jlew)
+Features
+Activity can be loaded up and files can be added and removed from the file list
+It can be shared and users who join are able to download files (journal entries) from the file list and have them installed into their own journal.
+Activity is able to keep and resume
+On closing, the system asks the user if they wish to keep the files with the activity.  If they do, the files and file list is stored in the activity entry and can be restored.
+One advantage to this is an instance of this activity can be shared and the files remain with it.
+The server is able to copy files back to the journal
+Useful when restoring the activity and would like to get a file back that may have been deleted or modified.
+If there is a server running on the jabber server the xo is connected to, it can upload and download files there
+Server script can be found here:
+http://gitorious.org/jlew/xo-file-distro/trees/master/FileShare.server
+Bugs
+Please report bugs using sugars
+bug tracker
+Component: File Share, Owner: Jlew
+Sharing a file, remove it, then trying to re-add it states that the file is already shared.
+This was intentional, when a file is removed, it is removed from lists, but the file still existing for anyone who is currently downloading the file. I plan on allowing the file to be re-added and then just have any clients who are downloading to ignore the file being added again.
+View Reported Bugs on Bug Tracker
+Future Plans
+Functionality
+Clients needs to communicate more to the server.  In the current state, the server is not aware of the number of clients currently downloading files.
+Should show user who is currently downloading what files
+Download count on each file
+Prevent/Notify user from closing the activity while users are downloading from them.
+Update server script
+Keep list of who uploaded file
+Maybe add a private upload option that does not show to all users
+UI
+Display icons for the journal entry type
+Change Log
+Detailed Change Log
+2009-12-11: Initial release
+2009-12-14: FileShare-2.xo
+2009-12-15: FileShare-3.xo
+2009-12-18: FileShare-4.xo
+2009-12-26: FileShare-5.xo
+2010-01-08: FileShare-6.xo
+2010-01-12: FileShare-7.xo
+2010-01-19: FileShare-8.xo
+2010-01-29: FileShare-9.xo
+2010-05-18: FileShare-10.xo
+Links
+Project Leader:
+Justin Lewis
+FileShare Activity
+File Share (activities.sugarlabs.org)
+Download
+Screenshots
+Source Repo
+FileShare Server
+FileShare Server Wiki Page
+Source code

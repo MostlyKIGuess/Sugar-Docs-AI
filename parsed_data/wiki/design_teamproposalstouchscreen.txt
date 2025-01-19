@@ -1,0 +1,71 @@
+Title: Design Team/Proposals/Touchscreen
+URL: https://wiki.sugarlabs.org/go/Design_Team/Proposals/Touchscreen
+--------------------------------------------------------------------------------
+This page has been marked as important but in need of updating as of May 2016.
+See all dated pages
+There may be relevant discussion on the
+talk page
+.
+Touchscreen Support
+Feature description
+Keyboard only hardware
+Keyboard and touchscreen hardware
+Touchscreen only hardware
+Cursor
+show always
+show if trackpad used, hide if screen touched
+hide always
+Virtual keyboard
+not required, but useful for accessibility needs
+useful in ebook mode
+essential, needs to appear automatically when a text field is selected (with optional ability to expose/hide for compatibility)
+Cursor hover hints/palettes
+accessible
+accessible when using trackpad
+accessible only if activated by 'right click' (touch & hold)
+Keyboard shortcuts
+accessible
+accessible when using keyboard
+not available (must rely on visual icons, HW buttons, or touch gestures)
+Frame
+accessible
+accessible when using keyboard & trackpad
+needs a touch gesture (swipe in/out from any edge) and/or new button (top left frame corner most likely), same old issues regarding discoverability of the Frame.... No physical home button on XO-3.0 hardware.
+Buttons & context menu size/spacing
+OK
+nice to have them optimized to be touchable
+size/spacing of buttons and menus needs to be optimised for finger sized interaction
+hpane/vpane separator theme
+OK
+nice to have them optimized to be touchable
+size menus needs to be optimised for finger sized interaction
+Screen resolution
+n/a
+n/a
+XO-3.0 is 1024x768, continue to make sure the Sugar shell, and activities are designed to scale well
+Keyboard shortcut hints
+continue to add hints
+continue to add hints
+hide keyboard hints from touch only UI
+Scrolling a zoomed paint/drawing view
+n/a
+two finger drag to pan/scroll canvas
+two finger drag to pan/scroll canvas, essential
+Home favourite activity icons
+need to increase icon layout size/spacing (larger targets, further apart)
+blank
+...
+...
+...
+Other
+[CSA: adding here some issues which aren't in the above table, not sure how they fit in]
+Keyboard hints
+show different keyboards for numeric, URL, or free-text input. (For example, TurtleArt wouldn't show the full keyboard when it just needs you to enter a number.)
+Hover palettes
+might need to be offset more from finger location to be useable on touchscreen (so that the finger doesn't cover up the palette when it pops up)
+Drag to scroll
+I prototyped this with "drag from top" / "drag from bottom" to scroll, it wasn't so bad.  Simply mapping two-finger scroll to mouse scroll buttons gets you pretty far, although there are some focus issues to deal with -- it should first focus the element under the scroll start location, and *then* send it mouse scroll wheel events
+Slide to switch zoom levels
+just requires binding F12,F13 etc to "zoom out" and "zoom in", so olpc-kbdshim can emit the proper function key instead of trying to remember what zoom level it is in.
+Uniform support for "mouseover" events
+perhaps "swiping down" from a button will reveal its mouseover tool tips, for example.  This is a bit of a hack, but it might make all the existing sugar activities which rely on mouseover more usable.

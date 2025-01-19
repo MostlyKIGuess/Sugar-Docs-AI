@@ -1,0 +1,70 @@
+Title: Features/GObject Introspection
+URL: https://wiki.sugarlabs.org/go/Features/GObject_Introspection
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Use GObject-based libraries via introspection, instead of build-time bindings.
+Owner
+Name:
+Email:
+Current status
+Targeted release: 0.92
+Last updated: Oct 12th 2010
+Percentage of completion: 0%
+Detailed Description
+Several of the Python modules we are using right now will
+become deprecated
+in the
+next GNOME release
+.
+PyGObject
+has gained support for
+GObject Introspection
+, which will allow us to keep using the GNOME platform without needing static bindings.
+Benefit to Sugar
+Sugar will continue to be packaged by distributions. Additionally, the move to dynamic bindings will reduce overall memory usage and startup time of the shell and activities. Also will make easier use libraries written in languages other than Python.
+Scope
+Will need changes in about every sugar module, including activities, but we'll have a script that will make it easier. Not all activities may need to switch at the same time.
+How To Test
+Run Sugar and activities as usual, notice startup is faster and check with 'free' the amount of free memory.
+User Experience
+The shell and activities should start much faster and you can launch more activities before systems with low memory and no swap (like the XO) become unresponsive and crash.
+Dependencies
+All our dependencies that are part of the GNOME platform will need to be updated to GNOME 3.0.
+Contingency Plan
+None necessary, revert to previous release behaviour. We may need to fork and maintain static bindings.
+Documentation
+http://live.gnome.org/GObjectIntrospection
+http://live.gnome.org/PyGObject/IntrospectionPorting
+Release Notes
+TBW
+Comments and Discussion
+See
+discussion tab for this feature
+You can add categories to tie features back to real deployments/schools requesting them, for example [[Category:Features requested by School Xyz]]

@@ -1,0 +1,81 @@
+Title: Obsolete Service/obs
+URL: https://wiki.sugarlabs.org/go/Service/obs
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Contents
+1
+Hostnames
+2
+Hosted on
+3
+Administrative contact
+4
+Sysadmins
+5
+Notes
+6
+Upgrade notes
+7
+Hints
+Hostnames
+obs.sugarlabs.org
+packages.sugarlabs.org
+sweets.sugarlabs.org
+Hosted on
+Machine/jita
+Administrative contact
+obs AT sugarlabs DOT org
+Sysadmins
+Aleksey Lim
+Notes
+OBS
+instance with sugar related changes.
+Home
+/srv/obs
+Daemon
+/etc/init.d/obs
+/etc/init.d/obs-worker
+Config
+/srv/obs/app/src/backend/BSConfig.pm
+/srv/obs/app/src/api/config/
+/srv/obs/app/src/webui/config/
+Logs
+/srv/obs/site/log
+SSL certificates
+/etc/ssl/private/obs.sugarlabs.org.key
+/etc/ssl/certs/obs.sugarlabs.org.pem
+/etc/ssl/private/packages.sugarlabs.org.key
+/etc/ssl/certs/packages.sugarlabs.org.pem
+Caution
+Since python OBS clients can't handle SNI, default vhost needs to provide
+obs.sugarlabs.org
+SSL certificate.
+Upgrade notes
+git
+/srv/obs/app
+Packages:
+apt-get install liblocal-lib-perl libio-compress-perl libnet-ssleay-perl createrepo cmake librpm-dev check
+Gems:
+su - obs
+cd ~/app/src/api
+rake gems:install
+Perl modules:
+cpan -i Socket/MsgHdr.pm
+Build sat-solver:
+su - obs
+cd ~/app/src/backend/sat-solver
+cmake . -DMULTI_SEMANTICS=1
+make
+Build BSSolv:
+su - obs
+cd ~/app/src/backend
+perl Makefile.PL
+make
+Hints
+Delete download repository copies:
+repos={}; Download.find_each {|i| repos[i.metafile] = [(repos.include?(i.metafile) ? repos[i.metafile] : 0), i.id].max}; Download.find_each {|i| i.delete if i.id != repos[i.metafile]}

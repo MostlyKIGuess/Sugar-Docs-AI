@@ -1,0 +1,126 @@
+Title: Features/Multi selection
+URL: https://wiki.sugarlabs.org/go/Features/Multi_selection
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Credits
+4
+Current status
+5
+Benefit to Sugar
+6
+History / Initial-Implementation
+7
+Implementation
+8
+Basic utility of this feature
+9
+UI Design
+9.1
+Typical copy-to workflow
+10
+[Step 01] Initial "Journal" view
+11
+[Step 02] Initial "Documents" view
+12
+[Step 03] Select an entry by clicking on the Checkbox. The view changes to Multi-Select mode.
+13
+[Step 04] More entries can be selected/deselected one by one, or Select-All/Deselect-All may be used
+14
+[Step 05] Select Copy-to-Documents Option
+15
+[Step 06] An alert pops up, asking for confirmation (Continue/Stop)
+16
+[Step 07] If Stop is chosen, nothing happens, and the entries remain selected.
+17
+[Step 08] Again choose Copy-to-Documents Option
+18
+[Step 09] An alert pops up, asking for confirmation (Continue/Stop). This time choose Continue.
+19
+[Step 10] Running progress of first entry
+20
+[Step 11] Running progress of second entry. The message pops up, same as expected as in single mode
+21
+[Step 12] Running progress of third entry.
+22
+[Step 13] Batch-Operation complete. Now all entries may be deselected via Deselect-All
+23
+[Step 14] Final "Documents" View
+Summary
+Implements the ability to select multiple journal entries in the journal entry view and perform group operations (like copy, delete) on them.
+Owner
+Name:
+Ajay Garg
+Email: ajay@activitycentral.com
+Credits
+Gary Martin
+(Major contributor in helping this feature reach the level of robustness today)
+Walter Bender
+,
+Gonzalo Odiard
+,
+Simon Schampijer
+(Design)
+Martin Abente
+(Initial code patches)
+Anish Mangal
+(Reviving the feature; Icons; Solutions to some UI issues)
+Current status
+Targeted release: 0.99
+Development status: The feature has been gtk3-ported; the ready-to-be-applied patch will be generated, once the go-ahead is received.
+Benefit to Sugar
+A recurrent request from teachers and kids is to be able to operate on a group of entries.
+This feature allows the users to perform operations on multiple journal entries at once, making it very efficient if the user has to perform repetitive tasks like copying/deleting journal entries for many entries. The users can also filter journal entries by using the already existing search facilities and perform operations on those.
+Two ways of selecting multiple journal entries have been provided. The user can either click the checkbox next to individual journal entries or use the select/deselect all buttons provided on the toolbar (which only shows up if the feature is being used). This UI takes some ideas from the standard gmail interface in how it allows users to select multiple entries and perform operations on them.
+Another interesting and useful side-effect of this feature is that a user can insert a pen-drive with many activity bundles, select 'all' and copy them to journal. The resulting operation will install all bundles on the XO laptop!
+History / Initial-Implementation
+Martin Abente created a initial implementation
+[1]
+Patches:
+http://dev.laptop.org/~gonzalo/martin_abente_prop.tgz
+We need to review it and check if it is up to date.
+References:
+1.
+Dextrose/3/Todo
+2.
+EduJAM/2011/Brainstorm
+3.
+http://www.sugarlabs.org/~tch/journal2.mpeg
+4.
+Design Team/Designs/Journal#06
+5.
+Journal NewUI
+Implementation
+The implementation is almost identical to the one done by Martin; details available at :
+http://www.sugarlabs.org/~tch/journal2.mpeg
+The only differences are ::
+More copy-to options :: Clipboard, Documents (in addition to mounted drives).
+There has been a progress bar added for batch-operations.
+Basic utility of this feature
+This feature, merely does a loop-over for multiple entries. That is, the workflow and the end-result in the following two scenarios should be exactly the same ::
+Entries, E1, E2, E3 .... En, are operated upon one after the another, individually.
+Entries, E1, E2, E3 .... En, are selected together, and operated upon one after the another, as a single macro batch-operaton.
+Some particular use-cases ::
+Batch-operations
+speeds up
+makes XO-bundle installations more convenient, when multiple bundles are copied together from a USB drive to the journal. Thanks a ton to Sridhar Dhanapalan for the attention generated towards this (otherwise obscure) use-case.
+UI Design
+Typical copy-to workflow
+[Step 01] Initial "Journal" view
+[Step 02] Initial "Documents" view
+[Step 03] Select an entry by clicking on the Checkbox. The view changes to Multi-Select mode.
+[Step 04] More entries can be selected/deselected one by one, or Select-All/Deselect-All may be used
+[Step 05] Select Copy-to-Documents Option
+[Step 06] An alert pops up, asking for confirmation (Continue/Stop)
+[Step 07] If Stop is chosen, nothing happens, and the entries remain selected.
+[Step 08] Again choose Copy-to-Documents Option
+[Step 09] An alert pops up, asking for confirmation (Continue/Stop). This time choose Continue.
+[Step 10] Running progress of first entry
+[Step 11] Running progress of second entry. The message pops up, same as expected as in single mode
+[Step 12] Running progress of third entry.
+[Step 13] Batch-Operation complete. Now all entries may be deselected via Deselect-All
+[Step 14] Final "Documents" View

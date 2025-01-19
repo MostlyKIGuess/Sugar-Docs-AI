@@ -1,0 +1,133 @@
+Title: Talk:Sugar on a Stick/Windows
+URL: https://wiki.sugarlabs.org/go/Talk:Sugar_on_a_Stick/Windows
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+Caroline's Repeatable Process for Creating Sticks
+2.1
+Preparation:
+2.2
+For Each Stick
+3
+For Windows only users
+3.1
+[SoaS] Problem with Mirabelle and USB Boot
+4
+putting sugar around a stick (with fedora's help)
+5
+bit more help needed please
+Introduction
+Can someone explain a little more in the intro as to how sugar on a stick will work with a windows machine?  Do you boot on it?  Is it some sort of virtual machine?  Is SoaS for windows a linux OS?
+Harriska2
+See ideas emerging on this topic at
+Sugar on a Stick/Roadmap#Use cases
+--
+FGrose
+19:06, 26 March 2009 (UTC)
+Caroline's Repeatable Process for Creating Sticks
+(This may be out of date.)
+This is the process I (Caroline Meeks) use.  Some of the things I do maybe superstition, but here is it.
+Preparation:
+Download and install version 3.6.5 live usb creator for XP
+Download the iso snapshot you want to create - You only have to download it once.
+For Each Stick
+Insert a 1 or 2 GB Stick
+Delete files so that you have 700 MiB or more of space available.
+(The formatting step is not needed, but may help if other methods don't work) Format it using FAT. If it has anything on it it will be completely erased so you can reuse sticks.
+See
+olpc:How to Damage a FLASH Storage Device
+before formatting.  The 'Stick' probably came with a FAT file system that the Fedora LiveUSB Creator will use.  You can even leave some of your files on the drive.  You may want to try using the native drive formatting to see if it works before reformatting the drive.
+Name the volume FEDORA (The File Manager's properties, General tab panel will let you rename a volume.)
+This does not seem to be necessary with current version.
+Open the live USB creator
+Click Browse and find your snapshot
+Move the slider for persistent storage but don't use absolutely everything on the stick. These days I use about 500 MB for a 1 GB Stick
+Burn the stick. It takes about 15 minutes or so for me
+Close the live USB creator
+Eject the stick
+Create a boot-helper CD that matches your snapshot (I use my mac for that, but I've never heard of problems so any way of creating a LiveCD should work)
+For Windows only users
+Hi,
+Windows has at least two different levels of "format". The instructions are not clear as to which to use or not use.
+One is FDISK, usually run from DOS, and seems like it should be avoided because it will muck with the partition boundaries.
+Another is the FORMAT of the "File Manager", usually accessed by right clicking on the device.("Explore" to the device, right click, select "Format...". Within that choice is a "Quick Format" option which may be good or bad to use with a flash device.
+Could someone who knows make the instructions a bit clearer????
+MWTalbutt -- 29-Jun-2009
+The Windows instructions no longer recommend formatting the USB device.  --
+FGrose
+20:06, 29 June 2009 (UTC)
+Thanks FGrose! They are slightly clearer - at least it says something like "Do Not Do unless fails without." Perhaps the detail I was looking for belongs on the
+http://wiki.laptop.org/go/How_to_Damage_a_FLASH_Storage_Device
+page? MWTalbutt
+Recommended overlay and home sizes -
+Execute the Linux command line:  /livecd-iso-to-disk --reset-mbr --overlay-size-mb
+500
+--home-size-mb
+900
+--delete-home --unencrypted-
+- Shouldn't these sizes be bigger for 4 GB and 8GB USB sticks?
+[SoaS] Problem with Mirabelle and USB Boot
+soas lists 07/01/2010  posted by satellit
+
+OK,
+
+To prevent it name the sticks Fedora prior to putting the image on them.  (This step should be added to the online instructions.)
+
+Now, if you did not change the name and need to modify the syslinux.cfg, change the following lines: (you will have a different UUID#)
+
+  append initrd=initrd0.img root=live:UUID=3D4E-8E71 rootfstype=vfat rw liveimg overlay=UUID=3D4E-8E71 quiet  rhgb rd_NO_LUKS rd_NO_MD
+
+  append initrd=initrd0.img root=live:UUID=3D4E-8E71 rootfstype=vfat rw liveimg overlay=UUID=3D4E-8E71 quiet  rhgb check
+
+to
+
+  append initrd=initrd0.img root=LABEL=FEDORA rootfstype=vfat rw liveimg overlay=LABEL=FEDORA quiet  rhgb rd_NO_LUKS rd_NO_MD
+
+  append initrd=initrd0.img root=LABEL=FEDORA rootfstype=vfat rw liveimg overlay=LABEL=FEDORA quiet  rhgb check
+
+I tested this fix and it works.
+
+Marc marckarasek@gmail.com
+putting sugar around a stick (with fedora's help)
+Hi,
+just a heads up about where we are regarding installation of Soas:
+- on Windows we are very well, it's reported that liveusb-creator
+works well even for XOs,
+- on Linux, latest releases of liveusb-creator weren't working at all,
+but people are working to fix that on Fedora 10 (thanks Kushal!). On
+other distros, seems like recent Liveusb-creator won't work due to new
+dependencies included :(
+- about livecd-iso-to-disk.sh on all linux flavors, it isn't working
+currently for Soas2 because Rawhide requires that a more recent
+version of syslinux (3.73) is installed
+(
+http://dev.sugarlabs.org/ticket/643
+). The good news is that we have a
+workaround (thanks Elena!).
+- also, livecd-iso-to-disk.sh will fail to install correctly an image
+that can boot on XOs because of
+http://dev.sugarlabs.org/ticket/644
+.
+It has been reported upstream.
+- and also, livecd-iso-to-disk.sh will fail to install correctly an
+image that can boot on XOs because it seems to require reading a
+squashfs image in a format that only very recent kernels (2.6.29) can
+read. No idea what we can do here, but maybe we don't really need to
+read that image from the computer that makes the installation?
+Otherwise, how can liveusb-creator do the installation for XOs on
+windows?
+Any help appreciated.
+Thanks,
+Tomeu   (26 March 2009)
+bit more help needed please
+I haven't got it to boot yet, and maybe my lack of computing experience will help improve the instructions for non-sysadmins.
+a) may be worth clarifying that burning a .iso is not just putting a data file on a disk but 'burn compilation' or somesuch.
+b)'file manager properties' - don't see that with Windows 2000. Using 'rename' seems to have problems; put it in another computer and the name did not show as FEDORA, though that was the 'label'. 
+c) let the computer reboot from the CD; ain't got that far yet.
+Still to work out what I am doing wrong, but the instructions and context here are for linux hackers and geeks; a long way to go before it looks like an education project, I am afraid.
+Brian 25 July 2009
+Please see the amended instructions. Renaming is not required with current version of the installer. The Fedora Live USB Creator transfers the disc image to the USB drive. --
+FGrose
+00:57, 26 July 2009 (UTC)

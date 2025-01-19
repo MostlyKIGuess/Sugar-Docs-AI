@@ -1,0 +1,112 @@
+Title: Infrastructure Team/Template virtual machine lucid
+URL: https://wiki.sugarlabs.org/go/Infrastructure_Team/Template_virtual_machine_lucid
+--------------------------------------------------------------------------------
+This procedure documents how our template Karmic image was created and configured
+VM Creation
+virt-install --prompt -v --accelerate --nographics -x console=ttyS0,115200 \
+ --name template-lucid --vcpus=4 --ram $((1*1024)) \
+ --os-type=linux --os-variant=ubuntujaunty --network bridge:br0 \
+ --disk path=/srv/vm/template-lucid.qcow2,bus=virtio,sparse=true,size=10 \
+ --location
+http://ubuntu.media.mit.edu/ubuntu/dists/lucid/main/installer-amd64/
+ip adresse: 140.186.70.109
+We install with the minimun of needed package setup:
+ubuntu basic server -> since we use ubuntu server, we want ubuntu basic
+openssh server -> for remote access
+After installation:
+virsh start --console template-lucid
+Configuration (serial console part)
+Open the console (virsh console template-karmic) with your installation username and password, then:
+sudo -i
+
+aptitude install etckeeper bash-completion git-core strace munin-node duplicity postfix vim devtodo
+aptitude purge memtest86+
+update-alternatives --set editor /usr/bin/vim.basic
+<- template-lucid changes
+Remove restricted repositories from /etc/apt/sources.list (fsf asks us to avoid using non-free software).
+Disable PasswordAuthentication in /etc/ssh/sshd_config
+vim /etc/etckeeper/etckeeper.conf # comment out bzr, enable git
+etckeeper init
+etckeeper commit "Initial commit"
+echo >>/etc/aliases "root: systems-logs@lists.sugarlabs.org"
+newliases
+cd /etc/profile.d
+ln -s /usr/share/doc/devtodo/examples/scripts.sh devtodo.sh
+Append to /etc/network/interfaces, then restart network:
+auto tun6to4
+iface tun6to4 inet6 v4tunnel
+   # printf "2002:%02x%02x:%02x%02x::1\n" `echo $IPV4ADDR | tr . ' '`
+   address 2002:8cba:466c::1
+   netmask 16
+   gateway ::192.88.99.1
+   local 140.186.70.109
+   endpoint any
+Add these to /etc/sudoers:
+#bernie: forward agent
+Defaults    env_keep += "SSH_AUTH_SOCK"
+
+# Uncomment to allow members of group sudo to not need a password
+# (Note that later entries override this, so you might need to move
+# it further down)
+%sudo ALL=NOPASSWD: ALL
+Log in with "ssh -A template-jaunty.sugarlabs.org" to copy files from sunjammer
+rsync -aP bernie@sunjammer.sugarlabs.org:/usr/src/devtools/ /usr/src/devtools/
+ln -sf /usr/src/devtools/sysadm/bashrc.sh /etc/skel/.bashrc
+ln -sf /usr/src/devtools/sysadm/bashrc.sh /root/.bashrc
+ln -sf /usr/src/devtools/sysadm/zzz_profile.sh /etc/profile.d/zzz_profile.sh
+ln -sf /usr/src/devtools/conf/vimrc /etc/vim/vimrc.local
+
+vim /etc/bash.bashrc # enable bash_completion, kill code messing with PS1
+vim /etc/profile # set umask 002, kill code messing with PS1
+Create initial admin users:
+passwd # set a password for root, to be used to log in from the console only
+
+adduser  bernie
+adduser  dogi
+adduser  dfarning
+addgroup bernie   sudo
+addgroup dogi     sudo
+addgroup dfarning sudo
+mkdir /root/.ssh /home/bernie/.ssh /home/dogi/.ssh /home/dfarning/.ssh
+cat >/home/bernie/.ssh/authorized_keys
+XXX
+cat >/home/dogi/.ssh/authorized_keys
+YYYY
+cat >/home/dfarning/.ssh/authorized_keys
+ZZZ
+cat >/root/.ssh/authorized_keys
+XYZ
+chown -R bernie:bernie     /home/bernie/.ssh
+chown -R dogi:dogi         /home/dogi/.ssh
+chown -R dfarning:dfarning /home/dfarning/.ssh
+Insert into /etc/munin/munin.node :
+#bernie
+allow ^140\.186\.70\.53$      # sunjammer.sugarlabs.org
+allow ^10\.3\.3\.1$           # trinity.trilan
+allow ^2001:4830:1100:48::2$  # sunjammer.sugarlabs.org (IPv6)
+cd /etc/munin/plugins
+rm if_err_eth0 entropy
+Create /etc/system-full-backup.conf :
+#bernie: This file MUST have permissions 600
+echo "Please configure /etc/system-full-backup.conf and run"
+echo "  ssh-copy-id -i /root/.ssh/id_rsa.pub sugarbackup@backup.sugarlabs.org"
+echo "then, comment out these lines to enable backups"
+exit 1
+
+PASSPHRASE=ChangeMe
+TARGET="scp://sugarbackup@backup.sugarlabs.org/backup/`hostname`"
+Create /etc/zzz_profile.conf :
+#bernie
+HOST_COLOR='\033[1;40;37m'
+HOST_CFLAGS='-march=native'
+HOST_CORES=4
+Edit
+/etc/default/grub
+to set the following:
+GRUB_TERMINAL=serial
+GRUB_SERIAL_COMMAND="serial --unit= --speed=115200 --stop=1"
+GRUB_CMDLINE_LINUX_DEFAULT="console=ttyS0,115200n8 "
+See also
+Sysadmin/Add virtual machine
+Sysadmin/Delete virtual machine
+Sysadmin/Template_virtual_machine

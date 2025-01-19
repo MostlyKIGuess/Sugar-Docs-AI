@@ -1,0 +1,255 @@
+Title: 0.86/0.85.2 Notes
+URL: https://wiki.sugarlabs.org/go/0.86/0.85.2_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.85.2 Release Notes
+1.1
+Announcement
+1.1.1
+Switch to Metacity window manager
+1.1.2
+Flash Activities
+1.1.3
+Activity Toolbar redesign
+1.1.4
+Tabs in Browse
+1.1.5
+Ad hoc Networking
+1.1.6
+Read
+1.2
+Compatibility
+1.3
+Update to this version
+1.4
+Glucose modules
+1.5
+Glucose news
+1.5.1
+sugar
+1.5.2
+sugar-toolkit
+1.5.3
+sugar-artwork
+1.5.4
+sugar-datastore
+1.5.5
+sugar-presence-service
+1.5.6
+sugar-base
+1.5.7
+etoys
+1.6
+Fructose modules
+1.7
+Fructose news
+1.7.1
+Browse
+1.7.2
+Turtleart
+1.7.3
+Read
+1.7.4
+ImageViewer
+1.7.5
+Write
+1.7.6
+Log
+1.7.7
+Pippy
+1.8
+Fructose dependencies
+1.9
+Fructose dependencies News
+1.9.1
+Hulahop
+1.10
+What is new for packagers
+Sucrose 0.85.2 Release Notes
+Announcement
+This is the second development release in the 0.86 release cycle - see the
+0.86/Roadmap#Schedule
+for more details. Note, that we are two weeks late with this release, as we wanted to land some of the features so we can get feedback on, especially the toolbar redesign. This will have no effect on the final release date.
+We are getting closer to the feature freeze and a few features have been landed in this release. Please test them carefully and report any bug and workflow issues you find to get them in good shape for the release. A friendly
+BugSquad
+will be available to triage those bugs accordingly and the developers can never have enough bug food. If you have non-bug feedback about features you can use the sugar-devel mailing list to share it with us.
+From a user point of view we want to highlight the following changes that have been made:
+Switch to Metacity window manager
+Sugar
+switches
+the window manager from Matchbox to Metacity. Matchbox is designed for small devices that run all applications maximized. Sugar can run in devices with bigger screens and some applications break when run in Matchbox. Using Metacity instead means that some unsugarized apps would run better inside Sugar and that Sugar activities would behave better when run outside Sugar.
+Flash Activities
+Gnash has been added to the Sugar Platform, meaning that authors of educative content can use
+Flash tools to create activities
+for Sugar.
+Activity Toolbar redesign
+The activity toolbar has been redesigned, since the design of using tabs to group options, an activity can have, did not turn out to work so well. More details about the
+Features/New Toolbar Design
+. The redesign gives a solution for the "stop activity issue" pointed out in
+#452
+. Browse and Write have been ported to use the new Toolbar design.
+Tabs in Browse
+Links that would open in a new window now open in new tabs inside the main activity window similar to the behavior in other browsers. Though this
+feature
+isn't proposing any way for the user to explicitly open any link in a new tab, or explicitly create a new tab.
+Ad hoc Networking
+The new ad hoc networking facilities allows users to connect with each other over wireless in an ad hoc manner without infrastructure like an Access Point. This is the so called under a tree scenario. OLPC provided that functionality based on hardware mesh. This
+feature
+allows to provide that functionality with nearly all the wireless hardware. Furthermore it allows you to do share an internet connection using the same mechanism.
+Read
+The read activity does support now Epub files. For getting epubs,
+http://www.feedbooks.com
+and
+http://www.epubbooks.com/
+can be recommended. Furthermore this version will let you associate (add and edit) notes with your bookmarks, and has a slightly more useful fullscreen view (you can now get a rough idea of how much battery is left in your laptop/netbook without invoking the frame).
+Thanks everyone for your great contributions!
+Compatibility
+There are no known compatibility issues, as of today.
+Update to this version
+Please use the instructions for your distribution (Fedora, Ubuntu, Debian etc) of choice to upgrade to this release.
+Glucose modules
+sugar-toolkit 0.85.3
+sugar 0.85.3
+sugar-artwork 0.85.2
+sugar-base 0.85.2
+sugar-datastore 0.85.1
+sugar-presence-service 0.85.1
+etoys 4.0.2229
+Glucose news
+sugar
+restores
+Rainbow support
+, meaning that you can try and give feedback after installing Rainbow.
+Fix naming of entries with unknown extensions (silbe)
+#1040
+Fix support of
+Journal entry bundles
+(.xoj)
+#1098
+Abort if there is an error when retrieving activities (silbe)
+#1059
+Don't reinstall bundle if its already installed (silbe)
+#1053
+update mime type db when a new activity is copied to ~/Activities
+#955
+md5 and sha module will be deprecated in python 2.6
+#266
+Switch to Metacity as the window manager.
+#602
+Refactor journal to use a gtk.TreeView
+Refactor activity list view to use a gtk.TreeView
+More meaningful screenshot titles (James Zaki)
+#650
+Support for creating wireless ad-hoc networks
+Add fullscreen option to the emulator and change default size to 800x600 (Sascha Silbe)
+#565
+sugar-toolkit
+Features/New Toolbar Design
+- Added new ToolbarBox and ToolbarButton widget
+make the unfullscreen go away after a timeout
+#1102
+update mime type db when a new activity is copied to ~/Activities
+#955
+md5 and sha module will be deprecated in python 2.6
+#266
+sugar-artwork
+Cross activity toolbar icons
+sugar-datastore
+PEP8 compliance fixes
+#1108
+Rebuild index when an inconsistency between the index and the metadata is detected
+Implement sorting by timestamp and title
+Return a consistent entry count when some entries are missing (dsd)
+Don't include in find() results entries without metadata
+Remove title option (copy-from-journal)
+#896
+Only one dot for the filename if we specify an extension (copy-from-journal)
+sugar-presence-service
+Broadcasting buddy tags to the connection managers that support it (gabble at the moment)
+sugar-base
+re-add lost po/sugar-base.pot
+etoys
+updated translations: bn, de, el, ko
+fix demo project resolutions
+add setup.py to please packagers
+avoid black screen flashing when switching projects
+set activity window title to project name
+split over-long "geometry" category
+better keyboard event handling in scripts
+various fixes
+Fructose modules
+read 71
+chat 65
+terminal 25
+imageviewer 10
+jukebox 8
+turtleart 60
+browse 110
+etoys 102
+write 64
+calculate 28
+log 20
+pippy 34
+Fructose news
+Browse
+Features/New Toolbar Design
+- Adopt to the new activity toolbar design
+Features/Tabs In Browse
+- New pages will open in a new tab similarly to other browsers. Though this feature isn't proposing any way for the user to explicitly open any link in a new tab.
+Turtleart
+Fixed sharing bug
+Began 701 backward compatibility work
+More debugging code
+Read
+Support for Epub files
+Support for notes associated with bookmarks
+Show a information bar in fullscreen mode, with pagecount and battery information
+Do not fail to start when Epub specific code does not load
+ImageViewer
+support for file sharing
+Write
+Features/New Toolbar Design
+- Adopt to the new activity toolbar design
+Write canvas redraw glitch when locking open a secondary toolbar
+#1121
+Fix MANIFEST file
+#1120
+New Write primary toolbar icon design does not all fit in the toolbar
+#1122
+Log
+get rid of set_size_request calls, needed for the switch to metacity (tomeu)
+Pippy
+Editor now auto-indents and tabs are now two spaces
+Added new physics game example (XOlympics)
+Font size needs to be 10 for 0.84+
+#607
+Support for 0.82 and 0.84 default font sizes.
+Fructose dependencies
+hulahop 0.5.0
+Fructose dependencies News
+Hulahop
+Tabs
+support
+What is new for packagers
+Metacity:
+The switch to
+Metacity
+as window manager is dependent on this
+commit
+that adds a command line option to disable autofullscreening maximized windows without decorations.
+The keyboard control panel:
+libxklavier
+>= 4.0,
+python bindings
+>= 0.2
+Flash Activities:
+Distributions need to package the last version of Gnash (v9).
+Tabs in Browse:
+Hulahop version >= 0.5
+Write:
+Abiword 2.8 is close to be released and will be part of the Sugar Platform 0.86, so we need to have the latest release in the 2.7.x series packaged so we start testing it.
+Read:
+New dependencies for Read version >= 70 (needed for epub support): webkitgtk (Note:
+pywebkitgtk
+has to be >= 1.1.6), python-lxml, python-BeautifulSoup,

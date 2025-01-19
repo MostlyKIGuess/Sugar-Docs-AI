@@ -1,0 +1,371 @@
+Title: Development Team/Almanac/Internationalization
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/Internationalization
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Contents
+1
+Broad Steps to Internationalize/Localize Your Code
+1.1
+Step 1: Instrument all the translatable strings in your source code to use the gettext utility.
+1.2
+Step 2: Create a "po" directory within your activity bundle to store some files needed to support translation.
+1.3
+Step 3: Generate a .pot File that has a list of all the strings marked for translation by gettext in your activity source code.
+1.4
+Step 4: Use msginit to generate a .po file
+1.5
+Step 4.5: Use msgmerge to merge an existent .po file
+1.6
+Step 5: Translate all the strings that need translation.
+1.7
+Step 6: Generate a ".mo" file using msgfmt and install the translation in to your activity by putting the .mo file in the locale/LANG/LC_MESSAGES directory.
+2
+Other, more specific internationalization/localization tasks
+2.1
+How do I ensure that using gettext does not crash my activity, especially when I try to translate more complex string substitution?
+2.2
+How do I create translation comments that will be carried over in to the generated PO files?
+[1]
+2.3
+How do I make my translations robust enough for varying plural forms?
+[2]
+2.4
+What Are some best practices to ensure that my translations are correctly compiled and applied by Pootle?
+[3]
+2.4.1
+Use white-spaces and newlines only when you need to
+2.4.2
+Keep string formatting as simple as possible
+2.4.3
+Do not touch anything inside your po directory
+2.4.4
+Try to keep the po directory in the top level directory of your repository
+3
+Additional Resources
+4
+Notes
+Broad Steps to Internationalize/Localize Your Code
+Most of these steps are adapted from the
+Python i18n
+with some changes for clarity and accuracy.
+Step 1: Instrument all the translatable strings in your source code to use the gettext utility.
+To ensure that string output from your activity is correctly translated, you would use the gettext utility. The code below imports gettext, renaming it as '_' for code brevity. Then, whenever there is a string that you want to make sure is translated based on language settings, you simply pass it to the _() function. According to the
+Python Reference Library
+, gettext will "return the localized translation of message, based on the current global domain, language, and locale directory."
+The code snippet below is part of a larger UI creation routine that creates a sugar.graphics.Notebook object and three pages for that notebook. Each page label should be appropriately translated.
+from gettext import gettext as _
+    ...        
+        #Add the pages to the notebook. 
+        top_container.add_page(_('First Page'), first_page)
+        top_container.add_page(_('Second Page'), second_page)
+        top_container.add_page(_('Third Page'), third_page)
+Step 2: Create a "po" directory within your activity bundle to store some files needed to support translation.
+Go in to your activity's source directory and create a new subdirectory called "po". In this directory, create a file called POTFILES.in. In POTFILES.in, your first line should be "encoding: UTF-8". Then, each subsequent line should be the name of a source file in your activity bundle that you want translated.
+Below is output from a sample shell session where I carry out all the tasks in this step.
+>> ls -l
+total 292
+drwxr-xr-x 2 fanwar fanwar  4096 2008-06-06 16:49 activity
+-rw-r--r-- 1 fanwar fanwar  3143 2008-07-17 16:20 annotateactivity.py
+drwxr-xr-x 2 fanwar fanwar  4096 2008-06-26 11:24 icons
+-rw-r--r-- 1 fanwar fanwar   834 2008-07-02 14:30 setup.py
+-rw-r--r-- 1 root   root    1759 2008-07-17 15:03 TextWidget.py
+
+>> mkdir po
+
+>> cd po
+
+>> emacs POTFILES.in &
+[1] 7164
+
+>> ls
+POTFILES.in
+
+>> cat POTFILES.in 
+encoding: UTF-8
+annotateactivity.py
+TextWidget.py
+Step 3: Generate a .pot File that has a list of all the strings marked for translation by gettext in your activity source code.
+If you setup your POTFILES.in file properly, you can generate the .pot file by invoking your setup.py script with the genpot option. Below is the source code for setup.py for my sample activity.
+from sugar.activity import bundlebuilder
+bundlebuilder.start()
+If your setup.py file exists, then you simply go to the terminal activity in sugar and run setup.py with genpot. The following snapshot of a shell session shows how I invoke genpot and then look at the contents of the newly generated Annotate.pot file. The "sugar-activities" directory is just a symbolic link to the place in my sugar file structure where activity bundles live.
+[fanwar@localhost Annotate.activity]$ pwd
+/home/fanwar/sugar-activities/Annotate.activity
+
+[fanwar@localhost Annotate.activity]$ python setup.py genpot
+WARNING:root:bundle_name deprecated, now comes from activity.info
+WARNING:root:Activity directory lacks a MANIFEST file.
+
+[fanwar@localhost Annotate.activity]$ cd po
+
+[fanwar@localhost Annotate.activity]$ pwd
+/home/fanwar/sugar-activities/Annotate.activity/po
+
+[fanwar@localhost po]$ ls
+Annotate.pot  POTFILES.in
+
+[fanwar@localhost po]$ cat Annotate.pot 
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-07-17 17:14+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: activity/activity.info:2 annotate-env.py:75 annotate-registry.py:92
+#: annotate-mime.py:104 annotate-profile.py:101 annotate-original.py:70
+#: annotate-alerts.py:179 annotate.py:83 annotate-pango.py:81
+#: annotate-datastore.py:107 annotate-logging.py:59
+msgid "Annotate"
+msgstr ""
+
+#: annotate-env.py:98 annotate-registry.py:115 annotate-mime.py:127
+#: annotate-profile.py:125 annotate-original.py:93
+#: annotate-internationalize.py:103 annotate-alerts.py:275 annotate.py:105
+#: annotate-datastore.py:203 annotate-logging.py:82
+msgid "Go to Page"
+msgstr ""
+
+#: annotateactivity.py:66
+msgid "First Page"
+msgstr ""
+
+#: annotateactivity.py:67
+msgid "Second Page"
+msgstr ""
+
+#: annotateactivity.py:68
+msgid "Third Page"
+msgstr ""
+
+#: annotateactivity.py:81
+msgid "Custom Annotate Toolbar"
+msgstr ""
+Step 4: Use msginit to generate a .po file
+Once you have created a ".pot" file, the next step is to create a ".po". You use the msginit command from within your po directory to do this. Below, I create an "es.po" file using msginit that will eventually contain translations to Spanish.
+[root@localhost Annotate.activity]# cd po
+
+[root@localhost po]# msginit -l es
+The new message catalog should contain your email address, so that users can
+give you feedback about the translations, and so that maintainers can contact
+you in case of unexpected technical problems.
+
+Is the following your email address?
+  root@localhost.localdomain
+Please confirm by pressing Return, or enter your email address.
+
+Retrieving http://www.iro.umontreal.ca/translation/registry.cgi?team=index... done.
+A translation team for your language (es) does not exist yet.
+If you want to create a new translation team for es, please visit
+  http://www.iro.umontreal.ca/contrib/po/HTML/teams.html
+  http://www.iro.umontreal.ca/contrib/po/HTML/leaders.html
+  http://www.iro.umontreal.ca/contrib/po/HTML/index.html
+
+Created es.po.
+[root@localhost po]# cat es.po 
+# Spanish translations for PACKAGE package.
+# Copyright (C) 2008 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Faisal Anwar <root@localhost.localdomain>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-07-17 17:14+0000\n"
+"PO-Revision-Date: 2008-07-17 17:25+0000\n"
+"Last-Translator: Faisal Anwar <root@localhost.localdomain>\n"
+"Language-Team: Spanish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: annotateactivity.py:66
+msgid "First Page"
+msgstr ""
+
+#: annotateactivity.py:67
+msgid "Second Page"
+msgstr ""
+
+#: annotateactivity.py:68
+msgid "Third Page"
+msgstr ""
+
+#: annotateactivity.py:81
+msgid "Custom Annotate Toolbar"
+msgstr ""
+Notice that the "msgstr" lines are empty. This is where translations go, as we shall discuss next.
+Step 4.5: Use msgmerge to merge an existent .po file
+If you want to update an existent .po file already generated by someone else, you should use
+msgmerge
+instead of
+msginit
+. This is useful to update the existent es.po file, for example, to add new strings to be translated and preserve those ones that are already translated.
+So, to do this, you should run:
+msgmerge -o <output-file> <file-to-be-updated> <pot-file>
+And then edit
+output-file
+to translate the new strings added.
+Step 5: Translate all the strings that need translation.
+You can do this in several different ways. One is to go in to the ".po" file directly and add your msgstr translation for each msgid entry.
+#: annotateactivity.py:66
+msgid "First Page"
+msgstr "pagina uno"
+
+#: annotateactivity.py:67
+msgid "Second Page"
+msgstr "pagina dos"
+
+#: annotateactivity.py:68
+msgid "Third Page"
+msgstr "pagina tres"
+A better way is to plug in to the Pootle system that employs translators from all different languages. Visit the
+SugarLabs: Translation System
+to find out more about using Pootle and putting your activity's po files up for translation.
+Step 6: Generate a ".mo" file using msgfmt and install the translation in to your activity by putting the .mo file in the locale/LANG/LC_MESSAGES directory.
+Finally, you have to compile the .po file with your translations in to a ".mo" file. The following code generates a .mo file called "org.laptop.AnnotateActivity.mo" using the msgfmt command. Your .mo file has to have this standard naming scheme that uses the URI for your activity (as it is defined in your activity.info file). Note that in the same command in which I generate the .mo file for Spanish translations, I also place this file in the appropriate directory where the translations can be picked up at runtime. This directory is "locale/es/LC_MESSAGES/" and is located within your activity bundle. Make sure to create this directory structure if it doesn't exist already.
+[root@localhost po]# pwd
+/home/fanwar/sugar-activities/Annotate.activity/po
+
+[root@localhost po]# msgfmt es.po --output='../locale/es/LC_MESSAGES/org.laptop.AnnotateActivity.mo'
+Other, more specific internationalization/localization tasks
+How do I ensure that using gettext does not crash my activity, especially when I try to translate more complex string substitution?
+Since some strings require variables to be substituted into them, they need to be translated carefully. If they're not translated correctly, trying to do a string substitution can crash your activity.
+The code below redefines the _() to use the gettext method only if gettext actually works. If there is an exception, the code will simply return the untranslated string. This ensures that instead of crashing, your activity will simply not translate your string.
+#Do the import of the gettext, but do not give it the underscore alias
+from gettext import gettext
+...
+#defensive method against variables not translated correctly
+def _(s):
+    #todo: permanent variable
+
+
+    istrsTest = {}
+    for i in range (0,4):
+        istrsTest[str(i)] = str(i)
+
+    #try to use gettext. If it fails, then just return the string untranslated. 
+    try:
+            #test translating the string with many replacements
+            i = gettext(s)
+            test = i % istrsTest
+            print test
+    except:
+            #if it doesn't work, revert
+            i = s
+    return i
+...
+        #Now we can use the _() function and it should not crash if gettext fails.
+        substitutionMap = {}
+        substitutionMap[str(1)] = 'one'
+        substitutionMap[str(2)] = 'two'
+        substitutionMap[str(3)] = 'three'
+        print _("Lets count to three: %(1)s, %(2)s, %(3)s") % substitutionMap
+How do I create translation comments that will be carried over in to the generated PO files?
+[1]
+When you are using a string which may be confusing for the translators (contextual issues, or cultural issues), or if you want the string to be translated according to a particular convention, use translator-comments, which would show up alongside the message in the PO file translator get when they translate you software. Example (from Calculate activity)
+# TRANS: multiplication symbol (default: '*')
+        self.mul_sym = _('mul_sym')
+So as you can see from the above example, translator-comments are normal Python comments with the "TRANS" keyword. This shows up the PO file as
+#. TRANS: multiplication symbol (default: '*')
+#: mathlib.py:74
+msgid "mul_sym"
+msgstr ""
+How do I make my translations robust enough for varying plural forms?
+[2]
+Do not assume that all languages have a concept of singular and plural like English. Some languages might have a single form, and some have more than two form. Use
+plural forms
+via
+ngettext()
+in these cases. Example (from sugar-update-control):
+header = gettext.ngettext("You can install %s update",
+                                          "You can install %s updates", avail) \
+                                          % avail
+What Are some best practices to ensure that my translations are correctly compiled and applied by Pootle?
+[3]
+Use white-spaces and newlines only when you need to
+The tool which converts the translated PO files into binary MO files,
+msgfmt
+, can be quite picky about newlines and lines with only whitespaces. For example, the following string in sugar has a blank line at the end which is often overlooked by translators, causing msgfmt to choke.
+print _('Usage: sugar-control-panel [ option ] key [ args ... ] \n\
+    Control for the sugar environment. \n\
+    Options: \n\
+    -h           show this help message and exit \n\
+    -l           list all the available options \n\
+    -h key       show information about this key \n\
+    -g key       get the current value of the key \n\
+    -s key       set the current value for the key \n\
+    -c key       clear the current value for the key \n\
+    ')
+Keep string formatting as simple as possible
+In case of code like the following example, translators tend to translate the strings "error" and "file" into their own languages, causing msgfmt to choke.
+notify.props.msg = _('%(error)s when deleting %(file)s') % \
+                    { 'error': err.strerror, 'file': logfile }
+Avoid such strings if possible; use numbers or untranslatable strings (that are not English words) instead, e.g.
+notify.props.msg = _('%(ERR)s when deleting %(2)s') % \
+                    { 'ERR': err.strerror, '2': logfile }
+Do not touch anything inside your po directory
+If you change anything inside the po directory (including the POT file), and push it to Git, it will create a conflict which has to be updated in the Pootle side manually. Try avoid doing this, If you see any issues, please ping Sayamindu (sayamindu at laptop dot org) (you can also catch him on IRC, in channels like #sugar on Freenode with the nick unmadindu). If the changeset that you have is large, send him a patch, and he will apply that from the Pootle side manually and commit.
+Try to keep the po directory in the top level directory of your repository
+The various homebrew helper scripts which keep Pootle running properly make the assume that the po directory will be in the toplevel of the source repository. Try to avoid putting the po directory under a directory like i18n or such, as this will need yet another special casing in the helper scripts, making stuff more difficult to maintain.
+Additional Resources
+Sugar Localization
+Python i18n
+Notes
+↑
+Copied from
+Localization/i18n Best Practices page
+↑
+Copied from
+Localization/i18n Best Practices page
+↑
+Copied from
+Localization/i18n Best Practices page

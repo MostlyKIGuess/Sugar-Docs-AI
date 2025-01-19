@@ -1,0 +1,238 @@
+Title: Summer of Code/2016/SugarJournalSaveOption UtkarshT
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2016/SugarJournalSaveOption_UtkarshT
+--------------------------------------------------------------------------------
+Contents
+1
+About You
+2
+About your project
+2.1
+You and the community
+2.2
+Miscellaneous
+About You
+What is your name?
+My name is
+Utkarsh Tiwari
+, and I am a 3rd year undergraduate student at
+Jaypee Institute of  Information Technology
+, India.
+What is your email address?
+My email address is
+iamutkarshtiwari@gmail.com
+What is your Sugar Labs wiki username?
+My Sugar Labs wiki username is
+iamutkarshtiwari
+What is your IRC nickname on irc.freenode.net?
+My IRC nickname is
+iamutkarshtiwari
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My first language of communication is Hindi and I am also fluent in English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+Location:
+Uttar Pradesh, India
+Time Zone:
+UTC + 5:30 (India Standard Time)
+Working hours:
+I usually tend to work in afternoons (1PM-5PM) and nights (9PM-2AM). I will remain active on irc during my working hours.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I have only recently begun contributing to open source projects. I am one of the coordinators of the
+OSDC
+(
+Open Source Developers Club
+) group of my college and have delivered and coordinated talks/workshops on technologies like Pygame, Using Git, JavaFx(Swing) and many more.
+I have also been contributing to
+The Processing Foundation
+since December 2015 and have fixed couple of bugs and introduced some new features to their Java and Javascript based IDEs.
+Here are the links to the PRs I have pushed->
+PDE(Java)->
+Features + Bugs
+PDE(P5.js)->
+Bug
+Why SugarLabs?
+I am in love(kind of obsessed! :D) with the work being done here which keeps me driving to contribute more in all the possible ways I can. It feels great seeing my activities being downloaded by kids and children from all around the world. Nothing makes me more happy than knowing that the code I write is serving the learning of millions of children.
+It will be a great experience to work on a project that will introduce some nice feature which will make collaborative learning more easy and enjoyable!
+I started contributing to Sugar Core since this February. Before that, I had already developed
+6 Sugar activities
+and I am constantly mantaining them.
+Here are the links to my Sugar activities->
+Sonic Jump
+Stick Hero
+Flappy Birds
+2 Cars
+Make them fall
+Buttons and Scissors
+Github profile link -
+https://github.com/iamutkarshtiwari
+I have also completed the
+Hindi translations
+of activities listed below->
+Sugar(core)
+Turtleart
+Memorize
+Biorhythm
+TurtleblocksJS
+Paint
+Chat
+Card sort
+ImageViewer
+Physics
+Pootle profile link-
+iamutkarshtiwari
+P.S.- Pending translations are still under process.
+I am excited to work with Sugarlabs this summer! Working on a 3 months scaled project needs dedication and passion which I both possess. I am looking forward to making some significant contributions to Sugarlabs by working in collaboration with some highly skilled programmers from around the world and learn new technologies and methodologies from them to enhance my knowledge.
+About your project
+We are looking for projects that will enhance the Sugar Learning Platform. Please consider how your project will have impact on children learning.
+What is the name of your project?
+Sugar on the Ground
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+A number of real-world issues crop up in deployments of Sugar, especially where resources are limited (bandwidth, CPU speed, battery life, local storage, etc.) This project is related to making Sugar more usable under such circumstances.
+Features proposed->
+Sugar Journal save option
+- This feature introduces a save facility inside Sugar where the user can save the current running activity instance by name of his choice when an activity is closed. The key is to give the user a way to do what is needed, but not to force it.
+The Sugar Journal should provide a 'save/save as' interface which should enable a user to choose whether to save the current document when an activity is closed. The interface should require a name change from 'current.activity' to a user supplied name. - If the document is derived from one currently saved in the Journal, the user should be allowed to save (overwrite) or save as (create new document) by giving a new name to the document. This could be accomplished by showing a alert dialog at close time requesting the user to supply a name or 'not save' the document. If the document has a user supplied name (by the standard activity toolbar icon), the dialog could request the user to save or to provide a new name to create a new document. 
+When a user resumes an activity, if the user quits, it should be saved by overwriting the previous Journal object (the current default).
+If the user wants to ignore it, he can simply do so by selecting 'cancel' option.
+In this way an unnecessary instance(it's data and metadata) wont be stored in the Journal thus saving significant space on XO by not storing irrelevant activity instances.
+This approach satisfies the needs referenced in the git task. Git is a little like a hammer looking for a nail. Using git for this function will likely double the size of the data stored in the Journal (based on normal experience using git). Unfortunately, we don't have this space on the XOs. The standard save/save as feature will give the user the ability to manage versions by using unique names.
+Here are some mockups I designed-
+Save alert popup on close ː-
+Save as alert popup ː-
+Overwrite if name already exists in Journal ː-
+Saving with a new name ː-
+Screenshot save option-
+Currently, Sugar simply saves a screenshot (without any notification) by naming it as 'Screenhot of X'. With the proposed feature, while taking a screenshot user will be notified with a alert(like in Ubuntu) to provide a name for that screeshot along with the captured image of that shot. In this way user can save his screenshot as per specified name which can later help him remember why he took that snapshot.
+Here is a mockup for the proposed screenshot feature ->
+Sugar Journal activity resume feature-
+Currently in Sugar's Home View, a click on an activity icon by default resumes the most recent instance of the activity. This capability is designed into the Journal and is redundant in the Home View. A Sugar activity is a tool to enable the user to accomplish some task. If that task is not completed, the user can resume it via the Journal. If the tool is to be used on a new task, the user can launch it from the Home View. The current Home View assumes that the intent of the user is to continue the most recent task with that tool.
+This task will set the Home View default to launch a new instance on single click on an activity icon, whereas if a user 'Alt'+"Click"ing an activity icon, should resume the latest instance of that activity. If the user wants to resume any previous activity, that can be achieved by choosing named(save as) instances in the Journal. By serendipity, this also shows the Home View with black and white icons. Icons with color signifying a resumable instance use the colors associated with the laptop. Unfortunately many of these color combinations make the icon much more difficult to distinguish than the black and white version.
+Here is a flowchart to demonstrate the mechanism of this feature-
+Sugar Journal back and restore-
+Many of Sugar deployments are to areas where the purchase of a usb stick is problematic. The real problem is that the available storage for the Journal runs out. However, a straight backup and restore cannot create space to enlarge the effective size of the Journal. The Journal on the XO should be a cache for active items and the rest should be stored on a school server (a server with a large hard drive capable of storing the Journal objects for all XOs in the deployment. OLPC, at one point, suggested a reserve of 2GB per XO (e.g. 200GB for a 100 XO deployment). A simple example would be a RAM(XO) and Secondary storage(school servers) in PCs.
+This feature will provide a way for users to deal with a full storage without significant technical skills. Currently the Journal, installed activities, and content files in /lhome/olpc/Library can contribute to filling the store. With a school server, a scheme to provide least-recently-used offload of content becomes possible. If all activities are available for download, least-recently used activities can be erased. If the Journal is stored on the school server, journal objects can be deleted locally (and later restored as needed). The motivation for the content /home/olpc/Library goes away if that content can be downloaded to the Journal as needed. The problem with the current scheme is that at best it is a sampler of the content sources (e.g. wikibooks). It would be better to put all of the content on the school server and have users download as needed.
+Here is a flowchart to demonstrate the above proposed mechanism->
+What is the timeline for development of your project? The Summer of Code work period is from mid-May  to mid-August; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (end of June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Days
+Task
+24th April to 9th May
+Community bonding period.
+Gain consensus of the community on the designs and UI of the proposed features.
+Understand the working of Sugar codebase ( I already have some handson experience with Sugar)
+Discuss the specifications of all the features proposed with Mr.Tony Anderson and other community members.
+10th May to 30th May
+Start developing 'save as' alert popup.
+Write a new alert popup module wrapped over Alert class of Suga-toolkit-gtk3.
+Integrate the alert module to the Sugar activity base class.
+Code the automatic save feature to the resumable activities.
+31 May to 1st June
+Send in patches to be reviewed by community.
+Make necessary changes as per suggestions by the mentor.
+2nd June to 15th June
+Start writing the screenshot popup alert.
+Code a new screenshot popup alert module include text entry, screenshot preview and interactive buttons.
+Make adjustments to the activity base class file and to home view to make the module compatible with them.
+16th June to 17th June
+Send in patches for review by the mentor.
+Make necessary modifications to the patches.
+18th June to 24th June
+Discuss the backend working of the feature with mentor.
+Design the layout for the user interface modications.
+Start working on activity resume feature.
+25th June to 26th June
+Prepare for midterm evaluation.
+Re-evaluate the submitted patches and update the documentations.
+'Save As' alert and Screenshot alert would be implemented by the midterm evaluation.
+27th June to 28th June
+Midterm Evaluation
+29th June to 5th July
+Buffer Week
+6th July to 15th July
+Continue with the work on 'Activity resume' feature.
+Work on the home view to implement one Click and <Alt>Click start/resume facility.
+16th July to 17th July
+Send in patch for review.
+Test the overall stability of the all the implemented features.
+18th July to 19th July
+Would like to a day or 2 days off.
+20 July to 15 July
+Discuss the Sugar backup-restore specifications with the mentor.
+Understand the current backup/restore mechanism as developed by Mr.Martin Langhoff.
+Redesign the resync feature and add user selection based upload to Owncloud repository.
+Code the automatic garbage cleanup to free up space occupied by unnecessary(least frequently used) activities.
+Implement the selection based download feature from the Owncloud repository.
+Modify the read/write access to the online cloud storage in accordance with the implemented features.
+16 August to 18 August
+UI improvements.
+Improve code efficiency.
+Send PRs for review from community members.
+19 August to 22 August
+Fix bugs.
+Document the implemented feature on respective wiki pages and describe the features.
+Add comments that will help further development.
+23 August
+Final Evaluation
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+The number of activities (visually attractiveǃ) that I had developed since last year shows my dedication towards Sugar community.
+My developer profile -
+http://activities.sugarlabs.org/en-US/sugar/user/13555
+I have also been contributing to The Processing Foundation since last December which made me. (commits linked above)
+I have also worked on some projects in my school, knowledge of which will help me in accomplishing the proposed tasks for this summer-
+Design a GUI on JavaFX and Swing with basic Git features like branch, merge, diff, commit, revert, etc. alongwith Dropbox API integration to provide online repository storage-
+https://github.com/iamutkarshtiwari/raptor
+Flappy bird design on C language-
+https://github.com/iamutkarshtiwari/Flappy-Bird-on-C-
+Snake game module on C-
+[1]
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Me-
+Mr. Tony Anderson-
+Mr. Walter Bender-
+Mr. Sam Parkinson-
+What will you do if you get stuck on your project and your mentor isn't around?
+If my mentor is not around, there would be other open source developers on IRC whom I can reach out for help. I also have a lot of seniors in my college who have been working on wide range of open source projects (like MWOS, OWASP, GSoC) and they are very helpful. So there are a lot of ways I can tackle a problem I'm stuck on when my mentor isn't available. Well thoughout my previous development experience 'StackOverflow' has been a lot useful, so I can also look up for the solution there. In worst case, I will try to look up for the solution on the internet as I usually do and tackle the problem myself.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I am planning on maintaining a wiki page every weekend regarding the project. As far daily progress is concerned, I will pass on the project links to my mentor on IRC whenever I'll find him active to get a quick review. I'll also create a thread on Mailing list to post regular updates regarding the project developments.
+Miscellaneous
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please do
+one
+of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug.
+I have added some long needed features to Browse activity and Sugar Journal. PRs (
+Screenshots attached in the PR comment section
+) ->
+Added download progress tool icon to [BROWSE]ː
+https://github.com/sugarlabs/browse-activity/pull/24
+(Reviewed)
+Improved autocomplete list [BROWSE]ː
+https://github.com/sugarlabs/browse-activity/pull/27
+(Merged)
+Improved bookmark management of [BROWSE]ː
+https://github.com/sugarlabs/browse-activity/pull/26
+(Reviewed)
+Function name typo fixed in [BROWSE]ː
+https://github.com/sugarlabs/sugar/pull/664
+(Merged)
+Added a
+ProgressToolButton
+module to [SUGAR-TOOLKIT-GTK3] used in Browse(also usable in other activities)ː
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/309
+(Reviewed)
+The above
+ProgressToolButton module
+was used by Mr. James Cameron in one of his patches for Clock Activityː
+https://github.com/godiard/clock-activity/pull/2
+Added a toolbutton to BookmarkTray for Browse-activity in [SUGAR-TOOLKIT-GTK3]ː
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/311
+(Reviewed)
+Added keyboard accessibility to [JOURNAL]ː
+https://github.com/sugarlabs/sugar/pull/667
+(Reviewed)
+Describe a great learning experience you had as a child.
+When I was child, most of my learning was because the games(chinese checkers, scribble, puzzles, etc) I used to play my at my school. Since I am pretty good at geometry, my teacher being impressed with my skills once asked me to help her teach other students to draw different geometrical figures using basic tools like-compass, protractor, divider and set-squares. It made me feel really nice helping others with their learning. I owe my logical thinking to the games I used to play when I was a kid.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+I am pretty good at taking up challenging tasks(I introduced some cool features in Sugar that have been requested since a long time ;)) which seem difficult to others. After the completion of my project I would like to continue with my work on adding keyboard accessibility to Journal and download manager improvement in Browse. I am also planning to write an API (as suggested by Mr.Sam Parkinson) to extend keyboard accessibility to Sugar which would help kids to operate Sugar even without a mouse or some other pointing device. I would also like to mentor a student in GCI 2017 for Sugarlabs.
+Please include the category tag at the bottom of your page the Category tag for 2016 GSoC applications.

@@ -1,0 +1,329 @@
+Title: Request New Features
+URL: https://wiki.sugarlabs.org/go/Request_New_Features
+--------------------------------------------------------------------------------
+Please describe new feature requests by one of the methods below:
+Note:
+We periodically review these requests, generating
+enhancement tickets
+in
+our tracking system
+.
+Developers: please continue to file feature requests directly in the
+tracking system
+and develop proposals through the
+Features/Policy
+process.
+You may edit this and other pages of the wiki.
+See also
+Wish list
+and
+Category:Wish list
+.
+Contents
+1
+Change default Mesh settings for greater security
+2
+Maintain applications throughout updates
+3
+easier bug reporting
+4
+OS Updates
+5
+Download Page
+6
+Python tutorial
+7
+File System
+8
+Usability
+9
+Sugarize Firefox
+10
+Sugar Control Panel
+11
+Chat (Jabber)
+12
+Browse
+13
+Printer Support
+14
+Support for learning languages
+15
+Support for family interaction
+16
+Better Support for Screencasting
+16.1
+training for Soas/ Sugar
+16.1.1
+How to use Sugar
+16.1.2
+Installation
+16.2
+better bug reports
+16.3
+PR for Soas/Sugar
+17
+Embedded Predictive text
+18
+sugar-emulator
+19
+Chatbot Terminal
+Change default Mesh settings for greater security
+We were very excited to try Sugar on a Stick (Mirabelle).  However, I was very surprised to find lots of users with whom I could "make friends," some of whom seemed to have included their real names (given name and surname!).
+It took some digging in this Wiki to find out that I just had to delete the Mesh entry (i.e., the reference to jabber.sugarlabs.org) so that only Sugar users on our Wi-Fi would show up.
+There may be a genuine security concern here.  We simply have no way of knowing who the other users are with whom a child can "make friends."  All it would take is for one bad thing to happen for the Sugar project to suffer.
+While we love the idea of children from all over the world collaborating on-line, perhaps pragmatic concerns about the security of all children should lead us, at the very least, to have the default setting on the Mesh entry as a blank.  Parents and teachers will then be responsible for enabling this feature, if they so wish.
+This request has been posted to the Sugar developers mailing list at
+http://lists.sugarlabs.org/archive/sugar-devel/2010-May/024190.html
+.  You may want to watch or participate in the discussion there.  --
+FGrose
+14:09, 26 May 2010 (EDT)
+This has been fixed in Sugar 0.110, please upgrade. --
+Quozl
+(
+talk
+) 00:07, 14 August 2017 (EDT).
+Maintain applications throughout updates
+I am running Joyride updates and really am liking the newest versions. However, it drives me crazy that some user data is maintained (ie, friends) but other data, such as applications I install, are obliterated. This is a really serious issue in terms of the viability of this OS. Can something be done?  --
+Graham
+Unfortunately, OLPC is no longer maintaining the Joyride builds, so to some extent, this request is no longer something we can address. But
+olpc-update
+should preserve any activities you have installed in /home/olpc/Activities.
+easier bug reporting
+I am very impressed with KDE's bug reporting mechanism and as well Ubuntu's. I think it would be of great assistance to users and coders if there was an automatic error detection and prompt for reporting the bug. I've made
+a video of the KDE bug reporting experience
+which is exceptionally easy and user friendly... and if for no other reason kids will be using Sugar, so Sugar should be kid easy for bug reporting.--
+Dennis Daniels
+00:05, 11 August 2009 (UTC)
+OS Updates
+It would be great if there was a Sugar OS auto-update tool in the Sugar interface (or a graphical control panel, as detailed below) to make keeping up-to-date easy.
+This feature is being tracked in
+Ticket #105
+.
+Download Page
+If this wiki is the go to place for all things Sugar related then you need a download page with installation instructions and a getting started guide linked prominently from the front page.
+This should have details for downloading sugar packages to install on top of lots of different OSs (even Windows!) as well Live CD images. That way folks like me with little programming experience can try before they buy, can help with tasks like translation, documentation.
+See
+Downloads
+.
+Python tutorial
+I get the impression that python is central to sugar. How about a page of general Python resources. Basic tutorials Sugar customisation info etc.
+81.187.181.168
+10:35, 28 June 2008 (UTC)
+See the
+Python tutorial list
+File System
+I love the Journal function. It's great. But it's near impossible to store and find files in Sugar, and name/locate files on other devices. We need a drag & drop system, and the ability to move files between storage devices easily. Give people the choice of either (Journal is very handy to track activity and, similar to the _open recent_ function in many OS X/Windows apps, lets you find recent stuff easily. I think this needs to be a new icon on the home view, alongside journal, and when you access it, or Journal, it's intuitive and easy to move between either view.
+The new journal design call for some of what you described above:
+http://wiki.laptop.org/go/Designs#Journal
+Tomeu
+10:47, 23 May 2008 (UTC)
+Yes, it's better. But I still want to see the files I have created/saved in a list, by storage device. File name. Type. Size. Date last used.
+I recently gave my 4 year old an OX and it has been interesting working through things with her. On problem I have with the file system is highlighted when using the memory game, I want to open a game we created earlier, fine but the journal opens and shows everything not just things that can be opened by that activity making it very hard to find stuff.
+The
+Journal in v0.84
+has a number of features that may help, including the ability to search for starred items (★) and by activity type. Also, the new
+Resume feature
+should reduce "Journal spam".
+Usability
+7/18/2008
+I've been writing an activity on an XO using only XO resources.  After all, the target community members are people for whom the XO is the only computer to which they have access.  If you realistically want to serve that community, you have to walk a mile in their shoes.
+I have had some success, but there are many frustrations, the Journal interface being the most egregious.  Some notable troubles:
+I spend an inordinate amount of time deleting Journal clutter.  It should be possible to turn automatic logging off, since not all activity will necessarily be worth tracking.  Better yet, include a GUI for setting filter options for what will be logged, and what will not be logged.
+We took
+a different approach
+to the Journal spam issue.
+The flat file display of directories on USB or SD devices also clutters the Journal.  Especially annoying is when a complete web page is saved on another computer and viewed on an XO (for example tutorial information about the XO).  The detail data in the subdirectory makes it hard to find the root HTML file to view the page.  Moreover, as nearly as I can tell, it is not possible to save a complete web page using only the XO.  Something is saved, but it displays incorrectly when viewed later.  This is of fundamental importance for areas with little or unreliable internet service.  A child finds something at school, he saves it so he can read it later at home where there is no internet, and what he gets is some partially readable glop.
+This feature request is being tracked in
+Ticket 584
+.
+The OLPC developers guide extols the Journal as a replacement for file hierarchies, and suggests that such hierarchies are unnatural.  This is not true:  containers are very intuitive, especially for children.  Even in the most primitive hut, there is an area for cooking, which contains a larder which contains food items.  The cooking area also contains a storage area for utensils and an area for food preparation.  The hut itself contains a sleeping area, a cooking area, a latrine area and a social area, even if it is only one room.  Moreover, the hut is contained in a community, itself contained in a nation.  To assert that hierarchical organization is unnatural borders on blind hubris.  Hierarchical organization of information is no exception: bearing witness are the containers library, collection, shelf, volume, and page within the volume.  Indeed, the entire internet, the new global library, is intrinsically and irretrievably hierarchical.  Depriving children of these fundamental organizational tools is tantamount to crippling them.
+Arguably this request is overstated–"crippling them"–but
+Ticket 584
+presumably will address this.
+With reference to the previous point, it would be nice to have something like the triangle by directories on Macs, or in the example listings in pippy: click on the triangle, and the contained information is toggled between hidden and expanded states.  A child could create a container in the Journal, and drag different Journal entries into it to organize the log of his activities according to his own choosing, and then click on the triangle to hide those that are distracting to the activity at hand.  This is conceptually no different than putting toys away in a toy box, and it
+is
+perfectly natural to all human beings, children or otherwise.  Moreover, this functionality is already present, but only for 'hard' containers like USB and SD devices.  Is it such a stretch to allow 'soft' user created containers as journal entries?
+See above.
+I have discovered that a journal entry is really a saving of the state of an activity comprising data, activity, view state (not always restored properly), etc.  This notion of a saved state that may be identically resumed is very good, and very convenient, when it has been fully implemented by an activity.  It should extend to power cycles.  When I turn the machine back on, all my running activities should be resumed and the clipboard should have all my clips, and the machine view should be restored to the most recent active activity before power cycling.
+This feature request is being tracked in
+Ticket 585
+.
+With reference to the previous point, this distinction between what a journal entry really is and a file or directory (which are very useful containers, not at all obsolete) should be made clearer.  Downloads are implicitly files (documents or data if you prefer), not activities.  Often, there is no natural activity for working with a download, or the default activity may be cumbersome or unworkable.  The only workable means for accessing a download that I have discovered is to copy it to a USB or SD device, and then use the command line to manipulate it.  The rudimentary task of managing development files has required me to repeatedly resort to the command line, which I detest, being a primitive legacy of the days in the 1970's when 64kbyte mini-computers ruled.  It should be possible to copy, delete, rename, and execute files from the browser activity.  This is the 21st century after all.
+This is being worked through in a slightly different way as discussed in
+Ticket 574
+.
+The simple task of saving a module created with Pippy into a suitable library directory turns into an ordeal because of these limitations on necessary functionality which ultimately serves not to educate, but to handicap children.
+Please provide a more detailed description of this problem.
+As a final remark, I am very aware that this is not a laptop project, nor is it a developer project, but an education project.  Consider: children get older.  They become more sophisticated.  They begin to desire to express themselves and collaborate in more complicated ways, and engage in more complicated activities, which can not be linearized temporally.  Activity development is just one instance of those possible future activities.  Temporal state saving at the GUI level is a new and useful idea, but it is not sufficient.  Usability will ultimately make or break this project.
+Thank you for your detailed and thoughtful comments.  Sugar Labs is busy implementing many of them, and could use more of your help in implementing these types of ideas. We agree that usability is a paramount success factor—possibly second only to participation.  Join us. --
+FGrose
+04:17, 20 March 2009 (UTC)
+Sugarize Firefox
+It would be greatly appreciated if someone can develop a Sugarized version of Firefox! I don't think the collaboration tools are necessary (since the built in browser already does this), but people keep bringing it up as an issue why they don't like Sugar. Help, someone! That, or add tabs to the browse activity and a better Bookmarking mechanism.
+I use a "sugar coated" version of SeaMonkey; which is a full suite  (browser, email, etc). Might Seamonkey be a better option due to its (as I understand) smaller footprint & greate number of options? --
+User:AuntiMame
+22 May 2008 16:05
+AuntiMame - Can this be added to
+Activities
+where we can compile a list of all available applications, installation instructions, and links to download? --
+Graham
+Can we have installation instructions for SeaMonkey?? --
+Graham
+The Sugar Browser is actually based on the Firefox guts (xulrunner), but the UI has been developed for Sugar. You can find more details
+here.
+There have been many requests, like yours, to improve it by supporting more features that "normal" browsers have. I agree that tabs and bookmarks would be welcome additions and useful for children. --
+Ridderman
+20:53, 22 May 2008 (UTC)
+Point of information for Ridderman but Browse already has bookmarks which work fine.
+Tinker
+05:59, 5 July 2008 (UTC)
+Sugar Control Panel
+I would like to see a GUI control panel... I am discovering new features to customize through terminal, however, a lot of them could be easily accessible through a simple control panel GUI. I think this would help newer users a great deal.
+Date, Time & Timezone
+Language
+User Accounts
+WiFi settings
+Jabber server(s) - ability to input multiple servers for different user groups (schools, cities, countries, etc.).
+Add/Remove Programs
+System Updates
+Desktop GUI settings
+Name SD card and USB media drives, etc.
+Running Linux Applications Under Sugar - A script has been written to Sugar Coat Linux apps to make them run under Sugar desktop (i.e. making them to run in the Sugar interface, without the collaboration and other Sugar integration programmed into them). Can this be made more user-friendly and incorporated into a Sugar Control Panel GUI, to make adding applications easier?
+What else?
+How about also getting latitude and longitude from the "nearby city" selected in the timezone setting dialog? --
+davewa
+19:23, 23 May 2008 (UTC)
+Adding AccessX support -
+AccessX
+allows accessibility enhancements, like sticky keys, mouse keys, repetition speed. It works in Sugar but requires root access to be installed. The Tk config interface doesn't fit well into Sugar, too. --
+Andrea
+16:41, 21 May 2009 (UTC)
+--
+Graham
+This is a great idea, and it's actually already being developed. You can find more details
+here
+or in the sugar mailing lists. I'm not sure whether this will be available for the next Sucrose release, 0.82. --
+Ridderman
+21:02, 22 May 2008 (UTC)
+Ability to turn off/on Jabber in GUI Control panel so multiple users can transfer files and collaborate on a local wireless or wired network
+What is Sucrose, exactly?
+See
+Sucrose
+; which suggests we may want a
+Glossary
+of (un)common terms. --
+Walter
+23:12, 22 May 2008 (UTC)
+Chat (Jabber)
+Ability to add multiple Jabber servers (connect with functionality detailed above) and switch between them in the chat program.
+From Wiki:
+But what if you wish to connect to one of several jabber servers because you belong to several communities/SIGs?  I can live with one-at-a-time, but it would be wonderful if I could pick from a list I've created.  Or at least a list of jabber servers I've previously connected to.  How about a syntax for "choice <n> from file <x>" and "show me choices in file <x>"? -- davewa
+This feature request is being tracked in
+Ticket 587
+Browse
+I cannot copy a link, I can't save a jpg, the Sugar OS changes the filename of a file which it does not recognise, the directory system is hidden, there is no predictive text when typing URL's or usernames, there's no tabbed browsing, there's no cookie, proxy or popup control.
+Browse 100 support copying/downloading images and links. (Wait for the hover menu or use the right mouse button on the object you are interested in.) The other feature requests are being tracked in
+Ticket 591
+.
+Printer Support
+I don't need to detail this very much - it's self evident. Support for generic USB printer drivers, and School Server printing? --
+Graham
+yum install cups
+works out of the box so you can easily add network printers. But printing is not exposed in the Sugar UI. There was work going on at the OSU Open Systems labs... I'll ping them to find out if they have been making headway. --
+Walter
+12:19, 23 May 2008 (UTC)
+Thanks. We await news with baited breath. --
+Graham
+This is being proposed as a
+Google Summer of Code project.
+Support for learning languages
+The Internet provides unprecedented access to materials in many languages, and to speakers of many languages. There are numerous aids to
+learning languages
+, including dictionaries of some languages, textbooks, reference grammars, and flash card software for studying vocabulary and inflections. We need more of this kind of material, and we also need
+Graded materials for language learners, written and spoken
+Text-to-speech with text coloring in the manner of
+SLS
+(in progress)
+Speech recognition
+, including speech-to-text
+Improved translation software
+Software that can carry out grammatical transformations, and create interactive drills on language structure
+Curricula and teaching/learning guides for languages
+These materials fall into the categories of
+Education_Team/language content
+,
+textbooks
+in a more advanced form incorporating software, and
+computational linguistics
+. Information on culture and other aspects of language communities is also essential.
+Support for family interaction
+Would it be possible to add collaborators that are people without laptops? for example my child is 4 and some of the activities need help from me to get her going, if I could put my self in the group view with the  activities that she does with me. When I am invited to play with her then more activities could show, and perhaps the icon in the center of the screen could change slightly to show she is playing with dad or mum?  Again the journal would also note when we were playing together.
+This suggests a wonderful use for the
+Record
+(Camera) Activity. It would also crystallize the concept of a person, apart from a person's laptop. One could start recording people in their life by capturing an image or video of them. Once they register the person in a new registry, the images, videos, and all sorts of events and objects could be associated with the person. Sugar could extend their API to support the integration of real people with the laptop and school network. As you say, the Journal could then become an even more descriptive, connected, and complete learning record, and permit even more advanced learning and collaboration models.  Great suggestion!  --
+FGrose
+18:04, 16 March 2009 (UTC)  I've entered it as a
+Development Team project idea
+. --
+FGrose
+19:00, 16 March 2009 (UTC)
+Better Support for Screencasting
+I have read the
+Activity Screencast page
+.
+training for Soas/ Sugar
+As a teacher with a little technical background, I can say that SoaS will have a lot of trouble getting traction into the schools without a lot more training. That training could easily be generated with Screencasts by volunteers IF screencasting was _better supported_ in SoaS. If screencasting was better implemented students could show, maybe even STREAM their videos, to their teachers, parents, friends and show how SMART they are by letting them make their own movies of same...
+Look at these tutorials on the wiki:--
+Satellit
+12:08, 5 March 2012 (EST)
+How to use Sugar
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/Introduction_to_Sugar_Interface
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/Connecting_to_the_Internet
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/Drag-Drop
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/How_to_use_IRC
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/Backup-restore
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/Send_to_a_friend#Send_file_from_sugar-journal
+Installation
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/liveinst
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/netinstall
+better bug reports
+Furthermore, bug reports become much clearer when recorded _and_ the users knows to pull up the logs too. And the whole process of making a good bug report could be demonstrated in its entirety with a screencast... the vast numbers of users don't know a zillionth of what the devs know or need to know about the bug a user is experiencing... and as most of the users don't speak English, and most devs do, you've got a serious disconnect between what your users need to tell you... enter the 'screencast' and most of the big problem description becomes evident.
+PR for Soas/Sugar
+With more 'evidence' of the coolness of Sugar, people will get excited about SoaS perhaps like what happened around the Phun Physics package...
+Phun
+became one of the physics games of choice, for those without money, because of the tremendous number of naive users/kids producing Phun demonstrations on
+Youtube
+. --
+dgd
+3Aug9
+Embedded Predictive text
+Despite the emphasis on a non text environment there are numerous areas of education that rely on learners writing text.
+The integration of a predictive text system similar to that used in the windows 'Typing Assistant' and  the Co:Writer software used on the specialist hardware text editor the Alpasmart 3000, Alphasmart Neo, and Neo2.
+Such an integration would provide sugar with an environment that would support those with learning difficulties e.g dyslexia and additionally extend the learners vocabulary as such systems give several numbered options to choose from as you type a given word, when the writer sees the word, selecting  with the cursor or typing the number or word then utilises the selected word within the text entry dialog or document.A simple Function key combination switches the system on and off for free typing. --
+dgd
+20Nov2009
+Erikos's recent work on a system-wide spell-checker might be a reasonable model to base such an intervention on. --
+Walter
+14:06, 20 November 2009 (UTC)
+sugar-emulator
+satellit 03/15/2011
+install sugar-emulator with command "sugar-emulator -f" as default
+This would allow sugar emulator to match screen size of hardware it is running on and always be full screen
+alternately provide a modal button on top frame of emulator window to switch to full screen and back at will.
+how to configure full screen
+.
+Chatbot Terminal
+I think it would be very valuable for children to have a terminal emulator that they could have a conversation with, but also one that can teach some useful linux commands.
+Some examples:
+$Hello
+Hi, how are you
+$what is the weather like?
+inside a computer it can be as hot as 150 degrees, but it's only a mild 110 degrees today.  How about where you are?
+$how do I find a file on my computer?
+well, there is a command called 'find' which you can use to find a file by name.  try find / test.txt
+etc.
+The challenge that I face is that the terminal is intimidating in comparison to IOS.  I think a specialized conversation bot could do wonders for making children more comfortable in the CLI
+--
+MPB
+10Dec2012

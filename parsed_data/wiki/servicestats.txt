@@ -1,0 +1,54 @@
+Title: Service/stats
+URL: https://wiki.sugarlabs.org/go/Service/stats
+--------------------------------------------------------------------------------
+Contents
+1
+Hostnames
+2
+Hosted on
+3
+Administrative contact
+4
+Sysadmins
+5
+Notes
+6
+Upgrade notes
+Hostnames
+stats.sugarlabs.org
+Hosted on
+Machine/sunjammer
+Machine/jita
+Machine/pootle
+Administrative contact
+stats AT sugarlabs DOT org
+Sysadmins
+For non-emergency calls, preferably send email to the administrative contact.
+Aleksey Lim
+Notes
+Config
+/etc/apache2/sites-enabled/stats.sugarlabs.org
+/etc/apache2/sites-enabled/jita.sugarlabs.org
+/etc/cron.hourly/awstats
+/etc/cron.daily/awstats
+/etc/logrotate.d/apache2
+/srv/awstats/www/*/awstats.conf
+Requires
+libgeo-ip-perl libnumber-format-perl
+Every stats node collects AWStats data locally for every site it supports. AWStats pages (per site) on every node are available via HTTP from
+/
+SITE
+urls. Slave nodes provides their totals from
+/awstats/total
+urls. Master node (sunjammer), generates totals index for
+stats.sugarlabs.org
+.
+Upgrade notes
+git pull
+on
+/srv/awstats/awstats
+.
+git pull
+on
+/srv/awstats/awstatstotal
+.

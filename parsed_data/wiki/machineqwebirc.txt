@@ -1,0 +1,66 @@
+Title: Machine/qwebirc
+URL: https://wiki.sugarlabs.org/go/Machine/qwebirc
+--------------------------------------------------------------------------------
+Data
+Name
+qwebirc.treehouse.su
+Description
+Development VM for
+QWebIRC
+on port 80
+OS
+Debian
+Squeeze
+Typ
+Virtual Machine
+Location
+housetree
+Service
+template_SERVICE
+Admins
+Stefan Unterhauser
+Monitoring
+munin
+Recipe
+ssh root@housetree 'qemu-img create -f qcow2 /srv/vm/qwebirc.qcow2 20G'
+ ssh root@squeeze 'rm /etc/udev/rules.d/70-persistent-net.rules'
+ ssh root@squeeze 'sed -i "s/squeeze/qwebirc/" /etc/dhcp/dhclient.conf; sync'
+ ssh root@housetree 'virsh suspend template-squeeze'
+ ssh root@housetree 'virt-clone --force -o template-squeeze -f /srv/vm/qwebirc.qcow2 -n qwebirc'
+ ssh root@housetree 'virsh resume template-squeeze'
+ ssh root@squeeze 'sed -i "s/qwebirc/squeeze/" /etc/dhcp/dhclient.conf'
+ ssh root@housetree 'virsh start qwebirc'
+add "qwebirc" to .ssh/config and to treehouse-DNS
+ssh root@qwebirc 'sed -i "s/squeeze/qwebirc/g" /etc/hostname /etc/mailname /etc/hosts /etc/postfix/main.cf'
+ ssh root@qwebirc 'ssh-keygen -N "" -f /etc/ssh/ssh_host_rsa_key -t rsa'
+ ssh-keygen -f ".ssh/known_hosts" -R qwebirc.treehouse.su
+ ssh root@qwebirc 'ssh-keygen -N "" -f /etc/ssh/ssh_host_dsa_key -t dsa'
+ ssh root@qwebirc 'ssh-keygen -N "" -f /root/.ssh/id_rsa -t rsa'
+ ssh root@munin 'sed "s/squeeze/qwebirc/" </etc/munin/munin-conf.d/squeeze >/etc/munin/munin-conf.d/qwebirc'
+ ssh root@qwebirc 'reboot'
+ ssh root@qwebirc 'aptitude install mercurial python-twisted-names python-twisted-mail python-twisted-web python-twisted-words'
+ ssh root@qwebirc 'hg clone
+https://bitbucket.org/qwebirc/qwebirc
+/srv/qwebirc'
+ ssh root@qwebirc 'cd /srv/qwebirc; hg up -C stable; hg pull; hg up'
+ ssh root@qwebirc 'cp /srv/qwebirc/config.py.example /srv/qwebirc/config.py'
+ ssh root@qwebirc 'sed -i "s/myserver.com/oftc.net/" /srv/qwebirc/config.py'
+ ssh root@qwebirc 'sed -i "s/moo.com\//treehouse.su\/gar/" /srv/qwebirc/config.py'
+ ssh root@qwebirc 'sed -i "s/^IDENT\ =\ \"webchat\"$/IDENT\ =\ IDENT_NICKNAME/" /srv/qwebirc/config.py'
+ ssh root@qwebirc 'sed -i "s/foo.foo.org/chat.treehouse.su/" /srv/qwebirc/config.py'
+ ssh root@qwebirc 'sed -i "s/FooNet/Treehouse/" /srv/qwebirc/config.py'
+ ssh root@qwebirc 'sed -i "s/Web IRC/Chat/" /srv/qwebirc/config.py'
+ ssh root@qwebirc 'sed -i "s/moo@moo.com/stefan@unterhauser.name/" /srv/qwebirc/config.py'
+ ssh root@qwebirc 'sed -i "s/#ARGS\ =\ \"-n\ -p\ 3989\"/ARGS\ =\ \"-p\ 80\"/" /srv/qwebirc/config.py'
+ssh root@qwebirc 'sed -i "s///" /srv/qwebirc/config.py'
+ssh root@qwebirc '/srv/qwebirc/clean.py'
+ ssh root@qwebirc '/srv/qwebirc/compile.py'
+ ssh root@qwebirc '/srv/qwebirc/run.py -p 80 -P /srv/qwebirc/qwebirc.pid'
+ssh root@qwebirc 'kill -9 `cat /srv/qwebirc/qwebirc.pid`'
+ssh root@qwebirc
+http://qwebirc.treehouse.su/?channels=treehouse&uio=OT10cnVlJjExPTExMw03
+randomnick=1
+http://qwebirc.treehouse.su/?nick=omen&channels=treehouse&uio=OT10cnVlJjExPTExMw03
+prompt=1
+http://chat.treehouse.su/?channels=treehouse&nick=igod&prompt=1
+http://chat.treehouse.su/?channels=treehouse&nick=igod&prompt=1&port=80

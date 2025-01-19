@@ -1,0 +1,99 @@
+Title: Testing/Reports/Sugar on a Stick Persistence
+URL: https://wiki.sugarlabs.org/go/Testing/Reports/Sugar_on_a_Stick_Persistence
+--------------------------------------------------------------------------------
+Presenting this method to a wider audience is still a work in progress. The working title is
+SoaS Loader
+. You will find a tutorial presentation of this method here
+http://soas-loader.readthedocs.org/
+.
+Limitations may be discussed on the
+talk
+page.
+The starting point is
+a PC, laptop, or netbook
+a clean 2GB or 4GB USB stick to use as the target device.
+a Sugar
+LiveOS image
+to use as the "host" media.
+It does not really matter what operating system you are using. To make your persistent Sugar on a Stick you will
+boot
+your computer with a Sugar LiveOS "host" media, which might be:
+A CD-ROM made from the Sugar.iso available from
+Sugar on a Stick/Downloads
+The CD-ROM could be made from the default CD writing software of your PC.
+A UNetbootin USB as described in
+Sugar on a Stick/Installation Process
+A USB stick written with the Linux command
+dd
+from the Sugar.iso available from
+Sugar on a Stick/Downloads
+,
+sudo dd if=Fedora-Live-SoaS
+version
+.iso of=/dev/sdX bs=8M
+A USB stick written with Nautilus (Files).
+or any other Sugar on a Stick.
+Method
+Boot your computer with the chosen LiveOS media. Once Sugar is running,
+Either
+enter a console with Ctrl+Alt+F2,
+or
+open the Terminal Activity,
+, from the
+Home list View
+.
+Plug a clean 2GB memory stick, the target device, into the PC.
+Run the command,
+df -Th
+to establish the device location.
+extra detail.
+First, running the command `df -Th` before plugging in the target stick, expect output like this:
+
+[root@localhost ~]# df -Th
+Filesystem          Type      Size  Used Avail Use% Mounted on
+/dev/mapper/live-rw ext4      2.9G  2.1G  773M  74% /
+devtmpfs            devtmpfs  2.0G     0  2.0G   0% /dev
+tmpfs               tmpfs     2.0G   72K  2.0G   1% /dev/shm
+tmpfs               tmpfs     2.0G  632K  2.0G   1% /run
+tmpfs               tmpfs     2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/sr0            iso9660   670M  670M     0 100% /run/initramfs/live
+tmpfs               tmpfs     2.0G   32K  2.0G   1% /tmp
+varcacheyum         tmpfs     2.0G     0  2.0G   0% /var/cache/yum
+vartmp              tmpfs     2.0G     0  2.0G   0% /var/tmp
+
+Then, running the command `df -Th` after the target stick is inserted, the command produces an extra line at the bottom:
+
+[root@localhost ~]# df -Th
+Filesystem          Type      Size  Used Avail Use% Mounted on
+/dev/mapper/live-rw ext4      2.9G  2.1G  773M  74% /
+devtmpfs            devtmpfs  2.0G     0  2.0G   0% /dev
+tmpfs               tmpfs     2.0G   72K  2.0G   1% /dev/shm
+tmpfs               tmpfs     2.0G  632K  2.0G   1% /run
+tmpfs               tmpfs     2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/sr0            iso9660   670M  670M     0 100% /run/initramfs/live
+tmpfs               tmpfs     2.0G   32K  2.0G   1% /tmp
+varcacheyum         tmpfs     2.0G     0  2.0G   0% /var/cache/yum
+vartmp              tmpfs     2.0G     0  2.0G   0% /var/tmp
+/dev/sdb1           vfat      1.8G  2.0K  1.8G   1% /run/media/liveuser/SanDisk
+
+The new line reads:
+/dev/sdb1    vfat      1.8G  2.0K  1.8G   1% /run/media/liveuser/SanDisk
+and the first element reports that the target device is represented as /dev/sdb1.
+Write down your target in the format, /dev/sd?1, where ? is likely to be b, c, d or e.
+Unmount the target USB stick - edit to reflect your target:
+umount /dev/sd?1
+For a nominal 2GB stick, enter this command - edit to reflect your target:
+su -c "livecd-iso-to-disk --reset-mbr --overlay-size-mb 500 --home-size-mb 800 --unencrypted-home /run/initramfs/livedev /dev/sd?1"
+Writing the stick will take some time, and when successful will finish by reporting
+"Target device is now set up with a Live image!"
+Your persistent Sugar on a Stick is ready to run.
+Shut down your "host" Sugar LiveOS media system
+and boot the new.
+For a nominal 4GB stick use this command,
+su -c "livecd-iso-to-disk --reset-mbr --overlay-size-mb 1000 --home-size-mb 1600 --unencrypted-home /run/initramfs/livedev /dev/sd?1"
+Maintenance
+The persistent overlay status may be queried by issuing this command on the live system:
+dmsetup status live-rw
+The returned value may look like this:
+live-rw: 0 8388608 snapshot 42296/204800 176
+where the fraction after 'snapshot' for the logical volume is that of 512-byte sectors consumed in the overlay.

@@ -1,0 +1,74 @@
+Title: Features/Host Version
+URL: https://wiki.sugarlabs.org/go/Features/Host_Version
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Using the "hosts" variable in the activity.info file to define the Sugar version for which an activity was designed and tested.
+Owner
+Name:
+Christoph Derndorfer
+Email: christoph AT olpcnews DOT com
+Current status
+Targeted release: 0.86
+Last updated: 2009-07-21
+Percentage of completion: 0%
+Detailed Description
+With 0.86 being on the horizon, 0.84 being used on SoaS, 0.82 being widely used among the G1G1 community and some deployments and many deployment still using pre-0.82 software I think the issue of activity compatibility deserves some serious attention. Otherwise this has the potential to create
+a lot of confusion
+and frustration further down the road (especially with things like the XO-1.5 that supports 3D acceleration on the horizon).
+Not sure what the original plans wrt the technical implemention of this feature were but I would assume the harder part of solving this problem is spreading the word among activity developers to update their .xo bundles accordingly.
+iirc, the original idea was roughly to have a monotonically increasing series of host #s which would define the point in the sugar devolution when the activity was finished and tested, with the idea that a later version of Sugar would be likely to run an older activity but not vice versa. If you are thinking in terms of 'on which of six platforms has this been tested' then this .info field may not be ideally suited to the task.
++sj
++
+Mmm, that's a very good point. Do we want to distinguish just between progressing versions or also between different flavors of the same version?
+ChristophD
+]
+Someone, preferably the activity authors themselves, would need to check activities against the various Sugar versions which are in use and document their findings. This however could also be a nice entry-level task for people who want to start contributing to Sugar.
+Benefit to Sugar
+avoid user confusion as to why some activities might potentially not work on the currently installed OS.
+identify activity developers who don't know about compatibility issues and the importance of testing on specific versions of Sugar (they won't have updated their default .info file)
+Scope
+TBD
+How To Test
+TBD
+User Experience
+Depends on the implementation but one way could be to fail gracefully by showing a warning when an activity that doesn't work on the specific Sugar version is downloaded/run. The warning message could also include information or a link to information on how to update the XO to the latest version.
+Also, the ability to sort a.sl.o activities by host.
+Dependencies
+TBD
+Contingency Plan
+None yet
+Documentation
+None yet
+Release Notes
+TBD
+Comments and Discussion
+See
+discussion tab for this feature
+You can add categories to tie features back to real deployments/schools requesting them, for example [[Category:Features requested by School Xyz]]

@@ -1,0 +1,131 @@
+Title: Sysadmin/Letsencrypt
+URL: https://wiki.sugarlabs.org/go/Sysadmin/Letsencrypt
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+Installation
+3
+Getting a certificate
+4
+Renewing a Certificate
+5
+Sites
+6
+Contact
+Description
+Let’s Encrypt (LE) is a free, automated, and open certificate authority (CA), run for the public’s benefit. It is sponsored by the biggest Internet companies and browsers: Google (Chrome), Mozilla (Firefox), and so on. At the time of writing, LE is in public beta.
+Currently, we have LE installed on
+Machine/freedom
+and
+Machine/sunjammer
+.
+Installation
+We have chosen
+/opt/letsencrypt
+as the base or home directory for the LE client. The LE Client is a fully-featured, extensible client for the Let’s Encrypt CA (or any other CA that speaks the ACME protocol) that can automate the tasks of obtaining certificates and configuring webservers to use them.
+Because there is no a LE package for Ubuntu yet, we must clone the
+letsencrypt-auto
+wrapper script. This script obtains some dependencies from the OS (apt-get) and puts others in a python virtual environment (Pip). The only requirement is Python 2.6 or Python 2.7.
+git clone https://github.com/letsencrypt/letsencrypt
+This client requires root access in order to write to
+/etc/letsencrypt
+,
+/var/log/letsencrypt
+,
+/var/lib/letsencrypt
+; to bind to ports 80 and 443 and to read and modify webserver configurations (for apache or nginx plugins).
+Getting a certificate
+The Let’s Encrypt client supports a number of different
+plugins
+that can be used to obtain and/or install certificates. For the moment, we decided to get the certificates manually and apply the changes to the the web server with a script. We can use the Nginx plugin to automatically obtain and install the certificate but this plugin is still experimental.
+In order to automate the process (of getting the cert), we create a config file for each domain inside the folder
+/etc/letsencrypt/config
+. For example, the config file for www.slo is:
+# We use a 4096 bit RSA key instead of 2048
+rsa-key-size = 4096
+
+email = sysadmin@sugarlabs.org
+domains = sugarlabs.org, www.sugarlabs.org
+
+authenticator = webroot
+
+# This is the webroot directory of your domain in which
+# letsencrypt will write a hash in /.well-known/acme-challenge directory.
+webroot-path = /srv/www-sugarlabs/
+The LE validation server must have access to the domain (port 80) of which we want to get the certificate. In order to validate that the server control the domain, the LE CA will issue one or more sets of challenges. For example, provisioning an HTTP resource under a well-known URI. Usually, the resource requested will be located at
+/.well-known/acme-challenge
+under the webroot folder of the requested site.
+In Nginx, we can define how to process a specific request with the location directive. Be sure to add the following lines to the server block inside Nginx:
+location '/.well-known/acme-challenge' {
+        root /srv/www-sugarlabs/;
+    }
+To get the certificate using the previous config file, we must execute the following command:
+/opt/letsencrypt/letsencrypt-auto certonly --config /etc/letsencrypt/config/sugarlabs.org.ini
+All generated keys and issued certificates can be found in
+/etc/letsencrypt/live/sugarlabs.org/
+.
+The same process can be applied for getting certs for other domains: 
+(1) create a subdomain.domain.tld config file,
+(2) define the well-know resource and,
+(3) request the certificate.
+NOTE
+: We had to comment out our CAA records in the DNS in order to obtain the certificates. CAA records forbids LE to issue certificates for a domain.
+Renewing a Certificate
+Let’s Encrypt CA issues short lived certificates (90 days). In order to automate the renewal, we everyday automatically execute a script which checks the expiration day for every certificate and requests the renewal 15 days before the expiration day (this value is tweakable). After renewing the cert, the script reload the Nginx config.
+#!/bin/bash
+
+LE_CERTS='/etc/letsencrypt/live'
+LE_CONFIG_PATH='/etc/letsencrypt/config'
+LE_BIN='/opt/letsencrypt/letsencrypt-auto'
+WEB_SERVER='nginx'
+EXP_LIMIT=15
+
+for config in $(ls $LE_CONFIG_PATH/*.ini); do
+   domain=$(basename "$config" .ini)
+   DATE_NOW=$(date -d "now" +%s)
+   EXP_DATE=$(date -d "`openssl x509 -in $LE_CERTS/$domain/cert.pem -text -noout | grep "Not After" | cut -c 25-`" +%s)
+   EXP_DAYS=$(( (EXP_DATE - $DATE_NOW) / 86400 ))
+   if (( $EXP_DAYS < $EXP_LIMIT )) ; then
+        echo "The certificate for $domain is about to expire soon. Starting renewal..."
+        $LE_BIN certonly --renew-by-default --config $config
+        echo "Reloading $WEB_SERVER"
+        /usr/sbin/service $WEB_SERVER reload
+        echo "Renewal process finished for $domain"
+   else
+        echo "The certificate for $domain is up to date, no need for renewal ($EXP_DAYS days left for renewal)."
+   fi
+done
+The script is named
+renew-letsencrypt.sh
+and is located in
+/usr/local/bin
+Sites
+The sites currently with a LE SSL certificate are:
+bugs.sugarlabs.org
+bundlebin.sugarlabs.org
+developer.sugarlabs.org
+freedom.sugarlabs.org
+help.sugarlabs.org
+hook.sugarlabs.org
+nagios.sugarlabs.org
+socialhelp.sugarlabs.org
+sugarlabs.org
+turtleartday.org
+use-socialhelp.sugarlabs.org
+vote.sugarlabs.org
+download.sugarlabs.org
+ldap.sugarlabs.org
+lists.sugarlabs.org
+munin.sugarlabs.org
+musicblocks.sugarlabs.org
+people.sugarlabs.org
+static.sugarlabs.org
+sunjammer.sugarlabs.org
+turtle.sugarlabs.org
+wiki.sugarlabs.org
+weblate.sugarlabs.org
+Contact
+Samuel
+, scg on #sugar on Freenode.

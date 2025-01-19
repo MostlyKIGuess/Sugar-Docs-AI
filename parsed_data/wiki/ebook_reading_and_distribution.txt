@@ -1,0 +1,117 @@
+Title: Ebook Reading And Distribution
+URL: https://wiki.sugarlabs.org/go/Ebook_Reading_And_Distribution
+--------------------------------------------------------------------------------
+Contents
+1
+Overview
+1.1
+The Idea
+1.2
+The Need
+1.3
+Goals
+2
+People Contributing To The Discussion
+3
+Desired Features
+3.1
+On The User Side
+3.2
+On The Hosting Side
+3.3
+Distribution
+4
+Collaborating Activities, Software & Hardware
+4.1
+Activities: E-Book Accessibility & Viewing
+4.2
+Software: File Hosting & Distribution
+4.3
+Hardware: File Storage & Hosting
+5
+Progress
+5.1
+Milestones
+5.1.1
+What To Get From Where?
+5.2
+Notes
+Overview
+The overall premise of this effort is to produce a streamlined, unified system to enable XO users to access and view electronic books.
+The Idea
+It goes without saying that reading is a crucial tool for a child's development; the OLPC program provides the means to provide the world's poorest children with an infinite supply of books; I came up with this idea after realizing that there exists no easy way for a XO user to accomplish this.
+The Need
+While there are several projects related to the concept of file distribution and document reading in the works, the methods and goals between them don't totally line up eye-to-eye, and as a result there are several considerable obstacles standing in the way of the XO offering competent and feature-rich e-book accessibility.
+Goals
+The endgame here is to create a multi-lateral solution which utilizes features from numerous existing projects and software to not only allow easy access to and viewing of e-books on the user end, but to provide an infrastructure for the uploading, cataloguing and hosting of e-books for the purpose of creating clear channels of communication between online e-book sources (including XS servers and online archives) and XO users. This can best be accomplished with participation from the authors of the Activities and software which ideally will be used in this project, in a collaborative effort with myself and other students enrolled in RIT's OLPC course. Ideally, this project will provide a use for our XS server as part of the ebook hosting solution.
+In the long-term, I hope that the solution we end up with becomes part of the default set of Activities included on every XO.
+In the far future, with a solid distribution framework in place the OLPC team could begin talking with textbook publishers to arrange for hosting of digital textbooks for use by teachers who otherwise don't have access to/can't afford printed textbooks for their students.
+People Contributing To The Discussion
+Mike DeVine
+- Project Lead
+Sayamindu Dasgupta
+- Creator of Read Activity
+Martin Langhoff
+Samuel Klein
+Brendan Luchen
+Desired Features
+On The User Side
+An easy-to-use reader Activity which allows a user to navigate the e-books on his/her XO, open and read them. This Activity should ideally contain features similar to those found in dedicated e-reader OSes: bookmarking, annotations, chapter selection, different view options, and especially "Tablet Mode" compatibility for user input.
+An Activity which enables the user to go online, access a central repository of e-books as well as the various third-party repositories, browse and search using metadata tags for refining results, and download desired files to his/her XO.
+On The Hosting Side
+Service should include as much metadata as possible for tagging purposes.
+Multiple file formats are available, and it seems wise to integrate compatibility for as many as possible; which formats make the most sense to integrate into our applications?
+Epub supports a large amount of metadata and has been widely adopted, it seems like a no-brainer format to include.
+PDF files are powerful and contain plenty of metadata, but can be rather large, and aren't very flexible for different resolutions (so displaying on the XO could be an issue, although several reader Activities do support them)
+Mobipocket(MOBI and PRC) is a powerful format and supports SQL queries to use with databases.
+HTML files are larger but offer the formatting capabilities of a website, and many other formats use html files for each chapter compressed into one file along with other relevant files (images, stylesheets, etc.)
+TXT files leave a very small footprint and have broad compatibility, however they contain no formatting or metadata (I might be wrong about that, though)
+Open eBook(OPF) is an XML-based format from E-book Systems. It's a legacy version of Epub.
+DJVU is designed to hold scanned images so it's ideal for e-books, but contains almost no metadata.
+Distribution
+An easy-to-use interface that allows XO users to browse, access and download e-book files, and other parties to upload to a central location, as well as from third-party repositories.
+It has been suggested that there should be various points of entry to a central directory structure, including:
+A directory to upload e-books into via Moodle - For teachers to
+upload new e-books that they may have downloaded or obtained via sneakernet.
+The XS scans USB sticks that you plug in for certain directories- and if the content matches what the XS expects, then they are imported. This works for activity bundles, etc. Adding support for an 'ebooks'
+directory is easy.
+Collaborating Activities, Software & Hardware
+Activities: E-Book Accessibility & Viewing
+Several existing document reader Activities contain various combinations of the desired features outlined above:
+The default
+Read
+Activity, developed by
+Sayamindu Dasgupta
+, is compatible with most e-book file formats, has support for Tablet Mode. What it lacks is a user interface which allows younger users to easily browse through their collection of e-books on their XO. It also lacks a book retrieval mechanism; its sole purpose is the viewing of documents.
+Get Internet Archive Books
+(Git Repository)
+is capable of retrieving books from multiple repositories, with only minor changes to the code required.
+Read Etexts
+is an Activity which started as a generic text file reader for Project Guttenberg files and has grown to include a built-in catalog of tens of thousands of Project Guttenberg's books.
+On the book retrieval side, could also possibly use RIT student
+Justin Lewis
+'
+File Share Activity
+?
+Software: File Hosting & Distribution
+Could possibly use Justin Lewis'
+File Share Server
+?
+OPDS
+catalogs seem to be the ideal way to go when it comes to a directory system. The Get Books Activity supports OPDS, as does the Internet Archive which the Get Internet Archive books Activity uses. (Does File Share Server support OPDS?)
+OPDS combined with support for the OpenSearch API on the server side seems to be an ideal setup, as it enables remote searches without requiring local caches, and also avoids large downloads.
+Sayamindu's proposed a workflow that proceeds thusly:
+1. Have a specified directory on the file system which is crawled periodically via cron.
+2. If a new file is found, metadata is extracted either from the file, or from an external CSV file which is also found at a fixed location (CSV so that deployments can use any spreadsheet software while adding books.)
+3. Once metadata is obtained successfully the file is added to the index. The index is then generated into OPDS catalogs, which can be queried from any XO to the XS.
+Hardware: File Storage & Hosting
+The XS server at RIT would ideally serve as part of the e-book hosting solution
+Progress
+Milestones
+What To Get From Where?
+At this point, my main process has been to figure out which components in existing projects can be best utilized. On the user end, there's a lot of functionality overlap between Activities, as well as a lot of gaps in each Activity's feature-set. The hosting and distribution side are much less saturated with projects, though what options do exist seem to already be capable of being utilized for our purposes. Sweet. So the toughest questions that need to be asked concern the user-end:
+What's the best way to integrate the desired features from each of these Activities? Attempt to splice some code or start from scratch?
+If we're not starting from scratch, which Activitie(s) will be the ones chosen to receive the code "updates"? In other words, which Activity is farthest along already and is most malleable in terms of adding features?
+Notes
+(1/15/2010) Filled in most of the Wiki page; started some Discussion topics to hopefully gather more ideas. (Mike DeVine)
+(1/14/2010) As of now, still collecting feedback and gauging interest in the project. (Mike DeVine)

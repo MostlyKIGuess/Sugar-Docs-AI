@@ -1,0 +1,104 @@
+Title: Features/Text To Speech In The Toolkit
+URL: https://wiki.sugarlabs.org/go/Features/Text_To_Speech_In_The_Toolkit
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Activities using TTS
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+Sugar have a global text to speech feature, you can select any text and do TTS with the device in the frame or with a keystroke.
+But activities also do TTS for specific cases. Some activities doing it are Clock, Read, Memorize or Write.
+There are a lot of code copied in every activity to implement it.
+Owner
+Name:
+Gonzalo Odiard
+Email: godiard at sugarlabs.org
+Current status
+Targeted release: 0.104
+Last updated: 2014-07-18
+Percentage of completion: 0%
+Detailed Description
+These are the functionalities needed by the activities
+say(text,[voice], [pitch], [rate])
+voice, pitch and rate are optionals, if not set use the default values configured.
+Return a id to enable pause and stop
+We will need some type of notification when the TTS finished playing. In this way we can change the state of buttons, and start a new text,
+by example when have long texts, we can send it by parts.
+pause(id)
+stop(id)
+get_languages()
+Return array of translated language names (to show in the UI),
+and the voice name related in the backend.
+get_voice(lang)
+lang is a language code
+Return the best voice name available for the language.
+Activities using TTS
+Clock
+say the time in the default voice
+Memorize
+user can select the language and the game say text in the selected voice.
+games based on Art4apps do TTS if a sound file is not available.
+Read
+The user can select a languages from a list and make the activity do TTS on the text using that voice
+The user can pause and stop
+Speak
+The user can select a languages from a list, pitch and rate, and make the activity do TTS on the text using that voice
+The user can pause and stop
+Story
+TurtleBlocks
+Write
+The user can select a languages from a list and make the activity do TTS on the text using that voice
+The user can pause and stop
+Benefit to Sugar
+Easier implementation of TTS in activities. Right now, there are a lot of code,
+usually implementing TTS with more than one backend, and with code copied from other activities.
+Faster startup of activities. Initialize gstreamer takes a substantial time.
+Scope
+What work do the developers have to accomplish to complete the feature in time for release?  Is it a large change affecting many parts of the distribution or is it a very isolated change? What are those changes?
+UI Design
+Does the feature have a direct impact on the work flow, or does it need a UI? Link here mockups, or add detailed descriptions.
+How To Test
+Features/Text To Speech In The Toolkit/Testing
+User Experience
+If this feature is noticeable by its target audience, how will their experiences change as a result?  Describe what they will see or notice.
+Dependencies
+What other packages (RPMs) depend on this package?  Are there changes outside the developers' control on which completion of this feature depends?  In other words, does your feature depend on completion of another feature owned by someone else or that you would need to coordinate, which might cause you to be unable to finish on time?  Other upstream projects like Python?
+Contingency Plan
+If you cannot complete your feature by the final development freeze, what is the backup plan?  This might be as simple as "None necessary, revert to previous release behaviour."  Or it might not.  If your feature is not completed in time, we want to assure others that other parts of Sugar will not be in jeopardy.
+Documentation
+Is there upstream documentation on this feature, or notes you have written yourself?  Has this topic been discussed in the mailing list or during a meeting? Link to that material here so other interested developers can get involved.
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+Link to the discussion of this feature on lists.sugarlabs.org
+See
+discussion tab for this feature

@@ -1,0 +1,252 @@
+Title: User:Alsroot/trash/Object Bundles
+URL: https://wiki.sugarlabs.org/go/Features/Object_Bundles
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+METADATA file
+5
+Benefit to Sugar
+6
+Scope
+6.1
+Implementation
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+package Journal objects to bundles to preserve sugar related metadata
+support composite Journal objects e.g. in case of library bundles instead of having .xol in Journal and unpacked files in ~/Library, all library files will be represented by one Journal entry, could be opened in Browse(
+[Metadata]/mime_type
+should be text/html for that purpose) and could be transformed back to .xo on demand(e.g. for uploading library in Browse's pick-file field).
+Object Bundles exist only out of sugar (after uploading to the Journal .xo will be removed)
+Owner
+Name:
+Aleksey Lim
+Email:
+send an email
+Current status
+Targeted release:
+Last updated: Mon Jul 27 05:31:42 UTC 2009
+Percentage of completion: 75%
+Detailed Description
+This feature is a first approach to unified format for all types of bundles(in 0.86 it will support only Journal entries and new library bundles).
+Object bundle should have
+METADATA
+file in the top directory of .xo bundle.
+METADATA file
+This file is in
+INI
+format which describes how to setup bundle.
+Object bundle can be installed to Journal in two forms.
+Each file from bundle as separate Journal entry
+files from bundle will be unpacked and installed as separate Journal entries, bundle itself will be removed(similar to .xoj)
+final Journal entries can have
+activity
+field, so they are regular Journal entries that imported to Journal(w/o
+activity
+field) or created by activities(with
+activity
+field)
+METADATA
+should contain
+[Entry]
+sections for each Journal entry
+if bundle has more then one entry, sections should be parted by different suffixes e.g.
+[Entry2]
+,
+[Entry.additional]
+etc.
+Composite Journal entry
+bundle will be installed as a composite object i.e. as a directory of packaged to the bundle files that are represented by one Journal entry
+final Journal entry can't have
+activity
+field
+METADATA
+should contain only one
+[Bundle]
+section
+METADATA file can have one or several sections(depends on installation method) that describe metadata fields of final entry(ies) in Journal.
+Field
+Flags
+Notes
+entry
+mandatory
+if bundle is composite,
+entry
+defines access point to composite object (e.g. index.html for library bundles);
+otherwise it defines file which will be installed to Journal
+mime_type
+mandatory
+define metadata for final Journal entry
+uid
+ignored
+*
+optional
+any
+system
+,
+users predefined
+and arbitrary Datastore field
+Any field in
+METADATA
+file can have
+_file
+suffix, in that case content of this field(substring w/o
+_file
+suffix) will be fetched from file inside of the bundle.
+Benefit to Sugar
+This feature is a first approach to unified format for all types of bundles.
+Current implementation is similar to
+.xoj
+bundles except that:
+it uses INI format instead of json(to make it more user-editing friendly)
+any field's value could fetched from file inside of the bundle
+supports multi-object bundles
+Scope
+deprecate .xol bundles
+deprecate
+.xoj
+bundles
+provide unified format for metadata file in .xo bundles which should support
+activities, former .xo bundles (0.88)
+libraries, former .xol bundles (0.86)
+journal entries, former .xoj bundles (0.86)
+make Browse upload object bundles when the server says so
+in an ideal implementation, composite feature should come from Datastore, but since DS has been extensively hacked in 0.86-0.88 cycles, for the first time, it could be a part of shell code
+Implementation
+sugar
+sugar-toolkit
+Browse
+Example of PHP code which could be used on server side to unpack object bundles to get metadata (like title, description, preview etc.)
+require_once('Archive/Zip.php');
+
+function rmtree($dir) {
+   $dir = "$dir";
+
+   if ($dh = opendir($dir)) {
+       while (FALSE !== ($item = readdir($dh))) {
+           if ($item != '.' && $item != '..') {
+               $subdir = $dir . '/' . "$item";
+               if (is_dir($subdir))
+                   rmtree($subdir);
+               else
+                   unlink($subdir);
+           }
+       }
+       closedir($dh);
+       rmdir($dir);
+   }
+}
+
+function unbundle($bundle) {
+   $zip = new Archive_Zip($bundle);
+
+   $tmpdir = tempnam('/tmp', 'sugar');
+   if (file_exists($tmpdir))
+       unlink($tmpdir);
+   if (!mkdir($tmpdir)) {
+       return null;
+   }
+
+   $out = $zip->extract(array('add_path' => $tmpdir, 'by_name' => array('METADATA')));
+   if (empty($out)) {
+       rmtree($tmpdir);
+       return null;
+   }
+
+   $metadata = parse_ini_file($out[0]['filename'], true);
+   if (!$metadata) {
+       rmtree($tmpdir);
+       return null;
+   }
+
+   $result = array();
+
+   foreach ($metadata as $section => $items) {
+       if (!(substr($section, 0, 5) == 'Entry' || $section == 'Bundle'))
+           continue;
+       foreach ($items as $name => $value) {
+           if (substr($name, -5) == '_file') {
+               $name = substr($name, 0, -5);
+
+               $out = $zip->extract(array('add_path' => $tmpdir, 'by_name' => array($value)));
+               if (empty($out)) {
+                   rmtree($tmpdir);
+                   return null;
+               }
+
+               $value = file_get_contents($tmpdir.'/'.$value);
+           }
+           $result[$name] = $value;
+       }
+       break;
+   }
+
+   rmtree($tmpdir);
+   return $result;
+}
+
+// example usage of unbundle() function
+
+$bundle = 'foo.xo';
+$metadata = unbundle($bundle);
+
+if (!$metadata)
+   echo 'Can not open '.$bundle."\n";
+else
+   foreach ($metadata as $name => $value)
+       echo $name.'='.$value."\n";
+How To Test
+How to test non-composite objects:
+Create a new TurtleArt activity
+Upload the new entry to the SL wiki using Browse
+Use Browse to download the entry back to Journal
+Resume it from Journal
+How to test composite object (unfortunately
+#1101
+prevents uploading bundles with library to wiki):
+Download any .xol bundle
+Activate it(it should be opened in Browse)
+Upload Journal entry with library to SL wiki using Browse
+Download .xo with library and open it
+User Experience
+We could have HTTP servers(see
+Features/Server Objects Sharing
+) that request .xo files, in that case Browse will provide object bundle for chosen(in ObjectChooser) Journal entry otherwise Browse will upload raw Journal entries.
+Dependencies
+Fructose dependencies.
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+Email thread
+Unified Bundles
+Unified Objects
+Journal entry bundles
+Bundle concepts
+MANIFEST specification
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+See
+discussion tab for this feature

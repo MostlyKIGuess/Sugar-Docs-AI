@@ -1,0 +1,87 @@
+Title: Supported systems/Technical considerations
+URL: https://wiki.sugarlabs.org/go/Supported_systems/Technical_considerations
+--------------------------------------------------------------------------------
+Important:
+The content of this page or section is outdated.  If you have checked or updated this page or section and found the content to be suitable, please remove this notice.
+This article is a
+stub
+. You can help Sugar Labs by
+expanding it
+.
+Contents
+1
+Integration
+2
+Applications
+3
+Packaging
+4
+Software stacks
+5
+Vendor customization
+6
+Engineering support
+7
+Community involvement
+8
+Content
+9
+Design proposals
+There are a number of technical considerations for providing Sugar support.
+Integration
+Sugar is designed to be started as a desktop option
+alongside Gnome and KDE rather than a plain "start menu"
+application.  This means that we should consider a "switch
+desktop" function if it is a requirement to ship multiple environments.
+Applications
+In order to provide a consistent environment,
+Sugar activities need to implement a number of custom APIs to
+access documents and perform collaborative work over the
+network.  There is some degree of interoperability with
+ordinary GNU/Linux applications (which needs improvement),
+but "sugarizing" software is really the only way to provide
+a nice user experience for little children.  This doesn't
+imply duplicating all code: our Browse activity is really
+a thin shell around Firefox's engine.
+Packaging
+At this time, we have alpha-quality packages
+for Fedora, Debian and Ubuntu.  Seamless integration would
+require additional packaging work, especially for the
+networking features.  Packaging Sugar for other distributions would be
+done in collaboration; see
+Packaging Team
+, appropriate contacts within those communities are welcome to join.
+Software stacks
+Sugar is based on quite a different set
+of components than the native PC desktop.  Most code is
+written in Python and uses Cairo and GTK as its UI library.
+However, we also have a few activities written in C++,
+Small Talk and even C#, using disparate software stacks.
+If you are already supporting GTK based applications, 
+the footprint of Sugar should be reasonably small.
+Vendor customization
+Sugar is moving to become an upstream
+project with respect to hardware and software distributors.
+We are glad to accept vendor-specific contributions back in
+our codebase, subject to peer review and a general usefulness
+criteria.
+Engineering support
+We are aware that Sugar still requires
+much more engineering work to polish the user interface,
+stabilize the codebase, and complete missing features.  Since
+we started the Sugar Labs, we have already
+attracted fresh volunteers.  But we'd appreciate hardware
+vendors (and others) assigning resources to work with us and make things happen
+faster.
+Community involvement
+We are in contact with several government
+organizations and grassroots groups which adopt laptops for
+primary education.  They might want to run pilots using a
+variety of hardware in their respective countries. We are happy to assist
+in this process.
+Content
+We are also looking for localized open content. Industry partners
+might be able to help here.
+Design proposals
+We'd appreciate feedback and marketing input
+from hardware manufacturers (and others) to enhance our environment.

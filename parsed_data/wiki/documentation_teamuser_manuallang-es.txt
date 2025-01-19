@@ -1,0 +1,311 @@
+Title: Documentation Team/User Manual/lang-es
+URL: https://wiki.sugarlabs.org/go/Documentation_Team/User_Manual/lang-es
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+This page serves as a historical reference until it is restructured by a new Documentation Team. (Volunteers needed.)
+english
+|
+español
+HowTo
+[ID# 99636]
+Contents
+1
+Como usar Sugar
+1.1
+Usando la Interfaz
+1.1.1
+¿Donde esta el escritorio?
+1.2
+Usando las actividades
+1.2.1
+¿Qué es una actividad?
+1.2.2
+Empezando una actividad
+1.2.3
+Instalando y eliminando actividades
+1.3
+Personalizando la interfaz
+1.3.1
+Cambiando el nombre XO's y los colores del entorno de Sugar
+1.3.2
+Cambiando "Imagen de usuario XO"
+1.3.3
+Cómo ajustar la hora y zona horaria
+1.3.4
+Cómo establecer la zona horaria en mi portátil
+1.4
+Control de Volumen
+1.4.1
+Desactivar el sonido de arranque
+1.5
+Tomando capturas de pantalla
+2
+Sistema de Red y Comunicaciones
+2.1
+Conexión a Redes Inalámbricas
+2.2
+Conexión a servidores Jabber
+2.3
+Charla vía IRC
+2.4
+OLPC/Sugar como Servidor Web
+3
+Instalando Sugar
+4
+Desarrollando para Sugar
+5
+Vea También
+Como usar Sugar
+Usando la
+Interfaz
+¿Donde esta el escritorio?
+Sugar es un entorno de escritorio distinto a lo que normalmente se utiliza en Windows, Apple OS X Linux u otros sistemas operativos. Lo primero que ve un niño, por lo tanto, no es un disco duro o una papelera, son otros niños en el "vecindario." La metáfora más cercana al escritorio de sugar es la vista de hogar: donde el usuario puede ver las actividades que está utilizando actualmente y accede al diario, que actúa como un historial de uso y permite al usuario acceder a archivos que vió o aplicaciones que ejecutó anteriormente.
+Sugar is a different desktop environment to what is normally used in Windows, Apple's OS X or other Linux operating systems. The first thing that a child sees, therefore, is not a hard disk or a trash can — it’s the other children in the “neighborhood.” Sugar's closest desktop metaphor is the Home view: where the user can see what Activities they are currently using and access the Journal, which acts as a history of usage and allows the user to access files they viewed or applications they ran previously.
+Usando las actividades
+¿Qué es una actividad?
+Los programas que se ejecutan usando Sugar se llaman Actividades. Porque? Porque Sugar, es una desviación de la metáfora del escritorio para la computación, es el primer intento serio de crear una
+interfaz
+de usuario que se base en el
+constructivismo
+tanto cognitivo como social: un entorno donde los alumnos deben comprometerse en una auténtica exploración y colaboración en el acto de aprendizaje.
+The program that you run using Sugar are called Activities. Why? Because Sugar, in its departure from the desktop metaphor for computing, is the first serious attempt to create a
+user interface
+that is based on both cognitive and social
+constructivism
+: an environment where learners engage in authentic exploration and collaboration in the act of learning.
+Empezando una actividad
+Instalando y eliminando actividades
+Instalando actividades usando el navegador
+Instalando/eliminando actividades usando la terminal
+Instalando/eliminando aplicaciones de Linux
+Instalando el "revestimiento" Sugar para aplicaciones Linux
+Aplicaciones de Windows
+Installing Sugar Activities Using Browse
+Installing/Removing Sugar Activities Using Terminal
+Installing/Removing Linux Applications
+Installing Sugar Coated Linux Applications
+Windows Applications
+Personalizando la interfaz
+Cambiando el nombre XO's y los colores del entorno de Sugar
+Tu nombre XO's y otras opciones pueden cambiarse usando la línea de comando
+Sugar-Control-Panel
+en la
+Actividad Terminal
+.
+Your XO's Nickname and other options can be changed using the
+Terminal Activity
+'s command line
+Sugar-Control-Panel
+.
+Cambiando "Imagen de usuario XO"
+Para cambiar la imagen de usuario XO, La imagen central del escritorio (con las aplicaciones solicitadas a su alrededor), tu debes seguir estos pasos:
+Crear el icono
+Primero hay que hacer una imagen y guardarla como un SVG (Scalable Vector Graphics), con el nombre computer-xo.svg. Existen instrucciones sobre cómo hacerlo
+en el wiki de OLPC
+.
+Transferir imagen a la computadora
+- Copia computer-xo.svg a una memoria USB o tarjeta SD y conéctala a tu OLPC o computadora.
+Instalarla
+- Abre una terminal y escribe los siguientes comandos para hacer una copia de seguridad el icono original y copia del nuevo icono en la ubicación correcta:
+su -l
+cp /usr/share/icons/sugar/scalable/device/computer-xo.svg /usr/share/icons/sugar/scalable/device/computer-xo.svg.bak
+cp /media/<your usb or sd>/computer-xo.svg /usr/share/icons/sugar/scalable/device/computer-xo.svg
+Ahora cierra la terminal y pulsa Ctrl+Alt+Suprimir.
+Ejemplo de icono modificado:
+To change the XO Guy, the symbol in the middle of the Home view (with applications opening around him/her), you have to follow a few steps:
+Create An Icon
+- You first have to make an icon image and save it as an SVG (Scalable Vector Graphics) file with the name computer-xo.svg. Probably on your Mac or Windows machine. There are instructions on how to do this
+on the OLPC wiki
+.
+Transfer It To Your Computer
+- Copy computer-xo.svg to a USB or SD card and plug it into your OLPC or computer.
+Install it
+- Open Terminal and type the following commands to back-up the original icon and copy your new icon into the correct location:
+su -l
+cp /usr/share/icons/sugar/scalable/device/computer-xo.svg /usr/share/icons/sugar/scalable/device/computer-xo.svg.bak
+cp /media/<your usb or sd>/computer-xo.svg /usr/share/icons/sugar/scalable/device/computer-xo.svg
+Now close terminal and press Ctrl,Alt,Erase.
+Example of modified icon:
+Restablecer el icono original
+Para restablecer computer-xo.svg y usar el original, abre una terminal y escribe:
+su -l
+cp /usr/share/icons/sugar/scalable/device/computer-xo.svg.bak /usr/share/icons/sugar/scalable/device/computer-xo.svg
+rm /usr/share/icons/sugar/scalable/device/computer-xo.svg.bak
+Fuente:
+http://olpcnews.com/forum/index.php?topic=2157.0
+{{{1}}}
+Cómo ajustar la hora y zona horaria
+Tu puedes configurar la fecha y la hora de la siguiente manera:
+Conectar a Internet. (Para más detalles, véase
+Conectándose a Internet
+)
+Abra una terminal de Linux. (Para más detalles, véase
+Como accedo a una línea de comandos Linux
+Tenga en cuenta que a menos que usted sea un usuario avanzado, usted debe usar el botón de de la actividad terminal para abrir la misma.)
+Iniciar sesión como "root". Asumiendo que estás utilizando la actividad Terminal, puedes acceder al sistema como root tecleando "su -" en la línea de comandos y pulsando la tecla Enter. Tenga en cuenta que como usuario "root" tiene la capacidad de destruir todo el software en el XO, por lo que cuando cambie la fecha y la hora, salga de la sesión root.
+En la línea de comandos, escriba los siguientes comandos:
+/usr/sbin/ntpdate time.nist.gov
+/usr/sbin/hwclock --systohc
+Pulsa la tecla Enter después de cada comando. En respuesta al comando ntpdate, en el caso de que se sincronice con éxito el horario oficial del servidor, el sistema le mostrará en una línea de datos la fecha y hora correctas.
+haz clic en el icono "Detener"
+25px
+en la esquina superior derecha de la pantalla para salir y cerrar la actividad terminal.
+You may set the date and time as follows:
+Connect to the Internet. (For details, see
+Documentation Team/User Manual/Connecting to the Internet
+)
+Open a Linux prompt. (For details, see
+How do I access a Linux command prompt?
+Note that unless you are an advanced user, you should use the Terminal Activity button to open the prompt.)
+Log in as "root". Assuming you are using the Terminal Activity program, you can log in as root by typing "su -" at the command prompt and pressing the Enter key. Note that as user "root" you have the ability to destroy all software on the XO, so you should end your session as soon as you successfully change the date and time.
+At the command prompt, enter the following commands:
+/usr/sbin/ntpdate time.nist.gov
+/usr/sbin/hwclock --systohc
+Press the Enter key after each. In response to the ntpdate command, if it successfully contacts this US government official time server, the system will output a line of data displaying the correct date and time.
+Click the "Stop" icon
+25px
+at the upper right corner of the screen to log out and close the Terminal Activity program.
+Cómo establecer la zona horaria en mi portátil
+Puede configurar la zona horaria escribiendo el comando
+Sugar-Control-Panel
+en la
+Actividad Terminal
+.
+You can set the timezone by typing the
+Sugar-Control-Panel
+command in the
+Terminal Activity
+.
+Control de Volumen
+Desactivar el sonido de arranque
+Baje el volumen, mientras que el portátil arranca (es decir, antes de entrar en Sugar).
+Turn the volume down while the laptop is booting (i.e. before getting into Sugar).
+Tomando capturas de pantalla
+Para tomar una captura de pantalla, teclear Alt+1, al mismo tiempo y almacenela en su diario.
+To take a screen shot, typing Alt+1 at the same time will take one and store it in your journal.
+Sistema de Red y Comunicaciones
+Conexión a Redes Inalámbricas
+En cierta medida, el sistema de red es específico para la plataforma sobre la cual Sugar se está ejecutando.
+En el portátil XO-1 , hay tres formas de conectarse a la Internet:
+Punto de acceso inalámbrico (WiFi hotspot);
+"Servidor de Escuela" red en malla, o
+"Sencilla" red en malla, que le permite colaborar directamente con otros XOs.
+Lee
+Conectandose a internet
+para obtener instrucciones detalladas.
+To some degree, networking is specific to the platform upon which Sugar is running.
+On the XO-1 laptop, there are three ways to connect to the Internet:
+Wireless access point (WiFi hotspot);
+“School Server” mesh network; or
+“simple” mesh network, which lets you collaborate directly with other XOs.
+Read
+Documentation Team/User Manual/Connecting to the Internet
+for detailed instructions.
+Conexión a servidores Jabber
+Los servidores Jabber permiten que los usuarios de Sugar puedan interactuar, jugar y colaborar entre sí en el entorno de Sugar.
+Jabber servers allow Sugar users to interact, play and collaborate with each other in the Sugar environment.
+Aunque el OLPC se ha diseñado con mallas de redes inalámbricas, (donde los usuarios pueden conectarse el uno al otro sin tener un router inalámbrico conectado a Internet), Los usuarios de Sugar de todo el mundo no puede ser capaz de conectar su XO con otras personas que utilizan la plataforma a menos que sea a través de la Internet, la creación de redes de malla se basa en una concentración de usuarios (por ejemplo, en un aula, la escuela o entorno empresarial).
+While the OLPC is designed with mesh wireless networking built in (where users can connect to each other without having a central wireless internet router/connection), Sugar users around the world may not be able to connect with others using the platform unless it's through the Internet, since mesh networking relies on a concentration of users (for example, in a classroom, school or business environment).
+Las redes Jabber de Sugar conectan a los usuarios unos con otros con el fin de charlar, interactuar y colaborar. Hay redes Jabber mundiales, o regionales, hospedadas por organizaciones y particulares de todo el mundo. Usted puede elegir la red Jabber a la que desee conectar. Conectar Sugar a una de estas redes aumentará en gran medida su experiencia de uso con sugar.
+Jabber networks link Sugar users to each other in order to chat, interact and collaborate. There are global Sugar Jabber networks, or regional ones hosted by organizations and individuals around the world. You can choose whichever Jabber network you wish to connect to. Connecting Sugar to one of these networks will greatly enhance your Sugar experience.
+Conexión a redes Jabber
+-
+Como conectar Sugar a una red Jabber
+Lista de redes Jabber
+-
+Una lista de redes Jabber al rededor del mundo
+Creación de un servidor Jabber
+- Para crear un servidor Jabber para tu ciudad, región, país, lee
+Como crear un Servidor Jabber
+Connecting to Jabber Networks
+-
+How to connect Sugar to a Jabber network
+List of Jabber Networks
+-
+Community Jabber servers
+Creating a Jabber Server
+- To host a Jabber server for your city, region, country or interest read
+How to Create a Jabber Server
+Charla vía IRC
+Instalar la actividad XoIRC
+y conectar con otros usuarios Sugar/OLPC y entusiastas de Internet y chatear con ellos en tiempo real. XoIRC utiliza un sistema llamado
+IRC
+.
+Install the XoIRC activity
+and connect with other Sugar/OLPC users and enthusiasts on the internet and chat with them in real time. XoIRC uses a system called
+IRC
+.
+Está predeterminado para una "sala" llamada #olpc-help, pero también se puede entrar en otras salas escribiendo
+/join #sala
+donde
+sala
+es el nombre de la sala en la que desea ingresar.
+It defaults to a "room" called #olpc-help, but you can also enter other rooms by typing
+/join #room
+where
+room
+is the name of the room you wish to join.
+Algunos otros canales IRC de Sugar/OLPC están enumerados
+aquí.
+Some other Sugar/OLPC IRC chatrooms are listed
+are listed here.
+OLPC/Sugar como Servidor Web
+Abra el Terminal y escriba lo siguiente para instalar Boa (aprox. 100k)
+su -
+yum -y install boa
+Ahora ponga su index.html en /var/www
+Encuentre su dirección IP del Computador/XO con Sugar. Aun como usuario root (habiendo introducido ya su-), digite en el Terminal:
+ifconfig
+Mire junto a eth0 por 192.168.lo_que_sea (por ejemplo)
+Vaya a otra máquina en su LAN y escriba en su navegador la dirección IP de su computador/XO con Sugar. Su computador con Sugar esta sirviendo una página web!
+Open Terminal and type the following to install Boa (approx. 100k)
+su -
+yum -y install boa
+Now put your index.html in /var/www
+Find your Sugar Computer/XO's IP Address. Still as root user (having entered su- already), enter into Terminal:
+ifconfig
+Look next to eth0 for 192.168.whatever (for example)
+Go to another machine on your LAN and type your Sugar Computer/XO's IP Address into your browser.  There's your Sugar computer serving up a web page!
+Instalando Sugar
+Instalando Sugar
+(sobre varias plataformas)
+Instrucciones de Sugar
+, arrancando y empezando con sugar
+Installing Sugar
+(on various platforms)
+Sugar Instructions
+, booting and getting started with Sugar
+Desarrollando para Sugar
+Construyendo la XO: Presentando Sugar - Red Hat Magazine 2007-02-23
+Contruir
+desde las fuentes, y
+empezar
+.
+Leer las
+directrices
+de la Interacción Humana
+Obtener una visión general de la
+arquitectura
+Escriba
+su propia Actividad
+Echa un vistazo a la biblioteca de
+fragmentos de código
+Entendiendo el código de Sugar
+Vea una lista de
+actividades
+y especificaciones de Sugar.
+Repositorio de fuentes de Sugar
+Actuales tickets de trac, organizados por categoría
+.  La lista de pendientes (TODO list).
+Planificación
+{{{1}}}
+Vea También
+Glosario
+de términos de Sugar
+Documentation Team/Glossary
+of Sugar terms

@@ -1,0 +1,64 @@
+Title: Archive/Current Events/2011-06-12
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2011-06-12
+--------------------------------------------------------------------------------
+Sugar Digest
+1. I was in Brussels last week to attend
+TedxKids@Brussels
+. I have to admit that I was not very anxious to make yet another trip across the Atlantic Ocean, but I had made a commitment to run a workshop for roughly 50 ten-year-old children, whose parents would be attending the Tedx lectures. (My former colleague at MIT, Dan Ariely has done some nice studies on “time discounting” that explain why is it easy to make such commitments far in advance while dreading them when the actual event is just around the corner.)
+While I was not at all surprised that I would enjoy working with the children—we spent an intense 45 minutes exploring Turtle Blocks—I was very pleasantly surprised at the quality of the program overall. One speaker after another demonstrated some tangible aspect of Constructionist learning (although few actually referred to Papert et al.). The children built sensors, did 3-D printing, build robots, programmed, wrote music, and generally had a blast.
+Here are a couple of examples of what the kids did:
+TedxKids
+TedxKids
+While I was impressed by how far the children got in such a short time, I continue to struggle with how to make the experience of debugging paramount. Too often I have seen children using graphical programming environments just pushing around blocks in a rote manner to achieve some visual effect but with little understanding of how things work such that they can make systemic changes.
+I was inspired to write a simple Turtle Blocks example that incorporates sensor input in a way that requires little if any calibration, hence it is readily accessible to newbie programmers and gives them lots of places in the code in which they can make meaningful interventions.
+[[0, ["start", 2.0], 766, 0, [null, 1]],
+[1, "forever", 766, 42, [0, 26, null]],
+[2, "repeat", 827, 270, [9, 3, 24, null]],
+[3, ["number", 80], 877, 270, [2, null]],
+[4, ["vspace", 0], 891, 456, [20, 5]],
+[5, "forward", 891, 498, [4, 8, 6]],
+[6, "right", 891, 540, [5, 7, 11]],
+[7, ["number", 91], 949, 540, [6, null]],
+[8, "box1", 961, 498, [5, null]],
+[9, "storeinbox1", 827, 228, [21, 10, 2]],
+[10, ["number", 10], 945, 228, [9, null]],
+[11, "storeinbox1", 891, 582, [6, 14, null]],
+[12, ["number", 10], 1063, 624, [14, null]],
+[13, "box1", 1063, 582, [14, null]],
+[14, ["plus2", 0], 1009, 582, [11, 13, 12]],
+[15, ["division2", 0], 996, 414, [20, 19, 18]],
+[16, "setcolor", 891, 372, [24, 17, 20]],
+[17, "heading", 969, 372, [16, null]],
+[18, ["number", 100], 1074, 456, [15, null]],
+[19, "volume", 1050, 414, [15, null]],
+[20, "setpensize", 891, 414, [16, 15, 4]],
+[21, ["fillscreen", 0], 827, 144, [26, 22, 23, 9]],
+[22, ["number", 60], 913, 144, [21, null]],
+[23, ["number", 80], 913, 186, [21, null]],
+[24, "wait", 891, 330, [2, 25, 16]],
+[25, ["number", 0.25], 949, 330, [24, null]],
+[26, ["setxy2", 0], 827, 60, [1, 27, 28, 21]],
+[27, ["number", 0], 885, 60, [26, null]],
+[28, ["number", 0], 885, 102, [26, null]]]
+I also wrote
+a simple sample program
+(including in Turtle Blocks Version 108) that emulates some basic Scratch functionality in Turtle Blocks: animating a character sprite across a background image. The idea is to reveal the underlying mechanics of a typical Scratch experience. My hope is that it will make less opaque some of the black-box-like operators so popular in Scratch. I still struggle with the question of how to entice teachers and students to embrace programming through simple modifications to the programs they are using, which brings me to the next topic.
+2. I cleaned up my patches to the
+Sugar View-source mechanism
+: (1) Sugar platform source code can be viewed through the same mechanism as Sugar activity code; and (2) the source code can be copied to create an end-user modifiable version of any Sugar activity.
+The Sugar source code simply appears along side the activity source code, under a second radio button on the View Source toolbar.
+The copy function is invoked through a secondary menu available under the activity radio button on the View Source toolbar.
+At the suggestion of Ana Cichero and with help from Manuel Quiñones I modify the icon of the local copy of an activity so that it is readily apparent which version is the one to be modified by the end user.
+I am still a bit up in the air regarding how to best enable the actual modifications. I am considering adding a file chooser to the Edit activity in order to facilitate writeable access to the source directly from Sugar (without having to open the Terminal activity).
+My bigger conundrum is in regard to modifying the Sugar platform source. While it is as easy to modify as activity code, the consequences of making a mistake can be dire: Sugar could break in ways that prevent it from launching. One idea I am toying with is adding a prompt on start up to select which version of Sugar to run (from the system or from $HOME). Note: I'd only issue the prompt if a copy of Sugar was found in $HOME.
+Try out my patches, which were sent to the
+sugar-devel list
+. Further feedback would be appreciated.
+Sugar Labs
+Gary Martin has generated a SOM from the past few weeks of discussion
+on the IAEP mailing list.
+2011 May 28th–June 3th (57 emails)
+2011 May 21th–27th (34 emails)
+Visit our planet
+[1]
+for more updates about Sugar and Sugar deployments.

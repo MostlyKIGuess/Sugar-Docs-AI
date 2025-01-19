@@ -1,0 +1,39 @@
+Title: PyCaveExplorer
+URL: https://wiki.sugarlabs.org/go/PyCaveExplorer
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+Structure and Gameplay
+3
+Current Status
+4
+Resources and Links
+5
+Contacts
+Description
+This project is designed to teach children basic electronics by having them explore randomly generated, grid-based caves. The goal is to create a lit path from the starting tile to the goal tile by placing lights, batteries, and connecting pieces of wire. The base educational goal is to teach how simple circuits work, along with the differences between series and parallel circuits, and the relationship between a power source and the number of things connected to it.
+Structure and Gameplay
+The game was prototyped with ActionScript, then developed in Python with PyGame.
+Gameplay will consist of the player being dropped on a randomly constructed map, then navigating to the goal tile with the arrow keys. The player may freely navigate through path-type squares, but not through wall-type squares. To complete the level, the player needs to have a lit path from the start to the goal.
+There are also treasures scattered randomly throughout the level that the player can collect for some kind of bonus.
+Each grid tile is normally darkened and its contents hidden from view, but may be illuminated by either having a light placed inside it (which will completely light the square) or by being adjacent to a tile with a light inside of it (which will half illuminate the square). At the start of the level, the only squares that are completely lit are the starting square, and the square the player is currently in; the player must place lights in order to illuminate any other squares, in order to complete the path from the start to the goal.
+The player can place batteries, lights, and wire onto any path-type squares in order to illuminate and connect them together. One line of wire to a light counts as a series circuit, while two count as a parallel circuit. Connecting too many lights in series will deplete the battery and cause them to go out, while you can have a much higher amount of lights connected in parallel to any one battery. Connecting multiple batteries together in series and parallel will also effect how many lights can be connected to them, but this relationship is yet to be determined.
+The player will start each level with a limited number of batteries and lights, but have an unlimited amount of wire. The player's score for the level is determined by how many moves it took to complete the level, along with the number and type of supplies that they have left. In order to get a better score, players will have to figure out the advantages to using both types of circuits, along with paying close attention to where they are placing the objects.
+Current Status
+The game automatically generates grids until it has one that satisfies three conditions: it contains a starting square, a goal square, and a path connecting the two.
+All tiles, their contents, and shadows over them are drawn correctly.
+For debugging purposes, the user can hit Enter to regenerate the grid.
+There is a constant for setting the minimum start-to-goal path length, but it is not forced.
+For further and more up-to-date information, check the Git repository.
+Resources and Links
+Git Repository
+Contacts
+Jennifer Dziuba
+,
+on GitHub
+TJ Miller,
+on GitHub
+David Gay,
+on GitHub

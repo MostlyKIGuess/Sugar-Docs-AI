@@ -1,0 +1,82 @@
+Title: Features/Journal Volume Toolbar enhancement
+URL: https://wiki.sugarlabs.org/go/Features/Journal_Volume_Toolbar_enhancement
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+The VolumesToolbar class in volumetoolbar.py should be extended so that Sugar activities can "mount" directories containing example projects, e.g., the samples subdirectory in Turtle Art. Thus samples will be available through the Sugar Chooser rather than having to use the GNOME file chooser.
+Owner
+Name:
+Walter Bender
+Email: Walter --AT-- sugarlabs.org
+Current status
+Targeted release: 0.94
+Last updated:
+Percentage of completion: 0%
+Detailed Description
+We've never full resolved how to handle example projects. For example, Turtle Art comes bundled with a few dozen examples. It would be considered spam to copy these examples into the user's Journal so they are not accessible through the Sugar Chooser. So typically, sample programs are either selected through a standard file chooser or else loaded into a Tree View (see Pippy). The proposed feature would simply mount a directory containing sample directory onto the volumestoolbar so that they would be accessible through the standard Sugar Chooser. The mounting would happen at activity launch. At activity close, the directory would be removed.
+Benefit to Sugar
+It is often the case that examples are not found accessible by our end-users. By adding them to the standard Chooser, they would be more readily accessible.
+Scope
+The change would be isolated to adding two new methods to the VolumesToolbar class and then utilizing those methods to mount and unmount volumes from individual activities. The latter can be done incrementally.
+UI Design
+Does the feature have a direct impact on the work flow, or does it need a UI? Link here mockups, or add detailed descriptions.
+How To Test
+Features/Journal Volume Toolbar enhancement/Testing
+User Experience
+If this feature is noticeable by its target audience, how will their experiences change as a result?  Describe what they will see or notice.
+Dependencies
+What other packages (RPMs) depend on this package?  Are there changes outside the developers' control on which completion of this feature depends?  In other words, does your feature depend on completion of another feature owned by someone else or that you would need to coordinate, which might cause you to be unable to finish on time?  Other upstream projects like Python?
+Contingency Plan
+If you cannot complete your feature by the final development freeze, what is the backup plan?  This might be as simple as "None necessary, revert to previous release behaviour."  Or it might not.  If your feature is not completed in time, we want to assure others that other parts of Sugar will not be in jeopardy.
+Documentation
+Is there upstream documentation on this feature, or notes you have written yourself?  Has this topic been discussed in the mailing list or during a meeting? Link to that material here so other interested developers can get involved.
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+See
+discussion tab for this feature
+<walterbender>	also, icons for accessing the file system vs the journal
+<walterbender>	the TA examples all live in the file system
+<gonzalo>	access the file system? what is this? :)
+<walterbender>	oh. sorry. I forgot. just say no to file systems
+<gonzalo>	may be we can add a parameter to the object chooser to open a specific directory
+<gonzalo>	hmm, is a good idea :)
+<walterbender>	maybe... an activity could mount some directories while it is opened.
+<walterbender>	and then close them upon exit
+* walterbender	is liking that idea, actually
+<gonzalo>	but we do not need mount them, we only need say to ObjectChooser, open this directory too
+<gonzalo>	and show it like any other mounted device
+<gonzalo>	probably we will need set a order, iy you want select examples, don't want the object chooser open in the cjournal and later change to examples directory
+<walterbender>	mount is not the right word. but added to the journal volumes toolbar
+<gonzalo>	walterbender: ahh, ok
+<walterbender>	seems like a really simple way to accomplish a lot.

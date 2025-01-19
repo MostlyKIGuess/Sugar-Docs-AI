@@ -1,0 +1,151 @@
+Title: Talk:SoaS/Testing/Soas2-200903301015
+URL: https://wiki.sugarlabs.org/go/Talk:SoaS/Testing/Soas2-200903301015
+--------------------------------------------------------------------------------
+VirtualBox 2.2.0b2 on Vista64 host
+NAT networking works
+yum install failed:
+bash-4.0$ su -
+[root@localhost ~]# yum install dkms gcc make binutils glibc-headers glibc-devel kernel-headers kernel-devel
+rawhide/metalink                                                          | 7.5 kB     00:00     
+rawhide                                                                   | 3.4 kB     00:00     
+rawhide/primary_db                                                        | 8.2 MB     00:11     
+sugar                                                                     | 1.0 kB     00:00     
+sugar/primary                                                             | 9.8 kB     00:00     
+sugar                                                                                      30/30
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package binutils.i586 0:2.19.51.0.2-17.fc11 set to be updated
+---> Package dkms.noarch 0:2.0.19.1-2.fc11 set to be updated
+---> Package gcc.i586 0:4.4.0-0.31 set to be updated
+--> Processing Dependency: libgomp = 4.4.0-0.31 for package: gcc
+--> Processing Dependency: cpp = 4.4.0-0.31 for package: gcc
+--> Processing Dependency: libgcc >= 4.4.0-0.31 for package: gcc
+--> Processing Dependency: cloog-ppl >= 0.15 for package: gcc
+---> Package glibc-devel.i586 0:2.9.90-11 set to be updated
+---> Package glibc-headers.i586 0:2.9.90-11 set to be updated
+---> Package kernel-devel.i586 0:2.6.29-21.fc11 set to be installed
+---> Package kernel-headers.i586 0:2.6.29-21.fc11 set to be updated
+---> Package make.i586 1:3.81-15.fc11 set to be updated
+--> Running transaction check
+---> Package cloog-ppl.i586 0:0.15-0.4.gitad322.fc11 set to be updated
+--> Processing Dependency: libppl_c.so.2 for package: cloog-ppl
+--> Processing Dependency: libppl.so.7 for package: cloog-ppl
+---> Package cpp.i586 0:4.4.0-0.31 set to be updated
+---> Package libgcc.i586 0:4.4.0-0.31 set to be updated
+---> Package libgomp.i586 0:4.4.0-0.31 set to be updated
+--> Running transaction check
+---> Package ppl.i586 0:0.10-11.fc11 set to be updated
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=================================================================================================
+ Package                 Arch            Version                          Repository        Size
+=================================================================================================
+Installing:
+ binutils                i586            2.19.51.0.2-17.fc11              rawhide          3.4 M
+ dkms                    noarch          2.0.19.1-2.fc11                  rawhide           92 k
+ gcc                     i586            4.4.0-0.31                       rawhide          8.8 M
+ glibc-devel             i586            2.9.90-11                        rawhide          994 k
+ glibc-headers           i586            2.9.90-11                        rawhide          632 k
+ kernel-devel            i586            2.6.29-21.fc11                   rawhide          6.1 M
+ kernel-headers          i586            2.6.29-21.fc11                   rawhide          825 k
+ make                    i586            1:3.81-15.fc11                   rawhide          482 k
+Installing for dependencies:
+ cloog-ppl               i586            0.15-0.4.gitad322.fc11           rawhide           88 k
+ ppl                     i586            0.10-11.fc11                     rawhide          1.6 M
+Updating for dependencies:
+ cpp                     i586            4.4.0-0.31                       rawhide          3.7 M
+ libgcc                  i586            4.4.0-0.31                       rawhide           90 k
+ libgomp                 i586            4.4.0-0.31                       rawhide           77 k
+
+Transaction Summary
+=================================================================================================
+Install     10 Package(s)         
+Update       3 Package(s)         
+Remove       0 Package(s)         
+
+Total download size: 27 M
+Is this ok [y/N]: y
+Downloading Packages:
+(1/13): libgomp-4.4.0-0.31.i586.rpm                                       |  77 kB     00:00     
+(2/13): cloog-ppl-0.15-0.4.gitad322.fc11.i586.rpm                         |  88 kB     00:00     
+(3/13): libgcc-4.4.0-0.31.i586.rpm                                        |  90 kB     00:00     
+(4/13): dkms-2.0.19.1-2.fc11.noarch.rpm                                   |  92 kB     00:00     
+(5/13): make-3.81-15.fc11.i586.rpm                                        | 482 kB     00:00     
+(6/13): glibc-headers-2.9.90-11.i586.rpm                                  | 632 kB     00:00     
+(7/13): kernel-headers-2.6.29-21.fc11.i586.rpm                            | 825 kB     00:00     
+(8/13): glibc-devel-2.9.90-11.i586.rpm                                    | 994 kB     00:01     
+(9/13): ppl-0.10-11.fc11.i586.rpm                                         | 1.6 MB     00:01     
+(10/13): binutils-2.19.51.0.2-17.fc11.i586.rpm                            | 3.4 MB     00:04     
+(11/13): cpp-4.4.0-0.31.i586.rpm                                          | 3.7 MB     00:04     
+(12/13): kernel-devel-2.6.29-21.fc11.i586.rpm                             | 6.1 MB     00:07     
+(13/13): gcc-4.4.0-0.31.i586.rpm                                          | 8.8 MB     00:10     
+-------------------------------------------------------------------------------------------------
+Total                                                            681 kB/s |  27 MB     00:40     
+Running rpm_check_debug
+Running Transaction Test
+Finished Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Installing     : kernel-devel                                                             1/16 
+  Installing     : kernel-headers                                                           2/16 
+  Updating       : libgcc                                                                   3/16 
+  Updating       : libgomp                                                                  4/16 
+install-info: No such file or directory for /usr/share/info/libgomp.info.gz
+  Installing     : ppl                                                                      5/16 
+  Installing     : cloog-ppl                                                                6/16 
+install-info: No such file or directory for /usr/share/info/cloog.info
+  Installing     : binutils                                                                 7/16 
+install-info: No such file or directory for /usr/share/info/as.info
+install-info: No such file or directory for /usr/share/info/binutils.info
+install-info: No such file or directory for /usr/share/info/gprof.info
+install-info: No such file or directory for /usr/share/info/ld.info
+install-info: No such file or directory for /usr/share/info/standards.info
+install-info: No such file or directory for /usr/share/info/configure.info
+  Updating       : cpp                                                                      8/16 
+install-info: No such file or directory for /usr/share/info/cpp.info.gz
+  Installing     : make                                                                     9/16 
+install-info: No such file or directory for /usr/share/info/make.info.gz
+  Installing     : glibc-headers                                                           10/16 
+  Installing     : glibc-devel                                                             11/16 
+install-info: No such file or directory for /usr/share/info/libc.info.gz
+  Installing     : gcc                                                                     12/16 
+install-info: No such file or directory for /usr/share/info/gcc.info.gz
+  Installing     : dkms                                                                    13/16 
+  Cleanup        : libgomp                                                                 14/16 
+  Cleanup        : cpp                                                                     15/16 
+  Cleanup        : libgcc                                                                  16/16 
+
+Installed:
+  binutils.i586 0:2.19.51.0.2-17.fc11              dkms.noarch 0:2.0.19.1-2.fc11                 
+  gcc.i586 0:4.4.0-0.31                            glibc-devel.i586 0:2.9.90-11                  
+  glibc-headers.i586 0:2.9.90-11                   kernel-devel.i586 0:2.6.29-21.fc11            
+  kernel-headers.i586 0:2.6.29-21.fc11             make.i586 1:3.81-15.fc11                      
+
+Dependency Installed:
+  cloog-ppl.i586 0:0.15-0.4.gitad322.fc11                 ppl.i586 0:0.10-11.fc11                
+
+Dependency Updated:
+  cpp.i586 0:4.4.0-0.31        libgcc.i586 0:4.4.0-0.31        libgomp.i586 0:4.4.0-0.31       
+
+Complete!
+[root@localhost ~]# mkdir /mnt/cdrom
+[root@localhost ~]# mount /dev/sr0 /mnt/cdrom/
+mount: block device /dev/sr0 is write-protected, mounting read-only
+[root@localhost ~]# cd /mnt/cdrom/
+[root@localhost cdrom]# ./VBoxLinuxAdditions-amd64.run 
+Verifying archive integrity... All good.
+Uncompressing VirtualBox 2.2.0_BETA2 Guest Additions for Linux installation.........................................................................................................................................................................................................................
+VirtualBox 2.2.0_BETA2 Guest Additions installation
+Detected unsupported x86 environment.
+[root@localhost cdrom]# ./VBoxLinuxAdditions-x86.run 
+Verifying archive integrity... All good.
+Uncompressing VirtualBox 2.2.0_BETA2 Guest Additions for Linux installation.........................................................................................................................................................................................................................
+VirtualBox 2.2.0_BETA2 Guest Additions installation
+Please install the build and header files for your current Linux kernel.
+The current kernel version is 2.6.29-16.fc11.i586
+Problems were found which would prevent the Guest Additions from installing.
+Please correct these problems and try again.
+[root@localhost cdrom]#

@@ -1,0 +1,23 @@
+Title: 0.118
+URL: https://wiki.sugarlabs.org/go/0.118
+--------------------------------------------------------------------------------
+Overview
+Sugar 0.118 is a new version of Sugar, released on December 16th, 2020. It is a maintenance-only release, containing bugfixes for several critical regressions, introduced in 0.117, as a result of the Python 3 porting efforts. Release 0.118 also includes some limited documentation improvements, and will be included in Fedora SoaS (Sugar on a Stick) 34
+Issues fixed in 0.118
+Port to Python 3 - apisocket.py
+apisocket.py implements a communication channel between a Sugar Web activity and the Sugar shell and Journal. It is an important part of Sugar.
+Fixed Python3 TypeError: Object of type DBusException is not JSON serializable
+Fix DBusException using Moon activity
+Moon activity makes multiple datastore API calls within one second, and the file used to store the data is named by the second of the epoch, such that one API call clashes with another.
+Port to Python 3 - remove use of WebKit1
+The WebKit1 API is not available for Python 3.
+Use bytes for SSIDs, fix regression introduced in aa18879 ("Port to Python 3")
+SSIDs are passed to D-Bus as a ByteArray, which causes several errors, among which are "string argument without an encoding".
+Fix AttributeError in Random Favorites View
+ix filesystem preview read
+preview_path is a binary file. Binary file was being read as text. Regression introduced by aa18879 ("Port to Python 3").
+Notes
+Additional information available at
+http://lists.sugarlabs.org/archive/sugar-devel/2020-December/058842.html
+https://github.com/sugarlabs/sugar/releases/tag/v0.118
+https://github.com/sugarlabs/sugar/compare/v0.117...v0.118

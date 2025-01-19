@@ -1,0 +1,57 @@
+Title: Archive/Current Events/2009-08-11
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2009-08-11
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Help wanted
+3
+In the community
+4
+tech talk
+5
+Sugar Labs
+Sugar Digest
+1. As Caroline Meeks and I are wrapping up the Sugar-on-a-Stick summer programs, it has been a time to reflect upon what we have learned and what challenges face us in September (Many thanks to Greg, Anurag, Jennifer, et al. for their help). The goal of our pilots was to identify any issues we might face with a school-wide rollout of Sugar on a Stick and to work through many unknowns regarding the logistics of deployment.
+We learned a great deal, e.g., replication of custom keys: be sure to remove any owner keys in the .sugar/default directory before copying. And we experimented with a number of different workflows regarding how to prepare for a class: use USB extension cables if possible; preload helper boot CDs; have the children turn on their computers and then gather for a discussion of the lesson plan while the machines are booting; have a cache of hot spares since some USB devices inevitably will not boot (more on this in a moment); have the children shutdown the computers and then gather for a wrap-up discussion while the machines power off; etc. And we uncovered some bugs in our sharing logic (See my post from last week); and experienced some issues regarding robustness of the USB images.
+It is this latter topic that was the subject of much debate on the Sugar mailing lists this week and which I would like to touch upon today.
+While we did experience some "failures", given the circumstances, we were not able to do a very systemic analysis of the situation. We know that some sticks fail to boot and some have corrupted user data. We don't have an actionable characterization of the circumstances under which these problems occur.
+James Cameron summed up the situation:
+If any state is preserved by the children on the USB sticks, and there is no copy of the state kept elsewhere, and there is a possibility of power failure, premature removal, or other interruptions, then every software component that uses the saved state must be either capable of detecting corruption of the saved state, or graceful recovery from apparently invalid state.
+Meeting this challenge is not trivial; the more clarity we can bring to the use cases, the more likely we will be able to engineer solutions.
+In the meanwhile, we need to: experiment with more USB manufacturers; be more careful about characterizing the different failure modes; do some workflow experiments to see if we can minimize failures; try different file formats; and come up with simple and robust backup/restore mechanism so that we can end run failures.
+Greg Dekoenigsberg has suggested we take advantage of
+Fedora Test Days
+to put a more rigorous analysis together. But we need a testing plan which means we need to first come to consensus on what it is we are trying to test.
+Variables include:
+Which Sugar-on-a-Stick image is being tested?
+What customizations have been made?
+What process was used to create the USB device?
+What size and brand of device is being tested?
+What hardware the device is being tested on?
+What is the nature of the failure? (no boot, corrupted data, etc.?)
+What was the history of use prior to failure?
+Let's get a plan together and take advantage of this generous offer from the Fedora community.
+2. Jeff Elkner reports that Jamie Boisture completed his summer project: using GASP with 15 middle-school summer-enrichment students, and it worked wonderfully! Jamie also submitted a merge request with Pippy to have GASP included in Pippy. (Jamie was sponsored by Jeff in a program modeled after Google Summer of Code. We should try to do more such programs.
+Help wanted
+3. It is not too late to sign up as a
+candidate
+for the Sugar Oversight Board. Also, please add yourself to the
+Membership List
+if you are not already listed.
+In the community
+4. Werner Westermann reported that "Patricio Acevedo left the audience shocked after
+presenting Sugar
+in the 2nd Innovation Workshop: The Creative Teacher, held in the Metropolitan Educational University, in Santiago, Chile." It was the first official activity of the newly formed Sugar Labs Chile.
+5.
+Squeakfest USA
+is next week in Los Angeles.
+tech talk
+6. Sebastian Dziallas announced the availability of a new
+SoaS snapshot
+that includes the latest Sugar Release 0.85.3. It is a developer release--any testing would be greatly appreciated.
+Sugar Labs
+7. Gary Martin has generated a SOM from the past week of discussion on the IAEP mailing list (Please see
+SOM
+).

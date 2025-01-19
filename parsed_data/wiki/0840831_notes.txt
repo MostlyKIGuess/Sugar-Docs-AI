@@ -1,0 +1,216 @@
+Title: 0.84/0.83.1 Notes
+URL: https://wiki.sugarlabs.org/go/0.84/0.83.1_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.83.1 Release Notes
+1.1
+Announcement
+1.2
+Thanks
+1.3
+Compatibility
+1.4
+Glucose modules
+1.5
+Glucose news
+1.5.1
+sugar-toolkit
+1.5.2
+sugar
+1.5.3
+sugar-artwork
+1.5.4
+sugar-base
+1.5.5
+sugar-datastore
+1.5.6
+sugar-presence-service
+1.5.7
+etoys
+1.6
+Fructose modules
+1.7
+Fructose news
+1.7.1
+read-activity
+1.7.2
+chat-activity
+1.7.3
+browse-activity
+1.7.4
+terminal-activity
+1.8
+Fructose dependencies
+1.9
+Fructose dependencies news
+1.9.1
+hulahop
+Sucrose 0.83.1 Release Notes
+Announcement
+This is our first Development Release in the 0.84
+cycle
+. The code base has seen many refactoring efforts to improve the platform. To improve performance several heavy shell dependency have been dropped and the journal and the shell service has been merged into the shell. Furthermore the datastore has been rewritten, to simplify and improve maintainability. The API
+has been kept in place.
+Sugar moved to use Gconf as a back end to store the profile. An ABI policy has been figured out and modules have been marked as STABLE / UNSTABLE / DEPRECATED.
+Some enhancements have been made to the clipboard to provide visual consistency with the Sugar environment. And of course many many bugs have been fixed, which you can see in detail below.
+Thanks
+To everyone for bearing with us and keeping up the good work in this new release cycle!
+Compatibility
+When you upgrade a computer running an earlier version,
+The old datastore will be updated to the new format.
+Your old profile (in
+.sugar/default/config
+) will be imported into GConf
+If you later downgrade from Sucrose 0.83.1 to an earlier version,
+The datastore is incompatible
+You will be prompted to enter all your profile settings like you are on first boot
+Most of the activities in Sucrose 0.83.1 should be compatible with Sucrose 0.82 , the version shipped with OLPC Release 8.2.0.  An exception is Browse, which depends on new versions of XULRunner and Hulahop.  Read likewise may soon depend on a new version of Evince
+Glucose modules
+sugar-toolkit 0.83.1
+sugar 0.83.1
+sugar-artwork 0.83.1
+sugar-base 0.83.1
+sugar-datastore 0.83.0
+sugar-presence-service 0.83.1
+etoys 3.0.2160
+Glucose news
+sugar-toolkit
+Mark modules as STABLE/UNSTABLE/DEPRECATED
+#8420
+Failure to handle 404 in ChunkedGlibHTTPRequestHandler
+#7649
+Activities needs to access sugar-toolbox's members directly
+#8617
+Clipboard scroll buttons icons point left/right, should point up/down
+#8604
+Tray control should support highlight on drag
+#8840
+Can't join shared activity
+#8674
+8.2-764, Software Update erased complete /home/olpc/Activities directory
+#8626
+Icons overlap unnecessarily in crowded neighborhood view.
+#8563
+Sugar Palette doesn't handle 'table menus'.
+#8532
+SIGCHLD fights with threads.
+#8485
+Shell navigation leaks
+#8375
+gst usage in the shell wastes 2.6mb
+#8394
+sugar shell leaks presence service info
+#8469
+palette.menu is leaked
+#8394
+sugar shell leaks presence service info
+#8392
+Remove "dynamic" font height computation
+#5428
+downloads not starting in Browse due to old compreg.dat
+#7999
+7+% of shell startup time is spent in `grab' of sugar._sugarext.KeyGrabber
+#8000
+Pulsing icon on activity launch significantly slows activity start-up
+#7270
+setup release does not update the bundle number
+#7959
+gettext translations slows journal's scrolling
+#7733
+Cannot install Wikipedia-10.xo
+#7533
+Activity does not respond to ctrl-q keyboard shortcut unless the 'Activity' tab is visible
+sugar
+Modularized the shell to have every major UI component like the frame the home view and the control panel reside in his own module and be self contained
+Use gconf as a backend to store the profile.
+Several heavy shell dependency have been dropped.
+Merge of the journal and of the shell service into the shell
+#5867
+"Battery fully charged" shows up in error (battery is removed)
+#8623
+Jabber server description is ambiguous
+#8900
+Should re-request closed random views
+#7545
+Should request random activities/buddies to populate the mesh view
+#5751
+Clipboard objects need meaningful labels.
+#8606
+Dragging within the clipboard creates duplicate clippings
+#7408
+Cursor lock while dragging icons in Home (or anywhere)
+#8604
+Tray control should support highlight on drag
+sugar-artwork
+Ensure that all common drag operations use a sugar cursor
+Generate two themes based on SUGAR_SCALING
+#8779
+Merge sugar-artwork patches from debian package.
+#8778
+allow prelightning of buttons
+sugar-base
+Add dispatcher implementation from django
+Mark modules as STABLE
+sugar-datastore
+The datastore has been rewritten, to simplify and improve maintainability. As a first step the API was not changed at all (other than removing removable devices support), so that the new implementation was swapped in without changes to activities and Sugar.
+Drop for now the management of removable devices inside the DS. Removable devices support in Sugar should happen without intervention from the DS.
+#8155
+The datastore should hard link identical files, to handle repeated downloads of the same content without filling up NAND.
+#4662
+Support arbitrary metadata properties that activities wish to add
+#6269
+Degrade gracefully if a database gets corrupted- Basic functionality should only depend on the filesystem being available. Any other data structures (full text index) should be rebuildable from the filesystem.
+sugar-presence-service
+#7581
+Don't ignore buddies without keys. This improve interoperability with non Sugar clients.
+#7849
+Display PS version in the log.
+Use gconf to get Sugar profile settings.
+#8444
+Don't rely on the roster to check if a contact handle is channel specific or not - so PS will properly create Buddy objects discovered using Gadget. Furthermore, this workaround has the nice side effect to improve compatibility with bugged shared roster (as the one of ejabberd).
+#5618
+Discard invalid handles if InspectHandles failed.
+etoys
+This version copes with the datastore using byte arrays for strings,  
+thus allowing to resume again
+Fructose modules
+read-activity 60
+chat-activity 60
+terminal-activity 20
+browse-activity 100
+etoys-activity 96
+write-activity 60
+calculate-activity 25
+log-activity 16
+pippy-activity 25
+Fructose news
+read-activity
+The version bump is to allow for stable releases after Read-52 which is the current stable release.
+#8350
+Use journal object picker if not resuming a file
+#7017
+Read sharing can deadlock.
+chat-activity
+The version bump is to allow for stable releases after Chat-48 which is the current stable release.
+#8471
+Can't resume a previous Chat entry with Write anymore
+browse-activity
+Add a "Download image" option to the image palette (tomeu)
+Add a "Download link" option to the link palette (tomeu)
+Get downloads and upload alerts for multiple windows to work (marco)
+#8857
+Handle download names with non-ascii characters (tomeu)
+terminal-activity
+#4646
+Systemwide keyboard shortcuts break terminal apps (e.g. nano)
+#8515
+Terminal-activity: path does not contain olpc-update
+Updated translations:
+tr
+pt
+Fructose dependencies
+hulahop 0.4.7
+Fructose dependencies news
+hulahop
+Provide the ground to make downloads and uploads work for multiple instances (marco)

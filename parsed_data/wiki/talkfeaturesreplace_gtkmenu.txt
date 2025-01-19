@@ -1,0 +1,51 @@
+Title: Talk:Features/Replace GtkMenu
+URL: https://wiki.sugarlabs.org/go/Talk:Features/Replace_GtkMenu
+--------------------------------------------------------------------------------
+Wanted: global hotkeys while menu shown
+One of the features lost in the transition to 0.98 was use of the hotkeys while a menu palette was displayed, especially in the home, list, or journal views.
+Test case: verify F1 and F3 keys work, move mouse over central icon, pause until palette is shown, verify F1 and F3 keys work; they should dismiss the palette and switch view.
+Please consider restoring this lost feature. --
+Quozl
+(
+talk
+) 18:59, 24 May 2015 (EDT)
+Is that specific to GtkMenu palettes?
+SAMdroid
+(
+talk
+) 02:34, 25 May 2015 (EDT)
+Don't know.  Check the code?  I've searched for GtkMenu and not found it in sugar and sugar-toolkit-gtk3 repositories, except as a comment. --
+Quozl
+(
+talk
+) 04:26, 25 May 2015 (EDT)
+Ok, I tested and it is not specific to GtkMenu based palettes, maybe this is a seperate fix?
+BTW, GtkMenu is the C way of saying it and therefore what the Gtk docs use, python code would use Gtk.Menu
+SAMdroid
+(
+talk
+) 05:21, 25 May 2015 (EDT)
+Thanks.  Best to not mention GtkMenu then, since the code is python.  Edited page.  --
+Quozl
+(
+talk
+) 23:50, 25 May 2015 (EDT)
+Wanted: escape key to dismiss menus
+There is no accelerator for dismissing Sugar menus.  Other platforms provide escape for this.  Please consider adding escape as an accelerator.  --
+Quozl
+(
+talk
+) 19:03, 24 May 2015 (EDT)
+It is possible to fix this right now.  See
+sugar-toolkit-gtk3 pull request 223
+--
+Quozl
+(
+talk
+) 23:03, 24 May 2015 (EDT)
+Not a feature, where is design change discussion?
+Your change to replace GtkMenu does not appear to be a feature, as it provides nothing new to the Sugar user experience.  It is a minor change to the user experience, substituting a modal dialog for a submenu.  Has this change passed through the design team on sugar-devel@? --
+Quozl
+(
+talk
+) 19:51, 9 August 2015 (EDT)

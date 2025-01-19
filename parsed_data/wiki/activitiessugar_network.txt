@@ -1,0 +1,99 @@
+Title: Activities/Sugar Network
+URL: https://wiki.sugarlabs.org/go/Activities/Sugar_Network
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Dependencies
+3
+Usage
+4
+Sources
+5
+Download
+6
+Getting involved
+Summary
+Sugar activity to distribute
+Sugar Network
+clients and demonstrate Sugar Network functionality.
+Sugar activity way to use Sugar Network has limitations:
+Install
+dependencies
+manually;
+No activity launcher windows;
+No fast way to switch to Sugar Network window, it is regular Sugar activity.
+But it provides easy way to try Sugar Network from regular Sugar installations. To use Sugar Network on regular basis, look for other
+options
+.
+Dependencies
+Most of activity dependencies are pure Python based and bundled. The rest of activities should be installed manually to users' system:
+PackageKit
+To launch activities from the Sugar Network, install PackageKit and make sure it runs properly in current Sugar session;
+PyWebKitGtk
+Corresponding package name might be
+pywebkitgtk
+,
+python-webkit
+or
+python-webkitgtk
+;
+M2Crypto
+Corresponding package name might be
+m2crypto
+or
+python-m2crypto
+;
+gevent-1.0
+Version 1.0 is not yet released and not yet packaged. Activity bundles it but only for Fedora 14 (gevent contains binaries), for other systems,
+install
+gevent from
+upstream site
+.
+Gevent-1.0 build instructions for Fedora (make sure that
+python-gevent
+and
+python-greenlet
+packages are uninstalled):
+sudo yum install gcc cmake python-devel python-pip
+sudo pip-python install greenlet
+wget
+https://github.com/downloads/SiteSupport/gevent/gevent-1.0rc1.tar.gz
+tar xpf gevent-1.0rc1.tar.gz
+cd gevent-1.0rc1
+./setup.py build
+sudo ./setup.py install
+Usage
+Contributor Hub, one of bundled Sugar Network clients, is coded using
+Enyo
+Javascript framework. It is designed to be useful on all major platform including mobile ones. Current Contributor Hub is not optimized for touch screens (and XO-4's screen in particular) yet, but it might be a fun to enable touch scrolling for tables:
+--- app.js.orig
++++ app.js
+@@ -4665,7 +4665,6 @@
+ enyo.kind({
+ name: "sugar_network.Table",
+ kind: "Scroller",
++touch: true,
+ horizontal: "hidden",
+ cell: {},
+ cellBounds: {},
+Sources
+Clone source repository from
+Gitorious
+:
+git clone
+git://git.sugarlabs.org/network/activity.git
+--recurse-submodules
+Download
+From Activity Library
+[1]
+.
+Getting involved
+Submit
+your bug report or feature request.
+Browse our implementation
+discussions
+, and post your feedback. (You should
+join
+this discussion list in order to avoid having your messages postponed for moderation.)

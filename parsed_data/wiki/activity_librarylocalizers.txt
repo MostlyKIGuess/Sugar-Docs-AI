@@ -1,0 +1,56 @@
+Title: Activity Library/Localizers
+URL: https://wiki.sugarlabs.org/go/Activity_Library/Localizers
+--------------------------------------------------------------------------------
+NOTICE:
+This page is a draft in active flux...
+Please contribute to these contents and discuss issues on the
+discussion page
+.
+Introduction
+One of the big advantages of Remora is support for localization.
+Generally, localizations will only be accepted from people who are already active members of a
+language team
+which starts
+here
+.
+Steps to localizing AMO in a new language
+This is a comprehensive list of steps to completely localize addons.mozilla.org's interface from English into another language.
+If you don't already have one, create a new
+AMO Account
+Search Bugzilla
+for the words "AMO Localization (xx)" where xx is your locale code.
+If a bug appears for your locale, then someone is already working on it.  This will be a case by case basis depending on how far along the translation is, but if the bug isn't resolved, I'd suggest commenting in the bug and offering to help there.
+Assuming a bug doesn't exist,
+create a new bug
+with a Summary of "AMO Localization (xx)" (replace xx with your locale) and a description announcing your intention to localize AMO for that locale (include your AMO account name, please!).  Assign the bug to yourself.
+Join the
+dev-l10n-web mailing list
+so you can get notified when strings are added or changed
+Translate the main
+english gettext file
+If you're not sure what the Plural-Forms are for your language, mention this in the bug and we can help
+Attach the completed document to your bug
+Translate the
+specialized pages
+except for privacy.thtml
+We can't accept translations of privacy.thtml at this time
+Attach each of the translated files separately to your bug
+Translate
+the strings for the flowchart
+We'll create the image for you, just attach the translated strings to your bug
+When this is all complete, please post a comment in your bug asking for all updates to be pushed to the staging site for review.
+Once everything is setup, when you login to addons.mozilla.org, there will be a link in the left menu that says "localizer tools."  It holds links to change dynamic data in the system - it's pretty intuitive, but if you'd like more instruction here, look us up in #addons on irc.
+You should look at this link as soon as it's available to you on the live site, because all the categories, add-on types, etc. are here and need to be translated.
+An optional (but recommended) aside:
+After a locale has been setup, it's possible for a localizer to add/edit translations with little to no help from the admins/developers.  We're happy to assist if we can, but once a localizer learns the process, we usually just slow things down, so:
+If you already have an SVN account from another project (like mozilla.com) you should reopen the original bug and ask for additional write permissions to /addons/trunk/site/app/locale/___ where ___ is your locale.
+If you don't have an SVN account yet, follow
+these instructions
+.
+I'd also recommend subscribing to the rss feed for your locale.  You can get to the feeds from
+viewvc
+.  When a new string is added, the developers will merge the string into your file and mark it as fuzzy.  If you're subscribed to the feed, you'll be notified of the change almost immediately.
+What about the extension metadata?
+AMO supports localized metadata about the extensions (like their titles and descriptions) but offers no way for localizers to directly edit them.  The responsibility for translation lies solely with the authors.  We're looking at more usable ways to implement the system and still keep a good level of quality and accuracy.  In the mean time, add-on authors are given this brief
+summary on how to get help
+.

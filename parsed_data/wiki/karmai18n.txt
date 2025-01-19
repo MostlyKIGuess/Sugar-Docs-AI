@@ -1,0 +1,49 @@
+Title: Karma/i18n
+URL: https://wiki.sugarlabs.org/go/Karma/i18n
+--------------------------------------------------------------------------------
+Rough plan for implementing i18n for Karma
+Contents
+1
+Requirements
+2
+General Strategy
+2.1
+JavaScript Strings
+2.2
+HTML Strings
+Requirements
+Integrate with pootle
+Handle strings inside code and html markup
+Examples 
+ $("#someDiv").text(gettext("Hello World"));
+ 
+  <div>Hello <strong>W</strong>orld</div>
+All strings stored in one file per locale, messages.json
+All message identifiers must be unique within an a lesson
+Accommodating numeric, currency, and date formatting is not an immediate requirement
+General Strategy
+JavaScript Strings
+We try to follow a subset of the
+gettext api
+quite closely. After including jquery.i18n.js you can use the following gettext functions in your javascript scripts:
+$.i18n.gettext('text to be translated') or $. _('text to be translated'): to translate a simple string
+$.i18n.ngettext('a car', 'multiple cars', n): to choose a pluralized form depending on n
+$.i18n.pgettext('context', 'text to be translated'): this is useful if you are writing plugins. E.g. in ui.kFooter.js the context is '$.ui.kFooter'.
+Remarks:
+you can add  the statement  var _ = $._; at the beginning of your $(document).ready function and then use _('message') without needing to add the $. However the name of the function you are calling should be _, gettext, ngettext or pgettext. Otherwise the strings can not be automatically be extracted with xgettext.
+the arguments to the different calls should be string literals. Otherwise xgettext will not be able to extract the messages to be translated.
+More resources:
+http://forum.jquery.com/topic/locale-information-should-be-separated-from-plugins
+http://wiki.jqueryui.com/i18n
+HTML Strings
+The Python library
+itools
+automates the job of parsing the HTML and creating the PO files. There are already concrete experiments, which you can find
+here
+.
+Things which still need to be done:
+Dynamically change out strings per locale on page load (HIGH PRIORITY)
+A well-defined workflow
+integrate the JavaScript i18n within the workflow.
+Documentation.
+I'm still actively working on it. Questions, comments, suggestions > km0r3 AT sugarlabs DOT org .

@@ -1,0 +1,23 @@
+Title: Features/Touchpad control panel section/Testing
+URL: https://wiki.sugarlabs.org/go/Features/Touchpad_control_panel_section/Testing
+--------------------------------------------------------------------------------
+I'm not sure how to make this easier.
+Preparation:
+download
+File:Touchpad.tar
+and extract the files onto a USB drive
+sudo chmod o+w /sys/devices/platform/i8042/serio1/ptmode
+sudo cp /media/YOURUSB/module-touchpad.svg /usr/share/sugar/data/icons/
+sudo cp /media/YOURUSB/capacitive.svg /usr/share/icons/sugar/scalable/devices/
+sudo cp /media/YOURUSB/resistive.svg /usr/share/icons/sugar/scalable/devices/
+sudo mkdir /usr/share/sugar/extensions/cpsection/touchpad
+sudo cp /media/YOURUSB/*.py /usr/share/sugar/extensions/cpsection/touchpad/
+sudo rm /usr/share/icons/sugar/*.cache
+Notes:
+This feature requires Fedora 11+ and Sugar 0.84+ (e.g., the build from Paraguay).
+You'll have to do Step 2 every time the you reboot the system.
+Substitute the name of your USB key for YOURUSB in the above instructions
+Test:
+Open the Control Panel
+Click on the Touchpad icon
+Click on the icons and observe that the touchpad switches modes

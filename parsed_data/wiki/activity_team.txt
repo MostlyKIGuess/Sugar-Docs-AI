@@ -1,0 +1,543 @@
+Title: Activity Team
+URL: https://wiki.sugarlabs.org/go/Activity_Team#setup.py
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+Mission
+1.1
+Our responsibilities
+2
+Tips for Activity Developers
+2.1
+Ask your 'newbie' question on-line
+2.2
+Creating a new activity
+2.3
+Automated Testing
+2.4
+Port to GTK3
+2.5
+Move an activity
+3
+Set up Sugar Labs services
+3.1
+Cross-platform compatibility
+3.2
+Migrating from GTK2 to GTK3
+3.3
+Modify Activities
+3.4
+Remote control your XO
+3.5
+Internationalization
+3.6
+General overview of git
+3.6.1
+glossary
+3.6.2
+Setup
+3.6.3
+Regular usage
+3.6.4
+Additional background on  GitHub
+4
+Maintainers
+4.1
+How to become a Maintainer
+4.2
+What to do if a maintainer is absent
+5
+Testers
+6
+Background information
+6.1
+Sugar Activities
+6.2
+Sugar Human Interface Guidelines
+6.3
+Sugar Almanac
+6.4
+activities.sugarlabs.org
+6.5
+sugar-widgets library
+6.6
+sugar-sprites library
+7
+Misc.
+7.1
+Mime types and file suffixes
+7.2
+Activity Team users on activities.sugarlabs.org
+7.3
+setup.py
+7.4
+Packaging activities discussion
+7.5
+The Sugar Control Panel
+7.6
+A typical update cycle
+7.7
+OLPC XO game buttons
+7.8
+The Sugar Object Chooser
+8
+Project Ideas
+9
+Additional resources
+10
+Sugar Activity development courses
+11
+Meetings
+12
+Moving to Sugar Labs
+13
+Subpages
+Mission
+The Activity Team develops and maintains many of the activities available for Sugar.  We also encourage independent developers to write activities, and we support them in their efforts. Our goal is to ensure that Sugar provides a complete set of high quality educational, collaborative, constructivist activities.
+Our responsibilities
+Develop and maintain the ecosystem of Sugar activities.
+Recruit and mentor activity developers from the community.
+Collect, document and organize new activity and activity feature ideas from the
+Education Team
+, deployments and community.
+Work with the
+Development Team
+and the
+Infrastructure Team
+to ensure activity developers are well supported.
+Gather feedback with the
+Deployment Team
+about how Sugar activities are doing in the field.
+Tips for Activity Developers
+Ask your 'newbie' question on-line
+Join
+IRC
+channel
+#sugar
+(e.g. via
+web client
+) and ask your question about activity, or sugar core, development process. Also browse chat
+logs
+.
+Creating a new activity
+See
+Creating a New Activity
+and
+Activity Team Resources
+.
+Automated Testing
+See
+Automated Activity Testing
+Port to GTK3
+We have hints on
+porting from GTK2 to GTK3
+.
+Move an activity
+We need help moving activities over to Sugar Labs from GitHub servers.  This is a great way to get started helping out the Activity Team.  See
+Activity Team/How to migrate from Gitorious
+for instructions, and
+Activity Team/Activity Status
+for the list of activities that need to be moved.
+While moving activities, it would be great to check that the .pot files are up to date and the MANIFEST is correct.  This will really help out the distro packagers.
+Set up Sugar Labs services
+Upload a xo bundle
+to
+activities.sugarlabs.org
+.  Be sure to include a couple of screenshots of your activity in action.
+If your activity is part of Fructose,
+upload a .tar.bz2
+to
+download.sugarlabs.org
+.  Request a shell account from the
+Infrastructure Team
+if you don't have one already.
+Update the OLPC wiki page
+for the Activity, noting the migration. Use the
+Migrated to sl.o
+template.
+Change sugar-jhbuild
+to point to the new repository if this activity was included in sugar-jhbuild (enter a ticket in
+http://dev.sugarlabs.org
+if you have no access).
+Ask an
+Activity Team Coordinator
+to create a
+Trac component
+for your activity.
+Cross-platform compatibility
+As Sugar is integrated into more distros and the hardware base expands, it is important to keep Activity developers informed of any issues they need be aware of. For example, when Sugar was only expected to run on the XO-1 laptop, it was safe to assume that the display was always 1200x900.
+The
+Compatibility Tips
+page is a place to accumulate tips.
+Migrating from GTK2 to GTK3
+The Sugar platform is migrating from GTK2 to GTK3 to stay relevant with upstream changes and benefit from their efforts. Sugar 0.96 (available in OLPC 12.1 development builds) includes support for a transition period, where both GTK2 and GTK3 activities can coexists, but new Sugar features will only be added to the GTK3 toolkit (e.g., improvements in touchscreen support). Have a read through the
+migration notes
+, and the
+GTK3 Python tutorials
+to get a feel for how things need to be changed. New activities should be developed with GTK3, unless you need to support an existing deployment today using an older build.
+Modify Activities
+A guide has been  written describing how to make simple modifications to popular Sugar  activities.  Examples include adding sounds to TamTam, blocks to  TurtleArt, buttons to Calculate, etc.
+Activity Team/Modifying an Activity
+Remote control your XO
+Remote control your XO
+from your development machine can be handy while developing an activity.
+Internationalization
+We use
+gettext
+to internationalize activities. The basic steps are:
+In your Python code:
+from gettext import gettext as _
+Hence forth, encapsulate strings that you want translated in _():
+_('string to be translated')
+Run
+setup.py
+to generate a POT file for your project. This file will contain a reference to all of the encapsulated strings.
+From here, you need to:
+git add
+,
+commit
+, and
+push
+the POT file to git
+request that your project be added to the pootle server (by filing a task to the localization component on bugs.sugarlabs.org)
+add pootle as a committer to your project on gitorious
+Once translations are committed to your project:
+do a
+git pull
+to get a local copy of the .po files
+run
+setup.py fix_manifest
+to create the .mo files used at run time
+Details can be found on the
+Translation Team/i18n Best Practices
+page.
+General overview of git
+Read the brief overview below but then
+start
+with our
+git tutorial
+.
+glossary
+VCS
+Version Control System — keeps track of changes to a set of files.
+git
+the distributed VCS used by Sugar Labs
+commit
+set of changes to files tracked by a VCS, accompanied by metadata (author, description, etc.)
+diff/patch
+(usually textual) representation of changes. These are also the names of specific tools used to create/apply these representations of changes.
+repository
+storage place for commits, usually of a certain piece of software
+gitorious
+software for hosting git repositories, including a web interface for administration
+git.sugarlabs.org
+server hosted by Sugar Labs running gitorious
+GitHub
+a web-based hosting service Git repository.  Sugar Labs is migrating projects to this service.
+Setup
+(Once per machine you're working on)
+git clone
+git://github.com/whatever/mainline.git
+whatever
+Regular usage
+cd whatever
+[hack away and test your changes]
+git diff
+[review your changes, go back to hacking if you notice a mistake]
+git status
+git add NameOfNewFile # if you created any file you want included
+git commit -a
+[describe your changes - by convention the first line is a summary and the remaining lines are long description]
+[start again at hacking if you're offline]
+git log origin/master..master # shows you all commits not pushed yet
+git push # if/once you are online
+Git offers a lot more commands and features that can make your life
+easier, but it's best to start off small and use only those mentioned
+above. It's very easy to get confused if you're unfamiliar with git.
+Even if you use the more advanced features, git does a pretty good job at
+allowing you to recover from your mistakes.
+So if you ever mess up and don't know how to fix it yourself, please
+stop (at least for me that's usually the hardest part ;) ), try to
+recollect the exact sequence of actions (e.g., from shell history) and ask
+for help.
+Once you have
+migrated
+your project, you may have some more detailed
+questions regarding how Sugar Labs uses git
+, particularly in regard to patch management.
+Additional background on  GitHub
+Introduction
+Tutorial
+Sugar Labs git FAQ
+Migration
+Git at One Laptop per Child
+An alternate,
+cgit.sugarlabs.org
+web interface to
+git.sugarlabs.org
+rg]
+James Simmons' book
+"Make Your Own Sugar Activities!"
+chapter 11 explains Git for activity developers, it is highly recommended for intermediate and advanced users
+Anish Mangal explains the
+git workflow
+on the Sugar development mailing list
+git top links: 2010-1
+Git Community Book
+John Wiegley has written an overview of git:
+Git from the bottom up
+Charles Duran from Harvard has written a lovely overview of git at
+Understanding Git Conceptually
+GNOME maintains a
+list of references to git for mortals
+Learn Git One Commit at a Time
+Pro Git
+by Scott Chacon,
+Gitcasts
+.
+25 Git Tips
+Maintainers
+How to become a Maintainer
+Please see
+File:How to become a maintainer.pdf
+for an overview of the Activity maintenance process.
+What to do if a maintainer is absent
+Read the
+Policy for non-responsive maintainers
+for more details.
+Testers
+Please see the
+Testing/Activity Test Table
+for tester information.
+Background information
+Sugar Activities
+There is an
+Activities
+page where we highlight Sugar activities in the wiki. (We need to discuss how best to manage the content of this page as well as how to manage the activity-specific sub-pages.)
+Sugar
+Human Interface Guidelines
+The
+Sugar Human Interface Guidelines
+content has also been migrated to Sugar Labs.  This guide is a critical resource when designing activities.
+An
+Activity HIG
+discussion
+Sugar Almanac
+The
+Sugar Almanac
+content has been migrated to Sugar Labs. It's a great, quick reference when building python Activities.
+activities.sugarlabs.org
+The
+Sugar Activity Library
+is our user-facing portal for Sugar activities.  The site uses the back-end Mozilla built for Firefox and Thunderbird extensions at addons.mozilla.org, called Remora.  To help out, check out
+Activity Library
+.
+sugar-widgets library
+See
+Development Team/sugar-port
+.
+sugar-sprites library
+See
+Activity Team/Sugar-sprites
+Misc.
+Mime types and file suffixes
+You can associate your activity with mime types by including a mime_types entry in the activity/activity.info file; e.g.,
+mime_types = text/plain;text/x-python;text/x-logo;text/x-svg;application/xml;text/html;text/xml;image/svg+xml
+You can associate your activity with a file suffix by including a mimetypes.xml file in your activity subdirectory:
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="
+http://www.freedesktop.org/standards/shared-mime-info
+">
+   <mime-type type="application/x-turtle-art">
+      <comment xml:lang="en">Turtle Art</comment>
+      <glob pattern="*.ta"/>
+   </mime-type>
+</mime-info>
+Note:
+You cannot just copy your activity into the ~/Activities directory. You have to install it as a .xo bundle or using 'setup.py install' (note that the latter is tricky as the command might get your paths messed up).  This installation step will create a file --> ~/.local/share/mime/packages/<your-bundle_id>.xml
+If your activity does not register any mimetype, then it won't matter.
+If your activity was already properly installed (with sugar-install-bundle), then copying new source into Activities will not be affected by this problem unless the new source registers a new mimetype that the old source did not.
+Activity Team users on activities.sugarlabs.org
+Fake emails to identify users:
+activity.team@sugarlabs.org
+activities that are supported by Activity Team
+trash@dev.null
+activities to remove
+setup.py
+There is a handy utility that is a standard part of Sugar Activity bundles, setup.py. You should use it to create and update POT files, generate a MANIFEST file and update locale files, and create .xo and .tar files for distribution.
+./setup.py genpot        # generates or updates the POT file used by gettext for internationalization
+./setup.py build
+./setup.py fix_manifest  # updates the MANIFEST file and generates or updates the locale files used for internationalization
+./setup.py dist_xo       # creates an .xo bundle from your project
+./setup.py dist_source   # creates a .tar.gz file from your project
+Packaging activities discussion
+We are currently discussing how to package activities in the future, in order to support all distributions.  Please add your comments to the following pages.
+Packaging
+should we remove "Activities" section from that page; all issues where moved to Activity_Status page
+alsroot
+10:33, 16 January 2009 (UTC)
+Packaging ideas
+The Sugar Control Panel
+While not strictly in the realm of Activities, it may be useful on occasion to add a section to the Sugar Control Panel.
+Things to keep in mind
+.
+A typical update cycle
+Moved to
+https://github.com/sugarlabs/sugar-docs/blob/master/src/contributing.md#modifying-activities
+OLPC XO game buttons
+The game buttons on the OLPC XO are accessible:
+The left-side buttons map to KP_Up, KP_Right, KP_Down, and KP_Left
+The right-side buttons map to KP_Page_Up (o), KP_End (✓), KP_Page_Down (×), and KP_Home (◽)
+The Sugar Object Chooser
+The Object Chooser is the activity-level user interface to the Journal. Examples and caveats are found
+here
+.
+Project Ideas
+The Activity Team always needs project ideas and suggestions.  Post your ideas to
+Activity Team/Project Ideas
+.
+If you see something here you would like to help with, please
+contact us
+.
+Wade
+17:19, 13 January 2009 (UTC)
+Additional resources
+Additional resources may be found
+here
+.
+Sugar Activity development courses
+There are university- and secondary-school-level courses being taught around Sugar development. Several of the syllabi are on line:
+http://wiki.paraguayeduca.org/index.php/Curso_Sugar_FPUNA
+is being adapted by UNA
+http://teachingopensource.org/index.php/RIT/The_Course
+is being taught at RIT
+Meetings
+Please check
+/Meetings
+for meeting schedules/logs.
+Moving to Sugar Labs
+A few notes re moving to the Sugar Labs infrastructure:
+use git init to create a new project unless it already exists.
+use
+setup.py dist_source
+to make the source package associated with your project.
+source packages now go in:
+download.sugarlabs.org:/srv/www-sugarlabs/download/sources/
+from there, if your project (if it is an Activity) probably belongs in the honey subdirectory, e.g.,
+download.sugarlabs.org:/srv/www-sugarlabs/download/sources/honey/Abacus/
+If your project is part of the Sugar core, it goes in sucrose/fructose/ (for core Activities) or sucrose/glucose (for core modules), e.g.,
+download.sugarlabs.org:/srv/www-sugarlabs/download/sources/fructore/TurtleArt/
+download.sugarlabs.org:/srv/www-sugarlabs/download/sources/glucose/sugar-toolkit/
+don't forget to update addons as well!!
+activities.sugarlabs.org
+and to copy the tar file to download.sugarlabs.org
+download.sugarlabs.org:/download/sources/honey/...
+download.sugarlabs.org:/download/sources/sucrose/fructose/...
+Subpages
+Activity Team/Activity Development Fedora17
+Activity Team/Activity Development Fedora 17
+Activity Team/Activity Microformat
+Activity Team/Activity Status
+Activity Team/Compatibility Tips
+Activity Team/Contacts
+Activity Team/Control Panel
+Activity Team/Coordinator
+Activity Team/Creating Activity Using Mono
+Activity Team/Creating a New Activity
+Activity Team/Development Sprint
+Activity Team/Documentation/Services/Activity Developers Guide
+Activity Team/Documentation/Services/Non Sugar Platform Dependencies Guide
+Activity Team/Documentation/Services/Non Sugar Platform Dependencies HOWTO
+Activity Team/Documentation/Services/Service Developers Guide
+Activity Team/FAQ
+Activity Team/Getting Involved
+Activity Team/Git
+Activity Team/Git Activity Maintainer Walkthrough
+Activity Team/Git FAQ
+Activity Team/Git Introduction
+Activity Team/Git Migration
+Activity Team/Git Tutorial
+Activity Team/How to migrate from Gitorious
+Activity Team/How to migrate from OLPC
+Activity Team/How to migrate from SugarLabs
+Activity Team/How to migrate from Sugar Labs
+Activity Team/Maintainers
+Activity Team/Meetings
+Activity Team/Meetings/2009-01-30
+Activity Team/Meetings/2009-02-27
+Activity Team/Meetings/2009-03-13
+Activity Team/Meetings/2009-06-26
+Activity Team/Meetings/2011-10-10
+Activity Team/Meetings/2011-10-24
+Activity Team/Meetings/2024-12-25
+Activity Team/Mission
+Activity Team/Modifing an Activity
+Activity Team/Modifying an Activity
+Activity Team/New Toolbars
+Activity Team/Object Chooser
+Activity Team/Obsolete
+Activity Team/Obsolete/Native Packages
+Activity Team/Obsolete/Services Bugs
+Activity Team/Obsolete/Services Collab
+Activity Team/Obsolete/Services Ds
+Activity Team/Obsolete/Services Env
+Activity Team/Obsolete/Services Glucose
+Activity Team/Obsolete/Services Gui
+Activity Team/Obsolete/Services Journal
+Activity Team/Obsolete/Services Shell
+Activity Team/Obsolete/Services Statistics
+Activity Team/Obsolete/Services Supervisor
+Activity Team/Obsolete/Services Toolkit
+Activity Team/Obsolete/Zero Sugar Use Cases
+Activity Team/Packaging
+Activity Team/Packaging Ideas
+Activity Team/Policy for nonresponsive maintainers
+Activity Team/Polyol
+Activity Team/Project Ideas
+Activity Team/Project Ideas/Micro Messages
+Activity Team/Releasing a New Activity
+Activity Team/Remote control your XO
+Activity Team/Resources
+Activity Team/Roadmap
+Activity Team/Sample code/Ruler
+Activity Team/Services/Bugs
+Activity Team/Services/Collab
+Activity Team/Services/Ds
+Activity Team/Services/Env
+Activity Team/Services/Glucose
+Activity Team/Services/Gui
+Activity Team/Services/Journal
+Activity Team/Services/Saccharin
+Activity Team/Services/Shell
+Activity Team/Services/Statistics
+Activity Team/Services/Supervisor
+Activity Team/Services/Template
+Activity Team/Services/Toolkit
+Activity Team/Services/Toolkit-python
+Activity Team/Sugar-sprites
+Activity Team/Sugar Lint
+Activity Team/Sweetener
+Activity Team/TODO
+Activity Team/Testing
+Activity Team/Zero Sugar
+Activity Team/Zero Sugar/Native Packages
+Activity Team/Zero Sugar/Recipe Specification
+Activity Team/Zero Sugar/Scalable development model
+Activity Team/Zero Sugar/Use Cases
+Activity Team/gst-plugins-espeak
+Activity Team/pycas-client

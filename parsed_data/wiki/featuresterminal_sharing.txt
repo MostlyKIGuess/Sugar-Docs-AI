@@ -1,0 +1,73 @@
+Title: Features/Terminal Sharing
+URL: https://wiki.sugarlabs.org/go/Features/Terminal_Sharing
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+This feature represents
+ShareTerm
+, an Activity providing a shareable version of Terminal so that users can interact over the network at a single command prompt.
+Owner
+Name:
+Ben Schwartz
+Email: bmschwar@fas.harvard.edu
+Current status
+Targeted release:
+Last updated: 2009-07-22
+Percentage of completion: 100%
+Detailed Description
+ShareTerm is
+a variant of Terminal designed to enable collaborative work at the command
+prompt.  ShareTerm works by starting an unprivileged SSH daemon and a
+GNU Screen
+session.  The SSH daemon is tunneled over a Telepathy Stream Tube.  To avoid the need for passwords, public-key authentication is used.  The system should support an arbitrary number of participants, though at the moment the sshd is configured with a maximum of 10.
+Benefit to Sugar
+I hope that ShareTerm will be useful for teaching UNIX and programming
+skills to novices.  For experts, the window management of Screen will be
+especially useful.
+Scope
+The only change required to Sugar is to add a dependency on GNU Screen and OpenSSH, which are available in every distro's package system.  I think ShareTerm may merit inclusion in Fructose, but the important thing is to make Sugar-0.86 depend on Screen.
+How To Test
+Install the bundle from:
+Shareterm
+Install GNU Screen on your system.  MANDATORY.  NOTE: GNU Screen is _not_ installed by default on many Sugar systems, including OLPC's XO distributions.
+Make sure you are running with Rainbow enabled!
+Start ShareTerm from the Sugar UI, and then share it like any collaborative Activity.
+User Experience
+Shared Terminal.  Each user can type into the same shared instance from different machines, and their keystrokes will all register.  The instance actually runs on the initiator's computer.
+Dependencies
+GNU Screen and OpenSSH.  If security is a consideration, then Rainbow is an important requirement as well.  Running ShareTerm allows any friend who joins the activity to run arbitrary commands on your computer.  Rainbow ensures that these commands are run as a restricted, unprivileged account.  If you are running without Rainbow, you should be sure to invite only people you trust to your ShareTerm!
+Contingency Plan
+Tell people to install GNU Screen and OpenSSH manually before installing ShareTerm, or possibly try to package static binaries into the .xo.  Neither is ideal, especially because ShareTerm is most appropriate for users who are not yet comfortable with the command line.
+Documentation
+http://lists.sugarlabs.org/archive/sugar-devel/2009-May/014165.html
+Release Notes
+No significant changes are noteworthy here.
+Comments and Discussion
+See
+discussion tab for this feature

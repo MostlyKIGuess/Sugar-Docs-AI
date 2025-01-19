@@ -1,0 +1,40 @@
+Title: Planetarium/en
+URL: https://wiki.sugarlabs.org/go/Planetarium/en
+--------------------------------------------------------------------------------
+From
+Planetarium
+, translated from German.
+Sugar Pilot Berlin
+The purpose of this Sugar pilot project is to evaluate the Sugar Learning Platform for use in Berlin schools. The Learning Platform will be integrated into Berlin schools under the motto "A Global Project In The Neighborhood."
+The elementary school
+Grundschule am Planetarium
+is the partner of the Berlin pilot project for the school year 2009-2010. The school is focused on sports and is located in the heart of Berlin. In addition to promoting children's interest in sports, the school focuses on learning with new media. For example, a course was taught in the
+LOGO programming language
+. The infrastructure of the school is designed for the use of computers in the classroom. For example, there is a room with 30 laptops, with 2 more computer labs plus a school server on which each student has an account.
+Sugar was introduced at the start of the school year in a school project for grades 4, 5 and 6. A two-hour lesson involved designing
+Memorize
+games and drawing simple geometric shapes with the
+TurtleArt Activity
+. The elementary school at the planetarium offers electives that children can choose from. Sugar is offered as an elective course this year. The course is taught for one hour, once per week. There are 15 students in the Sugar course, and the majority are female.
+The lessons are divided into blocks according to topic.
+The Memorize Activity
+was chosen as an introduction to working with Sugar. Another class block was dedicated to
+TurtleArt
+, and another to
+Physics
+. The students are currently working on a major project in
+Etoys
+. After an introduction to the capabilities of the program (such as its usage to create interactive games) they will be using Etoys to tell a story.
+Technical details
+The existing infrastructure of the school only needed to be expanded. The first test runs used
+Sugar On A Stick
+, but in the second phase Sugar was directly installed on the computers. The laptops, previously Windows-only, have been dual-booted with Linux (
+Fedora
+11) using Sugar version 0.84. Users can choose between Windows and Sugar (Linux) on startup.
+The school server uses the school's
+LDAP server
+to authenticate the user. Since Fedora supports this type of authentication, only one configuration had to be adjusted in the client.
+NFS
+is used to bind network drives; this was done by adjusting a configuration file on the clients. So that the installation would not need to be manually duplicated, a complete installation was snapshotted with
+Clonezilla
+and loaded onto the other computers.

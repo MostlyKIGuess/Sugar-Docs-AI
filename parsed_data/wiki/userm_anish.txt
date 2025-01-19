@@ -1,0 +1,40 @@
+Title: User:M anish
+URL: https://wiki.sugarlabs.org/go/User:M_anish#Partial_near-IR_photography_with_the_XO_camera
+--------------------------------------------------------------------------------
+Contents
+1
+Contact
+2
+Partial near-IR photography with the XO camera
+2.1
+Preparing the filter
+2.2
+Setting up for IR photography
+2.3
+Capturing IR images
+2.4
+Future experiments
+Contact
+email: anish [strange looking a] sugarlabs.org
+irc: m_anish @ #sugar (hosted on
+freenode.net
+)
+Partial near-IR photography with the XO camera
+Of the many great things about the XO, its camera (like most consumer cameras) is sensitive to Near-Infrared wavelengths of light. Also, using the v4l2 api, one can fine tune many camera parameters like exposure, gain, brightness, contrast etc. This section talks about using a low-cost method to perform partial near-IR photography from the XO camera. 'Partial' because the images will still contain a component of visible light, but difference will be readily apparent from the images.
+Preparing the filter
+Buy any off-the shelf standard 35mm film roll. It should typically cost around $2. I did my experiment with a standard Kodak ISO-200 speed film roll.
+Pull out the film inside the roll and expose it to florescent light for 5 seconds. Roll the film back into the roll and get the film developed. The chemical process that is used in developing the fully exposed film makes the roll (or negatives) permit near-IR radiation through and block visible light.
+Setting up for IR photography
+Cut the developed strip of negatives into little pieces...
+Insert the film strip into the little gap between the two plastic plates to cover the XO camera.
+Capturing IR images
+The camera sensor is typically much more sensitive to visible light than it is to near-Infrared. Additionally there may be a IR-cut filter inside the camera assembly that actually cuts of parts of the near-IR spectrum radiation falling on the sensor. Thus, images taken with our custom, IR-pass-Visible-block filter strip will be darker than normal images. Fortunately, the XO-1 camera parameters are controllable by the
+Video for linux-2 (v4l2)
+API, so sugar activities may be designed to tinker with the camera settings. An example of one such activity is
+XoScope
+Image with no filter strip in front of the camera
+Image with one filter strip in front of the camera. Notice how the yellow flower endings in the previous picture are much more apparent in this shot.
+Image with two filter strips in front of the camera. Admittedly, a step too far.
+I don't really have a spectrometer, so I don't know how much near-IR and how much visible light was actually captured in the images, but the results were quite interesting. Besides, the whole experiment, enough to produce about 100 filter strips, cost me less than $3.
+Future experiments
+The XO-1 camera actually has an unexplored night mode that (at least in theory) decreases the capturing frame-rate by 1/8, making the sensor much more sensitive to light. Using the night mode, coupled with two of our custom strips, could potentially allow us to capture breathtaking IR images. Stay tuned for more exciting experiments!

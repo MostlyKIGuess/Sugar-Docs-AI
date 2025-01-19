@@ -1,0 +1,118 @@
+Title: Summer of Code/2014/Sugar Listens
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2014/Sugar_Listens
+--------------------------------------------------------------------------------
+Project blog:
+http://rodrigo-parra.tumblr.com/
+About you
+What is your name?
+My name is Rodrigo Manuel Parra Zacarías.
+What is your email address?
+My email address is rodpar07@gmail.com
+What is your Sugar Labs wiki username?
+My wiki username is Rparra.
+What is your IRC nickname on irc.freenode.net?
+I use “rparra” if it is available.
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My native language is Spanish, but I am also comfortable communicating in English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I live in Asunción, Paraguay. Standard time zone is UTC/GMT -4 hours. I plan to work on this project in the afternoon, probably from 10 AM to 6 PM UTC.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I have been programming as a part of my major for more than 7 years. I have implemented lots of little (and not so little) projects, although sadly most of them were not open source. As an example, here is the link for a project management web application developed with Turbogears 3 years ago:
+https://github.com/rparrapy/SAIP
+I have done some small contributions to open-source projects before. These include:
+A python core patch that is yet to be commited:
+http://bugs.python.org/issue20392
+A tiny feature for the Birdie Twitter client:
+https://github.com/birdieapp/birdie/pull/68
+Even though these contributions are small, I think they show that I am familiar with the open-source development workflow and that I am motivated to collaborate. I have been an open-source software user for more than 5 years now, and for me this project is a great chance to give something back to the community.
+About your project
+What is the name of your project?
+The name of the project is Sugar Listens.
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+The main goal of Sugar Listens is to provide an easy-to-use speech recognition API to educational content developers, within the Sugar Learning Platform. This will allow developers to integrate speech-enabled interfaces to their Sugar Activities, letting users interact with Sugar through voice commands.
+Introducing voice user interfaces to Sugar Activities will enable richer, and arguably more natural, human-computer interactions. Perhaps more importantly, such interfaces are a promising opportunity to make Sugar available to people with certain disabilities.
+I will use Pocketsphinx, an open-source speech recognition engine developed as a research project at Carnegie Mellon University, to implement the core speech recognition capabilities. The Voxforge Project provides acoustic models for several languages, one of which should be used according to the language of choice.
+Appropriate models should probably be downloaded according to the locale of the system, to avoid wasting resources such as disk space and bandwidth. In order to provide a high-level API to access speech-recognition functionality, Pocketsphinx will be exposed as a D-Bus service available to Sugar Activities.
+My programming language of choice will be Python. It is the main Sugar Platform language and Python bindings are available for Pocketsphinx. Expected results of this project include not only the code, but also proper documentation of the API and a proof-of-concept voice-user interface for a Sugar Activity. An idea I have is to add new speech recognition blocks to Turtle Blocks.
+Additionally, packaging the implemented solution as a .rpm package ready to be included in the repositories is desirable.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Periodo
+Actividad
+19/05 - 25/05
+Environment setup. Install Pocketsphinx and test with a Voxforge model for a default language.
+26/05 - 01/06
+Design core API.
+Implement daemon process that launches Pocketsphinx and parses results for each utterance from stdout.
+Expose Pocketsphinx results as a D-Bus service.
+02/06 - 08/06
+Allow Activities to publish their custom language models and acoustic dictionaries.
+Define a custom grammar-based language model for Turtle Blocks.
+Publish the custom language model from Turtle Blocks to the speech recognition daemon to use it instead of the default one.
+09-06 - 15/06
+Test and bugfix custom models support, which should include: custom acoustic models and custom (statistical and grammar-based) language models.
+16/06 - 22/06
+Download and use Voxforge models according to the locale of the system.
+Smart acoustic/language models setting on Activity startup/close.
+The speech recognition daemon should restart only if there any model changes associated with Activity switches.
+23/06 - 29/06
+Implement basic speech recognition features in an additional Activity for testing purposes.
+Test and bugfix model switching with Turtle Blocks and the test activity.
+Mid-term evaluation.
+30/06 - 20/07
+Implement proper speech recognition blocks for Turtle Blocks.
+The output of these blocks will depend on the user's voice input.
+21/07 - 27/07
+Package implemented solution as .rpm
+Bugfixing.
+Write a developer guide for Sugar developers who wish to integrate its activities with the new speech recognition API.
+28/07 - 10/08
+Buffer for possible delay in the development process.
+Soft 'pencils down' date.
+11/08 - 22/08
+Code clean-up and refactoring.
+Improvements and fixes of the developer guide.
+Hard 'pencils down' date.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I am a 24-year-old last-year Computer Science Engineering student at Universidad Nacional de Asunción, Paraguay. I am also a member of Juky Paraguay, a group for paraguayan Sugar developers to write code, share ideas and mostly have fun.
+I have been working on my engineering thesis project, which has a strong focus on speech recognition and voice-enabled user interfaces, for almost a year now. Its title loosely translates to: “Design of Speech Recognition Based User Interfaces”. Some of my early work can be found at:
+https://github.com/jorgeramirez/step
+As a part of my thesis, I developed an voice-user interface to control TamTam Edit, an existing Sugar Activity for music composition. In order to provide speech recognition functionality to TamTam Edit, I programmed a daemon process to run the Pocketsphinx speech recognition engine, which produced text output based on user-pronounced voice commands.
+As input to Pocketsphinx, I used the Voxforge spanish acoustic model and defined a custom grammar-based language model in JSGF format.
+Text output produced by the engine was later parsed to get the commands in the appropriate format. Recognized commands were published through a D-Bus service which allowed TamTam Edit to integrate speech recognition capabilities with minimum coupling. The last development step was to modify TamTam Edit in order to make the graphical interface respond to the commands.
+Implementing TamTam Listens (custom name for TamTam Edit + speech recognition) involved solving issues related to software integration
+and speech recognition itself, like handling out-of-vocabulary words. After development was over, a usability study was conducted with 12 users in order to draw conclusions about speech-based user interfaces.
+The architecture of the developed solution resembles the one included in the project description to a great degree. I used, and in consequence I am familiar with, Pockesphinx, Voxforge and D-Bus. Although some improvements are still needed, such as multi-language support, I believe my experience with the field and the tools would be of great help to the success of the project.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Me:
+As mentioned before, speech-enabled user interfaces for Sugar Activities will allow richer, and perhaps more natural, interactions between users and the computer. Personally, the most meaningful reward would be to make Sugar Activities (and education opportunities in general) accesible for more people.
+Martín Abente Lahaye:
+Speech-recognition technologies are interaction mechanisms that, nowadays, have evolved from "alternative" to "extended". Proof of this is the proliferation of such technologies in a wide range of domains. From smartphones assistants, medical-record transcriptions, smart cars, and TV command controls to many others. In this regard, not much have been seen in the education domain.
+This could be due the fact that there is still a missing glue between the speech-recognition technologies and educational content developers. This project is about filling the gap –within the Sugar Learning Platform.
+This is a interesting project and you have experience in the technology involved. Could be a good assistive tool too. --
+Godiard
+(
+talk
+) 17:30, 18 March 2014 (EDT)
+What will you do if you get stuck on your project and your mentor isn't around?
+If I get stuck at some point, I would probably look for a hint in the documentation and/or
+the community. If none of the above work, I would probably work in another feature while my mentor
+is not available.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+Chatting frequently through the IRC channel and posting weekly progress updates to a Wiki page.
+Miscellaneous
+We want to make sure that you can set up a development environment before the summer starts. Please do one of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug.
+It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+rparra's environment screenshot
+Describe a great learning experience you had as a child.
+When I was 8 years old, I remember having trouble understanding some basic math concept that I was supposed to learn at the time. I can’t remember what it was exactly, though. I recall that one day in class, a classmate asked precissely about that concept. Instead of just telling him I didn’t get it yet, I’m not sure why, I tried my best to explain it the best I could to him.
+During my explanation, I remember finally understanding the concept. Something just made ‘click’ inside my head. Trying to help a friend helped me to get rid of that annoying learning block. I felt awesome. I learned and important lesson that day: while learning is itself a rewarding process, learning by helping others is a much more fulfilling experience.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+I think that some potential future work derived from this project is also worth mentioning.
+In that regard, I think that it would be really interesting to develop a Sugar Activity to allow the user to submit his recordings, in order to improve existing acoustic models. Bringing together two great open-source projects like Sugar and Voxforge would be great.
+Speech recognition can also be integrated with the Butiá Robotics Project from Uruguay.
+A user could control a robot by speaking to it, do I need to say more?
+Regarding myself, due to the experience I gained through my thesis project, I feel like I am both capable and well suited for the task at hand. I am familiar with the theoretical background, the tools and the platform. Furthermore, I believe that the mistakes I have
+made during the last year (and the learning that came with them) will prevent me from having some of the problems that a beginner might have.

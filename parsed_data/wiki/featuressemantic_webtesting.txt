@@ -1,0 +1,39 @@
+Title: Features/Semantic Web/Testing
+URL: https://wiki.sugarlabs.org/go/Features/Semantic_Web/Testing
+--------------------------------------------------------------------------------
+It is possible to test SemanticXO on both an XO-1 or a desktop PC. However, it is recommended to use an XO-1 are the installation is easier on these and they are used as a primary target for all the development.
+On an XO-1 running the software
+12.1.0
+Go to
+http://git.sugarlabs.org/semanticxo/main/trees/master/patch_my_xo
+Put the files "setup.sh" and "semanticxo.tar.gz" somewhere on the XO
+Login as root, set setup.sh to be executable and type "./setup.sh setup". This will install the API of SemanticXO, the triple store and two demo activities
+Reboot
+On a desktop PC
+This is a step by step intruction guide to test the triple store based Journal backend. It assumes that all the packages for sugar are available and the sugar-emulator is running.
+Download and install RedStore
+Follow the instructions on
+http://www.aelius.com/njh/redstore/
+to download and install RedStore on the test machine. It should also be possible to use other triple stores such as Virtuoso or OWLIM as long as a SPARQL 1.1 compliant service is accessible on the port 8080.
+Install the dependencies for SemanticXO
+RDFLib
+http://code.google.com/p/rdflib/
+SPARQLWrapper
+http://sparql-wrapper.sourceforge.net/
+Download and install the code from SemanticXO
+Clone the repository:
+git clone
+git://git.sugarlabs.org/semanticxo/main.git
+semanticxo
+Edit line 4 and 5 of datastore/bin/datastore-service to make it fit the location of the directory where you clone the code (by default ~/Code/SemanticXO)
+Locate the datastore-service startup script from the normal datastore
+type datastore-service
+Replace that daemon with datastore/bin/datastore-service
+Start redstore in debug mode, so that you will see the queries being executed ;-)
+redstore -v
+Start the sugar emulator
+sugar-emulator
+Play around with Sugar, creating and updating entries in the Journal
+With an explorer, within the emulator or outside, go to
+http://localhost:8080/
+to see the content of the triple store. There should be one named graph per Journal entry

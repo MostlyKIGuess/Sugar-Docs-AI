@@ -1,0 +1,63 @@
+Title: Summer of Code/2014/bulletinboard
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2014/bulletinboard
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Bulletin Board
+1.1
+Chat Channel
+2
+Instructions to setup on any Sugar Activity
+2.1
+Screenshots and Demo
+3
+Bulletin Frame
+3.1
+Demo
+Sugar Bulletin Board
+Bulletin Board is a project under Google Summer Of Code which aims at building an interface to promote interaction among users on an activity.
+For detailed information refer to the link -
+Summer of Code/2014/native/Bulletin Board
+.
+Chat Channel
+It is overlaid on any activity and is a spatially contextual chatting interface comprising of chat bubbles throughout the screen.
+For detailed information about the project refer to Bulletin Board Proposal,
+Summer of Code/2014/native/Bulletin Board
+.
+Instructions to setup on any Sugar Activity
+Clone the sugar toolkit gtk3 repo. -
+https://github.com/native93/sugar-toolkit-gtk3
+.
+Also in the sugar-artwork, include the icon hand1.svg and add it in the corresponding Makefile.
+Choose any activity on which you want the Bulletin Board to be overlaid. -
+Shown as an example for the Paint Activity -
+https://github.com/native93/Sugar-paint-activity
+.
+In the activity code base, search for the Activity class i.e, Class which inherits activity.Activity of sugar3. -
+OficinaActivity in case of Paint Activity
+Import BulletinBoard class from sugar toolkit  -
+from sugar3.activity.widgets import BulletinBoard
+Initialize an object of the class say self.board -
+self.board = BulletinBoard(self)
+.
+Insert self.board in the activity container (depends on activity) -
+refer to Paint Activity.
+Also insert the bulletin button -
+self.board.button
+at the end of the activity toolbar box.
+That's it ! Bulletin chat channel is ready for use with the activity !
+Hand Icon to be included
+-
+Screenshots and Demo
+Short Demo -
+https://www.youtube.com/watch?v=wyjLfKBn4BQ
+Bulletin Frame
+- github repo -
+https://github.com/native93/bulletinframe
+Steps -  
+ 
+    * Clone the repository inside sugar/src/jarabe/.
+    * Add the new dir "bulletinframe" in the Makefile present in the folder.
+Demo
+Short Demo -
+https://www.youtube.com/watch?v=v3NPUTEczmU

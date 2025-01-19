@@ -1,0 +1,134 @@
+Title: 0.82/0.81.2 Notes
+URL: https://wiki.sugarlabs.org/go/0.82/0.81.2_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.81.2
+1.1
+Announcement
+1.2
+Glucose modules
+1.3
+Glucose news
+1.3.1
+sugar-base
+1.3.2
+sugar-toolkit
+1.3.3
+sugar
+1.3.4
+etoys
+1.3.5
+journal-activity
+1.4
+Fructose modules
+1.5
+Fructose news
+1.5.1
+read-activity
+1.5.2
+chat-activity
+1.5.3
+terminal-activity
+1.5.4
+web-activity
+1.5.5
+calculate-activity
+1.5.6
+write-activity
+1.5.7
+log-activity
+1.5.8
+pippy activity
+1.6
+Instructions to test in olpc joyride
+Sucrose 0.81.2
+Announcement
+This release has many great improvements. Pippy and the Log activity fixed the platform specific issues and could be added to the release. Refinements have been made to the activity list view like adding installation dates of the activities, sorting by dates and searching in the list of activities.
+The control panel has been refactored and now has a graphical interface as well as the command line one. Refactoring work has been done as well in the bundlebuilder and a speaker device has been added to the frame so you can control the volume of your speakers from there. In Etoys new phrases have been marked for translation to improve internationalization even more.
+Make sure to check out the new palette features for links in the web-activity and try to quit the terminal activity by quitting the shell. As another little smoke test you could use the control panel to change your buddy to use a light fill color and check that the chat activity then uses black text for your messages.
+Finally, if the frame pops up unintentionally during these actions you can now find a slider to set different activation delays for the frame in the control panel.
+Glucose modules
+sugar-base 0.81.1
+sugar-toolkit 0.81.4
+sugar 0.81.3
+sugar-artwork 0.79.3
+sugar-datastore 0.8.1
+sugar-presence-service 0.81.1
+etoys 3.0.2007
+journal-activity 91
+Glucose news
+sugar-base
+Fix logging (Tomeu)
+sugar-toolkit
+Add an installation time property to the activity bundle (Tomeu)
+Reveal palettes on right-click (Eben)
+Refactor bundlebuilder and add dist_source command (Marco)
+Enable journal to do open-with for activity bundles (Chema)
+Add timezone, hot_corners, warm_edges to the profile (Simon)
+sugar
+Search in the activity list (Tomeu)
+Add installation date in the activity list (Tomeu)
+Improve performance of the activity list (Tomeu)
+Sort activities in the list and ring by installation date (Tomeu)
+Speaker device (Martin Dengler)
+Graphical frontend for the control panel (Simon)
+Rotate the dpad keys when the screen rotate button is pressed (Erik Garrison)
+etoys
+More translatable phrases
+Minor tile fixes
+journal-activity
+Arabic translations update (Khaled)
+Italian translations update (Carlo)
+Misc small fixes (Simon and Tomeu)
+Fructose modules
+read-activity 46
+chat-activity 40
+terminal-activity 12
+web-activity 89
+etoys-activity 81
+write-activity 55
+calculate-activity 19
+log-activity 9
+pippy-activity 22
+Fructose news
+read-activity
+Skipped this release
+chat-activity
+#5767: Use black text on light fill colors (matthias)
+terminal-activity
+#5520: Make the activity exit when the user exits the shell. (sayamindu)
+web-activity
+89
+Make the object chooser transient on the activity window. (tomeu)
+88
+Add Edit toolbar (tomeu)
+Add Follow link item to link palette (tomeu)
+Add palette for images (tomeu)
+Add a simple palette for links with an option to copy to the clipboard (tomeu)
+calculate-activity
+Skipped this release
+write-activity
+Skipped this release
+log-activity
+Make users non-olpc be able to read the sugar logs - this is important for the activity running on non xo platforms
+pippy activity
+Add check to not fail on new gtksourceview2 API - this is needed for the activity to run on non xo platforms
+Instructions to test in olpc joyride
+The sugar packages from Sucrose 0.81.2 went into the olpc image
+joyride-2024
+. You can update to joyride using
+olpc-update
+or a usb key.
+There are no activities in the builds anymore. You can get the Sucrose 0.81.2 activities with the activities script (based on bert's activity update
+script
+).
+Switch to a virtual console by pressing the  Ctrl+Alt+
+keys.
+Enter the following commands:
+su - olpc
+wget
+http://dev.laptop.org/~erikos/sucrose-activities.py
+python sucrose-activities.py
+Return to sugar by pressing the Ctrl+Alt+
+keys. The activities will then be listed in the activities list.

@@ -1,0 +1,32 @@
+Title: Sugar on a Stick/sdm
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/sdm
+--------------------------------------------------------------------------------
+Goal
+Enable autodetection of
+SoaS
+flash drives on
+SoaS-helper
+machines. (SoaS-helper was described in detail in
+this blog post
+)
+Ideally, the
+S
+oas
+D
+esktop
+M
+anager
+should:
+Start on boot when a -helper machine loads
+Provide a helpful and simple user interface
+Detect all versions of SoaS drives and update them if outdated
+Handle failures gracefully
+Prepare the system enviornment to allow the user to continue where they left off
+Detection tools
+Since we lack a better heuristic, we will attempt to use the following criteria for our definition of a SoaS disk:
+The device is a removable media, such as SD, USB-flash, or MMC
+The device is FAT formatted
+The device contains a magic-file (to-be-determined) which identifies it as a SoaS disk
+Unfortunately, this requires us to mount each candidate disk inserted into the computer, which slows reaction time.
+Resources
+Git tree

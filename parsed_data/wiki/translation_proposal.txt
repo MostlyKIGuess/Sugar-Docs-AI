@@ -1,0 +1,260 @@
+Title: Translation Proposal
+URL: https://wiki.sugarlabs.org/go/Translation_Proposal#ToDo:
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Translation Manager
+Contents
+1
+Translation Proposal
+1.1
+Localization Delegate
+1.1.1
+L10n leadership tasks:
+1.2
+ToDo:
+2
+Original Draft
+Translation Proposal
+A goal of Sugar Labs is to enable our users to experience Sugar in their own native language.
+[Note: The current mission statements focus on languages (localize to as many languages as possible with high quality). The above statement is intended to focus on users not languages. I believe our goal should be to enable our users to experience Sugar in their native language.]
+This goal requires two steps - internationalization (I18n) and localization (l10n). The first step (I18n) is to provide tools and documentation to facilitate the second step (L10n).
+In general, I18n is the responsibility of the Sugar development team. Localization, l10n, requires effort by volunteers who know the native language as well as English (the language of the POT master files).  Translation into mother tongues by bilingual non-English speakers (e.g. Spanish-Aymara) is also supported by keeping Spanish PO files translated at high levels of completion.
+Sugar is distributed in a release (e.g. Sugar 0.108 is released in 13.2.7) with the  master files updated for new and changed strings. These master files are available from
+http://translate.sugarlabs.org
+". Specifically, the files for the current releases of Sugar are identified as projects: sugar and sugar-toolkit-gtk3.
+In addition, this site tracks localization of Sugar activities which support Pootle localization. There are currently seven activities which are integral to Sugar (not-erasable):  Browse (Web), Image Viewer, Log, Read, Record, Terminal, and Write (excluding Journal which is localized in Sugar).  These seven activities enable Pootle localization (are projects on tranlate.sugarlabs.org).
+Localization Delegate
+SugarLabs needs a Localization delegate. This is a role which Chris Leonard has filled from 2008-2013.
+L10n leadership tasks:
+Monitoring new activity development and advocating for i18n of code
+(gettext formatting for Python activities, other similar methods for JavaScript work).
+Setting up new languages for availability in Pootle.
+Act as Sugar Labs i18n coordinator for oversight of performance on contracts to develop L10n projects approved by SLOBs.
+Reaching upstream to create the glibc locales for new languages required for them to be selectable languages in Linux-based systems.
+Requesting github permissions for the pootle git-hub user (to enable pull of new templates, push of completed translations).
+Monitoring Pootle for currency of templates, update of templates on existing languages, commit new translations.  These tasks are the responsibility of individual language team leaders, but in practice need an overseer on behalf of all languages.
+Arranging 'L10n' days at deployments where teachers have students improve strings in the relevant .po or supply missing strings. The outcome of an 'L10n' day should be an updated localization for that native language.
+Arrange for participating deployments to be publicly recognized for their contribution.
+Suggestions by Sebastian:
+Prepare glibc locales / other similar for Web stack *
+Maintain pootle servers and databases *
+Review / update translations and repositories *
+Keep git automation scripts *
+Add new projects / languages *
+Document processes
+Respond to queries from language teams
+Coordinate upstreaming of local work
+Where * marks items requiring more technical knowledge or research
+Recover L10n work done in the following languages that was lost in Pootle migration:
+Crioulo-PT
+Dari
+Kinyarwanda
+Marovo
+Nauruan
+Sindhi
+Tuvaluan
+Urdu
+Recover L10n and repo connections to numerous missing activities
+ToDo:
+Discussion in the committee shows that our I18n infrastructure is in need of urgent maintenance. 
+ASLO no longer provides links to the git version. Many activities were repaired by the GCI participants. These need to be reviewed to make sure that the translation files are available and current.  Chris Leonard has provided a list of 'missing activities', i.e. activities which had localization files but which were misplaced in a pootle migration. Etoys has not been updated since 2009 and the localization files are no longer available in Pootle, but we do have backups. The translate.sugarlabs.org which is the repository for the localization files is missing some files.
+Provide a documented process for a local deployment to localize Sugar and some activities to a local language. The goal of the deployment is to make Sugar (and use of the XO more accessible).
+Chris Leonard has suggested that we base localization by a deployment on virtaal (a component of Pootle). He has installed and run this tool on an XO in the gnome desktop.
+As Caryl has pointed out, we also need to document this process so that it can be accomplished at a school as a classroom activity. This involves training teachers and providing tutorials for students.
+Identify Sugar activities in ASLO which do not support localization (are not projects in translate.sugarlabs.org). Arrange for them to use gettext. Create master files (localize) to English.
+Priority to Spanish language activities
+Other important or popular Sugar activities
+Make L10n activity more visible.
+Adam Holt has suggested some regular blogging or microblogging to highlight achievements by the L10n community.  There are some potentially low-cost ways to achieve this by making Pootle a little "noisier" (in the ggod sense). By way of example, we used to havea mailing list that monitored every commit made by the old Pootle instance
+http://lists.sugarlabs.org/archive/pootle-commits/
+The new Pootle has a number of RSS feeds that could be channeled to a more visible format echoing more loudly the action happening on Poolte.
+Sugar development could review Sugar (Python) activities to see if they support Pootle and attempt, eg. through GSOC, to get activities upgraded to implement Pootle and to include a base set of English Pootle files.
+Define a standard I18n method for Sugarizer and sugar-web-activities. Chris Leonard recommends using the procedure adopted for turtleblocks.js. We need corresponding documentation of this process to enable it to be used immediately by GSOC participants who implement or port activities as sugar-web-activities.
+Determine whether a common process can be used to localize sugar-web-activities and Sugarizer and its activities. (e.g. by using polyglot.js)
+Provide a tool to to test python source code for compliance with the needs of Pootle
+All strings not in comments are referenced by gettext
+All strings match a msgstr in the corresponding en.po file
+This may not be feasible since some strings ought not to be localized (e.g. the gsettings schema).
+Provide a tool to verify that the available localizations are included in a release.
+Develop a glossary of terms needed to refer to the XO, Sugar, and actions to be taken by users (e.g. close the XO, switch to the Group View).
+The range.py (needing refinement) can be used to look at the strings in a po file to be localized to ensure that they do not use conflicting words or a more technical vocabulary that necessary. Every extra string in the master file may result in 50-100 translations.
+Prepare a GSOC task to develop an I18n strategy and supporting tools for JavaScript activities. The following can be a good starting point:
+"
+http://www.localeplanet.com/
+"
+"
+https://blog.mozilla.org/webdev/2011/10/06/i18njs-internationalize-your-javascript-with-a-little-help-from-json-and-the-server/
+"
+"
+http://airbnb.io/polyglot.js/
+"
+Sugarizer has three translation files, including this master file:
+"
+https://github.com/llaske/sugarizer/blob/master/locale.ini
+"
+Document and improve all processes to be 'run-over-by-bus-safe'
+Original Draft
+SugarLabs needs a Localization delegate. The purpose of this proposal is to document the current Internationalization/Localization process and to define the role of the Localization delegate in that process. Some proposals for expansion/modification of the process are included.
+Chris Leonard is arguably the incumbent Localization delegate:
+Note: this title needs comment. The 'governance' page suggests that this position should be a delegate and not a co-ordinator since SLOBs cannot name a co-ordinator. I chose localization because I believe I18n (creating the framework and base) is the responsibility of sugar-devel and localization is a community responsibility.
+"For quite some time (starting in 2008, as I recall) under the "title"
+of Translation Team Coordinator I worked in that role (unpaid) and I
+can certainly help in fleshing out details.  From 2008 - 2013 I was
+able to dedicate adequate time to both technical aspects of i18n
+(Pootle infrastructure and i18n advocacy/assistance to developers) as
+well as L10n (localization mailing list, maintain L10n wiki pages,
+support to new language communities, recruiting new localizers, etc.).
+The good news (for me) is that in 2013 an extended period of
+unemployment ended, the bad news is that I found myself unable to
+continue to provide sufficient support to the community for several
+reasons (technical issues with Pootle version migration as well as
+development migration to github beyond my scope to manage alone) and a
+slump in L10n activity by the community (perhaps in part because of
+insufficient efforts to organize and rally the troops).
+My employment situation has stabilized somewhat and I would like to
+continue to contribute to the i18n/L10n effort, but as many have
+experienced throughout the financial crisis, my new employment
+circumstances are only providing a fraction of the income I had made
+in the past, so my "free time" is subject to the demands of pursuing
+supplemental income.  I have done some work in support of Sugar Labs
+since (e.g. Awajún glibc locale drafting), for which I might be
+compensated for my time and effort from the TripAdvisor grant based on
+a template agreement worked out with the SFC and the prior approval of
+the Sugar Labs Oversight Board.  That is essentially piece-work, a
+pre-agreed amount for a pre-agreed deliverable (a committed glibc
+locale), I have not yet actually drawn any TripAdvsor funds for this
+purpose, but I may make such requests in future (assuming necessary
+pre-approvals are granted)." cjl
+Translation has two separate parts: internationalization(I18n) and localization (L10n).
+The Sugar-Devel team is responsible for I18n (preparing the framework to support localization) and the community is responsible for L10n - providing translations (by default, from English) to other languages.
+The current process is based on Pootle [
+[1]
+] server as the means of distributing localizations [
+[2]
+]
+L10n leadership tasks:
+Monitoring new activity development and advocating for i18n of code
+(gettext formatting).
+Setting up new languages for availability in Pootle.
+Reaching upstream to create glibc locales for new languages.
+Necessary for them to be selectable languages in Linux-based systems.
+Requesting github permissions for the pootle git-hub user (to enable
+pull of new templates, push of completed translations).
+Monitoring Pootle for currency of templates, update of templates on
+existing languages, commit of new translations.  Tasks technically the
+responsibility of individual language team leaders, but in practice
+needing an overseer on behalf of all languages. - cjl
+Let's divide the languages into three groups:
+English (the base language)
+Note: English is the original language of many activities, but there
+are also many written first in Spanish, working with developers to
+make Spanish-originating activities capable of being translated to
+other languages (via an English bridge)  is an issue requiring
+attention. - cjl
+Mediums of instruction (languages used at deployments as a common language where more than one language is spoken)
+Local language (languages used by students at home)
+English is not always the base language of our South Amreican activity
+developers, as mentioned, this requires some careful thought and
+action to make these Spanish-originating activities more widely
+available in other languages.
+Fortunately, the Pootle system can take the ongoing Spanish
+translation of an English-originating activity and show it to
+indigenous language translators (e.g. for Spanish to
+Aymara/Quechua/Guarani/Awajún L10n where localizers are primarily
+bilingual, but not English-speaking).  Similarly, French translations
+(if present in Pootle) can facilitate L10n into the indigenous
+languages of Francophone Africa.  This helps us create bridges to
+indigenous languages by localization into a "language-of-instruction",
+e.g. Spanish, French) early in the development cycle. cjl
+When a new Sugar release is made, the Pootle English master files should be a part of the release. Sugar development should ensure that Pootle files are available for all software in the release.
+Actually, POT template files (Pootle English master files) need to be
+generated early in the development cycle, well before release and must
+be updated regularly as strings change in source. Those updated
+templates need to be synched on Pootle and made available as soon as
+possible.
+Typically there is a "string-freeze" declared for several weeks prior
+to release allowing localizers time to do their work in a stable
+background.  The release itself includes all localizations made up to
+the release date (as PO files). cjl
+Sugar may want to provide localization for one or more mediums of instruction (e.g. Spanish, French, Arabic). Since this would imply that files for these localizations are available at release, SugarLabs should decide which, if any, of these languages are to be supported.
+Agreed that a core set of languages should be completed prior to
+release, not entirely sure about declaring "supported languages", we
+should release what we have to encourage further work. cjl
+Deployments (or deployment sponsors) may need localization of Sugar for specific local languages (e.g. Kinyarwanda, Haitian Creole,Sotho, Xhosa). I believe these localizations are most likely to come from Sugar/XO deployments where the language is used.
+You would think so, and we can talk about Khmer (Cambodian) at some
+other time, but the reality is that you run into odd things more often
+than you would think, sometimes for the reasons you mention below
+(language-of-instruction), sometimes it is more complex than that. - cjl
+However, strange things happen. For example, Rwanda is one of the largest and most active deployments. However, there is no Kinyarwanda localization. The reason is probably that in Rwanda the OLPC laptops are part of a path to English. They are introduced at the fourth grade, the first year when the required medium of instruction is English. While Kinyarwanda is a subject in grades 4-6, the priority is using the XOs to facilitate learning in English, Mathematics, and Science.
+I believe that the Pootle files are distributed and installed with the released image. This should mean that XO users who know English and the native language could provide the localization. Once it is complete, the files can be installed on the XOs at the deployment and the localization would be available at the deployment. Ideally, localization would be done by the students as a learning activity. For example, in Rwanda, localization to Kinyarwanda would help students a lot in learning English. Sameer Verma has provided an excellent tutorial on how to do localization which could become the base for a guide to be included in the release (e.g. as an xol file). [[
+Oh, it were only that easy...  In reality, the technical means for
+"bootstrapping" localization at the local level do not exist.  That is
+a large and complex topic that I would behappy to discuss further, at6
+length.  One issue ismaking it possible to touch and change PO files
+on local machines (I do have some thoughts), another is capturing that
+local work back at the central Pootle server for the benefit of
+others.
+What you describe is an ideal situation that is not currently possible
+(local bootstrapping), in reality we need the L10n to happen on our
+centralized Pootle server to get them back out. - cjl
+Actually I think we would have all the pieces required for a local bootstrapping scenario. There are friendly local .po editors, or it could even be done with a spreadsheet. The issue here is it requires greater preparation from logistics/technical people, and extra work afterwards from coordinators as strings need to be guaranteed to reach Pootle in the end (this is the hard bit).
+Sebastian
+(
+talk
+) 02:58, 25 February 2016 (EST)
+So, the translation manager would be responsible to identify deployments which use specific local languages and work with them to organize 'L10n' days for new releases. The translation manager should then interface with Pootle to submit the localization files for review and acceptance by Pootle.
+Sugar development could review Sugar (Python) activities to see if they support Pootle and attempt, eg. through GSOC, to get activities upgraded to implement Pootle and to include a base set of English Pootle files.
+Perhaps OLPC France could be tasked to provide French localization as part of the release process. For Spanish, perhaps Sebastian Silva (Peru) or Plan Ceibal could accept responsibility for Spanish.
+Other comments:
+The most important consideration is what the local people really want…
+not what we think they want or think they should want. Maybe they are happy
+with English. On the other hand, maybe they would prefer their own local
+language (or dialect). Don't assume anything. Don't ask just one person.
+Ask enough people to get a genuine consensus. Caryl
+Using students to provide localization is an excellent educational
+activity. However, it needs to be overseen by an "expert" (maybe their
+teacher) to insure it is both accurate and appropriate before submission to
+Pootle. Caryl
+The Spanish of Mexico is slightly different from the Spanish of Peru
+and/or the Spanish of Argentina (etc., etc,, etc). Using students for
+localization could be helpful here and, I'm sure for other languages. Caryl
+Again, for Spanish… why not look to our largest Sugar deployment,
+Uruguay, for enlisting students to help? One of the SLOBs (José Miguel
+García) is Uruguayan as is super-star teacher Rosamel Ramirez. Caryl
+Applying to GSOC for help in any aspect with this work seems like a "no
+brainer" but the deadline for applications for 2016 was yesterday! [image:
+Emoji] - Caryl
+The success of the first translation will depend on how established /
+knowledgeable the local community is. Reviewing the first round of Haitian
+Creole translations, which I think were done by volunteers, you notice some
+obvious problems, like inconsistent terms. I've personally seen students
+and teachers become confused by these issues when using the computer. They
+keep using it anyway, but it definitely affects the user experience. Now,
+hopefully the attitude of "this is the wrong way to say it" will inspire
+the next round of volunteers to do a better translation - but that's a big
+assumption to make. Sora
+I think it's important to remember that in many of these places, language
+ideology is something communities are working through. All the research
+supports literacy / learning in the mother-tongue language, but in many
+places the languages kids speak at home are seen as inferior to the ones
+they learn in school - not just because the one they learn in school is
+more widely-spoken, but because of myths that the language spoken at home
+is not "advanced" enough to study something like science / math / tech.
+So, basically, if the first translation is not adequate, there may not be a
+second translation. People may decide "This language is not adequate for
+using the computer" instead "Our translation is not adequate; let's make it
+better."' Sora
+Another hole in the i18n infrastructure is with our Javascript activities.
+Maybe worth a GSOC project to shore it up. - Walter
+For javascript L10n, start with these links:
+<a href=
+http://www.localeplanet.com/
+></a>
+<a href=
+https://blog.mozilla.org/webdev/2011/10/06/i18njs-internationalize-your-javascript-with-a-little-help-from-json-and-the-server/
+></a> - cjl

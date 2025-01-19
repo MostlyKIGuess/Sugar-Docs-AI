@@ -1,0 +1,154 @@
+Title: Summer of Code/2016/MusicWidgets and MusicBlocksChallenges
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2016/MusicWidgets_and_MusicBlocksChallenges
+--------------------------------------------------------------------------------
+Contents
+1
+About me
+2
+About my project
+3
+Me and The Community
+4
+Miscellaneous
+About me
+What is your name?
+My name is Yash Khandelwal and I am a 3rd year undergraduate student at
+IIIT-Hyderabad
+.
+What is your email address?
+yk51294@yahoo.in
+What is your Sugar Labs wiki username?
+k_yash2
+What is your IRC nickname on irc.freenode.net?
+k_yash
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My first language is Hindi, I am fluent in English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+My location : Hyderabad, India
+UTC + 5:30 (Indian Standard Time)
+Working Hours (not strict, flexible): (UTC + 5:30) 12:00 - 17:00 and 22:00 - 4:00. I can adjust my work timings according to the mentor’s time zone.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer
+Yes, last year I participated in GSoC and contributed to Sugar Labs. I worked on developing Music-Blocks Microworld. Music Blocks is a collection of manipulative tools for exploring fundamental musical concepts in an integrative and fun way. I was also a GCI mentor for SL this year.
+Here are the links ->
+Google-melange
+and
+music-blocks
+About my project
+What is the name of your project?
+Music Widgets and Music Blocks Challenges
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+Music Widgets
+Music Widgets will help in exploring and improving possibilities of music in our current music blocks microworld.
+Basically, there will be four kinds of widgets:
+Rhythm Ruler
+: The main aim behind making this widget is to  make the user understand rhythm of a melody in a better way by adding an abstraction layer in the melody in present micro world. The ruler will initially have ‘x’ beats per minute set. And with each click on the ruler we'll divide it into input number of parts. For example, Consider initial bpm as 30 and  we set ‘divide-by’ block to 4. So the ruler gets divided into 4 parts(as ¼, ¼, ¼, ¼ ). Now if we click on 1st partition with ‘divide-by’ block set to 2, then the resulting ruler will be (⅛, ⅛, ¼, ¼, ¼ ) and based on this tuple, we’ll calculate the rhythm of every partition and thus the whole ruler. Here, this ruler results into 2 rhythm blocks:
+Block 1 : number of notes = 2 and note value = 8;
+Block 2 : number of notes = 3 and note value = 4;
+Pitch Staircase
+: Stairs will help the user understand the concept of lowness or highness of a tone, in terms of frequency. There will be a ‘+’ button, clicking on it will add an instrument. To add an instrument we will have to define its 'do' first and then make the stairs out of it. As we go up the stairs pitch of the instrument increases. When the height of the stair becomes double to that of another one, the frequency also gets doubled.
+Tempo Widget
+: In music, tempo is the speed or pace of a given piece or subsection thereof. Tempo is measured in BPM, or Beats Per Minute. 60 BPM is one beat per second. Sometimes the tempo is written at the beginning of the music and is called a metronome marking. The basic idea behind this widget is, there will be separate workspace in music blocks where user will be able to define the tempo, multiple simultaneous tempos are also possible. I would rather say user will be able to design the tempo for melody in interactive manner. In the tempo workspace, consider a specific colored ball enclosed between 4 walls, it will have some initial speed in either in x-axis or y-axis. The ball gets reflected back with the same speed whenever it hits the wall and with each hit a sound is produced. So, the number of time a ball hits the wall in a minute defines the bpm. The speed of any particular ball can be increased or decreased. Similarly, multiple simultaneous tempo can be designed by increasing the number of balls and choosing distinct sound for each one of them. After the tempo is designed, it can be directly incorporated in the main micro world workspace as a tempo block by clicking on “export tempo” button.
+Free-Pitch Slider
+: The idea behind this widget is to let user choose the pitch he/she likes. In the free-pitch slider workspace, user will be presented with a slider. On the slider he can click and drag the cursor within the slider area bounds. Pitch will increase from bottom to top, user can set the octave, waveform, attack/release time. While moving cursor on the slider, it will produce the sound depending upon the waveform and the octave. When the user finds the correct pitch he can simply double click on that area and after that by clicking on ‘export-pitch’ button, the pitch block will get exported to the main music blocks workspace.
+Music Blocks Challenges
+The main aim is to make a set of activities for exploring musical and programming concepts using Music Blocks micro world as base. Our objective is to make the user understand important underlying concepts of musical form by travelling over the musical forms.  An example Lesson Plan(the first activity) as explained by Devin has the main objective : ‘To explore musical form. What are the important underlying concepts of musical form?’ We will achieve this by scripting (i.e. attaching blocks in music blocks sensibly and not violating the music-form) and chunking (divide the power piece into chunks and then arranging them). We can have many power pieces, depending on the form which should be easy enough for the students to understand the whole activity. Devin recommended Hot Cross Buns, All you need is love(The Beetles) and Minuette in G as power pieces because they are in the same key and the starting of the first two power pieces is same, so it is easier for the students to learn and understand musical concepts at initial stage. After the lesson is done, there can be extensions to it  like mixing of pitches, keeping melodic structure intact or mixing of structure keeping the pitch same, usage of other blocks like ‘invert’, ‘transposition’ etc. There can be several activities like this, which I will design and develop with Devin’s help.
+The technologies I’ll use in both ‘Music Widgets’ and ‘Music Block challenges’ will be mostly Javascript with HTML/CSS. Library for sound will be ToneJS. I will also use create JS, as it is being used in music blocks already.
+Tone.js
+is a Web Audio framework for creating interactive music in the browser. It offers prebuilt synths and effects, as well as presets for them.
+CreateJS
+is a suite of modular libraries. It contains easelJS, tweenJS, preloadJS and soundJS. I'll use EaselJS for working with canvas, tweenJS for HTML5 animation and preloadJS for coordination between various things like CSS, SVG, audio.
+I will use Agile methodology in incremental order for the project.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+DAYS
+WORK TO BE DONE
+Community Bonding Period
+Interact with mentor and organization members, understand music widgets deeply, make designs for activities in ‘music blocks challenges’ and do semantic analysis for them with the help of Devin.
+Week 1 - 2
+Making Rhythm ruler and Pitch Staircase Widgets.
+Week
+Discuss about Features, Functionalities and architecture of the project. Discuss about methods of implementation specified in this proposal.
+Week 3 - 4
+Get both widgets reviewed from mentor, making necessary changes in UI/UX or logic if needed. Making Tempo widget and free-pitch slider.
+Week 5
+-> Code refactoring,
+-> Get the remaining widgets reviewed by mentor,
+-> Apply for mid term evaluation.
+Week 6 - 7
+Start Working on Music-Blocks challenges
+-> Make a template for activities, I will be developing.
+-> Start making activities, the designs and  logic for which got completed in community bonding period.
+Week 8 - 9
+-> Fixing bugs in Music Widgets
+-> Improving UI/UX of activities in Music Blocks Challenges
+-> Continue developing activities
+Week 9 -10
+-> (1st week) Buffer period, Taking reviews from Devin and Walter for the work done so far,
+-> Fixing bugs,
+-> Code refactoring
+-> Implement remaining features in both Music Widgets and Music Blocks Challenges
+Week 11
+-> Start writing documentation of both Music Widgets and Music Blocks Challenges
+-> Making examples for the activity, it’ll help users to get better understanding of the functionalities out there, and how to use them.
+-> Discuss with Devin and Walter, if there’s anything more that we’d like to implement. Implement it.
+Week 12
+-> Organize whole code, fix remaining issues, UI improvements,
+-> write tests and remaining documentation of work done,
+-> Submit the code sample and final mentor evaluation.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+From May to July I have summer vacations. I’m totally free in that period, I can easily devote 40-45 hours per week for the project. I will be able to spend only 30-35 hours per week once my vacation ends. I do not have any prior commitments.In my college, I am bound to strict deadlines, so I am apt to work with deadlines that allows me to complete projects/tasks on time. I will consider my work during GSoC as full time work and so I will be working with complete dedication during the entire duration. Last year also, I was able to complete the project on time. There were some mistakes I did, this time I’ll make sure they won’t get repeated.
+The project I have completed successfully as part of my college course work are as follows:
+Compiler
+: I created a compiler for a programming language called decaf. The
+project mainly involved creating backend for the compiler.
+Cloud Orchestration Layer
+: Created a cloud orchestration layer using libvirt and ceph. This includes creation, deletion, querying and scheduling of virtual machines in a network.
+Benchmarking tool for graph algorithms
+: a benchmarking tool for testing the performance of graph algorithms like BFS, Pagerank,etc. with MapReduce, Giraph, GraphLab and Neo4j and testing which approach works better on what kind of graphs.
+webERP
+: Converted webERP into web 2.0  UI type using laravel framework
+SkyNote
+: Built Notes keeper in web2py framework. It is an application which helps you to save your notes in browser when offline and on server when online
+Carrom
+: Built Single player Carrom Board developed using openGL and c++
+File Transfer Protocol
+: Application developed in C, which uses TCP protocol for File sharing (upload / download), Indexed searching and file hashing .
+Top-Shooter
+: Built a 3-D top shooter game in openGL-2 and c++
+Me and The Community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My answer
+:
+Music Widgets will open a lot many ways and possibilities to explore music by keeping music blocks microworld as foundation. It will help students to understand concepts like rhythm, pitch, tempo easily because with the widgets we’re going to lay an extra layer of abstraction in music blocks which will be interactive as well as informative.
+Music Blocks Challenges - The set of activities will help both teacher and the students to introduce rich musical ideas ideas with the help of power piece concept.
+Using both ideas we will be able to create a great and a better platform for musical exploration.
+What will you do if you get stuck on your project and your mentor isn't around?
+If I am stuck at any point I try to sought it out myself, usually I try to search for it on the web, related links to the context. If it does not work, then I’ll ask other developers on irc for help, or I’ll drop a mail on mailing list. In college I’m surrounded by people who have expertise in various areas, I will try to seek help from my colleagues who have more knowledge about that domain in which problem resides.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+Same like last year I will make make a blog, where I will update my progress, future plans, any problems or questions weekly. I will commit my work time to time on github and get it reviewed from mentor whenever possible, put the link of my blog page on irc whenever I’ll update it, so that I can also get some form of quick review from developers. I will also discuss my progress and problems on sugar-meeting weekly. This is how community will be aware of the progress made by me so far.
+Miscellaneous
+We want to make sure that you can set up a development environment before the summer starts. Please do one of the following: Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+If you plan to work on Sugar-Web projects we want to be sure that you're familiar with web technologies, so:
+Clone the Sugarizer repository
+Using instructions here develop your first Sugar-Web activity
+Send us a screenshot of your new activity executed in Sugarizer
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Last year I developed Music-Blocks with Devin, Walter and Marnen!
+Here is the link ->
+https://github.com/khandelwalYash/Music-Blocks
+Present Music Blocks ->
+https://github.com/walterbender/musicblocks
+Following are the PRs I made :
+https://github.com/walterbender/musicblocks/pull/221
+https://github.com/walterbender/turtleblocksjs/pull/220
+https://github.com/walterbender/turtleblocksjs/pull/219
+https://github.com/walterbender/turtleblocksjs/pull/218
+https://github.com/walterbender/turtleblocksjs/pull/217
+https://github.com/walterbender/turtleblocksjs/pull/216
+https://github.com/walterbender/turtleblocksjs/pull/213
+https://github.com/walterbender/turtleblocksjs/pull/204
+https://github.com/walterbender/turtleblocksjs/pull/196
+https://github.com/walterbender/turtleblocksjs/pull/154
+Describe a great learning experience you had as a child. Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+In childhood, I always thought that God is behind everything which is happening around me, like why moon goes opposite to my direction while travelling, why sun rises in the east, why breathing is necessary to live. But when science entered in my life, I started realizing that everything has reason behind its happening. It totally changed the way I look at things around me.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Everything is fine! :)

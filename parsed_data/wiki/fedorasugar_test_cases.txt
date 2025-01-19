@@ -1,0 +1,83 @@
+Title: Fedora/Sugar test cases
+URL: https://wiki.sugarlabs.org/go/Fedora/Sugar_test_cases
+--------------------------------------------------------------------------------
+Look at:
+Tutorials/Introduction to the Sugar Interface
+.
+For annotated screenshots of Sugar Features mentioned here
+NOTE:
+This page is linked to the
+Fedora Project wiki QA test template
+.
+Contents
+1
+Sugar on a Stick (SoaS-spin)
+1.1
+1 - SoaS boots to the (name) selection screen.
+1.2
+2 - SoaS installed to hard disk with liveinst from root terminal,
+1.3
+3 - Jabber.sugarlabs.org should connect and display XO "Buddies"
+1.4
+4 - When a USB storage device is inserted, it should show up in the Frame.
+1.5
+5 -Functions in My Settings (Sugar control panel).
+1.6
+6 -  Applications in the
+Home Screen
+2
+Sugar-desktop
+2.1
+7 -Sugar-desktop installed in another Desktop
+Sugar on a Stick (SoaS-spin)
+1 - SoaS boots to the (name) selection screen.
+Live version should boot directly to this screen with no login to liveuser first.
+Some versions will boot to the (Click to change color) screen first and require using the (<=) arrow to get to the name screen.
+f21 Soas will add 2 fields:
+Select gender
+;
+Select age
+then proceed to the F3 Screen.
+Some School deployments can inquire the gender and age response information.
+It is unnecessary to enter information here.
+2 - SoaS installed to hard disk with
+liveinst
+from root terminal,
+boots to (lightdm or gdm) using the name and password for the user as setup in anaconda.
+3 - Jabber.sugarlabs.org should connect and display XO "Buddies"
+Network Neighborhood
+screen (F1).
+If connected to a wireless network:
+Wireless access points will be shown as colored circles on the
+Network Neighborhood
+screen (F1).
+Collaboration:While connected to an access point, it should be able to connect to another XO via a shared activity (Icons for activity on f1 if present). Click on the icon and drop down menu will show
+Join
+Activity should start showing what the other XO User is sharing.
+4 - When a USB storage device is inserted, it should show up in the Frame.
+One can successfully
+drag-drop
+items in the Journal to a mounted USB .
+One can successfully install an
+Activity bundle
+(xxx.xo file) when dragged from a mounted USB to the Journal.
+One can successfully unmount the USB device with a right click on the USB device icon in the Frame.
+5 -Functions in My Settings (Sugar control panel).
+All functions should work correctly
+except for Web Sevices which does not work as installed
+6 -  Applications in the
+Home Screen
+(F3) circular favourites screen
+All applications should start, work, and stop
+Sugar-desktop
+7 -Sugar-desktop installed in another Desktop
+With
+dnf install @sugar-desktop sugar-runner
+in root terminal
+Start from menu item in DE - Education - sugar
+log out/log in to (lightdm or gdm) session "Sugar" should run sugar-desktop full screen.
+(You may have to shutdown/reboot to see sugar listed in gdm or lightdm)
+sugar-desktop installed from netinstall or DVD should work.
+Note the sugar entity in Education/Sugar (sugar-runner) is different than found when you logout/login to sugar in gdm (different name; color and ssh key for jabber)
+NOTE:
+Tests 3 thru 6 should be run on this test case.

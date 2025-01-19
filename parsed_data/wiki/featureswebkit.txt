@@ -1,0 +1,144 @@
+Title: Features/WebKit
+URL: https://wiki.sugarlabs.org/go/Features/WebKit
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Existing prototype: Surf
+4.2
+The PyGI GTK+-2 option
+4.3
+Implementation plan
+4.3.1
+Modularisation
+4.3.2
+WebKit vs WebKit2
+4.3.3
+The HTML activities concept
+4.3.4
+New prototypes
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+Browse and related components are switching to
+WebKit
+as its back-end technology provider. (this is just a proposal, for now)
+Owner
+Planned/proposed by
+Daniel Drake
+Implemented by:
+Simon Schampijer
+and
+Manuel Quiñones
+Current status
+Targeted release: 0.96
+Last updated: 31.01.12
+Percentage of completion: 80%
+Detailed Description
+Browse and related components currently embed Mozilla XUL/Gecko as their backend, however, Mozilla embedding has typically been neglected and buggy, causing a maintenance headache for us. It is now
+actively discouraged
+by Mozilla developers, who are focusing all their efforts on Firefox. From the perspective of a fairly regular open-source project, Mozilla's direction is also
+questionable on other points
+.
+WebKit is a promising alternative, which is (by nature) an embeddable web engine. It is used in Apple Safari, Google Chrome, Epiphany (GNOME browser) and various other projects.
+Existing prototype: Surf
+The pywebkitgtk-based Surf activity can be used as a prototype. Possible areas that need work are:
+Downloads - originally missing due to
+no support in pywebkitgtk
+but now landed?
+persistant history - not saved across sessions (or journal entries)
+clipboard/undo/redo - should be simple
+back and forward buttons - you can go back and forward through your history, but autocomplete and skipping back or forward in the history is not implemented.  shouldn't be too hard to complete
+arrow key navigation in textbox
+No cookie support
+pywebkit is seen as deprecated,
+even by the author himself
+. PyGI is the solution, allowing direct calls into pywebkitgtk with no static bindings, and is now mature. Some of the missing features above can't be solved until either pywebkitgtk grows more API, or the switch is made to PyGI.
+The PyGI GTK+-2 option
+To take Surf to the next level, it needs to switch to PyGI for access to the GTK2 version of WebKitGtk, which would fit in with the rest of the Sugar environment. However, this is not possible, for 2 reasons (as explained by pygi developers Tomeu and J5):
+PyGI introspection to GTK2-based libraries is not supported and does not work well
+sugar-toolkit uses pygtk static bindings, and mixing pygtk static bindings with pygi bindings will not work at all
+Therefore a simple port of Surf to webkitgtk via pygi is not an option.
+Implementation plan
+To implement this, Sugar must first be ported to pygi and GTK3. Once that is done, the following steps are proposed:
+Browse should be ported to the gtk3 version of webkitgtk (already present in Fedora), using pygi to call into WebKitGTK, built on top of GTK3.
+Modularisation
+The previous Mozilla solution used a homegrown glue layer ("hulahop") in order to enable embedding of Mozilla in Browse and other activities. I believe the main reason for creation of this glue layer is that embedding Mozilla was complex, required lots of understanding of Mozilla's architecture, and needed to have some magic hidden somewhere. Marco, the original hulahop author,
+suggests that a hulahop replacement is not needed in WebKit context
+as WebKit+PyGI seems to be equivalent.
+Even if a complex glue layer is avoided, there is the possibility of creating a Sugar-level "web widget." This could be used to share code between Sugar activities that embed web browsing, and to reduce complexity of the embedding. However, having looked at the
+WebKitGTK+ API reference
+, I don't believe that a web widget will be necessary, as this API seems high-quality: simplistic and powerful, directly exposing the core functions we'd need at an easy-to-comprehend level.
+Marco
+suggests
+that Browse and another web-using activity (e.g. Wikipedia) first be ported to use direct calls into WebKitGTK, and then revisiting the question of modularisation/level of abstraction/code sharing. Once the work has been done on those activities, it should be obvious if there is a need for another layer. I agree with this approach, and my suspicion is that no such need will emerge thanks to the simplicity of the WebKitGTK API.
+WebKit vs WebKit2
+WebKit2
+is the development tree of WebKit, which includes fundamental architectural changes and a cross-platform API. WebKit will now define an API specification, which frontends such as WebKitGTK are expected to implement as closely as possible. This means that a function such as WKViewCreate() will return a GtkWidget under GTK+, and a QWidget under Qt, etc, meaning that moving webkit-using code from one platform to another is easy.
+The WebKitGTK developers are embracing this direction and have already made
+great progress
+on the GTK implementation of the cross-platform API. They also have plans to
+rebuild and refresh the GObject-style API
+based on top of that cross-platform API.
+My opinion,
+shared by Marco
+(who originally did the whole Mozilla/hulahop dance), is that given this choice of API, Sugar should use the GObject-style one. This is because it would be automatically available in Python through GObject introspection, and would be consistent with the rest of the Sugar stack.
+When it comes down to prototyping or implementing this, I suggest that the choice of WebKit vs WebKit2 is made based on which is the latest released version shipped in current distribution releases. Right now WebKit2 is not an option according to this plan as it does not yet offer a GObject-style API, so WebKit1 would be the right place to start, but that would change in future. As the API is well-designed, changing between versions doesn't seem like it would be a big job.
+The HTML activities concept
+Marco
+and
+Scott
+have both recently explored ideas and developed prototypes around bringing web technologies closer to the heart of Sugar. Stated oversimplified, this is a "write an activity as a webpage" (instead of a GTK app) design idea. While this is an interesting direction to keep exploring, it is currently full of unknowns. Exactly which web technologies are/aren't relevant in activity context? Cookies? SSL certificates? Downloads? How would Journal interaction work? How would collaboration be implemented? Is WebKit appropriate for this? At which layer would it fit into the Sugar platform? These are all questions that will take time, care and prototypes to resolve.
+On the other hand, the loss of Sugar's web browser is current: it screwed up a lot during late 2010 (xulrunner-1.9 / Fedora 14 timeframe), is now limping along again, has completely broken again (as of mid-2011, xulrunner-2.0 and Fedora 15 timeframe) and is no doubt up for a bumpy ride ahead. The solution can be designed and implemented now. Let's not mix a relatively straightforward, clearly defined and sorely needed task with one that is exploratory and uncertain.
+The implementation proposed here is actually a simplification of the platform, as hulahop will be removed. Using WebKit instead of Mozilla in Browse is expected to result in a simplification of the codebase. If web technologies do catch on in other parts of Sugar, I predict that Browse will still retain its identity and requirements, due to considerations of cookies, SSL certificates, etc, which will not apply outside of web browser context. Finally, prerequisites aside, I expect the task of moving Browse from Mozilla to WebKit to be quite easy, and would generate experience and knowledge that would help towards the potential "HTML activities" direction.
+New prototypes
+Here is a demo of how pygi and webkit1 can be used to create a simple web browser in a python app:
+http://dev.laptop.org/~dsd/20110625/wkdemo.py
+Benefit to Sugar
+What is the benefit to the platform?  If this is a major capability update, what has changed?  If this is a new feature, what capabilities does it bring? Why will Sugar become a better platform or project because of this feature?
+Make sure to note here as well if this feature has been requested by a specific deployment, or if it has emerged from a bug report.
+Scope
+What work do the developers have to accomplish to complete the feature in time for release?  Is it a large change affecting many parts of the distribution or is it a very isolated change? What are those changes?
+UI Design
+Does the feature have a direct impact on the work flow, or does it need a UI? Link here mockups, or add detailed descriptions.
+How To Test
+User Experience
+If this feature is noticeable by its target audience, how will their experiences change as a result?  Describe what they will see or notice.
+Dependencies
+pywebkitgtk is already a part of the Sugar platform (for epub support in Read).
+Contingency Plan
+If you cannot complete your feature by the final development freeze, what is the backup plan?  This might be as simple as "None necessary, revert to previous release behaviour."  Or it might not.  If your feature is not completed in time, we want to assure others that other parts of Sugar will not be in jeopardy.
+Documentation
+Is there upstream documentation on this feature, or notes you have written yourself?  Has this topic been discussed in the mailing list or during a meeting? Link to that material here so other interested developers can get involved.
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+See
+discussion tab for this feature

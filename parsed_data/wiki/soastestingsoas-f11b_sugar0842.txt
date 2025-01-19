@@ -1,0 +1,42 @@
+Title: SoaS/Testing/Soas-F11b Sugar0.84.2
+URL: https://wiki.sugarlabs.org/go/SoaS/Testing/Soas-F11b_Sugar0.84.2
+--------------------------------------------------------------------------------
+Contents
+1
+4GiB SD or 2GiB USB made with Fedora liveUSB-Creator (in Windows or Fedora 11) using F11 GNOME i686 LIVE.iso with a 700 Persistence file
+2
+Problems
+2.1
+Network control panel only shows page down to "Collaboration"; unable to get to Jabber Field on bottom of page with 800x600 resolution
+2.1.1
+BUG reported #830; need vertical slider bar on Network Panel of Control Panel
+4GiB SD or 2GiB USB made with Fedora liveUSB-Creator (in Windows or Fedora 11) using F11 GNOME i686 LIVE.iso with a 700 Persistence file
+Fedora F11 (Leonidas)/ 0.84.2 Sugar.
+log in live user account
+connect wireless
+Create 2 new users(sugar)and("USER") in user manager
+log out/switch users/and log in to this New user("USER")
+NOTE:("USER") is what ever you call your gnome system
+Add Software/Packages/Sugar Desktop(#)
+Do Update-(4GiB only)
+boot SD by auto log in (Live user) make a wireless connection.
+switch user (Live user) and Log in to ("USER") and start Gnome desktop.
+switch users to (SUGAR) select sugar on bottom bar/ log in.
+In Sugar Desktop you can see others on the jabber server. Connect to IRC ,Browse, and (chat both locally and via Jabber).
+You log out of (SUGAR) then (USER) then cancel log in screen to shut down the system from here.
+!!!You MUST use "Logout" to exit sugar session as "Shutdown" and "restart" options will hang the system.
+If you log into sugar from the  (live user) account and then reboot to Gnome using the switcher bar,
+eventually the network manager goes missing and it pulses and cannot connect to wireless in sugar.
+The BUG of loosing the network manager does not seem to appear in a real installation of sugar in F11b.
+This may be due to problems with using the live user account on the SD card with the sugar desktop and wireless network manager
+Problems
+USB/SD Gets corrupted if do an system update.
+This seems to depend on size of SD or USB. 4 GB or larger work
+Install to Hard Disk Icon cannot be deleted permanently - DANGER can affect guest computer installation if used.
+(You can click on properties and set permissions to not run as a program for protection in user accounts.)
+Must add user for SUGAR Access or will corrupt Network manager when switching between Gnome and Sugar Desktops in Live User.
+Hangup of system if "Logout" not used to return to Gnome (Live user user) from SUGAR Desktop SUGAR (user) before shutting down of system
+Do not try to load liveusb Creator on USB or SD it will crash system
+Network control panel only shows page down to "Collaboration"; unable to get to Jabber Field on bottom of page with 800x600 resolution
+(Use "sugar-control-panel" command in terminal to change jabber.servers)
+BUG reported #830; need vertical slider bar on Network Panel of Control Panel

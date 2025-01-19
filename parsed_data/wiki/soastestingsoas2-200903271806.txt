@@ -1,0 +1,58 @@
+Title: SoaS/Testing/Soas2-200903271806
+URL: https://wiki.sugarlabs.org/go/SoaS/Testing/Soas2-200903271806
+--------------------------------------------------------------------------------
+Contents
+1
+Your setup
+2
+VirtualBox2.2.0b2 on Vista64 host
+3
+won't boot on XO-1 with q2e33 firmware, with a workaround
+3.1
+DHCP problems
+Your setup
+(Those in the know, please suggest a relevant template.)
+VirtualBox2.2.0b2 on Vista64 host
+Fails, doesn't get past "ISOLINUX 3.73 2009-01-25 ETCD Copyright (C) 1994-2008 H. Peter Anvin" --
+FGrose
+18:24, 28 March 2009 (UTC)
+won't boot on XO-1 with q2e33 firmware, with a workaround
+I downloaded Soas2-200903271806.iso and ran latest LiveUSB-Creator 3.6.3 under Windows XP to put it and a 256 MB persistent storage area on a USB flash drive.
+Insert the USB flash drive, power on XO-1, hold down check key.
+The hot dog is back!
+After a minute the screen goes dark.
+After another 90 seconds of dark screen I get the blue swirl Login: screen with "liveuser",
+Log in.
+After several seconds that goes to dark screen, and a few seconds later I'm back at the blue Login: screen. :-(
+In a console,
+~liveuser
+has no .sugar subdirectory, so it looks like
+Sugar never got rolling.
+The file "/var/log/slim.log" has various errors.  There is no /home/liveuser/.Xauthority file, and
+/home/liveuser
+is
+drwx-r-xr-x
+owned by root.
+After running in a console
+chown liveuser /home/liveuser
+chgrp liveuser /home/liveuser
+login proceeded fine.  I filed
+http://dev.sugarlabs.org/ticket/665
+--
+Skierpage
+04:11, 28 March 2009 (UTC)
+DHCP problems
+In neighborhood view I see my old BEFWS11 Linksys access point, I click to connect, I get a password dialog, I enter my 128-bit WEP key.  After a long pause I get the dialog again.
+/var/log/messages
+suggests that NetworkManager is connected successfully to my AP:
+Stage 2 of 5 (Device Configure) successful. Connected to wireless network
+mynet
+but then it seems to fail in DHCP access
+avahi-daemon(1932): Registering new address record for 'nn:nn' on eth0.*.
+ ...
+ NetworkManager: <info> Device 'eth0' DHCP transaction took too long (>45s), stopping it.
+and I get the dialog again.
+Error log extracts:
+(please conserve wiki read space and post long logs on the mailing list or in a Trac ticket attachment and link the ticket:### or mail archive message, like
+http://www.mail-archive.com/sugar-devel@lists.sugarlabs.org/msg03158.html
+)

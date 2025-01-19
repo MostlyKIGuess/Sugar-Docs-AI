@@ -1,0 +1,30 @@
+Title: Machine/identity
+URL: https://wiki.sugarlabs.org/go/Machine/identity
+--------------------------------------------------------------------------------
+Description
+identity
+is a 64bit VM running Debian Squeeze for the client certificate based OpenID provider.
+Installation
+Base system
+sudo virsh vol-create-as treehouse identity-root 8G
+sudo virt-install --ram=512 --name=identity --arch=x86_64 --vcpus=1 --hvm \
+  --accelerate --disk vol=treehouse/identity-root --network=network:default \
+  --nographics --extra-args='console=tty0 console=ttyS0,115200n8 expert' \
+  --location=
+http://ftp.us.debian.org/debian/dists/squeeze/main/installer-amd64/
+This will create a new VM and run the Debian installer inside it, with an emulated serial console attached to stdio.
+Config options:
+english, US, US keyboard
+identity, sugarlabs.org
+use entire disk, all in one, remove swap, recreate / (full size), noatime + user_xattr
+user "administrator" (not used) with root password (manually removed later)
+package sets: "Standard system", "SSH server"
+After reboot:
+Log in as root with password (still via emulated serial console)
+passwd -d root
+aptitude install etckeeper monkeysphere
+Set up monkeysphere as usual (host key, user authentication, keyserver)
+Set up second network interface with static IPv4 address, IPv6 tunnel
+Shutdown and (re)start VM (needed for libvirtd to create the network interface -
+attach-interface
+didn't do it)

@@ -1,0 +1,75 @@
+Title: Features/Cordova Container for Sugar
+URL: https://wiki.sugarlabs.org/go/Features/Cordova_Container_for_Sugar
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+The cordova container for Sugar would help us access all the native device functionalities through the cordova layer.This basically corresponds to the fact that we shall be able to support the cross platform apps. A HTML5 cordova app which uses some camera feature in Android would be able to do same in Sugar using the same code. So the developers don't need to recode their apps to get them to the Sugar environment. All their HTML5 apps for the iOS, Windows, Android etc would work in Sugar through the cordova api.
+Owner
+Name: Lionel Laské & Puneet Kaur
+Email: lionel@olpc-france.org & puneet.gkaur@gmail.com
+Current status
+Targeted release: 0.104
+Last updated: 2th, Sept,2014
+Percentage of completion: 80%
+Detailed Description
+Cordova
+is basically used as a middle layer between the web app and the native source code. This layer abstracts the native source code by providing its own api which can be used to access most of the functionality features of the native source code. So basically we can access the low lying features (features closer to hardware) through the web app. This enables the developers to keep the same code at top and achieve the same functionality from different platforms. Thus, the web app developers dont need to change their HTML5 app's code to port it to different platforms if the app is made with cordova and the platform on which he has to port supports cordova. Thus, cordova helps us to make cross platforms apps. This will attract the web app developers to sugar community and help them launch their activities in sugar without playing or learning the native bindings. A single command line allow a developer to convert an existing HTML5 cordova app into a Sugar app.
+Benefit to Sugar
+Sugar will be benefited from the cordova layer development as more people (those with knowing only html,js and css) can contribute to the Sugar. People can port their apps to the Sugar and see them working live. They don't need to learn the gtk stack or Sugar native api to build up activities. Sugar will support the cross platforms apps which work across different platforms and hence the Sugar audience would have a better experience
+Scope
+The changes required on the Sugar front would be the support to the cordova plugins. So we basically need to handle the request from the js side and provide the required response back to js. For this we need to build the native side of the various plugins. As we develop support for more plugins, we shall add more code to the Sugar front to provide support for them, this is because we wish to abstract the background process of interacting with the lower layer from the user and expose to the user only the cordova api which they can use to develop their app.
+The basic area of change would the apisocket.py through which we communicate with the js side and back. Also we shall add various files which provide the native support for the plugins in a folder named cordova, which is imported in apisocket.py
+UI Design
+This feature is an enhanced, it does not have any direct impact on Sugar. It does not need a UI. The UI is depended on the cordova app which in turn is depended on the developer of the cordova app.
+The detailed description regarding the project can be found here:
+http://sugarcordova.blogspot.com/
+How To Test
+You can find instructions to test it on your systems here:
+Sugar Cordova
+User Experience
+It will help the cross platforms apps to be deployed in Sugar activities. So there shall be an increase in activities. Developers would be able to develop activities for Sugar more easily (using only the web languages) and the users shall have the access to a great variety of apps. Say the same app they have in Android or iOS or Windows would be now available in Sugar. Hence, Sugar would support the apps which run on different platforms so that the Sugar users are not deprived of the taste of different applications (activities for Sugar)
+Dependencies
+This project also needs to contribute to the cordova repositories apart from Sugar side. So we need to co-ordinate with the cordova community and get our additions to the cordova code be accepted. Only then can the Sugar platform for cordova can be launched.
+Contingency Plan
+The most of the parts of the project are almost done through and incase you wish to remove the feature so you can simply cut off the portions added in apisocket.py and delete the cordova folder in jarabe.
+Documentation
+The topic was proposed as a part of Google Summer of Code.
+Summer of Code/2014
+Summer of Code/2014/sugar cordova
+Sugar Cordova
+http://sugarcordova.blogspot.in/
+Release Notes
+No release notes for this enhancement yet.
+Comments and Discussion
+http://sugarcordova.blogspot.com/
+http://lists.sugarlabs.org/archive/sugar-devel/
+See
+the discussion tab for this feature.

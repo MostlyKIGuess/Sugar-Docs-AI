@@ -1,0 +1,600 @@
+Title: Sugar on a Stick
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick#VirtualBox_and_Sugar_on_a_Stick
+--------------------------------------------------------------------------------
+Project Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+What is Sugar on a Stick?
+Sugar on a Stick
+is a
+Fedora
+®
+Spin
+operating system featuring the award-winning
+Sugar Learning Platform
+.
+Sugar on a Stick will run on
+any 64-bit Notebook, Laptop, or Desktop computer,  with a minimum of 1GB RAM, that can run Linux, Windows or macOS, using a USB thumbdrive or stick, as a
+Live USB
+,
+a 32-bit computer with the TOAST version of Sugar (Trisquel on a Sugar Toast).  See
+Trisquel On A Sugar Toast
+.
+a Raspberry Pi 2 or 3, using a microSD card, or;
+any computer as a virtual machine.
+You can use Sugar on a Stick to demo Sugar almost anywhere without disturbing the contents of the computer you use, and if people like what they see, you can
+install
+Sugar on a Stick to their hard drives or other sticks from the demo stick.
+x86_64 (64-bit)
+armhfp Raspberry Pi 2 or 3, see
+How to install
+.
+How to quickly demonstrate: (
+English
+), (
+en español
+)
+Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+What's new in Sugar on a Stick?
+Sugar
+0.118
+, see the
+release notes for 0.118
+,
+several updated activities,
+based on Fedora 35, see the
+release notes for Fedora 35
+Known bugs
+See also
+Common Fedora 35 bugs
+.
+Sugar on a Stick installation instructions
+MS Windows
+Prepare
+:
+Download
+the Fedora Live USB Creator from
+FedoraHosted
+.
+Download
+the latest
+Sugar on a Stick
+.iso file.
+Load
+: Insert a USB flash drive (or SD Card) with 2 GB or more of free space into your computer and launch Fedora Live USB Creator to create a Sugar-on-a-Stick bootable image.
+Note
+: Be sure to set the
+persistent storage
+slider to a non-zero value.
+Boot
+: Insert the USB stick into a USB port on your computer. Set the option to "boot from USB" in your computer's
+BIOS
+setup, and then start up the computer.
+Detailed
+installation instructions for Windows
+and
+booting instructions
+are available. There is also a
+guide to exploring Sugar
+.
+GNU/Linux
+Download
+the latest
+Sugar on a Stick
+.iso file.
+Prepare
+: (with
+root
+user
+permissions at a terminal or
+console
+command line)
+Create a mount point directory:
+mkdir /run/soas
+Mount the .iso file to make it accessible as a disk:
+mount
+/path/to/downloaded
+.iso /run/soas/
+(Where
+/path/to/downloaded
+.iso is the
+filesystem
+path, or fully specified name,
+of the downloaded .iso file.)
+This is the source for the installation, and must remain
+mounted
+until the installation is complete.
+Insert a USB stick of 2 GB or greater capacity into your computer.
+With
+root
+user
+permissions at a terminal or
+console
+command line, use the command
+sudo df -Th
+or
+sudo blkid
+to get the USB device node name.
+(Items in angle brackets, such as <MyAccount> are descriptive placeholders.)
+You should see something like the following:
+[<user>@<system> <working directory>]$ sudo df -Th
+Filesystem     Type      Size  Used Avail Use% Mounted on
+devtmpfs       devtmpfs   16G     0   16G   0% /dev
+tmpfs          tmpfs      16G   33M   16G   1% /dev/shm
+tmpfs          tmpfs      16G  1.8M   16G   1% /run
+tmpfs          tmpfs      16G     0   16G   0% /sys/fs/cgroup
+/dev/sda1      ext4      123G   17G  100G  15% /
+tmpfs          tmpfs      16G   80K   16G   1% /tmp
+tmpfs          tmpfs     3.2G   10M  3.2G   1% /run/user/1000
+/dev/sdb1      vfat      233G   90G  143G  39% /run/media/<MyAccount>/<filesystem label>
+/dev/loop0     iso9660   942M  942M     0 100% /run/soas
+(The
+/run/media/<MyAccount>/
+path is the standard mount point for removable media.
+/media/<MyMountPoint>
+is common on other operating systems.)
+[<user>@<system> <working directory>]$ sudo blkid
+/dev/sda1: LABEL="Fedora30" UUID="dddf4ae0-e1fd-43c3-bacc-91acbafb3a34" TYPE="ext4" PARTUUID="000b2340-03"
+/dev/sdb1: LABEL_FATBOOT="Fat" LABEL="Fat" UUID="D082-05E1" TYPE="vfat" PARTLABEL="Fat" PARTUUID="53132329-808c-4a44-adf6-e98ad17546ff"
+/dev/loop0: UUID="2019-04-26-02-18-05-00" LABEL="Fedora-SoaS-Live-30-1-2" TYPE="iso9660" PTUUID="37f2045d" PTTYPE="dos"
+(Additional disk drive partitions may be listed on your computer.)
+The mount point (Mounted on), Filesystem, Size, and LABEL should help you identify what you want.
+Unmount the USB device filesystem:
+umount /run/media/<MyAccount>/<MyUSBdiscMountPoint>
+(The
+/run/media/<MyAccount>/
+path is the standard mount point. Other operating systems may use
+/media/<MyMountPoint>
+.)
+(You should have the isomd5sum package installed so that the following installation script can verify the download.)
+Load
+: Execute the following installation command, as the
+root
+user
+, in
+one
+command line with many options:
+/run/soas/LiveOS/livecd-iso-to-disk --reset-mbr --overlay-size-mb
+500
+--home-size-mb
+500
+--unencrypted-home
+/path/to/downloaded
+.iso /dev/sd
+?
+1
+The '
+?
+' in the final parameter represents the target USB device
+s
+csi
+d
+rive
+node, such as
+sd
+b
+1
+or
+sd
+c
+1
+, etc., and
+/path/to/downloaded
+.iso
+is the location and name of the .iso file.
+The operating system will occupy ~960 MB, and the overlay and home size arguments,
+500
+and
+500
+, were selected to fit in a 2 GB device. These may be adjusted depending on your preferences and device capacity (see
+LiveOS image
+). On a 4 GB device, one might use
+1000
+and
+1600
+for the size arguments.
+The installation transcript should look something like the following:
+[<user>@<system> <working directory>]$ sudo /run/soas/LiveOS/livecd-iso-to-disk --reset-mbr --overlay-size-mb 500 --home-size-mb 500 --unencrypted-home /<path to>/Fedora-SoaS-Live-x86_64-30-1.2.iso /dev/sdc1
+Verifying image...
+/<path to>/Fedora-SoaS-Live-x86_64-30-1.2.iso:   bac65eaf45ad370f6e9ddf793f436e33
+Fragment sums: 82358a8de12fab19be3e83c22431837827fbe4b8be6d9be46695f853676f
+Fragment count: 20
+Supported ISO: no
+Press [Esc] to abort check.
+Checking: 100.0%
+
+The media check is complete, the result is: PASS.
+
+It is OK to use this media.
+
+Copying LiveOS image to target device...
+squashfs.img
+    887,312,384 100%  379.28MB/s    0:00:02 (xfr#1, to-chk=0/1)
+
+Syncing filesystem writes to disc.
+    Please wait, this may take a while...
+Setting up /EFI/BOOT
+Updating boot config files.
+Initializing persistent overlay...
+500+0 records in
+500+0 records out
+524288000 bytes (524 MB, 500 MiB) copied, 0.354372 s, 1.5 GB/s
+Initializing persistent /home
+500+0 records in
+500+0 records out
+524288000 bytes (524 MB, 500 MiB) copied, 0.346354 s, 1.5 GB/s
+Formatting unencrypted home.img
+mke2fs 1.44.6 (5-Mar-2019)
+Creating filesystem with 512000 1k blocks and 128016 inodes
+Filesystem UUID: b32a4987-627e-4131-a863-7f6c9bcc2178
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729, 204801, 221185, 401409
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (8192 blocks): done
+Writing superblocks and filesystem accounting information: done 
+
+tune2fs 1.44.6 (5-Mar-2019)
+Setting maximal mount count to -1
+Setting interval between checks to 0 seconds
+Installing boot loader...
+Target device is now set up with a Live image!
+Boot
+: Insert the USB stick into a bootable USB port on your computer. Set the option to "boot from USB" in your computer's
+BIOS
+setup, and then start up the computer.
+To create more Sugar Sticks on other 2 GB or greater USB or SD devices, while running
+Sugar on a Stick
+, one may run the
+Terminal Activity
+, and execute this command as the root user:
+livecd-iso-to-disk --reset-mbr --overlay-size-mb
+500
+--home-size-mb
+500
+--delete-home --unencrypted-home /run/initramfs/livedev /dev/sd
+?
+1
+Replace
+/dev/sd
+?
+1
+with a new device node for the second USB/SD device that you want to load with
+Sugar on a Stick
+.
+Detailed
+installation instructions for GNU/Linux
+and
+booting instructions
+are available. There is also a
+guide to exploring Sugar
+.
+GNU/Linux users may also want to install the
+Sugar packages
+on their favorite distro, apart from Sugar on a Stick.
+Apple Mac OS X
+The instructions below are based on the Ubuntu Web page at <
+http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-mac-osx
+>.
+Prepare
+: These instructions are for
+32-bit
+and
+64-bit
+processors.
+Download
+the latest
+Sugar on a Stick
+.iso file.
+Load
+:
+Here is a simple way to load a bootable USB on a Mac.
+Enter the Terminal:
+/Applications/Utilities/Terminal
+.
+Type
+diskutil list
+. You should see all the disk drives you have inserted into your computer.
+Insert the disk drive to which you want to write Sugar on a Stick.
+Type
+diskutil list
+again. You should see that your USB drive has been added to the list. If not, wait a while and repeat.
+Type
+hdiutil convert -format UDRW -o <
+Sugar on a Stick image file
+>.img <
+Sugar on a Stick image file
+>
+to convert the image into a bootable format.
+Type
+sudo diskutil unmountDisk <
+device name
+>
+to unmount the disk (it will not be ejected).
+Type
+sudo dd if=<
+Sugar on a Stick image file
+>.img.dmg of=<
+device name
+> bs=1m
+.
+sudo
+will ask for your password, and then
+dd
+will start writing the disk file.
+When
+dd
+finishes writing the disk file, type
+sudo diskutil eject <
+device name
+>
+.
+Boot
+: Insert the USB stick into a USB port on your computer, then reboot and press and hold the Option key while rebooting. You should see a list of all the EFI-recognizable USB drives that can be bootstrapped. If Sugar on a Stick is not one such drive, it cannot be bootstrapped: you need rEFInd (a fork of rEFIt).
+Have a MacBook? Consider these options:
+MacBook Persistent SoaS v5 USB EFI Boot
+Bootable CD of Trisquel 4.5 for MacBook Air
+See other installation variations at
+Sugar Creation Kit
+Burning a CD from an .iso file on a Mac
+Alternative
+installation instructions for Mac OS X
+. Also,
+these older installation instructions
+and
+booting instructions
+may be consulted.
+There is also a
+guide to exploring Sugar
+.
+Advanced users
+Do you have an OLPC XO?
+Upgrade
+to the latest
+olpc:Releases
+from OLPC (which may require a
+developer key
+).
+Experiment
+with
+Updating XOs
+to the latest
+Sugar on a Stick
+release.
+Some alternate installations
+Once you download, and then burn or load a Sugar on a Stick (SoaS) .iso file, and boot it, the running Fedora 34 SoaS Live CD/USB may be used to install Fedora with Sugar to a hard disk or a 4 GB USB stick
+with the
+liveinst
+command
+.
+- You start with a SoaS LiveOS image, and then load an uncompressed version onto the hard disk or USB stick.
+Want to contribute to Sugar on a Stick?
+You're in the right place! This page is a contributors portal to the project, and contains everything you need to get started in becoming part of the Sugar on a Stick community.
+New contributors start here!
+Welcome! We're excited that you want to help us bring the Sugar Learning Platform to children around the world. No prior experience with computers or educational technology is required - in fact, we actively encourage a diversity of backgrounds, ages, and perspectives. See the
+Joining Sugar on a Stick
+page for instructions on how to get started.
+What can you do?
+There are three main ways you can contribute to the Sugar on a Stick community. We work closely with our upstreams,
+Sugar Labs
+and
+the Fedora Project
+.
+Get Activities on the Stick
+We're always looking for help with all aspects of the
+Sugar on a Stick release process
+. Here are a few things you can do:
+Test Sugar on a Stick
+and help us find bugs and think of ways the project could be better. When you find a bug or think of an enhancement,
+file a ticket!
+No technical experience required.
+Help make it easier for others to test Sugar on a Stick by writing
+test cases
+.
+If you've run a test case, you can write a test case.
+Fix a bug or add a feature
+to an existing Activity, to
+sugar-core itself
+, or to
+Sugar on a Stick
+. See
+How to fix an Activity bug
+and
+How to fix a sugar-core bug
+to get started.
+Basic Python programming skills - or the desire to learn - are all that's needed.
+Package Sugar Activities for Fedora
+.
+If you're a
+Fedora Packager
+or want to become one, help in this area is something we desperately need - it's a trickier thing to learn, but rewarding once you get the hang of it.
+Review Activities for inclusion in the build
+- check submitted Activities against our
+Sugar on a Stick/Activity Criteria
+and help us choose what gets included in the next release!
+No prior experience needed.
+Have an idea for a technical feature that isn't an Activity? Check out our
+feature process
+.
+Get Sticks into Schools
+Deployments all over the world need many different types of help as they work through the
+Sugar on a Stick deployment process
+- we need help building resources for all deployments to use, supporting those deployments, and helping new deployments start, as well as gathering stories and feedback from deployments so that we can make the next version of Sugar on a Stick even better.
+Some things you can do to help:
+"It's a wiki: Edit away!"
+is often said in open source communities. Almost nothing is set in stone and can't be undone. So if you've got ideas how to make instructions clearer and more accessible, just go for it!
+We produce official documentation such as the
+Creation Kit
+or the
+Customization Guide
+. If you've an idea how to make them better, why don't you jump in and create a patch? Creating these nifty text files is simple - instructions live in the
+Documentation SOP
+.
+Unofficial documentation for unsupported workarounds for
+installation
+and
+customization
+need to be edited, tested, and submitted for approval for official support. Check them out and leave comments and improvements; just jump in and edit the page.
+Interested in starting a deployment or helping a specific one (with anything from pedagogical design to technical support to funding logistics)? Introduce yourself on the deployment lists for
+Sugar Labs
+and
+One Laptop Per Child
+and we'll get you connected with some teachers on the ground.
+We're looking for some people to help us assemble tools for our support team to use. Email the
+Sugar on a Stick mailing list
+if you're interested.
+Get Contributors
+Contributors are the lifeblood of the Sugar on a Stick community - we work hard to bring a playful mindset of teaching, learning, and meaningful work to the children we aim to reach, and we aim to keep that mindset in our own work and community as well. Welcoming and teaching new contributors or all types, building the resources they need, and teaching them how to empower others in their turn is one of the most important things you can do; it is
+everyone's
+responsibility to help build our community, one person at a time.
+Some things you can do:
+Edit this page and
+Joining Sugar on a Stick
+. Is there something we could do to make the "getting started" process easier? You don't have to ask permission to edit; just do it!
+Help us fill in our remaining task-starter pages:
+Sugar on a Stick release process
+,
+How to fix an Activity bug
+,
+How to fix a sugar-core bug
+, and
+Sugar on a Stick deployment process
+/
+Point out starter tasks on OpenHatch
+- fill in questions and ideas for beginner jobs, and point newcomers towards them.
+Watch for introductions on the mailing list
+, and send welcome emails to new contributors (copy the list, so we can see what advice a newcomer has gotten so far).
+Hang out with us on IRC:
+#sugar
+. This is where the
+IRC Activity
+starts off. Help new joiners past initial questions and provide instant help!
+What's happening?
+Sugar on a Stick/Beta
+Contributor stories
+To find out what other contributors are doing, check out
+Planet Sugar Labs
+, where contributors to Sugar Labs and the Sugar on a Stick project aggregate their blogs. You can also
+add your own blog to the Planet
+.
+Meetings
+Communication through the
+Sugar on a Stick mailing list
+has replaced regular meetings.
+We once had weekly meetings on IRC - see
+Sugar on a Stick meetings
+for more information, including logs from past meetings.
+Related work
+While the projects listed below are not part of Sugar on a Stick, we watch them closely and try to work with them when possible (or at least we're trying to learn!)
+For deployments lacking easy Internet access, one can turn a computer into a
+Sugar on a Stick Creation Station
+. The
+Sugar Creation Kit
+includes the materials you need to create Live USB sticks sticks and to install additional Activities, along with documentation and previous versions of Sugar on a Stick.
+Older
+portable Sugar distributions
+based on other Linux distributions .
+The undiscoverable
+is an unofficial FAQ for tips, tricks, and solutions to common problems that may otherwise be tricky to find. These are being considered for inclusion in the official SoaS documentation.
+Previous versions and other subpages index
+Earlier versions of Sugar on a Stick and other project pages can be reviewed at these pages:
+Sugar on a Stick/10
+Sugar on a Stick/10/hashes
+Sugar on a Stick/Activity Criteria
+Sugar on a Stick/Activity Criteria/Status
+Sugar on a Stick/Archive
+Sugar on a Stick/Avocado
+Sugar on a Stick/Avocado/hashes
+Sugar on a Stick/Beta
+Sugar on a Stick/Blueberry
+Sugar on a Stick/Blueberry/Activities
+Sugar on a Stick/Boot
+Sugar on a Stick/Bugs
+Sugar on a Stick/Coconut
+Sugar on a Stick/Coconut/Virtual machines
+Sugar on a Stick/Coconut/hashes
+Sugar on a Stick/Contacts
+Sugar on a Stick/Customization
+Sugar on a Stick/Documentation SOP
+Sugar on a Stick/Download/hashes
+Sugar on a Stick/Downloads
+Sugar on a Stick/E-Books
+Sugar on a Stick/Essence
+Sugar on a Stick/Explore
+Sugar on a Stick/FAQ
+Sugar on a Stick/Getting Involved
+Sugar on a Stick/Getting Involved/Testing
+Sugar on a Stick/Goals
+Sugar on a Stick/Hardware
+Sugar on a Stick/Install
+Sugar on a Stick/Installation
+Sugar on a Stick/Installation/OLPC
+Sugar on a Stick/Installation/OLPC/lang-es
+Sugar on a Stick/Installation/OLPC/lang-fr
+Sugar on a Stick/Installation/Variations
+Sugar on a Stick/Installation/Windows
+Sugar on a Stick/Installation Process
+Sugar on a Stick/Linux
+Sugar on a Stick/Linux/Installation
+Sugar on a Stick/Linux/Non-compressed Fedora
+Sugar on a Stick/Linux/bootable device
+Sugar on a Stick/Linux/openSUSE
+Sugar on a Stick/Macintosh
+Sugar on a Stick/Mango Lassi
+Sugar on a Stick/Mango Lassi/Virtual machines
+Sugar on a Stick/Meetings
+Sugar on a Stick/Mirabelle
+Sugar on a Stick/Mirabelle/Virtual machines
+Sugar on a Stick/Pancake page
+Sugar on a Stick/Pineapple
+Sugar on a Stick/Pineapple/Virtual machines
+Sugar on a Stick/Pineapple/hashes
+Sugar on a Stick/Proceso de instalacion
+Sugar on a Stick/Project sitemap
+Sugar on a Stick/Proposals
+Sugar on a Stick/Quandong
+Sugar on a Stick/Quandong/Virtual machines
+Sugar on a Stick/Quandong/hashes
+Sugar on a Stick/Raspberry Pi
+Sugar on a Stick/Resources
+Sugar on a Stick/Roadmap
+Sugar on a Stick/Smoke Test
+Sugar on a Stick/Stick Layout
+Sugar on a Stick/Strawberry
+Sugar on a Stick/Subpages
+Sugar on a Stick/Sugar Clone
+Sugar on a Stick/Sugar Clone/lang-es
+Sugar on a Stick/Sugar Clone es
+Sugar on a Stick/TODO
+Sugar on a Stick/USB format
+Sugar on a Stick/Usage
+Sugar on a Stick/VirtualBox/Preparing a disk image
+Sugar on a Stick/Virtual machines
+Sugar on a Stick/Virtual machines/Archive
+Sugar on a Stick/Windows
+Sugar on a Stick/Windows/lang-es
+Sugar on a Stick/Windows/lang-no
+Sugar on a Stick/ZyX-LiveInstaller
+Sugar on a Stick/blueberry
+Sugar on a Stick/deja-dup
+Sugar on a Stick/ebooks
+Sugar on a Stick/lang-es
+Sugar on a Stick/previous versions
+Sugar on a Stick/sdm
+Sugar on a Stick/v7
+Sugar on a Stick/Ê»ÅŒhelo Ê»ai
+Sugar on a Stick/Ê»ÅŒhelo Ê»ai/hashes
+Sugar on a Stick/ʻŌhelo ʻai

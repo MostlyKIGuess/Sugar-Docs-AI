@@ -1,0 +1,28 @@
+Title: Dextrose/1.5/jhbuild
+URL: https://wiki.sugarlabs.org/go/Dextrose/1.5/jhbuild
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Moved and died at
+http://sugardextrose.org
+Use
+this
+as reference.
+Follow the following steps to created a jhbuild env consistent with dx1.5 used by uy (tested to work with fedora-14)
+git clone git://git.sugarlabs.org/~m_anish/sugar-jhbuild/dx1-5.git <dir_name>
+cd <dir_name>
+git checkout dx1.5
+./sugar-jhbuild depscheck
+./sugar-jhbuild update
+./sugar-jhbuild build -n -a --clean
+Note:
+After or while running
+./sugar-jhbuild
+update, it might fail giving error that its unable to create a directory. If so, create it manually.
+It might also fail while building sugar-base. After some investigation, I found that reverting the jhbuild dir to an earlier commit solved the problem
+cd <dir_name>/jhbuild
+git reset --hard da26c2bfc8aa0a5082d1eb85229c0fd93fcf5341

@@ -1,0 +1,121 @@
+Title: 0.90/0.89.3 Notes
+URL: https://wiki.sugarlabs.org/go/0.90/0.89.3_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.89.3 Release Notes
+1.1
+Announcement
+1.2
+Compatibility
+1.3
+Update to this version
+1.4
+Glucose (base) modules
+1.4.1
+Updated
+1.4.2
+Not Updated
+1.5
+Glucose news
+1.5.1
+sugar
+1.5.2
+sugar-artwork
+1.5.3
+sugar-toolkit
+1.5.4
+sugar-presence-service
+1.5.5
+sugar-base
+1.5.6
+etoys
+1.6
+Fructose (base activity) modules
+1.7
+Fructose news
+1.8
+What is new for packagers
+Sucrose 0.89.3 Release Notes
+Announcement
+This is our third release in the
+0.90 development cycle
+!
+We now reached Feature Freeze! We are glad to announce that two Features have been pushed already.
+A
+new color selector
+is available for the control panel, thanks to the ongoing efforts of Walter Bender and the design team. We already wanted to land the Feature in 0.88 but had so many ideas that we did not reach consensus in the end. Now, we are excited to hear what the learners think about it.
+To mimic the mesh behavior on devices where mesh hardware is not available and make the "under a tree"-scenario possible the Sugar Ad-hoc networks have been added.
+The Feature
+will add three default Ad-hoc networks, for channel 1, 6 and 11. They will be represented with designated icons in the neighborhood view. If Sugar sees no "known" network (the learner has not been connected to an currently available Access Point before) when it starts, it does autoconnect to an Ad-hoc network. First we try if there is an Ad-hoc network that is used by other learners in the area, if not we default to channel 1.
+Another great Feature will be available in 0.89.4.
+This Feature
+removes the need for the Presence Service, meaning that activities and the Shell need to interact directly with non-Sugar-specific services such as Telepathy. As it touches three modules reviewing took a few more days. Since it is the mayor 0.90 Feature we gave it a deadline exception. The code has been pushed as I am writing these lines...
+Thanks everyone for your great contributions!
+Compatibility
+There are no known compatibility issues, as of today.
+Update to this version
+Please use the instructions for your distribution (SoaS, Fedora, Ubuntu, Debian etc) of choice to upgrade to this release. Note that it may take a while until the release is packaged for each distribution. Please stay tuned for distribution specific announcements and watch out for updates at
+Get Sugar
+.
+Glucose
+(base) modules
+Updated
+sugar 0.89.3
+sugar-artwork 0.89.3
+sugar-toolkit 0.89.3
+sugar-presence-service 0.90.0
+sugar-base 0.90.0
+etoys 4.1.2382
+Not Updated
+sugar-datastore 0.89.2
+hulahop 0.7.1
+Glucose news
+sugar
+Repair for file transfers (Tomeu Vizoso)
+Journal: show error message on write failure
+#1842
+(Anish Mangal)
+Restore sugar-launch by bundle id substring
+#897
+(James Cameron)
+Add default Ad-hoc networks
+#1610
+(Simon Schampijer)
+Fixed text overflow in About my Computer CP section
+#1980
+(Tim McNamara)
+Added enhanced color selector: cycle through previous and next stroke and fill colors instead of random (Walter Bender)
+Add touchpad device to Frame for switching between capacitive and resistive modes (Walter Bender)
+sugar-artwork
+Alternative to Create a new wireless network.
+#1610
+(Simon Schampijer)
+sugar-toolkit
+Print warnings about the deprecated activity.info fields (Simon Schampijer)
+Add ErrorAlert inherited from Alert (Anish Mangal)
+sugar-presence-service
+bump version number
+sugar-base
+bump version number
+etoys
+switched to etoys.squeak.org/svn repo
+translations broken up in smaller files
+activity version will not track etoys version anymore
+QuickGuides translated to Spanish, Portuguese, German, Italian, and (some) French
+added DrGeo for exploring geometry
+sketches support flipping
+geometry tiles for the world
+timer tile (world and other playfields)
+can store preferences
+plus bug fixes
+Fructose
+(base activity) modules
+Pippy 37
+Browse 117
+Calculate 32
+Etoys 116
+Fructose news
+No news.
+What is new for packagers
+Nothing new as of today.

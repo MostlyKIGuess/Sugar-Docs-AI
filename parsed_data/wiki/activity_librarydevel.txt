@@ -1,0 +1,162 @@
+Title: Activity Library/Devel
+URL: https://wiki.sugarlabs.org/go/Activity_Library/Devel
+--------------------------------------------------------------------------------
+NOTICE:
+This page is a draft in active flux...
+Please contribute to these contents and discuss issues on the
+discussion page
+.
+Contents
+1
+Introduction
+2
+Design (both UI and app)
+3
+Participate
+3.1
+Kinds of help needed
+3.2
+Howto
+3.3
+People involved
+4
+Coordination
+4.1
+Production
+4.2
+Testing
+4.3
+Devel
+4.4
+SVN
+5
+Happy Hacking
+6
+Historical discussion
+6.1
+Resources
+7
+Subpages
+Introduction
+We are adapting
+Remora
+, the software behind
+http://addons.mozilla.org
+, as a Sugar Activities user-facing infrastructure for installation, reviews, and ratings. (Activity development infrastructure will be hosted elsewhere.)
+Design (both UI and app)
+We are collaborating on the AddonsPortal
+Design Page
+Josh is working on a mockup so that we can then do a peer review and then fit it into the Remora code. Remember, as few changes to the code as necessary (focus mainly on CSS and not changing the Views -- where possible)
+Participate
+Kinds of help needed
+Infrastructure - installation, running, maintaining the instance once it's live/stable/usable.
+Development - fixing bugs, committing patches, and pushing them upstream.
+Testing - filing bugs against the latest version.
+Coordination - keeping track of goings-on, acting as a source of up-to-date information and concrete tasks, and making sure the delta from upstream does not get too large.
+Howto
+Add your name to the list below.
+Look at the latest live version at
+http://addons.sugarlabs.org
+- does it look like something you can use and test? Development is being done on:
+http://addons-devel.sugarlabs.org/en-US/sugar/
+If yes, try using it until you run into a bug, then file it at
+http://dev.sugarlabs.org/
+under the activities.sugarlabs.org component. Keep in mind that this is an unstable alpha and all work is considered test data that can be wiped out at a moment's notice.
+If no, look at the
+trac query for activities.sugarlabs.org
+and see if there's a ticket you can take/help with (helping with a ticket can include reproducing it, rewriting and clarifying the bug report, checking if a patch is being pushed upstream, etc).
+Installing a local copy
+may help.
+If you have questions, find one of the people below on IRC (irc.freenode.net, #sugar) and ask. If none of us are online, contact
+Mchua
+.
+People involved
+User:Mick
+- infrastructure, development, and testing;
+coordinator
+User:Dfarning
+- infrastructure and development
+User:Josh
+- design
+User:Mchua
+- testing/QA
+User:Tomeu
+- infrastructure and development (not involved any more)
+User:Wade
+- Activity Team lead
+User:LFaraone
+- testing/QA, bugfixing
+User:ChristophD
+- not yet contributing, but would like to help with planing
+User:wwdillingham
+- would like to begin helping with infrastructure / testing / development / documentation / bug killing.
+Sign your name here if you're contributing
+Coordination
+http://addons.sugarlabs.org
+is hosted on the sunjammer server. (It's named 'addons' because we may host more than activity bundles in the future; Language packs, Library Packs...)
+Development is coordinated using the standard three stages; production, testing, and development plus upstream svn.  Each stage runs as its own user and has its own database.  The source code is in individual branches of
+http://git.sugarlabs.org/projects/slo-addons
+.
+Production
+The production instance currently runs as user production.  The source code is in the production branch.
+Testing
+The testing instance currently runs as user testing.  The source code is in the testing branch.
+Testing is to be used as a staging for developers and testers to use and abuse the new code before it goes into production.
+We need lots of help testing the site. (It is currently in pre-alpha and not particularly interesting to test, so if you're not a developer you may want to add this page to your watchlist and check back in a week.) Add new tickets for bugs that you find to
+Trac
+with the activities.sugarlabs.org component. Feature and design ideas are also welcomed.
+Devel
+Remora is written in php, so primarily php/mysql hackers are needed. The development instance currently runs as user devel.  The source code is in the devel branch.
+Devel is your playground.  You can either work directly on the devel instance on sunjammer or you can follow the instructions at
+Activity Library/Devel/Installing
+to set up your own personal aslo on your computer at home.  Using git makes it really easy to recover from mistakes.  As long as you have not pushed your commits you can just 'git --hard reset origin' to permanently delete any local changes (see --mixed for not actually deleting).
+If you
+really
+break things, the steps to restore it to its former glory are:
+read these instructions and ask for help on IRC if any of them are not clear
+delete the instance
+git clone from master
+checkout correct branch for the instance
+svn pull the vendor stuff
+recreate the tmp dir stuff
+install the config.php
+See
+https://wiki.mozilla.org/Update:Remora
+for upstream project information, and  for instructions on how to install a local copy to play with. Then check
+this trac listing
+for development tickets and pick one to fix or to ask questions about.
+SVN
+There is a fourth branch named svn which is used to merge upstream changes for mozilla.org.
+One of our key goals is to keep also as close as possible to amo, so rebasing isn't so costly.  If at all possible, try to refactor your patches so that they can be pushed upstream.
+Happy Hacking
+Meet us in #sugar on freenode if you'd like to jump in and help. Formal meetings should be planned soon. Meetings will be in #sugar-meeting and announced here. If you watch this page, you will receive email notifications when it changes.
+Should an email be sent to the IAEP and/or sugar-devel mailing lists to announce meetings?
+tomeu
+09:10, 1 February 2009 (UTC)
+File a ticket on
+http://dev.sugarlabs.org
+with the component 'infrastructure' if you need an account for development or testing (you do not need a sunjammer account to do user-facing testing on this). Make sure to include your desired account name and PGP key.
+Historical discussion
+There have been a number of mailing list threads about the AddonsPortal; this page has been updated to reflect the content of the latest messages, but they are listed here for historical purposes.
+The start of a to-do list (Mel)
+The start of this wiki page (Tomeu)
+For information on Amo, the upstream addons.mozilla.org project please see the
+Remora project page
+.
+Resources
+How to setup ASLO
+How to Build ASLO
+SVN
+Who do I request review from?
+Staging Boxes
+Database Changes
+Statistics Parsing Scripts
+Useful SQL Queries
+Subpages
+Activity Library/Devel/Bugs
+Activity Library/Devel/Building
+Activity Library/Devel/Installing
+Activity Library/Devel/Queries
+Activity Library/Devel/Roadmap
+Activity Library/Devel/Staging
+Activity Library/Devel/Statistics

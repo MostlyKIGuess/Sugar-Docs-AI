@@ -1,0 +1,42 @@
+Title: Features/Optional adhoc autoconnect
+URL: https://wiki.sugarlabs.org/go/Features/Optional_adhoc_autoconnect
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope and implementation
+7
+User Experience
+Summary
+Add a new configuration to disable adhoc autoconnect policy.
+Owner
+Martin Abente Lahaye
+Current status
+Targeted release: 0.104
+Last updated: 02/09/2014
+Percentage of completion: 100%
+Detailed Description
+This proposal is based around the needs of the OLPC project in Australia, but reflects a common need (current or future) of other OLPC implementations as well.
+The problem:
+Having hundreds or thousands of sugar clients creating or connecting to these adhoc networks by default is not necessary a desirable behavior, specially considering that only a few of these are actually using collaboration.
+The proposed solution is to provide a system configuration so this behavior can become optional and not mandatory as it is now.
+Benefit to Sugar
+Make Sugar friendlier with the spectrum and save device battery.
+Scope and implementation
+The implementation can be found in
+here
+. The changes are:
+include a new configuration to sugar settings.
+check this configuration value before auto-connecting.
+This implementation will preserve the current behaviour by default. Deployment will be require to use the configuration in order to disable the auto connect policy.
+User Experience
+The new configuration will preserve the current behaviour by default, therefore the user experienced is untouched.

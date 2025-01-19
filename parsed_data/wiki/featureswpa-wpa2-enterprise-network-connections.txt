@@ -1,0 +1,144 @@
+Title: Features/WPA-WPA2-Enterprise-Network-Connections
+URL: https://wiki.sugarlabs.org/go/Features/WPA-WPA2-Enterprise-Network-Connections
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+Setting up a RADIUS server (on a dedicated machine)
+10
+Setting up the access-point / router
+11
+Connecting a client - TLS-based authentication
+12
+Connecting a client - LEAP-based authentication
+13
+Connecting a client - TTLS-based authentication
+14
+Connecting a client - PEAP-based authentication
+15
+User Experience
+16
+Use-Cases That need to pass (thanks Sridhar Dhanapalan for the exhaustive list)
+17
+Dependencies
+18
+Contingency Plan
+19
+Documentation
+20
+Release Notes
+21
+Comments and Discussion
+Summary
+This feature helps connect to WPA/WPA2-Enterprise Networks, in a sugar-environment.
+Owner
+Name:
+Ajay Garg
+,
+Anish Mangal
+,
+Sascha Silbe
+Email: ajay@activitycentral.com, anish@activitycentral.com, silbe@activitycentral.com
+Current status
+Targeted release: Not Specified
+Last updated: December 14, 2011
+Percentage of completion: 100% (tentative, subject to LEAP-authentication testing. Codewise, it seems to be complete. Obviously, any bugs/enhancements are not being considered here).
+Detailed Description
+WPA/WPA2-Enterprise Networks are just another kind of networks, requiring secured-authentication. This feature helps connect to such networks, which require authentication following the RADIUS protocol.
+Benefit to Sugar
+This is an extension to the sugar-capability, to connect to wireless-networks.
+This feature has been originally requested from Australia deployment.
+Scope
+This is an isolated change. Non-completion of this feature will just prevent the users from connecting to WPA/WPA2-Enterprise networks.
+UI Design
+There is no impact on the workflow; it's just that the user will have to enter way more parameters for conencting to a WPA/WPA2-Enterprise networks. Please see "User Experience" section for details.
+How To Test
+Setting up a RADIUS server (on a dedicated machine)
+Install "freeradius" rpm package
+sudo yum install freeradius
+Stop the server (if running)
+sudo killall radiusd
+Modify "/etc/raddb/clients.conf", to include the name of the network access-point/router. Sample files are present at
+Media:original_clients.doc
+Media:modified_clients.doc
+Media:diff_clients.doc
+.
+Modify "/etc/raddb/users", to configure a username-password pair for authentication. Sample files are present at
+Media:original_users.doc
+Media:modified_users.doc
+Media:diff_users.doc
+Fedora 17 users, please run the following command, before starting the radius server:
+sudo mv /etc/raddb/modules/dhcp_sqlippool ~
+Start the server, by issuing the following command:
+sudo /usr/sbin/radiusd -X &
+Setting up the access-point / router
+Connect the access-point/router, with the RADIUS server machine, through a ethernet cable.
+Through the RADIUS server machine, open the browser, type in the access-point/router IP address, and configure it for WPA/WPA2-Enterprise authentication. A sample screenshot is presented below
+Note that, you may only need to enter the "Radius Server IP Address" ("192.168.1.3" in the screenshot). The "Radius Server Port", and "Share Secret" are the default ones (at least for a default setup of freeradius).
+Connecting a client - TLS-based authentication
+Make sure you have three certificates - user-certificate, ca-certificate, private-key - before you proceed. One way to get these certificates is as follows:
+Go to the RADIUS server machine, and navigate to "/etc/raddb/certs"
+Run the following commands
+sudo make client.pem
+sudo chmod 0644 client.p12
+sudo chmod 0644 ca.pem
+Transfer "client.p12" and "ca.pem" to a USB drive.
+Use this USB drive, in the subsequent steps.
+Navigate to the "Neighbourhood view" on the XO.
+Click on the network-icon, and enter the parameters, as seen in the following screenshot
+NOTES
+If either of "User Certificate", or "Private Key" is in ".p12" format, both these entries should be EXACTLY equal, since the ".p12" certificate contains both.
+For entering the "User certificate", "CA certificate" and "Private Key", you will be taken to the "Journal-Chooser". You may use the certificates that were retrieved earlier.
+Connecting a client - LEAP-based authentication
+Help required !!!!
+We have not been able to set-up a LEAP-authentication-supported access-point / router.
+Any CISCO guys !!??
+Connecting a client - TTLS-based authentication
+Navigate to the "Neighbourhood view" on the XO.
+Click on the network-icon, and enter the parameters, as seen in the following screenshot (thanks to Anish, for showing me this minimal configuration).
+NOTES
+The above configuration is a minimalistic configuration. However, the parameters-cum-secrets modal-dialog, has been modelled on nm-applet.
+Connecting a client - PEAP-based authentication
+Navigate to the "Neighbourhood view" on the XO.
+Click on the network-icon, and enter the parameters, as seen in the following screenshot.
+NOTES
+The above configuration is a minimalistic configuration. However, the parameters-cum-secrets modal-dialog, has been modelled on nm-applet.
+User Experience
+The network-icon for a WPA/WPA2-Enterprise Network, will appear just like any other network-icon, in the Neighbourhood-view.
+When a user clicks on the icon, she will be asked for parameters-cum-secrets (much more in number, but just like any other network-type).
+Upon clicking the 'ok' button (and provided all sufficient-and-correct parameters are provided), the connection will be made. This can be confirmed by the tray-icon.
+Once a connection is made, user need not re-enter parameters-cum-secrets next time (reboot) onwards. The parameters-cum-secrets will automatically be read from sugar-settings-file (connections.cfg) (just like any other network-type).
+Use-Cases That need to pass (thanks Sridhar Dhanapalan for the exhaustive list)
+Network should connect, provided the credentials are correct (base-case).
+Thereafter,
+network should auto-connect, when XO reboots.
+network should auto-connect, when XO resumes from being suspended.
+network should auto-connect, when XO wakes up from Automatic Power Management.
+network should auto-connect, when the wirless radio is turned off, and then turned on again.
+Dependencies
+There are no external dependencies. This feature is just an addon, with just another network-type being added to the list of "connectable" networks.
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+Discussions are on, on the "sugar-devel-" and "dextrose-" mailing lists.
+Release Notes
+There are no changes in ABIs/APIs, configuration or data file formats. 
+Also, there are no upgrade concerns.
+Comments and Discussion
+See
+discussion tab for this feature

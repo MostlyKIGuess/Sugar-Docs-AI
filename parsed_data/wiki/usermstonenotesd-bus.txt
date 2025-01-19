@@ -1,0 +1,63 @@
+Title: User:Mstone/Notes/D-Bus
+URL: https://wiki.sugarlabs.org/go/User:Mstone/Notes/D-Bus
+--------------------------------------------------------------------------------
+Contents
+1
+DataStore
+2
+Presence
+3
+Journal (object-chooser)
+4
+ActivityService (view source)
+5
+Speech
+6
+Shell (UIService)
+7
+Misc
+DataStore
+m:create(profs, file_path, transfer_ownership)
+ s:Created(uid) (null)
+ m:update(uid, props, file_path, transfer_ownership)
+ s:Updated(uid)
+ m:find(query, properties) -> entries, count
+ m:get_filename(uid, sender) -> path
+ m:get_properties(uid) -> dict
+ m:get_uniquevaluesfor(propertyname, query) -> [string]
+ m:delete(uid)
+ s:Deleted(uid) (null)
+ s:Stopped() (null)
+ m:mount(uri, options) ->
+m:mounts() -> [{'id':1}]
+ m:unmount(mountpoint_id) -> (null)
+ s:Mounted(descriptor) (null)
+ s:Unmounted(descriptor) (null)
+
+ other users:
+   copy-to-journal
+   copy-from-journal
+Presence
+oy. (invites)
+Journal (object-chooser)
+m:ShowObject(object_id)
+ m:ChooseObject(parent_xid, what_filter) -> chooser_id
+ s:ObjectChooserResponse(chooser_id, object_id)
+ s:ObjectChooserCancelled(chooser_id)
+ActivityService (view source)
+m:SetActive(active)
+ m:InviteContact(account_path, contact_id)
+ m:HandleViewSource()
+ m:GetDocumentPath()
+Speech
+m:SayText(text)
+Shell (UIService)
+m:GetBundlePath(bundle_id) -> path
+ m:ActivateActivity(activity_id) -> (real-activity-not-launcher : bool)
+ m:NotifyLaunch(bundle_id, activity_id)
+ m:NotifyLaunchFailure(activity_id)
+Misc
+nm key dialog ...
+ network view
+ cp-power
+ cp-network

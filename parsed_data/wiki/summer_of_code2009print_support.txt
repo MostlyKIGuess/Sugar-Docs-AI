@@ -1,0 +1,211 @@
+Title: Summer of Code/2009/Print Support
+URL: https://wiki.sugarlabs.org/go/Print_Support
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+5
+Use Cases
+6
+Possible User Interface Designs
+About you
+1 What is your name?
+Vamsi Krishna Davuluri
+2 What is your email address?
+vamsi<dot>davuluri<at>gmail<dot>com
+3 What is your Sugar Labs wiki username?
+IwikiwI
+4 What is your IRC nickname?
+IwikiwI/iwikiwi ( Sometimes vkd, Vamsi, Vamsi_)
+5 What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+English, Hindi, Telugu. I prefer English!
+6 Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+I am located in India (5:30+ GMT), I usually work in the night, from my 7 pm to 2:30 am
+So any mentor should be ideal.
+7 Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I have not been part of an open source development team nor do I have a very profound understanding of the OS development paradigm - so far, but seeing how I could never afford software which was sold at high price even though that software was the bare essential software for me to get my computer working. And as my experiences are true for almost two thirds of other students, I would like to see them not to have to put up with the buy-what-you-want software, in-fact I would love for them to grow up using free software that I make and hope that they will produce free software themselves, a few of them at least.
+Although not really a group developmental project, I have coded two networks projects and a prototype game for windows. (the source is in downloads)
+1)
+Simulation of mobile units and their movement over a network (unix network programming, and unix programming)
+http://code.google.com/p/iwikiwi/
+2)
+A client/server model for file transfer, md5 check sum, IP translations, and file size requests (unix network programming, and unix programming)
+http://code.google.com/p/iwikiwi-clientserver/
+3)
+A prototype Bounce game in OpenGL for windows
+http://code.google.com/p/iwikiwi-bounce/
+About your project
+1 What is the name of your project?
+Print Support for the XO laptops
+2 Describe your project in 10-20 sentences
+.
+As the self explanatory name suggests, the project is to add print support to the laptops.For the time being, the print requests will be sent to the school server through a moodle print page
+then the teacher can view the files through his login in the same application, and approve them for printing to a print server. We will also be including a fallback strategy that is usb printing.
+Why should my idea be considered:
+My refined version of the print support idea is actually a better way of ensuring that paper abuse will be curbed, as the kids wouldn't really take into account :all the predicaments associated with :printing. And needless to say printing does take place with the teacher's intervention. And everything takes place in a moodle environment, plus there is the added benefit of printing in the No XO case.
+A step by step abstraction:
+(The first step would essentially mean a Save as PDF hack and put the jobs for processing on moodle )
+1)
+The right click menu of an item in the journal will have a new option, i.e. "print!". When clicked, the item will be opened with Read and if its not a recognized format, convert it with cups-pdf and open with Read. and the pdf will have metadata attached stating its details (this PDF plus metadata wont be visible to the user).The user can have a preview of his print, save it as a pdf in the journal, and send a PDFed version to moodle.
+advantage cups-pdf (text will be mapped as text only)
+Later on we can extend this to have a print button in every activity, so that the default activity which opens the object can print from itself.
+The usecase would be, distinction of saving a pdf and sending it to printing. And the conversion is mandatory so as to prevent a scenario where the sugar file type might not be recognized by the teacher's machine.
+We will be using moodle as our interface for sending print requests on the network. The interface will have a user page and a teacher page. The page will have a report of his print jobs and a status report of his live jobs. And the ability to put 3 live jobs on queue. The number of upload slots will be dynamically updated according to his live jobs pending for teacher's approval(which is a maximum of 3). And the number of free slots will automatically be filled up by the browser with the to-print PDFs. And then these objects will be sent to the moodle web folder.
+(The 2nd would be implementing queuing and teacher review, reject approve facilities
+2)
+Through moodle the teacher will have a page displaying the contents of the moodle print datastore along with user names attached, and he/she will be able to download them to his remote system, and  check them and approve them for printing if he/she wishes. After his/her approval or disapproval (that is a delete along with an option why) the information is held in the datastore, and the user can view it in the form of history transactions pertaining to his id, and teacher can view a finite list of previous transactions pertaining to all.
+( The 3rd usb printing on demand!)
+3)
+The no School Server case. The simple solution to this case is to print directly through usb. And this won't be counter productive to the idea of teacher moderated printing, as the printer won't be available for just anyone; this is only a quick alternative to the 'save to portable drive and do the printing' method.
+In-Depth analysis:
+For step-1,We hack into Read and create a new print toolbar, one with direct printing, one with moodle printing, and one with export as pdf. For all things other than direct printing a dummy pdf is created.
+For Read to send jobs to moodle and get the queue details we use xmlrpclib , and send only as much as the number of free slots .  (Or a simpler way will be to bypass the dialog automatically). The execution part of this will take place dynamically as soon as the user requests the print page. And also, once the pdf is read, it is destroyed.
+We will also provide a way so the user can send only pdf files through the moodle user page, which will be based on the upload many number of files module.
+For step-2, We will be using the interface already created, but for the teacher we will issue global access privileges enabling him/her to access all the sent requests for his group.The approve button will initiate shell commands to send the particular file to a network printer through CUPS installed on the server.This can again be achieved through hacking into moodle and understanding how notifications are sent to the students from teacher. The notifications would be relating to whether the teacher has approved or disapproved the print.
+The moodle part can be achieved through hacking the already existing plugin
+[1]
+and looking into the moodle API and plugin documentation. From my research so far, moodle has most of all the low level details already existing within the moodle libraries. Even $_GET $_POST methods are abstracted into simpler functions.
+For step-3, no new code is required; a few more dependencies are required, which wont exceed 16mb. We will be including print directly (usb) as an option under the item's right click menu too. This will have the same code as print to pdf for the most part, but will have added code to select a new default printer.
+Is there a disadvantage in relying upon moodle for network printing?
+Since the whole concept relies upon network printing, it will be feasible for moodle to coexist with the system on the school server. We will just be adding moodle as a requirement for network printing.
+Key features:
+Will be able to print to any USB printer
+Will be able to output a print as a PDF
+Includes a user queue and a teacher queue
+automatically parses print requests to the print page
+Uses moodle as interface for teacher moderated printing
+A 3 live/pending jobs at a time queue.
+Teacher can approve/ disapprove printing from the queue.
+Student will have status updates in his page.
+Has a no school server case.
+3 Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, :credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I have a fairly good understanding of communication models, and my skill with networks is quite satisfactory. And as most of the implementation is already available in form of python bindings, all that :remains is placing them together with a sound design, which I have already discussed with several community members. And I can provide as much time as is required for the work to get done. I am introduced to server side programming through django on which I had worked to develop a weblog ( I dont have the code for it, and the weblog isn't operational), all I can say is I had *fun* with the template language they had, which was mostly regexp parsing.
+And I have learnt php these last few days enough to hack on moodle.
+My credentials include:
+1)
+The ability to finish projects on his own, with self motivation, as the 3 projects I have attached have been made as a self interest.
+2)
+An internship at Kenexa which had been to develop an assembly which logged database transactions, written in c#, so I have an exposure to infrastructure.
+3)
+winner of a coding event, Mind-Hunters, at a national level technical festival.
+I have already added a fix to Write so that it can export to pdf files, and I have provided a temporary fix for a screen bug, for which I will provide a complete fix.
+And I have checked the feasibility of my approach by going through the source files/apis, and writing sample programs like
+cups_dest_t *dests, *dest;
+ int num_dests = cupsGetDests(&dests);
+ int job_id = cupsPrintFile(dests->name,
+                            argv[1],
+                            "Test",
+                             0, NULL);
+ if (job_id == 0)
+ printf("error printing file, unsupported format");
+for printing
+4 What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (July 6-13); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+April 20th to May 26th:
+Research the sugar API extensively
+Write sample D-BUS communication programs and xmlrpc programs
+Hack into moodle code, and create purposeful hacks (modifying the limits for plugin in consideration, and such)
+Talk with the design team and produce prototype interface designs
+Look into moodle APIs
+Focus on the bare essential dependencies required to get the job done
+My job will be not only writing working code, but regularly getting it deployed to check if the user's find it good and working to their needs or not.
+So when I say community feedback, I will be using it interchangeably between actual deployment and the irc community depending on context
+Milestone 1
+Week 1 :
+Start work on Read and add printing buttons to it (see that they do their jobs), and write minimal journal code.
+Week 2 :
+hack on browse so it can save html files, and see to it that read can convert and save all files to pdf and send to moodle.
+Milestone 1 result : Sugar side of our code will be done.
+Milestone 2
+Week 3 :
+Start working on moodle's userpage.(Hack the 'upload several assignments' code and make a new plugin out of it.)
+Use xml-rpc to link moodle's datastore with Read code
+Week 4
+start working on moodles teacher page, and see that he/she can review only his group's assignments
+And start working on a php script for shell commands to directly print to the network printer.Get mentor and community feedback.
+Milestone 2 result :
+The teacher review feature and student upload features are working
+Milestone 3
+:
+Week 5
+Start working on creating a nice html layout for the page, get feedback and make corrections accordingly.
+Test code on a server with a printer, and test if everything works, get mentor and community feedback, and if any integration bugs remain, drill them out.
+Milestone 3 result:
+It would be to finish the moodle plugin, and see to it that printing can be done through it by the teacher and that we have thousands of happy XO user's faces
+Milestone 4
+Week 6
+Make an extended print dialog activity (use gtkprint dialog), which has options such as select printer and pages for local and pdf printing and moodle added as printer option.
+week 7
+Replicate the features in each activity, so that when opened with default activity in journal, they can print.
+Milestone 4 result :
+Well we have everything set up folks! APART from wifi printing! get feedback
+Then
+:
+Fix last minute bugs, check with a sample deployment.
+Beyond GSoC:
+primary focus
+:
+Add a direct network printing mechanism ( avahi if not the CUPS provided Bonjour for DNS-SD/mDNS) and print directly to the print server through wi-fi. This will be .This will be disabled when ever an XS is connected.
+I have written a sample program
+http://pastebin.be/17562
+What this does is, it gets the list of printers from the print server, and prints to the default configured one.
+It can be extended to select the print server automatically, traverse through the printers, select appropriate one. And also implement a local queue, cancel option.
+You and the community
+1 If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+From myself:
+"The XO users and teachers will greatly benefit from printing, as converting something digital(which may be art, a presentation or a photo) into a physical representation is something very basic, and :something very strong. Not only will there be a good deal of happy faces, but it will also kill the effort required to copy content to a portable drive, and go to a terminal and print.
+"
+From Benjamin M. Schwartz:
+"In order for Sugar to be adopted in schools with existing IT infrastructure, it must give users an easy way to print their documents.If that printing could be routed through a teacher-controlled visual :print queue, then in this regard Sugar would be the most preferred solution for primary education and schools with limited IT resources."
+From Martin Langhoff
+"So children can print their own renditions of Robocop on a Unicorn.
+The goal of your project is to have a simple, effective and portable
+way to print documents from the Sugar environment. The most immediate
+outcome will be very straightforward printing through a School Server.
+Printing is a very popular request in our DIY community so it is also
+important to ensure that printing is workable even in the absence of a
+School Server."
+2 Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+I think it would be wonderful to begin with my school, I come from a government funded school, not one of those fancy private schools. The kids there would definitely love the different teaching :environment. I will have a talk with the principal, and after that I will further this.
+3 What will you do if you get stuck on your project and your mentor isn't around?
+I will of course go through the net. developer mailing lists, and forums. And the irc channels of each component I am handling.
+But more over, the community has been very helpful without having a mentor as of yet. I will look forward to the community then!
+4 How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I intend to provide weekly updates on the wiki itself. And I will also be providing daily updates on the channel.
+Miscellaneous
+Here is the pic with my hack
+[2]
+1 What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+Large! (do I get a sugar tshirt?)
+2 Describe a great learning experience you had as a child.
+Being alone and not interacting with others is a hard bargain. It might seem appropriate during the experience (as one can brush it off as," who will interact with the lessers"), but its only after you :reach an age you realise the tragedy one has brought on himself. I can never change my past, but I am a different person now and will be in the future.
+3 Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+My motto: There is no such thing as not able to achieve something, the only variable really is effort which differs from achievement to achievement with person to person.
+what someone else can do, So can I.
+Use Cases
+1 GPA, the SoaS pilot school in Boston MA
+GPA has the following network printers
+Their network printers are :
+*  Xerox Phaser 3400
+*  Xerox Phaser 3500
+*  Xerox Phaser 6360DN
+*  HP Laserjet 2100
+*  Lexmark Optra T520
+*  Lexmark Optra M410
+*  Xerox Document Centre 470
+Currently they do not let students print, but since students only use a computer for an hour a week this is not a hardship. As they have students compute more they would like them to be able to print.
+I asked them which of the following was their current biggest problem:
+#1  The printers are too busy, you have to wait for your documents to print out.
+#2  There is not enough money to buy toner and paper.
+#3 The printers are too far away, the teachers have to waste time walking to get their printouts.
+#4  The printing system is too confusing or broken and people can't get their stuff to print on the printer they want to use.
+3 is definitely this schools biggest issue.
+We will be collecting used computers for the SoaS project.  We could probably easily also get donations of small printers for each classroom and it sounds like they would want that.
+Possible User Interface Designs
+Example print device palette showing one active print job. Job can be cancelled via (x) icon
+Example print device palette showing several print job items with different states in the print queue.

@@ -1,0 +1,89 @@
+Title: Features/Automatic Proxy Settings
+URL: https://wiki.sugarlabs.org/go/Features/Automatic_Proxy_Settings
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+PAC - Proxy Auto Config
+8
+WPAD - Web Proxy Autodiscovery
+9
+Bibliography
+Summary
+Allow the user to setup transparent Proxy service.
+Owner
+Ariel Calzada
+Current status
+Targeted release: 0.98
+Last updated: 2013-01-07
+Percentage of completion: 80%
+Detailed Description
+Sugar deployments and users need to be able to set a proxy to
+access some network services.
+In this entry you can learn a way of configuring automatic proxy server 
+(PAC and WPAD) for testing purposes.
+For testing a proxy in XO you can go to:
+Features/Proxy Settings
+Benefit to Sugar
+See
+Detailed Description
+.
+Scope
+It's not directly related to XO, it's just a part for building an environment for automatic proxy testing in XO
+PAC - Proxy Auto Config
+PAC method for proxy is very simple. You have to create a web-accessible
+file with special syntax in which you include proxy server data. This example
+works with Apache server. You can take a look to
+Bibliograpy
+for more info about PAC file configuration and installation in other webservers.
+Steps:
+Install httpd web server:
+yum install httpd
+Enable configuration override with htaccess
+vim /etc/httpd/conf/httpd.conf
+  <Directory "/var/www/html">
+   ...    
+   #                  
+   # AllowOverride controls what directives may be placed in .htaccess files.
+   # It can be "All", "None", or any combination of the keywords:
+   #   Options FileInfo AuthConfig Limit
+   #                  
+   AllowOverride None                                                                                                                                             
+   ...                       
+  </Directory>       
+  Replace the line "AllowOverride None" with "AllowOverride All"
+Create a web enabled directory proxy
+mkdir /var/www/html/proxy
+Create .htaccess file and the following content:
+vim /var/www/html/proxy/.htaccess
+AddType application/x-ns-proxy-autoconfig .pac
+Create PAC file and add the following content:
+vim /var/www/html/proxy/proxy.pac
+function FindProxyForURL(url, host) {
+      return "PROXY PROXY_SERVER_IP_OR_HOSTNAME:PORT";
+  }
+Set permissions for the directory proxy
+chown -R apache.apache /var/www/html/proxy
+  chmod -R 755 /var/www/html/proxy
+Restart httpd web server
+service httpd restart
+Test in your favorite browser
+WPAD - Web Proxy Autodiscovery
+Web Proxy Auto-Discovery Protocol, or WPAD, is a technology which aids a web browser in automatically detecting the location of a PAC file using DNS or DHCP.
+A browser that supports both DHCP and DNS will first attempt to locate a PAC file using DHCP, and should a DHCP configuration not exist fail-over to DNS WPAD will occur. If neither are configured, a browser will fail open.
+Source
+Bibliography
+Web Proxy Autodiscovery Protocol
+FindProxyForURL
+Proxy Auto Config

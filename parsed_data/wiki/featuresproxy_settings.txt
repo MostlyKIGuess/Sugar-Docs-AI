@@ -1,0 +1,134 @@
+Title: Features/Proxy Settings
+URL: https://wiki.sugarlabs.org/go/Features/Proxy_Settings
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+"Manual" mode
+8
+Automatic mode - PAC
+9
+Automatic mode - WPAD
+10
+Settings verification
+11
+User Experience
+12
+Dependencies
+13
+Contingency Plan
+14
+Documentation
+15
+Release Notes
+16
+Comments and Discussion
+Summary
+Allow the user to configure proxy settings using the Sugar Control Panel.
+Owner
+Sascha Silbe
+,
+Ajay Garg
+(ajay@activitycentral.com),
+Manash Pratim Das
+Current status
+Targeted release: 0.110
+Last updated: 2016-04-18
+Percentage of completion: 100% and merged
+Merged into something that will probably be 0.110
+Detailed Description
+Both individual users and deployments need to be able to set a proxy for
+Sugar and activities to use. While we'd like the system to work that all
+out automatically (e.g. using
+WPAD
+), this often isn't possible. Common
+reasons include legacy ("inherited") setups and network uplinks being
+out of control of the user.
+The existing Network Control Panel is enhanced by adding a new section for the
+proxy settings. For consistency between Sugar and Gnome, the basic layout of
+the Gnome 3 proxy settings has been mirrored: A combo box allows the user to
+select how the proxy setting should be determined (None=no proxy settings, 
+Use system proxy=let proxy be set by other means, Automatic=WPAD or PAC, 
+Manual=enter host names and ports for each protocol).
+Based on which method was selected, additional configuration options are
+presented to the user.
+The settings are stored in 'GSettings' and passed to activities using the 'http_proxy' and similar variables.
+Benefit to Sugar
+Widens the environment where Sugar may be used, by removing a reason why Sugar cannot be used in managed information technology environments.
+Scope
+Modifying the existing Network Control Panel.
+"Manual" mode
+Fill in the settings "manually", and restart when prompted so.
+Now open "www.google.com" shoud open.
+Automatic mode - PAC
+Fill in the URL of the proxy-file, and restart when prompted so.
+Now open "www.google.com" shoud open.
+Automatic mode - WPAD
+Motive
+To provide proxy-configuration, without needing the client-user
+to manualyy enter the proxy-settings (
+Manual
+mode)
+to manually enter the location of proxy-configuration file herself (
+Automatic (PAC)
+mode).
+Benefits
+By not needing the client-user to manually specify the settings, every client-user is saved  a headache :) Instead, all the configuration is done via a network-administrator, on the server-side.
+By delegating the responsibility of specifying every proxy-rule (even the proxy-configuration file) to the network-administrator, security is increased dramatically.
+Notes
+Setting this particular mode (
+Automatic-WPAD
+Proxy) is quite complicated; and many possibilities exist.
+However, the bottom-rule is, client should himself not need to specifiy the location of proxy-configuration file as per say
+.
+Testing (one of the possible ways :) )
+(For those not interested in the technicalities, please proceed to the next bullet :D)
+To verify that current dextrose-4 supports Auto-WPAD mode, we test using the method, as per the following 4 requirements, as listed at
+http://en.wikipedia.org/wiki/Web_Proxy_Autodiscovery_Protocol#Requirements
+::
+In order to use the DNS only method, a DNS entry is needed for a host named WPAD.
+The host at the WPAD address must be able to serve a Web page.
+In both cases, the Web server must be configured to serve the WPAD file with a MIME type of "application/x-ns-proxy-autoconfig".
+If the DNS method is used, a file named wpad.dat must be located in the WPAD Web site's root directory.
+Select "Automatic" mode in "My Settings" -> "Proxy" (without specifying anything else), and restart when prompted so.
+The above step is all that is needed for "Automatic (WPAD)" mode to  take effect; the WPAD-configuration-file will be located by the DHCP/DNS Server. However, for easy QA testing,  we specify an easy way to replicate this DNS behavior ::
+Add the line "build.activitycentral.com wpad" to the file "/etc/hosts" on the XO, and reboot.
+It is repeated innumerable times, that this  step is required just for easy testing; in actual deployments, the DNS-name resolution will be provided by network-administrators/School-Server-running-DHCPD
+Also, thanks a ton to
+Santiago Rodriguez (scollazo@activitycentral.com)
+for setting up the proxy-configuration-files at build.activitycentral.com.
+Open "Browse", and type in "www.google.com". You should be prompted for credentials (suppose as required by the WPAD-configuration-file)
+Entering wrong credentials in the previous step, re-prompts :). This time, enter correct credentials.
+The page opens successfully.
+Settings verification
+The proxy settings entered by user are verified before saving to prevent accidental change in proxy settings.
+For "manual" type the proxy host addresses are pinged to check for their existence.
+For "auto" type the existence of the *.pac file is checked.
+If the above verification fails then the user is prompted with an alert message and option to either "Break the Internet connection" or "Reset".
+Manual proxy verification failed:
+Auto proxy verification failed:
+User Experience
+See
+UI Design
+Dependencies
+There are no new dependencies.
+Contingency Plan
+Users can continue to use the Gnome Control Center to configure proxy settings.
+Documentation
+There is no documentation beyond this page.
+Release Notes
+There have been no changes to public API. The Release Notes merely need to mention that users can now configure proxy settings from within Sugar. As detailed above, the UI is very similar to the Gnome UI.
+Comments and Discussion
+See
+discussion tab for this feature

@@ -1,0 +1,67 @@
+Title: Features/Remove Presence Service/Testing
+URL: https://wiki.sugarlabs.org/go/Features/Remove_Presence_Service/Testing
+--------------------------------------------------------------------------------
+We should test both the backend that uses a server (gabble) and the one that doesn't (salut). Sugar will use gabble if it can connect successfully to the server specified in the Network section in the control panel and will fall back to salut if it can't. You can verify which backend is running with the 'ps' command.
+Also, we should be testing both with other clients running 0.90 and with clients running earlier versions.
+Contents
+1
+Connection management
+1.1
+Connecting to gabble
+1.2
+Falling back to salut
+2
+Buddy presence
+3
+Activity presence
+4
+Activity invitations
+5
+Friends
+6
+File transfer
+Connection management
+Connecting to gabble
+Check that the server in the control panel is jabber.sugarlabs.org
+Wait a minute
+Check that telepathy-gabble is running
+Check that some buddies are shown in the neighborhood view
+Falling back to salut
+Change the server setting to a fake server name
+Check that telepathy-gabble isn't running
+Check that telepathy-salut is running
+Buddy presence
+Check that the neighborhood view displays the expected buddies depending on the backend in use and the server configured
+Check for the correct nicks and colors
+Check that buddies disappear from the view when they disconnect
+Activity presence
+Start an activity
+Share it in the neighborhood
+Check other buddies see the activity and the initiator next to it
+Make another instance join the activity
+Check both buddies appear around the activity
+Activity invitations
+Start an activity
+Invite another buddy to it
+Check that an alert appears in the top-left corner and an icon is added to the top level frame
+Check in the invited neighborhood view that the activity appears
+Join the activity by every of the available methods
+Check the activity is properly displayed in both neighborhood views
+Friends
+Make friend one of the buddies in the neighborhood view
+Check it appears in the friends view
+Power off the friend's machine
+Check it appears as being offline in the friends view
+Restart
+Check it appears as being offline in the friends view
+Start friend machine
+Check it appears as online
+File transfer
+Make sure you have a friend online
+From the journal, initiate a transfer
+Make the friend accept the transfer
+Check that the transfer completed successfully
+From the journal, initiate a transfer
+Make the friend accept the transfer
+Make the friend cancel the transfer
+Check the transfer was properly cancelled in both sides

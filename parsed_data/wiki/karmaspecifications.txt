@@ -1,0 +1,93 @@
+Title: Karma/Specifications
+URL: https://wiki.sugarlabs.org/go/Karma/Specifications
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+General Notes
+2.1
+Hardware constraints
+2.2
+Accessibility
+3
+HTML
+4
+JavaScript
+5
+Animations
+6
+Images
+7
+Sound
+8
+Video
+Introduction
+Two main goals should be kept in mind when creating Karma lessons:
+they should be easy to adapt
+they should run on as much hardware as possibe with OLPC's XO-1 laptop representing the baseline
+General Notes
+Hardware constraints
+Since a large percentage (if not the majority) of Karma users are envisioned to be using OLPC XO-1 laptops, netbooks, older hardware or generally relatively slow systems there are several performance constraints that need to be taken into account when designing Karma lessons.
+CPU/Memory: The baseline regarding available performance is the XO-1 laptop which comes with an AMD Geode LX 433MHz CPU and 256MB RAM (
+full specifications
+). This limits the use of high-resolution multimedia, animations and videos to some degree.
+Display: Karma lessons should work well on displays with a resolution of 1024*768 (whereby a part of the display may be taken up by browser UI elements!).
+Mass storage: Since especially the XO-1 laptop only has very limited local mass storage (1GB) lessons should be kept reasonably small.
+Connectivity: Karma lessons must not assume constant connectivity with a locally (e.g.
+XS
+) or globally available server. Support for storing data locally will be provided by Karma.
+Accessibility
+Follow best practices for accessibility (e.g. example of a
+checklist
+), especially with regard to
+colorblindness
+.
+HTML
+<!DOCTYPE HTML>
+JavaScript
+...
+Animations
+Format(s): TBD
+Recommended tools: TBD
+Notes: TBD
+The Karma animations are created using JavScript and the Karma plugin. At this moment we haven't defined a mechanism to "export" (and "import") one animation. But copying and pasting the code (of the animation) will be enough in most cases.
+Images
+Format(s):
+JPEG
+,
+PNG
+,
+SVG
+(Note 1, 2 and 3)
+Recommended tools:
+Inkscape
+,
+GIMP
+,
+Adobe Illustrator
+(non-free),
+CorelDRAW
+(non-free)
+Max. resolution: 1200*900 px
+Notes:
+To handle SVG files will be necessary to create a parser svg2canvas in order to introduce them as objects inside canvas element.
+Animated SVG content will be hard to reproduce using canvas.
+SVG animations seems slow under the XO-1 (Tested with
+RaphaelJS
+and Browse)
+Sound
+Format(s):
+OGG Vorbis
+(Note 1)
+Bit rate: TBD
+Max. size per lesson: 3~4MB
+Recommended tools:
+Audacity
+Notes:
+https://developer.mozilla.org/En/Media_formats_supported_by_the_audio_and_video_elements
+Video
+Format(s): TBD (Note 1)
+Recommended tools: TBD
+Notes: TBD
+https://developer.mozilla.org/En/Media_formats_supported_by_the_audio_and_video_elements

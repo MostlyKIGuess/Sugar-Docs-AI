@@ -1,0 +1,393 @@
+Title: Design Team/Meetings/2009-03-01
+URL: https://wiki.sugarlabs.org/go/Design_Team/Meetings/09.03.01
+--------------------------------------------------------------------------------
+[10:02am] eben: Hello everyone.
+ [10:02am] garycmartin: eben: Hi
+ [10:03am] walterbender: garycmartin: I mean that by default, TA starts on the Project toolbar, where mostly you stay...
+ [10:04am] walterbender: garycmartin: Browse starts on the Browse toolbar...
+ [10:04am] tomeu: eben: hi!
+ [10:04am] tomeu: and hi, FGrose
+ [10:04am] walterbender: eben: good morning
+ [10:04am] FGrose: Hi
+ [10:04am] garycmartin: walterbender: understood.
+ [10:04am] • walterbender leaving in 10 minutes to pick my daughter up at the airport  
+ [10:04am] eben: So, I'm a little confused.  EST is UTC-5, right?
+ [10:05am] tomeu: garycmartin: what do you think about the new toolbar proposal from eben?
+ [10:05am] walterbender: eben: we've been hanging out, talking.
+ [10:05am] eben: I think he meant it to be 10, as that was the time he last discussed with me.
+ [10:05am] tomeu: eben: we have solved all the design issues in your absence 
+ [10:05am] eben: And he also informed me a little bit ago that he'd be about 10 minutes late.
+ [10:05am] walterbender: eben: yes. I confirmed that with him this morning.
+ [10:05am] eben: tomeu: fantastic!
+ [10:06am] tomeu: that means killing X and using ncurses
+ [10:06am] eben: I'll just go make brunch then. 
+ [10:06am] walterbender: eben: we had mostly been talking about the website... saving the 0.86 discussion for the group.
+ [10:06am] eben: walterbender: OK.
+ [10:06am] garycmartin: tomeu: I like it, lot's of atrwork challenges, but it's better that utility than we have now. ... But needs the Stop button all the time at top  
+ [10:07am] tomeu: garycmartin: one way to subvert eben's decisions is to make a mistake and let a "bug" slip into the implementation
+ [10:07am] garycmartin: tomeu: ncurses, cool a decent UI at last ;-b
+ [10:08am] eben: tomeu: 
+ [10:08am] tomeu: garycmartin: if he really cares, he'll fix it himself, but that doesn't happen 100% of the cases 
+ [10:09am] garycmartin: tomeu: I like the way you think 
+ [10:09am] tomeu: sneaky, yeah
+ [10:11am] eben: So, hopefully Christian will be here shortly and we can discuss some designs.  We both wanted to get re-aquainted with the state of things, and  work out a preliminary roadmap for the next release.
+ [10:12am] tomeu: ok
+ [10:13am] walterbender: eben: I think the 0.84 changes are great!!! a huge boost to usability
+ [10:13am] walterbender: especially the resume functionality !!
+ [10:13am] eben: walterbender: Excellent. I only have cursory knowledge of them. 
+ [10:14am] eben: walterbender: I'm glad people are finding that a good change.  I'm still a little worried that people won't find how to start new activities,  though.  How do you find it to be?
+ [10:14am] walterbender: eben: they eliminate about 5 steps and eliminate most of the Journal spam...
+ [10:14am] walterbender: the Journal is much more useful now.
+ [10:15am] eben: walterbender: awesome
+ [10:15am] garycmartin: walterbender: I just have cjb's latest F11 build on my XO, so I've just caught up with the Sugar changes over the last ~3 weeks. Looking great.
+ [10:16am] cms: good morning--sorry i'm late
+ [10:16am] garycmartin: I love that the palettes now show the 'Start' (New in next cycle) item as a white outline activity icon.
+ [10:16am] tomeu: walterbender: we didn't got to label the palette item "Start new" instead of "Start" because of the string freeze, but if you think it's very important, we can ask unmadindu if he thinks we can get a string freeze
+ [10:16am] tomeu: ooops, that was for eben
+ [10:17am] tomeu: hi cms!
+ [10:17am] cms: hi tomeu
+ [10:17am] cms: what are we discussing?
+ [10:17am] eben: tomeu: Oh, do we have menu sections!?
+ [10:18am] eben: (labels for them, that is)
+ [10:18am] garycmartin: cms: hi
+ [10:18am] tomeu: eben: do we?
+ [10:18am] cms: hi gary
+ [10:18am] tomeu: cms: starting new activity instances from the palette in the home view
+ [10:19am] eben: tomeu: I don't know.  I'm asking, since that's where the "resume recent" and "start new" were supposed to be.
+ [10:19am] cms: tomeu: ah, i saw most of that was already implemented, correct?
+ [10:19am] tomeu: eben, cms: we don't have labelled sections in palettes yet 
+ [10:20am] tomeu: so it's not 100% as the design says
+ [10:20am] eben: cms: UTC 15:00 = EST 10:00 
+ [10:20am] eben: tomeu: Oh, so where's the labels? We don't have any?
+ [10:20am] cms: heh
+ [10:20am] cms: can we actually back up for a second and talk about the development schedule?
+ [10:21am] cms: is there a date set for the new release?
+ [10:21am] tomeu: eben: no section labels, no
+ [10:21am] tomeu: eben: but we do have separators, at leasr
+ [10:21am] tomeu: t5
+ [10:21am] tomeu: argh
+ [10:22am] tomeu: cms: http://sugarlabs.org/go/DevelopmentTeam/Release/Roadmap
+ [10:22am] eben: tomeu: sure, but that doesn't make the reason for the separation clear.  But OK.   We need to make those then.
+ [10:22am] tomeu: eben: sure, I agree those labels are important
+ [10:22am] cms: tomeu: thanks!
+ [10:23am] eben: tomeu: I think we're more interested in the 0.86 roadmap.
+ [10:23am] cms: eben: yes, that would be helpfu
+ [10:23am] tomeu: oooh
+ [10:23am] tomeu: no roadmap yet
+ [10:23am] eben: To get an idea of the timeline we want to plan on coming up.
+ [10:23am] cms: since we are days away from 0.84
+ [10:24am] tomeu: but we would like to release again in 6 months, aprox
+ [10:24am] eben: OK, well, what's the approx. number of months between releases, usually?
+ [10:24am] cms: that's good to know
+ [10:24am] eben: 6, OK, great.
+ [10:24am] cms: eben, should we recap all of the main features we want to address in that timeframe?
+ [10:25am] tomeu: nice
+ [10:25am] cms: some of these may already have been implemented
+ [10:25am] eben: cms: I think we should, yeah.  We should also refine those added in 0.84.
+ [10:25am] tomeu: what I have started to do regarding 0.86 is try to get contacts that can proxy feedback from places where sugar is being used
+ [10:25am] eben: tomeu: excellent/
+ [10:25am] tomeu: I haven't had much success yet, but want to scale up this efforts in th enext days
+ [10:25am] cms: tomeu: that's great, that feedback will be invaluable
+ [10:26am] cms: when are kids given the opportunity to give feedback?
+ [10:26am] tomeu: cms: they can always enter a ticket or send email 
+ [10:26am] cms: great
+ [10:27am] eben: OK, so should we just list the items we think are important (without any discussion, just so we get a full list) and then go from there?
+ [10:27am] tomeu: cms: I guess we need to set up some kind of process so direct contributions get translated, summarized and categorized
+ [10:27am] cms: eben: yes, let's do that
+ [10:27am] eben: tomeu: yeah, that would be great.
+ [10:27am] cms: so, one of the most important features was mesh chat
+ [10:27am] tomeu: so teachers and parents would ask kids, and someone would summarize that
+ [10:27am] tomeu: something like that
+ [10:27am] cms: tomeu: yes it makes sense that it be facilitated
+ [10:28am] eben: • Make Groups view work properly (more like the neighborhood) 
+ [10:28am] eben: • Add list (or list-like) views to all zoom levels, for scalability & keyboard navigability
+ [10:29am] eben: • Sweet new toolbars
+ [10:30am] eben: • something controversial: remove ring view/favorites; use grid and/or freeform view
+ [10:30am] tomeu: * labelled palette sections
+ [10:31am] cms: let's figure out which of these features we can address, and if we can't do all of them, we probably need to prioritize...
+ [10:32am] eben: I'm sure there are many smaller ones, but I think these are the biggest on my mind.
+ [10:32am] cms: most important in my opinion are mesh chat, groups view, home view
+ [10:32am] eben: cms: You think we have a pretty comprehensive list of the big ones here?
+ [10:32am] garycmartin: - Jouranal grid view?
+ [10:32am] cms: eben: yes, that sums it up i believe
+ [10:32am] eben: garycmartin: Right....the "new Journal" is another really big change.
+ [10:32am] cms: garycmartin: good call
+ [10:33am] tomeu: what about the action/object separation in the journal?
+ [10:33am] eben: I might actually recommend pushing that off one more release so we can get the rest of the UI (zoom levels) working perfectly first.
+ [10:33am] eben: (Not that I don't *really* want to make that change...)
+ [10:33am] cms: tomeu: the new journal is an important area to focus on, but i agree with eben that we should try to resolve the other areas first
+ [10:34am] eben: We might talk about some pieces of the Journal that could be improved though...
+ [10:34am] tomeu: what means "remove ring view/favorites; use grid and/or freeform view"?
+ [10:34am] cms: the journal works well enough in its current state for another release, but the other areas are more pressing
+ [10:34am] eben: We could still use the sort-bar, and mutliple selection, etc.
+ [10:34am] eben: These can happen without a transplant.
+ [10:34am] tomeu: I'm ready to work on the weekends on the action/object separation 
+ [10:34am] eben: OK, well, cms, maybe we should start with Home?
+ [10:34am] cms: tomeu: the action/object separation is ultimately an important change...
+ [10:35am] cms: eben: ok
+ [10:35am] eben: cms: I think that might be the hardest to get consensus around.
+ [10:35am] eben: So, Christian and I have been doing a lot of thinking...
+ [10:35am] tomeu: cms: apart from other obvious benefits, if we have an object view in the journal, probably with hierarchy, means we can interface with the filesystem as some people want
+ [10:35am] cms: now that we have had some time to experience the new home view, there are some modifications we think would make it more usable
+ [10:36am] eben: And we've both independently come to the conclusion that the ring doesn't really serve the purpose we had intended
+ [10:36am] cms: the first observation is that people don't use the favorites
+ [10:36am] eben: Mostly because people either don't know about, or don't make use of favorites to an advantage.
+ [10:36am] cms: this comes as a bit of a surprise, but it was an interesting finding
+ [10:37am] tomeu: that means that people don't use the ring, or don't use the starring thing?
+ [10:37am] eben: And we think that this distinction is likely more confusing in the end than a view which plainly and simply shows all installed activities.
+ [10:37am] cms: because people aren't using favorites, they tend to show *everything* in the main, ring view
+ [10:37am] eben: tomeu: It means that the ring doesn't really "work", since it's really only designed to hold 10-20 activities.
+ [10:37am] tomeu: ok
+ [10:37am] cms: in other words, they aren't *de-starring* items to free up the ring
+ [10:37am] eben: The ring isn't serving their use cases well.
+ [10:37am] tomeu: I see
+ [10:38am] cms: has anyone else observed this?
+ [10:38am] eben: So, I think cms and I have slightly different interpretations of what this means, but it involves some combination of freeform, grid, and list views.
+ [10:38am] garycmartin: cms: not here. Ring view is certainly my fav layout.
+ [10:38am] tomeu: I have seen how some sugar on a stick images shipped with lots of activities as favorite, and that made the ring hard to use
+ [10:39am] tomeu: but if there aren't many activities, the ring works quite well
+ [10:39am] eben: With the ultimate goal to be to have 2 views (just like all zoom levels will have!), where both views show *all*activities, and one of those views includes text up front.
+ [10:39am] tomeu: text up front?
+ [10:39am] cms: garycmartin: yes, to tomeu's point--the ring looks great when there are a ltd number of activities represented
+ [10:40am] eben: tomeu: Sure, but a) we don't think that's common, and b) we think that favorites are more trouble than they're worth to people.  Added complexity.
+ [10:40am] cms: but when you exceed a certain number, it tends to become unmanageable
+ [10:40am] tomeu: looks great, and is also easy to click on the wanted activity
+ [10:40am] eben: text up front: show text without need for a palette
+ [10:40am] tomeu: eben: may be, yeah
+ [10:41am] garycmartin: eben: so how will a teacher/parent customise the view - just start deleting stuff??
+ [10:41am] cms: the proposal is to essentially remove the favorites altogether--
+ [10:41am] tomeu: eben, cms: btw, which observations have you made?
+ [10:41am] cms: --and have a single view for all activities
+ [10:41am] eben: garycmartin: or organizing stuff. 
+ [10:41am] cms: garycmartin: the model could be much simpler than it currently is
+ [10:41am] cms: meaning a single view for all activities
+ [10:42am] cms: now, maybe we need to think more about what that single view could look like,
+ [10:42am] garycmartin: eben: Do what Apple did with their stacks. Nice ring view if under N items, then auto switch to a grid (please not raandom) once exceeded.
+ [10:42am] cms: but we think that the freeform view satisfies the need for organizing activities in a single space
+ [10:43am] eben: garycmartin: That type of solution honestly doesn't seem valid to me. (even in Apple's case)
+ [10:43am] tomeu: my personal, user experience is that freeform views don't work well
+ [10:43am] cms: tomeu: i'm not sure--
+ [10:43am] tomeu: maybe I should post a screenshot of my desktop for you to see
+ [10:43am] eben: I feel like the stack was just eye-candy, and it didn't scale, so they resorted to a grid view for large quantities.
+ [10:43am] cms: i was reading an article recently on interaction design
+ [10:44am] cms: (eben, i think you had bookmarked it)
+ [10:44am] cms: on essentially "unnecessary" affordances
+ [10:44am] tomeu: maybe we are facing two very different user groups? maybe we need to support two very different interaction models?
+ [10:45am] cms: the freeform view gives you the ability to organize activities spatially, which may not have a clear and immediate purpose (other than making small clusters/groupings),
+ [10:45am] cms: but the sheer ability to move objects around the space and personalize it in that way is satisfying on its own
+ [10:45am] eben: cms: Also, we want search in Home to work well....right now its disabled.
+ [10:45am] tomeu: I don't know why, but I feel very annoying having to move the icons around in my dekstop
+ [10:45am] tomeu: so much that I don't do it
+ [10:45am] eben: A funny thing about it before was that not all of the activities were in the view...
+ [10:46am] eben: so, do you pull them into the view?  or not search on them?
+ [10:46am] cms: mean to say, there are interactions that functionally may not be necessary, but are satisfying to people
+ [10:46am] garycmartin: cms: so can we at least keep a 'snap to ring' 'snap to spiral' if we want?
+ [10:46am] cms: tomeu: *some* people 
+ [10:46am] eben: Now, everything will be available.
+ [10:46am] tomeu: perhaps if we had a good search facility in home, we would be already supporting an interaction mode closer to me
+ [10:46am] eben: garycmartin: I think "snap to grid" should be a default, personally.  cms disagrees. 
+ [10:46am] tomeu: cms: yeah, I guess that's true
+ [10:47am] eben: garycmartin: But I don't see a reason that snap-to-snything couldn't continue to be a hack, as it has been...
+ [10:47am] cms: garycmartin: we should think about how to best implement this--there may be a setting in the preferences that controls snap to grid
+ [10:47am] cms: eben: i don't disagree
+ [10:47am] cms: eben: actually, you're right i don't think it should be the default, but i *do* think there should be the option
+ [10:47am] eben: I just think Sugar, up front, should be presenting an extremely simple and consistent model for Home. (and all zoom levels)
+ [10:48am] cms: eben: i agree.
+ [10:48am] cms: simplicity is really key, here
+ [10:48am] eben: And, let me just put two flavors of this out there, briefly.
+ [10:48am] cms: and the notion of a personal space that you can customize
+ [10:49am] eben: As I mentioned, there are kind of three layout options: freeform, grid, and list.
+ [10:49am] tomeu: I agree as well with that goal
+ [10:49am] eben: There are a few ways to combine these.
+ [10:49am] garycmartin: eben: the ring view is like neighbourhood group sharing, grid or random looses that.
+ [10:49am] eben: 1) freeform (with snap-to-grid option) and list
+ [10:49am] eben: 2) freeform and grid (*instead* of list)
+ [10:50am] garycmartin: eben: neighbourhood (graphic) view will have to be limited (gadget/screen space) list view would show all. So that's like home fav's just now...
+ [10:50am] cms: garycmartin: that was the initial thought, yes. but freeform also has a close resemblence to neighborhood
+ [10:50am] eben: 3) freeform or grid, and list
+ [10:50am] eben: garycmartin: Kind of, that's true.
+ [10:51am] eben: Although in Home, there's no implication that the things are just "out of sight"...they're literally sectioned off in a different space.
+ [10:51am] cms: garycmartin: but ultimately this is to address function not form
+ [10:51am] caroline: hi
+ [10:51am] cms: hi caroline
+ [10:51am] eben: I think this model works well in the other views, since we're still talking about a single plane and items within it, either in view or not.
+ [10:52am] eben: But yes, I agree with cms....this is primarily a functional decision (everyone knows that both of us strongly preferred the ring, to begin with)
+ [10:52am] eben: But over time, we've come to see that it's not really the best solution in terms of model and interaction.
+ [10:53am] eben: It was a miracle, really, that we sat down over lunch not too long ago and both brought up this same point, independently.
+ [10:53am] tomeu: wonder who has actually used sugar 0.82 with kids and could give feedback about it
+ [10:53am] cms: eben: of the three options, i find myself leaning towards (1), for simplicity mostly
+ [10:54am] cms: tomeu: that is a good point, actually--some feedback here would help us all make a decision
+ [10:54am] eben: Right, I think I put them in order of probability, actually.
+ [10:54am] tomeu: caroline: how close are you from giving this kind of feedback?
+ [10:54am] cms: tomeu: the thing that cause me to begin questioning the ring was looking at people's screenshots of their home views
+ [10:54am] caroline: Sorry, I'm still lost we are talking about how to display activities in the home view?
+ [10:55am] cms: the home views i saw were always fully populated with activities, and the ring no longer seemed to work as intended
+ [10:55am] tomeu: caroline: yup, and secondarily, the other zoom views
+ [10:55am] caroline: I think we are about a month from being able to have a group of kids use Sugar and us look over thier sholder and ask questions.
+ [10:55am] eben: I think one of the reasons that the "small number of favorites" failed is explicitly because the model of "activities" is working so well!  So it's a win, there. 
+ [10:55am] cms: eben: yes a nice way to view it... 
+ [10:55am] caroline: *my* imagnation of how I would like it to work is day 1 kid gets ring with a few things picked out by the teacher.
+ [10:55am] eben: They are small and self-contained, and there are lots of them, each good at its own little thing.
+ [10:56am] caroline: the teacher can via the web add things to all the kids favorites
+ [10:56am] cms: eben: essentially, that is what is going on. people don't want to have to choose between their favorite activities, they want them all to be displayed
+ [10:56am] caroline: kids talk to each other and learn how to access and add favorites and add addons.
+ [10:56am] eben: I even find myself with an overstuffed ring, even though I only have a dozen apps in my OSX Dock
+ [10:56am] cms: caroline: you raise an interesting point
+ [10:56am] cms: caroline: but i wonder if that isn't something else altogether
+ [10:57am] cms: i.e., perhaps there is a different home view that teachers can create for their students, a kind of shared collaboration space
+ [10:57am] caroline: I think there is a big difference in use case between evaluating Sugar and introdcuting ti to a class. And using it a year into your  schooling.
+ [10:57am] caroline: cms, we should be doing some of that in Moodle.
+ [10:57am] tomeu: yeah, long term feedback would be better, but if we change the UI every release, we won't get it ever 
+ [10:58am] cms: tomeu: agreed...
+ [10:58am] eben: I recently shown Sugar to some new individuals myself (not kids, unfortunately; but actually some folks with a little interaction design background) and they found the favorites idea to be a little awkward..didn't understand it without explanation.
+ [10:58am] caroline: because remember the idea of "class" is not that stable. There is my reading group, my math group, my afterschool class.
+ [10:58am] garycmartin: cms: eben: I'm really not feeling the love here. Give'em a grid, it's easier; and if they don't like it, make it random and leave them to spend 20min trying to drag-n-drop, dodging pop-up menus and accidental launches... Yeuch
+ [10:58am] caroline: With "no ceiling" everything will not be discoverable by everyone without explaination. But our tartget is schools, with kids helpign each other.
+ [10:59am] caroline: My goal is to reinforce the notion that exploring will get you somehting interesting.
+ [10:59am] eben: garycmartin: they shouldn't pop up when dragging. 
+ [10:59am] cms: caroline: a while ago, eben and i discussed a bulletin board concept that essentially gave you the flexibility to create these shared spaces, in conjunction with groups
+ [10:59am] caroline: and that watching other kids will get you something interesting.
+ [10:59am] caroline: cms, just saw that email haven't followed the link yet.
+ [10:59am] eben: caroline: Sure, but I don't think it's good to let that be an excuse for having a confusing interface. 
+ [10:59am] caroline: eben agreed
+ [11:00am] eben: caroline: I agree, though, but I think there are other, better things we can let them explore and learn.
+ [11:00am] garycmartin: Currentyl in Sugar it's so nice not to have to constantly clean up the desktop like I have to else where.
+ [11:00am] eben: One of them, hopefully, will be the addition of proper "groups"
+ [11:00am] caroline: we have a tension between initial very simple views controled by the teacher, and complex rich student controled views of experienced older kids.
+ [11:01am] cms: garycmartin: well, i think it's still a different model from your typical desktop, due to activities always remaining in view. there's no need to clean up, but it's nice to be able to reposition if you like 
+ [11:01am] caroline: I'm thinking of the 3 year olds I saw not even struggle with windows they just gave up till an adult came over.
+ [11:01am] caroline: that is exactly what I don't want.
+ [11:01am] cms: garycmartin: it's more like taking the ring, and spreading it out over the entire screen
+ [11:01am] caroline: what is the topic on the email with the link to the bulletin boards?
+ [11:02am] cms: caroline: actually, this was discussed many months ago
+ [11:02am] caroline: you guys need to change subjects more in these long threads!
+ [11:02am] cms: i can try to find it--eben, do you know when it was discussed?
+ [11:02am] eben: I'm not sure bulletin-boards relate to the current discussion, though.
+ [11:02am] cms: they do
+ [11:02am] eben: how?
+ [11:02am] tomeu: long threads are really evil, yeah
+ [11:03am] cms: in terms of what caroline was mentioning--teacher-created collaboration spaces
+ [11:03am] eben: Oh oh....sure.  Well, definitely, that's exactly what they are. 
+ [11:03am] tomeu: bulletin boards are the solution to all the problems we avoid 
+ [11:03am] cms: it would be good to have the long-term vision in the back of our minds as we set out to redesign home
+ [11:03am] eben: But they're just not a part of Home   But we should find that for her.
+ [11:03am] cms: yes, i'll see if i can dig it up again
+ [11:04am] caroline: http://sugarlabs.org/go/DesignTeam/Human_Interface_Guidelines/The_Laptop_Experience/Bulletin_Boards this?
+ [11:04am] cms: caroline: i think that will address what you were referring to
+ [11:04am] eben: caroline: Kind of...that's a really old mockup/form
+ [11:04am] caroline: anyway, we are gettig off topic I think, eben can you restate what you are looking for?
+ [11:05am] eben: caroline: A way to think about the current bulletin board idea is that it's an activity (which can be shared), which serves like a shared desktop for activities, objects, notes, etc.
+ [11:05am] cms: eben: thanks, that sums it up nicely
+ [11:05am] eben: caroline: They can be created around specific topics and serve as a literal "bulletin-board", or more like a project starter kit for a given asignment, etc.
+ [11:06am] caroline: cool
+ [11:06am] eben: caroline: We should talk more about that sometime, and get your feedback.  I think you'll like the thoughts, so far.
+ [11:07am] caroline: ok I don;t want to get you off topic
+ [11:07am] eben: So, how can we sum up Home, for now?
+ [11:07am] eben: Should we give this a week to settle and discuss again next week?
+ [11:07am] cms: yes, let's have the thought settle for a while, then pick it up again and see how it resonates
+ [11:08am] eben: Sounds good.
+ [11:08am] tomeu: eben: I think we should work hard in involving more people in this discussions
+ [11:08am] cms: tomeu: what is the best way to do that?
+ [11:08am] garycmartin: tomeu: yes, I noticed no one started the meeting bot to capture all this...
+ [11:08am] eben: garycmartin: Oh, that's my fault.
+ [11:08am] • eben is sorry.
+ [11:08am] tomeu: cms: that's what I'm trying to discover by appointing contact points in each geog. area where sugar is used
+ [11:09am] tomeu: cms: will keep working on that, then we'll have some people to ask for feedback
+ [11:09am] eben: tomeu: Yeah, good point.  Having a few people here with outside insight would be useful; they don't have to be directly interested in the design itself.
+ [11:09am] tomeu: 0.82 is not widely used, though
+ [11:09am] eben: tomeu: also a good point. 
+ [11:10am] caroline: eben you are local to me right? I hope to shortly have a computer lab somewhere and a supply of kids, think about what you'd like to observe.
+ [11:10am] cms: should we move on to mesh chat? i think that is one of the most compelling new features
+ [11:10am] eben: OK.  Well, it's been an hour.  Do folks want to wrap up now, then; or take on a few other zoom-level issues?
+ [11:10am] eben: caroline: Yeah...I'm in Providence these days.
+ [11:10am] tomeu: eben: as we don't have nobody paying developers, maybe we need to find a way so that developers that contribute their own time feel that the stuff they do is in connection with the needs of actual users
+ [11:11am] tomeu: I'm happy to move to other issues
+ [11:12am] cms: tomeu: yes, before we make any major changes we should make sure that we have some validation
+ [11:12am] eben: The remaining issues in the zoom levels are 1) groups is "broken" 2) list views at all levels 3) neighborhood search with gadget 4) chat
+ [11:12am] tomeu: btw, not sure I have pasted this link before: http://sugarlabs.org/go/DeploymentTeam/Places
+ [11:12am] garycmartin: Happy to move on (still reeling from home change suggestion)
+ [11:12am] tomeu: I think caroline had some ideas about the groups view
+ [11:12am] eben: Then there are also 5) activity search in Home (related to previous discussion) and 6) addition of groups (finally!)
+ [11:13am] tomeu: activity groups or contact groups?
+ [11:13am] • erikos sad to have missed the meeting
+ [11:14am] caroline: yeah groups is broken
+ [11:14am] eben: tomeu: groups, as in collections of people (for the purpose of sharing, etc.)
+ [11:14am] tomeu: erikos: we're just starting 
+ [11:14am] tomeu: ok
+ [11:14am] caroline: what is groups supposed to do? Show friends? Show classmates?
+ [11:14am] erikos: tomeu: ohh
+ [11:14am] eben: But, we can "fix" the groups view without adding proper groups support.
+ [11:14am] eben: Sure, let me try to clarify the goal.
+ [11:14am] tomeu: erikos: we have been talking one hour, but there's lot of ground to cover
+ [11:15am] eben: Right now, we have the notion of friends.
+ [11:15am] erikos: tomeu: absolutely - there is a lot to do for 0.86
+ [11:15am] eben: We want to add to this the notion of groups....sets of individuals who all agree to join a group...which can then serve as sharing scope.
+ [11:15am] eben: (eg. "share this with my [third grade class] group, or my [chess club] group")
+ [11:16am] tomeu: caroline: were you in the presentation that cms and eben did in the sugarcamp?
+ [11:16am] eben: The Groups view is supposed to be the space between Home and Neighborhood, where you interact with these people you're closer to....friends...and other group members.
+ [11:17am] caroline: ok, so once we have integration between Moodle and eJabber we could start to do some more interesting things.
+ [11:17am] eben: The view itself should work almost identically to the neighborhood view...in fact...it's basically the same, except we "zoom in" a little bit to show people we know, instead of everyone. 
+ [11:17am] eben: The same rules for showing people clustered around activities, etc. all apply there (should, anyway).
+ [11:17am] caroline: So once we are connected to Moodle we now know who is online and shares a group with you.
+ [11:18am] eben: caroline: Yes, there has been some discussion around the idea of linking Sugar groups with Moodle.
+ [11:18am] caroline: My Moodle classes could include, My class, my grade, my afterschool program, plus I have maybe Sugar frineds who might be in other grades including older and younger sybling.
+ [11:18am] eben: I'd like them to be possible without Moodle, but maybe that's too hard a challenge.  Not sure yet.
+ [11:18am] eben: caroline: Because I'd really like them to be created ad-hoc.  "You four, form a group for the rest of class and work on X"
+ [11:19am] caroline: I optomistically see that info being available to Sugar in the next few months. Seems quite possible to trasmit.
+ [11:19am] caroline: yeah, that is a harder problem.
+ [11:19am] eben: Anyway, at least the notion of what groups should *do* is pretty clear.
+ [11:19am] caroline: but if we solve the general problem of group view conveys info about groups from Moodle it becomes Moodles problem.
+ [11:19am] tomeu: the biggest problem with groups is how to make sure that in all laptops in a class, the class group contain the same people
+ [11:19am] eben: The two big advantages are 1) there will be a filter on the Groups view, so you can look at a particular group at any given moment.
+ [11:20am] eben: and 2) You can also share with a group, instead of just the neighborhood
+ [11:21am] eben: tomeu: Well, the trick is really in namespace collisions....
+ [11:21am] eben: I think group membership isn't very hard....though like anything, it could take time to propagate the membership changes.
+ [11:21am] eben: I don't think that's a problem though.
+ [11:22am] tomeu: well, if a group composition changes without intervention from the user, maybe that user will make an operation on a set of people that aren't what he thinks?
+ [11:22am] garycmartin: eben: isn't 'group' better as local thing? I make a 'group' object and add 5 of my friends to it. I can now share to that group.
+ [11:23am] eben: The only other point to make about Groups view, in how it differs from Neighborhood, is non-friends/non-group members who are shown there because they're in an activity which does contain a friend/group member are rendered as outlines.
+ [11:23am] garycmartin: eben: the group isn't 'publised' for others to auto join (unless I share the 'group' object)
+ [11:23am] eben: garycmartin: No, we explicitly want this to be a shared notion.  A collaboration.
+ [11:24am] garycmartin: eben: it is, you create a group, and then if you want share it.
+ [11:25am] eben: garycmartin: Well, you share activities *with* a group
+ [11:25am] cms: hi everyone--i'm going to have to leave, but looking forward to continuing this next week
+ [11:25am] garycmartin: eben: the 'group' object could come from moodle, someone sharing, or yourself.
+ [11:25am] eben: But what does that mean to share it?
+ [11:25am] tomeu: cms: ok, we can move some of this discussion to the mailing list
+ [11:25am] caroline: I agree at least some of the time the group can be a Moodle Group
+ [11:25am] garycmartin: cms: thanks for you time.
+ [11:25am] eben: A group is shared, implicitly, with its members.
+ [11:25am] caroline: I think you share with a Group, you don't share a Group.
+ [11:26am] eben: caroline: right, that's the idea.
+ [11:26am] cms: thanks--see you later
+ [11:26am] eben: A group isn't an "object"....it's a collection of individuals who agree to share things amongst themselves.
+ [11:26am] garycmartin: eben: if a group is shared implicitley, then there's a whole bunch of network chatter and sync going on, invites appearing and other such distractions.
+ [11:27am] eben: garycmartin: nah, not really.
+ [11:27am] eben: I mean, it would work something like this...
+ [11:27am] caroline: so the conclusion I am coming to is Group view is broken cause the connection to Moodle is fundmentally still broken.
+ [11:27am] eben: I cdecide to make a group, and pick the people I want to join.  Yes, there is some chatter, as each would get an invite to join the group, and either accept or decline.
+ [11:27am] tomeu: caroline: but don't we want groups to work even without moodle?
+ [11:27am] eben: But that chatter is limited to the members, and once and done.
+ [11:28am] caroline: tomeu, for me. No not really.
+ [11:28am] eben: Then, anytime someone in the group shares an activity with the group, each group member gets an invitation to join.
+ [11:28am] caroline: but I know that I am more into the server then average person.
+ [11:28am] eben: But again, only group members get that, so it's not lots of broadcast.
+ [11:28am] tomeu: oh, ok
+ [11:29am] eben: tomeu: yes, it's a goal of mine to have this work without a server....but that's a technical discussion to be had.  Maybe we should start with server, and then later grow the offline support?
+ [11:30am] caroline: I need to go eat sme breakfast back in a bit.
+ [11:30am] eben: I need to go, myself, actually.
+ [11:30am] tomeu: eben: yeah, that's a possibility
+ [11:31am] tomeu: eben: ok, how we move forward with 0.86? perhaps you can email a link to the log with some minutes to the ml?
+ [11:31am] eben: Perhaps we should come back to this anyway, since adding "groups" is not for next release....but making "Groups view" work naturally, so it's ready for future "groups" support is.
+ [11:31am] tomeu: that may get more people interested
+ [11:31am] eben: tomeu: You mean copy/paste the log somewhere?
+ [11:32am] eben: Next time I'll remember to use the bot...
+ [11:33am] garycmartin: eben: Currently Sugar can share with 1 buddy, or share with all buddy, the bit it's really missing is, share with bob & sue (or N other named buddies). Share with N users seems the feture to fill (if you give N a name it's a nice group).
+ [11:33am] tomeu: eben: to the wiki, yeah, like we do in the dev team meeting: http://sugarlabs.org/go/DevelopmentTeam/Meetings#Meetings
+ [11:33am] eben: garycmartin: right!  But the idea here is that all groups are named, and that Bob and Sue would need to agree to be members of that group.
+ [11:34am] eben: tomeu: But you usually link to the logs which are kept by the bot.
+ [11:34am] eben: I guess copy/paste directly into the wiki could also work...
+ [11:34am] eben: A little ugly, probably.
+ [11:34am] tomeu: eben: before we had the bot, we pasted to the wiki or linked to a file somewhere else
+ [11:34am] eben: ok
+ [11:34am] tomeu: a bit ugly, but well

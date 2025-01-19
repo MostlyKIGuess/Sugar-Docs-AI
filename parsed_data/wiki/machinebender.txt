@@ -1,0 +1,123 @@
+Title: Machine/bender
+URL: https://wiki.sugarlabs.org/go/Machine/bender
+--------------------------------------------------------------------------------
+Contents
+1
+Info
+2
+Hostnames
+3
+Hardware
+4
+Admins
+5
+Hosting
+6
+Network configuration
+6.1
+IPv4
+6.2
+IPv6
+6.3
+Bridges
+7
+Virtualization
+7.1
+Storage
+Info
+Bender and
+Papert
+are two twin blade servers donated to Sugar Labs in 2021.
+Bender is our primary KVM host, while Papert is a hot standby and
+backup
+machine.
+Hostnames
+bender.sugarlabs.org
+papert.sugarlabs.org
+Hardware
+HPE ProLiant DL360 Gen10 1RU server
+Dual socket, current configuration has one CPU
+Xeon Gold 5218R
+20 cores/40 threads
+2.1GHz base frequency, 4.0GHz max turbo frequency
+27.5MB of cache
+64GB RAM
+2TB NVMe SSD
+Admins
+Alex Perez
+, MrBIOS on #sugar Libera.chat IRC network
+Bernie Innocenti
+, @bernie:matrix.org on Sugar Systems
+Hosting
+Hosted by Sonic in Santa Rosa CA
+Network configuration
+Network configuration is managed via
+netplan
+. To modify, do:
+vi /etc/netplan/bender.yaml
+netplan generate
+netplan apply
+IPv4
+Bender and Papert are globally accessible through a public, static IPv4 address
+Sonic assigned a /28 network to Sugar Labs. IP assignments are managed in our DNS configuration. Search for "Sonic IP pool" in
+masters/sugarlabs.org.zone
+.
+Usable IPv4 addresses: 192.184.220.210 ~ 192.184.220.222 (13 addresses)
+Subnet Mask:     255.255.255.240
+Default Gateway: 192.184.220.209
+DNS:             8.8.8.8, 8.8.4.4
+IPv6
+IPv6 configuration is a bit weird.
+* Public block: 2001:5a8:601:f::/64
+* Sonic gateway: 2001:5a8:5:3a::15:0/127
+* Transport IP: 2001:5a8:5:3a::15:1/127
+The gateway is configured to route all traffic for our netblock to the transport IP, which is currently assigned to bender.
+Bridges
+The br0 bridge is created at startup and shared with the virtual machines hosted on Bender. It gives the VMs unfiltered access to the external network. There's no DHCP, all machines must define a static IP configuration, taking care not to stomp onto each other.
+There is also a virbr0 bridge created by libvirt on startup from
+/etc/libvirt/qemu/networks/default.xml
+. This is a NAT interface and is not meant for VMs directly serving on the Internet.
+Guests simply need to be configured to accept IPv6 routing advertisements. The DNS must be assigned manually.
+Virtualization
+Virtual machines are KVM guests managed with libvirt.
+Storage
+All virtual disks come from a pool backed by the main LVM VG:
+virsh # pool-define-as nvme-pool logical --source-name nvme-pool 
+ Pool nvme-pool defined
+ 
+ virsh # pool-start nvme-pool
+ Pool nvme-pool started
+ 
+ virsh # pool-autostart nvme-pool
+ Pool nvme-pool marked as autostarted
+ 
+ virsh # pool-info nvme-pool
+ Name:           nvme-pool
+ UUID:           5812819f-b8bf-484e-98fb-2e100fe83df2
+ State:          running
+ Persistent:     yes
+ Autostart:      yes
+ Capacity:       1.64 TiB
+ Allocation:     250.00 GiB
+ Available:      1.40 TiB
+Disks assigned to VMs will appear here:
+virsh # vol-list nvme-pool
+ Name         Path
+-----------------------------------------
+ aslo1-root   /dev/nvme-pool/aslo1-root
+ aslo1-srv    /dev/nvme-pool/aslo1-srv
+ backup       /dev/nvme-pool/backup
+Disks can be created, listed and deleted using the vol-* commands:
+virsh # vol-create-as nvme-pool testvm-root 20G
+ Vol testvm-root created
+ 
+ virsh # vol-info testvm-root --pool nvme-pool
+ Name:           testvm-root
+ Type:           block
+ Capacity:       20.00 GiB
+ Allocation:     20.00 GiB
+ 
+ virsh # vol-delete testvm-root --pool nvme-pool
+ Vol testvm-root deleted
+NOTE
+: avoid allocating large VM volumes as image file within the host's root filesystem, as they're slow and hard to manage. It's ok to use images for test VMs.

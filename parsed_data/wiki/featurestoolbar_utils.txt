@@ -1,0 +1,69 @@
+Title: Features/Toolbar utils
+URL: https://wiki.sugarlabs.org/go/Features/Toolbar_utils
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+15
+Subpages
+Summary
+I use a collection of toolbar helper methods in all of my activities. It is proposed to make these utils part of the toolkit.
+Owner
+Name:
+Walter Bender
+Email: Walter --AT-- sugarlabs.org
+Current status
+Targeted release: 0.96
+Last updated:
+Percentage of completion: 90%
+Detailed Description
+I use a collection of toolbar helper methods in all of my activities. It is proposed to make these utils part of the toolkit. It makes it easier for me both to manage the details of creating toolbar items and for managing the slight differences between primary and secondary toolbars. Also, since it is only in the utils that I directly reference the GTK classes, the conversion from GTK2 to GTK3 can be made essentially transparent to my activities from at least the toolbar perspective. And it makes my code much more compact (and arguably easier to read).
+The last 10%: I am no programmer, so I would expect someone to have a better idea how to implement all of this, but that is exactly my point: by unburdening the activity developer from worrying about these repetitive details, we'll have a more robust, more easily maintained platform.
+See
+[1]
+for the current version of the utilities.
+Benefit to Sugar
+Anything we can do to make it easier to develop and maintain activities is of benefit to Sugar.
+Scope
+I have "factory" methods for buttons, radio buttons, separators, combos, entries, spinners, labels, and images.
+UI Design
+No impact
+How To Test
+Features/Toolbar utils/Testing
+User Experience
+No impact
+Dependencies
+Contingency Plan
+None needed as there is no requirement to use these utilities.
+Documentation
+Release Notes
+Comments and Discussion
+See
+discussion tab for this feature
+Subpages

@@ -1,0 +1,104 @@
+Title: Dextrose/Updater
+URL: https://wiki.sugarlabs.org/go/Dextrose/Updater
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Moved and died at
+https://sugardextrose.org/projects/dextrose/wiki/Dextrose_3_Updater
+Configuration
+Edit
+/etc/default/dextrose-update
+configuration file to set space separated list of yum repositories:
+DEXTROSE_YUM_REPO="dextrose dextrose-freeworld"
+Install
+Create
+/usr/sbin/dextrose-update
+, main execution file:
+#!/bin/sh
+
+name="dextrose-update"
+. /etc/default/${name}
+
+logfile="/var/log/${name}"
+
+reboot_pkgs="kernel kernel-firmware"
+relogin_pkgs="sugar sugar-artwork sugar-base sugar-datastore sugar-presence-service sugar-toolkit"
+
+yum="/usr/bin/yum --disablerepo=* --skip-broken --quiet"
+for i in $DEXTROSE_YUM_REPOS; do
+   yum="$yum --enablerepo=$i"
+done
+
+updates() {
+    ${yum} -e0 check-update | awk '/./{print $1 "-" $2}'
+}
+
+to_update=$(updates)
+[ "${to_update}" ] || exit 0
+
+parse() {
+    for i in $@; do
+        echo ${to_update} | grep "\(^\| \)$i\." >/dev/null && echo $i
+    done
+}
+
+need_reboot=$(parse ${reboot_pkgs})
+need_relogin=$(parse ${relogin_pkgs})
+
+echo "$(date)" >> $logfile
+echo -e "\tRepository:" ${DEXTROSE_YUM_REPO} >> $logfile
+echo -e "\tPackages to update:" ${to_update} >> $logfile
+${yum} -y update >> $logfile 2>&1
+to_update=$(updates)
+
+if [ "${need_reboot}" ]; then
+    if [ "${need_reboot}" != "$(parse ${reboot_pkgs})" ]; then
+        echo -e "\tNeed to reboot..." >> $logfile
+        dbus-send --system /org/sugarlabs/system org.sugarlabs.system.Reboot
+    fi
+fi
+
+if [ "${need_relogin}" ]; then
+    if [ "${need_relogin}" != "$(parse ${relogin_pkgs})" ]; then
+        echo -e "\tNeed to relogin..." >> $logfile
+        dbus-send --system /org/sugarlabs/system org.sugarlabs.system.Relogin
+    fi
+fi
+Create cron task:
+ln -s /usr/sbin/dextrose-update /etc/cron.daily/
+Python client code for
+src/jarabe/model/notifications.py
+:
+_DBUS_SYSTEM_IFACE = 'org.sugarlabs.system'
+_DBUS_SYSTEM_PATH = '/org/sugarlabs/system'
+_SYSTEM_REBOOT_ID = -1
+_SYSTEM_RELOGIN_ID = -2
+_SYSTEM_TIMEOUT = 5
+
+systembus = dbus.SystemBus()
+systembus.add_signal_receiver(self.__reboot_cb, 'Reboot', _DBUS_SYSTEM_IFACE)
+systembus.add_signal_receiver(self.__relogin_cb, 'Relogin', _DBUS_SYSTEM_IFACE)
+
+def _system_alert(self, replaces_id, app_icon, message):
+    self.notification_received.send(self,app_name='system',
+            replaces_id=replaces_id, app_icon=app_icon,
+            summary=_('System alert'), body=message,
+            actions=[], hints={}, expire_timeout=_SYSTEM_TIMEOUT)
+
+def __reboot_cb(self):
+    self._system_alert(_SYSTEM_REBOOT_ID, 'system-restart',
+            _('Please, reboot your computer to take into account ' \
+                    'new updates'))
+
+def __relogin_cb(self):
+    self._system_alert(_SYSTEM_RELOGIN_ID, 'system-logout',
+            _('Please, restart Sugar to take into account ' \
+                    'new updates'))
+Logs
+Logging records are collected in
+/var/log/dextrose-update
+.

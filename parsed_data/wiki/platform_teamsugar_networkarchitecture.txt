@@ -1,0 +1,300 @@
+Title: Platform Team/Sugar Network/Architecture
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Sugar_Network/Architecture#Conceptual_level
+--------------------------------------------------------------------------------
+This is a twin page of Sugar Network's
+basic concepts
+from technical point of view. See also the
+introduction page
+.
+Contents
+1
+Overview
+1.1
+Functioning
+1.2
+Components
+2
+Server
+2.1
+Master server
+2.2
+Node servers
+3
+Conceptual level
+3.1
+Objects model
+3.2
+Simplified editing workflow
+4
+Client
+4.1
+Personal server
+5
+Synchronization
+6
+Getting involved
+7
+References
+Overview
+Functioning
+The only worfklow within the Sugar Network from the technical point of view is:
+Clients create, modify and browse different types of resources (
+resources
+from conceptual point of view,
+resources
+from the API point of view) on a server;
+If this server is a
+Node
+server, the system will take care about
+synchronizing
+its resources with other Node servers and, finally, with the central one, the
+Master
+server.
+Components
+This is technical view on
+three levels
+of the Sugar Network:
+Server side
+,
+Conceptual level
+,
+Client side
+.
+Server
+Server side is represented by:
+Master
+server that keeps the whole Sugar Network information, clients might connect directly to this server (on-line case) or indirectly via Node servers (off-line case);
+Optional
+Node
+servers, contain a
+synchronised
+copy of central server (might be not for the entire Network to save storage space);
+In all cases the server
+API
+is the same for clients. But depending on connectivity, clients might be connected to the
+Master
+server or to a
+intermediate server
+.
+Master server
+The place where data is being collected from all Node servers. If clients have connectivity, they can connect to the Master to contribute to the Network directly.
+Node servers
+Servers that will be useful if:
+there is no connectivity at all;
+connectivity is sporadic;
+connectivity is not cheap and its usage needs to be minimized.
+Node servers provide full featured
+API
+as the Master does. Nodes need to be
+synchronized
+.
+Conceptual level
+This is how Sugar Network looks like on
+conceptual level
+represented by the
+API
+.
+Objects model
+The following diagram shows the full list of objects implemented by the Sugar Network
+API
+.
+Sugar Network objects
+Property types
+Generally, Sugar Network objects' property types correspond to JSON types. The only exceptions mentioned in the following list:
+enum
+, is an enumerated type when a value is a string from the predefined list of constants;
+markdown
+, is a string formatted in the
+Markdown
+syntax;
+blob
+, is a file represented by string value which is a
+SHA-1
+digest of file's content; the file itself can be obtained from the
+GET
+/blobs/
+DIGEST
+request;
+aggregated
+, is a list of JSON objects which has
+special API
+to treat its items; each aggregated item has a unique identifier; items might be created not only by the object's authors.
+Resource.author
+A dictionary of authors working on the corresponding resource. Keys are Sugar Network
+User
+guids, or, if particular author is not registered in the Sugar Network, full user names. Values are dictionaries with the following keys:
+name
+Full author's name;
+role
+An integer which is a bit-wise ORed value of the following constants:
+0x1
+, author is registered in the Sugar Network (and
+guid
+key is set);
+0x10000
+, author is the original author of the corresponding resource; if it is not set, user is only a maintainer, e.g., an uploader of a book which has its original authors;
+avatar
+An url to author's avatar.
+Resource.status
+This is a system level property which can be set only by node editors. It is a list of "badges" editors set depending on the object quality. Currently supported statuses are:
+featured
+, the object is popped up by node editors.
+Resource.pins
+This property makes sense only for objects provided from a
+local proxy
+. The property is intended to store local user's preferences or statuses remote object has in local environment. Currently supported values are:
+favorite
+, set if a user has
+"stared"
+the object;
+checkin
+, applied to Context objects only, set if a user has
+"pinned"
+the context to keep its most recent version permanently in the local system;
+stale
+, applied to Context objects only, set if previously checked-in Context might have more fresh releases on the node; it is not possible to filter Contexts by this value;
+inprogress
+, applied to Context objects only, set if the Context is in the process of downloading content from the node; it is being temporally set before launching the Context or checking it in; it is not possible to filter Contexts by this value.
+Context.type
+activity
+, Sugar application;
+book
+, books in various forms;
+group
+, a social group of related activities;
+talks
+, sub-type to mix-in offline discussion forum;
+project
+, sub-type to mix-in issue tracker and polling functionality.
+Context type specifies how context, and all related resources, can be used. For example,
+activity
+type assumes activity bundles uploaded to the
+Context.releases
+property, or,
+Post.type
+depends on Context type it was created for.
+Context.releases
+Contexts with
+activity
+or
+book
+types might have releases, i.e., activity or book versions that users can download. The
+releases
+property is aggregated where each item describes one particular version. There is no need in working with the
+releases
+property directly, there are high-level API commands to
+upload
+and
+download
+releases.
+Post.type
+Choose Post types according to Context
+types
+the Post belongs to.
+topic
+, general purpose discussion;
+talks
+Contexts;
+artefact
+, object generated by Context application;
+activity
+Contexts;
+issue
+, problem with the Context;
+project
+Contexts;
+poll
+, a poll within the Context;
+project
+Contexts;
+post
+, a comment for a parent Post object; Context type independent.
+Post.topic
+Only
+post
+type Post objects belong to a parent Post which guid should be specified in the
+topic
+property. The system design assumes only a two-level Posts hierarchy.
+Post.resolution
+Post types
+issue
+and
+poll
+topics might have a resolution to expose the current status. The only way to change topic resolution is creating a dependent post with resolution property set.
+Resolutions for
+issue
+Post objects:
+unconfirmed
+, newly created issue;
+new
+, confirmed issue;
+needinfo
+, posted information about the issue is insufficient, more details needed;
+resolved
+, the issue is resolved, closed;
+unrelated
+, the issue does not related to the Context, closed;
+obsolete
+, the issue is already solved in recent Context releases, closed;
+duplicate
+, the issue is a duplicate, closed.
+Resolutions for
+poll
+Post objects:
+open
+, the poll is open for votes;
+closed
+, the poll is closed for votes.
+The model refers to the following additional information:
+Simplified editing workflow
+The system is designed to be as lightweight as possible to make it running on XO laptops in unmaintainable environments and simplify synchronization. So, the following design decisions were taken:
+No history for Sugar Network objects, only events about made changes;
+Only object author(s) can process editing;
+But, other people can suggest changes (that might be implemented on client side in pretty powerful way, e.g., people can change objects but it will be postponed for later author(s)' review).
+That might be changed but only after making system one level more complicated.
+Client
+This is what Network participants are interacting with. This is a software that let people get access to the Sugar Network and define how Sugar Network should look like from users point of view. User experience, that these clients provide, might be too different from a client to a client. Starting from a couple of elements in the already existing software's
+GUI
+(when people even don't suspect they are interacting with the Sugar Network) and ending with clients that represent conceptual level as close as possible.
+Client side is represented by:
+Client application that uses
+API
+to interact with a server;
+Client application that
+provides
+limited
+API
+to support server-less workflow.
+Client application is local, for reasons:
+Originally, Sugar Network was being developed for deployments where teachers' XOs will be Node servers, thus, it will be useful to delegate some of computing to students' XOs;
+Stimulate doing behaviour when it should be possible to create new client application or tweak existing on a client side;
+It is all time possible to create Web application on a server side.
+Personal server
+This local application provides limited
+API
+to get access to:
+Private data in user's home directory,
+Data accessible from removable devices like USB sticks or SD cards.
+Synchronization
+To let Network participant, connected to particular
+Node server
+, interact with people from another Node servers or with people from the Internet (Master server), Node servers need to be synchronized.
+Server might be synchronized:
+With the Master, if connectivity presents;
+With the Master or any other Node servers via the
+Sneakernet
+.
+Getting involved
+Submit
+your bug report or feature request.
+Browse our implementation
+discussions
+, and post your feedback. (You should
+join
+this discussion list in order to avoid having your messages postponed for moderation.)
+References
+An
+OLPC wiki page
+about the
+Sneakernet
+.

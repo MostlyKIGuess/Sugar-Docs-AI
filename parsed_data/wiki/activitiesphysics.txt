@@ -1,0 +1,285 @@
+Title: Activities/Physics
+URL: https://wiki.sugarlabs.org/go/Activities/Physics
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+1.1
+Screenshots
+1.2
+Ideas to try
+1.3
+Tools
+1.4
+Did you know?
+1.4.1
+Examples
+1.4.2
+Downloads
+2
+Development
+2.1
+Video
+2.2
+Release Notes
+2.2.1
+17
+2.2.2
+16
+2.2.3
+15
+2.2.4
+14
+2.2.5
+13
+2.2.6
+12
+2.2.7
+11.9
+2.2.8
+v5
+2.2.9
+v4
+2.2.10
+v3
+2.2.10.1
+user notes
+2.2.11
+v2
+2.2.12
+v1
+3
+Resources
+Description
+Physics is a physical world simulator and playground -- you can add squares, circles, triangles, or draw your own shapes, and see them come to life with forces (think gravity, Newton!), friction (scrrrrape), and inertia (ahh, slow down!).
+Screenshots
+A motor drives the centre cross shape, while the outer edges are pinned to stop the blender breaking.
+One motor is used to drive a circle connected via a belt to another pinned wheel that bounces a weight to make a puppet dance.
+More puppet dancing
+Running dog using two motors
+Using a motor on a circle to drive a piston that slowly releases balls one by one
+Motor driven earthquake simulator
+Example illustrating transverse wave propagation.
+Example illustrating longitudinal wave propagation.
+Example illustrating the pen tool attached to the end of a pendulum.
+Tracing multiple objects
+A simple gear and motor generated in Turtle Art
+rendered in Physics
+a chain generated in Turtle Art
+Ideas to try
+Build a catapult to simulate Angry Birds
+Build a machine that sorts different sized balls in to two buckets, large and small, with no ball jams.
+A cyclic mechanism for lifting balls from the bottom of the screen to the top, again and again.
+Try dropping 2 different mass objects at the same time.
+Experiment with pendulums of different lengths and masses.
+Ping pong, can you make a device that hits a ball back and forth across the screen?
+Try building a mechanical binary clock.
+Convert rotation into parallel motion using pistons.
+Experiment with touching one motorised circle against one pinned circle of various sizes.
+Try building a rag-doll puppet and make it dance in a convincing way.
+Use just links and circles to make a structurally sound Eiffel Tower.
+Try building a ratchet mechanism.
+Try building an analogue clock face where the min hand goes around 60 times for each hour.
+Modify the program itself:
+Modifying Physics
+Tools
+Activity Toolbar Button
+Opens the activity toolbar (See Below)
+Tools Toolbar Button
+Opens the tools toolbar (See below)
+Play/Pause Button
+allows you to stop time and start it again, allowing you to build constructions without them falling to the ground while you work. You can now use the Grab tool while time is stopped to easily re-arrange the position of objects.
+<Ctrl+space>
+Erase Pen Button
+Erase all the points drawn by the pen tool
+Erase-all Button
+Erase all objects in current simulation
+Activity Title
+Change the name of your project here
+Activity Description
+Open the description palette to write about your project
+Collaboration
+Open the collaboration palette to share your project
+Save pen data
+Save pen data to the Journal as a JSON-encoded stream
+Save pen data (CSV)
+Save pen data to the Journal as a comma-separated values database
+Draw Tool Button
+click and hold to draw any shape you'd like!
+<Ctrl+D>
+Circle Tool Button
+circles of any radius. Click (center) drag and release (outer edge).
+<Ctrl+C>
+Triangle Tool Button
+triangles (equilateral) of any size and initial rotation. Click (center of base) drag and release.
+<Ctrl+T>
+Box Tool Button
+rectangles of any dimension. Click (corner) drag + release (opposite corner).
+<Ctrl+B>
+Polygon Tool Button
+as many sides as you would like. Draw your own N-gon. Click, drag and release for each point, to end return to the start point.
+<Ctrl+P>
+Grab Tool Button
+drag existing objects around with the mouse.
+<Ctrl+G>
+Motor Tool Button
+click an object to pin and drive it with clockwise rotation. It is easiest to stop the simulation, place your object, add its motor, and resume the simulation again.
+<Ctrl+M>
+Pin Tool Button
+pin a shape to the screen, it can rotate about the pin. If you want to lock a shape in place, use two or more pins to stop it rotating.
+<Ctrl+O>
+Joint Tool Button
+connect two objects together with a rod. Click on any object, drag to another object and release to create the joint (each end of joint allows rotation).
+<Ctrl+J>
+Chain Tool Button
+add a flexible chain to connect two objects together. Click and hold to draw any shape. If you start or stop on an object, it becomes connected to the end of the chain (like the joint tool)
+Pen Tool Button
+add a pen to any object to trace the motion of that object
+Erase Tool Button
+click on an object to erase it, or click and hold to draw a line of destruction--erasing everything in its path!
+<Ctrl+E>
+All of the objects have palette menus to adjust object properties:
+Mass
+feather, wood, and anvil represent light to dense
+Bounciness
+basketball, baseball, and bowling ball represent very bouncy to inelastic
+Friction
+ice skate, shoe, and sneaker represent low to high coefficient of friction
+The motor has a palette to set speed (fast and slow) and direction (counter-clockwise and clockwise)
+The chain has a palette to set the coarseness and weight of the chain elements
+Hints and tips
+: Single clicking (no drag) with the circle, triangle or box tool, will add a default sized shape. Once you have used a shape tool, it remembers the last shape you made with it, a single click will add a clone of that last shape.
+Did you know?
+There is a Plugin for
+Turtle Blocks
+that lets you create projects for the Physics Activity:
+Use these blocks to create objects that are added to the bodylist and jointlist of a Box2d database used by the Physics Activity. Objects are positioned by the turtle x,y and colored based on the current pen attributes. From left to right:
+density: set the object density (0 is light; 1 is heavy)
+friction: set the object friction (0 is slippery; 1 is sticky)
+bounciness: set the object restitution (0 is rigid; 1 is bouncy)
+start polygon: use the current turtle x,y position to specify the first vertex of a polygon
+add point: use the current turtle x,y position to add a vertex to a polygon
+end polygon: use the current turtle x,y position to specify the last vertex of a polygon
+end filled polygon: use the current turtle x,y position to specify the last vertex of a
+filled
+polygon
+Note:
+The polygon must be 'normal', e.g., no crossed lines; no holes. Since Box2d does not support concave polygons, all polygons are converted to triangles (triangulation). (In Turtle Blocks, these triangles are shown by slight variations in color.)
+triangle: add a triangle object at the current turtle x,y position
+circle: add a circle object at the current turtle x,y position
+rectangle: add a rectangle object at the current turtle x,y position
+gear: add a gear object at the current turtle x,y position with the number of teeth as the argument
+gear radius: returns the radius of a gear with the number of teeth as the argument (useful for positioning gears)
+motor: add a motor at the current turtle x,y position (attached to the object at this position)
+pin: add a pin at the current turtle x,y position (attached to the object at this position) to prevent movement
+pen: add a pen at the current turtle x,y position (attached to the object at this position) to trace motion
+joint: add a joint between the object at the current turtle x,y position and the object at x, y
+save as Physics project: save the current bodylist and jointlist as a Physics project in the Journal
+Note:
+The current model is cleared whenever the Erase button is pressed or a Clean block is run.
+Examples
+For Turtle Blocks versions 107 - 183
+File:TAgear.ta
+File:Gear.physics
+For Turtle Blocks verisons 184 -
+[1]
+Chain
+Turtle Blocks project file:
+[2]
+Downloads
+File:Physics-plugin.tar.gz
+Physics plugin
+git repository on GitHub
+Development
+There are quite a few code layers to contend with. A regular Python Activity acts as a Sugar wrapper to Physics which is written using SugarGames which itself wraps Pygame, Physics then uses Elements as a wrapper for Box2D.
+Video
+Please do post videos with feedback, talking while you're trying something for the first time is particularly insightful as it can highlight those initial expectations for user interface behaviour. Bonus points to Dennis for being brave enough to be part of the first wave!
+UI feedback Video
+unfortunately there's a seg fault at the end, ticket from Dennis is
+#1194
+.
+Sugar at the Boston Museum
+, for more information see Bill Kerr's
+blog
+.
+Release Notes
+17
+ENHANCEMENT:
+Chain tool behaves like magic pen: you can make loops and closed paths
+16
+ENHANCEMENT:
+Add sharing to magic pen and polygon
+Clean up of some internals
+15
+ENHANCEMENT:
+Added support for collaboration
+BUG FIX:
+Fix problem with pause/play button
+14
+ENHANCEMENTS:
+New translations
+GTK3 conversion by Ignacio Rodriguez
+13
+ENHANCEMENTS:
+Added palettes to set density, bouciness, and friction (w/Sai Vineet)
+Added palette to set motor speed, rotation (w/Sai Vineet)
+Added chain tool (w/Sai Vineet)
+BUG FIX:
+Updated Box2d version to eliminate some memory leaks (Sai Vineet)
+12
+ENHANCEMENTS:
+Added option to joints to set collideConnected = False
+Added clear_all (Sai Vineet)
+Added tracking (Sai Vineet)
+Added tracing (Sai Vineet)
+Added erase traces (Sai Vineet)
+Added save/restore of pens and traces (Sai Vineet)
+BUG FIXES:
+Removed cjson dependency for elements
+pep8 cleanup (Sai Vineet)
+11.9
+Removed cjson dependency for elements
+Added option to joints to set collideConnected = False
+Added clear_all (svineet)
+Added tracking (svineet)
+Added tracing (svineet)
+v5
+Added support for new toolbar design for Sugar 0.86 (old toolbars still work for Sugar 0.84 and back)
+Objects can now be moved with the Grab tool while the simulation is paused!
+Tool code cleanup and refactoring
+Includes latest translations
+Many thanks go to Peter Froehlich, Akash Gangil, Craig Macomber, and the translation team.
+v4
+Include latest translations
+License text updates (needed for Fedora/ SoaS Mirabelle)
+v3
+Journal state saving now supported!
+MIME type support added so Physics Journal entries can be sent to others (application/x-physics-activity)
+Fixed Activity title text input so you can name your work correctly (olpcgames glitch)
+New Grab toolbar icon (hand)
+New Polygon toolbar icon (irregular polygon shape)
+Cleaned up toolbar order
+Single click behaviour so that Circle, Triangle, and Box tool add default sized shapes
+Single click behaviour for all tools, so that a subsequent single click creates a clone of the last shape made with that tool.
+Erase tool now erases (one by one) pins/joints/motors from a shape, before finally removing the shape itself.
+Using <Ctrl>+key for all keyboard shortcuts (was causing PyGame input focus issues when typing a title)
+Using the Sugar standard arrow cursor for the PyGame canvas (well, a fake one)
+Cleaned up the Activity icon
+Upgraded to new version of Elements 0.13
+Upgraded to new version of Box2D
+Picked up Pootle (July 3rd) translations
+user notes
+I really struggle to get any of the motor actions to work. Can you post some videos of your own successes? It's hard to build curriculum when you don't know how something is supposed to work.
+v2
+Migrated to Sugar Labs
+Motor toolbar button added
+Pin toolbar button added
+Toolbar reworked for displaying state and keyboard accelerators
+Stop/play toolbar button added
+Prevented very small freehand and polygon shapes to prevent Box2d crashes
+v1
+Original created by Brian Jordan, Alex Levenson, Chris Hager
+Resources
+Activity bundle
+GIT repository
+Source tarball

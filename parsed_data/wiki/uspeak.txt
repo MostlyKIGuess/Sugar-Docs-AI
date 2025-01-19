@@ -1,0 +1,247 @@
+Title: USpeak
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2009/USpeak
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+2.1
+Long Term Vision:
+2.2
+Proposal for GSoC 09
+3
+You and the community
+4
+Miscellaneous
+About you
+Q1:
+What is your name?
+Ans:   Komaragiri Satya
+Q2:
+What is your email address?
+Ans:   satya[DOT]komaragiri[AT]gmail[DOT]com
+Q3:
+What is your Sugar Labs wiki username?
+Ans:   Mavu
+Q4:
+What is your IRC nickname?
+Ans:   mavu
+Q5:
+What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+Ans:  Primary language for e-mails, IRC, Blogs: English. Also fluent in Hindi, Tamil, Telugu
+Q6:
+Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+Ans: I am located in New Delhi, India (UTC +5:30). I work late mornings when I am not in college (10-11 AM-ish IST) to evening (4:30 -5 PM-ish IST) and late evenings (7- 7:30 PM IST) to late at night (1-2 AM IST and more if need be) so timezones will not be a problem.
+Q7:
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+Ans: Yes, I was introduced to Open Source through GSoC last year where I worked on Bootlimn: Extending Bootchart to use Systemtap for The Fedora Project. (
+http://code.google.com/p/bootlimn/
+) or (
+http://code.google.com/p/google-summer-of-code-2008-fedora/
+). I am currently working on the following projects.
+Introducing Speech Recognition in OLPC and making a dictation activity. (
+http://wiki.laptop.org/go/Speech_to_Text
+)
+Introducing Java Profiling in Systemtap (A work from home internship for Red Hat Inc.). This project involved extensive research which took most of the past 4 months I have been working on it. Coding has just begun.
+A sentiment analysis project for Indian financial markets. (My B. Tech major project that I plan to release under GPLv2.) I can put up the source code on
+https://blogs-n-stocks.dev.java.net/
+after mid-April when I am done with my final evaluations in my college.
+About your project
+Q1:
+What is the name of your project?
+Ans:   USpeak
+Q2:
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+Ans:
+Long Term Vision:
+This project aims at introducing speech as an alternative to typing as a system-wide mode of input.
+I have been working towards achieving this goal for the past 6 months. The task can be accomplished by breaking the problem into the following smaller subsets and tackling them one by one:
+Port an existing speech engine to less powerful computers like XO.
+This has been a part of the work that I have been doing so far. I chose Julius as the Speech engine as it is lighter and written in C. I have been able to compile Julius on the XO and am continuing to optimize it to make it work faster. Also XO-1 is the bare minimum case on which I'll be testing it. If it works on this it will most certainly work anywhere else.
+Writing a system service that will take speech as an input and generate corresponding keystrokes and then proceed as if the input was given through the keyboard.
+This method was suggested by Benjamin M. Schwartz as a simpler approach as compared to writing a speech library in Python (which would use DBUS to connect the engine to the activities) in which case changes have to be made to the existing activities to use the library.
+Starting with recognition of alphabets of a language rather than full-blown speech recognition.
+This will give an achievable target for the initial stages. As the alphabet set is limited to a small number for most languages, this target will be feasible considering both computational power requirements and attainable efficiency.
+Demonstrating its use by applying it to activities like listen and spell which can benefit immediately from this feature.
+(see the benefits section below.)
+Introduce a command mode.
+This would be based on the system service mentioned in step 2 but would differ in interpretation of speech. It will handle speech as commands instead of stream of characters.
+Create acoustic models where the corpus is recorded by children and where the dictionary maps to the vocabulary of children to improve recognition.
+(I have been working on creating acoustic models for Indian English and Hindi. This part needs active community participation to bring in support for more languages. A speech collection activity can come in handy for anyone who is interested in contributing.)
+Use the model in activities like Speak and implement a dictation activity.
+Proposal for GSoC 09
+The above mentioned goals are very long term goals and some of those will need active participation from the community. I have already made progress with Steps 1 and 6 (these are continuous tasks in the background to help improve the accuracy).
+My deliverables for this Summer of Code are:
+Writing a system service that has support for recognition of characters and a demonstration that it works by running it with Listen and Spell.
+Introduce modes in the system service. Dictation mode will process input as a stream of characters and send corresponding keystrokes and command mode will process the audio input to recognize a known set of commands.
+Make a recording tool/activity so Users can use it to make their own models and improve it for their own needs.
+I. The Speech Service:
+The speech service will be a daemon running in the background that enables speech recognition. This daemon can be activated by the user. When activated, a toggle switch appears on the sugar frame. A user can 'start' and 'stop' speech recognition via a hotkey(s)/toggle button. When in 'on' mode, this daemon will transfer the audio to Julius Speech Engine and will process its output to generate a stream of keystrokes ("hello" as "h" "e" "l" "l" "o" etc.) which are passed as input to other activities. Also the generated text data can be any Unicode character or text and will not be restricted to XKeyEvent data of X11 (helps in foreign languages). When in command mode, the input will be matched against a set of pre-decided commands and the corresponding event will be generated.
+Audio
+                                              |
+                                              |
+                                              V
+                                       [Speech Engine]
+                                              |
+                                              |
+                                              V
+                                  Characters/Words/Phrases
+                                              |
+                                              |  
+                                              V 
+                                       [System Service]
+       (command mode)  _______________________|_____________________  (dictation mode)
+                      |                                             |
+             [Recognize Command]                           [Input Method Server]
+                      |                                             |
+                      |                                             |
+                      V                                             V
+              [Execute Command]                              [Focused Window]
+Dictation Mode:
+In this mode, the users speech will be recognized and the corresponding keystrokes will be sent as is. This can be done via simple calls to the X11 Server. Here is a snippet of how that can be done.
+// Get the currently focused window.
+XGetInputFocus(...); 
+// Create the event
+XKeyEvent event = createKeyEvent(...);
+// Send the KEYCODE. We can define these using XK_ constants
+XSendEvent(...);
+// Resend the event to emulate the key release
+event = createKeyEvent(...);
+XSendEvent(...);
+The above code will send one character to the window. This can be looped to generate a continuous stream (An even nicer way to do this would be set a timer delay to make it look like a typed stream).
+Command Mode:
+Similarly, a whole host of events can be catered to using the X11 Input Server. Words like "Close" etc (which will be defined in a list of commands that the engine will recognize) need not be parsed and broken into letters and can just be sent as events like XCloseDisplay().
+Note 1: Sayamindu has pointed me to XTEST extension as well which seems to be the easier way. I'll do some research on that and write back my findings in this section. It has useful routines like XTestFakeKeyEvent, XTestFakeButtonEvent, etc which will make life more easier in this task.
+Note 2: Bemasc suggested I include the single character recognition (voice typing) in command mode by treating letters as commands to type out the letters and have the dictation mode exclusively for word dictation to avoid ambiguity in dictation mode for words like tee, bee etc.
+All of this basically needs to be wrapped in a single service that can run in the background. That service can be implemented as a Sugar Feature that enables starting and stopping of this service.
+Flow:
+User activates the Speech Service which will make the system capable of handling speech input. A mode menu and toggle button to appear in the interface.
+The mode menu selects whether the system service should treat the input audio as commands or a stream of characters. This can be done via hot-keys too.
+The speech engine will start and take audio input when the toggle button is pressed or a hotkey combo is pressed. The color of the toggle button will change to green when in 'On' mode.
+Speech input processing starts and user's speech is converted to keystrokes and sent to the focused application if in dictation mode or is executed as a command if in command mode.
+The speech engine stops listening when the toggle button is pressed again or key combo is pressed again. The button color changes to red.
+This continues until the user de-activates the Speech Service.
+This approach will simplify quite a few aspects and will be efficient.
+Firstly, speech recognition is a very CPU consuming process. In the above approach the Speech Engine need not run all the time. Only when required it'll be initiated. Julius speech engine can perform real-time recognition with up to a 60,000 word vocabulary. So that will not be a problem.
+Secondly, need of DBUS is eliminated as all of this can be done by generating X11 events and communication with Julius can be done simply by executing the process within the program itself and reading off the output.
+Thirdly, since this is just a service any activity can use this and not worry about changing their code and importing a library. The speech daemon becomes just another keyboard albeit, a virtual one.
+Once this is done it can be tested on any activity (say Listen and Spell) to demonstrate its use.
+II. Make a recording tool/activity so Users can use it to make their own language models and improve it for their own needs:
+This tool will help users in creating new Dictionary Based Language Models. They can use this to create language models in their own language and further extend the abilities of the service by training the Speech Recognition Engine.
+The tool will have an interface similar to the one shown in the screenshot at
+http://wiki.laptop.org/go/Speech_to_Text
+(this was built in Qt and was a very simple tool). Our tool will of course follow the Sugar UI look-n-feel as it will be an activity built in PyGTK. It'll have a language model browser/manager and will allow modification of existing models. Users can type in the words, define their pronunciations and record the samples all within the tool itself.
+Major Components:
+A language model browser which shows all the current samples and dictionary. Can create new ones or delete existing ones.
+Ability to edit/record new samples and input new dictionary entries and save changes.
+The recording will be done via
+arecord
+and
+aplay
+which are good enough for recording Speech Samples.
+III. Technologies used:
+I will be using (and have been using) Julius as the speech recognition tool. Julius is suited for both dictation (continuous speech recognition) and command and control. A grammar-based recognition parser named "Julian" is integrated into Julius which is modified to use hand-designed DFA grammar as a language model. And hence it is suited for voice command system of small vocabulary, or various spoken dialog system tasks.
+The coding will be done in C, shell scripts and Python and recording will be done on an external computer and the compiled model will be stored on the XO. I own an XO because of my previous efforts and hence I plan to work natively on it and test the performance real time.
+The recording utility will be implemented using PyGTK for UI and
+aplay
+and
+arecord
+for play and record commands.
+Q3:
+What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week.
+Ans:
+Before 'official' coding period begins:
+Study Sugar, PyGTK, X11
+Start gathering a list of all commands that can be put in XO.
+Decide on a small limited dictionary based on the above
+Record samples for the English alphabets
+First week:
+Write and complete the scripts for the service interaction with Julius.
+Start with the wrapper for Simulating Events on X11.
+Second Week:
+Complete writing the wrapper.
+Implement a Sugar UI feature for enabling/disabling the Speech Service.
+Third Week:
+Hook up the UI, Service, Speech Engine.
+Wrap up for mid term evaluations and test the model for accuracy on letters and spoken commands.
+Test this tool on Listen Spell and tweak out any problems.
+Get feedback from the community.
+Fourth Week:
+Add a few basic commands.
+Implement the mode menu.
+Put the existing functionality in command mode and make provisions of the dictation mode.
+Milestone 1 Completed
+Fifth Week:
+Complete the interface
+Start writing code for the language browser and recorder.
+Sixth Week:
+Complete the language browser.
+Write down the recording and dictionary creation code for the tool.
+Package everything in an activity.
+Seventh Week:
+Complete the wrap up for the final evaluations. Write up documentation and user manuals. Update the Sugar Wikis. Clean up code.
+Milestone 2 Completed
+Infinity and Beyond:
+Continue with pursuit of perfecting this system on Sugar by increasing accuracy, performing algorithmic optimizations and making new Speech Oriented Activities.
+Q4:
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described.
+Ans:   I have been working on speech recognition for XO since November last year. My research has helped me understand the requirements on this project. I have made some progress as shown in
+http://wiki.laptop.org/go/Speech_to_Text
+which will help me in this project.  I am also familiar with the development environment.
+Apart from this, I have worked on a few real life projects ( some open source as mentioned above and an Internship in HCL Infosystems) including one GSoC project for Fedora which has taught me how to work within the stipulated time frame and accomplish the task.
+You and the community
+Q1:
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Ans:
+Benefits of this project
+The completion of this project would mean sugar has an input method which is more:
+Intuitive
+They have to learn alphabets anyway and most children are taught by making them recite the alphabets in order and showing corresponding symbols.They learn how to say 'open' (in their respective languages) first before knowing where to point the mouse and where to click. This can be of assistance for children who are physically challenged in some way.
+Versatile
+("I have a EN-US keyboard but I want to learn English because its my first language in school, Hindi because its my second language, I also want learn Telugu because its my mother tongue and Tamil because my mom lived all her childhood in Tamil Nadu and wants me to learn what was her primary language too! I am a kid so remembering the key mappings of all these languages in SCIM is tough for me?")
+Fun
+Talking to the computer is a lot more fun than typing. Also collective classroom learning can be enhanced with this application by introducing classroom Spelling Bee contests. Children tend to remember things faster if they have a story attached to them. ( I'll remember the spelling of the word that I could not answer and came second because of it. My teacher explained the meaning of this word when none of us could spell it correctly and made us say it out 5 times in class.) And fun is an important criteria when it comes to what children like and what they use more.
+-Me
+I see the benefits as follows:
+A framework to stay ahead of the curve
+It is important to experiment with and implement newer ways of interacting with Sugar. This framework lays the foundation for not only core Sugar itself, but also it has the potential to expose a new method of interaction for Activities, benefiting the entire Activity developer community.
+Cool demo-ability
+This can be a very cool demo-able feature, if not anything else. During conferences, trade-shows, etc, it is essential to have ways to grab attention of random (but interested) individuals within a very short period of time. This kind of feature tends to attract attention immediately.
+Potential accessibility support component
+We (as a community) need to think about Sugar a11y (accessibility) seriously. We have had numerous queries in the past about using Sugar for children with various disabilities. While speech is only a part of the puzzle (and speech recognition is a subset of the entire speech problem - synthesis being the other one), this project lays one of the fundamental cornerstone of a11y support, which in the end, should increase the appeal of Sugar for a significantly large set of use cases. I'm not sure how many "educational software" care about accessibility, but I don't think the number is very large. Sugar will have a distinct competitive advantage if we manage to pull of a11y properly.
+SayaminduDasgupta
+22:28, 29 March 2009 (UTC)
+Speech recognition, as described in this proposal, would make Sugar more effective both directly and indirectly.
+Directly, it provides a capability useful to users learning literacy or language. Children often can spell letter names out loud before they can write them, so this proposal assists learners to make the name-symbol connection.
+Indirectly, this proposal provides a technically marvelous capability, which will inevitably be a subject of fascination to children.  By experimenting with its behaviors in response to various sounds, children will implicitly learn about the phonemic structure of language, and about the technology of speech recognition.
+Benjamin M. Schwartz(Bemasc)
+Q2:
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+Ans: A community school in my neighborhood. That would be my ideal choice as they would really benefit from it apart from helping me test out my project. I am sure they'll be delighted to be a part of this program. I was fortunate enough to go to a private school and I realize that children who are already playing at their PCs at home and computer labs at school might not be very appreciative of what we are trying to achieve.
+Q3:
+What will you do if you get stuck on your project and your mentor isn't around?
+Ans: Even with my mentor around, I will try to first find a solution myself without expecting any spoon feeding, though I will let him/her know where I am stuck and what am I doing to find a solution. If I am not able to solve the problem, then I will ask my mentor for help.
+If my mentor is not around,
+The first thing I will do is try to Google.
+If I cannot find a solution, I will more specifically go through the Mailing list archives wikis and forums of Sugar Labs, Julius or Xorg depending on where I am stuck.
+If I can still not find a solution, then I will ask on the respective IRC channels and Mailing Lists.
+Q3:
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+Ans: I will maintain this page and keep it updated of the status. I'll also mail the Summer of Code specific mailing list of Sugar with weekly updates.
+Miscellaneous
+Screenshot
+Q1.
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "Restart."
+Ans: Screenshot on right.
+Q2.
+What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+Ans: M (Female)
+Q3.
+Describe a great learning experience you had as a child.
+Ans: My mother tongue is Telugu and I was born and brought up in New Delhi where Hindi is the local language. This communication gap made me struggle in school in my Nursery and Prep classes when the kids are not very good with English. My nursery teacher Mrs. Sengupta noticed that I used to be alone and would come and play with me often. I used to talk to her in Telugu and even though she never really understood what I am saying, she always listened and nodded. Gradually, I learnt Hindi too and was able to interact with everyone but that initial phase when my teacher had been so sweet left a lasting impact. All my school life, I was never afraid to go up to them and ask them a lot of questions. In retrospect, I realize how much I would have bothered them with my silly doubts but thankfully, they were all very good to me and even taught me a lot of stuff beyond the curriculum. This also gave me the aptitude to learn new languages much more quickly.
+Q4.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Ans: No.

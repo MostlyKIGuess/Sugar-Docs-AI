@@ -1,0 +1,58 @@
+Title: Activity Team/Obsolete/Zero Sugar Use Cases
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Obsolete/Zero_Sugar_Use_Cases
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+It was only draft content
+Contents
+1
+Natively packaged or direct from developer activities?
+2
+For Sugar on a Stick deployments
+3
+Easy activity development workflow
+4
+Easy activity deployment workflow
+Natively packaged or direct from developer activities?
+Zero Sugar could help with optimizing developer-to-distributor-to-user model. For example:
+Developer lets 0sugar create packages for major GNU/Linux distributions on OBS.
+Distributors, either using native OBS features (like links and branches), create their own compilations of activities on OBS, or just attach/copy OBS packages, and so compose repositories with activities for end users.
+For end users, Sugar will understand that there are packaged and direct activity instances
+The user (or distributor), by setting a policy, may prefer only packaged versions.
+A user can always pick up a recent version from a developer.
+For Sugar on a Stick deployments
+Assuming that most activities use Zero Sugar and activity developers want to support packagers (that is, use Zero Sugar OBS integration), it is possible to create live DVD/USB images on
+demand
+.
+Easy activity development workflow
+For now, developers:
+create .xo bundles,
+choose server/service to host activity, e.g., ASLO or just upload .xo somewhere on wiki,
+for a non-Python-based activity, build code (for how many platforms/environments?).
+For activities that contain dependencies beyond those in the Sugar Platform, the developer needs to mention it somewhere.
+Within Sugar, only one 'stable' activity version exists.
+With Zero Sugar, developers:
+call
+0sugar commit
+command to make a newly created activity version accessible for users.
+The developer could release, not only stable releases, e.g., development, or testing releases, (users will know the release stability status, without reading it somewhere). And by setting a policy, one could prefer only stable versions (or help to test development versions).
+Easy activity deployment workflow
+For now, users:
+find .xo bundle somewhere, e.g., on ASLO or wiki;
+after downloading, have to be sure that that the activity will run in their environment, e.g., for binary-based activities, blobs were built for their platform, or all extra-Sugar-Platform dependencies are installed.
+If activity was not installed from ASLO or a distributor channel, the users have to manage activity versions on their own.
+If they want to help with testing, they have to fetch the activity from source repositories or from irregular places, like people.sugarlabs.org.
+With Zero Sugar, users:
+know, that every activity is identified by a URL, like
+http://go.sugarlsbs.org/My_Activity
+;
+can launch it from any (supported) environment, just by
+sugar-launch
+http://go.sugarlsbs.org/My_Activity
+command or from UI.
+The activity URL could be picked up from anywhere, it could be emailed, passed via jabber message, posted on a wiki, etc.
+The user can help with testing an activity just by setting a policy (globally or for a particular activity) and following regular procedures to launch it.

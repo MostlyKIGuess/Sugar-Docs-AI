@@ -1,0 +1,209 @@
+Title: Design Team/Proposals/Touchscreen/On-screen Keyboard
+URL: https://wiki.sugarlabs.org/go/Design_Team/Proposals/Touchscreen/On-screen_Keyboard#Multilanguage
+--------------------------------------------------------------------------------
+Contents
+1
+Existing solutions
+1.1
+GNOME shell on screen keyboard
+1.2
+Maliit
+1.2.1
+Multilanguage
+1.2.2
+Build from Source on the XO
+1.2.3
+Issues
+1.3
+Gnome Onscreen Keyboard
+1.4
+Florence
+1.5
+Eekboard
+1.6
+Previous research from Saymindu
+1.7
+iOS
+1.8
+Android
+2
+Evaluation
+2.1
+Saymindu fvkbd
+3
+Requirements
+3.1
+Needs
+3.2
+Would like to haves
+4
+Advancements
+5
+Recommendation
+Existing solutions
+GNOME shell on screen keyboard
+Gnome 3.2 on-screen Keyboard
+originally a GSoC 2011 project by Nohemi Fernandez, mentored by Dan Winship. Here is the original
+design document
+,
+project report
+, an interesting
+bugzilla thread
+,
+feature status
+pages, and a post from Nohemi's
+blog
+.
+And here is the GNOME shell keyboard
+code
+. It is part of GNOME 3.2 (Fedora 16). You can get to it when you click on the accessibility button at the top right of the screen and enable 'Screen Keyboard'. It will come up then when you click in the url entry in Epiphany or if you bring it up by hand. It does not come up automatically when you want to type in the google search for example.
+Caribou
+is the backend used with the gnome-shell onscreen keyboard. You can choose between different layouts which are placed in Fedora under '/usr/share/caribou/layouts/'. The layouts are in XML format. For the touch layout there is one for arabic and one for hebrew.
+You can get the current layout with:
+gsettings get org.gnome.shell.keyboard keyboard-type
+You can change the layout with:
+gsettings set org.gnome.shell.keyboard keyboard-type fullscale
+Maliit
+Maliit
+You can run Maliit on Fedora 16:
+here are the installation guides for Fedora
+, latest available version is 0.91. On the XO this drags in 4,4 MB of QT and 12 MB of QT-X11.
+Put
+maliit.repo
+in /etc/yum.repos.d/ 
+yum install maliit-framework maliit-plugins
+Now you can run the 'maliit-keyboard-viewer' example.
+There are more examples as noted under the
+running instructions
+. You need to install 'maliit-framework-examples maliit-inputcontext-gtk3 maliit-inputcontext-gtk2' for that. And you need to update the immodues cache: 'gtk-query-immodules-3.0-32 > /usr/lib/gtk-3.0/3.0.0/immodules.cache'. Then instruct to use the Maliit IM_MODUE: 'export GTK_IM_MODULE=Maliit' and start your application:
+maliit-exampleapp-gtk3
+Multilanguage
+There are many different layouts for languages like German, French, Arabic and so on, in Fedora they are stored under '/usr/share/maliit/plugins/languages/'. The format of the layouts is XML. Here is an example for the a
+Spanish keyboard
+, a
+German keyboard
+and a more complex
+Arabic keyboard
+. The current selected keyboard can be seen in the Maliit gconf settings:
+gconftool-2 -R /maliit
+You can change the keyboard like:
+gconftool-2 --type=list --list-type string --set /maliit/onscreen/active [libmaliit-keyboard-plugin.so,es]
+gconftool-2 --type=list --list-type string --set /maliit/onscreen/enabled [libmaliit-keyboard-plugin.so,es]
+Build from Source on the XO
+This has been tested on the XO 1.75 with
+os 13
+.
+Install the following rpms for build dependencies (as root):
+yum install qt qt-x11 qt-devel libXcomposite-devel GConf2-devel gcc-c++ gcc make dbus-glib-devel dbus-devel gtk2-devel gtk3-devel git gtk-doc gobject-introspection-devel gdb doxygen
+If trying to build in the release candidate
+os 14
+you have to downgrade this packages:
+yum downgrade libX11 libX11-common
+Get the sources:
+git clone
+git://gitorious.org/maliit/maliit-framework.git
+git clone
+git://gitorious.org/maliit/maliit-plugins.git
+Build the sources:
+First build the maliit-framework:
+git checkout 0.92.4
+qmake-qt4 CONFIG+=enable-dbus-activation
+make
+sudo make install
+(If you build HEAD you can build with a
+fix for the keyboard rotation
+, pass the DISABLE_TRANSLUCENT_BACKGROUND_HINT config)
+Then build the maliit-plugins:
+(you need HEAD here)
+qmake-qt4 CONFIG+=MALIIT_DEFAULT_PROFILE=olpc-xo
+make
+sudo make install
+Update the IM_MODULES cache (as root)
+gtk-query-immodules-3.0-32 > /usr/lib/gtk-3.0/3.0.0/immodules.cache
+Instruct GTK to use the Maliit IM_MODULE:
+Install the following
+sugar-session file
+in /usr/bin/sugar-session. This sets the environment variable for 'GTK_IM_MODULE' to 'Maliit' on Sugar startup.
+Change the style
+To adjust your settings have a look at maliit-framework/examples/apps/maliit-exampleapp-settings-python3.py If you change the header to say '/usr/bin/python' to not try to use Python3 you can use it to do Maliit settings (you have to run the script from within Sugar).
+./maliit-exampleapp-settings-python3.py about libmaliit-keyboard-plugin.so
+./maliit-exampleapp-settings-python3.py set libmaliit-keyboard-plugin.so current_style olpc-xo
+You can add as well several languages to be available:
+./maliit-exampleapp-settings-python3.py set enabled libmaliit-keyboard-plugin.so:en_gb,libmaliit-keyboard-plugin.so:de
+Issues
+I got a
+build error (see as well discussion page)
+and therefore build without the test 'qmake-qt4 CONFIG+=notests'.
+On Fedora 16/17 there is one issue where the keys that popup stay visible, this is tracked
+here
+.
+On the XO the keyboard has a fullscreen black window as background: looks like this is because we do not supports tranclucent windows and Maliit 0.91.0 needs that, according to Jon this is fixed in master
+Gnome Onscreen Keyboard
+Gnome Onscreen Keyboard
+Florence
+Florence
+Eekboard
+eekboard
+see the developers
+blog
+for a
+video
+and more details, and some
+eek board on a Tablet
+notes. For F-15 and F-16 try the below (note I couldn't get the focus change events auto hide to work on 12.1.0 build 6 as desktop accessibility support is disabled):
+sudo yum install eekboard
+eekboard -F
+Previous research from Saymindu
+Previous research from Saymindu
+iOS
+Here you can see screnshots from the existing on screen keyboard design in
+iOS
+.
+Android
+Here you can see screnshots from the existing on screen keyboard design in
+Android Ice Cream Sandwich on an Asus TF101
+.
+Evaluation
+Saymindu fvkbd
+Pros.
+Simple
+Three vertical key rows allows maximum canvas visibility in landscape
+Support for multilingual
+Square keys
+Supports pop-over character extras
+Cons.
+Small, non-standard space-var placement
+Missing many characters needed for more than basic text input
+Needs feature to lock open different keyboard layouts (Saymindu submitted a patch)
+Unknowns
+Non-Gnome dependencies?
+Supports screen rotation?
+Requirements
+Needs
+Multilingual text input (ability to switch at least between two languages)
+International (ability to show custom international characters such as accents and currency symbols)
+Key pop-over for quick access to extra characters (useful as well for above)
+Landscape and portrait orientation (portrait has a better ratio of canvas to keyboard UI chrome)
+Reveal on focus of text input widget entry, dismiss on defocus
+Reveal and dismiss on screen keyboard UI manually
+Slide canvas vertically to keep insertion point visible
+Uppercase alphabet key theme
+Frame friendly (hide frame when keyboard invoked, hide/reveal  when frame is revealed/hidden)
+Sugar theme-able
+Insertion point movement (cursor buttons vs. left/right swipe gesture)
+This is an important one imho, I have not seen it on any other screen keyboard yet, and looked for it myself several times. On the iPad you can drag the insertion point by its tab to move the insertion point (you will get a magnifier), to pick exactly where you want to add more text. This works in the notes taking app and in Safari. In Android I have seen the same working in the Browser, but not in Polaris Office for example."
+Subtle keyclick sound effect to provide positive feedback for text entry
+Would like to haves
+Adopt text on keys to current context (go vs search)
+Additional customisable key/button strips for Activities to provide additional specific features
+Keys for cut/copy/paste – perhaps toolbar buttons are enough already?
+Custom keyboard layouts for specialised input needs (url, numeric, emoticon)
+Predictive text (context sensitive, locale sensitive)
+Square keys
+Advancements
+Keystrike accuracy will suffer compared to keys with tactile feedback.  Users can compensate by visually aiming their keystrikes, but then spelling and textual context feedback will suffer because their eyes can't follow stdin and stdout or a transcription source and stdin at the same time.
+Once a keyboard layout has been determined, the home or neutral position of each hand—its 'center-of-mass'—can be recorded as a displacement from some keyboard reference coordinate.  If there were software monitoring for drift in the 'center-of-mass' for either hand, the position of the on-screen keyboard could automatically drift in compensation (within limits) to preserve accuracy.
+Models of keyboarding styles would be needed to accommodate the many variations and patterns of keystroking in order to distinguish drift from 'in spec' intentional movement.  Watch for research on this or other approaches to improve accuracy.  --
+FGrose
+23:09, 22 August 2012 (EDT)
+Recommendation

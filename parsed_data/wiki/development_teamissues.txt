@@ -1,0 +1,112 @@
+Title: Development Team/Issues
+URL: https://wiki.sugarlabs.org/go/Development_Team/Issues
+--------------------------------------------------------------------------------
+Note
+: The
+olpc:Developers manual
+provides more comprehensive and up-to-date introductions to the issues described here.
+Here are a few of the most obvious development issues/questions/comments:
+What language should be used to develop applications?
+You can use C, C++,
+olpc:Python
+, JavaScript,
+olpc:Flash
+, or
+olpc:Smalltalk
+. Other languages are possible of course, but will require that any libraries and/or interpreter be included as part of your activity. Notably absent are Java, C#, Perl, Tcl, and Ruby. GTK is the primary GUI widget library in use on the laptop; it supports the theme.
+What is the API?
+The
+olpc:Low-level Activity API
+page attempts to cover this, but is frequently incomplete. Documentation help would be very useful.
+Will the laptops and/or an emulator be available to developers interested in direct contibutions to OLPC?
+Yes!!!
+See the
+olpc:Developers Program
+for details. Also read the
+olpc:Development Systems
+page for ideas of using other minimal systems to do your application testing.
+What if I don't qualify for one of the development systems?
+You can still build something as long as you are careful to isolate the GUI portions of your code and not do anything overly complex. Or, if you use
+olpc:PyGTK
+, then you come very close to the real development environment in
+olpc:Sugar
+. If you will be programming in a compiled language or in assembly, make sure that you are aware (and respect) the
+olpc:Geode instruction set
+. It is about the same as the original Athlon instruction set. See the Geode data book linked in the
+olpc:Geode instruction set
+page.
+Where can I find the sources?
+If you are a skilled *IX user then the
+olpc:Sugar
+page should help. But most developers who will be working on OLPC will be using Python to develop educational applications.
+Memory footprint of applications
+It must be as small as you can make it. These are memory-constrained devices.
+For Python development, don't import modules at the top. Instead, import them just where they are needed in the code and then unload the module. This will require some work with ihooks and imp to support unload() but for now, just use a dummy function in your code. If possible, implement optional components as a separate Python module and delete the .pyc file when a user chooses not to use that option. Remove objects when they are no longer needed using del.
+Memory leaks
+You need to measure the memory usage repeatedly while thoroughly exercising your program. Sample the memory size every minute and graph it. If there is a slowly increasing size, then you have a leak. A normal program will increase rapidly at the beginning and then remain perfectly flat or shrink and grow repeatedly. Remember that every leak, however small, counts!
+Required flash footprint of the application
+if it is big, there may not be space.  However,
+olpc:JFFS2
+does data compression, so don't presume that the size of a file in a conventional file system corresponds to the actual amount of flash used.  As a *rule of thumb*, expect a factor of 2 compression for text and typical data, expect no compression on already compressed content, but take actual measurements to understand what your actual flash usage will be.
+If you test on a Unix system you can install
+olpc:JFFS2
+and test directly. Since
+olpc:JFFS2
+does block compression you can affect the amount of compression by reorganizing your code.
+Your application should be engineered and packaged to make it easy to strip unneeded functionality.
+For example, GAIM supports just about every IM protocol in existance, but we can only anticipate 3 being common. So the fact it uses plugins that we can choose to not package saves greatly on its footprint, whereas if everything were built in, both the memory and flash footprint would be much larger.
+Ability to operate applications when running in black/white mode
+Judicious use of contrasting colors will mean that your program automatically works in B&W mode.
+The effective resolution
+in color mode is somewhat lower in color than grayscale: some applications will find this hard, even though the frame buffer will always be in high resolution.  If your application does not honor the font resolution change-on-the-fly mechanisms, or hardwires fonts by pixel size, your application won't be able to switch modes gracefully and may require manual intervention to be usable.  Please fix.
+The hardware
+does support alpha blending (Porter-Duff compositing), so we expect to eventually support this well
+No 3D hardware:
+we don't have shaded triangles or a geometry pipe; so any OpenGL used will be based on Mesa, and without hardware, will be very slow
+Ideally, don't use OpenGL at all except for specialty applications which absolutely must and which can accept the slow rendering. For instance a design program could use OpenGL to provide a rendered view because most of the time the user will not be using OpenGL.
+Remember that the
+olpc:Geode
+supports MMX and Enhanced 3DNow!, which can speed up some applications, such as 3D rendering, and should be appropriately used.
+Choice of libraries and required applications:
+you may not have the dependencies you might need, or those dependencies might come at too high a memory cost. We will inventory what you can "count on" in the basic system as it becomes clear.
+In the meantime, make sure you know your application's dependencies. For compiled code, run it with "ldd" to get a list of all the libraries being loaded. For Python code, run it with "python -v" to get a list of all modules imported.
+Graphical activity that does not turn itself off quickly;
+we want to save power
+This means avoid cute animated GIFs that do not add value to the educational experience. (That is one example of not letting the CPU be idle) Your users may have to exert themselves physically to provide the electricity to run their OLPC. Respect them and their effort.
+CPU performance:
+the system is slow relative to current desktops, though fast relative to desktops at the turn of the millenium.
+Power consumption:
+if your application is CPU bound for long periods (not letting the CPU be idle), or routinely requires itself to be run (can't be suspended well), this isn't good
+While we are a great fan of
+interpreted languages
+, key CPU bound kernels had better be in compiled code, or your performance and power consumption will be poor.
+Python is an interpreted language, similar in operation to perl. It lacks a JIT, though it does use an intermediate code form rather than strictly interpreting the raw text as a shell script or makefile would. It is thus inherently slower than C# or Java, but not as bad as it could be. A more serious problem for Python is often memory consumption.
+Remember that your
+slow code
+has a direct impact on power consumption (far more than on a desktop), and its usability.  Applications that run slowly or don't let the processor idle will be very, very unpopular on battery powered machines that may be powered by children having to run a generator.
+The file system
+is a flash file system, so its write performance is slow, while random access is actually very good.  The performance is glacial if the file system is low on space and has to continually erase freed blocks before writing (
+olpc:JFFS2
+attempts to do this in the background, but if it can't....). Programs that continually write to the file system without need are anti-social; wear leveling helps flash longevity, but it certainly doesn't help, and burns power. Writable file mappings (via the mmap system call) may not be supported.
+Looping waiting for events (or other busy-waiting) eats power;
+don't do it.  Poll and select with timeouts are your friends.  Don't gratuitously wake up at frequent intervals just to test if something has happened; design your hardware and software to be completely idle between events they have to respond to.
+Right now this is a nice summary page. But items like this deserve some more explanation along with some sample code that uses select/poll/inotify/signals instead of busy-waiting.
+Keep in mind that the OLPC wireless network is peer-to-peer.
+Design applications accordingly. We can presume at least some technology like mDNS (e.g. Avahi) is available for discovery.
+Applications should be localizable.
+If you will be using Python, start by reading these 31 slides about how to use Unicode in Python:
+http://downloads.egenix.com/python/LSM2005-Developing-Unicode-aware-applications-in-Python.pdf
+Next, read the
+page on gettext
+and it's
+documentation
+. Become familiar with GTK+ and Pango features for I18N and L10N.
+You can create a fake translation with lengthy text containing non-ASCII characters. It is common to do this with Cyrillic (Russian) and Greek characters that are shaped similar to English characters. Does the text get rendered? Are any graphical elements too small? East-Asian characters may need extra height, along with some of the double-accented characters used in Eastern Europe. Right-to-left scripts like Arabic should also be considered.
+Read and comprehend Dave Jones' paper on "Why Userspace Sucks";
+a summary and pointers to the paper can be found at
+LWN
+.  Note that most of those problems are now being worked on; please do not make similar mistakes!
+What kind of applications are needed?
+have a look at
+olpc:Sample Applications
+for some ideas. Or, release an early prototype of your own app as a sample application to help others learn the ropes of developping for this innovative, i.e. non-standard laptop.

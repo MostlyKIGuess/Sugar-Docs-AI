@@ -1,0 +1,82 @@
+Title: Archive/Current Events/2008-09-30
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2008-09-30
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Community jams and meetups
+3
+Tech Talk
+4
+Sugar Labs
+Sugar Digest
+1. Trisecting angles: The French mathematician Évariste Galois published three papers in 1830 that laid the foundations of an algebraic proof of why is it not possible to trisect
+every
+angle in a compass and straightedge construction, something the Ancient Greeks knew, but could not prove. However, what is often overlooked is that the Greeks could trisect angles, using a different set set of instruments. What does this history lesson have to do with Sugar Labs? Two separate but related discussions have dominated the OLPC-Sur list this past week: the Microsoft announcement regarding a Windows XP pilot in Peru and the lack of a square root function in Turtle Art, both of which can be seen through the lens of abstract algebra—apologies in advance for overreaching with this analogy.
+Let me summarize the Turtle Art discussion first. Some teachers in Uruguay are teaching the Pythagorean Theorem and were stymied by the lack of a square root function in Turtle Art. They wanted to demonstrate that the length of the diagonal of a square is equal to the square root of the sum of the square of each side. In psuedocode, they wanted to build the following construct:
+repeat 4 (forward 100 right 90)
+right 45
+forward sqrt ((100*100) + (100*100))
+Lots of alternatives were discussed, including using Dr. Geo. My favorite comment was from Pato Acevedo, who said:
+[Modo Irónico on]
+Claro, no puedo entender como fue que Pitagoras "descubrió" su famoso Teorema si en su epoca no existian calculadoras
+[Modo Irónico Off]
+But eventually—albeit with some intervention on my part—the discussion turned towards how to modify the Turtle Art activity. I put together a tutorial (See
+Patching Turtle Art
+) with the hope that not only would I be satisfying the immediate needs of the teachers, but also, showing them that in fact they could, themselves, make the necessary changes to the program to meet their needs. I am hoping that I didn't make it too easy for them and that some of them will risk making changes—creating new instruments. The beauty of FOSS is that if the permutation group doesn't allow you to "trisect an angle", you can always modify the group. A dialog between teachers and developers has begun. The next step is for some of the teachers to become developers.
+What is the connection the XP announcement? Simply that it is a real shame that Microsoft is not using their vast resources to expand the opportunities for children by reaching to places not already being serviced by OLPC. Regardless of the merits of XP, they could have immediate and lasting impact by covering a space outside of the range of the Peruvian permutation group. Pamela Jones and Sean Daly wrote a more thorough analysis of the XP story for Groklaw (See
+Interview with Walter Bender from Sugar Labs
+).
+2. Oversight board: The Sugar Labs oversight board met on IRC this week. Highlights include a report that final agreement between Sugar Labs and the SFC has been approved; the creation of the BugSqaud; the creation of the deployment team pages; and the unveiling of a new Sugar Labs logo (
+Marketing Team/Logo
+).
+Minutes can be found in the wiki
+. The next meeting is scheduled for Friday, 3 October at 14.00 (UTC).
+There is an email thread (
+"Executive Director - some benefits and risks"
+) for discussing the pros and cons of having an executive director. Please share your thoughts with the community.
+3. Roadmap: Marco Pesente Gritti and Simon Schampijer have been documenting the discussion of our 0.84 goals in the wiki (
+here
+). They have assigned owners and peers to all groups and started to assign owners to each feature. You can find orphaned items under "Unassigned" in each section. Please give them a home.
+4. Amazability: Kenneth Ingham is preparing to release Adept1, a natural-language speech-based product under a GPLv3 license (See
+amazability.com
+). He is looking for help; please contact him at ken AT amazability.com.
+5. Minutes: Given the sudden plethora of Sugar meetings, I added a new category in the wiki for meeting minutes. Going to
+Category:Meeting minutes
+is a one-stop page for finding all the meeting minutes in the wiki. (Going forward, please add the tag [[Category:Meeting minutes]] when posting minutes to the wiki.)
+Community jams and meetups
+6. Workshop of Telematics: Luis Michelena from the faculty of engineering at the Universidad de la República, Uruguay, will be using Sugar as a central theme for the projects to be carried out by students. Project suggestions most welcome.
+Tech Talk
+7. Sugar control panel: As a last-minute patch for 0.82, Simon Schampijer added a scrolled window to the Sugar control panel main view; Kim Quirk had pointed out that in some languages, not all of the icons fit on the fixed-sized panel. Thanks to Andrés Ambrois for his patch. The Sugar team has settled on a long-term solution using hippo for this issue. In the upcoming week, Simon plans to work on the first items in his 0.84 list (mainly control panel) and he will keep on working on the roadmap.
+8. Developers meeting: The next Sugar developers meeting is scheduled for Thursday, 25 September at 14.00 (UTC). At this meeting, we want to form the Sugar Labs Bugsquad, a quality assurance (QA) team for Sugar. The squad will keep track of current bugs and try to make sure that major bugs do not go unnoticed by developers. You do not need any programming knowledge to be in the Bugsquad; in fact it is a great way to return something to the Sugar community if you cannot program. The Sugar Labs bugsquad is modeled on the
+GNOME bugsquad
+.
+9. Design meeting: Eben Eliason reports that the first design meeting was a bit more technical than anticipated, but we did make some progress on a visual clipboard API and icon reviews
+Minutes can be found in the wiki
+.
+10. API documentation: David Farning has been leading an effort to document the Sugar API. With help from Pauli Virtanen, Janet Swisher, and Marco Pesenti Gritti, we now have a wiki-based tool (See
+[1]
+). Follow the instructions at
+getting started
+. Don't worry about being perfect, someone will come along and clean up the docstrings before they are committed back to the git tree. (The patches are flowing into the git tree correctly, but if you find bugs, please let us know: this is the first time pydocweb has been used "in the wild.")
+11. Activity updates: There are updates available for:
+playgo-4
+etoys-93
+turtleart-11
+tuxpaint-2
+videochat-7
+moon-5
+write-59
+calculate-24
+and some Sugar improvements in the latest joyride:
+sugar-artwork 0.81.2
+sugar-toolkit 0.82.10
+sugar 0.82.8
+along with updates to some other platform components:
+telepathy-salut 0.3.5
+etoys-3.0.2153
+Sugar Labs
+12. Self-organizing map (SOM): Gary Martin has generated another SOM from the past week of discussion on the IAEP mailing list (Please see
+Image:2008-September-13-19-som.jpg
+). Deployment feedback was a major topic of discussion this week.

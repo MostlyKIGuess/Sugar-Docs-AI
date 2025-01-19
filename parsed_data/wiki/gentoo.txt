@@ -1,0 +1,79 @@
+Title: Gentoo
+URL: https://wiki.sugarlabs.org/go/Community/Distributions/Gentoo
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Gentoo overlay is not supported any more,
+sweet build
+, a successor, should be used instead
+Contents
+1
+Installation
+2
+Releases
+3
+Runtime environment
+4
+Bugs
+5
+Contacts
+6
+Resources
+Installation
+At first, setup overlay in layman
+layman --add sugar
+To install core sugar components (services, window manager, etc.)
+emerge glucose
+To install core activities
+emerge fructose
+To install
+Sugar Platform
+NOTE
+In most cases you don't need entirely sugar platform since it's hard to image that Gentoo will be used for regular sugar using, only developing sugar software thus you need only glucose and some parts of fructose like web-activity or terminal-activity.
+emerge sugar-platform
+Releases
+Overlay was built and run on x86 and amd64(x86_64) platforms.
+Stable release
+To install last stable release use ACCEPT_KEYWORDS
+x86
+or
+amd64
+Development release
+To install last release in development cycle use ACCEPT_KEYWORDS
+~x86
+or
+~amd64
+Git release
+Fetch sources from git repositories. All packages have 9999 version numbers.
+These packages have
+source
+USE flag to install links to .py sources, so you can keep git repositories in your sources directory and all .py files from /usr will be linked to your sources directory. To use this feature you need
+setup SUGAR_SRC_ROOT environment variable
+`git clone` all packages to $SUGAR_SRC_ROOT, names of subdirectories in $SUGAR_SRC_ROOT should be equal to proper package name
+unmask '9999' packages(you can find full list in
+profiles/package.mask
+in overlay directory)
+NOTE
+sugar-overlay uses unstable versions for some packages thus if use stable profile, change your package.keywords
+cat <where_your_overlay_is>/profiles/<release>/package.keywords >> /etc/portage/package.keywords
+Runtime environment
+To use telepathy-salut connection, start avahi
+/etc/init.d/avahi-daemon start
+To use jabber connection, configure jabber server in accordance with these
+instructions
+.
+Bugs
+Post overlay related bugs to
+http://dev.sugarlabs.org/
+component
+gentoo-overlay
+Contacts
+Aleksey Lim
+be involved and add yourself here
+Resources
+Browse overlay
+Tool to generate Sugar packages

@@ -1,0 +1,110 @@
+Title: Features/Onscreen Keyboard
+URL: https://wiki.sugarlabs.org/go/Features/Onscreen_Keyboard
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Software
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+An on-screen keyboard for Sugar, targeted primarily at tablet like devices (which have no physical keyboards).
+Owner
+This should link to your home wiki page so we know who you are
+Name:
+Sayamindu
+Email: sayamindu@sugarlabs.org
+Current status
+Targeted release: N/A
+Last updated: 06/29/2010
+Percentage of completion: 5%
+Detailed Description
+With OLPC announcing the XO-3 tablet, and with hardware like the
+JooJoo tablet
+, Sugar should become better suited for touch-based, physical keyboard-less devices. The on-screen keyboard feature aims to provide one such functionality.
+On-screen keyboards are also important for certain accessibility related contexts, but use cases like that are better handled by specialized software like
+Features/Accessibility virtual keyboard
+.
+Software
+While a number of FOSS on-screen keyboard software exists, the initial experiments are being carried out with
+fvkbd
+(Free Virtual KeyBoarD). The advantages of fvkbd include:
+Minimal external dependency outside the Sugar platform (only libfakekey is required as an extra)
+Actively maintained
+Internationalization friendly
+Has a library providing most of functionality which can be used later via Python bindings/introspection to achieve tighter integration with Sugar
+Benefit to Sugar
+A virtual/on-screen keyboard is probably the first component people think about when it comes to Sugar on a tablet device like the XO-3. It can be seen as a stepping stone for making Sugar more tablet-friendly and is essential for easily debugging and developing Sugar on a tablet machine.
+Scope
+Work needed for fvkbd
+While the fvkbd binary is good enough for initial prototyping, for tighter integration in the future, it may be useful to utilize the libfvkbd library and implement the keyboard as a part of the sugar-shell itself.
+The current version of fvkbd handles all non-primary layouts as "temporary" layouts, which mean that once a key is clicked, the keyboard state goes back to the primary layout. This makes it unusable for multiple keyboard layouts. I have
+proposed a patch
+. The maintainer suggests an alternate way to do this, and I think his idea makes sense (though there is no patch for it yet).
+The number of layouts for fvkbd is quite low, and it is not possible to do a 1:1 transition from XKB to fvkbd layouts. I have made an
+experimental Spanish layout
+, along with a
+dual layout
+with English and Bengali (it requires a patched fvkbd, and the patch can be obtained from the
+bug
+mentioned above).
+Work needed in Sugar
+It is still not clear on how to best integrate the keyboard into Sugar. The most easy and obvious approach is using a
+device icon
+in the frame, but it would be useful to have the keyboard pop-out automatically when an editable widget has focus. See the discussion on GTK+ modules below.
+One major drawback of an on-screen keyboard is that in its current design, it blocks out a part of the Sugar UI. There's no immediate answer on how to handle this problem.
+Starting up the keyboard process is currently done in the prototypes using
+sugar-session
+. However, it may be useful to have this capability as a Sugar service, so that the keyboard can be invoked by activities as and when required.
+Work needed elsewhere
+GTK+ module to handle focus-in/out events
+A GTK+ module which would automatically invoke/close the keyboard when the user focuses into/out of an editable widget would probably be a good addition.However, while standard GTK+ widgets such as GtkTextView, etc can be easily identified as being editable, widgets such as those used by Write (Abiword) and Browse would be difficult to detect. Moreover, for activities like Etoys and Scratch, which do not use GTK+ at all, one would need to use some other approach.
+Code for a proof of concept GTK+ module which tries to detect focus-in events on common editable widgets can be
+downloaded
+. Usage and compilation instructions are in the comments.
+UI Design
+Following is a screenshot of fvkbd in Sugar, using an experimental Spanish layout:
+A screencast is also
+available
+.
+How To Test
+Features/Onscreen Keyboard/Testing
+User Experience
+TODO
+Dependencies
+FVKBD is the only external dependency at the moment. It needs to support multi-lingual situations correctly.
+Other dependencies may include a GTK+ module, a device icon extension to invoke the keyboard, etc.
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+None
+Release Notes
+TODO
+Comments and Discussion
+See
+discussion tab for this feature

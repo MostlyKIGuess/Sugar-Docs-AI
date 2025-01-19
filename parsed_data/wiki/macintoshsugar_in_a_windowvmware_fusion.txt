@@ -1,0 +1,81 @@
+Title: Macintosh/Sugar in a window/VMware Fusion
+URL: https://wiki.sugarlabs.org/go/Macintosh/Sugar_in_a_window/VMware_Fusion
+--------------------------------------------------------------------------------
+This article is a
+stub
+. You can help Sugar Labs by
+expanding it
+.
+Macintosh
+Details on how to boot SoaS v3 Mirabelle and SoaS v4 Mango Lassi on an Intel Mac
+Mac support of a sort
+Hi everyone,
+Even with XOs readily available now there are quite a lot of reasons
+why one would want to emulate it on another machine. One being to hook
+up a projector. Unfortunately there are quite a number of hoops (*)
+one has to jump through to make it work.
+Anyway, I made a virtual machine that allows me to emulate the XO on
+my Mac, running Sugar in the XO's native 1200x900 resolution, scaled
+down to a nice physical size in a window an my regular screen
+(fullscreen works too). Sound works (even Tam Tam), Browse works (so
+networking is good, although I don't see anyone in the neighborhood).
+Camera and mic are not working (Measure crashes, Record shows blank
+picture), and a "Sugar restart" does not actually restart Sugar, but
+apart from that it seems fully functional, and much nicer than the
+emulations I had used to date.
+These are live-sized screenshots (calibrated using the Ruler activity):
+And here you can get that virtual machine (665 MB, 2 GB unzipped):
+http://dev.laptop.org/~bert/VMWare-Fusion-8.2-767-bf.zip
+This is for VMware Fusion on the Mac, which I found to be much better
+at running Linux clients than Parallels (I had been using that for 2
+years). Give it a try, it's free as in beer for 30 days. No I don't
+get paid if you buy it.
+If you extract the disk image from the zip file it might work in
+VMware on Windows. Maybe someone can make an appliance from that.
+(*)
+Now to the hoops:
+I started with the 767/ext3 image from
+http://download.laptop.org/xo-1/os/official/
+extended to 2 GB by appending /dev/zero
+(jffs2 compression gives roughly 2 GB too)
+enlarged the partition to full 2 GB
+(using fdisk and ext2resize)
+mounted that in a Fedora 10 virtual machine
+copied over the F10 kernel, initrd, and modules
+(olpc kernel wanted AMD instructions)
+edited grub.conf to use that kernel
+and appended a root=/dev/sda1 kernel arg
+(the fedora kernel wants to use LVM otherwise)
+unmounted
+created new virtual machine
+(that disk, 1 CPU, 256 MB RAM, NAT networking)
+booted into that new system
+installed Perl
+(for VMware tools installer)
+installed vmware tools
+(to get the X driver)
+(but none of the kernel modules, would need make/gcc/etc.)
+deleted Perl
+(to restore the default sw environment)
+copied the existing xorg-vmware.conf to xorg.conf
+(to get 1200x900 resolution w/ 200 dpi)
+booted into Sugar
+(looks really nice so scaled down)
+installed activities
+(took a long time, maybe it's my DSL)
+tested a bit
+rm -r ~olpc/.sugar
+(to remove my personal data)
+should have deleted sshd host keys, too, but didn't
+shut down
+zip
+upload
+...
+...
+...
+still no profit? ;)
+Enjoy.
+And maybe remove some of the obstacles in future releases (a disk
+image with headroom and a standard kernel would be simple to do and go
+a long way).
+- Bert -

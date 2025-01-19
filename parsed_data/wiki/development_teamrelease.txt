@@ -1,0 +1,291 @@
+Title: Development Team/Release
+URL: https://wiki.sugarlabs.org/go/Development_Team/Release#Branching
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+Goals and modules proposal
+1.1
+New modules proposal
+2
+Module release
+2.1
+Glucose (base) modules
+2.2
+Fructose (base activity) modules
+3
+Sugar release cycle
+3.1
+Roadmap Update
+3.2
+Feature freeze
+3.3
+UI Freeze
+3.4
+String cooling
+3.5
+String Freeze
+3.6
+Stabilizing
+3.7
+Hard code freeze
+3.8
+Branching
+4
+Bug triaging
+5
+Related pages
+Goals and modules proposal
+At the beginning of each release
+cycle
+, maintainers will work on a set of goals, document them and assign owners. See the upcoming stable release,
+0.114/Roadmap
+. (These goals typically involve major interventions or the addition of new components, e.g., someone develops a speech engine specially for his mother tongue and wants it in Sugar. Hence, the process described below is primarily for module maintainers. If you are a developer with a feature or bug fix, you may want to refer to the
+new feature process
+.)
+New modules proposal
+The time period available to make a proposal is indicated on the schedule. To propose a new activity send mail to the
+sugar-devel@lists.sugarlabs.org
+, providing the following information:
+(See
+Features/Feature Template
+.)
+Short description of the features.
+Screenshots or screencasts.
+Are you willing to follow the
+Schedule
+?
+Are you willing to provide regular source releases? (releases need to be done as well when there are only changes in translations)
+System components the activity depends on.
+Maintainer and members of the developer team, with links to a User page on the wiki or their homepage on the web.
+Status of internationalization.
+Code repository.
+Bug tracking system.
+Homepage.
+Criteria for approval will be:
+Supports internationalisation and localisation.
+Does not duplicate the functionalities of other activities.
+Provide functionality that the community judges as important for reaching the goals of the project.
+Maintainer responsiveness and willingness to provide regular releases.
+Module release
+For both intermediates and final releases module maintainers are responsible to announce the module release and make the sources available. Note that the release number of the module does not need to match the Sucrose release number.
+More in detail:
+Glucose
+(base) modules
+Check out the repository branch,
+Create a git tag to reference the release.  The tag should be in the vXXX form (for example v0.111).
+git tag v0.111
+Build a source tarball from the branch,
+make distcheck
+Test the source tarball carefully, using
+configure
+,
+make
+,
+make install
+, and any packaging technology you are familiar with,
+Upload the source tarball to a stable location. You need a developer account with Sugar Labs to be able to upload there. The location for glucose modules is:
+shell.sugarlabs.org:/upload/sources/sucrose/glucose/ (module_name)/
+which translates to:
+http://download.sugarlabs.org/sources/sucrose/glucose/
+(module_name)/
+Push the release tag to the project repository,
+git push --tags
+Announce by mail to sugar-devel@lists.sugarlabs.org, with [RELEASE] in the subject. The form will be decided by each maintainer but it should at least include a reference to the source code tarball and a high level, user oriented list of changes.
+When the
+sugar
+module is released, update the Activity Library default stable release; the variable
+SITE_SUGAR_STABLE
+in site/app/config/config.php then check on
+activities.sugarlabs.org
+with a browser other than Browse that an activity compatible with the release is listed.
+One week later, check that the corresponding packages have been updated, and if not contact the downstream packager.
+Fructose
+(base activity) modules
+Check out the branch of the project repository,
+Increment the version number in the activity/activity.info metadata file,
+Update any NEWS file with a list of changes, intended for a teacher or integrator,
+Make the source tarball and bundle, which for most activities is done by
+bundlebuilder
+via
+setup.py
+and will place the result in the
+dist/
+directory:
+python setup.py dist_source
+python setup.py dist_xo
+ls -l dist/
+Create a git tag to reference the release. The tag name should be in the vXXX form (for example v20).
+git tag v20
+Test it carefully, to make sure it starts inside Sugar,
+Upload the tarball to a stable location. You need a developer account with Sugar Labs to be able to upload there.
+The preferred location for fructose components is:
+shell.sugarlabs.org:/upload/sources/sucrose/fructose/ (module_name)/
+which translates to:
+http://download.sugarlabs.org/sources/sucrose/fructose/
+(module_name)/
+Push the release tag to the project repository,
+git push --tags
+Upload the bundle to activities.sugarlabs.org, with a high level, learner oriented list of changes, which will cause a release mail to be sent to sugar-devel@lists.sugarlabs.org.
+Sugar release cycle
+Sugar platform
+release
+version
+cycle
+: |
+0.82
+|
+0.84
+|
+0.86
+|
+0.88
+|
+0.90
+|
+0.92
+|
+0.94
+|
+0.96
+|
+0.98
+|
+0.100
+|
+0.102
+|
+0.104
+|
+0.106
+|
+0.108
+|
+0.110
+|
+0.112
+|
+Each release cycle will include development, beta, release candidate and final releases. The release team is responsible to coordinate with module maintainers, pull the updated modules together, perform basic QA and announce it. More in detail:
+Ensure that all the module releases are available by the scheduled date.
+Run automatic and manual QA on the releases.
+If issues arise coordinate with the relevant module maintainers to solve them.
+Announce the release on sugar-devel@lists.sugarlabs.org, including references to each source module and a global list of changes.
+Roadmap Update
+The Development Team's
+Roadmap
+is updated at the beginning of each release cycle by the release team. It may include:
+Detailed schedule of release dates and freeze points.
+List of modules and external dependencies.
+Reference to all the tickets considered for the release.
+References to the new feature proposals.
+Feature freeze
+When a Feature Freeze is scheduled, all new features have to be complete, reviewed and pushed to the repository. "Feature" should be interpreted as "Functionality" or "Ability". Bug fixes of existing features are not affected.
+This allows developers to concentrate on refining the new features instead of adding yet more functionality.
+The feature freeze affects all the modules included in the release and comprise also ABI for public libraries. Exceptions might be considered by the release team but they will be extremely rare. To request an exception send mail to
+sugar-devel@lists.sugarlabs.org
+, referencing the patches you would like to land. It will have to be granted by two
+members
+of the release team, on the base of community feedback.
+UI Freeze
+When a UI Freeze is scheduled, major UI revisions or changes must be done before this date.
+This encourages developers to focus on stability and bug-fixing rather than UI changes. At this point, documentation writers do not have to worry that their work will become outdated.
+If you really need to do an UI change you have to ask an exception from the release team and must notify the documentation team when accepted.
+String cooling
+When a string freeze is scheduled, string changes have to be announced, but no exceptions have to be requested. As soon as the change is committed in git, notify the
+localization@lists.laptop.org localization list
+about it.
+String Freeze
+When a string freeze is scheduled, after the scheduleddate every string change has to be requested and to be approved. Please send an exception to the
+localization@lists.laptop.org localization list
+and
+sugar-devel@lists.sugarlabs.org
+if you need to break the string freeze and ask for an exception. The localization team lead and two members of the release team need to approve such a break.
+Stabilizing
+When a stabilizing phase is scheduled, we request every bug fix to be tied to a ticket including a testing plan. Please add the testcase in the ticket comment field. You need to mark it with |TestCase|. This adds better readability and our script that pulls together the test cases for each release is able to find it as well. For example:
+|TestCase|
+Click on Browse, Read, Pippy icons in the homepage and make sure all of them starts correctly.
+Hard code freeze
+When a hard code freeze is in effect, each and every code change should be approved by the release team. Only critical fixes will be considered. To request approval send mail to sugar-devel@lists.sugarlabs.org, including the patch and a detailed description of the changes, the benefits and the risks. Approval will have to be granted by two
+members
+of the team.
+Branching
+After the final release of a module, a branch may be created to host further stable development. Please use a name in the form: sucrose-XXX (for example sucrose-0.84). Each module maintainer is responsible to inform the
+sugar-devel@lists.sugarlabs.org
+and
+localization@lists.laptop.org
+lists about the branch.
+A new branch is created on the Pootle server, e.g., Fructose-0.96 and Fructose-0.98. The Localization team (the coordinator of a translation team) may push translations to any or all of the corresponding branches of your project. Changes to your master branch are not necessarily intended for the release branches as well.
+You can create a remote branch like this (in your repository):
+git branch sucrose-0.98
+git push origin sucrose-0.98
+You can list the remote branches to make sure what is the next one with:
+git branch --remote
+You can as well branch off at a specific commit:
+git checkout -b [commit id] [branch name]
+e.g. git checkout -b 1641b9ae0703190df383619202ac33e60c130bb9 sugar-0.96
+And to work on it (in your repository):
+git checkout -b sucrose-0.98 origin/sucrose-0.98
+git pull
+Bug triaging
+Module maintainers should ensure that their plans for the release are clearly reflected in the bug tracking system. They are responsible to set milestones and priorities accordingly, in cooperation with the release and the QA teams.
+Each commit or set of commit should have a ticket associated. The ticket number should be always mentioned in the git log and is used to automatically build the list of module changes for the releases.
+Related pages
+Sugar platform
+release
+version
+cycle
+: |
+0.82
+|
+0.84
+|
+0.86
+|
+0.88
+|
+0.90
+|
+0.92
+|
+0.94
+|
+0.96
+|
+0.98
+|
+0.100
+|
+0.102
+|
+0.104
+|
+0.106
+|
+0.108
+|
+0.110
+|
+0.112
+|
+See also
+Category:Release Notes
+Development Team/Release/Modules
+Development Team/Release/Releases/Sucrose/0.82
+Development Team/Release/Releases/Sucrose/0.84
+Development Team/Release/Roadmap
+Development Team/Release/Roadmap/0.84
+Development Team/Release/Roadmap/0.86

@@ -1,0 +1,107 @@
+Title: VirtualBox
+URL: https://wiki.sugarlabs.org/go/VirtualBox#OS_X
+--------------------------------------------------------------------------------
+With
+VirtualBox
+®
+one can run
+Sugar
+on Microsoft Windows, Intel-based  Apple Macintosh, or GNU/Linux host computers from within a virtual machine window.
+See this
+VirtualBox overview
+. VirtualBox is a large software installation with many features and operating system options. A
+User Manual and other documentation
+is available online. Those who have not used VirtualBox before, might find it more easy to understand and install than expected.
+VirtualBox Downloads:
+https://www.virtualbox.org/wiki/Downloads
+(See
+VirtualBox/Technical
+for some collected details.)
+The following instructions are intended for those Learners interested in using VirtualBox to run Sugar.  The process is not fully mature as the technology is evolving both in the VirtualBox and operating system software.
+Online IRC support is available from
+http://www.virtualbox.org/wiki/IRC
+Various VirtualBox experiments may be found on the
+discussion page
+.
+Contents
+1
+Install VirtualBox
+1.1
+on Mac OS X
+1.2
+on Microsoft Windows
+1.3
+on GNU/Linux
+2
+Setup a Virtual Machine for Sugar on a Stick
+3
+Setup a Virtual Machine for Ubuntu Sugar
+4
+Issues
+5
+Resources
+Install VirtualBox
+on Mac OS X
+Follow the instructions on the VirtualBox
+Downloads page
+for Mac OS X.
+on Microsoft Windows
+Download from
+http://www.virtualbox.org/wiki/Downloads
+.
+on GNU/Linux
+Use the VirtualBox packages available in your GNU/Linux distribution.  For example, on Ubuntu, it is available in Ubuntu Software Centre.
+Or, use the most recent packages from VirtualBox, see
+Linux Downloads
+.
+Also, see
+Talk:VirtualBox
+page for experimental installation variations.
+Setup a Virtual Machine for Sugar on a Stick
+Notice:
+Prebuilt VirtualBox 4.1 Appliances
+are available. Just click "import" on one of the .vmdk or .ovf files.
+One may also use these instructions,
+VirtualBox/Preparing a disk image
+, to prepare one's own.
+You can watch a screencast video of the process with an earlier version of SoaS on a Mac here:
+In VirtualBox click New
+Click Next
+Enter a name "Sugar"
+Operating System: choose Linux
+Version: choose Fedora
+Click Next
+For memory leave 256 MB
+Click Next
+Virtual Hard Disk click Existing
+Click the little folder to the right of the selection box
+A new window pops up
+Click Add button in the toolbar
+Browse to the location where you extracted the .vdi disk image
+Click Open
+Click Select
+Click Next
+Click Finish
+Select Sugar on the left
+Click Start in the toolbar
+After a minute or two you should see the Sugar screen asking for you name
+Enter your name
+Click Done at the bottom of the window. You might have to scroll.
+From now on you can start VirtualBox and start the "Sugar" virtual machine
+Setup a Virtual Machine for Ubuntu Sugar
+Use Ubuntu Software Centre to install the
+virtualbox-guest-utils
+package, so that your virtual machine display can be resized to fit your computer.
+Issues
+Activating the Frame might be a little difficult. The lower 2 corners are easiest and you may want to configure edge activation in the My Settings > Frame panel.  With VirtualBox Guest Additions installed (see
+here
+), only the bottom edge and corners are available for Frame activation.
+On Mac keyboards, you might wish to change the Virtual Box default key for switching the Sugar cursor to the normal one, as the default key (control right arrow on Mac keyboards) is trapped by Sugar. (Windows and Linux keyboards use Right Ctrl.) You may do this change in File/settings of the Virtual Box menu.
+Resources
+http://www.virtualbox.org/
+OLPC:VirtualBox
+How To Install Virtualbox Guest Additions in Fedora Guest
+(Based on Fedora 8)
+install the virtualbox guest additions
+on Debian, Ubuntu, or derived distributions
+sudo apt install virtualbox-guest-utils

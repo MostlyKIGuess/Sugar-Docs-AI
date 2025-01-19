@@ -1,0 +1,147 @@
+Title: Features/Network control panel
+URL: https://wiki.sugarlabs.org/go/Features/Network_control_panel
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Scope of networking types
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+7.1
+Usability of Radio control
+7.2
+Exclude distractions
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+The wireless control panel section is reworked and reworded to respect non-wireless connections.
+The Wireless section is excluded when no wireless device is detected on the system.
+Owner
+Name:
+Frederick Grose
+Email: fgrose at sugarlabs dot org
+Current status
+Targeted release:
+0.102
+Last updated: 04 February 2014
+Percentage of completion: 100 %
+Detailed Description
+Scope of networking types
+The persistence of wireless connection configurations can lead to delays and unexpected auto-connections to networks that were once out-of-range.  A simple tool was provided to clear
+all connections
+(except the pre-defined Sugar
+Mesh
+and
+GSM
+connections.
+This simple tool is welcome, but has proved to be too sweeping in its destruction of connections.  The code currently destroys all network configurations, regardless of their type.  So this is a problem for those using wired Ethernet (see bug
+#4410
+), Bluetooth, Mobile WiMAX, VLAN, or any of the other networking device types.
+Furthermore, the 'Discard network history' button, which triggers the connection destruction, is found in the 'Wireless' section of the control panel.
+The button is relabeled to
+Discard wireless connections
+and the instructions are reworded to match. See
+UI Design
+below.
+Benefit to Sugar
+The proposed reworking of this panel and code will avert trouble in the future as Sugar is deployed on new hardware with new connection types.  This is achieved by restricting the action of the 'Discard ...' button to non-Sugar wireless connections (both '802-11-wireless' and '802-11-olpc-mesh').
+These changes advance Sugar's goal of providing a 'clear and simple' interface for learners.
+Scope
+The code changes are limited to these files:
+/usr/lib/python2.7/site-packages/jarabe/model/network.py
+/usr/share/sugar/extensions/cpsection/network/model.py
+/usr/share/sugar/extensions/cpsection/network/view.py
+NetworkManager interfaces are used for all code paths, and while OLPC 13.2.0 uses NetworkManager 0.9.8.1-3.git20130514.fc18, which does not list wireless devices when the radio is disabled, the dependency on NetworkManager advances to version 0.9.9, which does.
+To minimize the chances that a manually created connection (such as 'Sugar Ad-hoc Network 2') is falsely white-listed as one of the Sugar internal ad hoc or olpc-mesh connections, each connection is tested against a discrete white list and specific to the wireless mode or connection type.
+Some corner cases in behavior have been ignored: If a custom GSM (or other non-wireless or non-mesh) connection had been created, they would no longer be discarded by the 'Discard ...' button.  These could not be created by the  graphical Sugar interface, so their creators are most likely capable of discarding them if needed.
+The indiscriminate clear() method of the Connections() class in
+.../jarabe/model/network.py
+is dropped in favor of a connection discarding function in the wireless control panel that is specific to the networking type.
+Immediately following the 'Discard wireless connections' action, a test for discard-able connections was noticing the yet-to-be-discarded connections and keeping the action button active.  This test is eliminated.
+UI Design
+Usability of Radio control
+Usability of the 'Wireless' section of the panel has also been a problem. Here are some quotes,
+... the radio checkbox,
+this show a few bugs or fails in design in Sugar too.
+Trying right now I see:
+* The text is confusing:
+"Turn off the wireless radio to save battery life"
+[] Radio
+Checked is on or off? What means Radio? Is not clear
+—Gonzalo Odiard​,​ Thu, 14 Mar 2013 13:31:47
+While we are at it, I think a radio button is a better choice
+for radio on/off instead of the check box. I have a hard time
+remembering what happens when you check the box :-)
+—Sameer Verma, Tue, 29 Nov 2011 20:24:30
+The subject of the leading instruction for the 'Radio' control is
+Turn off
+the wireless radio
+.  This inclines the mind to think that the following, default check action is to
+Turn off
+, when the checkbox is actually represents the current state with the check mark indicating
+On
+.  A 'radio button' control seems preferable because we are trained by use to know that a marked button is in the active state. However, radio buttons are designed for multiple choice selections, and are not coded for single toggle selections.
+A custom toggle button, such as
+or
+and suitable 'off' icons could be provided for graphic enhancement (and use on a palette menu of a Frame or Neighborhood view widget).  This is left for an enhancement following Design and deployment discussions.
+Changing the subject of the leading instruction for the 'Radio' control to
+The
+wireless radio
+may be turned off to save battery life.
+should help to incline the mind toward seeing a consistency between the radio and checkbox state.
+Exclude distractions
+When the Sugar system has no wireless hardware, the 'Wireless' section of the panel is unnecessary and a distraction.  By testing for the presence of such hardware, those controls can be excluded from the panel.
+How To Test
+The new code should be tested on a variety of hardware, configured with and without wireless adapters, as well as other networking hardware.
+Copy the new code for the 3 files referenced into the test system operating system.
+Testing has been performed on the following:
+in Fedora 20 on a desktop without wireless adapter,
+on an XO-1 with only its wireless adapter.
+Testing is needed on a system with a removable wireless adapter like a USB or PCMCIA device.
+User Experience
+See above for screen shots of the new panel.  Frustrations of unintentionally destroyed connections should diminish along with distractions in the interface.
+Dependencies
+NetworkManager limitations are describe above in
+#Scope
+. If we assumed a newer version of NetworkManager, that would create a new dependency.
+Contingency Plan
+Living with the current problems.
+Documentation
+See the links below.
+Release Notes
+The Network control panel will now test for the presence of wireless hardware before displaying the Wireless and radio control section.  The 'Discard network history' button has been relabeled to 'Discard wireless connections' to better reflect its new, more limited action on wireless connections only.
+Comments and Discussion
+https://bugs.sugarlabs.org/ticket/4410
+http://www.mail-archive.com/sugar-devel@lists.sugarlabs.org/msg36121.html
+pull requests:
+https://github.com/sugarlabs/sugar/pull/241
+https://github.com/sugarlabs/sugar/pull/234
+https://github.com/sugarlabs/sugar/pull/228
+https://github.com/sugarlabs/sugar/pull/223
+https://github.com/sugarlabs/sugar/pull/222
+https://github.com/sugarlabs/sugar/pull/221
+See
+discussion tab for this feature

@@ -1,0 +1,54 @@
+Title: Talk:Development Team/FAQ
+URL: https://wiki.sugarlabs.org/go/Talk:Development_Team/FAQ#Sugar_Activity_starting
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Sugar Activity starting
+How can a user start an activity from the command line?
+How can a user start an activity from the command line without starting Sugar? Please supply a sample command.
+Why? I'm tired of digging around for the error logs. I figured I could do something like
+sugar - run pippy 2>pippyerrors.txt
+bemasc suggests
+less ~/.sugar/default/logs/org.whatever
+Note the above command will take some messing around with to get what you want.
+I have tried:
+user@ubuntu:~/sugar-jhbuild$ ./sugar-jhbuild launch pippy
+sugar-jhbuild launch: command not found
+user@ubuntu:~/sugar-jhbuild$ ./sugar-jhbuild sugar - launch pippy
+sugar-jhbuild sugar: command not found
+user@ubuntu:~/sugar-jhbuild$ ./sugar-jhbuild pippy
+sugar-jhbuild pippy: command not found
+user@ubuntu:~/sugar-jhbuild$ ./sugar-jhbuild run pippy
+sugar-jhbuild run: Unable to execute the command 'pippy': [Errno 2] No such file or directory
+And the response.
+<bemasc> dgd: impossible.
+<dgd> bemasc, ?
+<dgd> not possible to run activities from jhbuild is that what you mean bemasc 
+<bemasc> dgd: sugar activities cannot run outside of sugar, and more than a java applet can run outside of the JVM, or a flash applet can run outside of a flash interpreter.
+<bemasc> s/and/any/
+<dgd> ok, so running just the activity in sugar?
+<dgd> just one activity, none of the home stuff etc.
+<bemasc> also not possible
+<dgd> I thought for sure I read in the docs that you can run just an activity...
+<bemasc> by "not possible" I mean "requires you to modify the code for the Sugar shell".
+< bemasc> You can probably cause Sugar to launch and immediately start an activity.  You might be able to do  this using a .xsession script.
+<bemasc> However, users will still be able to bring up the frame and switch to the home view, etc.
+Where are the activities stored?
+Some users will find them here:
+/usr/share/sugar/activities/
+Jhbuild users will find the activities here:
+./install/share/sugar/activities/Calculate.activity/activity
+./source/terminal/activity

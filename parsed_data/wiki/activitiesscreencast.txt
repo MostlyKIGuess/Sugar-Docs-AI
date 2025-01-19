@@ -1,0 +1,65 @@
+Title: Activities/Screencast
+URL: https://wiki.sugarlabs.org/go/Activities/Screencast
+--------------------------------------------------------------------------------
+Contents
+1
+Background
+2
+Where to get it
+3
+Status
+3.1
+Comments
+4
+Screenshots
+5
+Running from the command line
+6
+Questions
+Background
+Screencast is a video screen capture utility. It is based on
+Recordmydesktop
+by John Varouhakis. It captures the screen to a video file which is in Ogg-Theora-Vorbis file format.
+Where to get it
+It can be downloaded from:
+http://activities.sugarlabs.org/addon/4447
+Code:
+http://git.sugarlabs.org/screencast
+Status
+It is on it's first version on the sugar library. 
+Testing and bugs welcomed.
+Comments
+It is thought to be buggy but the following patch has allowed video to be saved to the Journal. Open Terminal and change to directory /home/olpc/Activities/Screencast.activity and replace the file pippy_app.py with
+this file
+(renamed to pippy_app.py)
+(it would be a good idea to backup the existing file first, eg mv pippy_app.py pippy_app.bak)
+(help on replacing the file
+Activity_Team/Modifing_an_Activity#Editing
+)
+--
+RafaelOrtiz
+17:57, 9 June 2011 (EDT)This patch is already applied on git and on v1 on ALSO.
+Screenshots
+The Screencast application
+The Journal listing three saved videos
+Running from the command line
+Just download as above, you dont need to patch it. Open Terminal and change to directory /home/olpc/Activities/Screencast.activity and start the recordmydesktop program from the command line.
+cd Activities/Screencast.activity
+  ./recordmydesktop
+press ctrl c to terminate recording, wait for processing to complete and then copy the video to the journal
+copy-to-journal out.ogv -m video/ogg
+The video is now saved in the journal and can be played by clicking on it.
+The
+manual
+is helpful reading.
+(The meaning of the -m flag is to set the Mime type
+1
+2
+3
+to video/ogg )
+Questions
+Q:
+:Any chance that we can get a screencast of this arcane process? I feel like there a lot of steps taken for granted here.
+A:
+:yes,
+http://www.youtube.com/watch?v=AFWOXgDBUjk

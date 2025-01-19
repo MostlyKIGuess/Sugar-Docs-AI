@@ -1,0 +1,87 @@
+Title: Sugar on a Stick/deja-dup
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/deja-dup
+--------------------------------------------------------------------------------
+Contents
+1
+Deja-dup Backup Mirabelle
+1.1
+Installation
+1.2
+How back up your Soas Mirabelle installation
+1.2.1
+Initial Configuration
+1.2.2
+Backup
+1.2.3
+Restore to a new replacement SoaS live USB device
+1.3
+Notes
+1.4
+References
+2
+How to sugarize deja-dup
+Deja-dup Backup Mirabelle
+soas-v2- Blueberry follow this link
+[1]
+Déjà Dup provides a nice graphical interface for backing up your SoaS live USB/SD installation
+Déjà Dup
+is a simple backup tool. It hides the complexity of doing backups the
+'right way' (encrypted, off-site, and regular) and uses
+Duplicity
+as the backend.
+Features:
+Support for local or remote backup locations, including Amazon S3
+Securely encrypts and compresses your data
+Incrementally backs up, letting you restore from any particular backup
+Schedules regular backups
+Integrates well into your GNOME desktop
+Installation
+From a computer booted from SoaS Mirabelle,
+In the Terminal Activity, first switch users to the root user,Then install the software,
+su
+yum install duplicity deja-dup
+12 Pkgs 6.5M
+How back up your Soas Mirabelle installation
+Insert a 2nd USB storage device (formatted fat32)
+In the Terminal Activity
+deja-dup
+Graphical application starts
+Initial Configuration
+edit/Preferences (on top bar of window)
+Backup location: other / places /<your 2nd USB device> <open> (scroll up to find your device)
+Include files in folders ( Home folder is selected)
+Close
+Backup
+in the Terminal (as the default liveuser account)
+deja-dup
+Graphical application starts
+Backup
+Restore to a new replacement SoaS live USB device
+Insert 2nd USB device with backup done previously
+In the Terminal Activity
+su
+yum install duplicity deja-dup
+Repeat initial configuration (listed above)
+In Terminal
+deja-dup
+Graphical application starts
+Restore
+Notes
+Does Not back up the Sugar Journal
+use these applications to Backup/Restore the journal:
+Backup 4 (Activity)
+http://activities.sugarlabs.org/en-US/sugar/addon/4326
+Restore 3 (Activity)
+http://activities.sugarlabs.org/en-US/sugar/addon/4327
+Use the same soas.iso to make a replacement USB device for Restoration.
+Can be sugarized
+Talk:Sugar_on_a_Stick/Installation/Variations#How_To_Sugarize_liveusb-creator
+so it will appear as an installed application in the Home view of Mirabelle.
+Sugar Clone,
+Sugar on a Stick/Sugar Clone
+, will duplicate a live SoaS installation.
+References
+http://launchpad.net/deja-dup
+How to sugarize deja-dup
+Link
+[2]

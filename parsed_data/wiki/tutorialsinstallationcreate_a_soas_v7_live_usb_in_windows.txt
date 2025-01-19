@@ -1,0 +1,79 @@
+Title: Tutorials/Installation/Create a SoaS v7 Live USB in Windows
+URL: https://wiki.sugarlabs.org/go/Tutorials/Installation/Create_a_SoaS_F17_LiveUSB_in_Windows
+--------------------------------------------------------------------------------
+Create a SoaS v7 Live USB in Microsoft Windows
+This guide shows how to use Live USB Creator to create Sugar on a Stick (SoaS) with persistent storage on a USB flash disk drive in Microsoft Windows.
+Contents
+1
+Getting Started
+1.1
+Installing Fedora Live USB Creator
+1.2
+Running SoaS (Live USB) on your computer
+1.3
+Click for more tutorials.
+2
+Credits
+Getting Started
+Live USB Creator for Windows (
+here
+)
+Sugar Live CD/USB .iso files (
+here
+)
+Please prepare a hard drive (
+Backup any important data!
+) for SoaS, the
+liveinst
+will probably format the entire hard drive.
+USB flash drive (2 GB or more free; backup any important data)
+Installing Fedora Live USB Creator
+Open "​liveusb-creator-3.11.7-setup.exe", it should open to a new window.
+The installation size (not the .iso file) only needs 28 MB, if the "Space Available:" is less than 600 MB and you haven't downloaded one of the .iso files, please consider freeing some space on your hard drive. Then click the "Install" button.
+After the installer tries to create a shortcut, a new window should pop up. Click the "Yes" button.
+By now, the following window should pop up. Click the "Browse" button to look for the .iso file you've recently downloaded.
+Since the version I downloaded was i686, I'm going to select "Fedora-17-i686-Live-SoaS.iso" and click the "Open" button.
+Make sure you selected the right .iso file, the window should now say "*filename* selected".
+Click on your "Target Device" to check whether you've selected the corresponding Drive Letter ("F:") or name ("NEW VOLUME") for the USB flash drive and make sure you've made a
+copy of any important files that maybe on that USB flash drive
+. Then click the "Create Live USB" button.
+If your "Persistent Storage" slider can't be moved. Check if your USB flash drive has more than 1.8 GB or it will fail.
+When your Live USB is ready, the window should say:
+Fedora-17-i686-Live-SoaS.iso selected
+Verifying filesystem...
+Extracting live image to USB device...
+Wrote to device at X MB/sec<br>
+Setting up OLPC boot file...
+Installing bootloader
+Complete!
+If it gives errors, please read below for further instructions [1].
+Congratulations, you've got a Live USB with SoaS!
+Running SoaS (Live USB) on your computer
+Make sure that you've turned off your computer (any hard drive that needs to be swapped should be swapped), you have to boot into the USB drive through the boot menu (you should see an option when you turn the computer on).
+You should now see the following boot screen.
+When you hit the "Enter" key on your keyboard or it started automatically, you should briefly see this on your screen.
+Please note the difference between Live CD and Live USB is the ISOLINUX and SYSLINUX. You should see SYSLINUX.
+After the loading bar reaches the end, you should see this screen below, type your username into the box and click "Next".
+Select your color (optional) and click "Done".
+If you see the following, then you've successfully entered Sugar with a Live USB.
+Congratulations, you now have to install the Operating System to the disk. You can do that by following the tutorial found
+here
+.
+[1] - If your can't create a working Live USB, hold
+CTRL+ALT+DEL
+to go to Task Manager. Go to File >> New Task, copy and paste
+64-bit
+"C:\Program Files (x86)\LiveUSB Creator\liveusb-creator.exe" --reset-mbr
+32-bit
+"C:\Program Files \LiveUSB Creator\liveusb-creator.exe"--reset-mbr
+Make sure you USB flash drive is connected, click the "OK" button and the the Live USB window should pop up.
+[*] The USB flash drive needs to have its Master Boot Record (MBR) reset and its boot flag enabled.
+Congratulations, if you wish, you may now perform a traditional installation of the Operating System to a disk. You can do that by following the tutorial found
+here
+.
+Click for more tutorials
+.
+Credits
+A Google Code-in 2012 Task
+GoogleCodeIn2012/VM
+User:Michael_Jin

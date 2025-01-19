@@ -1,0 +1,13 @@
+Title: Development Team/Activities/Compatibility
+URL: https://wiki.sugarlabs.org/go/Development_Team/Activities/Compatibility
+--------------------------------------------------------------------------------
+As an example, instead of:
+if sugar.version >= 0.82:
+    keyHash = util.sha_data(key)
+else:
+    keyHash = util._sha_data(key)
+you would code:
+if hasattr(util, 'sha_data'):
+    keyHash = util.sha_data(key)
+else:
+    keyHash = util._sha_data(key)

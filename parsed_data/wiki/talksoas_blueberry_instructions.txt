@@ -1,0 +1,95 @@
+Title: Talk:SoaS Blueberry Instructions
+URL: https://wiki.sugarlabs.org/go/Talk:SoaS_Blueberry_Instructions#Using_boot_helper_disk_with_blueberry_usb_on_intel_mac
+--------------------------------------------------------------------------------
+Contents
+1
+Persistent home directory
+2
+Sample install to USB/SD stick
+3
+Prebuilt Virtualization .vmdk & .vmx files for Virtualbox and VMPlayer
+3.1
+VirtualBox
+3.2
+VMPlayer
+4
+Older versions of SOAS:
+4.1
+Using boot helper disk with blueberry usb on Intel Mac
+4.2
+More Linux Information
+Persistent home directory
+See
+LiveOS image
+for a discussion of storage options with the LiveOS images.
+A bug somewhere in Fedora 12/Soas Blueberry prevents booting with a persistent home directory. You need to leave out the options for a separate persistent home in SoaS Blueberry installations.
+download the script:
+[1]
+Use this script in Terminal for soas-v2-Blueberry.iso: (/dev/sd(x)1 is your USB device) use partition manager to determine what it is.
+sudo ./livecd-iso-to-disk.sh --overlay-size-mb 400  soas-2-blueberry.iso /dev/sd(x)1
+Sample install to USB/SD stick
+# ./livecd-iso-to-disk.sh --overlay-size-mb 400 --delete-home ./soas-2-blueberry.iso /dev/sd(x)1
+Verifying image...
+./livecd-iso-to-disk.sh: line 385: checkisomd5: command not found
+Are you SURE you want to continue?
+Press Enter to continue or ctrl-c to abort
+Copying live image to USB stick
+Updating boot config file
+Initializing persistent overlay file
+400+0 records in
+400+0 records out
+419430400 bytes (419 MB) copied, 48.6429 s, 8.6 MB/s
+Installing boot loader
+USB stick set up as live image!
+#
+Prebuilt Virtualization .vmdk & .vmx files for Virtualbox and VMPlayer
+VirtualBox
+Prebuilt:
+[2]
+[3]
+VirualBox Program:
+[4]
+[5]
+VMPlayer
+Prebuilt:
+[6]
+VMPlayer Program:
+[7]
+ReadMe:
+[8]
+Copy the uncompressed files to a 2 GB or larger USB/SD and run it from the KEY on any computer running VirtualBox or VMPlayer
+NOTE:
+The older version of the script, shown below, will complete successfully, but the new installation startup process will have trouble finding the home folder and fail to complete.
+Older versions of SOAS:
+Normally,the livecd-iso-to-disk installation has the advantage over the liveusb-creator installation method by allowing a persistent /home/liveuser folder with the --home-size-mb NNN option.
+This feature would allow you to update the OS image while keeping the user files (by running the script against your existing installation but leaving out the --home-size-mb NNN option).
+Run it as root, making sure to pass the correct USB device and to set overlay and home size appropriately, depending on the stick size.
+sudo ./livecd-iso-to-disk.sh --overlay-size-mb 300 --home-size-mb 160 --delete-home --unencrypted-home soas-strawberry.iso /dev/sd(x)1
+The --delete-home option is used to avoid an error message while requesting both a new home (with --home-size-mb) and a persistent home (indirectly with --unencrypted-home). You wouldn't use the --delete-home option on an upgrade of the operation system only.
+Depending on the size of your USB stick, you may have to decrease --overlay-size-mb and --home-size-mb values (for example, for a 1-GB stick, use 200 for each).
+Watch out for errors in the output of the script, the script seems to ignore them! (and say all is fine on the last line).
+(The above was copied and revised from:
+Sugar_on_a_Stick/Linux
+.)
+Using boot helper disk with blueberry usb on Intel Mac
+See
+Macintosh
+.
+Question #95622 on Sugar on a Stick changed:
+https://answers.edge.launchpad.net/soas/+question/95622
+edited for clarity (04/08/2010)
+lisfolks posted a new comment:
+So, I didn't have to make any changes to the image on the USB.  This is
+what I do to make it work:
+Restart my MacBook Pro with the Blueberry imaged USB and the Boot Helper CD in place.
+Hold the 'C' key from the time the screen becomes black on the restart until the CD's boot screen comes up.
+At the boot screen, press Tab key to enter into the boot/kernel parameters screen.
+This screen shows default values as follow:
+vmlinuz0 initrd=initrd0.img root=LABEL=FEDORA rootfstype=vfat rw liveimg overlay=LABEL=FEDORA quiet rhgb
+(note that there are actually two spaces between quiet and rhgb)
+Using the arrow keys, move the cursor to the end of 'root=LABEL=FEDORA', backspace out the 'FEDORA', and replace it with 'soas-2-blueberry' (without the quotes, of course).
+Arrow to the end of 'rootfstype=vfat', then press backspace to remove the 'vfat' portion.  Replace it with 'iso9660' (again, without the quotes).
+Arrow to the end of the command line (one space after the 'rhgb' parameter).  Add 'selinux=0' (that's a zero, and again, leave out the quotes).'
+Hit return and (hopefully) boot USB into sugar
+More Linux Information
+Sugar_on_a_Stick/Linux#Put_SoaS_onto_a_stick_using_Fedora_or_Ubuntu

@@ -1,0 +1,144 @@
+Title: Deployment Platform/Software
+URL: https://wiki.sugarlabs.org/go/Harmonic_Distribution/Software
+--------------------------------------------------------------------------------
+Deployment Platform
+version cycle: |
+1.0
+|
+1.1
+|
+2.0
+|
+Contents
+1
+Software Map
+2
+Sweets Distribution
+2.1
+Desktop
+2.2
+Server Kit
+2.3
+Doers' Kit
+2.3.1
+Glucose development
+3
+Sugar Network
+3.1
+Distribution via Sugar Network
+Software Map
+The whole software within the Harmonic Distribution is structured as:
+Base software
+Provided from
+Sweets Distribution
+in form of native packages. Base software is separated by targeted audience:
+Using oriented
+For regular usage. This kind of software exists in two dimensions:
+By purpose:
+Client side
+Desktop
+- Desktop Environment for Sugar Learning Platform.
+Server side
+Server Kit
+- to form school servers.
+By the supporting time:
+Short-term support
+(STS)
+Targeting to individual usage and based on Sucrose six months release cycle.
+Long-term support
+(LTS)
+Targeting to Sugar deployments that can't switch between Sucrose releases every six months.
+Development oriented
+Doers' Kit
+- targeting to developers who code within the Sugar Learning Platform.
+Community software
+The rest of software created on top of the Base one. In contrast to the Base, this kind of software is being provided via
+Sugar Network
+.
+Sweets Distribution
+This is a 3rd party repository with Base Software packages built against all
+supported platforms
+. These packages are being built on Sugar Labs instance of
+Open Build Service
+and formed in several projects:
+SweetsDistribution
+Contains all
+supported platforms
+as OBS repositories and system packages for upstream projects (not Base software) that are not well packages in supported platforms.
+SweetsDistribution:Factory
+OBS project with development packages that are intended for testing only.
+SweetsDistribution:<SUCROSE-RELEASE>
+Stable STS/LTS releases of Harmonic Distribution.
+After building, OBS uploads resulting packages to
+download.sugarlabs.org
+site. Follow
+Sweets Distribution
+instructions to setup them for individual usage.
+Desktop
+Components:
+Stable Sucrose
+releases
+patched
+to include Harmonic Distribution specific features.
+sugar-stats
+library to gather Sugar
+usage statistics
+.
+Sources:
+Desktop
+project.
+Server Kit
+Components:
+sugar-server
+sugar-client
+mace
+sugar-server-templates
+prosody-sugar
+sugar-unit
+Sources:
+Server
+project.
+For detailed information, see
+Server Kit
+'s home page.
+Doers' Kit
+Sugar Doers Kit (SDK) is a set of tools and libraries to help people code in Sugar.
+Components:
+Sweets
+, Zero Install based Package Management System for Sugar.
+sugar-lint
+, utility to lint various source files.
+gatch
+, support long or ever standing, all time being on top, downstream patchset for the base branch in a Git repository.
+Sugar via Sweets
+, several Sucrose versions via Sweets.
+Sources:
+SDK
+project.
+Glucose development
+Sugar Network
+Components:
+sugar-network
+.
+Web UI
+.
+Contributor Hub
+.
+Sources:
+Network
+project.
+Distribution via Sugar Network
+The high-level overview is looks like:
+software creators
+upload source bundles to the
+Sugar Network
+; only sources, even if it is binary based activities;
+Sugar Network
+if uploaded software needs building, it will send it to OBS;
+on users side
+Sweets library will:
+read
+Sugar Network
+to find out information about implementations of software that user requested to launch;
+according to the local environment, it will download proper implementation;
+if there is no proper binary implementation, it will download sources and will build them in local environment.

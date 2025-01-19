@@ -1,0 +1,125 @@
+Title: Sweets Distribution/Recipe Specification
+URL: https://wiki.sugarlabs.org/go/Sweets_Distribution/Recipe_Specification
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+1.1
+[Package]
+2
+Predefined constants
+3
+Example
+Summary
+The document describes package specification files format which is a superset on top of the
+Sugar Network
+recipe specification
+. This is an attempt to implement a kind of
+meta-packaging
+spec file for Sugar Labs
+instance
+of the
+Open Build Service
+. The important note regarding this section is that such
+meta-packaging
+is very limited by design (in comparison with regular GNU/Linux distribution spec files) and is not assumed to go far from the standard
+./configure && make && make install
+. The main purpose is making possible to build binaries on all
+supported
+GNU/Linux distributions from the same [simple] spec file.
+[Package]
+All packaging related configuration happens in this section.
+source
+=
+FILENAME
+Required. The filename with sources bundle.
+conflicts
+=
+PACKAGE
+[; ...]
+Optional. The list of package names, i.e., names from a particular GNU/Linux distribution, that conflict with the recipe and cannot be installed at the same time.
+install
+=
+SHELL_COMMAND
+Optional. The command that will be executed after installing the binary package composed from this recipe.
+uninstall
+=
+SHELL_COMMAND
+Optional. The command that will be executed after uninstalling the binary package composed from this recipe.
+Predefined constants
+In addition to the already
+existing
+predefined constants, there are several new defines that make sense only for packages:
+EXEC_PREFIX
+;
+BINDIR
+;
+SBINDIR
+;
+SYSCONFDIR
+;
+DATADIR
+;
+INCLUDEDIR
+;
+LIBDIR
+;
+LIBEXECDIR
+;
+LOCALSTATEDIR
+;
+MANDIR
+;
+INFODIR
+;
+PYTHONSITEDIR
+, equal to Python's
+PYTHONPATH
+environment variable;
+LUACPATHDIR
+, equal to Lua's
+LUA_CPATH
+environment variable;
+LUAPATHDIR
+, equal to Lua's
+LUA_PATH
+environment variable;
+LUAINCDIR
+, path to a directory with Lua's C header file;
+Example
+[DEFAULT]
+depends   = gtk; pygtk; pyxpcom < 2
+
+[Package]
+project   = SweetsDistribution:0.94:SugarNetwork
+name      = hulahop
+context   = %(name)s
+summary   = A pygtk widget for embedding mozilla
+homepage  =
+http://sugarlabs.org/
+license   = LGPLv2+
+
+version   = 0.8.2
+stability = stable
+
+requires  = %(depends)s
+replaces  = sweets-hulahop
+
+[Archive]
+arch      = any
+
+[Build]
+requires  = %(depends)s; pkg-config; intltool >= 0.33
+            libtool; make; gcc-c++
+pyxpcom   = /opt/sweets/pyxpcom
+configure = ./configure
+                --prefix=%(PREFIX)s
+                am_cv_python_pythondir=%(PREFIX)s/python
+                am_cv_python_pyexecdir=%(PREFIX)s/python
+                CXXFLAGS="%(CFLAGS)s -I%(pyxpcom)s/include"
+                LDFLAGS="-L%(pyxpcom)s/lib -Wl,-rpath,%(pyxpcom)s/lib"
+make      = make
+install   = make DESTDIR=%(DESTDIR)s install
+
+[Source]
+exec      = make dist-gzip

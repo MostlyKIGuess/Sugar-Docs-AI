@@ -1,0 +1,106 @@
+Title: Features/TableView Widget
+URL: https://wiki.sugarlabs.org/go/Features/TableView_Widget
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+SmoothTable class
+4.2
+TableView class
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+8.1
+Simple example for SmootTable widget
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+GTK widget to replace gtk.TreeView in Journal.
+Owner
+Name:
+Aleksey Lim
+Email:
+send an email
+Current status
+Targeted release: 0.88
+Last updated: Mon Jan 11 21:15:02 UTC 2010
+Percentage of completion: 90%
+Detailed Description
+Feature introduced two new classes - SmoothTable and TableView.
+SmoothTable class
+Model less implementation. The real widget consists of
+visible-columns
+* (
+visible-rows
++ 2) identical widgets (constructor is passed to SmoothTable during creation) and while scrolling (by pixel); SmoothTable shifts these widgets.
+TableView class
+Just adds gtk.TreeModel support.
+Benefit to Sugar
+Standard gtk components are not designed to be lazy. Third party widgets, I managed to find, uses scheme with renders (like gtk components), introduced component uses widgets instead (could have performance penalties, I guess, in common case but we don't have many rows in Journal view, so should be ok for us).
+Benefits we have for such scheme:
+coding cells is more useful by using widgets than renders, we can reuse our existing custom widgets instead of coding sugarized cell renders
+in some cases it's hard to sugarize cells theme (we still have ugly progress bar for Journal entries), with new widget, we use just gtk.ProgressBar
+Scope
+new widget for
+sugar-toolkit
+UI Design
+Nothing.
+How To Test
+Simple example for SmootTable widget
+import gtk
+
+from sugar.graphics.smoothtable import SmoothTable
+
+window = gtk.Window()
+
+scrolled = gtk.ScrolledWindow()
+scrolled.set_policy(gtk.POLICY_ALWAYS, gtk.POLICY_ALWAYS)
+window.add(scrolled)
+
+class Cell(gtk.Button):
+   def do_fill_in(self, table, row, column):
+       self.props.label = '%s:%s' % (row, column)
+
+table = SmoothTable(Cell, 3, 3)
+table.row_count = 100
+scrolled.add(table)
+
+window.show_all()
+gtk.main()
+User Experience
+Nothing will be changed in case of user experience.
+Dependencies
+regular glucose dependencies
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+Is there upstream documentation on this feature, or notes you have written yourself?  Has this topic been discussed in the mailing list or during a meeting? Link to that material here so other interested developers can get involved.
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+See
+discussion tab for this feature

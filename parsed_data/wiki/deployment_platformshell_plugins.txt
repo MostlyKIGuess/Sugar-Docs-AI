@@ -1,0 +1,61 @@
+Title: Deployment Platform/Shell Plugins
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/Shell_Plugins
+--------------------------------------------------------------------------------
+Summary
+Plugins are pluggable Sugar Shell code. By design, plugins are not isolated from the rest of shell code and each other, thus, they are assumed to be setup by Sugar distributors or experienced users.
+Plugins are Python modules placed in one of the following (sorted by search order) directories. Only the first directory will be used in order to prevent unwanted code collisions between different installation level plugins.
+~/.sugar/
+PROFILE
+/plugins/
+PLUGIN_NAME
+, user-wide plugins.
+SHELL_INSTALL_PATH
+/jarabe/plugins/
+PLUGIN_NAME
+, system-wide plugins;
+To be detected as a plugin source, a directory should conform to the following policies:
+The directory should be a regular Python module;
+the
+__init__.py
+file from plugin directory should contain
+these required declarations
+.
+Use
+sugar-example-plugin
+sources as a template for new plugins.
+After installing, plugins should be enabled from the
+Plugins
+Control Panel in the Sugar Shell, or, if this section is
+disabled
+, add the plugin name to the
+plugins
+setting in the
+[shell]
+configuration section. If the plugin has a configuration UI, it will appear in the same
+Plugins
+section.
+Existing plugins
+telepathy
+from
+sugar-plugin-telepathy
+package
+Alternative implementation of Neighborhood collaboration in Sugar Shell, which is assumed to make Telepathy related code more robust.
+sn
+from
+sugar-plugin-sn
+package
+Plugin adds
+Sugar Network
+integration to the Sugar Shell.
+proxy
+from the
+sugar-plugin-proxy
+package
+Internet proxy configuration.
+stats
+from the
+sugar-plugin-stats
+package
+Plugin collects
+usage statistics
+and uploads them to a Sugar Network node.

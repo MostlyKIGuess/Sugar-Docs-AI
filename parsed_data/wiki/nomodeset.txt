@@ -1,0 +1,41 @@
+Title: Nomodeset
+URL: https://wiki.sugarlabs.org/go/Nomodeset
+--------------------------------------------------------------------------------
+So what is nomodeset, why do we need nomodeset on some computers and not others?
+I don't know precisely what is causing the problem in this case, but
+can give my general understanding of the class of problems.
+It comes down to different computers having different graphics cards
+(or the equivalent built onto the motherboard or into a laptop).  They
+all can draw pretty pictures.  However, except for really basic (read
+as slow) drawing, how the software needs to talk to the card is
+different for every card.  In the Windows
+world, this means you need different graphics drivers for different
+cards.  The issue here is that
+some new software/drivers for Linux which do something called "kernel
+mode setting" for graphics cards haven't been sufficiently
+tested/developed for the particular cards with which you are having
+problems.  Specifying 'nomodeset' when the system boots basically
+tells the system to use an older set of software/drivers which does
+work (but may be slower or have some other issues that people would
+like to eliminate).
+You might ask why not just make 'nomodeset' the default.  Well the old
+software has problems/is slower.  Worse yet, it may not even work on
+some newer cards.   In this case the decision was made by the people
+actually writing this part of the software we are using to make the
+new method the default and allow an option to select the old one (and
+request bug reports).   If we were booting from a hard drive, it would
+be easy to go in and make a trivial change on the machines with the
+problem and never have to worry about it again.  Unfortunately, CDs
+are harder to modify.
+If the machine has a floppy disk, the same small change can be made to
+my floppy boot helper as well for machines that require/can use it.
+If you are willing to have users select from a menu rather then boot
+without any input, both the CD and floppy helper can give the user the
+option of which mode to select.  It should be possible to modify a USB
+stick to have a menu as well.
+Actually, I believe there actually is a menu hidden in all of the
+current environments.  If you hit a key (it may have to be escape)
+fast enough, you can actually get a menu and you can manually add the
+nomodeset option yourself every time you use that machine.  It's
+probably easier to show you how
+to do this then to describe it.

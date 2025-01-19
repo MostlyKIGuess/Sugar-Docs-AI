@@ -1,0 +1,52 @@
+Title: Sysadmin/Add virtual machine
+URL: https://wiki.sugarlabs.org/go/Sysadmin/Add_virtual_machine
+--------------------------------------------------------------------------------
+Create new VM on
+Machine/justice
+or
+Machine/freedom
+This procedure creates a clone of the
+Ubuntu Xenial template virtual machine
+.
+virt-clone -o template-xenial --file=/var/lib/libvirt/images/boot/FOOBAR-boot.img --file=/dev/justice/FOOBAR-root -n FOOBAR
+virsh autostart FOOBAR
+virsh start --console FOOBAR
+Add A and AAAA records for the new host in the sugarlabs.org zone file (See
+Service/Nameservers
+).
+Now login as root from the console (there should be no password)
+setup both IPv4 and IPv6 addresses
+vi /etc/network/interfaces
+change machine fqdn
+sed -i -e s/template-xenial/FOOBAR/g /etc/hosts /etc/hostname /etc/mailname /etc/postfix/main.cf
+activate new IP and hostname
+/etc/init.d/networking restart
+install latest security/stability updates
+apt-get update
+apt-get dist-upgrade
+Find a nice color combo for HOST_COLOR in /etc/zzz_profile.conf
+generate host keys and a key for root
+rm /etc/ssh/ssh_host_*
+dpkg-reconfigure openssh-server
+ssh-keygen -N "" -f /root/.ssh/id_rsa -t rsa
+Setup wizbackup on a backup server (See
+Service/backup
+)
+Move daily, weekly, monthly cronjobs to a unique timeslot to avoid cpu/net storms
+vi /etc/crontab
+The most important thing: come up with a funny quip for this machine
+vi /etc/motd.tail
+Taa--daah!
+reboot
+Add the machine to
+/etc/munin/munin.conf
+on
+Machine/sunjammer
+for monitoring.
+[FOOBAR.sugarlabs.org]
+       address FOOBAR.sugarlabs.org
+See also:
+Sysadmin/Delete virtual machine
+,
+Sysadmin/Migrate_virtual_machine
+.

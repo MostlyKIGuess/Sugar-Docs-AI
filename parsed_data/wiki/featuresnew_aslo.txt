@@ -1,0 +1,110 @@
+Title: Features/New ASLO
+URL: https://wiki.sugarlabs.org/go/Features/New_ASLO
+--------------------------------------------------------------------------------
+WE NEED YOU!
+Add your activity!
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+The new ASLO is a ground up rewrite of the aslo to make it work better for users and developers.
+Check it out
+Owner
+Name:
+Sam P.
+Email: <sam@sugarlabs.org>
+Current status
+Targeted release: 0.106
+Last updated: 6/8/2014
+Percentage of completion: 70%
+Number of activities: 65 (I think)
+Detailed Description
+The ASLO is an acronym for activities.sugarlabs.org.  It is an activity store, currently based off the addons.mozilla.org software.
+This project is to rewrite that with software built for Sugar today.  The new software will replace the web interface and updated code.  The new software will add a new build pipeline and will (probably) add a command line tool for submitting activities.  The dataset for the new ASLO will be
+stored publicly on GitHub
+rather than hidden on our servers.
+Benefit to Sugar
+Right now, publishing an activity is a lot harder than it needs to be; making it easier gives developers more time to develop activities.  The new ASLO
+automatically builds the activities and extracts metadata
+from their code/PO files.  It integrates with GitHub to automatically build on push.  Releasing a new version is as easy as changing the version number and "git push".  Development copies are build on every push, helping get the latest versions to users who want to be more involved in the development process.
+Commenting is also a very one way thing on the old ASLO; you can post a comment but developers can't reply.  This is helpful to developers of Sugar - it only scares users off our activities.  By integrating
+Social Help
+with the comments, the
+comments can start a discussion
+between developers and users.  This will allow us to create software that better helps users.  Moving the comments to
+Social Help
+also unifies the point of contact for Sugar users.
+The new ASLO also
+loads faster
+.  According to the Firefox Dev Tools, for ruler activity the difference is 53kb (1sec) vs 362kb (10sec) without cache.  There is still an improvement with a primed cache.  This comes from not using jquery or any javascript for example - this is just an app store, not interactive computer game.
+Since the new ASLO uses a
+microservices
+structure, it can be simpler to maintain reliability.  The web interface (what users see) can be run without any external dependencies on anything that runs docker.  The backend (all the services oriented on processing activities to json) are based around a message queue for a clean service design.
+The new ASLO will also provide a
+platform for innovation
+by making the dataset publicly available and versioned in git.  For example, instead of manually adding forums for activities to Social Help, that can be automatically done with the new ASLO data.
+Scope
+Most of the code will run on the SugarLabs servers.  See the GitHub repository:
+https://github.com/samdroid-apps/aslo
+All activities will need to be migrated from the old site and developers will need to change their workflow (if they do not already use git and push when they publish versions).
+The only part that is in sugar is the updater.  It was merged in 0.102, but must be enabled via gsettings.
+UI Design
+This adds a new activity store with a new look..  Check it out:
+https://activities-2.sugarabs.org
+How To Test
+There are many ways to test.
+Try the
+web interface
+and please
+report any bugs
+.
+If you have made an activity,
+add it to the new ASLO
+and please
+report any bugs
+.
+User Experience
+New website!!!!
+Fast
+Better engagement  with devs
+Cooler
+Feature parity with the old site
+Dependencies
+None
+Contingency Plan
+None needed.
+Documentation
+Every section has a README loaded with information, so look at the git:
+https://github.com/samdroid-apps/aslo
+Release Notes
+Switch to the new ASLO.
+Comments and Discussion
+Link to the discussion of this feature on lists.sugarlabs.org
+See
+the discussion tab for this feature.

@@ -1,0 +1,187 @@
+Title: Flash Card Game - Assimilate
+URL: https://wiki.sugarlabs.org/go/Flash_Card_Game_-_Assimilate#Synergy
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+Standards
+3
+Group Members
+4
+Goals
+4.1
+Project Goals
+5
+Our Plan
+5.1
+"Must haves"
+5.2
+"Should haves"
+5.3
+"Would be nice to have"
+6
+Links & Resources
+6.1
+Archive
+6.2
+General
+6.3
+Assimilate
+6.4
+Toolbar help
+6.5
+Development Environment
+6.5.1
+Windows -
+Does Not Work!
+6.5.2
+Sugar on a Stick (SoaS) -
+Does Not Work!
+6.5.3
+Synergy
+7
+Updates to this project
+Status:
+Unknown
+Unknown
+Group Members:
+Dennis Jalbert
+,
+Brendan Reen
+,
+James Kolb
+This project is one of
+many small projects
+focused on developing 4th grade math games which will run on the OLPC XO. We are
+RIT students
+who are working on this with the help of other developers who become interested in our projects.
+The focus of this project is to turn an existing game (
+Assimilate
+) into a math based flash card game which will hopefully be included on future XO's.
+Description
+This project is one of
+many small projects
+focused on developing 4th grade math games which will run on the OLPC XO. We are
+RIT students
+who are working on this with the help of other developers who become interested in our projects.
+The focus of this project is to turn an existing game (
+OLPC:Assimilate
+) into a math based flash card game which will hopefully be included on future XO's.
+Standards
+The
+4th Grade Math Team
+is focused around creating games which will promote at least one of
+these math standards
+.
+Our project has the potential to fulfill many of the standards listed, but it specifically addresses the following:
+4.N.10
+- Select and use appropriate operations (addition, subtraction, multiplication, and division) to solve problems, including those involving money.
+4.N.11
+- Know multiplication facts through 12 x 12 and related division facts. Use these facts to solve related multiplication problems and compute related problems, e.g., 3 x 5 is related to 30 x 50, 300 x 5, and 30 x 500.
+4.N.12
+- Add and subtract (up to five-digit numbers) and multiply (up to three digits by two digits) accurately and efficiently.
+4.N.13
+- Divide up to a three-digit whole number with a single-digit divisor (with or without remainders) accurately and efficiently. Interpret any remainders.
+Group Members
+Dennis Jalbert
+- Would like to continue to develop Assimilate as time allows. You may contact me if you have any questions about this project.
+Brendan Reen
+- Would like to continue to develop Assimilate as time allows. You may contact me if you have any questions about this project.
+James Kolb
+- Does not plan to work on Assimilate anymore. You may contact me if you have any questions about this project.
+Your name here - Help us develop Assimilate!
+Goals
+Project Goals
+Modify
+Assimilate
+in the following ways:
+Fix the "tabs" so that there are 2 interfaces.
+Edit - Add questions & answers as well as categorize the cards (geometry, algebra, etc)
+Play - Show the question and input an answer. The game already removes points if you take over 10 seconds to guess, so we would like to add a count down timer to the side showing how many seconds remain.
+Display the correct answer or allow for another guess (worth less points for each guess) after providing an incorrect answer.
+Note: Currently the game doesn't give you the correct answer. It lets you know what everyone else guessed and you get to vote for which answer you believe to be correct. We would like to change this so that it always lets you know the correct answer. However, we can still keep the entire class results to possibly give to the teacher using the
+API
+.
+Add multiple types of flash cards beside basic addition/subtraction/multiplication/division.
+We will need to work with the API group to store our questions, especially the pictures which will bee needed for geometry questions.
+Allow more than 2 people to connect to a game (we were unable to get a 3rd person to join in the activity).
+Our Plan
+"Must haves"
+Fix the "tabs"
+Show the correct answer!
+"Should haves"
+Categorize the cards by type of math problem
+Alternate types of math besides basic arithmetic
+"Would be nice to have"
+More than 2 people playing
+Seconds remaining timer
+Send report to teacher about student responses
+Links & Resources
+Archive
+RIT Spring 2009 course progress
+General
+Math 4 RIT Homepage
+Tips & Tricks
+Python Help
+Assimilate
+Assimilate Homepage
+Download Assimilate
+Repository
+Lesson Plan
+How to Play
+Toolbar help
+Toolbox code
+Example code for a toolbar listener
+Development Environment
+Windows -
+Does Not Work!
+Download & install git (
+http://git-scm.com/download
+) to download the source code. Run the GUI, select "Clone Existing Repository" and specify "
+http://dev.laptop.org/git/activities/assimilate/
+" as the source location.
+Download & install the Python interpreter here:
+http://www.python.org/download/releases/3.0.1/
+Download & install
+Eclipse
+.
+Install the Pydev plugin for Eclipse. Help --> Software Updates --> Available Software --> Add Site. Add
+http://pydev.sourceforge.net/updates/
+and install.
+Once that's done, you can load up the project you've cloned to your system with Git by opening Eclipse and going to File --> Import --> Select General --> Existing Projects into Workspace. Select the Assimilate root folder. Then go to Window --> Preferences --> Pydev --> Interpreter - Python --> Add (a python interpreter) and specify the path to python.exe. (Mine was C:\Python31\python.exe.)
+If you do all of this and try to run Assimilate, it will give you an error because it can't import hippo. We have not found a way around this. If you do, please update this wiki with instructions on how to do so.
+Sugar on a Stick (SoaS) -
+Does Not Work!
+Follow the instruction on the
+SoaS page
+.
+Install Assimilate from source
+Git can be downloaded to Sugar with the following commands:
+$ su
+$ yum install git
+Get the Assimilate source through git:
+$ git clone
+git://dev.laptop.org/activities/assimilate
+Install assimilate:
+$ python setup.py dev
+$ python setup.py install
+When I try to interpret the application with "python Assimilate.py" the following error is generated:
+"ImportError: cannot import name AlreadyVoted." This is in response to line 13 of cardpanel.py: "from cardbox.import(AlreadyVoted, NoQuestion, NoAnswer)". AlreadyVoted is a class of Exception declared in cardbox.py. I have not found a fix for this issue at this time.
+Install Assimilate via the .xo file
+Download the [blah Assimilate .xo file].
+Click "show in journal"
+This should install Assimilate and put an icon in the circle of programs on the main screen.
+Synergy
+OLPC:Coding_on_the_xo
+OLPC:Synergy
+Updates to this project
+Name
+Date
+Latest Progress
+Dennis Jalbert
+05/18/09
+Updated wiki with complete information on everything completed this quarter.
+Your name
+date
+update

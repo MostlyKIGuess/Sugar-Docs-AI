@@ -1,0 +1,164 @@
+Title: Features/Start activity from another activity
+URL: https://wiki.sugarlabs.org/go/Features/Start_activity_from_another_activity
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+Implementation
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+12.1
+Previous attempts
+12.2
+Android Intents as reference
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+This feature provides a new way of interoperability between
+activities, the current ones being the Journal and the Clipboard.
+Activities are provided with a new API to call other activities.  This
+API allows the expression of phrases such as "read this book" or "edit
+this code with that editor".
+This is important for activities that handle sets of objects.  For
+example a gallery of images, a content catalog.
+Owner
+Name:
+Manuel Quiñones
+Current status
+Targeted release: 0.106
+Last updated: May, 2015
+Percentage of completion: 100%
+Detailed Description
+One of Sugar key principles is simplicity.  Activities are meant to be
+simple, and users can make interesting things happen when they
+interoperate with them.  Currently, they do so by using the Journal
+and the Clipboard.
+However, there are cases where you want to start an activity from
+inside another, thus skipping the step through the Journal.
+This feature provides a third way of interoperability between
+activities.
+For example, an activity whose purpose is to download content, would
+like to display the content right away.
+The following considerations are made.
+This solution is based on current activities, ie does not imply a change in activities.  It uses the available information that Sugar has now:
+the bundle registry
+the activity declared mime types
+the metadata in datastore objects
+This solution is for every bundle, not just activities.  This includes content bundles.
+This solution considers Rainbow security.
+An activity can start other activity by:
+knowing the activity ID - starts that specific activity
+passing a datastore object - if the activity ID is also passed, starts the object with that specific activity.  Otherwise starts the first activity that can handle the object.
+passing a mime type - if the activity ID is not passed, start the first activity that can handle the mime type.
+An error is reported to the user of the API if the request couldn't be
+accomplished, with a message.  For example "no activity can start this
+object" or "activity with ID XYZ not found".
+Implementation
+The code that starts activities in Sugar currently lives in the
+Journal.  The idea is to move the code to a more general module in
+Sugar, and make the Journal a user of it.  Then, add a DBUS service so
+that the activitie's toolkit can use the API too.
+Benefit to Sugar
+This will enhace the interoperability of Sugar activities, removing
+the need to pass through the Journal in the cases where it makes sense
+and feels indirect or complicated.  Thus, is an enhacement of the user
+experience.
+The lack of this capability made Uruguay deployment (Ceibal) go for a
+custom solution regarding content obtention and consumption.  They
+mixed the capabilities of activities GetBooks, Read and Jukebox into a
+monolithic activity "Biblioteca Segura".
+Scope
+This feature affects only Sugar modules.  Current activities can take
+advantage of the new API provided by this feature.
+The Journal is adapted to be a user of this API.  In fact, all the
+code is adapted from the Journal code.
+UI Design
+Video that shows the user experience:
+https://dl.dropboxusercontent.com/u/588753/start.webm
+There is no UI in this feature.  Activities that currently have a
+button "Show in Journal" can move to this API and change the button
+label to "Start" or "Display" or something more specific like "Read
+Book" or "Edit Code".
+How To Test
+Ensure Image Viewer activity is installed,
+Ensure Browse-157.1 is installed, if not use
+browse-157.1.xo
+,
+Start Browse and navigate to the
+Wiki
+,
+Move the cursor over an image, such as
+Media:Sugarlabs_mainpage_01.png
+, right-click and select
+Save Image As
+, wait for the download to complete,
+Verify that the alert offers
+Open with Image Viewer
+,
+Click on
+Open with Image Viewer
+,
+Verify that the Image Viewer activity is started and the image is shown.
+User Experience
+UX enhacement is described in the section above "Benefit to Sugar".
+Dependencies
+This feature does not depend on the completion of other features.
+Contingency Plan
+Not including.
+Documentation
+Previous attempts
+In 2011 Martin Abente (tch) sent a patch that enhaced sugar-launch
+http://marc.info/?l=olpc-sugar&m=129485435106175&w=2
+As discussed in the mailing list, this solution is not appropiate
+because it skips Rainbox security (
+http://wiki.laptop.org/go/Rainbow
+)
+in secured systems, and seems odd that the child activity process is
+spawned from the parent activity process.  Sugar "the shell" should
+spawn the activity processes.
+Android Intents as reference
+I loosely based this feature in Android Intents:
+http://developer.android.com/reference/android/content/Intent.html
+Android has a similar mechanism than the proposed here.  Is much more
+powerful and used system-wide and also internally per application.
+Android apps are made of components, and those components declare
+which actions can perform as intent filters.  Using a data structure
+called Intent, one component can call an action of another component.
+That data stracture holds an abstract description of the action to be
+performed.  Android has an intent resolution mechanism to determine
+the component that matches the intent.
+The main similarities and differences are:
+Currently we can only have one action: "Start" that launches an activiy.  Our activities are not made of components like Android apps.  If that were the case, we could be able to do neat things like "take a photo" from any activity, that would call the correspondent component of Record or other available activity to take a photo from the camera. This is a major change that implies a change in activities, so is out of the scope of this feature.
+Android Intents use a URI for data, usually a content provider like "content://..".  The current way to reference an object in Sugar is by its ID.  Currently, we can't pass arbitrary data to an activity.
+In Android, the component to be called can be implied from the data.  We do the same.  Our components are the Sugar bundles.
+In Android, extra data can be passed.  We can't do that in current activities.
+In Android, the mime type can be explicit or implied from the data.  We do the same.
+Release Notes
+To be written.
+Comments and Discussion
+Your comments are very welcome.  Please discuss through the mailing list.
+First discussion on the mailing list:
+http://lists.sugarlabs.org/archive/sugar-devel/2014-January/046911.html

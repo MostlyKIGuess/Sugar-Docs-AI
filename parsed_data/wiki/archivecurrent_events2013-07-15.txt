@@ -1,0 +1,54 @@
+Title: Archive/Current Events/2013-07-15
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2013-07-15
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+1.1
+In the community
+1.2
+Tech Talk
+1.3
+Sugar Labs
+Sugar Digest
+1. Sugar Labs has been given 8 slots for student interns for
+Google Summer of Code
+. This means we'll be able to cover a lot of ground this summer: we have some very strong proposals and a great mentoring team. The next step is for the mentors and the sugar-devel team to narrow the applicants down to a short list. Many thanks to everyone who has lent a hand so far and to Google for giving us this opportunity.
+2. The sugar-devel team has been really busy pushing new features for the next release and doing a general clean up of the code base. It is remarkable the current pace of activity, especially around the efforts to make HTML5/Javascript a first-class approach to Sugar activity development. You can follow the work on the
+devel list
+or by reviewing (and submitting) patches on
+github
+.
+3. I've been trying to contribute to the overall Sugar effort, but I tend to get distracted by Turtle Blocks (AKA Turtle Art). When I was visiting RIT a few weeks back, I was inspired to enhance the debugging features of Turtle Blocks. I came up with a simple way to introduce the concept of break-points to the code. I had already introduced blocks to "hide" and "show" the program as it executes. And through the "rabbit" and "snail" buttons, the user can control the speed of program execution. What I did was to combine these two concepts. By introducing a "hide" block into your code, the code executes at full speed. Introducing a "show" block causes the program to run slowly and display the status of all of its "variables" as it runs. A subtle change, but what it allows one to do is to surround code you want to debug with a "show" and "hide" blocks. Small blocks of code can be examined while the larger program runs at full speed. Really helpful for debugging complex projects.
+4. I am also working on another new feature, this one at the request of the teachers who have been using Butia in Uruguay. The idea is to be able to save a stack of blocks for reuse in multiple projects (instances). The way to do that currently is to open a project, copy the stack to the clipboard, and then paste it into a new project -- too clumsy to be used on a regular basis. The new feature allows users to save a stack to a custom palette. This palette is loaded with each instance of Turtle, so it means the stacks are available as if they were extensions of Turtle itself. It makes it even easier for end-user customization.
+In the community
+5. We'll be celebrating International Turtle Art Day (Día Mundial de TortugArte) in October. Our objectives are to:
+Promote the use of Turtle Art
+Share and promote best practices
+Celebrate projects for children and teachers
+Details on how you can participate will be made available soon.
+6.
+How embarrassing
+.
+Tech Talk
+7. Laura Vargas reports that
+Hexoquinasa v0.9
+(BETA2) has been released and is in the hands of the Ministry of Education of Perú, where it will undergo testing.
+8. Daniel Narveaz reports that "the initial bits of the HTML activities work has landed. It should now be relatively easy to start writing an activity."
+(1) You will need the latest
+Sugar development environment
+.
+(2) Then open a shell and move to the source directory:
+make shell
+cd source
+(3) Create an activity based on a template:
+volo create my-activity ./sugar-html-template
+(4) Install the activity for development as usual:
+cd my-activity
+python setup.py dev
+(5) To interact with the platform you will need to add the sugar-core-html library to your activity:
+volo add -f ../sugar-html-core/
+Sugar Labs
+Visit our
+planet
+for more updates about Sugar and Sugar deployments.

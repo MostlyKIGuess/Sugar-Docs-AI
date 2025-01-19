@@ -1,0 +1,30 @@
+Title: Development Team/Almanac/sugar.graphics.icon
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/sugar.graphics.icon
+--------------------------------------------------------------------------------
+Where do I put images for icons so that they can easily be referenced in my code?
+In your main activity bundle directory, you should have a subdirectory called 'icons'. In this directory, place any image files (usually in svg) format and then you can refer to those images by using the filename without the extension. For example, the activity containing the files below could refer to the following images for use with icons: 'edit-custom', 'ok-button', 'next-page' and 'prev-page'.
+Annotate.activity
+|-- activity
+|   |-- activity-annotate.svg
+|   `-- activity.info
+|-- icons
+|   |-- edit-custom.svg
+|   |-- next-page.svg
+|   |-- ok-button.svg
+|   `-- prev-page.svg
+Class: Icon (
+gtk.Image
+)
+How do I create a button with a specific icon image?
+You must first create the appropriately sized Icon object, as shown below. Then you will use the
+set_image()
+method to assign the icon to the button.
+import pygtk
+pygtk.require('2.0')
+import gtk
+from sugar.graphics.icon import Icon
+...
+        #previous page button
+        prev_page_button = gtk.Button()
+        prev_page_icon = Icon(icon_name='prev-page', icon_size=gtk.ICON_SIZE_BUTTON)
+        prev_page_button.set_image(prev_page_icon)

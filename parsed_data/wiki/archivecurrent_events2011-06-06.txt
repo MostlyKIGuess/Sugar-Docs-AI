@@ -1,0 +1,25 @@
+Title: Archive/Current Events/2011-06-06
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2011-06-06
+--------------------------------------------------------------------------------
+Sugar Digest
+1. I am working on a modification of Sugar's View Source mechanism that allows the user to make modifications to copies of the source code. So far, I have it working for Sugar activities. It is quite simple actually: I added a palette button to the existing viewsource.py code (written by Tomeu Vizoso) to make a local copy of the activity being viewed. I rename the copy to MyActivity and change the bundle_id to bundle_id_my_copy.
+It is that simple: one mouse click and you have a copy of any activity available to modify while leaving the original activity intact. And you immediately see a working copy of the activity on your Sugar Home View.
+As far as making modifications, at present, I am leaving it to the user to open the Terminal activity and make changes using vi or nano. I am considering enabling either Pippy or the Edit activity to open files in ~/Activities or to expose ~/Activities in the Journal in much the way we are considering for ~/Documents. Feedback would be appreciated.
+Next up is to do something similar with Sugar itself. I am working on a patch that will provide View Source to Sugar and the Sugar toolkit. (The current version of my patch adds a View Source Button as a menu item under the Journal icon on the Frame.) Once I have this working, adding a copy mechanism, perhaps to ~/site-packages, would be a simple modification. Change sys.path and you are up and running on a locally modifiable version. No root access required!
+I have to think through the implications of how the user will switch back and forth between Sugar versions. With activities, since I change the bundle_id, the original and modified versions can coexist. It is not obvious--at least to me--how to have two different versions of Sugar running in parallel. This wouldn't be a problem as long as the user doesn't make a change to Sugar that causes it to crash, but I expect (hope) that will happen frequently. (As Samuel Beckett said: "Ever tried. Ever failed. No matter. Try Again. Fail again. Fail better.") So we need some recovery mechanism that is not dependent on a working Sugar.
+2. In the very cool department: Check out Koji Yokokawa's project that enables you to control Scratch from Etoys (See
+http://www.squeaksource.com/ScratchConnect.html
+).
+In the community
+3. The New Zealand Testing Team is expanding: Tabitha Roder and Tom Parker are happy to announce the arrival of Oliver Nathan Erasmus Parker, born 17:38 on 6 May (See pictures at
+http://carrott.org/gingernut/
+).
+4. The joint GNOME and KDE 2011 Desktop Summit is taking place in Berlin from August 6–12.
+Sugar Labs
+Gary Martin has generated a SOM from the past few weeks of discussion
+on the IAEP mailing list.
+2011 May 14th–29th (74 emails)
+2011 May 7th–13th (75 emails)
+Visit our planet
+[1]
+for more updates about Sugar and Sugar deployments.

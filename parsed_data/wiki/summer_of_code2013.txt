@@ -1,0 +1,187 @@
+Title: Summer of Code/2013
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2013#Social_Sugar
+--------------------------------------------------------------------------------
+A draft copy of our application
+The proposals were moved to
+GSoC/2013/Proposals
+.
+Approved Projects
+Contents
+1
+Approved Projects
+1.1
+Sugar Core
+1.1.1
+Sugar Framework for writing activity in full HTML5
+1.1.2
+Project sharing website
+1.1.3
+Implement help mechanism for activities using Mallard
+1.1.4
+Social Sugar
+1.2
+Sugar Activities
+1.2.1
+Python export functionality for Turtle Blocks
+1.2.2
+Add recording to Music Keyboard activity
+1.2.3
+ASL Open Video Chat
+1.3
+Infrastructure
+1.3.1
+Translation Server
+Sugar Core
+Sugar Framework for writing activity in full HTML5
+The objective is to develop a JavaScript framework allowing to write Sugar activities in full HTML5/JavaScript. The framework will expose to JavaScript an API to call Sugar features:
+Journal/Datastore,
+Collaboration/Telepathy,
+Toolbar handling,
+Sugar look&feel - for example via a CSS style sheet usable on HTML controls
+Access to Sugar settings (buddy name, colors, current language, ...),
+View source.
+Like PhoneGap/Cordova, the framework will come with a template to develop and package easily a new HTML5 activity. A basic tutorial will be include too.
+The work could be inspired by the work done with Enyo Framework in
+1
+. By the way, the resulting framework should be JavaScript framework agnostic (no need for jQuery, Enyo, ...).
+Mentor
+:
+Lionel Laské
+Co-Mentor
+: Daniel Narvaez
+Level: Advanced
+Benefits to the Student: A chance to learn from touching almost every corner of an advanced system.
+Benefits to the Community: We'll greatly expand the reach of the project by opening the door to JavaScript programmers. Plus it will force us to clean up our APIs.
+Student: Suraj KS
+Wiki:
+HTML5 activities
+Project sharing website
+Create a Project Hosting Site similar to the Scratch website where kids can share the projects they have created using various Sugar Activities.  The site should foster collaboration and sharing of projects.  The Web Site should be built using a free web framework so that it can be installed at deployment sites. Some features include:
+Ability to engage and connect with friends and classmates using various  Social Networking sites/techniques.
+Ability to post projects from various Sugar Activities (ex: Turtle Blocks, Etoys, Memorize, Physics, etc.)
+Separate landing pages for different audiences (kids, teachers, parents, etc.)
+Section to share kid created art from projects
+Ability for users to create galleries (of their own projects, favorite projects, subject specific topics, etc.)
+Ability to have “private classroom spaces”
+Tools to support community management of the site
+Multi-language support
+Contact
+:
+User:MrSteve
+Co-mentor
+:
+User:dogi
+Level: Advanced
+Benefits to the Student: Learn more about web services
+Benefits to the Community: We need more mechanisms for sharing ideas and work. This is low-hanging fruit.
+Student:
+User:Rahul Gaur
+Wiki:
+Summer of Code/2013/moksaya
+Implement help mechanism for activities using Mallard
+Mallard
+is a mark-up language that makes it easy to provide user help. It would be a nice feature to add Mallard-like help to activities, accessed through a mechanism similar to the view source mechanism. We need to sort through two issues: integration into Sugar and integration into our i18n / L10n system.
+Contact
+:
+User:Walter
+Co-mentor
+:
+User:Aneesh Dogra
+Co-mentor
+:
+User:Francis
+Student: Kalpa Welivitigoda
+Wiki page:
+GSoC/2013/Activity Help
+Level: Advanced
+Benefits to the Student: Learn about lots of cool tools.
+Benefits to the Community: Most of our help is in the wiki and in English. This will enable us to reach our users more directly and in their first language.
+Social Sugar
+Design and Develop GUI components that can help Sugar to reflect user's social interactions from external platforms. A perfect target can be the Group-View that shows user's friends and their shared activities
+Human Interface Guidelines/The Laptop Experience/Zoom Metaphor#Groups
+, but it _could_ also show social information about these friends, IE social networks or sharing platforms publications. This would also give this zoom-level added value.
+Community members are already working on the backend component to support this feature
+[1]
+. This is also a great opportunity to complement other GSoC-2013 proposals.
+Contact
+:
+User:tch
+Level: Intermediate
+Benefits to the Student: (a) Learn about Sugar's core, UI Design and web services and (b) interact with community members and other GSoC participants.
+Benefits to the Community: Social interaction is a key element in the learning process, therefore we should promote this.
+Student: Akshit Khurana
+Wiki:
+Summer of Code/2013/Social Sugar project
+Sugar Activities
+Python export functionality for Turtle Blocks
+A goal of Turtle Blocks is not just to get children programming, but to launch them out of block world into text-based languages where they can develop more sophisticated programs. While Turtle Blocks is written in Python and can be extended by importing Python modules, it currently exports only in its native block language and in Logo. For this project, we'd want to enable a Python export option so that programmers can take their Turtle projects and extend them into full-fledged Python projects. The hypothesis is that this would lead more children to grow their programming skills beyond simple block programs.
+Contact
+:
+User:Walter
+Co-mentor
+: Tony Forster
+Level: Advanced
+Benefits to the Student: Lots of good Python hacking involved
+Benefits to the Community: We'll have a vehicle for studying whether or not we can bring students of programming from block worlds to text-based programming and debugging.
+Student: Marion Zepf
+Wiki:
+Summer of Code/2013/Turtle Blocks Python export project
+Add recording to Music Keyboard activity
+Music Keyboard activity uses part of TamTamMini code to play sounds. Should be good add the capability of record the played sound.
+Requires familiarity with Python.
+Contact
+:
+User:Godiard
+Level: Beginner
+Benefits to the Student: Learn about python and music libraries (csound)
+Benefits to the Community: More shared spaces for expression is aligned with our pedagogical goals.
+More information
+Activities/Music Keyboard
+Student: Anna Rudkovskaya
+Wiki:
+ASL Open Video Chat
+Open Video Chat is an Free/Open Source video conferencing activity for the XO laptop. This project was originally started in March 2010 with funding from the National Technical Institute for the Deaf in Rochester NY.
+Focus
+The primary focus of Open Video Chat is to provide streaming video at frame rates that are suitable for communicating with sign language. This ends up being somewhere between 20 and 30 frames per second.
+Current Features
+20 FPS video
+preview window
+text chat
+Desired Features
+RTP protocol implementation
+faster frame rate (30+ FPS)
+audio
+higher resolution video
+IRC
+The contributors of Open Video Chat frequent #rit-foss on freenode
+Contact
+:
+User:decause
+Level: Intermediate/Advanced
+Benefits to the Student: Learn about gstreamer video pipelines. Learn about sugar networking stack and services (Telepathy). Learn about Python and Sugar UI.
+Benefits to the Community: The Video/Text chat software is nearly complete (90%), it just needs to be ported to latest version of sugar and include new telepathy bindings.
+Source Code:
+Github Repository
+Activity Page:
+A.SL.O
+Student: Casey DeLorme
+Wiki:
+GSoC 2013 Open Video Chat
+Infrastructure
+Translation Server
+This project aims to create a server/client setup to establish a consistent way of translating arbitrary text using several different machine translation backends. It provides a single interface to many different translation services, simplifying the process of adding reliable machine translation to Sugar activities.
+Wiki
+:
+Summer of Code/2013/Translation Server
+Student
+: Erik Price
+Mentors
+:
+User:Aneesh Dogra
+User:Walter
+Source
+:
+[2]
+Bug tracker
+:
+[3]

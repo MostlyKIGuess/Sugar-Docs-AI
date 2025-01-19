@@ -1,0 +1,86 @@
+Title: Sugar on a Stick/Stick Layout
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Stick_Layout
+--------------------------------------------------------------------------------
+Failure Modes
+Gets stuck at Fedora Login
+With liveuser prefilled
+I was able to repeatably create this failure when I was testing a version of schoolserver.py that had a typo in it.
+With nothing prefilled
+This error has successfully been replicated by Restarting multiple times.
+Bug in initramfs /init detected. Dropping to a shell. Good luck! bash: no job control in this shell.
+Stick abuse, like putting it through the washing machine, seems to precipitate this type of failure.
+Freezes during use of an activity. Rebooting on the same computer doesn't help it still freezes on the same activity. One time we rebooted on a different computer and it worked.
+We don't know the root causes but we have plenty of theories.
+Sticks will always fail. There will always be multiple causes for failure.  This problem has to be addressed like a process engineering issue. Is stick failure a major cost in time or money? Find the largest cause of failure. Fix that to improve yield. Is stick failure a major cost in time or money? Find the the remaining largest cause of failure.....
+This summer we had probably 10 sticks fail for 35 students.  That is a major cost in time and money.  The most common unrecoverable failure mode was stuck at Login.
+Contents
+1
+We need a more robust files system
+2
+Sticks are damaged during formatting or burning
+3
+Sticks are of poor quality
+4
+Sticks are being improperly removed
+5
+There is a bug around restarting
+We need a more robust files system
+It has been shown that if you take a stick that is stuck at login and you copy over a fedora-overlay file from a working stick, the stick will boot again. Thus we are confident that the problem is corruption of the overlay file.
+It may also be exhaustion of the overlay.  See
+LiveOS image
+. --
+FGrose
+22:31, 26 September 2010 (EDT)
+Next Steps
+- Try some alternate file structures.
+Create a Fedora Full Install USB Stick, restart it a bunch of times and see if it does better.  How much space will the Fedora Full Install take?
+So far its > 4GB
+http://wiki.sugarlabs.org/go/VMware#Full_Install_with_F11_Net_install_CD_to_USB_Stick
+Create an Open Suse USB Stick, restart it multiple times and see if it fails. How much space does it use?
+[1]
+Note the second partition for persistence
+Create Alternate ex3 File Structured, non-live, blueberry USB
+[2]
+(The resulting partition size on the USB can be resized with gparted if more storage is needed)
+[3]
+Background Links
+Thread from the Fedora Forum: [
+[4]
+]
+Here is an idea for an alternative USB Format: [
+[5]
+]
+Also see Ticket
+#907
+A 2 GB USB is about $.60 more then a 1GB stick. If we need to compress less to get robustness its ok for us to require a 2GB USB.  A 4GB stick is about $2.50 more then a $1GB Stick.
+Theories that have evidence against them
+ext4 and data loss:
+http://lwn.net/Articles/322823/
+(It looks like ext3 formatting may be more robust in a USB)
+Dave Bauer was able to replicate the failure easily by restarting a Sugar stick. This means its probably not:
+The Bulk Copier, Dave doesn't have one.
+The older slower computers and USB 1 ports we are using at the GPA.
+Sticks are damaged during formatting or burning
+http://wiki.laptop.org/go/How_to_Damage_a_FLASH_Storage_Device
+[
+[6]
+]
+There was a detailed discussion thread back in February at:
+http://lists.laptop.org/pipermail/devel/2009-February/022987.html
+If we understood how to win and we had our own stick creation activity perhaps we would have less failures.
+Look at How To Sugarize liveusb-creator:
+[7]
+for a working method to do this.
+Sticks are of poor quality
+Here is an explanation of two processes used to create USB sticks:
+http://www.solutiongrove.com/blogger/2008/09/08/there-are-two-type-of-usb-flash-memory-slc-and-mlc
+[
+[8]
+]
+Sticks are being improperly removed
+Yes they are, but its not at all clear to me that that correlates with the sticks that are failing.
+Current experements on delayed writes from cache in live usb's
+[9]
+There is a bug around restarting
+It is very common to fail after a restart, the system forgets its supposed to go to Sugar.  See ticket
+#1069

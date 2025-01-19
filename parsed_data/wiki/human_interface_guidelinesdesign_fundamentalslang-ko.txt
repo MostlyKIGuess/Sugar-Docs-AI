@@ -1,0 +1,195 @@
+Title: Human Interface Guidelines/Design Fundamentals/lang-ko
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/Design_Fundamentals/lang-ko#Know_Your_Audience
+--------------------------------------------------------------------------------
+번역근원
+HIG-Design Fundamentals
+원문
+english
+|
+español
+|
+한국어
++/-
+차이
+←
+핵심 생각
+디자인 기초
+노트북 경험
+→
+Contents
+1
+디자인 기초
+1.1
+귀하의 청중을 알라
+1.1.1
+비경험자들
+1.1.2
+어린이
+1.1.3
+인터내셔널
+1.2
+핵심 디자인 원칙
+1.2.1
+성능
+1.2.2
+가용성
+1.2.3
+단순성
+1.2.4
+Confiabilidad
+1.2.5
+보안
+1.2.6
+유연성
+1.2.7
+복구
+1.2.8
+Interoperabilidad
+1.2.9
+이동성
+1.2.10
+투명성
+1.2.11
+접근성
+디자인 기초
+←
+핵심 생각
+청중을 알라
+핵심 디자인 원칙
+→
+귀하의 청중을 알라
+비경험자들
+OLPC의 목표는 어린이들에게 탐구와 실험 그리고 그들 자신을 표현할 새로운 기회를 제공하는 데 있습니다. 그러한 기회를 필요로 하는 많은 아이들이 여지껏 컴퓨팅에 접근할 기회가 거의 없었으며, 노트북에 친숙하지 않습니다. 이 점은 의문의 여지없이 활동 개발의 일정 측면에 영향을 미칠 것입니다. 다른 한 편, 이는 개발자들이 탐구적이고, 완전히 직감적인 인터페이스 개발과 이러한 인터페이스를 강화하고 명효하게할 메타포 구성에 에너지를 집중해야 함을 의미합니다. 다른 한 편, 이 노트북이 아마도 어린이들에게 최초의 컴퓨팅 기회가 될 것이므로, 활동들은 legacy 행동 또는 기대에 지나치게 집중해서는 안 됩니다. 이는 개발자들에게 혁신의 기회입니다.
+The goal of OLPC is to provide children with new opportunities to explore, experiment, and express themselves. Many children in need of such opportunities have previously had little or no access to computing, and so will be unfamiliar with the laptop and how to interact with it. This will undoubtedly have effects on some aspects of activity development. On the one hand, it means that developers must focus energy into making interfaces discoverable, wholly intuitive, and building metaphors that strengthen and clarify the interface. On the other hand, since the laptop will be the first experience of computing for many children, activities do not have to be overly true to legacy behaviors or expectations. This frees developers to innovate.
+어린이
+노트북을 받게될 많은 아이들이 고작 5~6세일 것입니다; 나머지는 10대 중반일 것입니다. 부가적으로, 매우 어린 나이에 이 노트북을 받게될 아이들은 그들의 향후 교육 과정을 이 노트북과 함께할 것입니다. 그러므로, 성장 과정에 따라 확장이 용이로운 활동들을 개발하는 것이 중요합니다.
+Many of the children receiving laptops will be as young as five or six; others will be in their mid teenage years. Additionally, those that receive them at a young age will continue to use them throughout their education.  Therefore, it is important to develop activities in ways that scale well across age levels.
+인터내셔널
+OLPC 이니셔티브는 본질적으로 국제적인 참여와 관여를 요구합니다. 개발자들은 이 노트북이 사용될 다양한 문화와 언어를 염두에 둬어야 합니다. 특히, 활동들은 서구의 아이콘이나 사고 방식에 의존하지 말아야 하고, 가능한 인류의 보편적 수준으로 아이디어를 추상화해야 합니다. 가령, 키보드의 카메라 버튼의 경우, 작은 카메라와 렌즈 이미지로 키를 표시하고 싶겠지만, 눈동자 모양이 보다 직접적으로 시각을 상징하며, 컴퓨터가 자신의 눈에 비친 사물을 포착할 수 있다는 의미를 전달하는 보편적인 아이콘이 됩니다.
+The OLPC initiative, by its nature, requires international involvement and participation.  Developers must keep in mind the broad range of cultures and languages that the laptops must transcend.  In particular, activities should not depend on western icons and modes of thinking, but should abstract ideas to a level that would be familiar to humankind in general, where possible.  For instance, consider the camera button on the keyboard.  Though one might be inclined to label this key with a small image of a camera and lens, the eye graphic speaks directly to our human capacity for vision, providing a cross-cultural icon that represents the computer's ability to capture what it sees.
+←
+핵심 생각
+청중을 알라
+핵심 디자인 원칙
+→
+←
+청중을 알라
+핵심 디자인 원칙
+소개
+→
+핵심 디자인 원칙
+"문턱은 낮지만, 천정은 없다:" 이 mantra가 OLPC를 위한 귀하의 개발 노력을 안내해야만 합니다. 모든 활동과 인터페이스는 단순하고 직관적으로 구성되어, 연령대와 국적, 컴퓨터 숙련 수준이 상이한 사용자들이 쉽게 사용할 수 있어야 합니다. 동시에, 우리는 불필요한 소프트웨어 사용 제한을 원하지 않습니다. 그 대신, 우리는 경험 없는 사용자들에게 문턱이 낮지만, 천정은 없음으로 인해 모든 종류의 창조적 표현에 적합한 플랫폼이 만들어지길 기대합니다. 이것은 가치있는 목표이지만, 개발자 입장에서는 비상한 노력이 요구되며, 그들은 설계 상의 많은 점들을 고려해야 합니다. 아래 목록은 포괄적이지는 않지만, 그러한 고려의 시작 지점을 제공합니다.
+Low floor, no ceiling:
+this mantra should guide your development efforts for OLPC. All activities and interfaces should be designed in such a way as to be simple and intuitive to users of all age groups, nationalities, and levels of computer experience. At the same time, we don't wish to impose unnecessary limitations on the software either. Instead, we hope to create a platform suitable for all kinds of creative expression which provides a low floor to the inexperienced, but doesn't impose a ceiling upon those who are. This is a worthy goal, but will require a genuine effort on the part of developers, who must take many aspects of design into account. The following list, while certainly not comprehensive, provides a starting point for such considerations.
+성능
+OLPC 노트북은 "더, 더 빨리, 더 많은" 노트북 발달 추세를 따르지 않습니다; 우리는 아이들의 학습 요구에 맞는 컴퓨터 제공을 목표로 하지, 멋진 비디오 게임이나 사무용 응용프로그램을 목표로 삼지 않습니다. 우리는 부속 생산 비용, 튼튼함 그리고 전력 소비의 다양한 제한 사항 아래 일하고 있습니다. 이러한 제약 조건들을 만족하기 위해, 우리는 하드디스크 대신 낸드 플래시를, 그리고 256MB 메모리를 선택했습니다(
+하드웨어 사양
+을 참조). 그러므로, 개발자들은 메모리 사용을 최소화하면서 효율적인 코드 작성에 많은 노력을 기울여야 합니다.
+The OLPC laptop bucks the trend of "more, faster, fatter"; we aim to provide a computer tailored to the needs of children in the context of their learning, not to the needs of frantic video games or office applications. We are, however, working within constraints of component cost, robustness, and power consumption. To satisfy these constraints, we have opted for NAND flash rather than a hard disk and a modest 128MB of memory (Please see
+hardware specifications
+). Thus, developers must make every effort to write efficient code while minimizing memory usage.
+노트북에 스왑 공간이 없으므로, 제한된 숫자의 활동들만이 동시에 작동될 수 있습니다; 슈가 UI는 이러한 세부 사항들을 아이들에게 직접 보여줍니다.
+홈
+스크린은 활성화된
+활동
+의 각 인스턴스들을 표시하는 아이콘들을 담고 있는 활동 링을 보여줍니다. 어느 한 활동이 점유하고 있는 링 세그먼트의 크기는 그것의 전반적인 메모리 사용량을 보여줍니다; 링이 가득 차면, 추가적인 활동들은 일정한 자원들이 가용할 때까지 대기해야 합니다. 활동들을 개발할 때는 이런 제약 사항들을 고려해야 하는데, 이 점이 다른 플랫폼에 비해 이 노트북 상에서 귀하의 소프트웨어 성능에 상당한 영향을 미치기 때문입니다.
+Since there is no swap space on the laptop, only a limited number of activities can run concurrently; the Sugar UI exposes these details directly to the children. The
+Home
+screen features an activity ring that contains icons representing each instance of an open
+activity
+. The size of the ring segment that a given activity occupies represents its overall memory usage; when the ring fills up, no additional activities may be launched until some resources have been freed. Take these limitations into account as you develop activities, since they will have a greater impact on the performance of your software on the laptop than on other platforms.
+가용성
+OLPC는
+목표 청중
+으로 인해 탐구 가능성과 가용성을 강조합니다. 가용성은 활동의 실제 행동, 버튼과 툴들의 배치, 그리고 아이들이 노트북을 다룰 때 인터페이스가 그들에게 제공하는 피드백과 관련된 모든 요소를 포함합니다. 궁극적으로, 귀하의 활동들이 유용하게 만드는 디자인 결정은 귀하가 개발 중인 활동의 유형에 크게 의존하며, 아이들이 그것을 마주할 때 기대하는 상호 작용에 대해 숙고해야 합니다. 일반적 법칙으로, 아이들이 프로그램을 마주했을 때 기대하는 것을 인터페이스가 제공한다면, 귀하는 출발이 좋은 것입니다. 그러나, 그들이 원하는 게 무엇인지 사전에 예상한다는 것은 매우 어려운 일이므로 (또한, 모든 아이들이 같은 것을 기대하지는 않으므로), 사용자 테스트가 불가피합니다.
+OLPC places an emphasis on discoverability and usability due to our
+target audience
+. Usability has everything to do with the actual behavior of the activities, the layout of the buttons and tools, and the feedback that the interface provides to the children when they interact with it. Ultimately, the design decisions that make your activities usable will depend greatly on the type of activity you are developing, and it will be up to you to consider carefully the kinds of interactions that the children will expect when presented with it. As a general rule, if the interface provided does what the child expects it to, you are off to a good start. However, since it is quite difficult to know what they will expect—and in practice not all children will expect the same things—there is no substitute for user testing.
+단순성
+우리는 전체 노트북 인터페이스를 단순성의 목표 하에 설계했습니다. 소프트웨어에 지나치게 풍부한 기능들을 담는 것은 유혹적일 뿐만 아니라, 쉬운일이기도 합니다: MIPS와 메모리의 풍부함이 그러한 소프트웨어 비만 현상의 원인 중 하나입니다. 이 노트북 하드웨어 "제한"은 보다 정확한 방향 결정과 단순성 추구의 원인이기도 합니다.
+We designed the entire laptop interface with a goal of simplicity. It can be tempting—and also quite easy—to add an overabundance of features to software: the abundance of MIPS and memory often exacerbate the software-bloat phenomenon. The laptop hardware "limitations" lead toward a more concise direction and aid in designing for simplicity.
+단순함이 제한을 의미하지는 않음을 명심하십시오. OLPC는 단순한 (심지어 최소의)  컨트롤이 위대한 표현의 힘을 가질 수 있음을 세계에 보여주길 바랍니다. 너무 많은 기능을 수행하거나, 손안의 과제에 즉각적으로 연관된 것들에 대한 통제를 제한하는 것을 피하십시오. "스위스 군용 칼"과 같은 것을 만드는 대신, 노트북 자체를 칼로 생각하고, 하나의 일을 아주 잘 수행할 수 있는 칼에 적합한 툴을 개발하시길 바랍니다. 노트북의 모든 활동들이 이러한 아이디어를 추구할 때, 이 노트북의 진정한 힘이 드러날 것입니다.
+Keep in mind that simple doesn't necessarily mean limited. OLPC hopes to demonstrate to the world that simple—even minimal—controls can have great expressive power. Avoid bloated interfaces that do too much, and limit the controls to those immediately relevant to the task at hand. Rather than creating a "Swiss Army knife" of an activity, think of the laptop itself as the knife, and instead develop a particular tool for that knife that does one thing, and does it very well. When all the activities on the laptop embrace this idea, the true power of the laptop will emerge.
+Confiabilidad
+물론 우리는 잘못된 인스턴스들을 피하고 싶습니다; 이것은 모든 소프트웨어들의 목표 중 하나입니다. 우리는  시스템 장애를 초래하는 활동들을 UI 프레임워크가 막을 수 있도록 할 것입니다; 개발자들은 해당 활동의 즉각적 중단을 위한 적절한 행동을 통합하는 것과 같은 식으로 그들의 디자인에  "fail-soft" 접근을 고려해야 합니다.
+Of course we want to avoid instances where things go wrong; this should be a goal for every piece of software. We are committed to ensuring that the UI framework prevents activities from causing system crashes; Developers should consider a "fail-soft" approach to their designs, such as incorporating a suitable behavior for the spontaneous termination of an activity.
+보안
+This article is a
+stub
+. You can help Sugar Labs by
+expanding it
+.
+(Mention the "walled garden".)
+유연성
+활동을 설계할 때 고려해야 할 여러 가지 조건들이 있습니다: 이 노트북은 흑백 모드(햇빛)와 컬러 모드(백라이트)를 모두 지원합니다; 항시 가용한 메쉬는 해당 활동이 활성 상태에서 인터넷에 접속되었을 수도 아닐 수도 있습니다; 이 노트북은 노트북 모드 (키보드 및 터치패드 활성 상태)일 수도,
+핸드핼드 모드
+(게임 컨트롤러, 카메라, 마이크로폰과 스피커 만)일 수도 있습니다. 신호 강도, 따라서 대역폭이 변동할 수도 있으며, 더러 활동 참가자들이 일시적으로 빠질 수도 있습니다. 활동은 이 모든 경우를 염두에 둬야 하는데, 가령, 일시적인 연결 장애는 조용히 이뤄지고, 연결이 끊겼던 사람이 다시 네트워크에 등장할 때는
+활동 견고성
+을 위한 가이드라인에서 언급된 것과 같은 별도의 고지 사이드 효과 없이 재참여가 이어질 수 있도록 하는 것 등입니다.
+There are several use conditions that should be taken into consideration in designing activities: the laptop has both a grayscale (sunlight) mode and a color (backlight) mode; the mesh—while always available—may or may not be connected to the Internet at the time the activity is active; the laptop may be configured in either laptop mode (keyboard and touchpad exposed) or
+handheld mode
+(game controller, camera, microphone and speakers only). Signal strengths, and therefore bandwidth, may fluctuate, and at times activity partipants may even drop off temporarily. Activities should handle all of these cases with care. E.g., temporary loss of connectivity should be handled silently, and reconnection of an individual to an activity they were previously participating in should happen with no noticeable side-effects as outlined in the guidelines for
+activity robustness
+.
+복구
+복구는 탐구를 고무하는데 필수적입니다. OLPC의 주요 목표 가운데 창조적 탐구와 더불어, 이것은 이 노트북의 중요한 이슈입니다. 아이들이 어떤 경우에도 노트북이 정상 상태로 복구될 수 있다는 것을 앎으로써, 그들은 기존의 울타리를 넘어 새로운 툴들을 실험하고 새로운 창조적 표현 수단을 강구해 볼 수 있게 됩니다.
+Recoverability is fundamental to encouraging exploration. With creative exploration among OLPC's main goals, it therefore becomes an issue of high importance on the laptops. When a child knows they have a fallback plan — a way back to the current state of things — they will much more frequently go beyond their comfortable boundaries and experiment with new tools and new creative means of expression.
+저널
+은 복구에 대한 부분적 암시를 제공하는데, 그것의 자동 저널링은 자동적인 백업 기능이기 때문입니다. 아이들이 그들의 현재 상태에서 작업 중인 모든 것을 "유지"할 수 있는 능력은 이러한 아이디어를 진작하게 됩니다.
+The
+journal
+provides a partial notion of recoverability, since its auto-journaling amounts to maintaining an automatic incremental backup. The ability for a child to choose to "keep" anything they're working on in its current state furthers this idea.
+그러나, 복구의 주요하고 근본적인 수단은 어떤 행위를 취소할 수 있는 능력에 있습니다. 물론, 협동적인 편집 과정에서 취소/재실행의 고지는 어려운 과제인데, 한 아이가 취소하고 싶은 동작이나 상태를 다른 아이가 또 다른 바꿔놓을 수도 있기 때문입니다. 그럼에도, 우리는 가능한 이 기능이 발휘될 수 있도록 노력하며,
+활동
+도 이를 최대한 지원해야 합니다.
+However, the primary and essential means of recoverability remains the ability to undo one's actions. Of course, the notion of undo/redo becomes complicated in the realm of collaborative editing, which imposes a limitation on the extent to which undos are possible, since collisions could often occur between the things one child wants to undo and the things another child has already changed since those were done. Nonetheless, we are dedicated to providing this functionality to every extent possible, and
+activities
+should strive to support this to the best of their ability.
+(향후 개선될
+키보드
+는 이 아이디어를 더욱 강화하여, 취소/재실행 버튼을 탑재할 수도 있습니다)
+(Future revisions of the
+keyboard
+may even have an undo/redo key to further strengthen this idea.)
+Interoperabilidad
+This article is a
+stub
+. You can help Sugar Labs by
+expanding it
+.
+이동성
+다른 이동식 컴퓨터와 마찬가지로, 이동성에 관한 일반적인 표명은 노트북의 본질입니다. 그러나, 아이들 손에서, 이러한 이동성은 새로운 수준으로 상승하는데, 우리는 그들이 등하교 길은 물론 놀이나, 운동장, 또는 그들이 세상을 배우고 경험할 수 있는 어떤 장소에도 휴대할 수 있기를 희망하기 때문입니다. 이 노트북의 외형은 견고성을 염두에 두고 설계되었습니다. 주의해야 할 점은 그러한 이동성이 가질 수 있는, 그리고 가져야만 하는 효과입니다. 내장형 카메라의 렌즈는 단지 웹캠이 아니라 세상을 포착하는 수단으로, 집 안팎에서 사용될 때 전혀 새로운 모습을 취하게 됩니다.
+Of course, as with all portable computers, a general notion of mobility is intrinsic to the laptops. However, in the hands of children, this mobility rises to a new level, since we can expect that they will carry them not only to and from school, but on a hike, onto the playground, or to any number of other locations where they can learn and experience the world. Their physical form has been designed with ruggedness in mind. The important thing to consider is the effect such mobility can, and should have on the activities themselves. The lens of the built-in camera looks a lot different when it's treated not as a simple webcam, but as a way to capture the world around them, both indoors and out.
+투명성
+OLPC는 또한 아이들이 노트북을 통해 외피 아래 깃든 기술들을 탐구해 보길 바랍니다. 이 목적을 위해,
+소스 보기
+키가 키보드에 추가되어, 그들이 이용하는 활동들의 코드를 일상적으로 살펴볼 수 있는 즉각적인 통로로 역할합니다. 이 키는 관심있는 아이들이 추상화의 계층들을 벗겨보고, 코드 기초까지 파고들어 배울 수 있도록 고무합니다.
+OLPC also hopes to encourage the children using the laptops to explore the technology under the surface. Towards this end, a
+view source
+key has been added to the laptop keyboards, providing them with instant access to the code that enables the activities that they use from day to day. This key will allow those interested to peel away layers of abstraction, digging deeper into the codebase as they learn.
+그러한 탐구가 가능하도록, 아이들이 소스 코드를 볼 수 있도록, OLPC는 가능한 많은 부분들을 스크립트 언어인
+파이선
+으로 작성해 왔습니다. 이것은 일반적인 좋은 관습과는 별도로 코드가 가독성있고 친절한 주석과 더불어 작성되어야 함을 의미합니다. 파이선을 위한
+PEP 8
+스타일 가이드라인은 뛰어난 자원이며, OLPC는 개발자들이 특별한 사유가 없는 한 이 지침을 준수할 것을 권고합니다.
+To enable such layered exploration, OLPC has written much of what can be in
+Python
+, a scripting language, to enable children to view the source code. This means, aside from general good practice, code should be both readable and well commented. The
+PEP 8
+style guidelines for Python provide an excellent resource, and OLPC recommends that developers follow the practices laid out therein unless a compelling reason not to exists.
+접근성
+This article is a
+stub
+. You can help Sugar Labs by
+expanding it
+.
+←
+청중을 알라
+핵심 디자인 원칙
+소개
+→
+←
+핵심 생각
+디자인 기초
+노트북 경험
+→

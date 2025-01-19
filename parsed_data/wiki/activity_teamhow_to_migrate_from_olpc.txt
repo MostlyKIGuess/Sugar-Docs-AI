@@ -1,0 +1,111 @@
+Title: Activity Team/How to migrate from OLPC
+URL: https://wiki.sugarlabs.org/go/Activity_Team/How_to_migrate_from_OLPC
+--------------------------------------------------------------------------------
+Contents
+1
+Migrate the code
+2
+Set up SugarLabs services
+3
+Notify the community
+4
+Clean up wiki.laptop.org
+Migrate the code
+If you are not the author of the activity,
+query
+the author to let them know about the move.
+Create
+an account on
+http://git.sugarlabs.org
+and
+log in
+. Add your public SSH key to
+your account
+.
+Create a new project
+(
+http://git.sugarlabs.org
+, projects, new). Make your project name lowercase, e.g. pippy, turtleart, paint. Put it in
+category "activities"
+.
+Clone
+your activity from
+dev.laptop.org
+.
+git clone
+git://dev.laptop.org/projects/pippy-activity
+If
+you want to migrate a non-master branch...
+git remote show origin
+git checkout -b sucrose-0.82 origin/sucrose-0.82
+Push
+to git.sugarlabs.org with something like:
+git push gitorious@git.sugarlabs.org:sugar/mainline.git --mirror
+Clone
+the project from the new repository in order to be able to push your changes.  You'll need to do a git clone into an empty directory, using the same URL you used with your previous push:
+git clone gitorious@git.sugarlabs.org:sugar/mainline.git sugar
+If you're getting a message saying
+fatal: The remote end hung up unexpectedly
+that probably means that this URL is incorrect.
+Set up SugarLabs services
+Add
+the pootle user as a committer (from the "add committer" link on the mainline page) and send mail to
+dirakx
+to point pootle to new remote.
+Upload a xo bundle
+to
+activities.sugarlabs.org
+.  Be sure to include a couple of screenshots of your activity in action.
+If your activity is part of Fructose,
+upload a .tar.bz2
+to
+download.sugarlabs.org
+.  Request a shell account from the
+Infrastructure Team
+if you don't have one already.
+Update the OLPC wiki page
+for the Activity, noting the migration. Use the
+Migrated to sl.o
+template.
+Change sugar-jhbuild
+to point to the new repository if this activity was included in sugar-jhbuild (enter a ticket in
+http://dev.sugarlabs.org
+if you have no access).
+Ask an
+Activity Team Coordinator
+to create a
+Trac component
+for your activity.
+Notify the community
+Notify
+sugar-devel
+and
+OLPC devel
+about the move.
+Transfer or resolve
+existing tickets
+related to the code in the
+OLPC Trac
+.
+Update pages on wiki.laptop.org that contain
+stale links
+to the OLPC repo and latest bundle.  (e.g. Activities/All , the OBX box on the activity homepage, etc.)  See
+olpc:Maintaining activity web information#Migrating activities to SugarLabs
+Tag
+the activity at
+Activity Team/Activity Status
+as
+migrated
+.
+Clean up wiki.laptop.org
+Adjust the activity's old wiki page on wiki.laptop.org:
+Put the {{
+Activity migrated to sl.o
+}} template at the top of the old wiki page.
+Clean up the information on the old wiki page.  You can either continue to update the "OBX" badges and semantic information on it, or remove most of this information.
+You need to continue to maintain the activity's "activity template fragment"(s) on wiki.laptop.org such as
+Activities/Etoys (latest)
+.
+For more information on wiki.laptop.org activity pages, see
+olpc:Maintaining activity web information
+.

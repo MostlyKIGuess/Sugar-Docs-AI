@@ -1,0 +1,60 @@
+Title: Machine/booki
+URL: https://wiki.sugarlabs.org/go/Machine/booki
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+OS
+3
+Services
+4
+Hardware
+5
+Location
+6
+Admins
+7
+ToDo
+8
+known problems
+8.1
+django
+8.2
+objavi
+9
+variables which have to be set
+Description
+This VM is build as a Webservice to create and store "textbooks".
+Technically this service is build on top of django and the [
+booki
+] - plugins/extensions.
+OS
+Ubuntu 10.10
+Services
+TEMPLATE_SERVICE
+Hardware
+KVM Virtual Machine
+Location
+housetree
+Admins
+Mokurai
+Stefan Unterhauser
+ToDo
+use apache for http delivery ... right now this service is provided by the django /python command "django-admin runserver 0.0.0.0:80" which has to be excuted in a screen session ...
+known problems
+django
+from time to time django has to be restarted ... grrrrr.
+ssh mokurai@booki.treehouse.su
+sudo -s
+screen -x
+[CTRL-C] #to terminate the blocked/slow/running django
+django-admin runserver 0.0.0.0:80 #start again
+[CTRL-A followed by D] # detach screen session without terminating ...
+objavi
+Books in booki are translated to PDF and other output formats by objavi. This instance of objavi says that it is generating the output document, runs through a progress bar, and then fails to make any further progress.
+Default booki installations point to an objavi instance maintained by FLOSS Manuals, so that it is not necessary to install it locally.
+variables which have to be set
+declare -x PYTHONPATH=":/var/www/:/var/www/booki/lib/:/srv/booki/lib:/var/www/:/var/www/booki/lib/:/srv/booki/lib:/srv/booki/lib/booki:/var/www/:/var/www/mybooki/lib/:/srv/booki/lib:/var/www/:/var/www/mybooki/lib/:/srv/booki/lib"
+root@booki:/var/www/mybooki# export|grep SETTINGS
+declare -x DJANGO_SETTINGS_MODULE="mybooki.settings"

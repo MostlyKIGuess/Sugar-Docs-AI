@@ -1,0 +1,233 @@
+Title: Talk:Downloads
+URL: https://wiki.sugarlabs.org/go/Talk:Downloads
+--------------------------------------------------------------------------------
+Contents
+1
+A review of installation methods
+2
+Bootable CD of Trisquel 4.5 for MacBook Air
+2.1
+Install_Sugar-desktop_0.88
+3
+Bootable DVD of f14 for MacBook Air
+3.1
+To install sugar-desktop
+3.2
+dd write to USB
+3.3
+Install to Hard Disk (8 GB USB)
+4
+Macbook Pro
+5
+Installation to HD, USB hard drive, and USB/SD flash drives
+5.1
+Uncompressed file systems
+5.2
+Compressed file systems on USB/SD devices
+6
+Duplication of USB/SD .img files
+7
+Upgrade an XO-1 to Sugar 0.84 with Fedora 11 and Gnome
+8
+Download Questions
+A review of installation methods
+(This is a work in progress.  Please review and contribute.)
+There are many alternative methods to install Sugar.  The options can be very confusing because of the technical details and features that may be unfamiliar.
+This page begins to itemize some of the many options that are available for those interested in learning more about the possibilities.
+Note:
+When dealing with flash memory storage devices, such as 'USB sticks' and 'SD cards', one should be advised that changing the device format may affect its service lifetime.  Fortunately, the manufacturer's default format is suitable for many of the common options.
+The methods that require reformatting are indicated by a colored background such as this.
+See this discussion,
+How to Damage a Flash Storage Device
+Bootable CD of Trisquel 4.5 for MacBook Air
+Download
+http://devel2.trisquel.info/slaine/iso/trisquel_4.5-20110203_amd64.iso
+Use External USB DVD/CD Drive hold down the  "C" key on MacBook Air until booted from CD
+NOTE: hit f4 on boot screen add "xdriver=vesa nomodeset" to end of boot line for correct boot on MacBook Air
+Works nicely. NO Wireless or Magic Mouse when running from live CD on MacBook Air
+Use MacBook Ethernet Dongle for Networking
+Install_Sugar-desktop_0.88
+Do this only if you install to a HD; USB or in VirtualBox 4.0 -will not work if running from the Booted CD
+Follow link:
+http://wiki.sugarlabs.org/go/Trisquel_On_A_Sugar_Toast#Install_Sugar-desktop_0.88_.22SWEETS.22
+Bootable DVD of f14 for MacBook Air
+livecd-fedora-live-desktop-201101311532.iso Boots into F14 Gnome Desktop using the  "C" key on MacBook Air and a Burned DVD
+https://bugzilla.redhat.com/show_bug.cgi?id=528232#c85
+-------------------------------------------------------
+Luke Macken <
+mailto:lmacken
+<at> redhat_com> 2011-01-31 18:08:44 EST
+I updated our patch to support the following models:
+iMac9,1
+MacBookAir2,1
+MacBookPro5,5
+MacBookPro6,2
+I also spun up an F14 x86_64 live image with this patch.  Testing appreciated.
+http://lewk.org/livecd-fedora-live-desktop-201101311532.iso
+Use External USB DVD/CD Drive hold down the  "C" key on MacBook Air until booted from DVD
+Works nicely. NO Wireless or Magic Mouse when running from live CD on MacBook Air
+Use MacBook Ethernet Dongle for Networking
+Installs to VirtualBox 4.02 OSX correctly  02/01/2011  satellit
+NOTE: Will only run on x86_64 bit hardware (including Mac's)
+First Run When started after install
+Firstboot
+smolt
+gdm login
+To install sugar-desktop
+In root terminal:
+yum groupinstall sugar-desktop  (73 packages; Installed Size: 229 M download size 95 M)
+yum install sugar-emulator
+Fedora 14 Sugar 0.90.1
+Sugar asks for users keychain password to start
+dd write to USB
+THIS IS AN EXPERIMENT
+# dd if=livecd-fedora-live-desktop-201101311532.iso of=/dev/sdg
+2000896+0 records in
+2000896+0 records out
+1024458752 bytes (1.0 GB) copied, 279.742 s, 3.7 MB/s
+USB Will not boot on Mac Air with or without startup boot CD
+USB Boots fine on ACER ASPIRE ONE Netbook and wireless works.
+Install to Hard Disk (8 GB USB)
+THIS IS AN EXPERIMENT
+Boot MacBook Air from Burned DVD (livecd-fedora-live-desktop-201101311532.iso) with Mac Air external DVD/CD reader by holding down "C" key on power on until it boots
+Select low graphics on Boot Menu
+Insert 8 GB USB into 2nd USB slot on Mac (Format fat 32 labeled FEDORA)
+Select Install to Hard Disk Icon
+Basic install
+Custom
+device sdb is USB (FEDORA)
+Erase sdb1
+Create /boot ext4 500
+Create /     ext4 Balance of sdb
+Forward
+Grub on sdb1
+Copy files to make USB
+Does Not Boot from USB
+by holding down "C" key on power on until it boots
+Tried Boot CD but it fails to boot USB "No root device found"
+Macbook Pro
+Matt Wronkiewicz wrote:
+If anyone else is interested, I put together a boot helper for
+Mirabelle. Burned to a CD, it enabled booting a USB stick on my
+MacBook Pro. The stick was partitioned with the plain old MBR format
+and labeled "FEDORA". I also got both VMware Fusion and VirtualBox to
+boot the USB stick using this boot helper ISO. The soas-2-boot ISO
+sort of works with Mirabelle sticks, but they have different kernel
+versions so modules don't load, thus no networking. That is fixed in
+this build.
+<
+http://www.wronkiewicz.net/soas-3-boot-test.iso
+>
+revised with low graphics boot line
+<
+http://www.wronkiewicz.net/soas-3-boot-test2.iso
+>
+Installation to HD, USB hard drive, and USB/SD flash drives
+The
+LiveOS image
+technology uses compression to install operating systems on smaller discs such as CD-ROMs and small USB/SD flash storage devices.
+The extra compression layer may be avoided by installing to an uncompressed file system by one of the methods itemized in the first section below:
+Uncompressed file systems
+livecd-iso-to-disk script using the --skipcompress option
+livecd-iso-to-disk --skipcompress --overlay-size-mm <NN> --home-size-mb <NN> --delete-home --unencrypted-home /path/to/isofile/or/mounted/image /dev/sd
+?
+1
+See
+Sugar_on_a_Stick/Linux
+.
+zyx-liveinstaller <from Ferminal>
+Sugar_on_a_Stick/ZyX-LiveInstaller
+creates real file structure on USB or HD (without rebooting)
+name and color selection (and ssh keys remain the same)
+This can be a problem for using it for distribution
+liveinst (Anaconda)<from Terminal>
+Sugar_on_a_Stick/Linux/Non-compressed_Fedora#Use_liveinst_command_in_terminal
+installs to HD or USB stick
+If you make an .img file from the USB before running "firstboot", it becomes a good way to duplicate the sticks.
+Net install CD
+Sugar_on_a_Stick/Linux/Non-compressed_Fedora#Make_your_OWN_Custom_SUGAR-DESKTOP_USB_Boot_Stick
+need a fast Internet connection
+very slow install(6+ hours for USB)
+allows custom install of sugar-desktop only or Gnome/KDE + Sugar
+If you make an .img file from the USB before running "firstboot", it becomes a good way to duplicate the sticks.
+Copy :     dd if=/dev/sd(x) of=xxxxxx.img [1] see below
+Duplicate: dd if=xxxxxx.img of=/dev/sd(x)
+Compressed file systems on USB/SD devices
+script with .iso file - See
+Talk:SoaS_Blueberry_Instructions
+.
+live-usbcreator application
+Download the latest version of the Fedora LiveUSB Creator from
+http://fedorahosted.org/liveusb-creator
+and extract it.
+Plug a blank target USB flash drive (or SD Card) into your computer (minimum 1-gigabyte).
+Launch LiveUSB Creator.
+Select Sugar on a Stick v2 Blueberry in the drop-down menu on the upper-right side to download the liveUSB disk image. Alternatively, download Blueberry here, then hit the Browse button and select the downloaded file.
+Adjust the Persistent Storage slider. This enables you to save the child's work in Sugar onto the device.
+Select your flash drive as the target and click the Create Live USB button.
+Wait for the process to finish, then close the LiveUSB Creator program.
+Stop your flash drive using the Safely Remove Hardware dialog and eject it.
+other Linux distributions
+Sugar_on_a_Stick/Linux
+4 dd write to USB
+(Very DANGEROUS-can destroy your Hard Drive)
+USE "mount" command to determine USB device name (ie: /dev/sdb;/dev/sdc/;/dev/sdd ...etc)  [1]
+Fastest way to write a LIVE usb  (about 3.5 minutes for a Soas.iso)
+No persistence
+Functionally identical to Burned CD
+Great for installation when there is no CD/DVD drive (netbooks)
+Example when live.iso is on Desktop (root terminal):
+cd Desktop
+dd if=soas-i386-20101004.16.iso of=/dev/sd(x)  [1]
+1024000+0 records in
+1024000+0 records out
+524288000 bytes (524 MB) copied, 214.199 s, 2.4 MB/s
+Duplication of USB/SD .img files
+dd copy of USB/SD <from terminal>
+Sugar_on_a_Stick/Linux/Non-compressed_Fedora#Duplication_of_USB_Sticks
+Autologon
+Sugar_on_a_Stick/Linux/Non-compressed_Fedora#AUTO_Login_to_SUGAR
+Upgrade an XO-1 to Sugar 0.84 with Fedora 11 and Gnome
+WARNING: THIS WILL OVERWRITE YOUR NAND in the XO-1 with the new OS.
+Please read the instructions found
+on the OLPC News site
+. Refer to Message #3: "How to install". You must have a Developer Key, and security disabled on your OLPC.
+Please note: Software has been updated since that posting. The latest Software is available here:
+http://people.sugarlabs.org/bernie/olpc/f11-xo1-py/?C=M;O=D
+Note: Be sure to plug in your laptop using its AC charger to ensure that the installation process is completed. (The firmware will not be updated under battery power.)
+Put the two corresponding files (.img and .crc) of the same version-number on a bootable USB/SD device formated as FAT32.
+Add your
+Developer Key
+to the USB.
+Be certain to disable OLPC-security first as per the instructions.
+You can control this, when Open firmware prompts: "No WP Tag" it means "is already disabled".
+Connect your device to the OLPC
+Boot while holding down the "checkmark button".
+When Open Firmware counts down 3 seconds "...before automatic startup", push the "escape button", to get to the "OK" Open Firmware prompt.
+If the files were downloaded onto an USB stick:
+type
+probe-usb
+Press Enter.
+Control if Open Firmware has detected your device. (A "found" usb when probing, e.g., usb:/***/disk means you have to name it in the command:
+copy-nand disk:\os***py.img
+)
+Then type
+copy-nand usb:\os***py.img
+and press Enter.
+(note: replace *** with your actual versionnumber/filename.)
+If the files were downloaded onto a SD card:
+type
+copy-nand sd:\os***py.img
+and press Enter.
+when the colored points aren't changing anymore, and Open Firmware says: OK
+disconnect your USB/SD device and type
+reboot
+When there happens a failure message (or no at all but no booting-process), try to overwrite your files a second time, try to re-download your file (eg "crc miscompare"), try to reformat your usb-stick (eg "is not a multiple of the nand erase block size"), try googling... (one time it helped to remove batteries for approximately 10 seconds. There are anecdotal cases where this resets the electronic controller that has unhung.)
+try!
+In the case of success:
+Enjoy!
+WARNING: THIS WILL OVERWRITE YOUR NAND in the XO-1 with the new OS.
+Download Questions
+This page still recommends the Fedora LiveUSB installation method as the PREFERRED method for Windows SOAS, despite the known problem of eventual overlay corruption.  At a minimum, the Windows section should state that the Live-USB method is easiest but should be used only for temporary SOAS sticks or for evaluation purposes, and NOT for long-term sticks.  See
+Sugar on a Stick
+/Windows, Live USB - "(This installation method is NOT recommended for LONG-TERM usage of Sugar on a Stick!! Catastrophic data corruption may occur when the USB stick gets full! See why.) "

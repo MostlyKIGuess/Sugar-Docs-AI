@@ -1,0 +1,63 @@
+Title: Design Team/Proposals/Journal/Toolbar and palettes
+URL: https://wiki.sugarlabs.org/go/Design_Team/Proposals/Journal/Toolbar_and_palettes
+--------------------------------------------------------------------------------
+Contents
+1
+Button icons in toolbar
+2
+What/Anything palette
+3
+When/Anytime palette
+4
+Who/Anyone palette
+5
+Tags palette
+5.1
+Simple order by frequency
+5.2
+Show frequency as gradient
+5.3
+Show frequency as proportional size
+6
+Grid view palette
+7
+List view palette
+8
+Extended list view palette
+TODO
+Add and mock-up an anyone/who palette.
+Try and find better design for the anything/what filter/funnel icon.
+Show multi entry selection and applying actions to them
+shift key modifier and click to multi select (toggle, or could be block range)
+modified pop-up palette when interacting with multi selected items
+Try tag functionality in the search magnifying-glass icon
+less scary number of buttons for novice users
+could also be part of autocomplete when typing
+What/Anything filter could switch main canvas to a 'tree map' like view
+clicking on a grid would then just list that Activity type
+each grid would be sized based on frequency of entries
+each grid would show icon and Activity name
+maximum use of space
+no scrolling and no scary palettes
+perhaps tags could be treated in the same way?
+Button icons in toolbar
+Toolbar rework using standard button icons instead of text menus (the Activity filter icon is a temporary design placeholder, others could do with more work too, suggestions welcome!) If time is short, just the What/Anything, and When/Anytime menus could be replaced for consistency (ideally with the addition of Grid view vs. current List view), with other filter UI functionality (Who/Anyone, and Tags UI) added in a future release.
+What/Anything palette
+Example using a palette with a grid layout to show many items on screen at once and reduce scrolling (Activity filter icon is a temporary design placeholder, suggestions welcome!) Clicking on an item will highlight it (as shown on the default 'Anything' icon) and place its icon in the toolbar. As the list of installed Activities grows (33 shown here), this palette will need to scroll, or perhaps initially start adding extra columns.
+When/Anytime palette
+Using same options and text as per the current Journal implementation. However, the change to using a toolbar icon does raise the issue of 'showing state' visually in the toolbar. How should the main icon change to indicate one of these filters is set? I'm not sure there are good/consistent visual icons for all these menu options, though that could be one solution (if we still want to show state in main toolbar).
+Who/Anyone palette
+TBA
+Tags palette
+Simple order by frequency
+Simple, ordered by frequency tag list. Grey fill with black text shown here, but also grey fill with white text works, as does white fill with black text. Palette will need to vertically scroll as number of tags increases, but perhaps a flexible width will help reduce this.
+Show frequency as gradient
+Tag fill colour is graduated from white to grey based on the tag frequency. Not sure we want to introduce a new 'colour' language but thought a mock-up would be worth it (though it's certainly the most visually clear indication of frequency given the space). Also works with white text and grey to black fill.
+Show frequency as proportional size
+Tags are proportionately scaled (fonts equal size). More space is taken by this layout but seems visually more consistent with the tag shapes. Grey fill with white text is used for comparison with other above grey fill with black text mock-ups.
+Grid view palette
+Grid palette, not much here to see, other than to note that Grid view has been placed as a top level toolbar button as it's likely a frequent view to be switched to and from (grid view is inherently an object-view).
+List view palette
+List palette, Journal Grid view and List view are (I think) the primary views users will switch between, so I've swapped around the design priority from Eben so that (potential future) action-view and object-view are secondary items for the List view. Once/if action-view is implemented/proven it would likely be the default List view.
+Extended list view palette
+The list view palette is extended here to cover sorting feature requirements. View by last edit (modification date), is the current presentation of the Journal. View by creation date, would list objects creation date (do we store this?), when in this mode rather than "16 min ago", the time column would display the real creation date "Today 12:30pm", "July 5th", "November 10th 2008". View by storage size, would sort by storage space taken up so that large files could be removed if short on space, the column usually used for showing time would instead show Kb/Mb type information (no extra columns need, and helps show what sort context a list view is in.)

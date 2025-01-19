@@ -1,0 +1,40 @@
+Title: Service/New ASLO
+URL: https://wiki.sugarlabs.org/go/Service/New_ASLO
+--------------------------------------------------------------------------------
+The New ASLO is not a running anymore.  This page is only historical information.
+Contents
+1
+Hostnames & Emails
+2
+Hosted On
+2.1
+Ports
+3
+Setup
+Hostnames & Emails
+activities-2.sugarlabs.org
+(and
+aslo.cf
+is a redirect, along with activities2.sl.o)
+hook.sugarlabs.org
+(old subdomain, now alias:
+aslo-bot-master.sugarlabs.org
+)
+Hosted On
+Freedom
+using docker & nginx
+Sunjammer
+hosts the bundles. It also has a webhook/cgi-script to pull the bundles from rsync://freedom.sugarlabs.org/activities2
+Ports
+Bot Master:  5001 (on freedom)
+Setup
+Most services depend on the kafka queue.  It is configured via docker-compose in
+/home/sam/kafka-docker
+.
+Powered by docker containers.  Setup requires is running the container.yml files found in the subdirectories of the
+ASLO repo
+.  Eg:
+container.yml start /home/sam/bot -d
+You also want to have the
+social help service
+running as well for the comments system.

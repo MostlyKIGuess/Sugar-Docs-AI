@@ -1,0 +1,116 @@
+Title: Platform Team/Polyol
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Polyol
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Concepts
+3
+Components
+3.1
+env
+3.2
+shell
+3.3
+collab
+3.4
+ds
+3.5
+gui
+3.6
+toolkit
+4
+Build from sources
+5
+Pitfalls
+6
+Sources
+Summary
+A set of C libraries to help with coding non-Python Sugar activities.
+Concepts
+Glucose processes
+Sugar core processes and dbus services.
+DBus
+All communication between glucose level and activity process goes via dbus.
+Polyol
+Intermediate level libraries:
+Glucose compatibility libraries (ds, shell, collab) will support several (popular among sugar deployments) glucose releases
+Other libraries are not tied to glucose directly
+Key features:
+All libraries are written in Vala, i.e., based on pure GObjects, and could be used by non-python-based activities.
+Activities (mostly not native sugar activities) could use only one library e.g. activity could use only
+ds
+library thus do not fetch additional dependencies like gtk+ (via
+gui
+).
+Activity process
+Regular activities would not use glucose directly, rather they would only access glucose through the Polyol level.
+Components
+All libraries are C based and could contain bindings for various programming languages. Libraries use the same
+sources tree
+.
+env
+Access to various sugar environment settings.
+shell
+Compatibility level library to sugar-shell.
+collab
+High level client API for what activity developers might need to code collab activities.
+ds
+High level client API to sugar-datastore.
+gui
+A set of first level GUI widgets to simplify process of activity creation.
+toolkit
+Everything what developers need to start developing native sugar activities. Library depends on all other Polyol components and contains glue level code that simplify creating sugar activities from scratch. This library (and all its dependencies) is an analog of python based sugar-toolkit library.
+Bindings for this library (in contrast with bindings for other Polyol components) could contain not only wrappers for library itself, but also particular language specific code that makes process of creating sugar activities in this language more comfortable.
+Build from sources
+Install required dependencies
+cmake
+>= 2.6
+gee
+>= 0.5
+Download last
+tarball
+.
+Build it:
+cd <sources-root> && cmake [-D<var-name>=<var-value>] . && make && make install
+Useful cmake variables:
+MAINTAINER_MODE
+, set to
+TRUE
+to recreate generated files, default is
+FALSE
+CMAKE_C_FLAGS
+CMAKE_INSTALL_PREFIX
+, default is
+/usr/local
+PYTHON_SITEDIR
+, path within
+CMAKE_INSTALL_PREFIX
+to install python libraries, default is
+lib
+COMPONENTS
+,
+;
+separated list of components to build, default is all components
+BINDINGS
+,
+;
+separated list of bindings to build, default is all bindings
+For each component, Polyol will install
+.pc
+file. So, after installing polyol, be sure that
+pkg-config
+will find
+.pc
+files e.g. setup
+PKG_CONFIG_PATH
+variable before using polyol.
+Pitfalls
+Python binding libraries cannot be linked with C libraries from sugar-toolkit.
+Polyol names contain the
+sugar
+prefix to reuse sugar-artwork as-is.
+Sources
+Gitorious project
+.

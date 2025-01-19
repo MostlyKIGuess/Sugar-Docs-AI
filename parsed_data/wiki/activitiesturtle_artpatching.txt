@@ -1,0 +1,193 @@
+Title: Activities/Turtle Art/Patching
+URL: https://wiki.sugarlabs.org/go/Activities/Turtle_Art/Patching
+--------------------------------------------------------------------------------
+This article is a
+stub
+. You can help Sugar Labs by
+expanding it
+.
+Contents
+1
+Background
+2
+The steps
+3
+More steps
+4
+The patch
+Background
+Using sqrt
+There has been a discussion on the OLPC-sur list about the need for a square root function in Turtle Art. Below, I have documented the process I used for adding this functionality with the hope that others may feel comfortable in emulating me in regard to making changes and enhancements to Sugar and Sugar Activities and sharing those enhancements with the community. Beginners may find
+Activity_Team/Modifing_an_Activity
+useful.
+You can download the unofficial
+Turtleart-11.xo here
+.
+Windows users notes
+The .xo archive can be opened by relabeling it(for example) to a .zip file.
+Within the archive you find the files to be edited, Python source files talogo.py and tasetup.py and the images directory images/en/numbers . Python source files can be edited with
+Python
+.
+To run TurtleArtActivity.py you will also need
+PyGTK
+This requires GTK+ 2.10 developer (and?) runtime from
+Sourceforge
+PyCairo
+PyGObject
+and PyGTK . You still cannot run TurtleArt outside of sugar but it would be possible to inspect code and test code fragments under an OS like Windows. To run Sugar on Windows, try
+QEMU
+or other OS see
+here
+.
+Please give me feedback.
+The steps
+I looked at the Turtle Art program installed in Activity/TurtleArt.activity and determined where I needed to make changes. I had to add a new primitive for square root to the talogo.py file (and also include the sqrt function from the Python math module.
+from math import sqrt
+and
+defprim(lc,'sqrt', 1, lambda lc,x: int(sqrt(x)))
+And I had to define a new brick for square root in tasetup.py and describe the bricks attributes: its size; how it connects to other bricks; and default values.
+('sqrt','sqrt','sqrt',100),
+and
+'sqrt':    (('num',True,0,20),('num',False,42,20)),
+Finally, I had to create a graphic for the brick (images/en/numbers/sqrt.gif) and modify the panel for numbers (images/en/numbers/numbersgroup,gif and numbersmask.gif). I made similar changes to the Spanish version (images/es) and French version (images/fr).
+sqrt.gif
+The numbers palette
+The mask used for selecting bricks
+The Spanish version
+The French version
+I ran the modified Turtle Art program and made changes until I managed to get it working properly—i.e., I debugged my code. At one point, I sent email to the maintainer with a question, which he promptly answered.
+In order to push my changes upstream so that others can use them, first I needed to get a local copy of the source code
+git-clone
+git://dev.laptop.org/projects/turtleart-activity
+Initialized empty Git repository in /home/walter/Desktop/turtleart-activity/.git/
+remote: Generating pack...
+re mote: Done counting 587 objects.
+remote: Deltifying 587 objects...
+remote:  100% (587/587) done
+remote: Total 587 (delta 129), reused 0 (delta 0)
+Receiving objects: 100% (587/587), 5.69 MiB | 882 KiB/s, done.
+Resolving deltas: 100% (129/129), done.
+and make the appropriate changes
+I edited talogo.py and tasetup.py
+I also created images/en/numbers/sqrt.gif
+and modified images/en/numbers/numbersgroup.gif and numbersmask.gif
+(I also made corresponding changes in the images/es and images/fr trees)
+I made an .xo bundle so I could let other people easily install and test my changes (the following command will create TurtleArt-NN.xo in turtleart-activity/dist):
+python setup.py dist_xo
+and generate a patch
+git diff -U > patch
+and sent the patch to the project maintainer (Brian Silverman) for review
+mailto:bss
+...
+The maintainer made one suggestion:
+all looks good to me.
+One question. Are you sure you want the "int" of the answer? In the Java version everything is a float, and even in the python version xcor, ycor, and friends are floats. None of the calculations assume ints I don't think.
+I made the change and did some more testing.
+defprim(lc,'sqrt', 1, lambda lc,x: sqrt(x))
+More steps
+Brian asked me to take over as the maintainer of the Python version of Turtle Art, so I needed to "add" my new files, then "commit" and "push" my patch:
+git-add images/*/numbers/sqrt.gif
+git-commit -a
+Created commit fa7a12f: 	new file:   images/en/numbers/sqrt.gif
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ 11 files changed, 453 insertions(+), 459 deletions(-)
+ mode change 100755 => 100644 NEWS
+ rewrite images/en/numbers/numbersgroup.gif (81%)
+ rewrite images/en/numbers/numbersmask.gif (80%)
+ rewrite images/es/numbers/numbersgroup.gif (82%)
+ rewrite images/es/numbers/numbersmask.gif (80%)
+ rewrite images/fr/numbers/numbersgroup.gif (79%)
+ rewrite images/fr/numbers/numbersmask.gif (80%)	
+ create mode 100644 images/en/numbers/sqrt.gif
+ create mode 100644 images/es/numbers/sqrt.gif
+ create mode 100644 images/fr/numbers/sqrt.gif
+git-push -v
+Counting objects: 45, done.
+Compressing objects: 100% (29/29), done.
+Writing objects: 100% (29/29), 78.75 KiB, done.
+Total 29 (delta 20), reused 0 (delta 0)
+refs/heads/master: 18f37394242044f5104de7f40249caed440cdfa2 -> 1536a4ce43096395e5572ee61dbc87c88daa72ad
+To
+ssh://dev.laptop.org/git/projects/turtleart-activity/
+18f3739..1536a4c  master -> master
+and I need to generate a "tar ball" of the new source code bundle and put it on dev.laptop.org
+python setup.py dist_source
+scp dist/TurtleArt-11.tar.bz2 walter@dev.laptop.org:/var/www/sugar/sources/turtleart-activity/
+Further instructions on the Sugar release process are found here:
+Development Team/Release#New_modules_proposal
+. The instructions on the
+Development Team/Code Review
+page are also helpful.
+The patch
+diff --git a/images/en/numbers/numbersgroup.gif b/images/en/numbers/numbersgroup
+.gif
+index 3108073..7fe9848 100755
+Binary files a/images/en/numbers/numbersgroup.gif and b/images/en/numbers/number
+sgroup.gif differ
+diff --git a/images/en/numbers/numbersmask.gif b/images/en/numbers/numbersmask.g
+if
+index 9509618..ab61c28 100755
+Binary files a/images/en/numbers/numbersmask.gif and b/images/en/numbers/numbers
+mask.gif differ
+diff --git a/images/es/numbers/numbersgroup.gif b/images/es/numbers/numbersgroup
+.gif
+index 2cc5f42..f67fc50 100755
+Binary files a/images/es/numbers/numbersgroup.gif and b/images/es/numbers/number
+sgroup.gif differ
+diff --git a/images/es/numbers/numbersmask.gif b/images/es/numbers/numbersmask.g
+if
+index 9509618..ab61c28 100755
+Binary files a/images/es/numbers/numbersmask.gif and b/images/es/numbers/numbers
+mask.gif differ
+diff --git a/talogo.py b/talogo.py
+index 0e441bd..bb5850b 100755
+--- a/talogo.py
++++ b/talogo.py
+@@ -22,6 +22,7 @@ import re
+ from time import clock
+ from operator import isNumberType
+ import random
++from math import sqrt
+ class taLogo: pass
+ 
+ from taturtle import *
+@@ -269,6 +270,7 @@ def lcNew(tw):
+     defprim(lc,'or', None, lambda lc,x,y:x|y)
+     defprim(lc,'not', 1, lambda lc,x:not x)
+     defprim(lc,'%', None, lambda lc,x,y:x%y)
++    defprim(lc,'sqrt', 1, lambda lc,x: int(sqrt(x)))
+ 
+     defprim(lc,'clean', 0, lambda lc: clearscreen(lc.tw.turtle))
+     defprim(lc,'forward', 1, lambda lc, x: forward(lc.tw.turtle, x))
+diff --git a/tasetup.py b/tasetup.py
+index 73aa451..19c3c3e 100755
+--- a/tasetup.py
++++ b/tasetup.py
+@@ -57,13 +57,15 @@ selectors = (
+      ('product','*','ari'),
+      ('division','/','ari'),
+      ('remainder','%','ari2'),
++     ('sqrt','sqrt','sqrt',100),
+      ('random','random','random',0,100),
+      ('greater','greater?','comp'),
+      ('less','less?','comp'),
+      ('equal','equal?','comp'),
+      ('and','and','and'),
+      ('or','or','and'),
+-     ('not','not','not'),     ('print','print','onearg'))),
++     ('not','not','not'),
++     ('print','print','onearg'))),
+   ('flow', 55,
+     (('wait','wait','onearg',10),
+      ('forever','forever','forever'),
+@@ -98,6 +100,7 @@ dockdetails = {
+   'ifelse':  (('flow',True,37,5),('logi+',False,80,31),('flow',False,132,79,'['
+),('flow',False,217,79,']['),('flow',False,37,120,']')),
+   'ari':     (('numend',True,12,20),('num',False,39,20)),
+   'ari2':    (('numend',True,12,20),('num',False,51,20)),
++  'sqrt':    (('num',True,0,20),('num',False,42,20)),
+   'stop':    (('flow',True,37,5),('unavailable',False,0,0)),
+   'comp':    (('logi+',True,0,21,'('),('num',False,32,21),('num',False,181,21),
+('logi-',False,320,21,')')),
+   'random':  (('num',True,0,31,'('),('num',False,28,31),('num',False,150,31),('
+numend',False,279,31,')')),

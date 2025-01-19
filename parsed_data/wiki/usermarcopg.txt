@@ -1,0 +1,140 @@
+Title: User:Marcopg
+URL: https://wiki.sugarlabs.org/go/User:Marcopg#TODO
+--------------------------------------------------------------------------------
+Name
+Marco Pesenti Gritti
+Email
+mpgritti <<at>> gmail.com
+Contents
+1
+Trac queries
+2
+Weekly reports
+2.1
+11 - 17 October 2008
+2.2
+18 - 24 October 2008
+2.3
+25 - 31 October
+2.4
+1 - 7 November
+2.5
+1 - 7 December
+2.6
+8 - 12 December
+Trac queries
+My tickets
+Team tickets
+blocks:8.2.0
+blocks?:8.2.0
+Review
+Weekly reports
+11 - 17 October 2008
+Accomplished:
+Wrote a proposal about API stability policy for Glucose. Discussed in the sugar meeting, approved by everyone with minor improvements. Will make the necessary changes and officially post it on the wiki.
+Fixed various issues when running multiple Browse instance. Now file pickers and downloads are opened in the right window. Browse needs some code cleanups, I'll try to do so when factoring out things to sugar.web (now unblocked by the API policy decisions).
+Started to refactor the zoom levels part of the window management logic, basic on a patch by Benjamin to get rid of flickering in the home view. It's a tricky issue and I'm not fully satisfied about it yet, but I'm making progresses.
+Poked OLPC distro developers about the Fedora 10 migration. I hope we can make a call about it soon, because I'd rather use the gtk/gio API to implement standard compliant startup notification. Or maybe we should not bump requirements there until it's widely available on standard distributions? It's possible to implement it using lower level startup-notification API without a lot of effort.
+Thought about making the Sugar shell more standard compliant, to better host normal desktop applications. I wrote down a list of items and posted it to the mailing list. Sayamindu volunteered to help with several of them, yay! I'm still looking for someone to take over choosing and adapting a window manager to replace matchbox.
+Discussed the next generation Journal design with Scott. Happy to see that middle layer between Journal and file system was not dropped. Made a lot progress on syncing on how to gradually integrate it in Sugar. I hope next week we will able to do another mockups iteration to better define the UI (while we have a chance to do it, we should). Status: excited.
+Fix various regressions fallen out of the shell refactoring. Thanks everyone for the patience and the reports, it's for the best!
+Fedora livecd improvements. In particular get slim to behave under selinux. I wonder if we shouldn't use slim instead of olpc-dm, less custom code to maintain, I doubt the memory and disk footprint is relevant.
+Plans for next week:
+Add the window management items to the 0.84 roadmap.
+Follow up with Benjamin about the icon cache, hopefully get near to something which can be integrated.
+Look into the livecd feedback and try to make progress on it. Main blocker in NM 0.7 support, which Simon is working on.
+In preparation for 0.83.1 figure out a bit better where/how to host source code releases and start automating them.
+Send a reminder about new activity proposals, to make sure no one is missing the deadline.
+Finish up zoom levels refactoring, actually get rid of the annoying flickering.
+Trim down the review queue. We SUCK.
+Review and post API policy on the wiki.
+Investigate browser memory usage.
+18 - 24 October 2008
+Worked with Simon on porting Sugar to NetworkManager 0.7. Lots of progress, we have something sort of functional. We need to get security handling in shape (WEP only works at the moment and just as bad hack), implement settings persistence, reimplement frame devices. Someone also need to port our mesh patches to 0.7 before we can add UI for them.
+Started writing some release automation scripts.
+Wrote a script to a mock build of sugar-jhbuild for easier testing on the XO.
+Investigated Browse/Firefox memory issues and posted a summary on the mailing lists. Kernel hackers help needed!
+Finished up zoom levels refactoring, actually got rid of the annoying flickering.
+Looked a bit into drawing performance with Tomeu.
+More shell code refactoring, starting to get in shape.
+Wrote my proposals for XOCamp. I don't have time to prepare all the three talks really, will decide which one to give on the base of people interest.
+Switched jhbuild and buildbot away from Fedora 8 and Ubuntu 7.04, the glib they provide is now too old.
+Managed to get new slim in rawhide. We need to build a new LiveCD with selinux enabled.
+Plans for next week:
+Start seriously working on performance.
+Mark existing public API as stable/unstable/deprecated.
+Get activities rpms reviewed and a new LiveCD created.
+Champion www.sugarlabs.org reorg or convince someone to.
+And left from this week:
+Add the window management items to the 0.84 roadmap.
+Follow up with Benjamin about the icon cache, hopefully get near to something which can be integrated.
+Send a reminder about new activity proposals, to make sure no one is missing the deadline.
+Trim down the review queue. We SUCK.
+Review and post API policy on the wiki.
+25 - 31 October
+Wrote a script to automate modules release. It does
+everything
+in a single command. Now to work out the bugs and get rid of naive assumptions that I certainly made.
+Decide to not introduce a new deadline for activity proposals and let feature freeze be it. Went through the current proposals and commented about them.
+Added window management compatibility to the roadmap. We miss an owner for window manager replacement, please champion it!
+Published API policy and marked sugar modules with the appropriate stability keyword. Unless someone comes up with objections soon, the policy will be effective.
+Wrote a patch for the mispositioned activity palette (on the top of the frame).
+Reviewed Benjamin icon cache patch and discussed the outstanding issues. He made great progress, I hope we will be able to test it soon. Tomeu accepted to take me over on championing it.
+Reviewed a few activity rpms. One has been approved, others have outstanding issues. Feeling disappointed about being so slow on feedback to Fabian.
+Posted a proposal for a talk about "Sugar as an upstream project" for XOCamp. I'll be working on it in the next weeks. There are tricky issue to solve but I would like to have a consensus on a roadmap.
+Track down a problem with secure networks on the new network UI implementation.
+Way too much email overhead, I hope things will calm down a little and let me focus on 0.83 :)
+Taking Friday off this week.
+Plans for next week:
+Have a close look to activity startup performance, to see if we can settle down on a strategy.
+Package 0.83 for joyride and deal with the system issues that will likely arise.
+Review more activities rpms and get issues fixed upstream.
+Another iteration on 0.83 roadmap.
+And left from this week:
+Champion www.sugarlabs.org reorg.
+Trim down the review queue. We SUCK more.
+1 - 7 November
+Started looking into activity startup performance. From the first measurements it looks like import time, if done more lazily could be pretty good. The feeling is that we are doing more slow/sync things at startup then importing modules. I also suspect the launcher animation is slowing things down a lot, but I need to verify.
+Added debug logging for activity startup time, should be helpful for the performance work.
+Tried to split up better the distribution/release work the Sugar team is doing, to avoid too much costy focus switching. Tomeu is now our joyride master, while Simon keeps leading the release team.
+Spent quite a bit of time to think and discussing how to handle activity upstream releases better. Thanks to garycmartin and gregdek in particular for feedback and idea. Made also a bit of concrete progress with the Analyze release by Eduardo.
+Several people made progress on the sugarlabs.org reorg. Thanks everyone to be so responsive to my harsh complaints :)
+Trimmed down the review queue, feel better now. Dear contributors, we will not suck so much in the future, please keep sending good stuff.
+More icon cache discussions with Tomeu and Benzea, made some progress but it's pretty difficult to measure conclusively the memory/graphics performance effects.
+Lots of sugar 0.83 packaging/refining work, we are getting there but progress on joyride has been pretty slow. It would be nice if the whole team would contribute more actively, especially given we decided to port to F10. dsd is rocking as usual, no surprise there.
+Participated to the testing meeting. Positively shocked by how well Mel organized it. We need to make all our meetings like that.
+Plans for next week:
+Measure the non import part of activity startup.
+Figure out a refactoring strategy to make the imports more lazy at activity startup.
+Review Simon network manager patches, he is doing great progresses.
+Help getting dev.sugarlabs.org in shape. Follow up to awesome gregdek feedback about the wiki.
+Champion Developemnt, Release, Testing, Infrastructure teams reorg.
+Try to get Sugar Fedora 11 in shape, almost there. (Run nicely on the XO now!)
+Prepare for developer and Sugar Labs meetings in Boston.
+And left from this week:
+Another iteration on the 0.83 roadmap.
+1 - 7 December
+Back from vacation.
+Thought about plans for December, sent them out, waiting for feedback.
+Started looking into collaboration problems.
+Plans for next week:
+Fix as many as possible 0.83 regressions.
+Continue collaboration dogfooding and try to track down the unreliability problems.
+Refactor the Development Team wiki pages, giving it a bit of structure.
+Start a team TODO, inspired to the marketing one. Until things are more stable it might very well be a substitute for the roadmap.
+Start writing talk/documentation about upstream/downstream relations with Sugar Labs.
+Update jhbuild dependencies to keep up with Tomeu changes. Hopefully bring back buildbot to life (assuming we manage to get a Fedora 10 vm to work).
+8 - 12 December
+Started looking into palette bugs in Sugar 0.83.
+Good progress on collaboration dogfooding.
+Started a team TODO, as substitute for the roadmap. We will review it weekly.
+Started writing talk/documentation about upstream/downstream relations with Sugar Labs.
+Updated jhbuild dependencies to keep up with Tomeu changes.
+Good discussion with Mel and Simon about testing team and bug squad.
+Lots of misc thinking. Involve the community more in Sugar development, self contained bundle vs packages with deps, how to better expose development informations about core modules and activities.
+Plans for next week:
+See
+Development Team/TODO
+Refactor the Development Team wiki pages, giving it a bit of structure.
+Continue upstream/downstream documentation.
+Triage 9.1 bugs on dev.laptop.org

@@ -1,0 +1,422 @@
+Title: Activities/Learn
+URL: https://wiki.sugarlabs.org/go/Activities/Learn
+--------------------------------------------------------------------------------
+Activity
+| [ Source]
+In a classroom, the Learn activity takes the role of the traditional textbook. In this analogy it is not the 
+textbook, it is a bound blank book. It includes an edit mode which enables a deployment to create the units and lessons (milestones and Learn activities) that make up the textbook.
+Learn is a component of the Karma Learning System. When installed as a part of KLS, it is tightly integrated with the schoolserver. The primary design goal is to provide local copies of lessons as needed so that the student can use them when not connected to the school server.
+Version 61 enables evaluation of the activity independently of a schoolserver by using a USB removable drive.
+Contents
+1
+Installation
+1.1
+Prepare a removable drive
+1.2
+Execute the install script
+1.3
+Firefox Preferences
+2
+Principal Screens
+2.1
+Main Screen
+2.2
+Laboratory
+2.3
+Course Menu
+2.4
+Milestone Ladder
+2.5
+Activity Ladder
+2.6
+Activity
+3
+Content
+3.1
+Class Subjects
+3.2
+Explore
+3.2.1
+Examples
+3.2.1.1
+Basic Lessons
+3.2.2
+Sugar Activities
+3.2.3
+Khan Academy
+3.3
+Get Started
+3.4
+Learn
+3.5
+Lesson
+3.6
+Quiz
+3.7
+Library
+4
+Student View
+4.1
+Main Screen
+4.2
+Milestone Ladder
+4.3
+Activity Ladder
+4.4
+Activity
+4.5
+Independent Study
+5
+Managing Educational Content
+5.1
+Creating Milestones
+5.1.1
+Adding the Milestone
+5.1.2
+Adding a label and description
+5.1.3
+Done
+5.2
+Creating Activities
+5.3
+Creating Basic Activities
+5.4
+Using the Editor
+5.5
+Adding Images
+5.6
+Adding Audio Clips
+5.7
+Adding Questions
+5.8
+Using Karma Templates
+5.9
+Using Sugar Activities
+6
+Integration in the Karma Learning System
+Installation
+Prepare a removable drive
+The removable drive can be a usb flash drive or an SD card.
+If you run the Terminal activity and enter the command:
+ls /media
+,you should see /media/XXX (where XXX is the label of your removable drive).
+On 12.0.1 and later releases use /run/media/olpc/XXX.
+Make sure the label XXX does not have spaces. A label such as /media/kls is fine. A label such as 
+/media/Store N Go does not work.
+The Learn activity requires a recent (12+) version of Firefox. While Firefox is installed on versions of 
+Sugar with the Gnome desktop, the version doe not provide the needed capabilities.
+From the Firefox website, download the compressed Firefox file, e.g. firefox-*.tar.bz2, where '*' is the 
+version number of the latest Firefox release, e.g. 16.0. Copy this file to the XXX drive.
+From this website download these files and copy them to the XXX drive:
+File:Kls demo 2.tar.bz2
+is a 50mb file which contains the sample content kls and other files 
+for the Learn activity. Unpack it with the command:
+tar -xvjf Kls_demo_2.tar.bz2
+This populates the drive with the scripts and the kls folder which contains the sample content. Optionally, delete the compressed file: Kls_demo_2.tar.bz2:
+rm -rf Kls_demo_2.tar.bz2
+xo-custom is a script which sets up the XO to use the Learn.activity. It installs Firefox from the tar file on the XXX drive. It  modifies two files in Sugar: sugar-launch and SimpleHTTPServer.py. Finally it sets up the XO to start the localhost daemon at boot. These changes do not affect normal operation of Sugar.
+Download learn-61.xo from the activities.sugarlabs.org site. Copy this bundle to the XXX drive.
+Download showntell-12.xo from the Activities.Sugarlabs.org. Copy this bundle to the xxx drive.
+When this is done, the command: ls /media/XXX should show the following:
+firefox-*.tar.bz2
+kls
+Kls_demo_2.tar.bz2
+learn-61.xo
+localhost.service
+rc.local
+readme
+showntell-12.xo
+SimplerHTTPServer.py
+sugar-launch
+xo-custom
+Execute the install script
+Now mount the XXX drive on the XO.
+Launch the Terminal activity.
+Enter the commands:
+cd /media/XXX or cd /run/media/olpc/XXX
+bash xo-custom
+Upon completion of these commands, the script shuts down the XO.
+The XO is now ready. Restart to use Learn.
+Firefox Preferences
+There are some Firefox preferences that need to be set.
+In View/Toolbars only Menu Bar and Navigation Toolbar should be checked.
+Navigate to: about:config.
+Set browser.tabs.onTop to false (A personal preference, normally students do not use Firefox tabs)
+Set dom.allow_scripts_to_close_windows to true. (Enables quit button to work)
+Set layout.css.dpi to 96. (better fit for XO screen resolution)
+In 'Tabs', uncheck 'Always show the tab bar'. Students do not normally use tabs in Firefox.
+Customize the navigation toolbar. Add the full-screen icon. Choose small icons. In a deployment without internet, the Google icon can be removed.
+Students are advised to use fullscreen mode.
+Firefox tries to refresh pages from a cache in memory. This can sometimes prevent changes in screens to be immediately visible. In this case, use alt+F5 to refresh the page from the source. Note: on the XO keyboard, 
+F5 is the smallest dot in the currently unused block of seven dots in the center of the top row.
+Principal Screens
+Main Screen
+All Learn screens have a header and footer. The header is used for navigation (right side) and providing special functions (left). The center provides a title for the screen. The footer is used for navigation within a Learn activity and to provides special capabilities to that activity.
+The main screen has no navigation on the header. The 'Staff' button allows you to switch mode from staff (priviliged) mode to that of a student in fourth (p4), fifth (p5), or sixth grade (p6). The school icon in KLS opens a page showing the teacher a list of students and their current status. The Moodle button is a link to Moodel (
+http://schoolserver
+). The last button is the normal 'quit' button. Learn is designed to be run in the Firefox fullscreen mode. This means that Firefox navigation is available by moving the cursor to the top of the screen, but that students do not normally have to deal with 'http' addresses.
+The main screen shows the available subjects. In this case English, Mathematics, and Science (the three subjects supported on the laptops by the Ministry of Education in Rwanda).
+The rocket icon is the Explore subject. In this version it contains examples of mini-lessons introducing the XO and Learn. It is intended to offer students access to mini-courses on a wide range of topics outside the classroom which they are encouraged to explore. When a student completes a mini-course, they receive a badge which is shown on their page (visible by clicking the school icon on their main page).
+In the context of KLS, the classroom refers to lessons aligned with the curriculum applicable to the deployment and not the physical location. Using Scratch in the physical classroom may still not be part of the curriculum, while doing an English activity at home is certainly 'in the classroom'.
+Laboratory
+The Laboratory subject is visible only to staff. It is set up to enable teachers (and the deployment) to build the units and lessons for the next term. In this case it is set up for Term 3 of 2012 which begins in September.
+Note that the Laboratory anticipates the addition of French as a subject in Term 3. Note: also that subject menus provide a breadcrumb back to the main screen. Each of the twelve courses contains no milestones or activities.
+Milestones and activities are added using the edit capability which is explained below.
+Course Menu
+This menu is only visible to staff members. This is the English course menu. There are three courses: sje421, sje521, and sje621. While not required, it is convenient to use a code in naming courses. In this case, sj is the Saint Jacobs school in Kigali, Rwanda. The e is English. The 4 is fourth grade (p4). The 2 represents school year 2012. The 1 represents the first term.
+In student mode, the students go directly from the main screen to the next screen - the milestone ladder. Within KLS, Learn downloads milestones automatically so that the student has on his laptop enough work for about three weeks before a connection to the school server is required. Staff may need to access any milestone in any course and so need this screen.
+Milestone Ladder
+This screen shows two milestones from the beginning of Term 1. Each milestone represents about one week's work 
+for the student. This version of the Learn.activity contains the first two milestones in each subject and course.
+These milestones were created by the teachers at the Saint Jacobs school in Kigali.
+Activity Ladder
+A milestone or unit should provide the instruction needed for a student to achieve a specific learning objective.
+The lessons (or activities or tasks) which provide this instruction are shown in the activity ladder. There are two modes of presentation, open and normal. In the open mode, the student has access to any activity. Normally, the students are directed to the day's activity by the teacher. In the normal mode, students work through the activities (and milestones) in sequence. In this mode, students work independently completing the work at their own pace. This means the teacher must be able to accommodate the fact that not all students are working on the same milestone or activity.
+The word activity is heavily overloaded in the Sugar environment. Learn is a Sugar activity. The Activity Ladder shows Learn activities. Often lesson will be used to refer to a Learn activity to avoid confusion with Sugar activity. This is not a good solution, since a lesson plan may involve more than one Sugar activity.
+Activity
+This is an example of an activity. The similarity to a textbook page is not accidental. In Rwanda, most students do not have paper textbooks and so the teacher copies the relevant material from the textbook to the blackboard. The students copy this information to their copy books. As a consequence, the teachers who were new to computers created lessons that look like what they put on the blackboard. Even this is helpful because it frees about half a period previously spent copying to and from the blackboard.
+The buttons (edit and up arrow) on the right of the header are used in creating lessons which will be explained below.
+Content
+This version of the Learn activity contains sample of the content which would be available in an installation of the Karma Learning System.
+Class Subjects
+The English, Mathematics, and Science buttons show the first two milestones for Term 1 at École Saint Jacobs in courses for P4, P5, and P6. These milestones were created by the teachers at a workshop held in Nevember and December, 2011.
+The Laboratory subject is visible only to staff members. It is set up to enable creation of milestones for Ennglish, Mathematics, Science, and French for Term 3 which begins in September, 2012.
+Explore
+The sample coontent in the Explore subject is organized into six courses:
+examples
+getstarted
+learn
+lesson
+quiz
+library
+Examples
+The examples course has three milestones:
+Basic Lessons
+This milestone illustrates the capabilities of basic lessons. These are five activities (or lessons) 
+in this milestone:
+text only (lesson in French from Haiti)
+text plus image (lesson from École Shalom in Haiti)
+multi-screen lesson (lesson from Siyavula)
+text + image with audio (lesson from Rwanda Curriculum Workshop 2010).
+text with interactive quiz (taken from a past P6 leaving exam in Haiti (French)).
+Sugar Activities
+The second milestone shows some examples of using a Sugar activity in a lesson. The Learn activity stores the lesson content in a bundle in the Journal and then resumes the activity from that Journal object. To return to the Learn activity, quit the 'launched' activity.
+ShowNTell - This activity launches ShowNTell with a slide show illustrating how to use Turtle Blocks to draw Vertical, Horizontal, and Oblique lines. This is an example of a 'Step-by-Step'. This concept is explained in more detail below.
+Quiz - This activity launches the Quiz activity with a quiz on body parts (in French). Look for version 6 on activities.sugarlabs.org which will support this example. The current version 5 does not work.
+Memorize - This activity launches the Memorize activity with a bundle on Roman Numerals.
+Turtle Blocks (Turtle Art) - This activity launches Turtle Blocks in support of the first example.
+Wordsearch - This example launches the Wordsearch activity with a specific wordlist. This requires a modification to Wordsearch to be able to use a bundle when resumed from the Journal. This example does not work with Version 1 (It launches Wordsearch but the word list is the default sample).
+British Council - This activity does not launch a Sugar activity. It does show an example of having students read a short story with audio. This is one of a group of thirty-four stories which can be used in a deployment by arrangement with the British Council. These stories have one or more separate exercises in reading comprehension or vocabulary development which can also be used with Learn by arrangement with the British Council.
+Khan Academy
+This milestone has two activities:
+video - This activity plays the Basic Addition video by launching the Jukebox activity. Any Khan Academy video can be used with the Learn activity, currently after conversion to .ogv format. At École Saint Jacobs, the Mathematics subject in Term 2 has about a dozen of these videos covering basic arithmetic topics.
+exercises - Many Khan Academy videos are accompanied by exercises. This example runs the exercise associated with the Basic Addition video. This exercise is in a format which is no longer used on the Khan Academy site.
+Get Started
+The getstarted course has four milestones. Each milestone is a section from the 0.82 version of the Help activity (
+http://laptop.org/8.2.0/manual/
+). This illustrates how documentation can be made into Learn activities.
+Learn
+The learn course has three milestones. The first milestone describes the use of the Gnome desktop which may be installed on an XO in recent builds of the software. The next two milestones describe building courses and milestones. Much of this material is not applicable to this version of Learn, but does illustrate how courses can be constructed. These milestones were created using the tools in Learn.
+Lesson
+The lesson course has a single milestone with a single activity. This activity launches the ShowNTell activity to show a step-by-step method to create a new activity. This step-by-step is incomplete but illustrates the procedure. When using Learn to launch Sugar activities,
+Quiz
+The quiz course has three milestones which describe how to build a question bank using Moodle and how to create quiz activities using these questions. This procedure works, but seems too complex for routine use. It is likely that an alternative using a Django will be needed to simplify this process and make it more usable. The concept of an item or question bank is very important in the context of schools which are heavily involved in preparing students for national examinations.
+Library
+The library course describes how to use the Library activity to access the school's digital library. Since this 
+library is maintained on the schoos server, this capability is only available in a deployment. The three activities are examples of using ShowNTell to present a 'Step-by-Step' slide show.
+Student View
+Main Screen
+This is the main screen as seen by a student. Notice that the Laboratory subject is not visible. Also the school button in the top right of the header has been replaced by an xo symbol. This button in a deployment will show the student a record of his achievements and act as a portfolio in the context of the Learn activity.
+Milestone Ladder
+In the student view, a click on a classroom subject in the main screen shows the milestone ladder. At the start of the term, the first milestone has a yellow cap showing that this is the current milestone. A completed milestone has a green cap. Notice the second milestone has a blue cap. The Learn activity automatically downloads one or more milestones for the student automatically.
+The deployment sets a quota and a minimum number of milestones. When a milestone is completed, if the next milestone and those after it that are shown with a blue cap are less than the miniumum, the next milestone in the ladder is loaded. If this exceeds the quota, the first milestone already completed is removed from the XO (and the cap shows as light green (chartreuse). This system allows automatic management of the XO store.
+Activity Ladder
+The activity ladder works in a similar way. A completed activity is shown with a green flag. The current activity is shown with a yellow flag. The activities to be done are shown in blue. The Learn activity downloads milestones and so all activities in the current milestone are on the XO.
+Activity
+The activity view is unchanged; however, notice that the on the right-side of the header, the student does not have an edit button. Instead the student has a check mark button. WHen the student finishes an activity, he or she clicks on this button to continue to the next activity. This button runs a script which records the results from the activity in the Journal (an object shown with the Learn icon and a title of 'Attempt'.
+In a deployment, the Journal is backed up to the school server. These objects are stored in a log folder and the information is later moved to a database. It is then made available to teachers and to the student when requested.
+Independent Study
+Many teachers organize their classes so that all students are working on the same lesson. In these classrooms, 
+the Learn activities are worked on in class for a specific period of time (e.g. for 20 minutes in a 45 minute period). Learn supports a course being designated for independent study mode (as described above), but this is optional. When a course is not in the independent study mode, the milestone and activity ladders work exactly as they do in the staff mode. However, the activity screen still shows a check mark button and the results of the activity can be recorded in the Journal.
+Managing Educational Content
+Within the Karma Learning System, the Learn activity delivers educational content stored on the school server. From one academic year to the next, this content needs to be updated based on the experience of the teachers in using the content, changes in the curriculum, and new resources that become available. Many schools divide the academic year into semesters or terms.
+One strategy is to keep the current terms content in the main menu. Content from previous years or terms are kept as Resouces on the school server but not linked to the learning system. Content for the next term can be developed in a Laboratory subject visible only to the staff.
+The reality is that in most deployments, the first task will be to develop a baseline of content sufficient for the academic year. This may take some years to accomplish. Once a baseline is reached, the Laboratory can be initialized from the Resources from previous terms. The focus of the staff will be on improving the courses and incorporating new material. Until that time, the focus will be on creating lessons based on turning paper lesson plans into computer-based lessons.
+The Learn activity supports this process at the milestone level. Managing subjects and courses requires the efforts of an adminstrator with technical knowledge. This intervention is very important to manage the rotation of content between terms.
+This document assumes that there ia a Laboratory subject and that the courses there are the ones needed in the next academic period.
+Creating Milestones
+This is the fourth grade English course for term 3 in the Laboratory subject (sje423).
+The course is empty, there are no milestones in the ladder. A typical course for one term will have
+about ten milestones.
+Adding the Milestone
+The teacher for this course can create a new milestone by clicking on the edit button to the right of 
+the header.
+The teacher clicked on the + button to add a milestone. The new milestone shows in the list.
+Adding a label and description
+The teacher clicked on the edit button for this milestone. The first 
+entry allows the creation of a label. It is in numerical sequence by default. However, the teacher 
+entered 3/9 to show that the milestone will be used in week one of the term which 
+starts on the third of September.
+The second entry contains the description of 
+the milestone that shows up on the milestone ladder when the cursor hovers over the milestone icon.
+The teacher clicks on the third entry ('done') to complete the changes.
+Done
+Once the teacher is satisfied, he or she clicks on the green check mark to commit the changes. A click on the X cancels the changes. Note that this screen can also be used to delete a milestone and to rearrange the sequence of milestones (when there are more than one).
+Creating Activities
+Now the empty course has a milestone. Note the cap of the milestone is blue since the milestone is on the XO.
+Next, the teacher clicks on the milestone. Naturally, this reveals an empty milestone with no activities on 
+the activity ladder.
+A typical milestone has sufficient activities so that a typical student will take a week to 
+complete it. If a teacher equates an activity to a lesson requiring one class period to complete, the number of activities is likely to be four to five. If the teacher expects some or most of the activities to be completed outside of class, this number can double. The guiding concept is that completing a milestone should represent achievement of an important learning objective. The number and nature of the activities should be proportional so that the student does not become discouraged. A milestone with forty activities would certainly be daunting!
+To create an activity, as before, the teacher clicks on the edit button in the header. The difference is that 
+the teacher has a number of choices in the type of activity. In this case, the teacher selects t00 for a basic 
+activity. The other options will be described below.
+In a similar way, the teacher assigns a label and description to the activity. In this case, the teacher has 
+labeled the activity as 'I' to show the type of activity, 'introduction'.  As before when the teacher is satisfied, he or she clicks on the green check mark to commit the changes.
+Creating Basic Activities
+The teacher clicks on the activity.
+This is the default activity created by the Learn activity. The teacher clicks on the edit button to 
+enter the edit mode [ckeditor].
+Using the Editor
+The default lesson is loaded into the editor. The buttons on the header to the right are:
+save - click on this button to save changes
+audio - add an audio track to the lesson - explained below
+image - add an image to the lesson - explained below
+quit - quit activity, not normally used in this context
+The arrow to the left of the header leaves the edit mode and returns to the activity. If the user 
+returns to the activity before clicking on the save button, changes will be lost.
+The editor is WYSIWYG (What you see is what you get). However, the actual appearance of the lesson will 
+differ because of the different style sheets applied. In addition, images are not shown in edit mode.
+The editor has a toolbar with icons. Most of these icons are common to most editors. There are three 
+rows:
+First row:
+Source - switches the view from WYSIWYG to the html view.
+Cut, copy, and paste are the first three icons in the second block.
+The rounded arrows in the next block are for 'undo' and 'do'.
+The two in the third block are  'find' and 'find and replace'.
+The remaining icons in this row are not useful in this context.
+Second row:
+The first block formats text: bold, italic, underline, and strike-through. The next two set the superscript and
+subscript modes, respectively.
+The icons in the second block set numbered or bullet list modes, increase or decrease indent. Skipping two icons,
+there are icons to control alignment: left, center, right, and justify.
+The fourth icon in the last block inserts a horizontal rule. This is used to mark the boundary between screens in a multiple-screen lesson. The next two insert special characters such as a smiley or a division symbol. The last two are not useful in this context.
+Third row:
+'styles' selects a style to use, the ones available are not very useful in this context.
+'Format' defaults to normal text. However, use this list to select various style headers. For example,
+the lesson title is normally Heading 1. Sub-title may be Heading 2 and so on.
+'Font' allows selection of a font to use. Changing font is not often needed in this context.
+'Size' allows a change in the font size. To change the font size, you must first 'select' the text to
+apply the change to. Move the cursor to the left of the first character to be changed. Hold the left 
+mouse button down while moving the cursor along the line of text. The background of the text will turn dark to 
+show that the text is selected. Release the left mouse key when the correct text is selected. Now change the
+font-size.
+The next two icons allow change to the text color and to the background color respectively. This works the
+same way as 'font-size', you select the text and then select a color.
+This image shows the beginning of the lesson. The title could be centered by using the center icon on the toolbar. Select the title as described above and click on the center-alignment icon. The A section title 
+could be a Heading 2. Select the text (including the A.) and click on the second list in the bottom row. A 
+list of formats appears, click on Heading 2.
+The teacher has clicked on the 'save' icon (an image of a 'floppy drive') and then clicked on the right arrow 
+to return to the activity. The activity now shows the text entered in the editor.
+Adding Images
+Clicking on the camera icon in the header will (after some moments) show this screen. It shows thumbnails of all 
+of the images available to be added to the lesson. In this case, these are the screen shots I used in 
+preparing this page.
+The images are those found in the Journal plus any images in /home/olpc/Documents. In recent builds of Sugar, 
+this folder is visible in the Journal and acts like a mounted usb drive. This means that images obtained from 
+the internet, a digital camera or a mobile phone can be copied to a usb drive. When this drive is mounted, it will appear at the bottom of the Journal screen along with an icon for the /home/olpc/Downloads folder. By selecting the usb drive (or SD card) containing the images, the relevant ones can be dragged to the folder. Alternatively, the images can be dragged to the Journal. In either case, a thumbnail will appear on this screen.
+In this case, the middle image in the top row was selected (click on the thumbnail). This screen allows the teacher to specify the size and location of the image. The width of 600 represents one-half of the screen. The height of 450 gives a 4:3 aspect ratio.
+The next entry specifies the screen on which the image will appear. In single-screen lessons this is, of course, 1.
+In multi-screen lessons, the teacher might want a different image on each screen.
+An entry of 1L specifies that the image should be at the top left of the screen. An entry of 1R specifies the right side. An entry of 1 specifies the image should be centered. When the image is on the left, text will appear to its right. If right is specified, text will appear to the left. When an image is centered, text will begin 
+below the image.
+The teacher clicks on the OK entry to commit the change.
+This shows the image in the lesson. Since 1L was entered, the image is on the left with text to the right.
+Note: images currently can only be located at the top of a screen and only one image can be on each screen.
+Adding Audio Clips
+Clipping on the microphone adds an audio clip to the lesson. It works the same way as the image icon 
+except that the user only needs to click on the correct audio clip since no location or size information is 
+needed.
+A lesson with an audio clip shows a play button in the left-side of the footer. It is a toggle so that 
+when the audio is playing it shows a 'pause' symbol. The audio continues if play is pressed after a pause.
+To restart the audio, it is necessary to go back to the activity ladder and select the activity again.
+Adding Questions
+An interactive quiz can easily be added to any lesson/activity.
+The quiz is entered in edit mode using a special format developed by Moodle called 'gift'.
+The questions are entered between the following lines:
+/*Quiz
+questions go here
+/*
+The word Quiz (capitol Q) must be entered after /* with no spaces. The '*/' is on a separate line. The questions are entered between these two lines separated by a blank line. Here are some example questions:
+/*Quiz 
+The Learn activity is part of the Karma Learning System.{T}
+
+The OLPC laptop is often referred to by two letters. What are they? {=XO =xo}
+
+There {=are} many people world-wide supporting the OLPC project. [is are]
+
+One of these organizations is not related to the others. Which one? {=CIA ~OLPC ~Sugarlabs ~Red Hat}
+
+*/
+The first question is True-False. Answers are shown between braces '{ }'. The answer to a True-False question may be any of T, t, True, true, F, f, False, false. Note that, unlike the other answers, an equal sign '=' is not needed.
+The second question is short answer. Acceptable answers (one or more) are given between braces. In this case, XO and xo will be accepted as correct. Xo and xO would be considered incorrect.
+The third question is a cloze. It is identical to the short answer except the braces are within the text. The student will see a blank (underlines) where the braces are entered along with a place to enter the answer.
+The fourth question is multiple-choice. The choices are given between braces. The correct answer is indicated by the equal sign '='. The incorrect choices (distractors) are indicated by the tilde sign '~'.
+The quiz is created when the lesson is saved.
+When the student opens the lesson, there will be a 'Start' button shown on the bottom right of the screen. The screen gives information (e.g. a diagram) needed to answer the questions and/or instructions on answering the questions (e.g. round your answer to two decimal places).
+When the student presses the Start button, he is given the questions one at a time in the order they appear in the lesson (not randomized).
+This capability is based on the jquizme library.
+Using Karma Templates
+When creating an activity, the teacher can choose among a menu of activity types from t00 - a basic activity 
+to t20.
+The activity types are:
+t00 Basic - a normal textbook-style lesson with optional images, audio, or quiz components.
+t01 Adding up to 10 - a Karma game which currently has no options for customization.
+t02 Crossword - a crossword puzzle to find a hidden word. A teacher can create a custom crossword puzzle.
+t03 Hangman - a traditional hangman. A teacher can provide the wordlist.
+$t04 Identification - not currently usable
+t05 Mad-libs - A teacher can provide the clues and story.
+t06 Matching - a Karma implementation of Concentration. The teacher can provide the words and images.
+t07 Matching Pairs - a matching activity. The teacher can provide the list of matching words.
+t08 Multiple-choice sentence - multiple choices for words in the sentence (e.g. is/are). The teacher can supply the word choices and sentences.
+t09 Puzzle - rearrange pieces of a picture in alphabetical or numerical order to see the completed picture. The teacher can supply images.
+t10 Quick Arithmetic - student is challenged to provide sums mentally. Currently customizing is not supported.
+t11 Scrambled sentences - not operational
+t14 Vocabulary - not operational
+t15 Vocabulary with game - not operational
+t16 What is this? - matching images against words. The teacher can supply words and images (images not automated).
+t17 Anagram - rearrange letters to form a word naming an image. Teacher can supply words and images (images not automated).
+t18 Maths introduction - not operational
+t19 Maths guided practice - not operational
+t20 Maths evaluation - not operational
+The best way to see how these activity types work is to go to the Laboratory and in any course add a milestone.
+Then add activities selecting the various types. The result is an example of the activity type. By entering 
+the editmode, the source.txt file defining that activity is shown. It can be edited to make a custom version 
+that fits the milestone. For example, a crossword could be constructed using some words from the week's vocabulary list.
+Most of these templates were created by Peter Gijsels in a visit to Rwanda in 2011. They illustrate how 
+activities can be created using the Karma library and html5 web techniques (css, javascript, jquery). It is intended that this library be expanded to include more useful educational activity types.
+Using Sugar Activities
+There is currently no automated support for creating these lessons. It requires some command-line knowledge. 
+When a lesson is opened in the edit mode, the file being edited is 'source.txt'. The first line of this file 
+contains a directive to launch a specific Sugar activity, e.g.,
+For technical reasons, this line appears in the edit mode as:
+/*B:TurtleArt,lines_lesson.ta,application/x-turtle-art*/
+The source.txt file uses html5 markup in which  enclose a comment. As a result, this line is 
+not visible in the editor. By converting the markup to /* */, the user can create and edit this line.
+The B: is required to signal this comment contains a directive. There are three parts to the directive separated by commas:
+name of the Sugar activity. This is the same as the name in /home/olpc/Activities minus the activity.
+So Turtle Art (Blocks) appears as /home/olpc/Activities/TurtleArt.activity.
+file name of the activity bundle (lines_lesson.ta) including the file extension. This bundle must be in
+the folder for this lesson in Learn.
+mime_type of the bundle. The mime_type of a bundle is given in /home/olpc/Activities/TurtleArt.activity/activity/activity.info. For 'some.activity', look in /home/olpc/Activities/some.activity/activity/activity.info.
+A Sugar activity can be launched as a new start by:
+/*B:some.activity*/
+The Learn.activity creates a Journal object with the bundle file as data. It then resumes the activity from this Journal object.
+Note that not all activities are able to resume from a Journal object and not all activities support processing data files.
+The user needs to quit the launched activity when finished to return to the Learn activity. Sugar treats the launched activity as a window opened by Learn and so gets confused if the user tries to return to Learn via the frame.
+Integration in the Karma Learning System
+When Learn is used with a school server as part of the Karma Learning System, the subjects, courses, milestones, and activities are stored on the school server. Students are assigned laptops by the school so that KLS knows the grade level of each student (and the staff status of members of the staff). Learn on the first launch downloads the content needed to start for students based on their grade. Staff see a milestone ladder where the cap may be blue as seen in the screenshots above or a light blue (cyan). Milestones with a cyan cap are not downloaded to the laptop. A click on the milestones causes the milestone to be downloaded. In this way teachers can look at and edit any activity.
+As part of KLS, Learn stores the results of each activity in the Journal. When the laptop connects with the schoolserver, a backup script uploads new journal entries to the school server. Journal entries which produced documents are uploaded to the Journal. Other entries are uploaded to the log.
+In KLS, the Journal is kept on the school server. The laptop has some, but not all of the entries. This offers three advantages: (1) if storage becomes full on the laptop, deleting Journal entries only deletes the local copy. The Journal item is still available when needed, (2) if a laptop becomes unusable, the student can begin working with a different one retaining full access to his Journal from the previous laptop, and (3) there are no 'empty' Journal entries with titles of xyz.activity. The user must supply a meaningful name for each Journal entry.
+KLS provides the teacher with access to a class list. For each student, the list shows the current status of that student in each course (the milestone and activity last completed). The teacher can 'drill down' by clicking on the status - to see a complete list of milestones and activities completed. Click on a milestone and activity shows the number of attempts, total time spent, the result, and any other details such as questions and answers to quizzes. This information is derived from the students Journal and log stored on the school server.
+As a part of KLS, Learn provides download of milestones from the school server. Milestones and activities modified by the teacher may be uploaded to the school server and, thus, become available to students. If the student has already downloaded a milestone, he or she won't see the change. A reset button is provided on the header of the activity ladder for the milestone which will delete the local copy and download the updated copy.

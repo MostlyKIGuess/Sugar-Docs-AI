@@ -1,0 +1,110 @@
+Title: Activity Library/Editors/Policy
+URL: https://wiki.sugarlabs.org/go/Activity_Library/Editors/Policy
+--------------------------------------------------------------------------------
+NOTICE:
+This page is a draft in active flux...
+Please contribute to these contents and discuss issues on the
+discussion page
+.
+Contents
+1
+Technical policy
+2
+Guidelines for accepting an activity
+3
+Non-technical policy
+3.1
+Who can be an editor ?
+4
+Removing, reviewing, sandboxing activities
+4.1
+Reasons for removing
+4.2
+Reasons for keeping or moving to the Sandbox
+5
+Resources
+Technical policy
+All technical checks will happen
+automatically
+while uploading activities.
+Guidelines for accepting an activity
+Must Start/Stop cleanly
+When stopping must stop gracefully - not stay in memory.
+CPU and Memory usage
+Usage must be proportional to functionality
+Must not completely tie up the machine
+Interface
+Conform to Sugar standards?
+Icons to meet sugar colour guidelines
+Frame key must work from within the activity
+Must fit within screen size of the XO’s
+Journal
+Is there save functionality and does it interact with the Journal well?
+Are file types registered with SugarOS correctly?
+Checks
+Black and white (high contrast screen)
+Sound
+Does sound behave?
+Stutter
+lock up sound card
+Collaboration
+Must work if button is there
+Maximum number of collaborators
+Test with 3 or more?
+Bugs (for updated activities)
+Are there any regressions in old functionality?
+How functional is new functionality?
+Download size of application must be reasonable compared to similar applications
+functionality
+For activities webpage
+Must have reasonable explanation of purpose for the “more about this activity” field
+Must have release notes
+Must be categorised correctly
+Versions of Sugar
+Do we assume the developer has tested on all versions they say it works on? --
+RafaelOrtiz
+20:48, 18 February 2011 (EST) At least that he sets the flag correctly on ASLO.
+Tester approving activity tests on olpc stable builds?
+Who tests on SoaS and what version?
+Must tell user if the activity is using web? collecting user data?
+Must have I18n support (i.e gettext generated .POT with ./setup.py genpot)
+--
+RafaelOrtiz
+20:48, 18 February 2011 (EST) We must focus in testing for diferent versions of sugar, olpc. soas an use different sugar versions, generally newer than Sugar 0.82
+Sorry, but keeping all these "Must"s, what ASLO is supposed to be? A place to host activities developed by well skilled coders, QAed by well skilled engineers, released by well skilled project managers? Is it about Sugar or something else? If I got Sugar purpose right, Sugar is about learning via doing, it is mostly impossible to do something well formed right after starting. ASLO should respect experimenters and their decision about quality (ready to share) of the code. At the same time, there are bunch of side ways how to mark activities that satisfy all these "Must"s - editors pick up and special collections.
+alsroot
+07:29, 26 September 2011 (EDT)
+Non-technical policy
+Who can be an editor ?
+Any sugar learner should and can be an editor of the Activity Library, 
+we only advise that the editor can't be the developer of the activity, this is true for non-trusted activities. (see definitions bellow)
+Trusted Activities
+These are activities that don't need an editor approval for publicize new updated versions.
+Not-trusted Activities
+These are activities that need an editor approval in order to publicize new updated versions of the activities
+Maintained activities are entitled to be trusted, and all activities that fulfill technical and non-technical policies can be trusted.
+Removing, reviewing, sandboxing activities
+Some points that should be considered during activity review, some activities might be entirely removed.
+Reasons for removing
+Inappropriate (violent, sexual, subversive) content
+Inappropriate license, see Oversight Board
+meeting notes
+for details.
+Reasons for keeping or moving to the Sandbox
+Activities that are experimental are kept in Activity's Library sandbox (i.e., only registered users can download them).
+Any confusion with already-published activities
+Action
+: Make the difference more clear, by obvious renaming, providing notice in the description, or not launching activity, etc.
+Buggy activities
+If the activity is proving to not start or is having serious functionality problems, it should be moved to the sandbox or removed.
+Action
+: Contact the maintainer or Developer to notify them of the issue.
+At the same time we should stimulate experiments, changing existing activities and, very importantly, sharing results of these experiments. A new ASLO code base might support having several implementations ("forks" might be too hard a word for them) of the same activity. Need to think how this can be achieved.
+alsroot
+07:32, 25 October 2010 (EDT)
+Obvious misuse of categories, e.g., FireFox activity in Teaching tools
+Action
+: Contact the uploader to clarify the category choice.
+Resources
+Original AMO
+policy

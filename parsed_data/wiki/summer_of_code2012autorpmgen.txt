@@ -1,0 +1,72 @@
+Title: Summer of Code/2012/autorpmgen
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2012/autorpmgen
+--------------------------------------------------------------------------------
+Contents
+1
+About You
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About You
+What is your name? Kalpa Pathum Welivitigoda
+What is your email address? callkalpa@gmail.com
+What is your Sugar Labs wiki username?
+Callkalpa
+What is your IRC nickname? callkalpa
+What is your primary language? English
+Where are you located, and what hours do you tend to work? I am located in Sri Lanka (GMT + 0530h), work hours can be varied as required and willing to work at night as well.
+Have you participated in an open-source project before?
+http://fedoraproject.org/wiki/User:Callkalpa
+http://wiki.sugarlabs.org/go/User:Callkalpa
+http://openhatch.org/people/callkalpa/
+About your project
+What is the name of your project? autorpmgen
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+I am going to make a tool which will automatically build the rpm packages for the existing sugar activities. It builds new rpms as new activities are submitted or new updates are issued for existing activities. And there will be a separate repo established for those rpms.
+At the time of writing there are almost 400 sugar activities. Projects like sugar on a stick have widen the community for these activities (like they can be used by Fedora users as well). Still that is possible only for the packages that are packaged for Fedora (making the rpm, going through the review process and all that). What I am trying to do is spread it even more. People who want to use activities on their Fedora box will just add the repo and install them. There's no need for them to be approved for Fedora repo. This is true for any other rpm based distro. Further there is no need of maintainers who need to follow the development and build new rpms. (Currently there are packaged activities for Fedora where there are no further rpm issues due to lack of maintainers). It is even better to extend this to other package managing systems as well like deb. But I have no experience with that at the time of writing so I will for now just stick to rpm.
+The idea is to maintain a ini file like file for each activity and generate the spec file out from that and finally generate the rpm. There is
+Spectacle
+, a tool to generate spec out of a ini file and
+Tito
+which can be used to build rpm from the spec file.
+What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week.
+1st and 2nd week : Generate ini file (details extracted from the activity.info file in each activity and from other sources related)
+3rd week : generate spec file from the ini file
+4th and 5th week : generate rpm from the spec
+6th week : establish a repo for the rpms
+7th week : implement the new activity submission and update submission feature
+Here I have outlined my schedule only for coding. Evaluations will be there and the schedule is subjected to undergo changes as necessary. For generating the ini file and rpm, I have allocated two weeks each and this is with a safety time margin. I don't think they will take that long to implement.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I've been packaging some of the sugar activities for Fedora which is directly related to the core of this proposal. I started with Ruler about 6 months ago with the guidance of
+Peter Robinson
+. Since then I have been maintaining and co-maintaining around 10 packages associated with sugar activities. I am familiar with python and bash scripting as well.
+Packages I maintain/co-maintain at Fedora:
+https://admin.fedoraproject.org/pkgdb/users/packages/callkalpa
+You and the community
+1. If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+autorpmgen will enable students who doesn't have a xo lap to experience ALL the sugar activities which are currently available on their rpm based distro box. Further it will be beneficial to projects like Sugar on a Stick which is based on Fedora. SoaS will also include more and more sugar activities in future of course will be beneficial to students who even doesn't have a rpm based distro box. They can just plug their USB stick and get the full experience. Activities will be exposed to a more wide community of students, teachers and developers which in turn will result in more and more feedback and ultimately the activities will get better and better and will more suit the needs. That is we are reaching more students with better quality products. --
+Callkalpa
+It is great to see so many Sugar activities being packaged... certainly will make life easier for the maintainers and those pulling together distros. I question the assertion that this will help nonSugar users without an accompanying effort to add the glue to launch Sugar activities outside of Sugar. A number of activities, e.g., Turtle Art, support this, but it is atypical. Perhaps a modeule that can get distributed with the RPMs that detects whether or not the Sugar environment is available and added replacement methods in the case it is not? We need to think this through. --
+Walter
+11:41, 16 February 2012 (EST)
+2. What will you do if you get stuck on your project and your mentor isn't around?
+First of all I try myself and next I seek for help in other source such as mailing lists, irc (#sugar #fedora-devel on freenode) and past GSoCers of Sugar Labs. I firmly believe that always there will be some path where I can get the information I need.
+3. How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+It is mainly my
+blog
+that I intend to use as the medium to inform the rest of the world on my progress. About the problems and questions, I will be using the specific developer resources and mailing lists and irc as well.
+Miscellaneous
+We want to make sure that you can set up a development environment before the summer starts.
+here is the link to the screenshot
+What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+Medium
+Describe a great learning experience you had as a child.
+I woudld like to mention about my entrance to the world of programming. I started with GWBASIC on those good old days and gradually improved through Visual Basic, python, C and java. I prefer to learn and explore things by myself and I am thankful to my parents for allowing me to do what I have an interest on. From childhood to this point, it was a great learning experience in terms of programming and other aspects as well. Even in the event of getting the sugar development environment work properly I came across some issues which I tried my self and blogged
+here
+. It is always happy to follow trial and error method when there are no other possible alternatives visible or reachable.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+I have got a xo lap myself thanks to
+pbrobinson

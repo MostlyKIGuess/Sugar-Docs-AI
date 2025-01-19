@@ -1,0 +1,88 @@
+Title: Activities/Turtle Art/Logo
+URL: https://wiki.sugarlabs.org/go/Activities/TurtleArt/Logo
+--------------------------------------------------------------------------------
+Exporting to Berkeley Logo
+Turtle Art can export its projects to
+Berkeley Logo
+(using either View Source or the Save as Logo button on the
+Project Toolbar
+) You can download the
+Berkeley Logo activity here
+.
+A Turtle Art project
+The UCB Logo version (see "Internals" below)
+Logo code generated from your project is viewable in the View Source panel in some versions of Turtle Art, but as of v100, the Turtle Art project itself is shown instead.
+Turtle Art code
+View Source menu
+Logo code
+Note:
+The Save-as-Logo button saves to the Journal as "logosession.lg". UCB Logo does not yet access the Journal directly, so it is necessary to copy the project out of the Journal using the "copy-from-journal" command in the Terminal Activity and then accessing the project using the File menu within the UCB Logo Activity.
+copy-from-journal logosession.lg
+Alternatively, you can open the logosession in 'Write', copy the Logo code to the clipboard, and then paste it into the UCB Logo Activity.
+Internals, how a Turtle Art project is converted to Logo
+Shown here is the Logo code generated from the Turtle Art project shown above.
+Firstly the Logo code contains procedures for setting up the palette and the shade functionality:
+to tasetpalette :i :r :g :b :myshade
+make "s ((:myshade - 50) / 50)
+ifelse lessp :s 0 [
+make "s (1 + (:s *0.8))
+make "r (:r * :s) 
+make "g (:g * :s) 
+make "b (:b * :s)
+] [
+make "s (:s * 0.9)
+make "r (:r + ((100-:r) * :s)) 
+make "g (:g + ((100-:g) * :s)) 
+make "b (:b + ((100-:b) * :s))
+]
+setpalette :i (list :r :g :b)
+end
+to rgb :myi :mycolors :myshade
+make "myr first :mycolors
+make "mycolors butfirst :mycolors
+make "myg first :mycolors
+make "mycolors butfirst :mycolors
+make "myb first :mycolors
+make "mycolors butfirst :mycolors
+tasetpalette :myi :myr :myg :myb :myshade
+output :mycolors
+end
+to processcolor :mycolors :myshade
+if emptyp :mycolors [stop]
+make "i :i + 1
+processcolor (rgb :i :mycolors :myshade) :myshade
+end
+to tasetshade :shade
+make "myshade modulo :shade 200
+if greaterp :myshade 99 [make "myshade (199-:myshade)]
+make "i 7
+make "mycolors :colors 
+processcolor :mycolors :myshade
+end
+to tasetpencolor :c
+make "color modulo round :c 100
+setpencolor :color + 8
+end
+make "colors [
+100 0 0 100 5 0 100 10 0 100 15 0 100 20 0 100 25 0 100 30 0 100 35 0 100 40 0 100 45 0 
+100 50 0 100 55 0 100 60 0 100 65 0 100 70 0 100 75 0 100 80 0 100 85 0 100 90 0 100 95 0 
+100 100 0 90 100 0 80 100 0 70 100 0 60 100 0 50 100 0 40 100 0 30 100 0 20 100 0 10 100 0 
+0 100 0 0 100 5 0 100 10 0 100 15 0 100 20 0 100 25 0 100 30 0 100 35 0 100 40 0 100 45 
+0 100 50 0 100 55 0 100 60 0 100 65 0 100 70 0 100 75 0 100 80 0 100 85 0 100 90 0 100 95 
+0 100 100 0 95 100 0 90 100 0 85 100 0 80 100 0 75 100 0 70 100 0 65 100 0 60 100 0 55 100 
+0 50 100 0 45 100 0 40 100 0 35 100 0 30 100 0 25 100 0 20 100 0 15 100 0 10 100 0 5 100 
+0 0 100 5 0 100 10 0 100 15 0 100 20 0 100 25 0 100 30 0 100 35 0 100 40 0 100 45 0 100 
+50 0 100 55 0 100 60 0 100 65 0 100 70 0 100 75 0 100 80 0 100 85 0 100 90 0 100 95 0 100 
+100 0 100 100 0 90 100 0 80 100 0 70 100 0 60 100 0 50 100 0 40 100 0 30 100 0 20 100 0 10]
+make "shade 50
+tasetshade :shade
+to tasetbackground :color :shade
+tasetshade :shade
+setbackground :color + 8
+end
+Then the Logo code contains the project:
+to ta
+clearscreen tasetbackground 21 100 setpensize 25.0 make "box1 0.0 
+repeat 300.0 [ tasetpencolor xcor / 6.0 tasetshade heading forward :box1 right 91.0 make "box1 :box1 + 1.0 ] 
+end
+ta

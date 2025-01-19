@@ -1,0 +1,207 @@
+Title: Summer of Code/2009/Marbles
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2009/Marbles
+--------------------------------------------------------------------------------
+THIS IS A DUPLICATE APPLICATION, JUST USE
+Marbles
+PLEASE.
+Contents
+1
+About Me
+2
+About My project
+2.1
+Technical Approach
+3
+Me and the community
+4
+Miscellaneous
+About Me
+Q1.
+What is your name?
+Ans. Puneet Girdhar
+Q2.
+What is your email address?
+Ans. puneetgirdhar.iiit@gmail.com
+Q3.
+What is your Sugar Labs wiki username?
+Ans. puneet
+Q4.
+What is your IRC nickname?
+Ans. chasedspeed
+Q5.
+What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+Ans. hindi. good at english though.
+Q6.
+Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+Ans.Hyderabad, India-500032. In summer, I can devote full time on open source activity. Any time suits me fine.
+Q7.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other
+demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+Ans.This would be my first active participation in open source development. I have worked on variety of projects ranging from web services, mobile development in j2me, python web server managment. I guess, I knew about GSOC before but was busy in learning open source technologies so could not apply before, but now after gaining enough experience about project development and technical skills I didn't want to lose the opportunity to contribute back to open source community.I want to get started here and wish to continue even after GSOC.
+About My project
+Q8.
+What is the name of your project?
+Ans. Marbles : Shape the imagination
+Q9.
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+Ans.We are supporting children imagination and trying to realize them in digtal world. Students often love to indulge themselves in various acivities ranging from playing to building stuff, to management . These are nothing but their imaginative reach trying to make it real. These creativity are the most important one and the most beneficial in child development. Computers on other hand are meant for catching imagination and creating artificial reality, then why shouldn't we attach them both. We would be using computers digital approach to support child creativity. Children can play games, learn programming , build application, learn graphics and many other activities.
+Use case scenarios :
+Students can use this project for
+create a simple UI application with simple drag and drop widgets.
+they would be able to resize the widget, reorder them and associate some event handlers to the widgets.
+Programming support would be given for advanced students where they can test and improve their programming skills for beginners, a step-by-step instruction sets for introducing them in programming.
+We can go for sound support with gstreamer library, where we can interact the program with simple sounds, since children get attracted to sound
+more easily than text
+Help Manual to get started for students. Special care will be taken for information supplied, they would be concise and expressive.
+This project also targets the developers, they can use our application to
+add / remove activity
+modify activity, Activity modules would be independent of architecture and easily modifiable to suit current needs.
+sugar bot support for unit-testing
+debugger integration with gui to facilitate debugging the activity.
+We can associate various group activities among students to encourage them in developing environment.
+Technologies I will be using are pygtk, XML parsers ( if sharing of information is required ) . Pygtk, gives a gtk libraries support which we can code them to interact with the enviornment and develop UI applications. XML communication would be required if there is need to transfer the information from one end to another. Some of key points would be :
+Primary aim would be to provide basic learning experience in UI application with minimal programming efforts.
+Secondary aim would be to increase Scope for development for future developers.
+Application would be built as simple as possible with highlighting and attractive features.
+Sharing of code over network, integrating of code in program directly.
+Exception handlers, should be interactive for users and should take minor decisions automatically.
+Technical Approach
+Below is the technical abstract for Marbles:
+Here visual UI representations gives an option to select widgets, authoring tool will assist the users to place the widgets on frame and also do some prechecks on UI widget compatibility.Program generator then generates the optimized code based on UI types, positions and associates event handlers to the widgets. Views should be handled independently and it includes final checks on widgets too. History generation is being done side by side to facilitate recoveries if error occurs and finally, output generation ( both UI and code output ) . Code output from the software will be stored in specific directories or in database.
+Database comes into picture while history creation with simple as undo/redo or more complex project development stages. Typically database would store the fields like
+Table: Widget
+Fields: Widget id,name,label,icon, height, width, position,parent_container id ,visible,focus-type, param1,param2
+Widget table will contain widget id , it's name,label,positional parameters, id to its paraent container, and other parameters specific
+to widget functionality like for checkbox we could have parameters like "default check". This table includes all type of widgets i.e.
+containers, menu, buttons, checkbox etc
+Events
+Fields: Eventid, type,signalid, signal-handler,object,widget-id(foreign key),params
+Events table will register the events associated with the widgets. Note that signal handler would be called as object.signal-handler() with
+parameters if necessary.
+Navigation-Views
+Fields: Widget-id,pos-x,pos-y,col-span,row-span,padding,Expanding(boolean), shrink(boolean), colorfill(boolean), params
+This gives option to handle view effectively. Options are id, postions, span space, padding space, expanding ( yes/ no ), shrinking
+(yes/no), color fill and other parameters. This table would be mainly responsible for generating views in desktop UI.
+Navigation-main
+Fields: Widgetid,name,description,activate(boolean),children-id(foreign key),delete(boolean),params
+This table will be the database of UI application and UI graphics can be straight generated using this table. This table would be overwritten with widgetids everytime, when an object is added to on VISUAL UI. this contains field like widget id,
+name desc, chidren-id ( widget that comes under it ) and other functional or positional parameters. delete column will help in faking delete
+option( more on this later ).
+This table can also be shared in network and associated with other UI applications. Here XML messaging can be used with DOM/SAX parser support in this application.
+Description
+Initially, navigation-main row will be initiated with widget-id say 0 and delete will be false 
+When user drags an widget on canvas, new widget will be created and a new entry comes in navigation-main table. Similarly children-widgets are created and subsequent entries will be given in specific tables. In this way, a whole tree-view of UI application would then be saved in database.
+For undo operation, navigation-row entry for "delete" can be set to true, similarly for redo operation, entry would be false again.
+How output is generated
+program generator will read navigation-main and widgets specified by user will be initiated with given options. Navigation-view will then be fetched and widgets will then be arranged according to view-instructions. 
+Code generated will be temporarily stored in files ( say /tmp) , can be permanent stored if user wants to save the UI-application.
+Note
+Special care will be given on debugging facility. since pygtk is used in UI application, sugar-bot integration would not be difficult to achieve. I will also try to include modules for sugar-bot debugging facility to facilitated direct unit-testing.
+Q10.
+What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (July 6-13); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+Ans.
+In summer, I plan to follow the following schedule:
+Preparation phase( Time : April 25 - may25 )
+gathering requirements of the project
+getting involved with Mentor in verifying and validating the requirements.
+Architectural design / Pseudo code.
+This phase, I would be communicating with people as much as possible, getting requirements and verifying
+with people or community. I would also go to the pre-releases of similar softwares to get prons and cons and trying to improve in our project
+development.I am sure to get community support on this very interesting project.
+Coding Phase ( Time: May 25- July1 { This phase would be subdivided to different phases } )
+divisions for coding timeline
+decide approach for programming
+actual coding, testing accordingly
+documenting code parallely
+periodically sharing information with mentors and community members
+This phase will include actual coding. Since I already knew the related technologies and familiar to sugar development process. I can devote
+more time to coding and thus improving the project at each phases. I will share doubts with community if occurs.
+Testing Phase ( Time: July7- July 25 )
+full testing of system with different phases
+use coverage analysis to know the redundance code and improving it further
+fixing bugs if any
+Last minute changes before final submission
+finish any documentation steps if left.
+After coding, this is the most interesting part for me. Past I have also worked on code coverage tools for python and I really like this
+efficency measurement whicha also helps a lot in improving run-time. I will go for different testing tools on program, Some tools I would like
+to go with
+coverage or flegleaf tools for anlaysis.
+I will use boost algorithms to improve run-time if it comes under requirement.
+Finalizing phase / Revision ( Time: from August 1 to END.)
+review of code/ algorithm
+production of coverage reports, analysis, performance etc.
+discussions on limitations of software and beneficials.
+preparing final deployments for various systems.
+Documentation stuffs would go in this phase
+Time line: Seems very little time to do so many things, but I will try to give the best from my side.
+I have worked on variety of projects ranging from web application, mobile j2me midlets, Web server management( python project ) and desktop application. One of the interesting projects I worked on is "cross platform windows explorer" which I built in python using wxwidget, in which we handled the issues like portability, searching and UI designs. If I am not exagerating, that would not be wrong to say that I am a fast learner.
+Believe me, I have that talent needed to build and design a complex system for customers. Below are some of the projects I worked on
+Shallow file browser
+: cross platform browser
+Multithreaded multi media-server
+: A multithreaded cross platform media-server for streaming podcast or mulitimedia contents to mediadevices.
+It is currently being used by medicare services to stream health podcasts to the users.
+Mobile Softwares
+: I had done some freelance work in mobile computation last semester. Major projects, I was associated with are Mobile
+Shopping, SRV navigation tool for medicare services (SRV is an open source hardware(robot) for education purposes).
+Web Development & Services
+: I have been actively involved in web-development from past 1 year and used Ruby on rails and Django for development. Django, by
+far, was among my best tool for Web-UI applications.
+Minor projects on kernel implementation ( as a part of OS course ), Database managment projects and others.
+My "Open Source" activites
+Check out the source code of shallow file browser at
+http://code.google.com/p/shallow-file-browser
+. Do check the snapshot of browser in action.
+Minute-Shell: Well, it's a part of my course project. I created a small program to emulate linux shell. This code is hosted at
+http://code.google.com/p/minute-shell/
+.
+Me and the community
+Q11.
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Ans. This project support children creativity and imagination. These small games, development activity will surely help them to become problem solvers, innovators, and creative thinkers. These activities will also help the children to develop many important skills that boost a child's learning and success.
+Q12.
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+Ans. That would be a great idea to go with. I've been working in NGO for primary children education called "ASHA-KIRAN" in our college and it would a great learning experience for them. Here, in hyderabad, We have a language problem, they don't understand hindi, my mother tongue, and I don't understand, telgu ( local language ). So, I always use different activities to teach them like sound creation, drawing, Word dictionary, some local plays etc. I believe in case of language problems like India, We should teach the children as:
+Alphabet creation, as a drawing practice
+Sound, give alphabets some sound, try to echo them loudly, may be in funnier way.
+Try to associate meaning to words, here imagination comes into play. I use some stories behind words, or pictures
+Last, use them in sentence.
+I can associate these features in my project and sugar lab can help us to provide technical equipments to teach children. We already have a good infrastructure in campus, so I will start using my project even in development stage with them and report the status to sugar community.
+Q13.
+What will you do if you get stuck on your project and your mentor isn't around?
+Ans. I have been using open source projects for quite a long time and I know, we always get stuck with some problem may be installation, compiling, syntax error, many more but I guess this is where the interesting part begins and open source community comes into play. In my views, we always learn new things about the error/software if we ask doubts in community. So, if I ever get stuck on the project, I will raise my doubts in mailing lists, request clearifications in irc chat, write in blog or on some related community sites where I can get any assistant from.
+Other assistant I am sure to get it from my seniors, they all have been participating in GSOC from past years and would love to assist me if need occurs.
+Q14.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+Ans. I love interactive with people and I will keep community members duly informed. I can try following things to work this out
+Chatting on IRC chat
+Mailing lists
+tracking specific person or related to the area personally via email.
+Posting queries on blog
+Miscellaneous
+Here is my Development environment.
+Q15.
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "Restart." See the image on the right for an example. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Ans.  I am a fedora loving guy and installed sugar system on my fedora. I googled for the installation and successfully completed the following tasks
+Installed the system using yum packages.
+This is just double click installation like windows. But I could not find the development procedure for rpm packages.
+Built using source.
+I used jhbuild to install and update the source code needed for the sugar development. I tested it by creating some activities given on wiki
+page of sugar lab and it was working fine.
+I've started exploring things and really looking forward for a good open source development.
+Q16.
+Describe a great learning experience you had as a child.
+Ans. As a child, I had a great interest in science and was more curious to know everything. One thing I would like to share is, When I was in 8th standard, I was more impressed by Einsten-theory "One theory for every theories" and still I am. I remember discussing my new science theories on unification of world and discoveries with my science teacher and which ofcourse he won't like and always got irritated, but what he always suggested me, is to read & analyze before coming to conclusions. This habit of me is still continuing. Now the views have changed, questions are different but thirst for knowing things is still the same. My teacher not only answers my query but it gives me a life time dose to approach for my problems.
+Q17.
+What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+Ans. medium
+Q18.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Ans. Just for introduction, I am pursuing my BTECH degree from IIIT Hyderabad. I had started using linux from past 2 years and since then I love every bit of it. I also have research interest and working on my research paper on "simulation of rigid blocks during earthquake". I am an 
+active coder in SPOJ and topcoder and have a strong python programming skills. I have also worked as an intern in california based company.
+"buddibot" developing medicare services for elderly people.
+No matter if I get selected or not, but I love to continue with sugar community.I already registered myself in sugar bug reporting tool and trying to study source code. Please let me know how can I assist to open source community.<br>
+Thank You & Regards,
+Puneet.

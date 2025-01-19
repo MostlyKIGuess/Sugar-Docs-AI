@@ -1,0 +1,107 @@
+Title: Sugar on a Stick/Linux/openSUSE
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Linux/openSUSE
+--------------------------------------------------------------------------------
+Contents
+1
+openSUSE Sugar-Desktop on a stick
+2
+Prebuilt VMware .vmx File
+3
+Notes
+Proposed for Archive
+.
+It has been proposed that this page be regarded as an archive. It could be marked
+"Archive"
+or it could be moved to an
+Archive location.
+--
+Inkyfingers
+18:47, 4 March 2012 (EST)
+Please contribute to the discussion on the
+talk page
+.
+openSUSE Sugar-Desktop on a stick
+Downloads:
+openSUSE DL Site:
+[1]
+Sourceforge DL Site:
+[2]
+openSUSE-Live USB and other medias:
+[3]
+The openSUSE version is a clicfs "dual mode" image that is burned to a stick by the dd command.
+If just dd is used, creates a CD image on a USB. (Useful for Netbooks with no CD Drive)
+fdisk can create a persistent 2nd partition (see below)
+Details
+[4]
+Live_USB_stick
+several ways to build a Live USB
+Example record:
+be sure /dev/sd(x) points to your USB (can destroy your Hard Disk if wrong) use Partition Manager to see proper label...
+---------------------------------------------------------------
+# dd if=openSUSE-Sugar-live-unstable.i686-0.3.0-Build22.2.iso of=/dev/sd(x) bs=4M
+152+1 records in
+152+1 records out
+639631360 bytes (640 MB) copied, 118.261 s, 5.4 MB/s
+
+---------------Create Persistent Partition---------------------
+# fdisk /dev/sd(x)
+
+The number of cylinders for this disk is set to 3824.
+There is nothing wrong with that, but this is larger than 1024,
+and could in certain setups cause problems with:
+1) software that runs at boot time (e.g., old versions of LILO)
+2) booting and partitioning software from other OSs
+  (e.g., DOS FDISK, OS/2 FDISK)
+Command (m for help): p
+Disk /dev/sdg: 4009 MB, 4009754624 bytes
+64 heads, 32 sectors/track, 3824 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Disk identifier: 0x86803d76
+  Device Boot      Start         End      Blocks   Id  System
+/dev/sd(x)1   *           1         610      624640   83  Linux
+Command (m for help): n
+Command action
+  e   extended
+  p   primary partition (1-4)
+p
+Partition number (1-4): 2
+First cylinder (611-3824, default 611):
+Using default value 611
+Last cylinder, +cylinders or +size{K,M,G} (611-3824, default 3824):
+Using default value 3824  
+Command (m for help): p
+Disk /dev/sdg: 4009 MB, 4009754624 bytes
+64 heads, 32 sectors/track, 3824 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Disk identifier: 0x86803d76
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sd(x)1   *           1         610      624640   83  Linux
+/dev/sd(x)2             611        3824     3291136   83  Linux
+Command (m for help): w
+The partition table has been altered!
+Calling ioctl() to re-read partition table.
+Syncing disks.
+#
+Prebuilt VMware .vmx File
+Prebuilt VMWare (.vmx) file for Download:
+https://sourceforge.net/projects/opensuse-edu/files/Sugar/
+http://people.sugarlabs.org/Tgillard/Blueberry-vmx.tar.gz
+Notes
+Use with VMPlayer
+free download from:
+[5]
+Created with VMWorkstation 6.52
+8GB in 2GB slices
+# yum install anaconda
+livinst  install with Los Angeles TZ
+/boot =200  ext4
+/     =7989 ext4
+1024 memory
+root=sugarroot
+grub edited for selinux=0 with gedit
+cleared with:
+rm -rf ~/.sugar
+su -
+password: sugarroot
+shutdown -h now
+(decompress this file and load it on 2GB or larger (8GB max) USB, run it with VMPlayer)

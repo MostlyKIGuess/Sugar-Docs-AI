@@ -1,0 +1,52 @@
+Title: Features/Backup and Restore/Enhancements
+URL: https://wiki.sugarlabs.org/go/Features/Backup_and_Restore/Enhancements
+--------------------------------------------------------------------------------
+Contents
+1
+Intro
+1.1
+Interface
+1.1.1
+Triggering Backups and Restores
+1.1.2
+Process dialog
+1.2
+Back-ends
+1.3
+Format
+1.4
+Difficulties
+1.4.1
+Policies
+1.5
+Initial implementation
+Intro
+This article contains several points to be taken into account for upstreaming the backup and restore feature.
+Interface
+Triggering Backups and Restores
+Currently, the general design include options at the volumes toolbar. This is kind of problematic since not all back-ends can be exposed as volumes.
+Other idea proposes centralizing all backup and restore options, by moving it to the Journal toolbar but that one is already full with options, and this is not something it should be seen at the time.
+We can move the options, from the palette in the attached icon device to the palette in the Journal icon in the bottom toolbar.
+Another idea is to move this options to the Home view or Frame icon or to a control-panel widget.
+Process dialog
+Currently, the dialog is a modal window that covers the whole screen. The reason behind this is that, the current scripts must be shutdown the datastore for being able to compress and copy the current state of the datastore and its necessary to restart after the process is finished.
+No suggestions yet, but the necessity of this aggressive modal depends on how we implement the back-ends.
+NOTE: Probably journal shutdown was needed in a initial implemantation, but later was not done. We need check if is really needed.
+We can use a modal dialog like the control panel.
+Back-ends
+Currently, the actual backup and restore code only handles the interface. The back-end scripts are completely separated packages from Sugar. The only two back-ends are: (a) dsd rsync-based scripts alias backup-to-xs and (b) Martin Abente and Esteban Arias scripts backing up to a memory stick, alias backup-to-memory-stick.
+One of the enhancements ideas is to move this code to Sugar by defining an abstract class or template for implementing backup and restore back-ends. This template should handle the interactions defined by the triggering methods and progress dialog.
+We should start by something simple like backup-to-memory-stick, but we could already have something in mind, based on web services and see if its makes sense under that scenario.
+We need mechamnism in the backends to notify to the UI about the progress.
+Format
+As mentioned before current implementation of backup-to-memory-stick simple creates a compressed tarfile of the datastore directory. Are we going to continue with this approach, or we can think of something that will allow us to be more flexible about the contents being backup'd.
+Difficulties
+Currently, the actual backup-to-memory-stick makes big assumptions about storage while doing backups. It assumes that the target memory stick is going to have sufficient available space, not much information is gathered from the copying process. The other way around, when doing restores it also assumes that the XO has sufficient space, and is kind of dangerous because: (a) starts by deleting the current journal content and (b) it probably has one of two restoring policies.
+Policies
+P1: all or nothing, meaning that if the XO has not sufficient space it would abort the whole process.
+P2: best-effort, meanng that it will copy as much as it can, but the user has no decision over what data is going to be left behind.
+We need to define the policies for our backup and restore processes. We could keep one of these policies, but we should at least give it some thought. It is obvious that some back-ends could support different policies but that could be a problem from user POV, because it could be confusing.
+Initial implementation
+This patches are in use in the testing images used in AU. Are based in the work done in Dextrose.
+https://github.com/godiard/au1b_rpms/blob/master/sugar/0001-Backup-and-Restore-to-a-mounted-device.patch
+https://github.com/godiard/au1b_rpms/blob/master/sugar/0001-Fix-backup-restore-functionality-SL-4616.patch

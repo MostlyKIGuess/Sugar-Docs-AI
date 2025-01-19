@@ -1,0 +1,123 @@
+Title: 0.82/0.81.1 Notes
+URL: https://wiki.sugarlabs.org/go/0.82/0.81.1_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.81.1
+1.1
+Glucose modules
+1.2
+Glucose news
+1.2.1
+sugar-base
+1.2.2
+sugar-toolkit
+1.2.3
+sugar-artwork
+1.2.4
+sugar
+1.2.5
+etoys
+1.3
+Fructose modules
+1.4
+Fructose news
+1.4.1
+journal-activity
+1.4.2
+chat-activity
+1.4.3
+terminal-activity
+1.4.4
+web-activity
+1.4.5
+calculate-activity
+1.4.6
+write-activity
+1.5
+sugar-jhbuild branch
+Sucrose 0.81.1
+Glucose modules
+sugar-base 0.79.1
+sugar-toolkit 0.81.3
+sugar 0.81.2
+sugar-datastore 0.8.1
+sugar-presence-service 0.81.1
+sugar-artwork 0.79.3
+journal-activity 89
+etoys 3.0.1998
+Glucose news
+sugar-base
+Fix strings translation (Tomeu)
+Fix several pylint complaints (Marco)
+sugar-toolkit
+#6473 Better method to resolve handles to buddies (Morgs)
+Make the list of XO colors public (Simon)
+Hack in bundlebuilder to work without a .git directory (Marco)
+Support for lazy palette creation (Marco)
+sugar-artwork
+Diverse icon fixes (Eben)
+sugar
+Key bindings for scrollable views (Tomeu)
+Show a set of default activities in the home view ring (Tomeu)
+Nicer battery palette (Martin Dengler)
+etoys
+suspend UI process while inactive (do not hog CPU when in background)
+fixed international keyboard input
+many more strings translatable
+errors get logged in regular log file via stdout
+faster project loading
+Pango text rendering support (experimental)
+and many more minor fixes and improvements
+Fructose modules
+read-activity 46
+chat-activity 38
+terminal-activity 11
+web-activity 87
+etoys-activity 81
+write-activity 55
+calculate-activity 19
+Fructose news
+journal-activity
+Eben fixed the appearance of activity bundles.
+Pootle brought us an update of the translation to Italian.
+Update the results view only when the journal is the active activity.
+chat-activity
+39
+ACK received messages (cassidy)
+Handle pending messages when setting the message handler (cassidy)
+38
+Updated translations: zh_TW, de, it
+37
+UI Change: Merge multiple sequential messages from same author (morgs)
+Updated translation: ar (pootle)
+#6561: Fix RTL message alignment (Arabic) (khaled)
+36
+#5053: Reduce white space around boxes (morgs)
+#6621: set entry sensitive not editable (morgs)
+Add license to activity.py (morgs)
+#6743: border around gtk.entry (morgs)
+Reduce telepathy code based on improved PS channel creation API (morgs)
+Open URLs via show_object_in_journal (morgs)
+Update pippy metadata based on Pippy (morgs)
+Updated translations (pootle)
+terminal-activity
+i18n improvement: the activity has a POT file now (sayamindu)
+web-activity
+First round of pylint fixes (erikos)
+Fix typo #6962 (DanKrejsa)
+Fix onStateChange for downloads #6962 (DanKrejsa)
+s/Open/Show in Journal #5958 (erikos)
+A lot of new translations
+calculate-activity
+no news this cycle
+write-activity
+no news this cycle
+sugar-jhbuild branch
+We created a special sugar-jhbuild branch for this release containing the tarballs. You can try it out like this:
+git clone
+git://dev.laptop.org/sugar-jhbuild
+cd sugar-jhbuild
+git checkout --track -b sucrose-0.81.1 origin/sucrose-0.81.1
+./sugar-jhbuild update
+./sugar-jhbuild build

@@ -1,0 +1,229 @@
+Title: 0.90/Turtle Art
+URL: https://wiki.sugarlabs.org/go/0.90/TurtleArt
+--------------------------------------------------------------------------------
+Turtle Art
+Contents
+1
+Introduction
+2
+What is new for users
+3
+What is new for developers
+4
+Internationalization (i18n) and Localization (l10n)
+5
+Compatibility
+6
+Detailed changes
+7
+Open tickets
+8
+Credits
+Introduction
+Turtle Art is an activity with a Logo-inspired graphical "turtle" that draws colorful art based on snap-together visual programming elements.
+Turtle Art is intended to be a stepping stone to the Logo programming language, but there are many restrictions compared to Logo. (Only numeric global variables and stack items are available, no lists or other data-structures. The conditionals and some of the functions only take constants or variables, not expressions. Limited screen real-estate makes building large programs unfeasible.) However, you can export your Turtle Art creations to Berkley Logo. The
+Arduino fork
+of Turtle Art also has a facility for sensor input, so, for example, you can move the Turtle based upon sound volume or pitch.
+Turtle Art is in the same tradition as Etoys, Scratch, Lego Mindstorms™, and Lego Microworlds™.
+Turtle Art is used extensively in Sugar deployments and numerous materials for support in the classroom have been developed. Of course, since Turtle Art is a Logo derivative, many of the classic Logo exercises are well suited for engaging students in Turtle Art. For example, Tony Forster has been
+blogging about a wide variety of Turtle Art activities
+. Gonzalo Odiard has written a
+short introduction to Turtle Art
+.
+Turtle Art will let you export your project as PNG, HMTL, SVG or Logo. In other words, you can use Turtle Art to make presentations and as an SVG generator.
+More Info:
+Turtle Art Sugar Activity
+homepage
+Turtle Art gallery (See
+[1]
+)
+Turtle Art gallery  (See
+[2]
+)
+Turtle Art Manual (See
+[3]
+)
+Turtle Art teacher guides from Uruguay (See
+[4]
+)
+Turtle Art teacher guides from Peru (See
+[5]
+)
+Turtle Art student guide (See
+[6]
+)
+Tony Forster blog on Turtle Art (See
+[7]
+)
+Bill Kerr blog on Turtle Art (See
+[8]
+)
+Barry Newell worksheet (See
+[9]
+)
+0.88 Release notes
+What is new for users
+The most visible changes are the incorporation of some new blocks, such as the 'Fill' block for created filled polygons, Gray, Black, and White blocks, and the 'Turtle Sees' block, that enables the turtle to directly interact with its canvas. There is also a
+new site
+for uploading and downloading Turtle Art projects.
+Turtle 'sees'
+http://turtleartsite.appspot.com/
+Minor bugs and feature changes include:
+98
+fixed palette-selection regression in non-Sugar (command-line) version
+97
+recenter default turtle when dragged onto palette
+removed comment label from collapsible stacks
+made font smaller on the bottom-of-collapsible-stack block (#2305)
+rgs fixed resume problem in GNOME version (#2293)
+checking alpha value to block 'hit' detection (#1852)
+trap and display math errors in python block (#2313)
+96
+fixed deleted-turtle ghost bug
+95
+some performance enhancements (block creation and stack dragging)
+removed depreciated field from desktop file (Luke Farone)
+fixed problem with setup.py in non-Sugar environments (Luke Farone)
+new example program for turtle sees block
+fixed broken clock example
+catch import error for upload (#2194)
+rescaling of read pixel values (#2188)
+turtle sees block takes into account gray and shade (#2188)
+hide extra turtles on clean (#2191)
+hide coordinate overlays on clean (#2191)
+reset scale, gray on clean (#2191)
+work-around to c-c/c-v toolbar bug (Raul Gutierrez #2050)
+writing config file in config directory (Luke Farone #2193)
+using turtle name to generate color for multiple turtles
+delete turtle when dragged onto the palette (#2191)
+94
+added "turtle sees" block
+added read_pixel block
+updated sample images (smaller file sizes)
+updated license for sample images
+updated nl translation
+fixed path problem with Exec in desktop file (Matthew Gallagher)
+fixed path problem with icon in turtleart.py (Matthew Gallagher)
+moved modules to TurtleArt subdirectory
+limit size of upload file (Jamie Boisture)
+93
+recenter overlays when window resizes (Jamie Boisture)
+added icon for Desktop mode (Jamie Boisture)
+support for project upload to server for Desktop mode (Jamie Boisture)
+92
+fixed sharing bug introduced in v91
+cleaned up cmdline processing
+91
+added black and white blocks
+fixed cgi escape bug (#1854)
+fixed bug with overzealous block resizing (#2092)
+speed up of refresh code (expose_cb handling)
+90
+fixed problem with keyboard accelerators: Ctrl-C, Ctrl-V, and Alt-Return
+89
+added non-interactive mode (with help from Jamie Boisture)
+fix problem with icon in F13
+block scale saved between sessions
+88
+alsroot fixed ObjectChooser bug (#2002)
+87
+added fill block
+added gray block
+fixed typo in sample code
+added mouse support to sample code (See
+[10]
+)
+86
+More .es updates
+85
+Fixed bug loading floating point numbers from saved projects
+'store in box' accepts strings and numbers as labels
+New .es translations
+What is new for developers
+The command-line version of Turtle Art is much more mature. See
+Internationalization (i18n) and Localization (l10n)
+some updates to .es
+Compatibility
+Compatible with all versions of Sugar although some functionality is lost with pre-0.82 versions and sharing is incompatible with previous versions.
+Detailed changes
+Tickets closed as of
+Version 98
+#1852
+} drag area of top of stack (Hide stack) extends below block
+#1859
+} float save/restore rounding to int
+#1933
+} create a mini version of Turtle Art that is similar to the Java version
+#1963
+} Mouse sample in tamyblock.py
+#1986
+} add command-line args to Turtle Art
+#1988
+} TA mini won't install
+#2002
+} Activity does not pass parent window xid to ObjectChooser
+#2013
+} TurtleArt Mini should not create tamyblock.py
+#2028
+} A save dialog should be offered when leaving TA (if something has been done)
+#2050
+} ctrl c ctrl v disabled
+#2070
+} Is it possible to drop audioop dependency from TA
+#2092
+} Turtle Art 89 uncollapse/collapse anomoly
+#2160
+} Encoding field in turtleart.desktop is deprecated
+#2171
+} FTBFS in sugar-jhbuild
+#2188
+} read pixel pushes an int to stack
+#2191
+} clean should set scale =33
+#2193
+} TurtleArt assumes it can write to the current directory
+#2194
+} TA95 broken in Gnome
+#2293
+} Can't resume projects by (double) clicking in Gnome
+#2302
+} [USABILITY] label of top of stack is confusing
+#2305
+} [UI] make font smaller on the bottom of stack block
+#2313
+} Trap all math overflow errors in function block
+Open tickets
+#155
+Turtle Art with Sensors has different requirements for non-XO hardware
+#548
+Turtle Art: read and write to text file
+#552
+Turtle art: reinstate sensor input
+#1057
+Turtle Art feature to add support for "pages"
+#1188
+Load samples from turtleart.org
+#1203
+Rebase Turtle Art graphics on Cairo
+#1709
+Colors used for block highlighting (current running block vs. error-reporting)
+#1613
+sound brick only sounds once inside a template
+#1858
+} autoscale based on gconf font-size settings
+#1949
+} Turtle Art to read/write USB
+#2204
+} View source - which one?
+#2268
+} show heap do not scroll when heap is large
+#2272
+} missing "id" procedure
+#2294
+} You are ask to save stuff if its an existing but unmodified project
+#2314
+} Python function block returns string to add block
+Credits
+Walter Bender and Raúl Gutiérrez Segalés (with help from Simon Schampijer, Matt Gallagher, and Jamie Boisture)
+Especially helpful community feedback from Tony Forster, Ed Cherlin, Jeff Elkner, and Bill Kerr
+Brian Silverman is the first author of Turtle Art

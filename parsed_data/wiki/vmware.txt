@@ -1,0 +1,176 @@
+Title: VMware
+URL: https://wiki.sugarlabs.org/go/VMware#Soas-Strawberry.iso_installed_to_VM_Hard_Disk
+--------------------------------------------------------------------------------
+VMware
+(Workstation, Player, Server) is a commercial, "non-free", virtualization system that emulates hardware resources allowing one computer to host a number of x86 architecture-compatible operating systems. The Player and Server versions are distributed free of charge (gratis). It runs on either Win32 or Linux host machines, allowing one to run Sugar images within the virtual machine. A Mac version is also available, VMware Fusion, however this is not provided free of charge. A free, 30-day evaluation is available, and free licenses are
+available
+for academic instruction and research use.
+Software applications, such as the Sugar platform, may be deployed as VMware Virtual Appliances, which are one or more virtual machines pre-built, packaged, installed, updated, maintained, and managed as a unit.
+Contents
+1
+Appliance files
+1.1
+EasyVMX! (build your own VMware virtual machine for VMware Player)
+2
+Building a virtual appliance
+2.1
+from a live.iso file (No persistence)
+2.2
+Appliances with persistence
+2.3
+Alternatives
+2.4
+Comments
+2.5
+More Info
+2.6
+Two stick alternative
+2.7
+One 8-GiB stick with 2 partitions
+2.7.1
+Start partition manager
+2.7.2
+Remove and reinstall USB stick
+2.7.3
+Re-boot PC with USB stick
+2.7.4
+Run VMware Player
+2.8
+Operating system notes
+Appliance files
+See
+Emulator image files
+.
+EasyVMX!
+(build your own VMware virtual machine for VMware Player)
+Lets you bypass the requirement to have a copy of VMware Workstation to create your own VMware Player appliance from a burned CD of a live .iso
+Free website to download a custom .vmx file to use with your CD Drive
+(You must have the free application, VMware Player installed to use it.)
+Web Page:-
+[1]
+Info:
+[2]
+openSUSE-edu:
+NEW
+:
+OpenSUSE#openSUSE_12.2-sugar_0.96.2
+--
+Satellit
+08:07, 10 September 2012 (EDT)
+Old :
+http://sourceforge.net/projects/opensuse-edu/files/Sugar/
+Building a virtual appliance
+from a live.iso file (No persistence)
+This appliance runs just like a bootable CD—it has no data persistence—the system image is treated as a read-only file. (You are running the .iso image with VMware Player.) The appliance file size is only slightly larger than the .iso file.
+Make a new Appliance in VMware Workstation (
+30-day, free evaluation license
+) with (minimal) hard disk.
+Set XXX-live.iso as CD in VMware Workstation with a 0.1 GB hard disk.
+Boot and run VMware Workstation, then shut down.
+Copy contents of the new Appliance in the VMware directory to a
+USB flash drive
+.
+Copy XXX-live.iso file to the same USB drive.
+Open this copied Appliance on the USB drive with VMware Workstation, and edit the location of the live.iso file to point to one on the USB stick, then close it.
+Start VMware Player (
+free downwload
+) and open this Appliance from the USB drive, or
+any other VMware Player on any PC
+.
+Boot this Appliance from a USB boot drive/stick (see below)
+The system can be run on any PC without changing or accessing its primary hard disk.
+Use it to run Soas .iso images on PCs lacking a CD-ROM reader but with a USB port.
+Run Sugar on unbootable PC's using a VMware Player application
+Appliances with persistence
+VMware Workstation 6.5.2 with Fedora-11-i386-netinst.iso
+http://mirrors.fedoraproject.org/publiclist/Fedora/11/i386/
+Fedora 11 DVD does not include Sugar Desktop
+Settings for VMware Workstation:
+Create a new virtual machine
+Typical
+Installer disk image file:(Fedora-11-i386-netinst.iso)
+Linux
+Other linux 2.6xx kernel 8-GiB disk
+Max Disk Size (GB) 8.0
+Split disk into 2-GiB files
+512 kB memory.
+Net install with network connection
+Use entire disk
+De-select Gnome Desktop
+Customize now
+Select Sugar Desktop (Only selection entered)
+Set a root password (sugarroot?) and time zone
+When finished (about 45 min on ??-kbyte/s cable)
+Reboot, set user password (sugaruser?), shut down.
+Clone and save clone on Desktop and use to load on 4-GiB SD or USB or make DVD (3.2-Gib files)
+See note below to remove the Sugar user information and make the image ready for a new first user login. Original passwords for root and user (sugarroot/sugaruser?) entered during the install will remain and are needed for login & administration. This is required so that copies will have different identities.
+Method to remove Sugar user information (from Dave Bauer
+VirtualBox/Preparing_a_disk_image
+).
+Open Terminal
+Terminal
+rm -rf ~/.sugar (if distributing image)
+su -
+shutdown -h now
+Alternatives
+Fedora-edu spin-(latest versions of F12(rawhide) Gnome & Sugar)
+[3]
+(enter liveinst in terminal to install to VMworkstation disks or USB)
+SUSE Sugar Spin:
+Talk:VMware#openSUSE
+EasyVMX! (build your own VMware virtual machine for VMware Player)-
+[4]
+info:
+[5]
+Comments
+Run on VMware Player loaded on any PC with 512 kB of memory (256 kB required for VMware Player).
+ADVANTAGE: No need to boot USB stick on computers that have a problem booting from a USB device.
+The same computer can be used by a succession of students with their own copy of Sugar.
+Students can take USB/SD drives home and run them on their own PCs.
+Disadvantage: Have to install VMware Player on PCs
+More Info
+Other Methods:
+http://www.pendrivelinux.com/category/virtual-machine/
+Two stick alternative
+Install VMware Player on a 2-GiB USB/SD boot stick
+Install the Sugar platform in a virtual appliance on a second 4-GiB or larger stick.
+This allows VMware Player to be used by multiple students without rebooting the PC.
+One 8-GiB stick with 2 partitions
+Ubuntu 9.04 has a "USB Startup Disk Creator". I used a 8-GiB USB stick with 2 partitions to run a VMware Player Appliance on the Same Stick
+VMware Player WILL install on Ubuntu or Fedora 10, but NOT on F11 at this time.
+METHOD:
+In PC running Ubuntu 9.04 (or running in VMware Workstation 6.5.2.)
+Start partition manager
+Delete existing partitions on USB [/dev/sdb?]
+(BE CAREFUL TO BE LOOKING AT the USB drive and not your Hard Disk.)
+Create a FAT16 2-GiB Primary Partition, set boot flag, and label it Ubuntu
+Exit partition manager
+Run USB Startup Disk Creator
+Create USB, select: /dev/sdb1 "Ubuntu"
+Select "Other" and find Ubuntu 9.04.iso  (not live install) previously downloaded to Desktop
+Create live usb on first partition.
+Start partition manager again
+(BE CAREFUL TO BE LOOKING AT the USB drive and not your Hard Disk.)
+Create a FAT32 primary partition with the remaining, unformatted space on the USB drive, set boot flag, and label VM_Apps
+Exit Partition Manager
+Remove and reinstall USB stick
+Two USB icons will appear
+Copy VM Appliance into VM_Apps
+Re-boot PC with USB stick
+Start Firefox and download VMware Player Linux xxxx.bundle
+Place .bundle file in /tmp
+su - command in /tmp
+Enter password for root
+Install bundle in /tmp ( ./ command as administrator. )
+Run VMware Player
+Start VMware Player
+Choose VM_apps Icon and open VM Appliance file
+Choose Gnome or Sugar as login,  enter password
+Initial Password for Sugar = sugaruser (change user name and password in live user)
+Passwoord for root = sugarroot
+Have Fun   (Fedora 11 0.93 0.84-2)
+Thus, with one 8-GiB USB stick loaded with Ubuntu 9.04 and VMware Player, plus the Appliance, a Student can carry the OS and a full copy of GNOME Desktop and Sugar on a single USB stick.
+It is complicated to make, but simple to use and it works.
+Operating system notes
+Archive:
+Talk:VMware#Operating System Notes

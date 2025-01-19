@@ -1,0 +1,131 @@
+Title: Service/smtp
+URL: https://wiki.sugarlabs.org/go/Service/smtp
+--------------------------------------------------------------------------------
+Contents
+1
+Hostnames
+2
+Hosted on
+3
+Administrative contact
+4
+Sysadmins
+5
+Notes
+6
+SPF
+7
+DKIM
+8
+Set up
+8.1
+Thunderbird
+9
+See also
+Hostnames
+hostname
+service
+port
+function
+smtp.sugarlabs.org
+smtp
+25
+Local delivery (plain SMTP)
+smtp.sugarlabs.org
+submission
+587
+SMTP with STARTTLS, legacy
+smtp.sugarlabs.org
+submissions
+465
+Email relay (SMTP with SSL, password authentication required)
+Hosted on
+Machine/sunjammer
+Administrative contact
+postmaster AT sugarlabs DOT org
+Sysadmins
+Bernie Innocenti
+(add yourself here if you tend to the postmaster
+RT
+queue)
+Notes
+Users with a Sugar Labs
+shell account
+on
+sunjammer
+can use our SMTP relay for personal email submission.
+Any abuse will be prosecuted.
+The
+submissions
+port (465) is preferred for email relay. Unauthenticated and unencrypted connections are not allowed to relay.
+All email originating from the sugarlabs.org domain must be submitted through our SMTP server.
+Failure to do so may result in your email being blocked by spam filters.
+SPF
+Our domains use a non-strict (~all)
+SPF
+records.
+You can add an spf record in the zone file in the form
+hostname         TXT     "v=spf1 redirect=_spf.hostname.sugarlabs.org"
+ _spf.hostname    TXT     "v=spf1 ip4:IPv4_of_hostname/mask ip6:IPv6_of_hostname/mask a:hostname.sugarlabs.org mx:hostname.sugarlabs.org ~all"
+The
+a
+and
+mx
+values are authorized mail server by domain name and authorized server by domain MX record, the MX record should also be defined
+for hostname.
+Also maintain spacing and formatting for each section you add in the zone file.
+DKIM
+Our domain publishes a
+DKIM
+key.
+To test DKIM, send an email to autorespond+dkim@dk.elandsys.com
+To generate an ed25519 key to use for DKIM, you can use openssl
+# Generate ed25519 key
+ $ openssl genpkey -algorithm ed25519 -out dkim_private.pem
+ # Generate public key from private key
+ $ openssl pkey -in dkim_private.pem -pubout -out dkim_public.pem
+For ed25519 keys, the p value in the DKIM record must only contain the BASE64 encoded public key, without an ASN.1 structure
+$ openssl asn1parse -in dkim_public.pem -offset 12 -noout -out /dev/stdout | openssl base64
+ VGhpcyBpcyBqc3V0ZSBhc29ka2ZvYXNrZWpkZmtsc2pkZgo=
+Your entry would look like this
+selector1._domainkey.hostname      TXT     "v=DKIM1; g=*; k=ed25519; p=VGhpcyBpcyBqc3V0ZSBhc29ka2ZvYXNrZWpkZmtsc2pkZgo="
+ _adsp._domainkey.hostname          TXT     "dkim=unknown"
+When using an ed25519 key, you'll need to add a fallback RSA key for backward compatibility.
+# Generate rsa key
+ $ openssl genrsa -out rsa_private.key 2048
+ # Generate public key from private key
+ $ openssl rsa -in rsa_private.key -pubout -outform der 2>/dev/null | openssl base64 -A
+You can then add a KeyTable and SigningTable to your opendkim.conf
+KeyTable                refile:/etc/opendkim/KeyTable
+ SigningTable            refile:/etc/opendkim/SigningTable
+# Contents of KeyTable with both keys
+ selector1._domainkey.hostname.sugarlabs.org hostname.domain-name:selector1:/path/to/selector1/private/*.key
+ selector2._domainkey.hostname.sugarlabs.org hostname.domain-name:selector2:/path/to/selector2/private/*.key
+# Contents of SigningTable
+ *@hostname.domain-name selector1._domainkey.hostname.sugarlabs.org
+ *@hostname.domain-name selector2._domainkey.hostname.sugarlabs.org
+Then add a DKIM record for the second selector
+w-mail._domainkey.weblate       IN      TXT     ("v=DKIM1; h=sha256; k=rsa; p="*")
+The value of p is the public key of the generated RSA key above.
+Ensure your private keys are on hostname.
+Set up
+Thunderbird
+These are the settings for setting up SMTP with Thunderbird. Note that you use your LDAP username and password, and that the username __
+does not
+__ have "@sugarlabs.org" at the end.
+Server name
+Port
+Connection security
+Authentication method
+User name
+smtp.sugarlabs.org
+587
+STARTTLS
+Normal Password
+your LDAP username -- AND WITHOUT @SUGARLABS.ORG AT THE END!
+Example:
+example of smtp set up in thunderbird
+See also
+Service/imap
+Service/webmail
+Service/email

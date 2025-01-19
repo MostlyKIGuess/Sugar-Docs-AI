@@ -1,0 +1,165 @@
+Title: User:Quozl
+URL: https://wiki.sugarlabs.org/go/User:Quozl
+--------------------------------------------------------------------------------
+Contents
+1
+Pippy Design Idea 2011-03-10
+1.1
+Usage
+1.2
+Purpose
+1.3
+Data
+1.4
+Input
+1.5
+Output
+1.6
+Activation
+1.7
+Display - Editing
+1.8
+Display - Running
+1.9
+Changes
+1.10
+Alternative
+1.11
+Existing Situation
+1.12
+Definitions
+Pippy Design Idea 2011-03-10
+Usage
+A learner will:
+review and run an included example module, observing code and behaviour,
+(exists)
+,
+modify an included example module, and run the modified version, observing changed behaviour,
+(exists)
+,
+write a fresh module, creating new behaviour,
+(exists)
+,
+write a fresh module that imports an included example module unchanged, deriving behaviour from existing behaviour,
+(new)
+,
+write a fresh module that imports a modified example module,
+(new)
+,
+write two fresh modules one of which imports the other,
+(new)
+,
+derive more complex code using modules created by teachers or other learners, with or without changing the contributed module,
+(new)
+.
+A group of learners will do the above, but also:
+collaborate on a set of modules included in the shared activity instance,
+(new)
+,
+run modules locally on each laptop,
+(exists)
+.
+A pair of learners may:
+create one subordinate module each, and concentrate on it,
+(new)
+,
+create one master module that imports the two subordinate modules,
+(new)
+,
+write unit tests in each subordinate module and run them locally on each laptop,
+(new)
+,
+integrate by running the master module,
+(new)
+.
+Purpose
+increase code sharing, at a module level,
+increase relevance to Python users,
+increase portability of code written, beyond Pippy and Sugar,
+Data
+A running Pippy instance will contain the following data:
+zero or more modules,
+(either pure python modules, packages, or distutils source distributions, though not a sugar bundle),
+each module will include zero, one (pure python modules) or more (packages or distutils source distributions) source files,
+each module will include a source file setup.py capable of creating the python distutils source distribution output, but unless the user has asked to edit the setup.py, it will not be shown, instead a default will be used, created and maintained by Pippy,
+A shared Pippy will contain the same data as above on each laptop.
+Input
+Pippy may read from:
+a saved instance of Pippy, in the journal, by activation only,
+a module in the journal, (which may have come from a teacher, another learner, or a server), using the object chooser,
+in pure python module form, as a single source file,
+in distutils source distribution form, as multiple source files inside a tar or zip container,
+pristine example modules included with Pippy, using a button and an example chooser.
+Output
+Pippy may write to:
+a saved instance of Pippy, in the journal,
+a pure python module, in the journal,
+represented as a single source file,
+a package module, in the journal,
+represented as a distutils source distribution in tar or zip container.
+Activation
+Pippy may be activated from a journal entry:
+a saved instance of Pippy, which will start the Pippy activity and present the modules and files that were visible at the time the saved instance was created, allowing the learner to resume development,
+a pure python module or package module, which will start the Pippy activity in an execution only mode that behaves in the same way as the "run" button, displaying a VTE (only if stdout is written to, or stdin is read from), and if not exiting immediately, without creating a journal entry.
+Display - Editing
+Display will contain:
+toolbar,
+a series of tabs, one for each module, an add module button, and an open example module button,
+within each module, a series of tabs, one for __doc__ that is not editable (only if the module has non-empty __doc__), one for each source file that is editable, and an add file button,
+within each file, a syntax highlighting text edit widget.
+(the series of tabs encapsulated in another series of tabs is potentially difficult for a learner to comprehend, but an alternative tree view is thought inappropriate because of the horizontal space consumed, and because use of a module should be constrained to the public API of the module).
+Activity canvas GTK+ widget hierarchy, assuming two modules open, modules "main" and "test", of which "main" has a file "file.py", and "test" has a file "test.py":
+gtk.Notebook (tab labels "main", "test", "+")
+notebook page label "main", a gtk.Notebook (tab labels "__doc__", "file.py", "setup.py", "+")
+notebook page label "__doc__", a GtkSourceView in read-only mode, hidden if __doc__ is empty,
+notebook page label "file", a GtkSourceView for "file.py",
+notebook page label "setup", a GtkSourceView for "setup.py", hidden if not yet edited by learner,
+notebook page label "+", creates a new file, prompts for file name, defaults to .py,
+notebook page label "test", a gtk.Notebook (tab labels "__doc__", "test.py", "setup.py", "+")
+notebook page label "__doc__", a GtkSourceView in read-only mode, hidden if __doc__ is empty,
+notebook page label "test", a GtkSourceView for "test.py",
+notebook page label "setup", a GtkSourceView for "setup.py", hidden if not yet edited by learner,
+notebook page label "+", creates a new file, prompts for file name, defaults to .py,
+notebook page label "+", creates a new module, prompts for module name.
+(if the page "+" technique does not work, then toolbar buttons will be required to create a new module, create a new file in a module, or import an example module).
+Display - Running
+When run is pressed, display will contain:
+toolbar,
+stdout stdin vte, (only if stdout is written to, or stdin is read from),
+a stop button.
+Activity canvas GTK+ widget hierarchy:
+gtk.Container
+gtk.VBox
+gtk.HBox
+gtk.VScrollbar
+vte.Terminal
+gtk.Button Stop
+Changes
+Partial list of changes to bring Pippy existing source to a state consistent with the design above:
+remove the examples tree widget from the main screen, provide it only as an "open an example bundle" function, this will permit the GtkSourceView widget to be full screen width,
+remove the output window from the main screen, provide it only when a program is run, and only if the program generates stdout or reads from stdin, this will permit the GtkSourceView widget to be nearly the full height available,
+provide multiple GtkSourceView widgets, once for each file in each module, within gtk.Notebook within gtk.Notebook,
+the outermost tabs will be module names,
+the innermost tabs will be file names within each module,
+on toolbar save button, save all modules and files in a journal entry,
+when a module is selected, provide an export button that creates a sugar journal entry for a distutils source distribution package, for sharing,
+provide a way to import pure python module or distutils source distribution package from journal into the current Pippy instance, using the object chooser, successful import will add to the modules displayed,
+on execution of a module, allow import of all other currently displayed modules, modules included with Pippy (such as the existing pippy module), and system modules,
+convert the examples to either pure python module or package form.
+Alternative
+create a new activity, or derive from Develop.
+Existing Situation
+Pippy currently provides example
+script
+s written in Python, allows the learner to run them, edit them, and save them as a journal entry.  Pippy does not currently support creation of modules, or use of modules other than operating system- or Pippy-packaged modules.
+Definitions
+Script
+... "Therefore, if you want to write a somewhat longer program, you are better off using a text editor to prepare the input for the interpreter and running it with that file as input instead. This is known as creating a
+script
+."
+Module
+... "the basic unit of code reusability in Python: a block of code imported by some other code. Three types of modules concern us here: pure Python modules, ..., and packages."
+pure Python module
+... "a module written in Python and contained in a single .py file ... Sometimes referred to as a “pure module.”"
+package
+... "a module that contains other modules; typically contained in a directory in the filesystem and distinguished from other directories by the presence of a file __init__.py."

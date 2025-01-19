@@ -1,0 +1,196 @@
+Title: Macintosh
+URL: https://wiki.sugarlabs.org/go/Macintosh
+--------------------------------------------------------------------------------
+There are many options for using Sugar on an Apple Macintosh Computer.
+Taste of Sugar
+provides a safe read-only experience that does not alter your Mac. Get to know the Sugar Learning Platform by using it first hand. The quickest way to experience Sugar is to
+go here...
+Sugar in a window
+installs to a directory on your Hard Disk. In a window or Full Screen you can switch between Mac and Sugar instantly. Your journal is safe and remembered between restarts.
+Read more...
+Sugar on Linux
+Linux runs on Apple computers long after Apple discontinues support. There are many choices available for easy installation; but after first boot, their support for Sugar varies.
+Read more...
+Sugar on a Stick
+On some Intel Macs,
+Sugar on a Stick
+can be loaded on a USB flash storage device and booted on the computer.
+See below...
+Contents
+1
+Restart,
+Play.
+Restart,
+Mac.
+2
+Click
+Sugar
+. Click
+Mac
+.
+3
+Farewell
+Mac
+. Hello
+Sugar
+.
+4
+Sugar on a Stick for Mac
+Please help:
+Assistance is needed from Macintosh system experts to document installing or running  a Fedora LiveOS image on a Mac.
+Note:
+See this
+Fedora bug
+. Apparently, Fedora 16 (Fall 2011) will have kernel support for EFI booting.
+Restart,
+Play.
+Restart,
+Mac.
+Get a hands on experience with Sugar by booting from a CD. Restart and return to your Mac, completely unchanged. This is the easiest way to get a
+Taste of Sugar
+on a Mac.
+To Get Started
+Download
+Sugar on a Stick
+(Choose the 64-bit version, if possible, for increased compatibility.)
+Linux
+for PowerPC architecture
+Fedora for PowerPC
+&
+Ubuntu/PPC
+processor (iBooks and other PowerPC Macs)
+Click to discover the processor
+at the heart of your Mac.
+Verify the file was downloaded properly
+by calculating its
+SHA-1 checksum
+For protection against tampering and transmission errors,
+always compare the checksum of each download
+.
+To calculate a file's SHA-1 checksum
+Open the Terminal Utility and type into the Terminal Window. Press the return key to run the command.
+Replace mySugarFlavor with the name of the file you downloaded.
+Mac OS version ≥10.6
+shasum ~/Downloads/mySugarFlavor.iso
+Mac OS version ≤10.5
+openssl sha1 ~/Downloads/mySugarFlavor.iso
+Compare the result to the official
+SHA-1 checksum
+stored at Sugar Labs.
+To burn onto CD
+Open the Disk Utility. Drag the downloaded  .iso file to the bottom of the list.
+Select your flavor .iso in the list, then press the Burn button.
+Insert a blank CD disc when prompted.
+The CD created is
+bootable in most PC
+s including Intel Mac. Please burn many copies and share them freely.
+Burning a disk image file on a CD or DVD in Mac OS X
+To try a Taste of Sugar
+Insert the CD you burned.
+Press the Power Button on the Intel Mac. If a dialog box appears, press the Restart Button.
+During the startup sound, press and hold the letter C.
+If the apple logo appears, Sugar is not booting. Restart and try again.
+the C key must be pressed during the startup sound and you must continue to hold it down.
+you may release the c key once the Blue Boot Screen Welcome to Fedora-.......appears
+Hit <TAB> and add this to the line of commands at the bottom:
+nomodeset xdriver=vesa
+Hit <Return> and cd will boot after several messages
+This works with
+SoaS v4 Mango Lassi
+Soas v4 Soas Boots on Mac Air
+SoaS v3 Mirabelle
+A Taste of Sugar is a safe read-only experience that doesn't write or remember anything. Unfortunately, this means the Journal is not saved. Nothing is saved.
+All learner progress is lost when the machine reboots.
+A Taste of Sugar is only a demonstration and is not intended to be used on a recurring basis. See
+Sugar in a Window
+or
+Sugar on Linux
+to install Sugar for a learner.
+Click
+Sugar
+. Click
+Mac
+.
+Use Mac and Sugar at the same time on the same computer.
+Sugar in a window
+allows you to switch instantly between them.  This is the most flexible way of using Sugar on an Intel Mac.
+The Journal is saved to disk, so a learner's work is preserved.
+Multiple learners may share the same machine with minor effort.
+Sugar shares your Mac's media effortlessly.  CD/DVD, Network, etc.
+All this is possible by using Virtual Machine software. Virtualization puts an entire computer into a file on your Intel Mac. Install Sugar in that file and boot it with a Virtual computer. Once the boot finishes, you have
+Sugar in a window
+. There are many virtualization applications for Intel Mac, to name a few:
+VirtualBox
+Parallels - See
+Sugar on a Stick Parallels
+.
+VMware Fusion
+- See this early experiment from 2008,
+for an example
+.
+VirtualBox has a free to use license. Learn how to use it here:
+VirtualBox
+. Instructions for other applications may be available on this wiki and elsewhere.
+Note:
+Virtualization doesn't have the same speed penalty as emulation. The use of Intel processor Emulation on PowerPC Mac is not recommended. Due to the processing speeds of PowerPC Macs, installing Linux and Sugar will drastically outperform emulation.
+Farewell
+Mac
+. Hello
+Sugar
+.
+Linux runs on Mac.
+Sugar runs on Linux.
+A two step install of both Linux then Sugar onto an erased Hard Drive will work on most Macintosh computers including PowerPC Mac and Intel Mac.
+To identify the Mac's processor and OS X version
+Choose
+Apple menu
+> About This Mac.  A small window will appear titled
+About This Mac
+.  The processor architecture should be in the window.  Note:
+Sugar on a Stick is for the Intel architecture only.
+Macs with PowerPC will need to get their Sugar from a Linux distribution.
+To get started, get Linux
+Sugar has been ported by the major Linux distributions and many minor ones. There are many choices available for easy installation; but after first boot, their support for Sugar varies.
+Intel architecture
+Supported distributions
+PowerPC architecture
+Search the Internet for Linux Mac PowerPC Install. Once you've found a version of Linux for your processor, search within to see if Sugar is pre-packaged for easy install and what support or discussions they've had.
+Fedora#PowerPC
+Ubuntu/PPC
+Sugar on a Stick for Mac
+Sugar on a Stick
+loaded USB devices should run on Intel Macs.
+See
+Sugar on a Stick/Macintosh
+for a Fedora 17 test from April 2012.
+Important:
+The content of this page or section is outdated.  If you have checked or updated this page or section and found the content to be suitable, please remove this notice.
+Follow these instructions
+every time
+you wish to use your
+Sugar on a Stick
+device on an Intel Mac:
+Boot the Mac with the boot-helper CD
+Interrupt the boot sequence
+edit the kernel parameters
+vmlinuz0 initrd=initrd0.img root=LABEL=FEDORA rootfstype=iso9660 rw liveimg overlay=LABEL=soas-2-blueberry quiet rhgb selinux=0
+continue the boot.
+You can create a
+Sugar on a Stick
+device with a Mac. However, to save the Journal you must create your stick on a PC or Linux machine: Instructions for
+Windows
+and
+Linux
+Download the boot helper from:
+http://www.wronkiewicz.net/soas-4-boot-test.iso
+for Mango Lassi
+http://www.wronkiewicz.net/soas-3-boot-test.iso
+for Mirabelle
+http://download.sugarlabs.org/soas/releases/soas-2-boot.iso
+for Blueberry
+Put in the boot-helper CD
+Plug in the USB
+Turn on the Mac
+At the chime press the "C" key
+The Mac should boot first from the CD then from the USB device. 
+As of 12 April 2009, this is experimental. Let us know what results you get.

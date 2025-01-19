@@ -1,0 +1,136 @@
+Title: Service/shell
+URL: https://wiki.sugarlabs.org/go/Service/shell#Requesting_a_shell_account
+--------------------------------------------------------------------------------
+If you don't have a Sugar Labs account, visit
+Service/Account
+first.
+Contents
+1
+Hostnames
+2
+Hosted on
+3
+Administrative contact
+4
+Prerequisites
+5
+Requesting a shell account
+6
+Usage notes
+6.1
+Password Management
+6.2
+Local email management
+6.3
+Public web hosting
+6.4
+Public git hosting
+6.5
+OpenID
+6.6
+IRC Proxies
+7
+See Also
+Hostnames
+ssh://shell.sugarlabs.org
+http://people.sugarlabs.org/
+Hosted on
+Machine/sunjammer
+Administrative contact
+sysadmin AT sugarlabs DOT org
+For non-emergency calls, preferably send email to the administrative contact.
+For urgent requests, the list of systems administrators is on
+Machine/sunjammer
+.
+Prerequisites
+A shell account;
+requires a sponsor,
+is only available to core contributors,
+is only for when an existing public service such as GitHub cannot help.
+A shell account makes sense only if you're
+already
+comfortable using ssh and the Linux command line. The SL systems administrators are not tutors.
+Requesting a shell account
+Fill up the following template and send it by email to
+sysadmin
+@
+sugarlabs
+.
+org
+:
+Username: <[a-z]+>
+First: <your first name(s)>
+Last: <your last name(s)>
+Email: <desired forwarding email destination for USERNAME@sugarlabs.org>
+Sponsor(s): <names of people sponsoring your account request>
+
+<intended purpose of account>
+
+<public ssh key(s), one per line. don't attach, paste with word-wrapping disabled>
+Please cc your sponsor(s)
+Preferably sign your request with a GPG key uploaded to public keyservers and signed by at least another Sugar Labs member.
+Accurately describe the intended purpose of your shell account.
+Insufficiently justified requests will be delayed by the sysadmins to request further details.
+Usage notes
+Password Management
+To change your password, you can visit
+https://ldap.sugarlabs.org/passwd
+.
+To reset your password, send a GPG-signed request to the sysadmin contact.
+Passwords expire every 6 months. You will receive an email remainder a few
+days in advance. If you don't update your password, your account will be disabled,
+including shell access via ssh public keys.
+To conserve resources, shell accounts will be removed from the system after
+6 months of inactivity.
+Local email management
+Instead of forwarding email to another account, you could use IMAP or our webmail.
+See
+Service/imap
+and
+Service/smtp
+.
+Public web hosting
+The contents of
+~/public_html
+will be visible as
+http://people.sugarlabs.org/USERNAME
+and
+http://people.sugarlabs.org/~USERNAME
+.
+You can use PHP in your web pages. It will execute with your credentials.
+Do not distribute non-free software from your account, as this is not allowed by the terms of service of our host, the
+Free Software Foundation
+.
+Public git hosting
+You can publish your personal git repositories on
+http://people.sugarlabs.org/gitweb
+.
+The repositories will also be accessible via the git protocol as
+git://people.sugarlabs.org/USERNAME/REPONAME.git
+Copy or symlink your repository to
+~/public_git
+.
+Ensure that the path to your repository is publicly readable.
+Touch the file
+git-daemon-export-ok
+in the repository.
+OpenID
+Your account provides an
+OpenID
+identity provider that can be
+used to log into any OpenID-enabled service:
+https://id.sugarlabs.org/USERNAME
+.
+IRC Proxies
+You can run your favorite IRC client or proxy on your account. We also offer a system-wide
+IRC Proxy
+.
+See Also
+Service/Account
+(for users)
+Sysadmin/User_management
+(for sysadmins)
+Service/email
+Service/imap
+Service/smtp
+Service/IRC Proxy

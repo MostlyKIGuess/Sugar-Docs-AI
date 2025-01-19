@@ -1,0 +1,78 @@
+Title: Development Team/Collaboration Refactoring
+URL: https://wiki.sugarlabs.org/go/Development_Team/Collaboration_Refactoring
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+Tasks for 0.90
+2.1
+Reimplement presence in the Shell
+2.2
+Dispatch new channels
+2.3
+Reimplement sugar.presence without the PS
+2.4
+Implement compatibility PS based on sugar.presence
+3
+Tasks for future releases
+3.1
+Implement a non-Sugar-specific interface for announcing activity
+3.2
+Account configuration in the control panel
+3.3
+Sending and accepting subscription requests
+3.4
+Adding an arbitrary contact to our contact list
+3.5
+Avatars support
+3.6
+Merge Salut and Gabble contacts in the UI (?)
+3.7
+Make activities activatable dbus services
+Introduction
+During the 0.90 release cycle,
+Collabora
+is sponsoring the refactoring of the presence and collaboration framework in Sugar with the following objectives:
+reduce the dependency on deprecated or soon to be deprecated parts of the Telepathy spec,
+improve interoperability with other messaging systems,
+make it easier to implement further collaboration features, often developed for other systems.
+The strategy that will be followed can be summarized as
+turning Sugar into a normal Telepathy client
+.
+Instead of implementing these changes inside Sugar's
+Presence Service
+, we are going to remove this layer because of the unneeded complexity that it brings and because several of the services it provides are either obsoleted or replaced by new components in the Telepathy framework. See
+Development Team/Presence Service Removal
+for details.
+Tasks for 0.90
+Reimplement presence in the Shell
+Work ongoing in
+http://git.sugarlabs.org/projects/sugar/repos/nops
+based on
+Development Team/Presence Service Removal
+. This is the base for all the rest of improvements to the collaboration infrastructure.
+Status: feature complete, polishing and stabilization ongoing
+Dispatch new channels
+Implement an approver and display the invitation in the UI
+Make sure other telepathy clients don't interfere even if installed
+Status: feature complete, polishing and stabilization ongoing
+Reimplement sugar.presence without the PS
+Instead of having the logic split between sugar.presence and the PS, implement what is needed inside sugar.presence using the D-Bus API.
+Status: feature complete, polishing and stabilization ongoing
+Implement compatibility PS based on sugar.presence
+For activities that still depend on the PS D-Bus API.
+Status: in progress
+Tasks for future releases
+Implement a non-Sugar-specific interface for announcing activity
+An important part of the Sugar experience is that users can choose to do any of their work either alone or together with other people, so the UI displays on-going activities, allows joining existing activities, sharing a local activity, inviting other people to an on-going activity, etc.
+There's interest in systems other than Sugar that also use Telepathy to gain similar capabilities, so we are going to work in defining better the intended user experience and designing a Telepathy interface for this.
+You can follow this work on the Telepathy tracker:
+http://bugs.freedesktop.org/show_bug.cgi?id=27107
+Account configuration in the control panel
+Sending and accepting subscription requests
+Adding an arbitrary contact to our contact list
+Avatars support
+Merge Salut and Gabble contacts in the UI (?)
+Make activities activatable dbus services
+So they can be activated in other desktops.

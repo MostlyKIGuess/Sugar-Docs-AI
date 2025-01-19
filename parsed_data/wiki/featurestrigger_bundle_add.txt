@@ -1,0 +1,61 @@
+Title: Features/Trigger Bundle Add
+URL: https://wiki.sugarlabs.org/go/Features/Trigger_Bundle_Add
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Benefit to Sugar
+5
+Scope
+6
+UI Design
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Release Notes
+12
+Comments and Discussion
+Summary
+There are many scripts that are external to the shell that can install bundles, e.g, sugar-install-bundle, system package installer, and others. When these scripts are run and the sugar shell is running, the expected behavior would be to see these actions reflected in the activity list, but it doesn't always happen.  Often the activity list would:
+not show activities even though they are now installed, or;
+show the wrong version number for installed activities.
+Restarting Sugar would fix the inconsistency.
+After some research, we realized that there is a design flaw in the way the bundle registry detects these bundles. The registry uses GioFileMonitor to detect when new bundle directories are created, but, in many cases, it detects the creation before the contents of the directory are populated, so it can't find the activity.info file and the bundle gets ignored.
+This new feature simply adds a way to explicitly tell the registry to add the bundle, by "touching" the bundle directory, e.g, $ touch /path/to/bundle.
+Owner
+Name:
+Martin Abente Lahaye
+Email: <tch@sugarlabs.org>
+Current status
+Targeted release: 0.108
+Last updated: Oct 21, 2015
+Percentage of completion: 100%
+Benefit to Sugar
+It fixes a design flaw in a very simple and inexpensive way, so now external scripts can explicitly tell the registry when to load the bundle, after the scripts has completely populated the directory.
+Scope
+This requires a very small change in the bundle registry, plus other external scripts like sugar-install-bundle. Those two changes are already implemented here:
+https://github.com/sugarlabs/sugar/pull/584
+UI Design
+No UI involved.
+How To Test
+To simulate the fail condition simply create a empty directory in ~/Activities/, e.g, $mkdir ~/Activities/Test.activity. Enable the DEBUG logging and you will see that the registry will ignore that directory. It is kind of obvious but that is exactly what happens when external scripts populate the bundle directory incrementally.
+Now, populate that empty directory with some real bundle contents, and then touch it, e.g, $touch ~/Activities/Test.activity. The registry should successfully load the bundle.
+User Experience
+No changes
+Dependencies
+No dependencies
+Contingency Plan
+Release Notes
+Add a note to the developers about this step.
+Comments and Discussion

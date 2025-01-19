@@ -1,0 +1,15 @@
+Title: Deployment Platform/Blacklist Shell Components
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/Blacklist_Shell_Components
+--------------------------------------------------------------------------------
+Summary
+To make deployment distribution more flexible, Sweets Distribution provides functionality to blacklist usage of particular Shell components. The reason for such blacklisting is that otherwise, the only way is removing unneeded Shell components from the installation directory, i.e., upstream packages need to be patched or post-install procedures should be processed. Blacklisting makes it possible to reuse upstream Shell packages as-is and change only local client configuration.
+Blocking rules
+The blocking rules should be placed to
+[blacklist]
+configuration section. Each section item blacklists particular Shell component:
+deviceicon
+Space separated list of python files, from deviceicon directory, to disable corresponding device icons;
+cpsection
+Space separated list of directory names, from cpsection directory, to disable corresponding Control Panel sections;
+globalkey
+Space separated list of python files, from globalkey directory, to disable corresponding global keys.

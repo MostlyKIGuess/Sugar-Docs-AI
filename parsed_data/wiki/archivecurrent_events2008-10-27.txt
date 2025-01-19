@@ -1,0 +1,70 @@
+Title: Archive/Current Events/2008-10-27
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2008-10-27
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Community jams, meetups, and meetings
+3
+Tech Talk
+4
+Sugar Labs
+Sugar Digest
+1. Digital media and learning competition: I submitted a proposal to the
+DML competition
+. The gist of our project plan is to reach out to and support the Sugar community of educators and software developers. We are seeking resources to expose more teachers and learners to the features and benefits of Sugar and further enable its use by: (1) stabilizing the software to the point where it is turnkey; (2) working with and learning from diverse communities that seek better ways to educate children; and (3) growing the number of users of and contributors to Sugar. I made a similar proposal to the Google 10^100 program; the focus is on building our developer and user communities.
+2. Sugar on a stick: Caroline Meeks and I visited a Boston public school to discuss with them the possibility of piloting a USB Sugar deployment, where the children would use USB sticks to boot Sugar at school and at home, using whatever computers are available. This deployment enables a school to use Sugar without making an upfront investment in new computers. It could be a very cost-effective approach to bootstrapping Sugar communities.
+3. Daniel Ajoy has updated a number of links on the
+OLPC Sur page
+that point to pages that detail various Activities as they are being applied in the classroom.
+Community jams, meetups, and meetings
+4. Peru translation sprint: A number of us are in Lima (beginning Monday—today—at 15:30 UTC at USMP FIA) this week, working on the translation of the Sugar-related FLOSS manuals. We'll try to have a presence on IRC (irc.freenode.net #sugar-meeting and #olpc-content) during the sprint.
+5. XOcamp2: C. Scott Ananian has been organizing a week of planning for the next OLPC XO release (9.1) to be held the week of November 17 in Cambridge, MA. He'd like participation and talk proposals from the Sugar Labs developers/users (the timing would be aligned with our 0.84 Release). Talk proposals should be sent to devel at lists.laptop.org.
+Tech Talk
+6. Sugar labs: David Van Assche reports that he has managed to get Sugar and collaboration via eJabbers working on a Linux terminal server (LTSP) using Ubuntu (a tip of the hat to those who offered their help on the #sugar channel). This means that you can now convert an existing networked lab to Sugar without installing any software on the client terminals. See
+LTSP Sugar on Ubuntu Intrepid
+for a step-by-step guide. It should be easily replicated on other distributions by using a distro-specific package manager.
+7. Journal: C. Scott has been working on a new design for the Journal (See
+Journal Reloaded
+). Lots of good ideas about making the Journal generally more friendly to users, developers, and to legacy applications.
+8. GConf: Simon Schampijer has been landing the use of GConf for the profile in sugar-jhbuild to store preferences (See
+GConf
+). The old API in Sugar/profile has been kept around so as not to break older Activities—for example to request the nickname or the icon colors of the user. An advantage of the new scheme is that you can run multiple instances of the emulator by repeated issuing of the 'SUGAR_PROFILE=username sugar-emulator' command. This works because we use gconf-dbus in sugar-jhbuild and therefore run one gconf daemon per instance.
+9. NetworkManager: Simon is working on adopting the Sugar shell to use NetworkManager 0.7 during the next week (See
+Dan William's blog
+).
+10. Potpourri: As usual, Marco Pesenti Gritti has been busy; he:
+wrote a proposal about an API stability policy for Glucose; discussed in the Sugar meeting, approved with minor improvements; Marco will make the necessary changes and officially post it on the wiki;
+fixed various issues regarding the running of multiple Browse instances; file pickers and downloads are now opened in the correct window;
+started to refactor the zoom-levels part of the window-management logic based on a patch by Benjamin Schwartz to get rid of flickering in the Home View;
+poked OLPC distro developers about the Fedora-10 migration (Marco hopes we can make a call about it soon, because he'd like to use the GTK/GIO API to implement standard-compliant startup notification).
+thought about making the Sugar shell more standards compliant to better host legacy desktop applications; Sayamindu Dasgupta has volunteered to help—we are still looking for someone to take over the work of choosing and adapting a window manager to replace Matchbox.
+discussed the next generation Journal design with C. Scott and was happy to see that middle layer between Journal and file system was not dropped; they made a lot progress on syncing on how to gradually integrate it in Sugar;
+fixed various regressions from the the Sugar shell refactoring (Marco thanks everyone for the patience); and
+made some Fedora LiveCD improvements—in particular get SLiM (a simple login manager) to behave under selinux.
+His pans for next week include:
+adding window management items to the 0.84 roadmap;
+following up with Benjamin about the icon cache, hopefully get near to something that can be integrated;
+looking into the LiveCD feedback (the principle blocker is NM 0.7 support, which Simon is working on;
+figuring out where and how to host source-code releases in preparation for 0.83.1 and starting to automating them;
+sending a reminder about new activity proposals to make sure no one is missing the deadline;
+finishing up zoom level refactoring and getting rid of the annoying flicker;
+trimming down the review queue; and
+reviewing and posting the API policy on the wiki.
+11. Sceencast: Chris Ball has revisited the question of how to do a Screencast in Sugar. He has written a new version of the Screencast Activity (
+Screencast-1.xo
+). An old version, built by MediaMods, is here (
+Screencast-2.xo
+).
+12: Other software releases this week include:
+Jukebox-3.xo
+Gadget 0.0.2 has been released. Highlights of the "Monster Lake" release include:
+support for constraining activity search results;
+various bug fixes;
+the addition of load simulation tools for testing purposes; and
+support for multi-criteria search.
+Sugar Labs
+13. Self-organizing map (SOM): Gary Martin has generated another SOM from the past week of discussion on the IAEP mailing list (Please see
+Image:2008-October-11-17-som.jpg
+).

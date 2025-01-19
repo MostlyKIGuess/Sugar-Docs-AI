@@ -1,0 +1,310 @@
+Title: 0.94/Notes
+URL: https://wiki.sugarlabs.org/go/0.94/Notes#View_Source:_duplicate_option_for_an_activity
+--------------------------------------------------------------------------------
+english
+HowTo
+[ID# 70115]
+Development Team
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Please do not edit unless you are part of the Sugar Release Team. Comments are welcome on the
+Discussion page
+.
+Sucrose 0.94 Release Notes
+Contents
+1
+Introduction
+2
+What is new for users
+2.1
+The Keep button has been deprecated
+2.2
+Duplicate option in the Journal
+2.3
+Enhanced copy option in the Journal
+2.4
+Easier file exchange..
+2.5
+View Source for sugar-toolkit
+2.6
+View Source: duplicate option for an activity
+2.7
+New Activity startup animation
+2.8
+Search for activities in your Favorites View
+3
+What is new for distributors and deployers
+4
+What's new for developers
+4.1
+Widgets
+4.2
+API
+4.3
+Activity Authors guidelines
+5
+What's new for packagers
+6
+Internationalization (i18n) and Localization (l10n)
+7
+Compatibility
+8
+Getting the sources
+8.1
+Glucose modules
+8.2
+Fructose modules
+9
+How to contribute with testing
+10
+Looking forward to 0.96
+11
+Credits
+Introduction
+Sugar 0.94 is the new version of the
+Sugar learning platform
+. It has been been released the 28th of September 2011 (see
+0.94/Roadmap#Schedule
+for details).
+This page is meant to give you an overview of the features, enhancements and bug fixes you can expect. Furthermore it has information for developers, packagers and deployers.
+What is new for users
+The Keep button has been deprecated
+The Keep button has been deprecated. The main reason was that many learners confused it with a save button and thought they would need to use it to save their works. To make a duplicate of an activity instance you can use the duplicate functionality that has been added to the palette for the item's entry in the Journal.
+Duplicate option in the Journal
+A duplicate option has been added to the entry palette in the Journal. The same option is available in the detail view.
+Enhanced copy option in the Journal
+The copy option in the Journal entry palette has been enhanced. It allows to copy to an external device and has an option to copy to the clipboard. The same enhancements have been made to the palette in the detail view. The palette for a file on an external device allows to copy to the Journal and to the clipboard. The detail view has been changed accordingly as well.
+In previous versions when you clicked on the icon in the detail views it copied directly to the clipboard. This functionality has been moved to the palette itself, on left click, the palette is opened and the learner is presented with the copy options.
+Easier file exchange..
+..between the Journal and the underlying file system
+To make it easier to exchange files between the Journal and the underlying file system the $HOME/DOCUMENTS folder has been made available in the Journal. For example if you have created an image in GIMP under GNOME and want to open it in Paint you can place it in the $HOME/DOCUMENTS folder and can access it in the Journal. This Feature has been requested by teachers a lot.
+View Source for sugar-toolkit
+An option to display the source code of the sugar-toolkit has been added to the view source alert.
+View Source: duplicate option for an activity
+An option to duplicate an activity has been added to the view source alert.
+New Activity startup animation
+Gonzalo has been working on a new startup animation for Activities using the alpha value of the icon. This fixes the issue where we did not see the startup screen immediately after clicking on the icon and reduces the startup time a bit. Here is a short demo video of the affect, the XO on the right side is the one using the alpha value to do the animation.
+Help activity startup
+Turtle Art startup
+Browse startup
+Search for activities in your Favorites View
+Search in the Favorites View
+Search in the Neighborhood View
+The activity search in the Favorites View has been enabled. This means faster access to your tools and more time for doing. Technically, the alpha value of icons is used to differentiate between a matching and a non-matching result. The same design is used now in the Neighborhood view as well.
+What is new for distributors and deployers
+there have not been any changes as of today
+What's new for developers
+The following changes are important for developers using the Sucrose 0.94 developer platform.
+Widgets
+The custom widget AddressEntry used in the Browse activity as the url entry has been removed from the toolkit. Browse does use now a
+standard gtk.Entry
+instead.
+The widget IconEntry is based
+now on a gtk.Entry
+instead of our custom widget. The API (which has some oddities like 'set_icon_from_name' instead of 'set_icon_from_icon_name') has been kept for now but will change as well in the near future.
+API
+The Keep button has been deprecated and should not been used in newly written code. It will be removed completely from the API later; please adjust existing activities accordingly.
+Activity Authors guidelines
+no guidelines as of today
+What's new for packagers
+The Sugar package depend now on
+xdg-user-dirs
+(e.g. the rpm is called xdg-user-dirs in Fedora). The dependency is needed by the code that determines the path of the DOCUMENTS folder used in the Journal.
+ethtool
+is used in Sugar to determine the wireless firmware version displayed in the Control Panel. This have not been noted as dependency yet, even though used for a while already, if you have not listed it yet, please add it.
+Internationalization (i18n) and Localization (l10n)
+Thanks to the efforts of
+many translators and the localization admin team
+we have been able to localize Sugar in many languages.
+Language
+Glucose (in %)
+Fructose (in %)
+Notes
+Danish
+100
+100
+-
+English (US)
+100
+100
+-
+English (UK)
+100
+100
+-
+French
+100
+100
+-
+German
+100
+100
+-
+Hindi
+100
+56
+-
+Nepali
+100
+100
+-
+Polish
+100
+86
+-
+Spanish
+100
+100
+-
+Greek
+99
+70
+-
+Huastec
+99
+100
+(Téenek)
+Sinhala
+99
+66
+-
+Tamil
+99
+76
+-
+Chinese
+98
+71
+(TW)
+Japanese
+98
+36
+-
+Bengali
+97
+25
+-
+Portuguese
+96
+69
+-
+Armenian
+95
+69
+-
+Arabic
+83
+28
+-
+Italian
+78
+61
+-
+Compatibility
+There a no known compatibility issues, as of today.
+Getting the sources
+If you want to package Sugar for your favorite distribution or just want to examine Sugar's lovely code here are the released bundles. If you are interested in the full changelog you can use the
+Sugar git repositories
+.
+Glucose
+modules
+sugar 0.94.1
+sugar-datastore 0.94.0
+sugar-toolkit 0.94.0
+sugar-base 0.94.0
+sugar-presence-service 0.90.2
+sugar-artwork 0.94.0
+etoys 4.1.2390
+hulahop 0.8.2
+Fructose
+modules
+Pippy 41
+Browse 128
+Calculate 37
+Etoys 116
+Chat 71
+TurtleArt 116
+Jukebox 23
+Log 24
+ImageViewer 17
+Write 77
+Terminal 35
+Read 91
+How to contribute with
+testing
+Even so we have released now 0.94 there will be stable updates for this release. It is very important to get feedback from you if you find bugs as early as possible and to get a stable release at the end. The order of stability depends among other things as well on
+you
+.
+If you find bugs please report them into the
+Sugar Labs bug tracker
+indicating the 0.94.x version in the ticket version field. If you have hardware from OLPC you can use the
+11.3.0 builds
+for the i686 architecture (XO 1 and XO 1.5) and for the new ARM hardware (XO 1.75). Those builds include Sugar 0.94. Hardware specific bugs especially with the new 1.75 hardware please report at the
+OLPC bug tracker
+. The current development version is as well available in
+Fedora 16
+and
+sugar-jhbuild
+(sugar* master branches).
+Looking forward to
+0.96
+For
+0.96
+we plan to focus on some architectural work that won't have a direct impact as perceived by most users. Sugar is a very thin layer of code that sits on top of hundreds of other components developed by other projects. There are ongoing changes to the components we depend on most directly, and we need to adapt Sugar to those changes so it keeps being shipped by Linux distributions and benefits from future improvements.
+The changes include that the Python bindings for GNOME will be available dynamically through
+GObjectIntrospection
+rather then through the current static bindings provided by
+PyGTK
+. So a goal for 0.96 will be to port Sugar and all the activities to GNOME 3 through
+GObjectIntrospection
+.
+Planning of the next release cycle has started at
+0.96/Roadmap
+.
+Credits
+Many people contributed to this release indirectly, including testing, documentation, translation, contributing to the Wiki, outreach to education and developer communities. On behalf of the community, we give our warmest thanks to the developers and contributors who made this Sugar release possible.
+We want to especially thank:
+the
+Infrastructure team
+which does all this great work in the background without which the development would not be possible at all,
+the
+deployments
+that provide the development team with feedback from the field,
+the
+Design team
+which guided the design of features with UI changes or impact on the workflow,
+the
+Translation team
+which makes sure that Sugar is enjoyable in the local languages of our users,
+the
+developers
+that submit patches for new features and bug fixes and do review other's patches,
+the
+maintainers
+that make sure their code is shippable and which provide packagers with new tarballs,
+the
+packagers
+which provide distributions with new Sugar packages,
+the
+SoaS team
+for providing a Sugar version to test with during the development cycle,
+the
+testers
+for finding the smaller and bigger issues,
+the
+release team
+and
+Development team
+for coordinating those efforts.

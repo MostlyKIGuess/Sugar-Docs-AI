@@ -1,0 +1,100 @@
+Title: Sugar on a Stick/Installation/OLPC/lang-es
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Installation/OLPC/lang-es
+--------------------------------------------------------------------------------
+Important:
+The content of this page or section is outdated. Please
+check the English reference
+version. If you have checked or updated this page or section and found the content to be suitable, please remove this notice.
+english
+|
+español
+|
+français
+HowTo
+[ID# 99604]
+¿Tiene usted una OLPC XO-1?
+0,84 Sugar tiene una serie de mejoras, más allá de 0,82. Y que un grupo de trabajo sobre la versión de la OLPC XO-1, pero debido a los cambios en el proceso de la OLPC, hay una nueva estrategia a corto plazo para las actualizaciones. OLPC cuestiones hasta su próximo lanzamiento oficial, estamos recomendando que los usuarios de XO-1 que les gustaría intentar usar 0,84 Sugar on a Stick. El XO-1 se puede arrancar desde un USB o dispositivo de almacenamiento de tarjeta SD, la
+Opción 3
+.
+Hay tres opciones principales para la OLPC XO usuarios: (1) olpc-update; (2) instalar el azúcar en un palo en el interior de NAND, y (3) de azúcar en un palo en una tarjeta SD.
+Nota:
+El OLPC XO-1 se ha incorporado en algunas protecciones incluyendo un bloqueo para impedir los cambios al azar de software. Para poder utilizar bien la
+Opción 2
+o la
+Opción 3
+, XO-1 propietarios deberán [
+solicitar un clave de desarrollador de la OLPC.
+Pueden transcurrir hasta 24 horas después de la solicitud se ha hecho para recibir su clave de desarrollador.
+Existen tres opciones principales para usuarios de la XO-1 de OLPC: (1) olpc-update; (2) instalar
+Sugar on a Stick
+en la NAND interior, y (3)
+Sugar on a Stick
+en una tarjeta SD.
+Actualizar a la última versión de Sugar
+olpc-update
+actualizara el sistema desde la actividad Terminal, por ejemplo:
+sudo olpc-update 767
+Donde 767 es
+la última versión estable de la OLPC
+(OLPC 8.2, Sugar 0,82)
+Los detalles relativos a la versión 8.2.1 estarán disponibles a finales de marzo o principios de abril
+.
+Puede encontrar más
+aquí
+.
+Instalar Sugar on a Stick
+NOTA
+: Requiere
+una clave de desarrollador para su OLPC XO-1
+y acceso a Fedora, Debian, Ubuntu) Tambien requiere una version recente del firmware (OFW) (Q2E28 se ha confirmado que funciona.
+Instrucciones para actualizar el firmware
+).
+ADVERTENCIA:
+esta acción sobrescribirá todos los datos en la NAND de su OLPC XO-1!
+En un sistema Fedora 10:
+sudo yum -y install crcimg mtd-utils
+En Debian o Ubuntu:
+sudo apt-get install mtd-utils
+crcimg no es empaquetado para Debian (que yo sepa), así que se tendrá que compilar:
+wget
+http://dev.laptop.org/~mstone/releases/SOURCES/crcimg-1.1.tar.bz2
+tar xvf crcimg-1.1.tar.bz2
+cd Makefile.build
+sudo make -f Makefile.build install
+Siguiente:
+wget
+http://dev.laptop.org/~cjb/rawhide-xo/livecd-iso-to-xo.sh
+wget
+http://download.sugarlabs.org/soas/snapshots/2/Soas2-200906221314.iso
+Ejecute este comando (o similar, dependiendo del número de versión de su iso):
+sudo sh livecd-iso-to-xo.sh Soas2-200906221314.iso Soas.img
+y, a continuación, copia Soas.img y Soas.crc a una llave USB o tarjeta SD.
+En la OLPC XO-1, arranque con la llave USB conectada y las cuatro claves del juego de prensa para obtener la pronta Aceptar en Open Firmware (OFW).
+Escriba los siguientes comandos:
+disable-security
+copy-nand u:\Soas.img
+Nota: dependiendo del sistema de archivos en tu llave USB, tal vez los nombres esten truncados
+dir u:\
+copy-nand u:\SOAS-2~1.img
+Debería ver una animación de los bloques que se escriben en el NAND. Cuando esté completa, usted estará de regreso en el símbolo ok.
+Escriba:
+reboot
+y el OLPC XO-1-se reiniciará y se debe estar ejecutando Azúcar 0.84.
+Ejecutar el azúcar en un palo de una tarjeta SD o USB externo
+Detalles próximamente (
+Requiere un desarrollador clave para su OLPC XO-1
+) y acceso a Fedora o Windows
+En Windows:
+Crear el dispositivo USB, como se describe en la página
+"el Sugar en un Stick / Windows"
+.
+No arrancar este palo en su máquina Windows. Asegúrese de que el primer arranque es en su XO. Si lo hace arrancar el palo en otra máquina en primer lugar, la configuración del servidor X necesario para la XO no se hará.
+En Fedora:
+wget
+http://download.sugarlabs.org/soas/snapshots/2/Soas2-200906221314.iso
+sudo yum install livecd-tools
+sudo livecd-iso-to-disk --format --xo --xo-no-home Soas2-200906221314.iso /dev/sdX1
+donde
+/dev/sdX1
+es el asociado con su dispositivo de medios extraíbles.
+página de descargas

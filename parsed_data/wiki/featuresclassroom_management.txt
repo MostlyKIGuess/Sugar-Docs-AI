@@ -1,0 +1,110 @@
+Title: Features/Classroom management
+URL: https://wiki.sugarlabs.org/go/Features/Classroom_management
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+This feature provides an infrastructure that addresses three aspects of classroom visualization and management:
+sharing content between students and teachers
+visualizing activity usage by students and teachers
+managing the Sugar home page by the teacher for lesson planning
+It also provides the framework for the controlled uploading classroom statics by the classroom teacher.
+Owner
+Name:
+Walter Bender
+Name:
+Gonzalo Odiard
+Email: <walter AT sugarlabs DOT org> <gonzalo AT sugarlabs DOT org>
+Current status
+Targeted release: 1.2
+Last updated: 10 July 2013
+Percentage of completion: 25% (Analyze Journal and Journal Share are the basis of this feature)
+Detailed Description
+As described in the summary, the goal of this feature is to encapsulate three aspects of classroom management into one harmonious set of tools and interactions. The goal is to provide tools for visualization and exchange of Journal activity. We'd like to accomplish this within the context of the existing Sugar infrastructure (for reasons of maintainability) and do it in a way such that the teacher and child have maximum control of the flow of information and content.
+There are four components to the work:
+capturing activity usage (this is already largely accomplished by the accumulation of launch times
+1
+). We may want to consider adding metadata which captures the accumulated time an activity is the top window in Sugar.
+visualizing activity usage (again, this is largely accomplished by Analyze Journal
+2
+). We may want to enhance the stats and also to maintain a current data object with these stats.
+exchange between the teacher and the student (largely accomplished by Journal Share
+3
+). We plan to expand upon Journal Share to enable automatic uploading of statistics from the student laptop. We also plan to add the ability to push a favorite view from the teacher's Sugar to the student's Sugar.
+exchange between the teacher and a webservice (this can leverage the webservices mechanism
+4
+but needs to be informed by more clarity around what needs to be uploaded/downloaded
+Above and beyond these components, we need to define a workflow by which they are used:
+teacher server?
+Journal Share makes use of a local webserver. Should that server be repurposed for background processing? Or should we utilize a school server?
+TBD
+Is this an integrated Sugar feature or one that is managed at the Sugar activity level? (Easier to customize as the latter.)
+teacher buddy
+Features/Teacher Buddy
+is a mechanism for identifying a teacher in the network neighborhood.
+Benefit to Sugar
+Scope
+The feature requires:
+UI Design
+How To Test
+Features/Classroom management/Testing
+User Experience
+student visualizing Journal use
+Simply by launching the Analyze Journal activity, a student can see a display of their activity usage, both based on instances and on the number of times each instance has been launched. Analyze Journal saves a datastore object associated with the activity that contains a json-encoded summary.
+what additional data should be captured? Is an accumulation of launch-times per activity adequate? Do we need to worry about change over time or just the current stats?
+is it important that this be available as a background task as well? If so, when and how often?
+or could launching it while the teacher is running Journal Share (or some equivalent) be used as an opportunity for a background upload?
+uploading student Journal use to the teacher's laptop
+Once the aforementioned modifications to Analyze Journal are made, the Journal Share mechanism could be used directly to upload a student's activity usage to the teacher.
+is this something that is better done as a background task? If so, when and how often?
+visualizing classroom statistics
+A few different ways in which this could happen. A new activity [NEEDS TO BE WRITTEN], similar to Analyze Journal, could be written to aggregate the stats uploaded by the students into one unified visualization. Or the classroom data could be sent out to a webservice [NEEDS TO BE WRITTEN] that provides cumulative statistics.
+is this something that is better done as a background task? If so, when and how often?
+setting the favorites view on a classroom full of laptops
+Might be worthwhile doing from Journal Share [NEEDS TO BE WRITTEN]. Or do we want it to be background? Best if used with multi-homeview patch
+5
+.
+distributing activities to a classroom full of laptops
+Seems that adding this to Journal Share would be intuitive and logical [NEEDS TO BE WRITTEN].
+TBD
+How do we identify the teacher laptop? Using the 'age' field?
+TBD
+What are the privacy concerns?
+TBD
+Is this always running? Or only running when the teacher is running Journal Share?
+Dependencies
+Contingency Plan
+No impact as this is a new feature.
+Documentation
+Some discussions with the design team regarding the placement of the buttons on the palettes.
+Release Notes
+Comments and Discussion
+See
+discussion tab for this feature

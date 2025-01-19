@@ -1,0 +1,121 @@
+Title: Service/Weblate
+URL: https://wiki.sugarlabs.org/go/Service/Weblate
+--------------------------------------------------------------------------------
+Contents
+1
+Hostnames
+2
+Hosted on
+3
+Administrative contact
+4
+Sysadmins
+5
+Notes
+6
+Upgrade Notes
+7
+Maintenance Notes
+8
+Files
+9
+Tips
+9.1
+Create new Weblate translation component
+10
+Synchronization
+11
+Backups
+12
+References
+Hostnames
+https://weblate.sugarlabs.org/
+Hosted on
+Machine/weblate
+Administrative contact
+admin AT weblate DOT sugarlabs DOT org
+Sysadmins
+For non-emergency calls, preferably send email to the administrative contact.
+Chihurumnaya Ibiam
+has assumed maintainership tasks.
+Bernie Innocenti
+has system admin privs, but takes care only of OS-level administration.
+Alex Perez
+Notes
+User
+weblate
+Home
+/home/weblate/weblate-docker
+Daemon
+/etc/init.d/nginx
+/etc/init.d/docker
+Logs
+/var/log/nginx
+docker logs weblate-docker-weblate-1
+Config
+/etc/nginx/sites-enabled/weblate
+/home/weblate/weblate-docker/docker-compose.yml
+Ports
+443
+HTTP server
+8080
+weblate docker container port
+Volumes
+/var/lib/docker/volumes/weblate-docker_postgres-data
+/var/lib/docker/volumes/weblate-docker_redis-data
+/var/lib/docker/volumes/weblate-docker_weblate-cache
+/var/lib/docker/volumes/weblate-docker_weblate-data
+Upgrade Notes
+Weblate has
+upgrade notes
+on upgrading the docker container.
+Maintenance Notes
+Weblate is maintained. (ibiam has step-up to be maintainer)
+After a restart, make sure to run saslauthd to enable authentication for postfix;
+saslauthd -a shadow
+Files
+Important files and directories in the root directory,
+/home/weblate/weblate-docker
+.
+docker-compose.yml
+Contains definitions for all the services and volumes used by weblate, which includes weblate, database and cache with volumes weblate-cache, weblate-data, postgres-data, redis-data.
+.
+environment
+Contains environment variables used by container.
+Tips
+Create new Weblate translation component
+Create new translation component in Weblate admin menu,
+Add new translation component
+;
+Select Project, we currently have
+core-sugar
+and
+Sugar-Activities
+, core-sugar contains sugar core APIs.
+Set version control system to Git.
+Set source code repository link - using ssh -.
+Set repository branch.
+Set File format gettext PO file, File mask po/*.po
+Set Repository push URL to enable autoupdate of changes to Github from weblate.
+Leave Push branch empty as repository branch would be used.
+On Github, add hook
+https://weblate.sugarlabs.org/hooks/github/
+to activity repo as it's used for automated flow of updates to weblate.
+Check license in activity repo matches Translation license selected by weblate or set to the right license.
+Add all needed langs; when adding from Github, weblate automatically adds all the PO files and you'll only need to do this if the only PO file the activity has is the template PO file.
+If an upload is incomplete, return to translation component, then Manage->Repository maintenance->Rescan, this will re-scan the repo and add all the po files.
+Synchronization
+Weblate automatically pushes changes to Github when there's a change on weblate because of the Git version control above, the hooks configured in the repos make it easy for weblate to pull changes from Github.
+Backups
+Weblate currently backs up to papert using
+borgbackup
+at
+/home/weblate/backups
+.
+You can view the list of backups with
+borg list /home/weblate/backups
+which will ask for a passphrase, 
+the passphrase can be found in weblate admin page -> Backup -> Backup service credentials.
+Borg's access is restricted to that directory.
+References
+https://docs.weblate.org/en/latest/admin/install/docker.html#upgrading-the-docker-container

@@ -1,0 +1,47 @@
+Title: Documentation Team/Obsolete/Services Activity Packagers Guide
+URL: https://wiki.sugarlabs.org/go/Documentation_Team/Obsolete/Services_Activity_Packagers_Guide
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Was only draft content.
+Contents
+1
+Introduction
+2
+Activity dependencies
+3
+Cache directory
+Introduction
+The purpose of this Guide is to describe how to package activities that use Sugar Services.
+Activity dependencies
+Every activity that uses Sugar Services will contain additional options in an activity.info file:
+requires
+option, a comma-separated list of dependencies that should exist,
+suggests
+option, a comma-separated list of dependencies that could not exist.
+Each dependency could be a,
+service name, the full 0install link will be
+http://services.sugarlabs.org/
+<dependency-name>,
+sub service slashed name, the full 0install link will be
+http://services.sugarlabs.org/
+<dependency-name>.xml
+full 0install link.
+In any case, the resulting 0install link will contain the appropriate information about dependency - home page, link to sources, licence, etc.
+The activity itself doesn't contain any 0sugar-related code. 0sugar will export the appropriate environment variables to the activity process, e.g., PYTHONPATH or LD_LIBRARY_PATH. Thus, dependencies could be packaged and the activity will not notice any differences between 0install dependencies and those installed from packages. An exception is the libsugarize service, which exports the LD_PRELOAD environment variable.
+Cache directory
+Every activity that uses Sugar Services will contain a .0sugar subdirectory in its activity root
+to keep all necessary dependency implementations (so as not to download them on demand).
+This could be any content, including binaries.
+0sugar launching code, since 0sugar is not part of Sugar Platform.
+This is pure python code.
+.0sugar/launch script, which starts 0sugar launching code
+The
+exec
+option from activity.info invokes this script.
+exec $(dirname $0)/<path-to-0sugar>/0sugar-selector "$@"
+If all dependencies (including 0sugar) are packaged, then this directory could be just removed.

@@ -1,0 +1,142 @@
+Title: 0.84/Reliability
+URL: https://wiki.sugarlabs.org/go/0.84/Reliability
+--------------------------------------------------------------------------------
+Contents
+1
+Datastore rework
+1.1
+People
+1.2
+Actions
+1.3
+Done
+2
+Solid clipboard
+2.1
+People
+2.2
+Actions
+2.3
+Tickets
+2.4
+Done
+3
+Memory bloat
+3.1
+People
+3.2
+Actions
+3.3
+Ideas
+3.4
+Done
+4
+Quality assurance
+4.1
+People
+4.2
+Ideas
+4.3
+Done
+Datastore rework
+People
+Owner: Tomeu Vizoso
+Peers:
+Marco Pesenti Gritti
+Actions
+Design alternative UI for managing removable devices.
+(eben)
+Implement managing removable devices out of the DS.
+(tomeu)
+When an existing entry is modified, keep the old version and reference them with a version number. Compress versions with deltas. The journal needs to add a possibility to launch different versions of an activity from within the detail view.
+(tomeu)
+Done
+The datastore code needs to be rewritten, to simplify and improve maintainability. As a first step the API will not be changed at all (other than removing removable devices support), so that the new implementation can be swapped in without changes to activities and Sugar.
+(tomeu)
+Drop for now the management of removable devices inside the DS. Removable devices support in Sugar should happen without intervention from the DS.
+(tomeu)
+#8155
+The datastore should hard link identical files, to handle repeated downloads of the same content without filling up NAND.
+(tomeu)
+Support arbitrary metadata properties that activities wish to add
+#4662
+.
+(tomeu)
+Degrade gracefully if a database gets corrupted- Basic functionality should only depend on the filesystem being available. Any other data structures (full text index) should be rebuildable from the filesystem.
+(tomeu)
+#6269
+Solid clipboard
+People
+Owner: Eben Eliason
+Peers:
+Tomeu Vizoso
+Marco Pesenti Gritti
+Actions
+Allow activities to supply a title along a clipping.
+(tomeu)
+Allow activities to supply an icon along a clipping.
+(tomeu)
+Display a preview of the clipping in the palette.
+(tomeu)
+Display the colors of the activity that provided the clipping.
+(tomeu)
+Calculate good fallbacks for activities that fail to provide any of the above items.
+(tomeu)
+We really need to support a direct "paste" action on clipping items, which poses an implementation challenge.  It's important, however, to make this action work in our "object oriented" environment.
+We should have secondary option for paste-and-remove (option-ctrl-v) on the paste button.
+We should have secondary option for copy-and-erase (ctrl-x) on the copy button, to handle the action usually known as "cut".
+The clipboard should support drag'n'drop reordering of clippings, both to make a series of paste-and-removes occur in a desired order, and to allow one to move clippings back to the top, so they don't fall off the bottom as more are made.
+(tomeu)
+Tickets
+This list is a subset which focuses on the key areas I would like to address.  For a more complete list, which invcludes some less noteworthy yet attention deserving bugs, please view the
+full trac query
+.
+Clippings need API for activity supplied titles (Trac #3189)
+Clipboard objects need meaningful labels (Trac #5751)
+Clippings should take on the colors of the activity they were clipped from (Trac #3691)
+Need "paste" action on clippings (Trac #1954)
+Clippings need previews (Trac #3117)
+Clippings need support for custom icons (Trac #4292)
+Paste and remove: Popping clippings from clipboard stack when pasted (Trac #2926)
+Clipboard should support drag'n'drop reordering (instead of duplicating clippings) (Trac #5755)
+Done
+Eben is working to refine the
+clipboard specification
+Memory bloat
+People
+Owner: Marco Pesenti Gritti
+Peers
+Riccardo Lucchese
+Tomeu Vizoso
+Actions
+Improve base memory usage of the Activity class.
+(marco)
+Write a clear check list about things you need to do to ensure you are not leaking pygtk widgets.
+(tomeu)
+The reference cycle between Widget, Palette and Invoker is causing a lot of leaks. The Palette should not know about the invoker at all. The Invoker should control the Palette instead, pop it up and down, set his position etc.
+(marco)
+BuddyModel is referenced by sugar.presence.buddy.Buddy which is cached, so it doesn't get released as soon as we would like.
+(tomeu)
+Ideas
+We need some way to constantly monitor memory usage.
+Done
+Improve base memory usage of the sugar shell and related services.
+(tomeu)
+Quality assurance
+People
+Owner: Marco Pesenti Gritti
+Peers:
+Simon Schampijer
+Joel Stanley
+Ideas
+Integrate sugarbot into sugar-jhbuild and buildbot. Write tests for it and encourage the activity authors to do so too.
+Start writing unit tests and use nose to run them into the buildbot. We will have to figure out how to unit test UI code.
+Form a community driven bug squad to help with testing and bug triaging, both on the XO version of Sugar and on other distributions. It's important that we get testing well before OLPC is trying to close down it's releases.
+Developers should start using Sugar daily, either on the XO or on a normal laptop.
+Done
+Get a buildbot running on at least Fedora and Ubuntu.
+(marco)
+Pylint the core codebase, check regressions in the buildbot, make it a requirement to be pylint clean to submit patches.
+(marco)
+Add basic checks on the buildbot about shell and activity startup.
+(marco)

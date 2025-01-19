@@ -1,0 +1,238 @@
+Title: Development Team/Almanac/Making Icons
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/Making_Icons
+--------------------------------------------------------------------------------
+Save yourself some time. Don't make the mistake I made. Before you make an icon, see if it's already on the laptop!
+/usr/share/icons/sugar/scalable on the laptop contains a bunch of icons for your use. Also,
+svg-grabber
+is a python script that will download ~800 non-sugar svg's for you to work from.
+--
+Bjordan
+16:48, 15 July 2008 (UTC)
+Contents
+1
+Icon Format
+1.1
+Scalable Vector Graphics
+1.2
+Defining Entities
+2
+Getting Started
+2.1
+Finding an SVG Editor
+2.2
+Templates
+2.2.1
+Downloads
+2.2.2
+Guide
+2.2.3
+Swatches
+2.3
+Designing Icons
+2.3.1
+Default Colors
+2.3.2
+Visual Weight
+2.3.3
+Strokes and Fills
+3
+Sugarizing Icons
+3.1
+The Script
+3.1.1
+Download
+3.2
+Basic Conversion
+3.3
+Icon Sets
+4
+Hacking by Hand
+4.1
+A Simple SVG
+4.2
+Defining Entities
+4.3
+Inserting Entity References
+5
+Using gradients
+6
+See also
+Icon Format
+Scalable Vector Graphics
+Icons designed for Sugar must use the
+SVG
+file format.  This Scalable Vector Graphic format allows Sugar to dynamically scale and color the icons without any degradation in quality. Thus, variably sized representations of particular icons may exist depending on their context in the interface. Additionally, this provides support for dynamic coloring of activity and object icons based upon a child's chosen XO colors,
+imbuing them with identity
+.
+Defining Entities
+To aid in the dynamic colorization of sugar icons, we take advantage of
+entitites
+within the
+DOCTYPE
+declaration.  The inserted entities act like variables whose values are inserted at any location in the SVG where the entity is referenced.  Making sure that these entities are inserted correctly is essential to creating proper icons for use in Sugar.
+The two entities required for Sugar icons are:
+stroke_color
+fill_color
+To see an example of the XML format used to define these entities, please refer to the section below on
+hacking
+Sugar icons by hand.
+Getting Started
+Finding an SVG Editor
+In order to create icons in the SVG format, you'll need to get your hands on a suitable editor.  There are a number of
+options
+available, and you are free to choose any that suits your particular needs. One of the most commonly used is
+Inkscape
+, an open source vector graphics editor with a comprehensive toolset and WC3 and CSS standards compliance.  In addition, Inkscape has a commitment to multilingual support and maintains ongoing translation efforts.
+There are also a number of
+commercial editors
+which you are welcome to use as well, should you have access to such resources.
+Unfortunately, no suitable vector editing tools are available as activities for the XO laptops at present.  We acknowledge this omission, and hope to provide a vector-based "Draw" activity (to supplement the bitmap-based "Paint" activity) in order to provide the proper tools for icon generation on the laptops themselves in the future.
+Kidscape aka inkscape child friendly version(olpc):
+https://bugs.launchpad.net/inkscape/+bug/170488
+please cc yourself to this bug, and comment as appropriate.
+There is also the start of a vector icon-drawing activity at
+http://dev.laptop.org/git/users/cscott/icon-draw-activity/
+-- please adopt it and finish it off!
+Templates
+To make it simpler to create new icons for use in Sugar, we've created some template SVGs.  Though any of these template files should be editable with your choice of SVG editor, those with specific affiliations have been tweaked to make their presentation in their associated editors more natural, and their interaction with our scripts much cleaner.  The third template is an extremely minimal example which is designed for those who wish to edit SVGs manually, or for those that wish to use other editors.
+Downloads
+These are pointers to the wiki pages for the template icons. Click through to these pages (don't "save as", yet!)
+icon_template.inkscape.svg
+icon_template.illustrator.svg
+icon_template.generic.svg
+Guide
+The non-generic template files have some extra elements within them that may make things easier for you as you create your icons. For instance, they have a guide layer which clearly denotes both the recommended (45px) and maximum (55px) areas that your icon must fit within.  This layer may also be useful for previewing your icons against a dark background while editing them.
+Swatches
+They also contain a swatches layer which offers some small squares in all possible combinations of the default stroke and fill colors.  In Illustrator you can paint a shape in your icon by selecting it, then pressing 'i' to select the Eyedropper tool, and finally clicking on the swatch of your choice to automatically apply both the stroke and fill properties of the swatch to the selection, adding or removing the stroke or fill completely as necessary.
+You can accomplish something somewhat similar in Inkscape by selecting the eyedropper tool (F7).  With the tool selected, you can click on a color to set the fill, or shift-click to set the stroke.  Unfortunately, there doesn't seem to be a way to set both stroke and fill from a swatch with one click, nor is there a way to remove a stroke or fill by clicking on a swatch without those properties.  You can, however, add strokes and fills via this method when the selected shape has none; you may also remove a stroke or a fill by checking the "pick alpha" checkbox and then clicking outside of the canvas area with or without shift, respectively.
+Designing Icons
+Sugar icons should all follow the
+icon design guidelines
+set forth in the Sugar Human Interface Guidelines.  For information about the various types of icons and their appearances including size, colors, and layout, please refer to the HIG.
+Default Colors
+COMING SOON...
+Visual Weight
+COMING SOON...
+Strokes and Fills
+COMING SOON...
+Sugarizing Icons
+The Script
+In order to streamline the process of creating sugar compatible icons, we provide the
+sugariconify
+script.  This script takes an SVG file as input and outputs a new SVG (or SVGs) containing the proper entity definitions.  It offers a number of command-line flags for performing variations on this process to fit smoothly into your workflow.  You can view all of the available options by running
+sugariconify -h
+from the command line, or by viewing the dedicated
+usage page
+.  Some specific examples and use cases are illustrated below in more detail.
+Download
+sugariconify.py
+Basic Conversion
+COMING SOON...
+Icon Sets
+http://www.openicon.org
+is a search engine for svg icons.
+please add any icon sets using the validator.
+Hacking by Hand
+SVG adheres to the common
+XML
+format, and as such may be edited within any standard text editor.  For those that are interested in the internal details, don't have access to visual editing tools, or simply like the thrill of crafting their icons by hand, with the associated control, please enjoy this section.
+A Simple SVG
+You're free to examine the
+SVG 1.1 specification
+in order to create icons of any complexity you desire.  For the purposes of demonstrating the conversion of a standard SVG into the format Sugar expects, let's consider a really simple SVG.  We define the width and height of the canvas to be 55px, which is the maximum size for "standard" icons, and the required canvas size.  The recommended size for icons is 45px, which is the area we fill with the rect. By defining the 55px rect for the icon, we naturally define some padding, which gives you as the icon designer the ability to position the icon within the 55px canvas to give it proper "visual weight".  In other words, it should
+appear
+to be centered within the padded 55px region, even if it technically is not.
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+ <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55">
+     <rect x="5" y="5" width="45" height="45" stroke="#666666" fill="#FFFFFF" stroke-width="3.5"/>
+ </svg>
+Note: If you wish to use Inkscape to create your icons, and subsequently insert the entities by hand, we recommend using the "Save As" command and choosing the "Plain SVG" file format to produce more readable SVGs.
+Defining Entities
+To prepare our SVG for use in Sugar, we need to define the entities which Sugar expects.  To do this, we add an entity declaration block inside the DOCTYPE.  For clarity, we'll define them to have the same colors as the SVG we started with, which also happens to have the recommended default colors for activity icons.  Additions and changes are highlighted in green:
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+[
+     <!ENTITY stroke_color "#666666">
+     <!ENTITY fill_color "#FFFFFF">
+ ]
+>
+ <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55">
+     <rect x="5" y="5" width="45" height="45" stroke="#666666" fill="#FFFFFF" stroke-width="3.5"/>
+ </svg>
+Inserting Entity References
+Next, we have to make use of the defined entities by replacing all occurrences of those colors within the body of the SVG.  Entity references begin with an ampersand (&) an end with a semi-colon (;), with their name in the middle (eg.
+&stroke_color;
+). Note that if we had a more complex SVG, it may be appropriate to set some  fills to the stroke color, and some strokes to the fill color, within the rules set forth in the HIG for
+strokes and fills
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+     <!ENTITY stroke_color "#666666">
+     <!ENTITY fill_color "#FFFFFF">
+ ]>
+ <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55">
+     <rect x="5" y="5" width="45" height="45" stroke="
+&stroke_color;
+" fill="
+&fill_color;
+" stroke-width="3.5"/>
+ </svg>
+Using gradients
+Here is an example of one way to do this by overlaying a gradient over the data-driven XO stroke and fill colors:
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+<!ENTITY stroke_color "#010101"><!ENTITY fill_color "#FF0000">]>
+<svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+	
+<g display="block" id="activity-example">
+<rect display="inline" fill="&fill_color;" height="30.771" width="41.438" x="6.705" y="12.213"/>
+
+<linearGradient
+   id="gra"
+   gradientUnits="userSpaceOnUse"
+   x1="0"
+   y1="9"
+   x2="0"
+   y2="53"
+   >
+	<stop
+   offset="0.1044"
+   style="stop-color:#0;stop-opacity:0" />
+	<stop
+   offset="0.1813"
+   style="stop-color:#0;stop-opacity:0"/>
+	<stop
+   offset="0.489"
+   style="stop-color:#0;stop-opacity:.3"/>
+	<stop
+   offset="0.9451"
+   style="stop-color:#0;stop-opacity:.6"/>
+</linearGradient>
+
+<rect display="inline" fill="url(#gra)" height="30.771" stroke="0" stroke-linejoin="round" stroke-width="3.5" width="41.438" x="6.705" y="12.213"/>
+
+<circle cx="27.504" cy="27.598" display="inline" fill="&stroke_color;" r="2.946"/>
+
+</g>
+</svg>
+The "stop-color" properties of an SVG gradient will also accept the &stroke_color; and &fill_color; entities, if you want a gradient in the user's colors.  For example, this shows two gradients between transparent and opaque versions of the child's stroke and fill colors:
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#666">
+	<!ENTITY fill_color "#fff">
+]><svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+       height="55px" width="55px" viewBox="0 0 55 55" x="0px">
+ <defs>
+  <radialGradient cx="29.547" cy="27.726" gradientUnits="userSpaceOnUse" id="radialGradient3776" r="16.875">
+   <stop offset="0" stop-color="&fill_color;"/>
+   <stop offset="1" stop-color="&fill_color;" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient gradientUnits="userSpaceOnUse" id="linearGradient3784" x1="12.672" x2="46.422" y1="27.726" y2="27.726">
+   <stop offset="0" stop-color="&stroke_color;"/>
+   <stop offset="1" stop-color="&stroke_color;" stop-opacity="0"/>
+  </linearGradient>
+ </defs>
+ <path d="m45.204,27.726a15.657,15.657,0,1,1,-31.315,0,15.657,15.657,0,1,1,31.315,0z" fill="url(#radialGradient3776)" stroke="url(#linearGradient3784)" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-width="2.43559003" transform="matrix(1.4370235,0,0,1.4370235,-14.959677,-12.342744)"/>
+</svg>
+See also
+Human Interface Guidelines/The Sugar Interface/Icons
+Download .svg collection
+(~800 non-sugar svg's)

@@ -1,0 +1,193 @@
+Title: Sugar Network/1.0/Testing
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/1.0/Testing
+--------------------------------------------------------------------------------
+Contents
+1
+Smoke tests
+1.1
+Requirements
+1.2
+All Users
+1.3
+School teachers
+1.4
+Educators to work with teachers
+1.5
+Chaski
+1.6
+Technical support
+1.7
+Sugar Activity developers
+Smoke tests
+Tests that should be fulfilled in v1.0.
+Requirements
+Puno Sugar XO distribution on SD card or USB stick,
+Sugar Network SD cards, regular SD cards formated for using as a storage space for Sugar Network node servers.
+Repository with packages for master server.
+All Users
+User registration.
+To do:
+on XO #1, open Users list in the Browser and make sure you don't see XO #2's user;
+reflash XO #2 with Puno Sugar distribution;
+start XO #2 and open the Browser.
+Expected results:
+on XO #1, open Users list in the Browser and make sure you see XO #2's user.
+Create a new Context.
+To do:
+click Upload button in the Browser;
+in popped up Journal objects chooser, select a .xo(l) bundle for Activity or Content Library that was not yet uploaded to the Network.
+Expected results:
+new Context will be created and accessible in Contexts full list;
+new Context will be accessible via Browser's search bar after some timeout;
+if uploaded bundle has an inappropriate license, Browser should complain.
+Update Version for the existing Context.
+To do:
+click Upload button in the Browser;
+in popped up Journal objects chooser, select a .xo(l) bundle with newer version.
+Expected results:
+find the Context you uploaded new Version for;
+make sure that version is exactly what was uploaded recently.
+if uploaded bundle has an inappropriate license, Browser should complain.
+Launch a Context.
+To do:
+find the Context to activate;
+click the Context's preview or Launch button.
+Expected results:
+if Context is an Activity, it should be launched with;
+if Context is a Content bundle, Browse Activity should be launched with the content of chosen bundle.
+Initiate a discussion.
+To do:
+chooses a Context in the Browser;
+click button to create a new Question|Idea|Problem|Review and type the description.
+Expected results:
+new Question|Idea|Problem|Review should appear at the bottom of the Context page;
+new Question|Idea|Problem|Review should be findable from the Browser's search bar after some timeout.
+Create a Solution for Question|Idea|Problem.
+To do:
+Find a Question|Idea|Problem using Browser's search bar or selecting it from the Context;
+click a button to create new Solution and type its description.
+Expected results:
+new Solution should appear at the bottom of the Question|Idea|Problem page;
+new Solution should be findable from the Browser's search bar after some timeout.
+Share a Sugar Activity object, an Artifact.
+To do:
+find the Context to share object of;
+click the button and select the appropriate Journal object;
+Expected results:
+new Artifact should appear at the bottom of the Artifacts page;
+new Artifact should be findable from the Browser's search bar after some timeout.
+Restore an Artifact.
+To do:
+find an Context to restore Artifact of;
+find an Artifact to restore;
+click the Artifact preview;
+Expected results:
+the chosen Context Activity should be launched with chosen Artifact.
+Comment an object.
+To do:
+find a Question|Idea|Problem|Solution|Review|Artifact in the Browser;
+click the button to create new Comment and type its description.
+Expected results:
+new Comment should appear at the bottom of selected Sugar Network object;
+new Comment should be findable from the Browser's search bar after some timeout.
+Vote/unvote for an object.
+To do:
+find a Question|Idea|Problem|Solution|Review|Artifact|Context in the Browser;
+click the star button.
+Expected results:
+star for chosen object should be inverted after re-finding the same object;
+the rating of chosen object should be increased/decreased by one.
+Change the description of Context|Question|Idea|Problem|Review|Solution|Artifact.
+To do:
+find an object to change its description;
+click Edit button and change the description;
+click Apply button
+Expected results:
+object's description should be changed even after re-finding.
+object should be findable, using newly typed description, from the Browser's search bar after some timeout.
+Change the existing Artifact.
+To do:
+find an Artifact to change;
+click the button and select the appropriate Journal object;
+Expected results:
+existing Artifact's preview should be changed;
+clicking on Artifact will restore new Activity object.
+Going offline.
+To do:
+being connected to school server or Internet;
+find the Context that should be accessible offline;
+pin it to make the Context accessible offline.
+Expected results:
+make sure you are not connected to the server anymore;
+in the Browser, you should see only Contexts you pinned being connected;
+all pinned Contexts should be launchable;
+it should be possible to create new Question|Idea|Problem|Review|Artifact|Comment associated with pinned Contexts;
+it should be possible to update Version for pinned Contexts;
+it should be possible to create new Contexts by uploading bundles.
+Going online.
+To do:
+follow the
+Going online
+workflow and make as many as possible changes;
+Expected results:
+make sure are connected to the server;
+make sure that other people see all changes you made being offline.
+School teachers
+Turn regular XO to a Sugar Network server.
+To do:
+reflash a XO #1 with Puno Sugar distribution;
+attach Sugar Network SD card;
+reboot the XO #1.
+Expected results:
+after starting the Browser on XO #1, you should see the Sugar Network content initially placed to attached SD card;
+reflash XO #2 with Puno Sugar distribution;
+after rebooting XO #2; it should automatically connect to XO #1 via Adhoc;
+the Browser on XO #2 should show the same Sugar Network content as on XO #1.
+Switch Sugar Network server to a different XO.
+To do:
+shutdown XO #1, the previous Sugar Network server;
+unplug Sugar Network SD card from XO #1 and plugin it to XO #2 that is flashed to Puno Sugar distribution;
+boot XO #2;
+reboot all client XOs.
+Expected results:
+after booting, Browsers on all client XOs should behave like Sugar Network server was not changed.
+Educators to work with teachers
+Chaski
+Synchronize Node server with USB stick.
+To do:
+on newly installed Master server, create new content;
+on newly refleshed XO #1, attached initial Sugar Network SD card and create any new content;
+attach USB stick to the XO #1;
+if USB stick was not previously formated for synchronization, select "Use for synchronization" menu option for device icon from bottom Sugar Shell bar;
+if USB stick was previously formated for synchronization, the process should immediately;
+Sugar Shell should popup alert with information that synchronization process started;
+Sugar Shell should popup alert with information that synchronization process finished;
+detach USB stick from XO #1 and attach to laptop #2, which is connected to the Internet;
+on laptop #2, run the
+sugar-network-sync
+script from the root directory on USB stick;
+detach USB stick from laptop #2 and attach it to XO #1;
+Sugar Shell should popup alert with information that synchronization process started;
+Sugar Shell should popup alert with information that synchronization process finished.
+Expected results:
+XO #1 should show the content created on the Master server;
+the Web client connected to the Master server should show the content created on Node server;
+Technical support
+Create Puno distribution XO image.
+TODO
+Format Sugar Network SD card.
+TODO
+Setup Master Sugar Network server.
+To do:
+in a VM where Sugar Network was never installed before, attach repository with Sugar Network server;
+install
+sugar-network-server
+package;
+start it by
+/etc/init.d/sugar-network start
+command.
+Expected results:
+Process
+Shaski
+smoke tests.
+Sugar Activity developers

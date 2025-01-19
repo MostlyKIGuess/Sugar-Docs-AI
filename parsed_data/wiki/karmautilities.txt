@@ -1,0 +1,22 @@
+Title: Karma/Utilities
+URL: https://wiki.sugarlabs.org/go/Karma/Utilities
+--------------------------------------------------------------------------------
+The main karma utility is the command
+karma
+which simply checks if java is installed before invoking bin/karma.js with the
+narwhal
+command-line interpreter for javascript.
+The karma utility is essentially a clone of setup.py with customizations for karma. We could not use setup.py as much of it does not apply to a non-python project. The karma script is still under heavy development. Here are some functions we intend to implement:
+Usage:  karma [OPTION] [INPUTFILE]...
+Commands To be Implemented:
+add-missing-gnu lesson_name -- If the standard GNU files are missing (AUTHORS, CHANGELOG, COPYING, NEWS, README), they are created from defaults
+check_all -- run comprehensive check against all files to against the karma specification, like pylint on steroids
+check_html -- only check the html files
+check_js  -- only check the javascript files
+dist_xo   -- create an XO bundle that includes an html5-capable browser
+dist_zip  -- create a zip archive including the kindex.html and all karma lessons from lessons/
+dist_xo_locale [locale_name]*   -- create an xo bundle that only includes the specified locales
+dist_zip_locale [locale_name]*  -- create a zip archive that only includes the specified locales
+gettextize  [files] [-o outputfile.pot] -- grabs translatable strings from [files] and outputs them lesson_name.pot by default. If lesson_name.pot already exists, it is updated
+new_lesson  -- create a new lesson from the  karma templates
+update_index -- update the main index.html to include lessons created in lesson/

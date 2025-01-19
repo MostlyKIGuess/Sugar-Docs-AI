@@ -1,0 +1,388 @@
+Title: Development Team/Meetings/Logs/September 10 2009
+URL: https://wiki.sugarlabs.org/go/Development_Team/Meetings/Logs/September_10_2009
+--------------------------------------------------------------------------------
+(04:13:22 PM) erikos: tomeu: http://wiki.sugarlabs.org/go/Development_Team/Meetings#Topics
+(04:13:34 PM) erikos: tomeu: I have added a topic
+(04:13:46 PM) tomeu: nice
+(04:13:54 PM) tomeu: I guess we can start?
+(04:14:05 PM) tomeu: will paste the topics anyway
+(04:14:05 PM) tomeu:  Improving testing, triaging and bugfixing  test plans  testing meetings  triaging   Fructose Activities: in/out 
+(04:14:32 PM) tomeu: so, we want to make 0.86 a more solid release than the previous ones
+(04:14:39 PM) tomeu: but things aren't going too well as of yet
+(04:14:51 PM) tomeu: seems like we are having less testing than in previous releases?
+(04:15:11 PM) erikos: tomeu: yeah, I think I have identified a few issues
+(04:15:17 PM) garycmartin: tomeu: am still mainly stuck in toolbar mode.
+(04:15:37 PM) erikos: tomeu: we don't do as much announcements about the current status
+(04:15:47 PM) tomeu: good point
+(04:15:48 PM) tomeu: have we lost many testers?
+(04:15:56 PM) SaschaSilbe-47b5 [n=urk@vpn1193.extern.uni-tuebingen.de] entered the room.
+(04:15:58 PM) erikos: tomeu: and we do not have a clear testing platform I think
+(04:16:08 PM) erikos: tomeu: not sure we really lost them
+(04:16:09 PM) SaschaSilbe-47b5: sorry for being late
+(04:16:18 PM) tomeu: hi SaschaSilbe-47b5, just starting
+(04:16:19 PM) erikos: hi SaschaSilbe-47b5
+(04:16:38 PM) garycmartin: tomeu: not sure we ever had that many to begin with! :-)
+(04:16:42 PM) tomeu: erikos: yeah, that's an important point, how is soas regarding testability?
+(04:16:43 PM) erikos: tomeu: I think we need to initialize them and see then
+(04:16:54 PM) erikos: garycmartin: pessimist! ;p
+(04:17:25 PM) erikos: tomeu: ok, what I think will hep is:
+(04:17:28 PM) garycmartin: erikos: my tea cup is half full :-)
+(04:17:37 PM) erikos: a) we get the tarballs out tonight
+(04:17:43 PM) erikos: b) make good release notes
+(04:17:47 PM) erikos: c) make rpms
+(04:17:57 PM) erikos: d) help sdziallas with getting it in soas
+(04:18:04 PM) erikos: e) announce widely
+(04:18:10 PM) erikos: f) before the weekend
+(04:18:20 PM) erikos: g) get the triagers ready
+(04:18:33 PM) erikos: to be responisve
+(04:18:45 PM) erikos: h) get the bugfixers crew ready, as well
+(04:19:23 PM) ***erikos adds test cases at a well announced place
+(04:20:11 PM) tomeu: erikos: ok, should we advertise now what the plan is?
+(04:20:18 PM) tomeu: so people can start planning?
+(04:20:25 PM) garycmartin: tomeu: FWIW the last 3-4 days of patches from alsroot and you have made a big difference to what I see here. I was worried we would have to revert even more, but we have moved quite a good distance.
+(04:20:28 PM) erikos: sure, sounds good to me
+(04:21:00 PM) erikos: tomeu: we have to try to keep people in the loop as much as possible
+(04:21:01 PM) tomeu: garycmartin: nice to hear that!
+(04:21:04 PM) SaschaSilbe-47b5: garycmartin: +1, even a lot of old bugs got fixed
+(04:21:08 PM) tomeu: erikos++
+(04:22:06 PM) erikos: any improvements to the rough plan I pasted above?
+(04:22:23 PM) garycmartin: tomeu: so can we drop the gtk-treeview row headers yet ;-b
+(04:22:26 PM) tomeu: erikos: sounds good to me
+(04:22:36 PM) tomeu: garycmartin: yeah, not sure why we haven't yet
+(04:22:43 PM) garycmartin: tomeu: ;-)
+(04:22:52 PM) erikos: tomeu: garycmartin we even have a patch for that already
+(04:22:55 PM) CanoeBerry: aside: can the Journal be backed up easily?  Discussion ongoing on #olpc-help if you know!
+(04:23:33 PM) erikos: CanoeBerry: cp -r ~./sugar/default/datastore [target] :D
+(04:23:51 PM) erikos: CanoeBerry: replace cp with scp for networking
+(04:24:02 PM) erikos: CanoeBerry: I am only kidding ;D
+(04:24:05 PM) befana [n=befana@190.156.73.226] entered the room.
+(04:24:21 PM) tomeu: CanoeBerry: you can do what erikos said, or use the XS for backups
+(04:25:18 PM) SaschaSilbe-47b5: erikos: does cp -r handle hard links properly?
+(04:25:44 PM) SaschaSilbe-47b5: (i always use cp -a to be on the safe side)
+(04:26:24 PM) erikos: SaschaSilbe-47b5: let's better not discuss that now and here ;p
+(04:26:33 PM) SaschaSilbe-47b5: +1 ;)
+(04:26:39 PM) erikos: tomeu: can you get us back on track?
+(04:26:51 PM) tomeu: ok, so we have a plan to get the testing we need
+(04:27:07 PM) erikos: tomeu: who does send that plan?
+(04:27:12 PM) erikos: tomeu: I can - if you want
+(04:27:20 PM) tomeu: would be great
+(04:27:23 PM) erikos: ok
+(04:27:37 PM) tomeu: erikos: can you extend on "get the triagers ready"?
+(04:28:05 PM) SaschaSilbe-47b5: who does the actual testing?
+(04:28:05 PM) walterbender: erikos: has anyone contacted the NZ testing team?
+(04:28:11 PM) erikos: tomeu: ok:
+(04:28:36 PM) erikos: a) they need to watch new incoming bug reports
+(04:28:50 PM) walterbender: erikos: if we could give them instructions, they would be very helpful
+(04:29:02 PM) erikos: b) we should maybe do daily triage meetings until we have 0.86 is out
+(04:29:12 PM) erikos: walterbender: they test saturday as far as i know
+(04:29:35 PM) erikos: walterbender: right, that is why it is important to get the packages out and soas ready
+(04:29:48 PM) erikos: SaschaSilbe-47b5: ^^^ for example
+(04:30:03 PM) walterbender: erikos: yes. Saturday
+(04:30:57 PM) walterbender: erikos: is there a plan to spin another SoaS beta before Saturday?
+(04:31:07 PM) tomeu: erikos: ok, and after 0.86 is out, we still want to keep working on a bugfix release, right?
+(04:31:11 PM) walterbender: erikos: if so, then we could have them test with that.
+(04:31:27 PM) erikos: tomeu: sure
+(04:31:33 PM) tomeu: walterbender: that would be great, pity we didn't discussed it with sdz earlier today
+(04:31:51 PM) erikos: tomeu: but then we could go over to every second day or something
+(04:32:08 PM) erikos: tomeu: but very good that you mention it
+(04:32:12 PM) tomeu: erikos: sounds good
+(04:32:18 PM) unmadindu: does it make sense to have a schedule for bugfix releases, or do we follow the "it will be done when it is ready" policy ?]
+(04:32:18 PM) erikos: tomeu: we should already plan it in
+(04:32:41 PM) erikos: walterbender: yes, I hope that i can discuss it with sdz after his gym
+(04:32:57 PM) erikos: unmadindu: I think it does make sense
+(04:33:14 PM) tomeu: unmadindu: not sure about that
+(04:33:31 PM) tomeu: who is going to benefit from a release date?
+(04:33:49 PM) erikos: tomeu: I think it is mostly to keep the people motivated
+(04:33:56 PM) erikos: tomeu: to work towards a goal
+(04:33:59 PM) unmadindu: it may make sense for a few deployments, where people might be nervous to ship .0 software
+(04:34:19 PM) erikos: tomeu: and packagers, I guess, know better when to expect a new version
+(04:34:50 PM) tomeu: erikos: sounds good then
+(04:36:16 PM) erikos: tomeu: maybe we should ask as well who is around for triage and bug fixes
+(04:36:24 PM) tomeu: erikos: yeah, wanted to suggest that
+(04:36:36 PM) erikos: tomeu: nice
+(04:36:53 PM) tomeu: ok, do we have owners for all actions in the plan?
+(04:37:15 PM) alsroot: erikos: so, we are throwing headers away until building packages?
+(04:37:40 PM) erikos: alsroot: ? can you rephrase?
+(04:37:54 PM) erikos: alsroot: the journal ones?
+(04:38:24 PM) alsroot: erikos: yup, treeview headres
+(04:38:52 PM) alsroot: garycmartin: and how we can sort Journal then? or do not sort it at all?
+(04:39:06 PM) garycmartin: alsroot: no sort at all.
+(04:39:50 PM) garycmartin: alsroot: same as it was in last release. The sorting there now is of very limited use and causes more confusion/odd states, unexpected UI.
+(04:40:08 PM) tomeu: alsroot: there was some design discussion about it
+(04:40:17 PM) tomeu: a proper fix didn't landed at time for 0.86
+(04:40:20 PM) garycmartin: alsroot: (this is true for both Journal and the Home list view)
+(04:40:27 PM) erikos: alsroot: if it is discutable, I don't want to wait
+(04:40:41 PM) erikos: we really need the tarballs *now*
+(04:41:19 PM) erikos: can we get back to the owners?
+(04:41:24 PM) alsroot: erikos: but let me made one not invasive fix to suppress selected rows glictches
+(04:41:32 PM) erikos: alsroot: ok
+(04:42:06 PM) tomeu: if we need more feedback about sorting, we could make the next tarballs with headers
+(04:42:09 PM) erikos: tomeu: shall we go through the list and see if we have owners of all items?
+(04:42:22 PM) tomeu: ok
+(04:42:30 PM) erikos: tomeu: yup, I think that is ok
+(04:42:35 PM) erikos: a) tarballs
+(04:42:35 PM) tomeu: tarballs: erikos and tomeu?
+(04:42:40 PM) erikos: yup
+(04:42:56 PM) erikos: b) make good release notes
+(04:43:10 PM) erikos: I guess I will lead that, and ping people for help
+(04:43:29 PM) erikos: c) make rpms
+(04:43:44 PM) alsroot: erikos: for what dostros
+(04:44:05 PM) erikos: alsroot: well, wherever we can attract testers
+(04:44:11 PM) erikos: alsroot: fedora for sure
+(04:44:19 PM) erikos: alsroot: (soas ^^)
+(04:44:34 PM) alsroot: erikos: maybe doing in sync w/ jhconvert 0.85 releases
+(04:44:44 PM) erikos: alsroot: don't know what the situation is on other distros
+(04:44:48 PM) tomeu: alsroot: that will be great
+(04:44:56 PM) tomeu: alsroot: any idea how we can testers for other distros?
+(04:45:02 PM) tomeu: erikos: I can make rpms
+(04:45:11 PM) erikos: tomeu: awesome!
+(04:45:27 PM) alsroot: tomeu: well, dunno -- at least we could have ready to use packages
+(04:45:35 PM) tomeu: alsroot: that would be great
+(04:45:45 PM) erikos: tomeu: maybe we can make a call on the mailing list
+(04:45:47 PM) dirakx [n=rafael@190.156.119.234] entered the room.
+(04:45:49 PM) walterbender: SoaS should make it easier to involve more testers... even though we should test on multiple distros... the primary testing could be facilitated through SoaS...
+(04:45:50 PM) alsroot: I'm going to push mandriva/suse/ubuntu pckages
+(04:45:56 PM) tomeu: erikos: and on ubuntu forums
+(04:45:58 PM) alsroot: ../gentoo
+(04:46:03 PM) erikos: tomeu: and people from the various distros can jump in
+(04:46:06 PM) tomeu: unmadindu: were you an ubunter?
+(04:46:27 PM) erikos: walterbender: yup
+(04:46:30 PM) unmadindu: tomeu: nope, not really
+(04:46:36 PM) tomeu: I tihnk it was morgs
+(04:46:47 PM) tomeu: if he's in the planet, he may be able to ask for help there
+(04:47:03 PM) erikos: yeah, I guess let's announce it -- ask for help to spread the message
+(04:47:11 PM) erikos: and then we hope for the best
+(04:47:37 PM) alsroot: in case of ubuntu, one option is using ppas for testing purposes(and waiting for pushing it to offcial repos)
+(04:47:46 PM) tomeu: alsroot: yup
+(04:47:56 PM) walterbender: erikos: I haven't send out the digest yet this week... if you have a message for testers...
+(04:49:32 PM) erikos: walterbender: very good point
+(04:49:45 PM) erikos: walterbender: I guess by tomorrow
+(04:50:23 PM) alsroot: erikos: but I'm not sure I'll managed to push last sugar to all distros I mentioned before -- I need one/two days
+(04:50:33 PM) alsroot: s/I'll managed/I'll managed today/
+(04:50:42 PM) erikos: alsroot: sure, that is fine
+(04:50:54 PM) erikos: alsroot: we can do a follow up message as well
+(04:51:55 PM) tomeu: alsroot: are you or know someone on those distro's planets?
+(04:52:00 PM) tomeu: so we can ask for testers
+(04:52:34 PM) alsroot: tomeu: nope
+(04:52:53 PM) tomeu: ok, I expect we can do it for ubuntu
+(04:52:56 PM) tomeu: will ask morgs
+(04:53:09 PM) tomeu: next task
+(04:53:23 PM) tomeu: help sdz getting it on soas
+(04:53:30 PM) tomeu: any volunteers?
+(04:53:45 PM) tomeu: I will do rpms, so it's basically pinging him until he makes a new build
+(04:55:02 PM) tomeu: announce it widely
+(04:55:11 PM) tomeu: so, we need to announce now the testing plan
+(04:55:20 PM) tomeu: and then announce again when things are ready to be tested
+(04:55:24 PM) tomeu: erikos: right?
+(04:55:40 PM) erikos: tomeu: right, so the typical release announcement
+(04:55:52 PM) erikos: tomeu: and then a direct announcement how to test
+(04:56:06 PM) tomeu: focused for every distro, right?
+(04:56:07 PM) erikos: tomeu: the features should have test plans attached for example
+(04:56:41 PM) erikos: hmmm
+(04:56:57 PM) erikos: tomeu: you mean different test cases for each distro?
+(04:57:14 PM) tomeu: erikos: different message for every distro, so we can reach more people
+(04:57:24 PM) tomeu: erikos: pointing to installation instructions, etc
+(04:57:32 PM) erikos: tomeu: ok, whenever the packages are ready
+(04:57:38 PM) tomeu: erikos: yes
+(04:57:45 PM) erikos: tomeu: the testing plans can be at a common place
+(04:57:54 PM) erikos: tomeu: at least the main ones
+(04:57:54 PM) tomeu: yup
+(04:58:08 PM) erikos: tomeu: distros can derive from it, if needed
+(04:58:35 PM) tomeu: hope it's identical enough not to need that
+(04:58:47 PM) erikos: yup, I would say so
+(04:58:50 PM) tomeu: they can link to the usptream release notes and that's all?
+(04:58:55 PM) erikos: yup
+(04:59:34 PM) erikos: next one?
+(04:59:43 PM) tomeu: something along the lines of: "hey, sugar 0.85.90 has been released and we have packaged it for our distro. sugar is a blah blah blah, testing appreciated, reporting bugs to ..."
+(04:59:53 PM) tomeu: and send one to each distro's main channel of communication
+(04:59:56 PM) erikos: yup, sounds good
+(05:00:19 PM) tomeu: get the triagers read?
+(05:00:32 PM) erikos: we really need a champion for that one
+(05:00:52 PM) erikos: who wants to lead a triaging crew for 0.86?
+(05:00:59 PM) erikos: duties:
+(05:01:16 PM) erikos: doing daily, or every second day meetings and triage bugs
+(05:01:24 PM) erikos: mainly being responsive
+(05:01:53 PM) erikos: the http://wiki.sugarlabs.org/go/BugSquad page has a lot of info about it
+(05:02:12 PM) erikos: and I can answer questions to how we did that back in the days ;p
+(05:02:27 PM) tomeu: too many volunteers, we'll need to hold a poll
+(05:02:46 PM) alsroot: ..we are the champions..
+(05:02:48 PM) SaschaSilbe-47b5: +1 for erikos :-P
+(05:03:31 PM) SaschaSilbe-47b5: or maybe garycmartin ?
+(05:03:47 PM) garycmartin: SaschaSilbe-47b5: -1 ;-b
+(05:03:57 PM) erikos: SaschaSilbe-47b5: I have more than enough duties already :/
+(05:03:58 PM) SaschaSilbe-47b5: <g>
+(05:04:37 PM) dirakx: a call for help on sugar-digest might help ?
+(05:04:52 PM) tomeu: heh
+(05:05:00 PM) walterbender: I'll advertise it.
+(05:05:35 PM) erikos: ok, it is a critical position, would be nice to have someone
+(05:06:06 PM) SaschaSilbe-47b5: sorry for not volunteering myself, but i can't be responsive enough
+(05:07:25 PM) erikos: ok, let's ask widely
+(05:07:43 PM) erikos: next item
+(05:08:44 PM) garycmartin: erikos: Unofficially, I'll be keeping an eye on them and doing what I can.
+(05:08:44 PM) ***garycmartin reads all bugs anyway to help with his own testing cycles.
+(05:08:54 PM) tomeu: so, get the bugfixers crew ready
+(05:09:05 PM) erikos: bugfixers?
+(05:09:08 PM) erikos: garycmartin: ;D
+(05:09:09 PM) tomeu: now that we have alsroot fixing bugs, maybe we don't need any other people
+(05:09:18 PM) erikos: hehe
+(05:09:30 PM) SaschaSilbe-47b5: i'll help with sugar-datastore / sugar.datastore if anything comes up
+(05:09:39 PM) erikos: SaschaSilbe-47b5: nice
+(05:10:22 PM) erikos: tomeu: of course I am around for bug fixing
+(05:11:01 PM) garycmartin: tomeu: we passed a tipping point a few days back when alsroot was fixing faster than I was able to report them ;-)
+(05:11:17 PM) tomeu: heh
+(05:11:43 PM) tomeu: ok, so having alsroot helping out with this is certainly going to impact the robustness of 0.86
+(05:11:53 PM) SaschaSilbe-47b5: garycmartin: don't worry, there are still a few bugs i need to report... :)
+(05:12:02 PM) tomeu: but we need to make sure as may bugs as possible get filled in and triaged
+(05:12:05 PM) SaschaSilbe-47b5: tomeu: +1
+(05:12:19 PM) SaschaSilbe-47b5: (on both points)
+(05:13:29 PM) tomeu: so are we done with the plan?
+(05:13:38 PM) tomeu: sounds quite solid to me
+(05:15:01 PM) SaschaSilbe-47b5: what's the next topic?
+(05:16:05 PM) tomeu: fructose activities
+(05:16:30 PM) ***erikos has to go out for an hour in 5 minutes
+(05:17:07 PM) tomeu: so, we don't have new proposals, right?
+(05:17:25 PM) tomeu: but we have some that aren't actively maintained and aren't even functional in most screens
+(05:17:31 PM) ***alsroot for rethinking the whole idea of preinstalled activities in 0.88, but in 0.86 leave it as is(and coding orphaned activities)
+(05:17:44 PM) SaschaSilbe-47b5: tomeu: for additional fructose activities you mean?
+(05:18:30 PM) tomeu: SaschaSilbe-47b5: I mean that some activities that are listed currently as fructose, may not be a good fit for being there
+(05:18:42 PM) alsroot: s/coding/supporting/
+(05:18:42 PM) garycmartin: tomeu: "aren't even functional in most screens?" which ones?
+(05:18:51 PM) SaschaSilbe-47b5: is IRC part of fructose?
+(05:19:01 PM) alsroot: SaschaSilbe-47b5: nope
+(05:19:01 PM) garycmartin: tomeu: do you mean resolution issues?
+(05:19:18 PM) tomeu: garycmartin: yeah, pippy for example
+(05:19:33 PM) tomeu: it has hardcoded sizes everywhere
+(05:19:41 PM) garycmartin: tomeu: I'd love to fix up pippy :-) I think B Jordan is on the case though...
+(05:20:30 PM) tomeu: garycmartin: ok, we had an spontaneous contributor the other day on #sugar
+(05:20:39 PM) tomeu: but haven't seen him again
+(05:20:51 PM) tomeu: I also looked a bit at it, scrolled windows make it hard
+(05:20:52 PM) SaschaSilbe-47b5: tomeu: so you'd like to throw some activities out of Fructose?
+(05:20:57 PM) garycmartin: tomeu: (fix up pippy == new toolbars, move run/stop up into toolbar, resolve issue with left list view of examples, add warning if code will be lost).
+(05:21:11 PM) tomeu: SaschaSilbe-47b5: yup, or get people to fix them
+(05:21:49 PM) tomeu: garycmartin: ok, would be cool to read the progress in the ml
+(05:21:53 PM) tomeu: so people know what's going on
+(05:22:29 PM) garycmartin: tomeu: sure, I think it's trac ticket level stuff.
+(05:23:30 PM) tomeu: ok
+(05:23:57 PM) garycmartin: +1 for throwing some activities out of Fructose, should really only be there to support core.
+(05:24:07 PM) tomeu: so we have this list of modules in the wiki, that needs some updating: http://wiki.sugarlabs.org/go/Development_Team/Release/Modules
+(05:24:11 PM) befana left the room (quit: "Leaving.").
+(05:26:29 PM) tomeu: I tihnk I sent an email asking people to update it, but maybe I never got to send it
+(05:26:59 PM) tomeu: there's also the issue of the new toolbars, probably all activities in fructose should have the new toolbars
+(05:27:40 PM) garycmartin: tomeu: If I was to add new toolbars to Calculate (already suggested that to erikos) where do we stand on getting in included?
+(05:27:58 PM) ***garycmartin was hoping to be doing that today
+(05:28:05 PM) tomeu: I think calculate will be more appropriate
+(05:28:17 PM) tomeu: though as alsroot said, maybe we should define better what means to be in fructose
+(05:28:24 PM) garycmartin: +1
+(05:28:27 PM) tomeu: no rush on that, probably
+(05:28:59 PM) erikos: tomeu: yes, we did not announce the toolbars that much, actually
+(05:29:10 PM) alsroot: erikos: maybe we can rething fructose even in 0.86?
+(05:29:13 PM) erikos: tomeu: like: [ANNOUNCE] switch your toolbars
+(05:29:20 PM) alsroot: /srething/rethink/
+(05:29:49 PM) tomeu: so, what do people think: should we take out from fructose the activities that give a bad experience to our users?
+(05:30:03 PM) erikos: alsroot: I would be ok to take activities out (in 0.86)
+(05:30:16 PM) erikos: alsroot: the propper 'fix' we can do later
+(05:30:19 PM) erikos: alsroot: if needed
+(05:30:27 PM) SaschaSilbe-47b5: tomeu: +1 for 0.88, but -0.5 for 0.86
+(05:30:39 PM) erikos: tomeu: yup, I would be ok to take some out
+(05:30:47 PM) walterbender: which activities in Fructose give a bad experience?
+(05:30:58 PM) alsroot: tomeu: I'm not only for well suporrted acticities in fructose but for most needed
+(05:31:06 PM) tomeu: walterbender: in some common resolutions, pippy has no buttons
+(05:31:12 PM) SaschaSilbe-47b5: walterbender: Pippy at least (IMO)
+(05:31:18 PM) alsroot: so it could be Log, Terminal, Browse
+(05:31:48 PM) walterbender: maybe we drop it from Fructose for 0,86, but Pippy is an important activity. we should try to find a champion for it
+(05:31:57 PM) tomeu: alsroot: I would prefer to discuss this later, I have already too much stuff to do for 0.86
+(05:32:08 PM) tomeu: walterbender: sure
+(05:32:08 PM) erikos: alsroot: tomeu yup, me too
+(05:32:58 PM) SaschaSilbe-47b5: walterbender: would be great to find a champion for it. Pippy is a necessity for Sugar, but it doesn't match the Journal model
+(05:33:34 PM) garycmartin: tomeu: I'll make a clone to patch Calculate for the new toolbars, then at least it is there and done (and I'd obviously be responsible for any bugs I introduce).
+(05:34:07 PM) ***alsroot thinks that w/o rethink the whole fructose idea, just dropping some activities could make people frustrating
+(05:34:32 PM) erikos: thanks everyone for joining in - I am back in an hour
+(05:34:36 PM) tomeu: alsroot: well, but having pippy without a Run button isn't more frustrating?
+(05:34:42 PM) ***garycmartin waves to erikon
+(05:34:48 PM) tomeu: also, fructose isn't really user visible
+(05:34:57 PM) ***garycmartin waves to erikos as well :-)
+(05:35:03 PM) tomeu: is more for developers and packager to work together
+(05:35:04 PM) ***SaschaSilbe-47b5 is back in a biffy
+(05:36:41 PM) alsroot: tomeu: well, even if dont have full time maint for Pippy, we can still fix it from time to time
+(05:36:53 PM) alsroot: ..in 0.86
+(05:37:09 PM) garycmartin: tomeu: fixing Pippy now is still too late for 0.86, right?
+(05:38:04 PM) garycmartin: tomeu: that's the price of being in Fructose?
+(05:38:08 PM) tomeu: garycmartin: don't think so, it's a bugfix
+(05:38:22 PM) tomeu: alsroot: sure
+(05:38:48 PM) tomeu: if it delivers the basic functionality to most of our users, I'm happy to leave it there
+(05:39:00 PM) tomeu: as long as it follows the rules of respecting the freezes, dates, etc
+(05:39:19 PM) garycmartin: tomeu: bugfix, true. So should I try and have a look at Pippy today instead of calculate?
+(05:39:35 PM) tomeu: garycmartin: sounds good to me
+(05:39:37 PM) ***SaschaSilbe-47b5 is back
+(05:40:05 PM) tomeu: if alsroot and garycmartin have interest in pippy staying in 0.86 and will do the minimum work to keep it functional, then I don't have a reason to take it out from fructose
+(05:40:14 PM) garycmartin: tomeu: I can ping bjordan as well via email as he has acknowledged this recently for fixing up.
+(05:40:16 PM) alsroot: +1
+(05:40:19 PM) walterbender: garycmartin: I think as SaschaSilbe-47b5 suggestes, fixing Pippy is more than a bug fix
+(05:40:22 PM) tomeu: and I'm happy to see such an important activity reviving
+(05:40:33 PM) tomeu: garycmartin: even better, to involve other people
+(05:41:22 PM) dirakx: Ceibal jam is developping a library with examples to pippy. ;). btw.
+(05:41:52 PM) tomeu: oh, true
+(05:42:01 PM) dirakx: we can ask for a champion there also..
+(05:42:02 PM) tomeu: and they had some improvements to it
+(05:42:11 PM) tomeu: dirakx++
+(05:42:23 PM) dirakx: i can do it. ;).
+(05:42:35 PM) dirakx: ask for help there.
+(05:42:36 PM) tomeu: nice! ;)
+(05:42:42 PM) SaschaSilbe-47b5: dirakx: shouldn't be too hard to convert those to a new, "Journal-based" Pippy version
+(05:43:17 PM) dirakx: ok i have a to-do then.
+(05:44:26 PM) dirakx: SaschaSilbe-47b5: kk.
+(05:44:32 PM) tomeu: ok, any other topics?
+(05:44:39 PM) SaschaSilbe-47b5: tomeu: yep
+(05:45:02 PM) SaschaSilbe-47b5: i'd like to propose alsroot as developer/volunteer/whatever of the month
+(05:45:04 PM) bemasc: I have some familiarity with the pippy codebase, but I don't really know what te bug in question is.
+(05:45:18 PM) dirakx: SaschaSilbe-47b5: ++1
+(05:45:29 PM) alsroot: who said that we dont have pippy maints ;)
+(05:45:30 PM) SaschaSilbe-47b5: for taking on a crusade against bugs
+(05:45:33 PM) garycmartin: SaschaSilbe-47b5: +1 :-)
+(05:45:36 PM) tomeu: SaschaSilbe-47b5++
+(05:45:43 PM) tomeu: how can we properly announce it?
+(05:46:09 PM) SaschaSilbe-47b5: walterbender's digest?
+(05:46:26 PM) dirakx: and what is the prize ? ;)
+(05:46:40 PM) alsroot: another dozen of bugs to fix, I guess
+(05:46:43 PM) dirakx: a cookie?.
+(05:46:47 PM) walterbender: maybe his picture in conic form on the home page of every Sugar downloaded this month?
+(05:46:50 PM) SaschaSilbe-47b5: dirakx: honour is prize in itself :-P
+(05:46:57 PM) dirakx: hehe,
+(05:47:12 PM) alsroot: walterbender: -1 for pictures
+(05:47:26 PM) garycmartin: alsroot: LOL :-)
+(05:48:09 PM) tomeu: conic form?
+(05:48:42 PM) tomeu: digest++
+(05:48:47 PM) walterbender: we used to have an About example in Pippy with ACKs to the developers...
+(05:48:47 PM) walterbender: we could add a dictionary entry for heros
+(05:48:59 PM) tomeu: heh, ok
+(05:49:04 PM) walterbender: ^conic^iconic
+(05:49:36 PM) walterbender: tomeu: you can use Inkscape to make nice Sugarized SVGs from bitmaps :)
+(05:50:04 PM) SaschaSilbe-47b5: maybe FGrose can add some wikipedia-style honour badge/banner for him as well and mention it on the start page
+(05:50:31 PM) dirakx: SaschaSilbe-47b5: good idea.
+(05:51:10 PM) garycmartin: walterbender: I could do a 3d caricture of alsroot (if I knew what he looked like ;-) but likely would end up as some cute cartoon character :-p
+(05:51:35 PM) homunq [n=chema@187.143.7.77] entered the room.
+(05:51:35 PM) alsroot: garycmartin: you can use my icon from git.sl.o :P
+(05:51:39 PM) SaschaSilbe-47b5: garycmartin: that would probably not be a bad match for Sugar :)
+(05:51:59 PM) walterbender: garycmartin: we don't want to frighten the little children :)
+(05:52:04 PM) ***garycmartin goes looking...
+(05:53:19 PM) ***alsroot goes looking as well
+(05:53:30 PM) garycmartin: SaschaSilbe-47b5: I'd love to to 3d animal/cartoon characters for Sugar, but the UI is just not in that style ;-) Maybe some will make it in a spcific Activities.
+(05:54:15 PM) SaschaSilbe-47b5: garycmartin: i meant that a cartoon-style image for alsroot would be a good match to our current UI
+(05:54:26 PM) SaschaSilbe-47b5: not that we should introduce new icons
+(05:54:31 PM) sdziallas [n=sebastia@fedora/sdziallas] entered the room.
+(05:54:59 PM) alsroot: looks like its a competition for alsroot's best avatar
+(05:55:02 PM) garycmartin: SaschaSilbe-47b5: (like the use of the grasshopper in the hop-around maths activity)
+(05:55:40 PM) walterbender: garycmartin: there is the fable of the ant and the grasshopper... better an ant icon.
+(05:55:41 PM) SaschaSilbe-47b5: yeah, let's have a logo competition for alsroot ;)
+(05:56:08 PM) SaschaSilbe-47b5: but getting serious now, is there anything left to discuss?
+(05:56:47 PM) tomeu: we can call the next soas release "alsroot" instead of blueberry :p
+(05:56:52 PM) tomeu: sean will love it
+(05:57:06 PM) SaschaSilbe-47b5: what flavour is he?
+(05:58:17 PM) walterbender: Isn't that the flavor between vanilla and chocolate in a Neoploitan?
+(05:58:17 PM) SaschaSilbe-47b5: ok, seems like nothing left, going to fetch some food now
+(05:58:42 PM) garycmartin: thanks all for the productive meeting!
+(05:58:45 PM) tomeu: SaschaSilbe-47b5: wait, have we decided how to announce alsroot's honour?
+(05:59:10 PM) SaschaSilbe-47b5: tomeu: digest and wiki (asking FGrose) i think
+(05:59:25 PM) tomeu: ok, thanks
+(05:59:29 PM) tomeu: we can close the meeting now
+(05:59:37 PM) tomeu: thanks a lot for coming, etc

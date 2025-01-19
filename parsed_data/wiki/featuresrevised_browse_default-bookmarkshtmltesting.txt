@@ -1,0 +1,16 @@
+Title: Features/Revised Browse default-bookmarks.html/Testing
+URL: https://wiki.sugarlabs.org/go/Features/Revised_Browse_default-bookmarks.html/Testing
+--------------------------------------------------------------------------------
+In a terminal (the Terminal Activity works):
+Move to the folder with the file for the default Browse homepage.
+cd /usr/share/sugar/activities/Browse.activity/data
+Back up your current Browse start page by renaming it to index.html.bak.
+mv index.html index.html.bak
+Download the sample index.html file from
+http://people.sugarlabs.org/Tgillard/Modified-Browse.html
+wget
+http://url/to/index.html
+Start the Browse Activity. It should open to a page of custom links, rather than the normal Browse start page. Try clicking on a few links. If they go to the webpages indicated, the feature is working.
+To undo your testing and restore the previous Browse default start page, change the filenames back so that the old file is once again named index.html.
+mv index.html modified-bookmarks.html
+mv index.html.bak index.html

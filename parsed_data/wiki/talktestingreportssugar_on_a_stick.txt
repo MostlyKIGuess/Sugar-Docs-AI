@@ -1,0 +1,131 @@
+Title: Talk:Testing/Reports/Sugar on a Stick
+URL: https://wiki.sugarlabs.org/go/Talk:Testing/Reports/Sugar_on_a_Stick#dd_img_Boot_Tests_in_MacBook_Pro_i7
+--------------------------------------------------------------------------------
+Contents
+1
+liveusb-creator install to a USB-Stick
+1.1
+Download .iso
+1.2
+Prepare USB-sticks
+1.2.1
+1-)
+Target USB-stick
+1.2.2
+2-)
+USB stick Duplicator
+1.3
+Boot Live CD
+1.4
+Fedora LiveUSB Creator GUI starts
+1.5
+In the Fedora LiveUSB Creator GUI
+1.6
+Boot new live 2 partition USB disk
+2
+dd img Boot Tests in MacBook Pro i7
+liveusb-creator install to a USB-Stick
+Insert cat-5 wired network cable.
+NOTE: The same Method works with
+f16 SoaS
+Download .iso
+Fedora-17-Nightly-20120120.10-i686-Live-soas
+burn CD from Fedora-17-Nightly-20120120.10-i686-Live-soas.iso file on a Linux Desktop.
+Prepare USB-sticks
+1-)
+Target USB-stick
+On a linux Desktop.
+Format the USB-stick using
+Disk Utility
+a
+2 GB USB-stick
+as" fat 16 label="LIVE"
+Use later after the USB -stick Duplicator is finished to feed it as a
+Target USB-stick
+.
+2-)
+USB stick Duplicator
+On a linux Desktop.
+Format the USB-stick using
+Disk Utility
+a 2 partition,
+8 GB USB-stick
+;
+Partition 1
+: 3GB fat 16 label="LIVE" (/dev/sdb1);
+Partition 2
+: 5 GB fat 32 Label="MyFiles" (/dev/sdc1)
+Copy the Fedora-17-soas.iso; and Fedora-16-soas.iso into the "My Files" partition when the USB is Mounted on a linux desktop.
+It will appear as a  USB labeled
+MyFiles
+on the Desktop when inserted.
+These .iso files will be selected by
+Fedora LiveUSB Creator
+GUI as 'Use existing Live CD" [Browse] select as follows: Computer/ (click on
+/'
+) /Media/MyFiles
+Boot Live CD
+CD burned from Fedora-17-Nightly-20120120.10-i686-Live-soas.iso file on a Linux Desktop.
+Sugar Starts; set name and color; goes to (f3) Home screen.
+Start sugar-terminal;
+Change to root terminal - icon on right side of top Bar of sugar-terminal: [#_ ]
+yum install liveusb-creator
+files are downloaded from rawhide repo
+Files Installed
+Still in root terminal#
+liveusb-creator
+Fedora LiveUSB Creator GUI starts
+In the Fedora LiveUSB Creator GUI
+(Browse)
+select:
+computer/media/MyFiles/Fedora-17-Nightly-20120120.10-i686-Live-soas.iso
+GUI Window will indicate "Fedora-17-Nightly-20120120.10-i686-Live-soas.iso selected
+(
+Target Device)
+Select the correct USB -Created in the Section above (2 GB USB fat16 label="LIVE")
+Hint unplug the target USB disk and Reinsert it you will see it disappear and reappear in the Target Device window and/or in it's drop down menu.
+(Persistence Storage)
+to 1765 MB
+Do not use more than this or the install will fail (fat maximum size)
+[Create Live USB disk)
+In window a message: "warning may need to use command "liveusb-creator --reset-mbr: option"
+Install proceeds
+......
+Complete! (0.08:46)
+hit mouse right button (close) to exit as liveusb-creator GUI has no X button on the  window to exit.
+exit sugar terminal - Hex icon with black square center located on right top corner of terminal window.
+Shut Down SoaS CD - (f3) Home view - Drop down window when you hover over the XO central Avatar.
+Boot new live 2 partition USB disk
+Boots Sugar from this new Live USB disk.
+If you install liveusb-creator from root terminal on this USB
+This SoaS-v7 2 partition Live USB disk can be used as a Duplicator
+The .iso file is located On the 2nd Partition of the USB stick: computer/media/MyFiles/Fedora-17-Nightly-20120120.10-i686-Live-soas.iso is ready to use with liveusb-creator
+dd img Boot Tests in MacBook Pro i7
+12/16/2011
+satellit_
+4-GB firefly USB disk formatted to fat 16 formatted usb disk (not lba) in gparted prior to dd write
+1-)Soas_Coconuts.img
+root terminal#
+dd if=Soas_Coconuts.img of=/dev/sdc bs=2M
+956+0 records in
+956+0 records out
+2004877312 bytes (2.0 GB) copied, 414.457 s, 4.8 MB/s
+Boots my Mac Pro as EFI but fails:
+Drops to a debug shell
+can's access tty: job control turned off
+dracut:/#
+2-)soas-v6-i686.img
+Testing/Reports/Sugar on a Stick#dd_writable_2GB_USB_Soas-v6-Pineapple-USB_.img
+root terminal#
+dd if=soas-v6-i686.img of=/dev/sdc bs=2M
+954+0 records in
+954+0 records out
+*2000683008 bytes (2.0 GB) copied, 490.293 s, 4.1 MB/s
+No EFI USB boot shown on Mac
+Note: this should be x68-64 version for EFI, I think.
+Boots on ACER ASPIR ONE N450 fine
+3-)
+http://people.sugarlabs.org/Tgillard/SoaS-15-1-EFI.img
+Testing/Reports/Sugar on a Stick#dd_writable_1_GB_EFI_Boot_.28MAC.29_USB_Soas-v5-Coconut-USB_.img
+Boots Fine
+requires a cat5 wired connection; wireless does not work (it is a Mac!)

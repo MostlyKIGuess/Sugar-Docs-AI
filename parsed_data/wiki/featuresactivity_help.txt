@@ -1,0 +1,68 @@
+Title: Features/Activity Help
+URL: https://wiki.sugarlabs.org/go/Features/Activity_Help
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+Provides a mechanism to view help about the activity in the current locale within the activity itself.
+Owner
+Name:
+Kalpa Welivitigoda
+Email: callkalpa [AT] gmail.com
+Current status
+Targeted release: (0.102)
+Last updated: (10 October 2013)
+Percentage of completion: 100%
+Detailed Description
+This enables the user to view the help for current activity in the current locale within the activity itself. The user doesn't need to go to Help activity and find the help page for the current activity. He/she can press Alt+Shift+H and if there is help content for the current activity, it will pop up a window with the help content in it. This is similar to the view source pop up window in activities. If there is not help content for that particular activity, it will write an error message in the log. If help content in current locale is not available and if they are available in English, it will display the help content in English.
+Benefit to Sugar
+This feature was developed as my Google Summer of Code project in 2013. The feature will enhance the platform by providing a way to view in activity help and in the current locale.
+Scope
+Impact to existing sugar code: extensions/globalkey/Makefile.am src/jarabe/view/Makefile.am
+New code: extensions/globalkey/viewhelp.py src/jarabe/view/viewhelp.py
+UI Design
+There is the pop up window similar to that of the view source window.
+How To Test
+I have already sent a pull requets (
+https://github.com/sugarlabs/sugar/pull/114
+). This feature needs some modifications to be made in Help activity as well. Those modifications will be available from Help 17 onwards which is to be released soon. Once you have Help 17 and the diff is applied to sugar,
+1) Open an activity like Browse, Read
+2) Press alt+shift+h, a window should pop up with the help content for that particular activity (only if the help content for that activity is already there in Help activity)
+User Experience
+It will be convenient for the users to have the ability to view the help of the current activity within the activity itself. Otherwise the user has to load Help activity and search for help for that particular activity. Since help/support is something that is spread system wide, it is better we make it available wherever possible rather than keeping it as a separate activity. Since this feature enables to view in the current locale (only if the content is available in the current locale in Help activity), it will be more helpful for the users to read and unsderstand the content in a language that is more convenient to them.
+Dependencies
+This feature needs some modifications to be made to Help activity. The modifications required are to be due to be included in Help 17.
+Contingency Plan
+None. The code is complete and waiting to be reviewed.
+Documentation
+GSoC/2013/Activity Help
+Release Notes
+Supports viewing help for the current activity in the current locale inside the activity itself.
+Comments and Discussion

@@ -1,0 +1,281 @@
+Title: Fedora 20
+URL: https://wiki.sugarlabs.org/go/Fedora_20#SoaS_86_64-dm_.28remix.29
+--------------------------------------------------------------------------------
+Fedora
+®
+version page:
+17
+|
+18
+|
+19
+|
+20
+|
+21
+|
+22
+|
+23
+|
+24
+|
+25
+|
+26
+|
+27
+|
+28
+|
+29
+|
+30
+|
+31
+|
+32
+|
+Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+some of the older versions listed here ^ may be security risks- for archive purposes only
+Contents
+1
+Download Fedora 20-
+1.1
+Fedora Documents
+1.2
+Common Bugs
+1.3
+Bugs
+1.4
+Testing
+1.5
+UEFI Bugs
+1.6
+COPR Backported GNOME 3.12 packages for Fedora 20 repo
+1.7
+installing sugar-desktop from another DE (ie gnome3 or KDE) as a second Desktop Environment
+1.8
+know how to force a reinstall of a kernel
+2
+Fedora-qa Testing
+3
+Turn off gnome automatic background updates
+4
+Fedora/Sugar test cases
+5
+fedup
+Updating f20 desktop to f21 workstation
+6
+Upgrading Fedora using yum
+7
+Upgrading f20 installs with yum to f21
+7.1
+tests using Multi DVD
+7.2
+tests using Netinstall.CD
+7.3
+TEST using nightly compose f21 (rawhide) KDE x86_64
+7.3.1
+Networking fix
+8
+Gnome 3.1.2 repo
+9
+Bug Reports
+10
+Dracut Options
+10.1
+Network Boot Options
+11
+wayland
+12
+Sugar in arm devices
+13
+Gnome Initial Setup
+14
+Fedora-20 anaconda 20.12-1 installer
+Download Fedora 20-
+updated 8/26/2014
+ALL Files
+http://alt.fedoraproject.org/pub/alt/live-respins/
+f20 Live respins
+(with updates)
+http://dl.fedoraproject.org/pub/alt/releases/20/
+http://mirrors.fedoraproject.org/publiclist
+http://torrent.fedoraproject.org/
+Fedora Documents
+http://docs.fedoraproject.org/en-US/index.html
+http://docs.fedoraproject.org/en-US/Fedora/20/html/Installation_Guide/index.html
+for most answers
+Common Bugs
+https://fedoraproject.org/w/index.php?title=Common_F20_bugs
+Bugs
+livecd-creator fails on repo not found for fedora repo
+https://bugzilla.redhat.com/show_bug.cgi?id=1044675
+Testing
+https://fedoraproject.org/wiki/Test_Results:Fedora_20_Final_RC1.1_Install#Test_Matrix
+https://fedoraproject.org/wiki/Test_Results:Fedora_20_Final_RC1.1_Desktop
+UEFI Bugs
+Dealing with UEFI non-volatile memory quirks
+http://mjg59.dreamwidth.org/25091.html#comments
+COPR Backported GNOME 3.12 packages for Fedora 20 repo
+"Backported Backported GNOME 3.12 packages for Fedora 20 packages for Fedora 20"
+Experimental use with caution ?
+installing sugar-desktop from another DE (ie gnome3 or KDE) as a second Desktop Environment
+In Root Terminal:
+yum install @sugar-desktop sugar-runner xorg-x11-server-Xephyr
+sugar-runner is the replacement for sugar-emulator.
+It allows sugar to run full screen from another DE (ie gnome3 or KDE) menu as: Education/sugar
+Tested in LXDE; Mate; Cinnamon, Gnome3 and KDE and works well from Education/Sugar in their menus.
+11/27/2013
+know how to force a reinstall of a kernel
+yum reinstall kernel isn't doing anything
+you need to re-run the scriptlets
+this is not done with "yum reinstall"
+"rpm -q --scripts kernel-version-release" would tell you what to rerun
+Fedora-qa Testing
+Installation Tests
+https://fedoraproject.org/wiki/Test_Results:Fedora_20_Final_RC1_Install
+Test Page Non-releasing desktops
+https://fedoraproject.org/wiki/Test_Results:Final_RC1_#Non_release-blocking_desktops:_x86_.2F_x86_64
+FE and Blocker Codes
+http://fedoraproject.org/wiki/BugZappers/HouseKeeping/Trackers#Fedora_20
+Testing Spins signoff page
+https://fedoraproject.org/wiki/Releases/20/Spins
+Important to be filled out as "YES" in Alpha Beta Final columns or the spin will not be released.
+Read this explanation:
+https://lists.fedoraproject.org/pipermail/devel/2013-August/188004.html
+Turn off gnome automatic background updates
+To turn off background downloading of updates and forced 10 minute updates on boot of gnome3.10.1
+Root terminal
+yum install dconf-editor
+User Terminal
+dconf-editor
+gnome/settings-daemon/plugins/updates
+Uncheck [ ] auto updates
+see gnome Bug:
+https://bugzilla.gnome.org/show_bug.cgi?id=719304
+Fedora/Sugar test cases
+Used to test Sugar and sugar-desktop
+fedup
+Updating f20 desktop to f21 workstation
+done 11/4/2014
+Caution:
+1-) Backup your work before attempting this
+2-) fully update your f20 install
+3-) In root terminal:
+yum update
+yum install fedup
+fedup --nogpgcheck --network 21 --product workstation --instrepo
+https://dl.fedoraproject.org/pub/alt/stage/21_TC1/Server/x86_64/os/
+Download 1415 files
+reboot system
+"System Upgrade Fedup" on boot menu
+fedup-dracut-0.9.0
+Update 1415 files
+NOTE: Terminal display stops updating at about 68%
+FIX: switch to {alt-f2} then {alt-f1}
+Successful Upgrade.
+Upgrading Fedora using yum
+Upgrading f20 installs with yum to f21
+Dennis Gilmore 09/24/2024  IRC
+"I have updated a few machines by running "yum --releasever=21 install
+fedora-release" then "yum distro-sync" and not had any issues. As I
+understand this thread it is soley about what to do in the case of
+using fedup only. in which case we need to setup some things in
+mirrormanager and do some testing and see what happens. note that we
+may not be able to use the fedora-install-21 prefix as the install
+trees all have a prefix already assigned"
+tests using
+Multi DVD
+dd to USB installs to USB HD with i7 computer
+Desktop f20>21 (rawhide)
+Fully yum updated 12/18/2013 (satellit)
+Booted nicely into gnome
+KDE f20>21 (rawhide)
+--skip broken needed due to bluetooth req.
+KDM login reached after reboot but crashed and returned to KDM
+MATE f20>21 (rawhide)
+--skip broken needed due to bluetooth req.
+had to yum remove f20 anaconda as it conflicted with f21 anaconda
+Booted nicely into MATE 1.7.1
+tests using
+Netinstall.CD
+KDE  f20>21 (rawhide)
+imports key
+--skip-broken
+KDM login reached after reboot but crashed and returned to KDM
+Fails with broken dependencies on re-boot.
+TEST using nightly compose f21 (rawhide) KDE x86_64
+http://kojipkgs.fedoraproject.org//work/tasks/5580/6325580/Fedora-Live-KDE-x86_64-rawhide-20131222.iso
+liveinst install
+imports key
+--skip-broken
+Installs to HD from DVD
+boots and starts KDE 4.12.0 (rawhide) with simple desktop display manager...
+IRC#fedora-kde Kevin_Kofler: Bug 1045937 sddm causes plasma-nm to not attempt to connect to any listed networks on Fedora KDE -
+https://bugzilla.redhat.com/show_bug.cgi?id=1045937
+Networking fix
+12/23/2013 on IRC
+also on 12/26/2013 Boot.iso install of lxde to HD
+Fixes the bug
+<satellit> dhclient: error loading shared libraries: libk5crypto.so.3   ...:Permission denied
+
+<danofsatx> well, adam's trick works...
+<danofsatx> setenforce Permissive
+<danofsatx> systemctl restart NetworkManager
+Gnome 3.1.2 repo
+EXPERIMENTAL
+- use with caution
+https://copr.fedoraproject.org/coprs/rhughes/f20-gnome-3-12/
+Bug Reports
+Blockers Bugs info
+https://qa.fedoraproject.org/blockerbugs/milestone/20/final/buglist
+https://fedoraproject.org/wiki/BugZappers/HouseKeeping/Trackers
+Dracut Options
+https://fedoraproject.org/wiki/Dracut/Options#Network
+"The root filesystem used by the kernel is specified in the boot configuration file, as always.
+The traditional root=/dev/hda1 style device specification is allowed.
+If a label is used, as in root=LABEL=rootPart the initrd will search all available devices for an ext2 or ext3 filesystem with the appropriate label,
+and mount that device as the root filesystem. root=UUID=uuidnumber will mount the partition with that UUID as the root filesystem."
+Network Boot Options
+http://wwoods.fedorapeople.org/doc/boot-options.html
+wayland
+EXPERIMENTAL FEATURE
+Not ready maybe in f21?
+To run gnome-shell under Wayland, execute the following command in a terminal:
+gnome-session --session=gnome-wayland
+https://wiki.gnome.org/Initiatives/Wayland/TryingIt
+Sugar in arm devices
+Installation
+https://fedoraproject.org/wiki/Architectures/ARM/F20/Installation
+SoaS
+https://dl.fedoraproject.org/pub/alt/stage/20-Alpha-RC4/Images/armhfp/Fedora-SoaS-armhfp-20-Alpha-4-sda.raw.xz
+https://dl.fedoraproject.org/pub/alt/stage/20-Alpha-RC4/Images/armhfp/
+ARM
+More ARM-Info
+Gnome Initial Setup
+Screenshots  of gnome3 initial setup with explanatory text
+Be sure to enter both root and user in anaconda
+Gnome-initial-setup requires a stornger password than anaconda does.
+This is important if you plan to use multiple Desktop Environments (DE) you will end up with 2 Users once you run the 2nd DE. ie gnome3 and KDE
+If you do not setup the user name and password in anaconda G-I-S will run in anaconda and repeat I-S  when you boot the second DE
+Bug in G-I-S and I-S (Initial-setup)
+Fedora-20 anaconda 20.12-1 installer
+NOTE: Latest anaconda 20.25.6-1 in Beta TC-1 is very similar to what is shown below  11/17/2013
+Note also same installer is on F20-DVD and netinstall but with more options.
+Install Destination
+Install Destination select disk and [Back]
+Installation Options
+Choose type of formatting
+Begin Installation
+Installation finished
+Reboot and log in
+Remember to check that installation DVD/CD (or .iso in VM) is removed before retarting
+This may not occur automaticaly with a live .iso-DVD/CD
+20 Gnome3.10.1 Sugar-runner running f20 sugar 0.100 in VirtualBox. Background from cp is set from picures on f20 install
+If installing sugar from another DE (ie gnome3 or KDE) as a second Desktop Environment:
+In Root Terminal:
+yum install @sugar-desktop sugar-runner xorg-x11-server-Xephyr
+sugar-runner is the replacement for sugar-emulator.
+It allows sugar to run full screen from another DE (ie gnome3 or KDE) menu as: Education/sugar

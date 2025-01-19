@@ -1,0 +1,280 @@
+Title: Activity Library/Editors/Reviewing Guide
+URL: https://wiki.sugarlabs.org/go/Activity_Library/Editors/Reviewing_Guide
+--------------------------------------------------------------------------------
+NOTICE:
+This page is a draft in active flux...
+Please contribute to these contents and discuss issues on the
+discussion page
+.
+Contents
+1
+Processing Review Queues
+1.1
+Pending versus Nominated
+1.2
+Understanding the UI
+1.3
+Actions
+1.3.1
+Push to Public
+1.3.2
+Retain in Sandbox
+1.3.3
+Request Super-Review
+1.4
+Comments to Author
+2
+Reviewing Activities
+2.1
+Step 1. Decide on Testing Scope
+2.2
+Step 2. ASLO User & Community Feedback
+2.3
+Step 3. Functionality
+2.4
+Step 4. Security
+2.4.1
+Does it load remote JavaScript?
+2.4.2
+Does it load remote XUL?
+2.4.3
+Does it load any non-https stuff that will run as chrome?
+2.4.4
+Is the code obfuscated?
+2.4.5
+Does it include binary components?
+2.4.6
+Does it install 3rd party software?
+2.4.7
+Does it pollute an existing javascript namespace?
+2.4.8
+For Updated Addons
+2.4.9
+What to advise if you see these situations
+2.5
+Step 5. Leak Testing
+2.6
+Step 6. Locale Testing
+2.7
+Banned Add-ons
+2.8
+Sandbox'ed Add-ons
+2.9
+Reviewing Search Engine Plugins
+2.10
+Reviewing Dictionaries
+3
+Moderating Reviews
+Processing Review Queues
+Pending versus Nominated
+When you first go to the Editor Tools area, you will start at a Pending Updates tab. You'll also see tabs for Moderated Reviews and Nominated Add-ons. As explained in the
+sandbox model
+, pending updates are new versions of add-ons that have already been made public. Nominated add-ons are new add-ons that the author has nominated to become public.
+Understanding the UI
+When you click on an activity to review, you'll see a review page with the following elements:
+Authors – a listing of the activity's authors with links to their user pages
+Categories – a listing of the activity's categories
+Compatibility – a listing of the target applications and their compatible versions
+Files – a listing of all files for this version of the activity with a link to install and a link to view the source (Only checked versions will be processed. If a checkbox is disabled, the associated file has already been reviewed.)
+Action box – this is where you'll push the activity/version public, retain it in the sandbox, or request super review
+Information the author has entered, such as summary, description, version notes, developer comments, EULA, privacy policy
+Item History – any previous reviews of the activity
+Previews – display of the activity's previews
+Actions
+Push to Public
+If you are reviewing a pending update, pushing public will cause the sandboxed version of the public activity to appear on the public side.
+If you are reviewing a nominated activity, pushing public will cause both the activity and its most recent version to appear on the public side.
+Your action and comments entered will be e-mailed to the author.
+Retain in Sandbox
+If you are reviewing a pending update, retaining in sandbox will keep the version in the sandbox. The author will have to submit another update to be reviewed again.
+If you are reviewing a nominated activity, retaining in sandbox will keep the activity in the sandbox. The author is able to immediately nominate it again. If the author abuses this and does not make any changes, please flag for super review and indicate the reason.
+Your action and comments entered will be e-mailed to the author.
+Request Super-Review
+Requesting super review will cause the activity to be flagged for administrative review, which will appear in an admin queue and dispatch an e-mail to the administrators.
+Super review should be requested for the following reasons:
+Security concerns
+Copyright/trademark concerns
+Repeatedly nominating activity without any changes
+Activity contains binary components
+Other issues that an administrator should look into
+Your comments will appear in the item history and be e-mailed to administrators, not the author.
+Comments to Author
+Remember that your comments go to a *real person*, so try to be friendly.
+If you are pushing the activity public, thank the author for the time and effort they have put in. Remember that they're enhancing the usefulness and the appeal of the products! Tell them which features you like the most, and mention anywhere you think they could improve.
+If you are retaining in the sandbox, be polite in pointing out any problems. Provide suggestions as to what they could do or should fix before re-submitting it and encourage them to re-submit it if it could ever be public. It's also a good idea to tell the author what you liked about the extension/theme even though you've retained it.
+If you think it should be translated, you can add a hint for submitting it to the Localization Team, even if it has no locale structure.
+Reviewing Activities
+What are we looking for when reviewing an activity?
+Step 1. Decide on Testing Scope
+If an activity is designated for Sugar but also can run outside of Sugar, usually, you only need to test it within Sugar
+If you have Sugar running on multiple platforms, it would be great if you could do some testing on more than one platform (on different hardware, at different screen sizes, on different GNU/Linux distributions)
+For new activities:
+Examine the activity for which version of Sugar it supports (focus on Sugar 0.82+)
+For updates:
+For activities being updated for 0.84, test on 0.84 as primary and 0.82 as secondary
+Step 2. ASLO User & Community Feedback
+Are there a sufficient number of ASLO comments (possibly in other languages)?
+Are there external reviews that were submitted that show it has some usage?
+Perform a Google search on the activity's name – this gives you a measure of popularity/feedback. See if there are blog posts or the project/company website. Sometimes testimonials are hosted there.
+Step 3. Functionality
+Does it install?
+Does it show up as expected?
+Does it launch?
+Does it work in multiple languages?
+Does it seem to break anything?
+Does it generate errors/warnings as you use it? (Look at the Log entry for the activity.)
+Step 4. Security
+NOTE
+: This section needs to be rewritten for the Sugar/Rainbow/Bitfrost context.
+Does it load remote JavaScript?
+Deny going public.
+1: reference it in a XUL or HTML <script> tag in a XUL document,
+Look for patterns like these in .xul files such as
+<script type="text/javascript" src="
+http://mysite.greatsite.com/js/wow-content.js
+" />
+where src has non-chrome URL's
+2: reference it in a <script> tag created via DOM methods, load it via XMLHttpRequest and then eval() or Components.utils.evalInSandbox() it, and perhaps use the resource protocol handler to define a resource: URL substitution pointing to a remote baseURI and then use Components.utils.import to import the script as a module.
+One technique that is not apparently available is using the JS Sub Script Loader, since that component enforces a "local only" restriction according to its docs (although I wonder if the resource protocol substitution technique might trick it). These all seem possible to detect, although I'm not sure how easy it would be to write a regex to detect it, since a tag created via DOM methods could look like this or worse: document["crea" + "teElement"]("s" + "c" + "r" + ["i", "p", "t"].join(""));
+3: Are Components.utils.import and JS sub script loader potential attack vectors
+Does it load remote XUL?
+Deny it from going public
+1: iframes, openWindow/openDialog calls, and XMLHttpRequest calls whose retrieved data gets parsed, presumably and then inserted into document. There again you could create those iframes by putting them in your local XUL documents or by creating them dynamically and obfuscating those calls.
+2:
+http://developer.mozilla.org/en/docs/Using_Remote_XUL#Step_6:_behavior
+Do we look for the setAttribute ('src') patterns?
+3:
+http://developer.mozilla.org/en/docs/RDF_in_Mozilla_FAQ#How_do_I_create_a_datasource_from_an_RDF.2FXML_file.3F
+Do we look for instances of "nsIRDFRemoteDataSource"?
+4:
+http://wiki.mozilla.org/XUL:Remote_XUL_bugs
+Does it load any non-https stuff that will run as chrome?
+Deny it from going public
+{How to detect}
+General concerns from Myk: Note that Mozilla does enforce security restrictions on remotely loaded content, so if your intent is to make sure extension authors only use remote XUL and JS safely (as opposed to banning it outright), which I hope it is (indeed, I'm hacking on an extension right now that uses remote XUL and JS, and I would like to distribute it via AMO when it's ready), then a bunch of your work has been done for you, and you just need to detect rogue cases (which are unfortunately the harder ones to detect).
+Is the code obfuscated?
+If any of the code is obfuscated and cannot be reviewed by normal review methods, keep the add-on in the sandbox and request a super review.
+An unobfuscated copy of the add-on will be requested so that the add-on to be reviewed by the editorial team.
+Review the unobfuscated as per guidelines specified in this document.
+If an author refuses to provide source code for his/her add-on, then admin disable the add-on since there is no way to ensure the add-on's integrity and we should not display the add-on on AMO.
+Does it include binary components?
+Check for existence of .xpt or .dll files
+In general, binary component should be allowed as they are sometimes required in order to integrate into Operating System functionality or reuse libraries, etc... We should not automatically deny an add-on that has binary component from going public but we should try to assess if the use of the binary component seems necessary.
+We should not allow a 100% binary component to be hosted on AMO. We simply have no visibility into it. {We will offer alternative solutions to this in the future  such as 1) creating stub add-on entries that then link to non-AMO hosted web pages and 2) when BinComps are detected ask them to e-sign another agreement.}
+Does it install 3rd party software?
+Some add-ons will download and install a native application. This is generally considered a bad thing. However, if the add-on is very clear about what it does in the summary, then this can be allowed.
+Does it pollute an existing javascript namespace?
+Ensure all code in overlays are wrapped. Refer the author to
+this link
+for more information
+Code in XPCOM components and dialog scripts generally don't need to be wrapped
+For Updated Addons
+Download submitted by Right click saving the "All" link
+Click "Item Overview", note the current version on AMO, click "Complete Version History", Right-click save the current version
+Unpack each of these into directories and perform a diff to see what has changed between versions
+What to advise if you see these situations
+We noticed that your add-on loads remote JavaScript or loads remote XUL, AMO's
+policy does not allow the hosting of add-ons that include remote JavaScript or
+remote XUL.
+Please try to recode your application as follows: Generate a secure xmlhttprequest
+for content and use evalInSandbox
+(
+http://developer.mozilla.org/en/docs/Components.utils.evalInSandbox
+)
+to execute it (not regular eval()) or use the content iframe method {Need doc
+pointers}.
+We require that any JS be included in the extension as including remote code
+pretty much gets around any reviews we do of code. If possible, try to have the
+JavaScript in the extension and have JSON or XML of the dynamic values or content
+be retrieved remotely.
+{More from Myk} I would either load the JS via XMLHttpRequest and then eval it in
+a sandbox (f.e. with JSON data), load it into an iframe marked type="content" so
+it doesn't have chrome privileges, or, if it needed chrome privileges, load it in
+a content iframe and run the gauntlet of our security restrictions (which require
+the script to be signed and the user to explicitly authorize the script to use
+any chrome privileges it requests).
+We noticed that your add-on is composed of entirely binary components. We have no
+way to validate what is included in this payload and we regretfully need to deny
+it from going public.
+Step 5. Leak Testing
+For now, refer to (unfinished)
+LeakTesting-How-To
+about the Leak Gauge tool. Contact Carsten Book (Tomcat at mozilla.com) with feedback.
+Step 6. Locale Testing
+This is currently in the process of being formalised. For more details, see
+bug 461805
+In general, if an add-on contains a broken locale, it should be denied.
+Banned Add-ons
+There are a set of add-ons that should be banned from AMO, these include:
+Conduit
+-based toolbars
+Little value to users because of all the extra functionality (subjective, but generally true). Also questionable value to user, because the authors are paid for search referrals which is generally the driving factor, not providing something useful to people.
+Toolbar creators are not permitted to modify the code per Conduit's agreement (so they are not really authors, and cannot necessarily address changes if required)
+Conduit collects information from the toolbar and does not share that info with creators, making it difficult, if not impossible, for creators to attest to what the toolbar does and does not do.
+There's an "eval code as chrome" hook which is a potential vulnerability
+Add-ons that embed known
+spyware
+or
+malware
+Illegal and criminal add-ons - e.g.
+click fraud
+generators,
+warez
+download and directory assistants,
+child pornography
+finders, etc..
+Add-ons that include porn spam or seem to be developed purely as a vector to inject advertisements for porn, warez, etc...
+Add-ons that explicitly violate terms of service for websites, e.g. spam generators, flooding messages, denial of service attacks, extreme server load generators, etc.
+Add-ons that upon installation into Firefox, auto-install or launch installers of non-Firefox software. To clarify, if the add-on simply adds a menu item to launch the external software that's fine but should be sandboxed not disabled (unless it provides added functionality).
+Sandbox'ed Add-ons
+Add-ons dealing with the following content should always be sandbox'ed and never sent public:
+Add-ons which find or display porn, adult and sexually explicit material
+Add-ons dealing with prostitution (and escort services)
+Note that general video downloading add-ons that happen to also work on adult sites are allowed.
+Reviewing Search Engine Plugins
+Search engine plugins have to be in
+OpenSearch
+format. (Not
+MozSearch
+or Sherlock format). OpenSearch is supported by Firefox 2 and 3.
+Ensure that the author selected categories are appropriate for the search engine.
+For identical functionality, the first in this list wins (and retroactively)
+Tier 1)
+Search Suggestions
+-enabled plugin from the search engine company
+Tier 2) Plugin from the search engine company
+Tier 3) Plugin authored by licensee, company or a community member (or as  legally obtained from
+Mycroft
+or authored by hand or tool) and is "pure search" (no embedded referral codes)
+Tier 4) First one uploaded to AMO
+If we receive as Tier 1 submission, it will trump Tier 2 and we'll remove the lower tier one from AMO.
+Dealing with referral codes
+Author should disclosure any referral tracking (there can be privacy implications, depending on what's reported to the referral program)
+Try not allow any search referral codes as far as you can tell. Prefer "pure search"
+How to see if referrals are being used?
+Perform a "pure search" directly on the site and see what URL is generated and compare to the URL generated by the plugin - compare URL parameters and note differences.
+Are there "extra" parameters in the plugin that happen to match the name of the author or author's company?
+Are there URL parameters such as ref= or affiliate= or something similar?
+Reviewing Dictionaries
+A dictionary is used by Firefox for the built-in spellchecker.  Firefox supports multiple dictionaries.  A dictionary on AMO will be a .xpi file.
+Multiple dictionaries for a single locale are fine as long as they both provide value
+The GUID should be in the form
+<locale>@dictionaries.addons.mozilla.org
+A dictionary's "target locale" must be set correctly (editable via the developer tools on AMO).
+The only javascript allowed is in install.js and must only be adding the dictionary (using addDirectory()).  The en-US dictionary is a good example.  A dictionary is not allowed to modify other settings or defaults.
+Moderating Reviews
+Guidelines for in moderating reviews:
+Ratings that don't include any comments – delete
+Empty comments – delete
+Profanity, slander, personal attacks – delete
+Negative reviews – OK but with substantiated reason
+Positive reviews – OK but with substantiated reason
+Comments such as "great", "wonderful", "bad" with no further explanation – delete
+Obvious spam – delete
+Duplicate reviews from the same reviewer – delete
+Reviews that include a URL – use judgment, but probable delete
+Reviews that contain an email address – use judgment, but probable delete
+If the review is in a language in which you are not fluent, try using a
+web translation service
+; if you can generally understand it and it's OK, approve it. Otherwise, leave it for a native language speaker to review
+Support questions that also contain reviews – approve

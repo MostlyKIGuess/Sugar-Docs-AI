@@ -1,0 +1,64 @@
+Title: Design Team/Proposals/Home View/Freeform icon size
+URL: https://wiki.sugarlabs.org/go/Design_Team/Proposals/Home_View/Freeform_icon_size
+--------------------------------------------------------------------------------
+What size should the icons be in Freeform view? Should they always be the same size?
+standard size
+standard size
+medium size
+medium size
+discussion
+from
+2011-02-13 Design meeting
+:
+[09:05] <garycmartin> #topic Issue with icon size in Random Layout home view
+[09:05] <walterbender> as background, when we added the spiral, I upped the maximum size of icons to Medium when there were just a few icons
+[09:06] <walterbender> if you switch to Random View, it ends up making the icons Standard size when you move them.
+[09:06] <walterbender> Question is: what size should icons be in Random view? should the size change wit density?
+[09:06] <garycmartin> walterbender: is it possible to have the behave as they did before and avoid needing to make a new specific choice?
+[09:06] <walterbender> (let's not spend a lot of time on this one: pretty minor point)
+[09:07] <christianmarcsch> quick question: by random view, i assume you mean freeform?
+[09:07] <walterbender> garycmartin: sure: I can make them all map to standard size. (yes freeform -- it is called random in the code)
+[09:07] <christianmarcsch> is there a screenshot posted somewhere?
+[09:08] <walterbender> christianmarcsch: I didn't make one... I could while we move on to the next topic
+[09:08] <christianmarcsch> walterbender: thanks, that would help.
+[09:09] <garycmartin> walterbender: If we go with scaling the icons based on count, then free form patterns people make would need shuffling as the size scaled, would be frustrating I think.
+[09:09] <walterbender> garycmartin: I agree...
+[09:09] <walterbender> garycmartin: so probably we should just pick one size.
+[09:10] <walterbender> garycmartin: but the old code just assumed a maximum size... doesn't really handle the situation properly
+[09:10] <christianmarcsch> walterbender: could we pick one size for random view, but still have the other view scale?
+[09:10] <walterbender> christianmarcsch: yes.
+[09:10] <garycmartin> walterbender: the freeform layout does not have such a hard limit on the number that can fit in a fixed layout (which is where the auto scaling really helps).
+[09:10] <walterbender> garycmartin: agreed.
+[09:10] <walterbender> so the question is simply, what size?
+[09:11] <walterbender> so I will make a screen shot or two to show you
+[09:11] <christianmarcsch> ok, perfect
+[09:11] <garycmartin> walterbender:  what is the size of the icon that is directly under the large central XO? Seems like that should the the default in that zoom view.
+[09:11] <walterbender> garycmartin: that is Standard size
+[09:12] <walterbender> garycmartin: actually, I find it confusing sometimes that that icon doesn't move and the others do, so I would argue a different size would help (or some other distinction)
+[09:13] <garycmartin> walterbender: yes fair point, especially in freeform layout where icons can clobber near there.
+[09:13] <walterbender> well, let me make the screen shots... meanwhile, shall we discuss the Mute button?
+[09:13] <garycmartin> walterbender: (but it still seemed about the right size ;-)
+[09:13] <walterbender> garycmartin: yes. I agree
+[09:28] <christianmarcsch> so, i agree that if we had to go with one size, standard size probably works best
+[09:28] <christianmarcsch> medium looks good, but will only work for a small number of icons
+[09:28] <christianmarcsch> i also see walter
+[09:28] <christianmarcsch> 's point about differentiating the icon below the XO
+[09:29] <walterbender> christianmarcsch: well, you can pack quite a few in if you have all the screen even at Medium size
+[09:29] <christianmarcsch> walterbender: visually, i'd be inclined to go with medium
+[09:29] <walterbender> probably 100 or more
+[09:29] <garycmartin> walterbender: can we have a larger hit mask area around the central XO icon in freeform mode to make sure there is reasonable white space?
+[09:29]  * silbe whispers: Let's drop it... :D
+[09:29] <walterbender> garycmartin: I like that suggestion
+[09:30] <christianmarcsch> garycmartin: the whitespace would help, and we may not need to otherwise differentiate the size of the icon
+[09:30] <walterbender> let me make some more sketches based on this feedback and maybe we can revisit this through email?
+[09:30] <christianmarcsch> ok
+[09:31] <christianmarcsch> one thing i'd add:
+[09:31] <christianmarcsch> it would be nice if we could also make the icon under the XO medium, with added whitespace
+[09:31] <walterbender> I need to check, but I don't think Freeform puts any protected zone around the center of the screen... leaves that to the user.
+[09:31] <walterbender> christianmarcsch: I'll try that option as well
+[09:32] <walterbender> #agreed that walter will present more sketches in an email thread
+As per the discussion, these screenshots have a Medium icon and more space around the central XO
+standard size
+standard size
+medium size
+medium size

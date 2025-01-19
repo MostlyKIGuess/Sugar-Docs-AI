@@ -1,0 +1,42 @@
+Title: Development Team/Python Packages
+URL: https://wiki.sugarlabs.org/go/Development_Team/Python_Packages
+--------------------------------------------------------------------------------
+This is just a proposal for now. It has not been discussed and the code does not reflect it. Do not use it as a reference.
+Contents
+1
+sugar-base
+2
+sugar-toolkit
+3
+sugar
+3.1
+Extensions
+sugar-base
+Packages :
+sugar.mime
+sugar.logger
+Notes :
+No UI dependencies.
+Owns the sugar namespace.
+Used by services, activities, shell components and extensions.
+sugar-toolkit
+Packages :
+sugar.activity
+sugar.graphics
+Notes :
+Used by activities, shell components and extensions.
+sugar
+Common packages:
+jarabe.model
+jarabe.view
+Component packages:
+jarabe.frame
+jarabe.controlpanel
+jarabe.journal
+jarabe.desktop
+jarabe.windowmgr
+Notes :
+Used by shell components and extensions.
+Each shell component should only use jarabe.model and jarabe.view.
+Extensions
+Installed under $PREFIX/sugar/extensions/$COMPONENT.

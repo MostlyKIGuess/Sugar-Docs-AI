@@ -1,0 +1,249 @@
+Title: Speech-synthesis
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2009/Speech-synthesis
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+Q.1:     What is your name?
+A:       Chirag Jain
+Q.2:   What is your email address?
+A:       chiragjain1989{AT}gmail{DOT}com
+Q.3:   What is your Sugar Labs wiki username?
+A:       chiragjain1989
+Q.4:   What is your IRC nickname?
+A:       chirag
+Q.5:   What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if   you'd prefer.)
+A:       Hindi and English
+Q.6:   Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+A:       I am located in India, Delhi 5:30+GMT. I can work from early morning to late midnight.
+I will be honored by working with any mentor you will provide.
+Q.7:   Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those  projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+A:       I was not aware of a thing like open source before I stepped into my college. But then I heard a lot about this stuff from my seniors. Then I started participating in coding events and my first open source event was AI Challenge organized during our technical fest.
+1)   I did write a simulator code for the event.
+Link:
+http://code.google.com/p/artificial-intelligence
+.
+2)   I also made a Sudoku solver in open source using a back tracking method in C++. The algorithm has complexity which is exponential in nature.
+Link:
+http://code.google.come/p/sudoku-crazy
+3)   I also actively participate at SPOJ programming contest site:
+http://www.spoj.pl/
+Currently I am at world rank 756.
+Link:
+http://www.spoj.pl/users/chiragjain1989
+Now after knowing a lot about open source I want to gain some real time experience in open source development. The GSoC is an opportunity where I can apply my technical skills, can learn new things and at the same time can contribute something to the society.
+About your project
+Q.8:   What is the name of your project?
+A:
+Speech Synthesis
+Q.9:   My project description. What I am making?
+A:   My project aims at creating a framework that will generate speech in core sugar. I want to implement speech as a basic functionality in sugar.
+Let me become more clear. I am using some case scenarios to elaborate my proposal. Imagine any window containing some text is open in sugar. Now what I will do is to provide speech to the text in that window. User will have the freedom to listen the text he has selected. This framework will speak the complete text that the user has selected.
+Now how user can do this is very simple.
+First he have to select the text he wants to listen then he can simply press a keyboard shortcut (key combination like Alt+s or something else) or a button provided in the sugar like the home button. From now onwards I will call this button as speech button. This button can be made as a permanent which is showed up on moving the mouse pointer to the top left corner of the screen.
+I will also provide a configuration management tool with a simple GUI. Simple because our target users are small children of age group 3-15.
+Now what you can do with this tool is that you can configure the speech. Like you can increase or decrease the volume, can change the language, can change the accent, pitch, male or female voice, rate of speech etc.
+I will also provide karaoke style coloring or captioning to the words being spoken. Like for example write activity is open up in sugar with some text. Then the user selects the text and presses the speech button.
+A separate window containing the selected text will open up. The captioning will be achieved in that separate window while the framework is reading the text.
+One more thing which I am aims at is a keyboard speaker. In the configuration tool, the user will be provided with an option of turning on or off the keyboard speaker. So if the key board speaker is turned on, then as the user presses any keyboard key, the framework will speak it. Like if user presses Tab key then the framework will speak 'Tab', on pressing caps lock it will speak 'caps lock' and so on.
+More details of keyboard speaker
+Keyboard speaker:
+My idea is to use the keyboard speaker in two different ways.
+1. speaking characters:
+In this option, the speaker will simply speak the keyboard characters typed by the user. It will speak all the alphabets a-z, digits 0-9, special characters like *(asterisk), &(ampersand), #(hash) etc, other keys like tab, alt, control, shift etc.
+ADVANTAGE
+The child using this facility can easily learn and memorize the alphabets. The symbols are in front of him and he presses any of the key or symbol the facility is telling him how to pronounce it. This will also create a interest in the child and this playful activity will become a learning tool. Not only alphabets, the child can learn the names of the special characters easily.
+2. speaking words:
+In this option, the facility will speak the words typed by the user. The words can be typed anywhere in any window or in any activity like write activity.To achieve this I will be hooking the keyboard or tapping the keystrokes. I will store the characters typed by the user until space is pressed. As the user presses the space, the entire word will be sent to TTS for speaking. The main advantage is that this facility will be system side and will run in background without interfering with any other activity.
+ADVANTAGE
+This facility will help the child to type or learn the correct spelling of the word. It is natural for a human mind to memorize the sound of a word more easily than its exact spelling. So if he types the word incorrect then as the speaker will speak the wrongly typed word and it will not match with the sound he heard, he can easily correct the spelling. In this manner the speech can be incorporated in the existing sugar write activity.
+Now these two options can be given in the GUI under the keyboard speaker option
+I have implemented a sample keyboard_speaker.py which is system wide. It can be easily tested on sugar. The zip folder can be downloaded from below mentioned link:
+http://code.google.com/p/speech-synthesis/downloads/list
+Now after describing so many features of this framework, I think that why not to make it a useful thing for the blind users too. So here is an idea.
+ICON READER. Now what is icon reader is simple. As the blind user is browsing the XO, he can keep track of the current position of the mouse pointer. Suppose at present the mouse pointer is at Home button. Then as the user presses a pre-defined keyboard key the framework will speak 'Home'. Similarly if pointer is at desktop the framework will speak 'desktop'.
+If sugar labs likes this idea then they can provide a simple change in the XO hardware by creating that predefined keyboard key feel-able for the blind user. Like for example there are two keys j and f having a slight projection for feel. This functionality can be a boon for blind users.
+Here again I am pointing the main features of my proposal:
+Providing speech to text opened in any window in any activity in sugar.
+Providing a configuration Panel with GUI from which speech configuration can be changed.
+Karoake style coloring of the text being spoken.
+Key board speaker.
+Icon reader.
+Who are you making it for?
+According to eye-tracking research it can be shown that ‘’viewers naturally synchronize the auditory and textual information while watching a film song with SLS. When SLS is integrated into popular TV entertainment, reading happens automatically and subconsciously.’’
+Language learning can be a great experience if done with speech. The literacy rate can be increased by 6-10% if speech is also included with text because this is the ability of our brain to easily remember sounds rather than text. So I am making this framework for children of age group 3-15 so that learning language can become easier for them.
+Not only this, XO will now become a boon for blind children too.
+Why do they need it?
+The main of sugar is to spread the fruit of literacy. And as I have already mentioned that students can learn very fast if speech is also included with the text or words they read. So including this framework in sugar will make it more efficient.
+Not only this, now the blind students or children can also use the XO which will be like a boon for them. Blinds also want to study...
+What technologies (programming languages, etc.) will you be using?
+I discussed a lot with alsroot, assimd and besmac on IRC about this project. The main points of discussion are:
+Some rough ideas of implementation:
+Below I am showing the basic structure of my framework i.e., the speech synthesizing framework.
+--------------
+                                                        Speech  
+                                                       (Level 1)
+                                                    ---------------
+                                                          |
+                                                          |
+                                                          |
+                                                          |
+                                                          V
+                                                   -----------------
+                                                       Espeak (TTS)
+                                                        (Level 2)
+                                                   -----------------
+                                                          |
+                                                          |
+                                                          |
+                                                          V
+                                                   ------------------
+                                                    gstreamer Plugin
+                                                       (Level 3)
+                                                   ------------------
+                                                          |
+                                                          |
+                                                          |
+                                                          V
+                                                  -------------------
+                                                   Command Line Tool
+                                           (To produce speech of the selected text)
+                                           (In user selected languages and accents)
+                                                  --------------------
+                                                          |
+                                                          |
+                        -----------------------------------------------------------------------
+                                |                                                        |
+                                |                                                        |
+                                V                                                        V
+                   ------------------------                                      ---------------------
+                   Button/Keyboard shortcut                                 GUI for Configuration management
+On the bottom level is the speech engine (espeak) producing the speech.
+There are two options for using a layer over TTS engine espeak, one is a speech dispatcher which was created as last year GSoC project and other is the gstreamer plugin.
+Both of these use espeak. Listen and Spell uses the speechd. But when I discussed it with alsroot on IRC, he told me that using a speechd is a bad idea because it has become a system daemon and requires root privileges to work. Therefore using gstreamer plugin is the only and best idea.
+For the GUI pyGtk can be used.
+Now to get the user selected text my idea is to use clipboard module which takes care of copy paste. So using this module the entire selected text can be sent to the speech framework that it can speak out.
+For the keyboard speaker, we can simply store the keystrokes in a file and then send the file to the speech generator.
+A small code snippet which I have prepared for demonstration purpose is shown below. You can try it. But first please download the espeak.py code from the following link:
+http://git.sugarlabs.org/projects/listen-spell/repos/mainline/blobs/master/espeak.py
+First select some text and then run the code trough terminal. The code will speak the text. This is a very basic thing which we want to achieve in sugar
+import gtk
+                        from espeak import espeak
+                        obj=espeak()
+                        clip=gtk.Clipboard(display=gtk.gdk.display_get_default(),selection="PRIMARY")
+                        text=clip.wait_for_text()
+                        if text==None:
+                            obj.speak("Sorry! No text is selected")
+                        else:
+                            obj.speak(text)
+You can select the text anywhere in the sugar. Although I have created this code using espeak directly but in future I will be using gstreamer plugin.
+Q.10: What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (July 6-13); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+A:
+April 21-March 22
+During this period I will remain in constant touch with my mentor and sugar community. I will remain active on IRC and mailing list to discuss the design details and further improvements that can be incorporated in this project.
+I will also study a relatively new things called STARDICT and ORCA. These can be very useful for sugar.
+Up to this time I will become absolutely clear on my further approach. But now I am providing a rough plan.
+May 24 - June 5
+Will work on implementing the command line interface of the framework.
+complete the basic architecture in which user can select and listen the text from command line interface.
+June 6- June 15
+Discuss the GUI design for configuration manager on IRC.
+Design the finalized GUI of the configuration manager.
+Will release the snapshots of the GUI on wiki page.
+June 16 - June 25
+Implement the configuration manger.
+linking the various options I already described in the GUI.
+June 18 - June 25
+Implementation of the keyboard speaker.
+Releasing the basic configuration manager.
+June 26- July 7
+implementation of the icon reader.
+July 8-July12
+finalize an alpha release of the framwork.
+July 13
+Mid term evaluation. Will release the alpha version.
+July 14 - July 23
+Will test it on XO.
+Ask for bugs and further improvements.
+July 24 - August 3
+Will port the framework on windows.
+August 4 - August 13
+Ask for feedback
+Preparation for the beta version release.
+August 14 - August 22
+Start the documentation work
+August 23 onwards
+Continue Working on beta release.
+I will continue working on this to make it available in official sugar distros.
+Q.11:   Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+A:
+I already have a lot of coding experience in open source events like AI challenge whose simulator code I prepared just in a time span of 15 days.
+Link:
+http://code.google.com/p/artificial-intelligence
+.
+In school also I prepared a lot of small projects in C++ like digital diary, Sudoku solver, library manager, telephone directory etc.
+Link:
+http://code.google.come/p/sudoku-crazy
+I have solved a lot of complex problems at SPOJ programming contest site.
+http://www.spoj.pl
+http://www.spoj.pl/users/chiragjain1989
+Another reason that I can easily complete the project is that I will be getting almost 3 months break during my summer vacations right from the end of May to August. Therefore I can concentrate entirely on this project with all my energies.
+I am currently pursuing my B.E. in Computer science from Netaji Subash Institute of Technology, New Delhi. A lot of students from my college have been associated with OLPC for development work. Like:
+Food Force which is still in its developing phase. Recently we have achieved collaboration in Food Force. Mr. Deepank and Mr. Mohit Taneja (both are my seniors) are involved with this OLPC project from last one year.
+Listen and Spell. This project was started at GSoC 2008 by Mr. Assim Deodia (Senior) and has recently achieved progress to remove speech dispatcher dependencies from it.
+Speech dispatcher. This project was completed by my senior Mr. Hemant Goyal at GSoC 2008.
+So by giving these examples what I am trying to convey is that I have got many helping seniors, who have a lot of experience and who are ready to help me in every possible way they can. So I can get a lot of guidance and ready help in any case of technical designs or other sort of work or if I got stuck anywhere. My chances of stucking at any point are very low.
+You and the community
+Q.12:   If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+A:     According to me, the main aim of sugar labs is to spread the fruit of literacy in developing nations. It is a common experience that we learn very fast on listening things then reading them. Providing speech in core sugar will be like making the sugar 10-15% more efficient. When children of age group 3-15 and who are learning languages will hear the speech again and again they will be able to learn it very fast. Not only this, now they will be able to hear a story or any other text than just reading it. One more potential advantage is for blind students which can't read the texts but can learn the language by listening it and feeling the words.
+According to Philip Wagner <Philip5147@aol.com>
+"I am Philip Wagner.  I am a member of the Education Team for Sugar Labs. I was a teacher for seventeen years in Africa and in the  United States.
+The speech synthesizer is very important to help children learn to speak, read and write languages.
+Some research states that a child needs to hear words pronounced between one hundred and one thousand times before the child knows the word.  This is a monumental task for a teacher to be repeating words enough times for the children to learn.  The speech synthesizer is a tool which helps the teacher in doing some of that repetition. The more words a child  knows the more learning can take place inside the child's brain.  We think with words.  If we do not have the words necessary to do the thinking then things don't progress as well.
+For writing, the child  listens to a story that the speech synthesizer very patiently repeats as many times as the child needs it and then the child writes the story in his or her own words..
+The hearing, seeing, and writing of the words helps the student for reading.
+There are many more words that are used in books and on the internet than we use to speak with.
+In English we use about ninety thousand words for speaking. An estimate of the total words in English is more than five-hundred-thousand.  One dictionary has five-hundred-thousand entries.
+The more a child learns the more the child will learn. We cannot depend on teachers to teach enough words to children. I am very much encouraged that someone is working toward preparing the speech synthesizer in Sugar."
+According to Assim Deodia (Mentor of Sugar Labs for GSoC 2009)
+assim.deodia@gmail.com
+This proposal is of great potential since speech synthesis is a long desired component of sugar. Activities like speak and listen-spell are already using speech synthesis and it would be very useful to have more speech enabled activities. Various survey showed that voice + text based learnnig is much more efficient then only text based learning. If, as promised, captioning is also achieved, this would enhance the learning multifold.
+Q.13:   Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+A:   I would greatly appreciate the efforts of sugar if they are planing for this and I think that my home town  which is still backward and has many primary schools, will be the best place where this pilot can be set up. I have many friends in the home town who are involved in such activities and they would love to contribute in here also. I also have a primary school near my home where we can easily test the activity.
+Q.14:   What will you do if you get stuck on your project and your mentor isn't around?
+A:   Well I have some of my great helping seniors who are already associated with OLPC for some projects (Like Food Force) and who are ready to help me out in every possible way they can.
+If still the problem can't be resolved then I can always ask it on IRC.
+Google is also a very great option
+I can also post the problem on sugar mailing list.
+Q.15:   How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I will regularly post my progress reports on my wiki page.
+Link:
+http://wiki.sugarlabs.org/go/chiragjain1989
+I can mail my progress reports to sugar mailing list.
+Miscellaneous
+My Screenshot with my email address
+Q.16:   We want to make sure that you can set up a
+development environment
+before the summer starts. Please send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "Restart." See the image on the right for an example. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+A:     My development environment screen shot is attached on the right side.
+Q.17:   What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+A:     Extra Large
+Q.18:   Describe a great learning experience you had as a child.
+A:     When I was in my primary school there were some teachers who believed in education through entertainment. So they always perform some entertaining activities to teach us. Like for example when I was in third or fourth standard, I always get confused in less than and greater than signs. Even if I could make which number is greater or lesser but I become confuse in selecting the right sign.  So one day I approached my teacher. She removed my confusion by a nice method. She told me that I should give two dots in front of the number which is greater like : and one dot to the number which is lesser like. For example if I have to place sign between 2___ 5 then I would give one dot in front of 2 and two dots in front of 5 like this 2. : 5 
+Now on joining these dots we can get the correct less than sign.
+Q.19:   Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+A:     I think that most of the things I have already cleared. I don't know wether you are going to take it or not but one thing I can assure is that I have the determination to achieve whatever I have mentioned. One last point I would like to emphasize is that speech synthesis in sugar is indispensable. So please consider this project always in the future sugar developments.
+for my Comment on this:
+http://wiki.sugarlabs.org/go/Summer_of_Code/Application_review_notes#Competing_proposals
+Please visit:
+http://code.google.com/p/speech-synthesis/downloads/list
+and also my talk page
+Regards
+Chirag Jain

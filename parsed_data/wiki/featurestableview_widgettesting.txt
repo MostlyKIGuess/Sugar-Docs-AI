@@ -1,0 +1,24 @@
+Title: Features/TableView Widget/Testing
+URL: https://wiki.sugarlabs.org/go/Features/TableView_Widget/Testing
+--------------------------------------------------------------------------------
+Simple example for SmootTable widget
+import gtk
+
+from sugar.graphics.smoothtable import SmoothTable
+
+window = gtk.Window()
+
+scrolled = gtk.ScrolledWindow()
+scrolled.set_policy(gtk.POLICY_ALWAYS, gtk.POLICY_ALWAYS)
+window.add(scrolled)
+
+class Cell(gtk.Button):
+   def do_fill_in(self, table, row, column):
+       self.props.label = '%s:%s' % (row, column)
+
+table = SmoothTable(Cell, 3, 3)
+table.row_count = 100
+scrolled.add(table)
+
+window.show_all()
+gtk.main()

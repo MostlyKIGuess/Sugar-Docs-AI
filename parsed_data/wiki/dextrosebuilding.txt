@@ -1,0 +1,231 @@
+Title: Dextrose/Building
+URL: https://wiki.sugarlabs.org/go/Dextrose/Building
+--------------------------------------------------------------------------------
+Dextrose
+·
+Get Involved
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Moved and died at
+https://sugardextrose.org/projects/dextrose/wiki/Build_system_set-up
+Contents
+1
+Dextrose build system
+2
+Build host requirements
+3
+Initial setup
+4
+Creating a build
+4.1
+Available variants
+5
+Debugging
+6
+Publishing the images
+7
+Customizing your build
+7.1
+Upstream Code
+7.2
+Customizing the core RPMs
+7.3
+building the Custom RPM
+7.4
+Uploading the Custom RPM
+7.5
+Building custom kernels
+8
+Resources
+Dextrose build system
+Dextrose uses
+olpc-os-builder
+, a tool create by OLPC to build official and customized system images. The Dextrose git repository contains, olpc-os-builder, local customizations specific to Dextrose, and fixes and enhancements waiting to be pushed upstream.
+Build host requirements
+The Dextrose build system is known to work on
+Fedora 14 x86_64
+and
+Fedora 16 x86_64
+. The OS on the host system
+shouldn't
+matter because the build runs in a chroot environment. olpc-os-builder does not yet run on Ubuntu due to a missing dependency (bitfrost).
+The initial build requires about
+700MB
+of rpm packages and Sugar activity bundles. The packages and bundles are cached for futures builds.
+Initial setup
+If sudo isn't configured to work with your account, add yourself to the
+wheel
+group. Alternatively, you can become root with
+su -
+.
+Install build dependencies (you need to be root to do this)
+yum upgrade
+ yum install libtomcrypt-devel bitfrost crcimg make gcc mtd-utils python-imgcreate zip unzip zlib-devel lzma netpbm-progs git wget
+Install the olpc-bootanim-tools package:
+rpm -i
+http://download.sugarlabs.org/dextrose/testing/dx3/rpms/x86_64/os/olpc-bootanim-tools-2.14-1.bernie1.fc16.x86_64.rpm
+If you have a 32bit machine:
+rpm -i
+http://download.sugarlabs.org/dextrose/testing/dx3/rpms/i386/os/olpc-bootanim-tools-2.14-1.bernie1.fc16.i686.rpm
+Alternatively, you could rebuild the olpc-bootanim package from source:
+yum install rpm-build netpbm-progs
+ wget
+http://download.sugarlabs.org/dextrose/testing/dx3/rpms/source/olpc-bootanim-2.14-1.bernie1.fc16.src.rpm
+rpmbuild --rebuild olpc-bootanim-2.14-1.bernie1.fc16.src.rpm
+ rpm -U ~/rpmbuild/RPMS/*/olpc-bootanim-tools-*.rpm
+Checkout the Dextrose build system
+git clone
+git://git.sugarlabs.org/dextrose/mainline.git
+dextrose
+Compile build helper programs
+cd dextrose
+ make
+Generate initial sequence number for the builds (42 is just an example)
+echo 42 >buildnr-dx
+Creating a build
+Become root and run the build system:
+time sudo ./osbuilder.py config/dextrose3-xo1-nognome.ini
+The initial build may take several hours, depending on available bandwidth.
+Subsequent builds will take about 15-20 minutes on average desktop machines.
+Upon completion, the new image will be available in
+build/output
+.
+Now copy it on a USB stick and test it on your target.
+Available variants
+There's a set of configuration files for each variant of the images you can build. You only need to specify the top-level file (i.e. none of the
+*-common.ini
+files) to build an image:
+dextrose3-xo1-gnome.ini
+Works on
+XO-1
+, includes Gnome. Not recommended unless you're running from an external SD card as the free space available on the internal NAND is too limited with Gnome installed.
+dextrose3-xo1-nognome.ini
+Works on
+XO-1
+, does not include Gnome. This is the recommended image for XO-1s.
+dextrose3-xo1.5-gnome.ini
+Works on
+XO-1.5
+(including XO-1.5
+HS
+), includes Gnome. Some teachers and older students seem to like Gnome, so you can trade off some of the free space that could be used by the Journal for the additional desktop environment.
+dextrose3-xo1.5-nognome.ini
+Works on
+XO-1.5
+(including XO-1.5
+HS
+), doesn't include Gnome. More space for the Journal, so use this one if your users don't ask for Gnome and you haven't paid for a larger (i.e. > 4GB) SD card.
+dextrose3-xo1.75-gnome.ini
+Experimental
+XO-1.75
+image with Gnome.
+dextrose3-xo1.75-nognome.ini
+Experimental
+XO-1.75
+image without Gnome.
+Debugging
+Because several build tools (olpc-os-builder, imgcreate and yum) run chrooted
+and nested into each other, error output is often obscure or misleading.
+Before digging into the code, try asking on IRC in case someone has already seen
+the same problem.
+Publishing the images
+Please do not publish signed builds unless they implement the
+OLPC anti-theft system
+.
+Customizing your build
+olpc-os-builder is documented at
+README
+in the olpc-os-builder tree. The modules are documented in
+README
+files in the
+modules
+directory.
+Upstream Code
+Dextrose is based on
+olpc-os-builder
+by Daniel Drake. You can fetch the latest source code into your Dextrose repository:
+git remote add olpc
+git://dev.laptop.org/projects/olpc-os-builder
+git fetch olpc
+git log olpc/master
+Customizing the core RPMs
+Go to the
+rpms/PACKAGENAME
+in the dextrose tree
+Edit the spec file. Typically this involves adding a new patch, which is done by adding a
+PatchNN:
+tag and a corresponding
+%patchNN
+rule in
+%setup
+. Some of the intricacies of RPM spec files are unveiled in the
+Fedora Packaging Guidelines
+.
+Increase the release number after each change.
+building the Custom RPM
+If you have a Fedora 11 i386 system, just type:
+make i586
+Otherwise, you need to build in a
+mock
+chroot:
+make srpm
+ sudo mock -r fedora-11-i386 --resultdir=. --rebuild mypackage.src.rpm
+Uploading the Custom RPM
+Upload rpm to a yum repository and add it to the ini file used by the OLPC OS builder.
+To automate this step, we have a rule
+make uploadrpm
+which points at the Dextrose repository. Edit
+rpms/common/Makefile.common
+or
+rpms/common/uploadrpm
+to retarget this rule to your repository.
+Building custom kernels
+$ git clone
+http://dev.laptop.org/git/olpc-2.6/
+$ cd olpc-2.6
+$ setarch i386 make ARCH=i386 xo_1-kernel-rpm
+Resources
+Dextrose VM
+hosted by
+treehouse
+Sugar-jhbuild
+- The Sugar build system
+RPM
+- The Red Hat package manager
+Fedora packaging
+- Fedora packaging workflow and conventions
+createrepo
+- the yum package repositories builder
+ASLO
+- The Sugar Labs Activities Library
+General understanding of the Linux system plumbing infrastructure:
+kernel
+,
+udev
+,
+dbus
+,
+DeviceKit
+,
+NetworkManager
+,
+Xorg
+...
+Flashing laptops and debugging any problems
+Interaction with the Sugar and OLPC community to solve issues and minimize our divergence from the official builds.

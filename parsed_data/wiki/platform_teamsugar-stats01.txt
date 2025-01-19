@@ -1,0 +1,108 @@
+Title: Platform Team/sugar-stats/0.1
+URL: https://wiki.sugarlabs.org/go/Platform_Team/sugar-stats/0.1
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Supported Sugars
+3
+Stats server
+3.1
+Configuration
+4
+Implementation notes
+5
+Getting the code
+5.1
+Library requirements
+6
+See also
+7
+Getting involved
+Summary
+Library to gather Sugar
+usage statistics
+. The gathering method is based on sniffing DBus and X11 events.
+Supported Sugars
+0.94
+More (0.86+) Sugar versions might be added on demand.
+Stats server
+This project also contains a server, which is based on
+active-document
+and
+restful-document
+, and is designed to be a part of the
+Sugar Network
+and
+sugar-server
+implementations.
+A standalone server might be launched using the
+sugar-stats-server
+command from project sources. The easiest way is using the binary package
+sugar-stats-server
+from
+Sweets Distribution
+. The package contains these components:
+sugar-stats-server
+command,
+/etc/init.d/sugar-stats-server
+daemon.
+For stats transferring from clients, it is useful to use secure, SSL connections. The server configuration needs to be tweaked (and the
+client
+should use the same certificate):
+keyfile
+, path to server's private key,
+certificate
+, path to server's certificate file.
+Server will authenticate clients using SSH keys generated on the client side by Sugar Shell. To let the server check client signatures, OpenSSH-5.6+ should be installed on the server side. For versions lower than 5.6, authentication needs to be disabled using the
+trust-users
+parameter.
+Configuration
+Run the following command to get the current configuration with comments:
+sugar-stats-server config
+To tweak current configuration, change/create
+/etc/sugar-stats-server.conf
+configuration file.
+The following important parameters need to be set before using the server. (When sugar-stats-server is installed from packages, they are initialized to meaningful values.):
+stats/stats-root = /var/lib/sugar-network/rrd
+Path to the root directory for placing stats;
+active-document/data-root = /var/lib/sugar-network/users
+Path to the root directory for placing users' metadata;
+Implementation notes
+Calculating
+network.school
+stat.
+Detecting if client host is in school network or not is based on resolving
+am.i.at.school
+hostname.
+Getting the code
+Gitorious
+sources
+repository,
+master-0.1
+stable branch.
+Binary
+packages
+.
+In use, the library does not require any building routines, just provide the full path to the
+active_document/
+subdirectory via the
+PYTHONPATH
+environment variable.
+See the
+examples/
+subdirectory in the sources tree for usage examples.
+Library requirements
+RRDtool
+python binding
+.
+See also
+sugar-client
+application that uses sugar-stats library.
+Getting involved
+Report
+on bugs.
+Read the
+HACKING
+file to know how to contribute with code.

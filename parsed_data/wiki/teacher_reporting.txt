@@ -1,0 +1,226 @@
+Title: Teacher Reporting
+URL: https://wiki.sugarlabs.org/go/Teacher_Reporting
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Not part of 2016 Sugar
+Contents
+1
+Description
+2
+Collaboration
+3
+Project Members
+4
+Goals
+5
+Data Flow Diagram
+6
+Curriculum Requirements and Relevant Activities
+7
+"How to Play/Use" for end user
+8
+Teachers guide
+9
+XS SchoolServer on the XO
+9.1
+How To:
+9.1.1
+Necessary hardware to replicate our setup includes:
+9.1.2
+Un-compress the image:
+9.1.3
+Setting Up the Environment
+9.1.4
+Getting a Developer Key
+9.1.5
+Booting the XO from the SD
+9.1.6
+Post XS School Server Installation Configuration:
+10
+Documentation & Resources
+10.1
+Related Projects or Proposals
+Status:
+Unknown
+Unknown
+Group Members:
+Wesley Dillingham
+,
+Jeremiah Green
+,
+Fred Grose
+Our goal is to allow results and / or grades, from student activities to be readily available to teachers.
+- Based on their wants and needs,teachers can then generate custom reports on a class or Individual. Teachers Have the ability to determine what types of problems students are finding most difficult. 
+- Additionally we envision logic in the module which analyses student activity and checks for a  yes
+Description
+A custom
+Moodle
+quiz module
+which, in addition to the standard Moodle quiz features, analyzes the questions posed to the student for various qualities, such as compliance with
+Curriculum Standards
+.
+The modified Moodle modules will run on a customized XS School Server operating system. Our goal is to allow results and / or grades, from student activities to be readily available to teachers. Based on their wants and needs, the teachers can then generate custom reports on a class or student and have the ability to determine what types of problems students are finding most difficult. In the end we imagine the XS environment running on an XO itself, allowing the teachers the same portability as the students.
+Collaboration
+To help in code contribution of this project, please visit us at our
+Gitorious project page.
+Project Members
+Project Manager:
+Wesley Dillingham
+Additional Group Members:
+Jeremiah Green
+,
+Fred Grose
+Goals
+Expand upon the PHP of the Moodle Quiz Module to parse questions involving mathematical operations for characteristics contained in the
+Massachusetts Curriculum Framework for Mathematics.
+Run Moodle with the modified quiz module on an XO running
+XS
+, The
+X
+O school
+S
+erver.
+Have Moodle's latest stable release functioning on an XO running XS using the techniques outlined
+here
+.
+Have PHP calls successfully querying mock student results from Moodle's PostgreSQL database running on XS.
+Data Flow Diagram
+Curriculum Requirements and Relevant Activities
+See
+Teacher Reporting/Math
+.
+"How to Play/Use" for end user
+Our project is not intended for a direct use by students. Components (not yet developed) under the scope of our project exist on students computer's in so far as facilitating the data movement from the XO to the XS. Therefore, there are no directions for students on how to use our application, it will be entirely transparent to them. When a student begins an activity which is compatible with our application, it will automatically report information to the API. Our application will then read this information from the API and produce reports to the teacher. We envision this interface to be web based, allowing the teacher to select particular games, and as a subcategory, the particular curriculum requirements in which that game uses.
+In order to run this script (parser.awk) issue the command,
+awk -f parser.awk students.dat
+Teachers guide
+Student.dat file fields:
+MAC-ADDRESS STUDENT_NAME OPERATION CORRECT
+Example:
+0C7B6G0023BC Wesley 9/3+7 1
+0C7B6G04DBBA Jeremiah 4+10/7 0
+0C7B6GBA5D7D Billy 88-28*2 0
+0C7B6G07E9HB Bob 4*5 1
+Ouput Example:
+Student    Only +  Contains + Only -  Contains - Only *  Contains * Only /  Contains / Understands OoO?
+wes        25      28         12      100        80      83         71      53         no         
+bob        80      77         0       66         100     100        33      60         yes        
+jeremiah   0       0          16      33         40      50         14      33         no         
+billy      66      70         33      53         50      37         100     80         yes
+note: This output is not reflective of the student.dat example data above
+XS SchoolServer on the XO
+A major barrier to achieving our goals is the idea that the School Server needs the ability to be versatile and portable. While some may have resources to dedicate substantial hardware to such a server, others may find themselves with nothing more than the XO laptops. From this stems the idea of running this server on one of the XO laptops via either a USB flash drive, SD card, or the internal NAND hard drive.
+When fully installed on an SD card, the base operating system takes up about 1.6GB. There is a small amount of documentation available which is excellent and extremely helpful, but it can be difficult to use at times. Below is a quick break down of what we did and how to replicate it.
+How To:
+The most helpful website to read before beginning can be found here:
+Laptop.org's XS-on-XO.
+Necessary hardware to replicate our setup includes:
+XO Laptop
+Linux Computer with SD Card Reader
+Can be physical machine or virtual. Also, some things can be done in Windows.
+SD card which is at least 4GB (We used an 8GB A-DATA SDHC)
+Un-compress the image:
+Download the image file:
+OLPC-School-Server-0.5.2-dev01-i386.img.gz
+Un-compress the file
+In Windows,
+WinRAR
+worked well.
+In Linux, this command works just as well
+gzip -d OLPC-School-Server-0.5.2-dev01-i386.img.gz
+Setting Up the Environment
+With the SD card connected to the Linux PC:
+Using a tool of your choice format the SD card to ext2 or ext3 (Linux 83).
+Gparted was excellent for formating the SD card to ext3, but fdisk would also work.
+Mark the partition with the boot flag
+This can be done using gparted, but in several instances errors were experienced. In lieu fdisk works great.
+To enter fdisk, use
+fdisk /dev/sd*1
+or
+fdisk /dev/mmcblk*p1
+where * is the letter associated with the SD device and the 1 is the partition. Once in fdisk, use the help to determine the specific command to mark the boot flag. In most instances it will be "a".
+Next ensure the .img file, uncompressed previously, is accessible by the Linux machines.
+Use the command,
+dd if=OLPC-School-Server-0.5.2-dev01-i386.img of=/dev/sd*1
+or
+dd if=OLPC-School-Server-0.5.2-dev01-i386.img of=/dev/mmcblk*p1
+This will take some time depending on the system performance.
+Use resize2fs to re-size the partition
+resize2fs -p /dev/sd*1
+or
+resize2fs -p /dev/mmcblk*p1
+Getting a Developer Key
+First the XO must have a
+developer's key!!!
+The easiest way to go about obtaining this is to boot into the XO's Sugar OS. Open the browse application. Near the bottom right of the home page, there will be a link for "Get a Developer Key".
+Click this link and on the next page click the "Submit Query." Go through this process again after 24 hours and the key should be available.
+Upon return follow the directions displayed to download the key.
+Reboot the XO and tap the "Esc" key to interrupt the booting procedure. At the ok prompt type:
+ok disable-security
+The machine will probably reboot. If so, tap the "Esc" key and type the above command again. It may reboot one final time.
+Upon this reboot tap the "Esc" key again and type the above command a final time. It should print out:
+ok disable-security
+No wp tag
+Booting the XO from the SD
+More than likely, this will not work right away, most implementations require some tweaking prior to properly booting.
+With the SD card inserted in the XO, turn the machine on and press the "Esc" key to interrupt start-up.
+At the prompt type:
+ok boot sd:\boot\olpc.fth
+It should attempt the boot sequence, but more than likely will fail with a Kernel Panic!!!....error
+This is almost expected, but it's actually an important step. If you look further up on the screen, you should see an error in regards to mounting the file system.
+Around this area, you should also see a list of strange numbers (i.e. b102:) followed by devices (i.e. ramdisk...)
+Find the row for your SD card, it should be labeled something like:
+b301:       mmcblk0p1
+Remember the b301 number.
+Connect the SD card back to the Linux PC.
+Open the file /boot/olpc.fth
+Here's a quick resource on what this is
+SD Booting
+.
+You'll see a line like this:
+" ro root=mmcblk0p1 rootdelay=1 console=ttyS0,115200 console=tty0 
+rootfstype=ext2 fbcon=font:SUN12x22" to boot-file
+Change the "root=******" to be the variable recorded earlier.
+Save the changes and put the SD card back in the XO. Reboot the machine and at the prompt again type:
+ok boot sd:\boot\olpc.fth
+Post XS School Server Installation Configuration:
+The following are commands that were run after installing XS on a Virtual Machine. Idealy, the newly configured SD card can now act as the operating system for the Virtual Machine allowing further versatility.
+yum groupinstall "GNOME Desktop Environment"
+
+edit /etc/inittab and change runlevel from 3 to 5 to startup in Gnome
+
+yum install mysql-server php php-mysql php-mbstring php-gd php-xmlrpc php-imap cvs
+
+service mysqld start
+mysqladmin -u root password 'mySecurePassword'
+mysql -u root -p
+mysql> CREATE DATABASE moodle CHARSET 'utf8';
+mysql> exit;
+chkconfig mysqld on
+--starts sql server; adds root admin user; logs into server and creates DB; 
+--turns the service on on boot.
+
+cd /var/www
+cvs -z3 -d:pserver:anonymous@eu.cvs.moodle.org:/cvsroot/moodle co -r MOODLE_19_STABLE moodle
+--download and install/update with the latest version of moodle
+
+mkdir moodledata
+chown -R apache:apache moodle
+chown -R apache:apache moodledata
+--make directory in /var/www/ and change permissions.
+
+edit the file /etc/httpd/conf/httpd.conf
+change DocumentRoot "/var/www/html" to DocumentRoot "/var/www/moodle"
+change <Directory "/var/www/html"> to <Directory "/var/www/moodle">
+then you must restart the apache server by issuing the command:
+service httpd restart
+Documentation & Resources
+Related Projects or Proposals
+Karma
+olpc:Customizing Moodle to include efficient Examination Processes
+Teacher's Tools

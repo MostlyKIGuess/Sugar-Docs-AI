@@ -1,0 +1,254 @@
+Title: Service/git
+URL: https://wiki.sugarlabs.org/go/Service/git
+--------------------------------------------------------------------------------
+Deprecated.  Unavailable from 31st July 2022.  --
+Quozl
+(
+talk
+) 19:21, 4 February 2023 (EST)
+Contents
+1
+Hostnames
+2
+Hardware
+3
+Administrative contact
+4
+Sysadmins
+5
+Notes
+5.1
+Plugins
+5.1.1
+CIA
+5.1.2
+Patchwork
+5.1.3
+Pootle commits
+5.2
+Database tips
+5.3
+TODO
+6
+Upgrade notes
+6.1
+Hardware migration
+7
+Sources
+Hostnames
+git.sugarlabs.org
+, Gitorious main site.
+src.sugarlabs.org
+, Git repositories capable for HTTP cloning.
+Gitorious diagnostic page (only for admins)
+[1]
+.
+Gitorious diagnostic summary page
+[2]
+.
+Hardware
+Machine/jita
+Administrative contact
+git AT sugarlabs DOT org
+Sysadmins
+For non-emergency calls, preferably send email to the administrative contact.
+Aleksey Lim
+Notes
+Gitorious
+hosting.
+Home
+/srv/gitorious
+Daemon
+/etc/init.d/gitorious
+Logs
+/srv/gitorious/app/log
+Config
+/srv/gitorious/app/config/database.yml
+/srv/gitorious/app/config/gitorious.yml
+/etc/cron.daily/gitorious
+/etc/logrotate.d/gitorious
+/etc/httpd/conf.d/git.sugarlabs.org.conf
+SSL certificates
+/etc/ssl/private/git.sugarlabs.org.key
+/etc/ssl/certs/git.sugarlabs.org.pem
+Ports
+9418
+git server
+Sources
+http://gitorious.org/~alsroot/sugarlabs-org
+Plugins
+Sugar Labs Gitorious instance uses downstream several plugins. All of them are enabled from
+app/processors/push_event_processor.rb
+file and placed to
+lib/
+directory.
+CIA
+Notify
+http://cia.vc
+about all commits.
+Plugin file:
+lib/cia.rb
+gitorious.yml
+configuration:
+cia: true
+Patchwork
+Patchwork
+integration.
+Plugin file:
+lib/patchwork.rb
+gitorious.yml
+configuration:
+patchwork:
+ sugar:
+   url: "
+https://git.sugarlabs.org:0000000000000000000000000@patchwork.sugarlabs.org/xmlrpc/
+"
+   linkname: sugar
+   repositories:
+   - mainline
+   set_state: Accepted
+   find_states:
+   - New
+   - Under Review
+Pootle commits
+Send notification emails on every pootle commit.
+Plugin file:
+lib/emailer.rb
+gitorious.yml
+configuration:
+emailer: true
+Database tips
+To make runtime changes in Gitorious database, follow regular Rails workflow - run
+scripts/console
+:
+cd /srv/gitorious/app
+sudo -u gitorious RAILS_ENV=production script/console
+It is regular Ruby console and all features, like
+TAB
+completion, work. To tweak Gitorious data, just use its
+model classes
+, e.g.:
+# search of particular object by its attributes
+user = User.find_by_login("user")
+project = Project.find_by_title("project")
+
+# get object attributes
+user.email
+
+# change object attributes
+project.owner = User.find_by_email("foo@bar")
+project.save!
+
+# destroy object and all its dependencies
+user.destroy
+
+# reset user password
+user = User.find_by_email("user")
+password_key = user.forgot_password!
+Mailer.deliver_forgotten_password(user, password_key)
+
+# add repository committer
+committer = User.find_by_login("user")
+repo = Repository::find_by_path("sugar/mainline")
+repo.committerships.create_with_permissions!({:committer => committer}, (Committership::CAN_COMMIT))
+
+# delete repository committer
+committer = User.find_by_login("user")
+repo = Repository::find_by_path("sugar/mainline")
+repo.committerships = repo.committerships.select {|i| !i.members.include? committer }
+
+# change repository owner
+new_owner = User.find_by_login("user")
+repo = Repository::find_by_path("sugar/mainline")
+cs = repo.committerships.select {|i| i.committer == new_owner}.pop
+cs.permissions = (Committership::CAN_ADMIN | Committership::CAN_COMMIT | Committership::CAN_REVIEW)
+cs.save!
+repo.owner = new_owner
+repo.save!
+
+# move repository to another project
+new_project = Project.find_by_title('sl-tweaks')
+repo = Repository::find_by_path("sat-solver/mainline")
+repo.project = new_project
+repo.name = "sat-solver"
+repo.save!
+
+# check users permissions for particular repository
+repo = Repository::find_by_path("pukllanapac/mainline")
+repo.committerships.each {|i| puts "#{User.find(i.committer_id).login} review=#{i.permissions & Committership::CAN_REVIEW > 0}"}
+repo.committerships.each {|i| puts "#{User.find(i.committer_id).login} commit=#{i.permissions & Committership::CAN_COMMIT > 0}"}
+repo.committerships.each {|i| puts "#{User.find(i.committer_id).login} admin=#{i.permissions & Committership::CAN_ADMIN > 0}"}
+TODO
+Current gitorious patch doesn't handle renaming repositories properly and doesn't update symliks in
+/srv/gitorious/repos-by-name
+. For now, run code to recreate symlinks:
+Repository::find_each {|i| s='/srv/gitorious/repos/' + i.real_gitdir; d='/srv/gitorious/repos-by-name/' + i.gitdir; FileUtils.makedirs(File.dirname(d)) if !File.exist?(File.dirname(d)); File.symlink(s, d) if !File.exists? d}
+Upgrade notes
+git
+/srv/gitorious/app
+After pulling new sources, migrate database:
+cd /srv/gitorious/app/
+sudo -u gitorious RAILS_ENV=production rake db:migrate
+To restart only Web application, instead of restarting the daemon, call:
+touch /srv/gitorious/app/tmp/restart.txt
+Hardware migration
+Disable servers of both hosts.
+mv /srv/gitorious/ssh/.ssh/authorized_keys{,.bak}
+
+a2dissite git.sugarlabs.org
+a2dissite cgit.sugarlabs.org
+/etc/init.d/apache2 reload
+
+/etc/init.d/gitorious-git stop
+/etc/init.d/gitorious-poller stop
+/etc/init.d/gitorious-sphinx stop
+/etc/init.d/gitorious-stomp stop
+On old server.
+Dump MySQL database:
+mysqldump -u root -h localhost -p gitorious | xz > dump.slq.xz
+On new server.
+Create MySQL user and database for Gitorious:
+GRANT ALL PRIVILEGES ON *.* TO 'gitorious'@'localhost' IDENTIFIED BY '<insert password>' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+CREATE DATABASE gitorious;
+Make preparations from root user:
+useradd gitorious -d /srv/gitorious/ssh -m
+cat >> /srv/gitorious/ssh/.profile <<EOF
+export RAILS_ENV=production
+cd /srv/gitorious/app
+EOF
+xzcat dump.slq.xz | mysql -u root -p -D gitorious
+Make preparations from gitorious user:
+su - gitorious
+
+mkdir /srv/gitorious/repositories-mirror
+mkdir /srv/gitorious/repositories-mirror
+mkdir /srv/gitorious/tmp
+
+git clone
+git://git.sugarlabs.org/sl-tweaks/gitorious.git
+/srv/gitorious/app
+
+rsync --delete-after -PHAXhaxv $OLD_HOST:/srv/gitorious/repositories/ /srv/gitorious/repositories/
+rsync --delete-after -PHAXhaxv $OLD_HOST:/srv/gitorious/app/public/system/ /srv/gitorious/app/public/system/
+rsync --delete-after -PHAXhaxv $OLD_HOST:/srv/gitorious/ssh/.ssh/authorized_keys.bak /srv/gitorious/ssh/.ssh/authorized_keys
+
+cd /srv/gitorious/app
+rake db:migrate
+rake ts:rebuild
+rake mirror:symlinkedrepos
+rake assets:clear
+Start up Gitorious.
+a2ensite git.sugarlabs.org
+a2ensite cgit.sugarlabs.org
+/etc/init.d/apache2 reload
+
+/etc/init.d/gitorious-git start
+/etc/init.d/gitorious-poller start
+/etc/init.d/gitorious-sphinx start
+/etc/init.d/gitorious-stomp start
+Sources
+Downstream repository
+.
+Upstream repository
+.

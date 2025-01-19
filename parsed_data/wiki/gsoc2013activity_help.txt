@@ -1,0 +1,153 @@
+Title: GSoC/2013/Activity Help
+URL: https://wiki.sugarlabs.org/go/GSoC/2013/Activity_Help
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+Objectives
+3
+Progress
+3.1
+View help for the Activity in the help itself
+3.2
+Support help content localization
+3.3
+Update Help Activity
+3.3.1
+helplink file
+3.3.2
+directory structure modification
+3.3.3
+l10n_script.sh
+3.4
+Update current help content
+4
+To-do
+5
+How to contribute
+Introduction
+This page contains information about the project
+"Implement help mechanism for activities using Mallard"
+. This project is being implemented as a GSoC 2013 project.
+Although the initial proposal was to use Mallard for the help mechanism, the research done and the progress of the project proved that simply using the current help content would serve the purpose. Therefore with the approval of the mentors, the implementation with Mallard is dropped.
+Objectives
+Implement a help mechanism to view Help in the Activity
+Support l10n for help content
+Write help for more activities
+Improve current Help Activity
+Progress
+View help for the Activity in the help itself
+Help content for the current Activity can be viewed in the Activity itself. It will pop up in a window when the user enters the key combination
+alt+shift+h
+. If there is no help content for the Activity, an error message will be written to the log. I have used the
+bundle_id
+of the Activity to match it with the corresponding help content file (in html).
+GitHub repo - Sugar fork
+ActivityHelp in Browse
+ActivityHelp in Pippy
+Support help content localization
+For the
+help content
+I have generated the POT files using
+sphinx internationalization tools
+. The POT files are submitted to
+help_content
+project in Pootle with the emmense support of Chris. The help content is being translated.
+Read Activity help in Sinhala
+About OLPC help in Danish
+Update Help Activity
+Help Activity was improved to so as to support localized help content. Before localization content is supported, Help Activity was released with the help content in the form of html files, static content including images, css, javascript etc. With localized help content, there will be one set of static content and different html files for each and every language that help content is localized into. I have done mainly two modifications.
+Gitorious repo - Help Activity fork
+helplink file
+helplink is a json file. It includes the
+bundle_id
+of the Activity and the name of the corresponding help content (html) file. This file will be used when viewing help content in the Activity. Following is the current version of helplink.json.
+{
+   "org.laptop.sugar.ReadActivity": "read.html",
+   "org.laptop.WebActivity": "browse.html",
+   "org.laptop.Chat": "chat.html",
+   "org.laptop.Calculate": "calculate.html",
+   "org.eq.FotoToon": "fototoon.html",
+   "org.laptop.RecordActivity": "record.html",
+   "org.laptop.MeasureActivity": "measure.html",
+   "org.laptop.Oficina": "paint.html",
+   "org.sugarlabs.PortfolioActivity": "portfolio.html",
+   "org.laptop.Memorize": "memorize.html",
+   "org.laptop.Terminal": "terminal.html",
+   "org.laptop.AbiWordActivity": "write.html",
+   "org.laptop.TurtleArtActivity": "turtleart.html",
+   "org.laptop.Pippy": "pippy.html",
+   "org.laptop.TamTamMini": "tamtammini.html"
+ }
+directory structure modification
+To support localized content I had to change the directory structure of the help directory of the Help Activity. Following is the directory structure before,
+help
+ -_images
+ -_static
+ -*.html (help content)
+new directory structure (with localization support) - only localization of English and Sinhala are shown as en example
+help
+ -_images
+ -_static
+ -en
+   -*.html (help content in English)
+ -si
+   -*.html (help content in Sinhala)
+l10n_script.sh
+l10n_script.sh is a bash script develop to ease the process of bundling all localized help content to be shipped with Help Activity. In Help Activity, all the help content are in
+help
+directory. This script will generate the localized html content and place them in
+help
+directory with the proper directory structure. In releasing a new version of Help Activity, the maintainer can simply copy the
+help
+directory to the Help Activity directory, bundle it and ship.
+Following is a snap of the directory structure associated with the script
+help
+ -da
+   -about.html
+   -sugar_ui.html
+ -en
+   -about.html
+   -gnome.html
+ _images
+ -si
+   -about.html
+   -index.html
+ _static
+ l10n_script.sh
+ translated_po
+ -da
+   -16_sugar_ui.po
+ -en
+   -23_gnome.po
+ -si
+   -02_index.po
+   -03_about.po
+translated_po
+directory will have the translated PO files in in the appropriate language directory (those PO files are from Pootle). Running the script,
+./l10n_script.sh <language code>
+ example: ./l10n_script.sh en
+After running the script it will create the
+help
+directory and modify the html files so as to share the same
+_images
+and
+_static
+content.
+Update current help content
+I have been updating the current help content, making them upto date with localization supporting screen capturing (label icons of the screen captures with numbers and refer and describe the icons below in text so that it can be localized). During the review process of submitting help content to Pootle, a lot of improvements with regard to the language are being done.
+Gitorius repo - help activity content
+To-do
+Write help for activities
+Update current help content for some Activities including FotoToon and Record
+How to contribute
+Help content for Help Activity are written is rst. A comprehensive guide on how to write help is presented at
+http://wiki.laptop.org/go/Help_Activity_refresh/0.98#About_rst_format
+You may refer to the rst files of existing help content at
+https://git.sugarlabs.org/help-activity-content/mainline/trees/master/source
+Once you are completed, you can send a merge request to
+https://git.sugarlabs.org/help-activity-content
+or send Kalpa (me) or Gonzalo a mail along with the screen captures if there are any.
+Kalpa - callkalpa [AT] gmail.com
+Gonzalo - godiard [AT] sugarlabs.org

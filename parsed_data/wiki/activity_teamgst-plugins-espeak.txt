@@ -1,0 +1,300 @@
+Title: Activity Team/gst-plugins-espeak
+URL: https://wiki.sugarlabs.org/go/Activity_Team/gst-plugins-espeak
+--------------------------------------------------------------------------------
+Contents
+1
+gst-plugins-espeak
+2
+Interface
+2.1
+Properties
+2.2
+Events
+3
+Usage
+3.1
+Pipeline format
+3.2
+Python examples
+3.2.1
+Simple example
+3.2.2
+Choir example
+3.2.3
+Track words example
+3.2.4
+Track marks example
+3.2.5
+Simple TTS example
+4
+Known issues
+5
+Install
+5.1
+XO
+6
+Contacts
+6.1
+Resources
+gst-plugins-espeak
+eSpeak library as a sound source for GStreamer.
+Plugin uses given text to produce audio output.
+Interface
+gst-plugins-espeak is a valid gstreamer plugin thus it is a GObject
+Properties
+GObject properties:
+text
+text to pronounce
+pitch
+pitch adjustment, -100 to 100, default is 0
+rate
+speed in words per minute, -100 to 100, default is 0
+voice
+use voice file of this name from espeak-data/voices
+gap
+Word gap. Pause between words, units of 10mS at the default speed, default is 0
+track
+track events
+0
+do not track any events (default)
+1
+track word events (see
+#Track words example
+)
+2
+track
+<mark name="<mark-name>"/>
+marks in text (see
+#Track marks example
+)
+voices
+read-only list of supported voices/languages
+caps
+read-only caps describing the format of the data
+Events
+Gstreamer uses separate threads and user should use gst.Bus messages(are processed in main gtk thread) instead of native GObject events. To use messages you need to setup
+track
+property. These are supported gst.Bus messages (see):
+espeak-word
+before speeching a word, message properties:
+offset
+offset in chars from beginning of
+text
+len
+size of word in chars
+espeak-mark
+mark in text, message properties:
+offset
+offset in chars from beginning of
+text
+mark
+name of mark
+Usage
+gst-plugins-espeak generates raw
+audio/x-raw-int
+data.
+Pipeline format
+Plugin adds new URI scheme
+gst-launch espeak://Hi ! autoaudiosink
+Full pipline example:
+gst-launch espeak text="Hello world" pitch=-50 rate=-50 voice=default ! autoaudiosink
+Python examples
+To use gst-plugins-espeak in Python:
+setup regular gstreamer environment
+plugin's name is
+espeak
+all writable properties(including
+text
+) make sense only at start playing; to apply new values you need to stop
+pipe.set_state(gst.STATE_NULL)
+pipe and start it again with new properties
+pipe.set_state(gst.STATE_PLAYING)
+.
+Note: the examples below are for GTK+ 2 and GStreamer 0.10, and are yet to be ported to GTK+ 3 and GStreamer 1.0, there are more recent examples in the GTK+ 3 toolkit for Sugar, and in activities.
+Simple example
+import gtk
+ import gst
+def gstmessage_cb(bus, message, pipe):
+     if message.type in (gst.MESSAGE_EOS, gst.MESSAGE_ERROR):
+         pipe.set_state(gst.STATE_NULL)
+pipeline = 'espeak text="Hello, World!" ! autoaudiosink'
+ pipe = gst.parse_launch(pipeline)
+bus = pipe.get_bus()
+ bus.add_signal_watch()
+ bus.connect('message', gstmessage_cb, pipe)
+pipe.set_state(gst.STATE_PLAYING)
+gtk.main()
+Choir example
+import gtk
+ import gst
+ import random
+ from gettext import gettext as _
+def gstmessage_cb(bus, message, pipe):
+     if message.type in (gst.MESSAGE_EOS, gst.MESSAGE_ERROR):
+         pipe.set_state(gst.STATE_NULL)
+def make_pipe():
+     pipeline = 'espeak name=src ! autoaudiosink'
+     pipe = gst.parse_launch(pipeline)
+src = pipe.get_by_name('src')
+     src.props.text = _('Hello, World!')
+     src.props.pitch = random.randint(-100, 100)
+     src.props.rate = random.randint(-100, 100)
+voices = src.props.voices
+     voice = random.choice(voices)
+     src.props.voice = voice[0]
+bus = pipe.get_bus()
+     bus.add_signal_watch()
+     bus.connect('message', gstmessage_cb, pipe)
+pipe.set_state(gst.STATE_PLAYING)
+for i in range(10):
+     make_pipe()
+gtk.main()
+Track words example
+import gtk
+ import gst
+text = file(__file__, 'r').read()
+def gstmessage_cb(bus, message, pipe):
+     if message.type in (gst.MESSAGE_EOS, gst.MESSAGE_ERROR):
+         pipe.set_state(gst.STATE_NULL)
+     elif message.type == gst.MESSAGE_ELEMENT and \
+             message.structure.get_name() == 'espeak-word':
+         offset = message.structure['offset']
+         len = message.structure['len']
+         print text[offset:offset+len]
+pipe = gst.Pipeline('pipeline')
+src = gst.element_factory_make('espeak', 'src')
+ src.props.text = text
+ src.props.track = 1
+ pipe.add(src)
+sink = gst.element_factory_make('autoaudiosink', 'sink')
+ pipe.add(sink)
+ src.link(sink)
+bus = pipe.get_bus()
+ jbus.add_signal_watch()
+ bus.connect('message', gstmessage_cb, pipe)
+pipe.set_state(gst.STATE_PLAYING)
+gtk.main()
+Track marks example
+import gtk
+ import gst
+text = '
+Hello,
+World!'
+def gstmessage_cb(bus, message, pipe):
+     if message.type in (gst.MESSAGE_EOS, gst.MESSAGE_ERROR):
+         pipe.set_state(gst.STATE_NULL)
+     elif message.type == gst.MESSAGE_ELEMENT and \
+             message.structure.get_name() == 'espeak-mark':
+         offset = message.structure['offset']
+         mark = message.structure['mark']
+         print '%d:%s' % (offset, mark)
+pipe = gst.Pipeline('pipeline')
+src = gst.element_factory_make('espeak', 'src')
+ src.props.text = text
+ src.props.track = 2
+ src.props.gap = 100
+ pipe.add(src)
+sink = gst.element_factory_make('autoaudiosink', 'sink')
+ pipe.add(sink)
+ src.link(sink)
+bus = pipe.get_bus()
+ bus.add_signal_watch()
+ bus.connect('message', gstmessage_cb, pipe)
+pipe.set_state(gst.STATE_PLAYING)
+gtk.main()
+Simple TTS example
+import gtk
+import gst
+import pango
+
+window = gtk.Window()
+window.connect('destroy',
+        lambda sender: gtk.main_quit())
+
+workspace = gtk.VBox()
+window.add(workspace)
+
+# text widget
+
+scrolled = gtk.ScrolledWindow()
+workspace.pack_start(scrolled)
+
+text = gtk.TextView()
+scrolled.add(text)
+
+buffer = text.props.buffer
+buffer.props.text = file(__file__).read()
+
+tag = buffer.create_tag()
+tag.props.weight = pango.WEIGHT_BOLD
+
+# play controls
+
+toolbar = gtk.HBox()
+workspace.pack_end(toolbar, False)
+
+play = gtk.Button('Play/Resume')
+play.connect('clicked',
+        lambda sender: pipe.set_state(gst.STATE_PLAYING))
+toolbar.add(play)
+
+pause = gtk.Button('Pause')
+pause.connect('clicked',
+        lambda sender: pipe.set_state(gst.STATE_PAUSED))
+toolbar.add(pause)
+
+stop = gtk.Button('Stop')
+stop.connect('clicked',
+        lambda sender: pipe.set_state(gst.STATE_NULL))
+toolbar.add(stop)
+
+# gst code
+
+pipe = gst.parse_launch('espeak name=src ! autoaudiosink')
+
+src = pipe.get_by_name('src')
+src.props.text = buffer.props.text
+src.props.track = 1 # track for words
+
+def tts_cb(bus, message):
+    if message.structure.get_name() != 'espeak-word':
+        return
+
+    offset = message.structure['offset']
+    len = message.structure['len']
+
+    buffer.remove_tag(tag, buffer.get_start_iter(), buffer.get_end_iter())
+    start = buffer.get_iter_at_offset(offset)
+    end = buffer.get_iter_at_offset(offset + len)
+    buffer.apply_tag(tag, start, end)
+
+bus = pipe.get_bus()
+bus.add_signal_watch()
+bus.connect('message::element', tts_cb)
+
+# gtk start
+
+window.show_all()
+gtk.main()
+Known issues
+espeak-ng requires v0.5.0, or on Debian and Ubuntu use package version 0.4.0-3 or later, which has Debian Bug #877750 fix.
+espeak-word
+with espeak < 1.40.09 doesn't track words with numbers(at least full-numered words) in proper way
+if you are tracking
+espeak-word
+with espeak < 1.40.10 you should use gst-plugins-espeak-0.3x(or 0.3 branch in git repository)
+Install
+gstreamer-plugins-espeak is a part of SugarPlatform-0.84, so just install meta package(depends on your distro) with SP.
+XO
+attach
+[1]
+repo(or just download proper .rpm)
+install gstreamer-plugins-espeak package
+Contacts
+Aleksey Lim
+James Cameron
+be involved and add yourself here
+Resources
+Sources
+Previous Sources
+Tarballs

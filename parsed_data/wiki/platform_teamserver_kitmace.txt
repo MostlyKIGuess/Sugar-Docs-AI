@@ -1,0 +1,217 @@
+Title: Platform Team/Server Kit/Mace
+URL: https://wiki.sugarlabs.org/go/Sugar_Server_Kit/Mace
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Configuration sources
+2.1
+Configuration variables
+2.2
+Keywords
+3
+Configuration application
+4
+Providers
+5
+Templates
+6
+Configuration
+7
+Troubleshooting
+8
+Testing routines
+9
+Getting involved
+10
+Resources
+Summary
+The mace is a tool to ma
+c
+ke final configuration using source templates. Mace is supposed to help with configuration of services on Server based school servers.
+These are the core differences compared with tools like Puppet or Cfengine that makes mace a different niche project:
+mace provides a simple and straightforward usage workflow, i.e., with tools like Puppet, users need to
+"code"
+a configuration (starting from regular coding in Ruby for missing functions or types, and ending with handling the relationships between all configured resources). It is different in mace; users only need to enter a configuration for the particular service, the rest (like dependencies between configured services) is already coded in mace;
+mace doesn't provide new metaphors; people need to follow the standard configuration syntax for any particular service;
+mace is not intended to be a unified system like Puppet or Cfengine; it supports only a limited set of services (of those that the Server based solution provides), but does it well, e.g., for iptables, just write rules, and the rest will be done by mace;
+mace doesn't function like a daemon; it just converts configuration sources to the final configuration on the final server, e.g., as a post procedure after installing packages;
+mace is designed to ease support of intermediate customizing, i.e., the original configuration, provided by an upstream project, might be supplemented (not patched) in the downstream product before deploying it to the final users.
+within the
+Sugar Server Kit
+initiative, mace is intended to support, mostly, only the
+Dumb school servers
+functional model.
+Configuration sources
+Sources for
+mace
+are stored in a GNU/Linux distribution agnostic manner, in this form:
+[<arbitrary-path>]/<service-name>.d/[<service-confile>]/<configuration-file>.conf
+The
+service-confile
+is optional and makes sense only if the configured service has several of them, e.g., Bind, or, if a singular configuration file was split at the Mace level into several parts to make it easy to configure, e.g., per IPTables table
+service-confile
+s. The
+configuration-file
+is a configuration file in a particular service configuration's syntax. All
+configuration-file
+files will be merged by mace to the singular
+service-confile
+file and placed in the appropriate distribution-specific directory. The purpose in having
+arbitrary-path
+is that there might be several directories with the same
+service-name
+s to make the configuration more flexible, i.e., it allows having several high-level configuration components in a project that configure the same service.
+The following example shows how IPTables and Squid proxy might be configured:
+<dir>      +010.net
+<service>  | +iptables.d
+<confile>  |   +nat
+<config>   |     +010.conf
+<dir>      +020.proxy
+<service>    +iptables.d
+<confile>    | +nat
+<config>     |   +020.squid.conf
+<service>    +squid.d
+<confile>      +access
+<config>          +010.acl.conf
+See
+sugar-server-templates sources
+for a more complex examples.
+Configuration variables
+In addition to configuration files, Mace can process files with a
+.env
+suffix. These files contain variable declarations in Bash syntax. The values of these variables might be entered in configuration files in the form of
+@VARIABLE@
+, in which case they will be expanded to real values while applying the configuration.
+In addition to custom variables, there is a list of special ones:
+variables exported by providers;
+<provider>
+_SERVICE
+variables with paths to
+/etc/init.d
+services for all providers that support services;
+SRC_ROOT
+, path to the root directory with configuration sources;
+DST_ROOT
+, path to the root directory to place final configuration;
+INCLUDE
+, if this variable is set in
+.env
+files, it will be treated as a colon separated list of directories to search for additional configuration sources; if
+INCLUDE
+directories are not absolute, they will be referenced from the
+sugar-server-templates
+root;
+PWD
+, path to the directory where current source configuration file is located.
+Keywords
+Source configuration file names might contain substrings in format
+[
+keyword
+]
+which will tell Mace that this source file can be processed only if this particular keyword is enabled in Mace by mentioning the keyword name in the
+--keywords
+command-line argument.
+By default, Mace has these keywords enabled:
+production
+For example, if there is a sources tree,
+<dir>      +squid.d
+<config>   | +010.base.conf
+<config>   | +020.log[production].conf
+<config>   | +020.log[test].conf
+the final configuration tree will be as follows:
+<dir>      +squid.d
+<config>   | +010.base.conf
+<config>   | +020.log[production].conf
+Configuration application
+Mace will apply a configuration sources tree to the real system by doing the following:
+walk through the sources tree to collect all configuration source files for each supported service;
+apply the configuration by writing the sources content to the proper configuration files for a particular service on the particular OS, the backup copies will be kept;
+ask the mace provider of a particular service to make sure that everything, related to this service, is good, e.g., check if Prosody SSL keys/certificates exist and are not expired, or check if Squid's swap is created;
+if a new configuration is different from a previous one, or if step 3 changed something in the system, restart this service;
+make sure that service will be started at boot time;
+if all the previous steps aborted due to failures, revert to the original configuration.
+To start the applying process:
+sudo mace apply
+If the sources path is not the default,
+/etc/mace
+, use the
+--input
+argument to specify the right one.
+Providers
+Providers is the way how Mace can configure particular services. Providers don't contain high-level configuration logic, configuration will happen only basing on configuration sources passed to the Mace to process by these providers. At the same time, providers might do some extra work, e.g.,
+to make sure that service's directory are created. See providers
+documentation
+for more information how particular provider might affect final system after configuration application.
+Mace supports only a limited number of
+GNU/Linux distributions
+and
+services
+. That's because Mace is supposed to be used mostly as a school server configuration tool.
+Templates
+The project
+sugar-server-templates
+is intended to provide most of basic configurations that might be useful for schools servers. After installing it from packages, the final configuration might be composed by symlinking templates from
+/usr/share/sugar-server-templates
+directory to the directory where Mace will find it, by default in
+/etc/mace
+.
+Configuration
+By default, configuration occurs based on several sources (sorted by applied order):
+/etc/mace.conf
+system-wide configuration file,
+~/.local/mace/config
+user-wide configuration file,
+mace
+'s command-line arguments.
+Configuration files contain option names equal to command-line arguments. To get the current configuration, call:
+mace config
+Troubleshooting
+By default, if mace can't start configuring services with new configuration, it falls back to the old configuration. It might be not very useful in case of investigating new configuration errors. To prevent such behavior use
+-R
+command-line argument and try to start affected service manually (with new configuration):
+mace apply -R
+/etc/init.d/<SERVICE> start
+Testing routines
+Before applying a configuration on a real system, it might be applied to a temporary directory (do not forget about
+--dry-services
+argument to not restart services):
+mace apply -o /tmp/test -v -S
+Mace also supports several listing commands that just walk though the sources tree and print useful information about it:
+mace ls
+, list sources status for a particular directory;
+mace dirs
+, list sources status by services;
+mace show
+, interpret services status given by
+mace dirs
+command;
+mace files
+, list all configuration files.
+The status legend is:
+Symbol
+Note
+-
+there are configuration files
+*
+configuration files for the same service were found in more than one directory
+o
+some of configuration files are overridden by files with the same name but from a different directory
+O
+all configuration files are overridden by files with the same name but from a different directory
+h
+some of configuration files are hidden by empty files with the same name but from a different directory
+H
+all configuration files are hidden by empty files with the same name but from a different directory
+Getting involved
+Report bugs
+.
+Read the
+HACKING
+file to know how to contribute with code.
+Resources
+Sources
+.
+Documentation
+auto generated from sources.

@@ -1,0 +1,234 @@
+Title: Google Code In 2018/background
+URL: https://wiki.sugarlabs.org/go/Google_Code_In_2018/background
+--------------------------------------------------------------------------------
+Contents
+1
+Getting set up on IRC
+2
+Basics: Attribution and Licensing
+3
+Setting up a Sugar desktop environment
+4
+Getting started with coding in Sugar
+5
+Getting started with GIT
+6
+Making a Pull Request
+7
+Setting up a Sugarizer environment
+8
+Getting started with coding in Sugarizer
+9
+Getting a wiki account
+10
+Editing SVG
+11
+Getting help
+Getting set up on IRC
+We use IRC for some of our communication.
+IRC is unlike other chat services in that you should keep it open, otherwise you won't see anything that is said while you are gone.
+Unfortunate, Freenode, our IRC network, has been under attack by trolls of late, so we have had to lock down our channels. Therefore, you'll need to create a "registered account" to login. (You can use an IRC client or open
+https://webchat.freenode.net
+in a browser.)
+To register on Freenode:
+/msg NickServ REGISTER password youremail@example.com
+(Filling in your email and password)
+Leave the IRC window open if possible.
+You will get an email that includes a command you'll need to type in to complete your registration. It may take a while for the email to arrive.
+Go back to the open IRC window and paste in the verification line from the email you received in the entry space.
+If you have closed the IRC window, you will need to reopen it.
+Once you are registered, you may join the #sugar channel:
+/join #sugar
+When you reconnect at a later date, you may have to:
+/msg NickServ identify your-password
+Please contact walter @ sugarlabs . org if you have any questions.
+Basics: Attribution and Licensing
+Read
+Attribution and Licensing
+, as both are important for all submissions.
+Setting up a Sugar desktop environment
+There are several options for setting up the Sugar desktop environment for development, depending on what equipment you have;
+Your Equipment
+Your Operating System
+Our Recommendation
+You have only one computer and don't want to erase it
+Linux, Windows, macOS, or iOS
+Install virtualisation software, make a new virtual machine and install
+Sugar Live Build
+,
+Sugar on a Stick
+,
+Ubuntu
+,
+Fedora
+, or
+Debian
+.
+Linux
+Install Sugar packages from your distribution, see
+Ubuntu
+,
+Fedora
+or
+Debian
+.  For other distributions, contact your distribution community.
+You have another computer that can be erased
+Doesn't matter
+Install
+Sugar Live Build
+,
+Sugar on a Stick
+,
+Ubuntu
+,
+Fedora
+, or
+Debian
+.
+What's the difference between Sugar Live Build, Sugar on a Stick and the various Linux options?
+Sugar Live Build (based on Debian)
+Sugar on a Stick (based on Fedora)
+Ubuntu, Debian or Fedora
+Sugar desktop user experience on startup
+yes, 0.116
+yes, 0.114
+no, must install packages
+Good for Set up the Sugar Desktop task
+yes
+yes
+yes, but not Ubuntu 19.10
+Good for Sugar activity development tasks
+yes
+no, must install packages
+no, must install packages
+Good for Port to Python 3 tasks
+yes
+no, must install from source
+no, must install from source
+Good for Sugar desktop module development
+yes, source code included
+no, must install git and use rpmbuild
+no, must install packages
+Works on a spare computer
+yes
+yes
+yes
+Works as a Virtual Machine
+yes
+yes
+yes
+See also
+Setup a development environment
+.
+Getting started with coding in Sugar
+Sugar development is in either Python or JavaScript languages.
+For the JavaScript language, you will need knowledge of;
+JavaScript;
+HTML5;
+web browsers;
+web design; and,
+web deployment.
+For the Python language, you will need knowledge of;
+Python
+;
+the
+PyGObject
+package;
+the
+Python bindings
+for
+GTK+ 3
+; and
+the
+Gtk-3.0 section of the PyGObject API Reference
+.
+For both, you will need knowledge of Sugar activity development, see the book
+Make Your Own Sugar Activities!
+Python programmers, you should run
+pep8
+and flake8 on your changes
+before
+submitting your patches.
+Getting started with GIT
+Some knowledge of git is important as your work will be submitted to our
+git repositories
+. The basic mechanism is a pull-request (PR), which is explained in
+Contributing
+.
+It is required that you follow the steps outlined on the
+Contributing
+page when doing coding and documentation tasks in GCI.
+GitHub provides a
+tutorial
+. There are many other guides to GIT as well.
+Our old bug tracker is
+https://bugs.sugarlabs.org
+, but these days, we mostly report bugs using the
+issues
+feature of GitHub. (See
+https://guides.github.com/features/issues/
+for details on GitHub Issues.)
+Making a Pull Request
+We detail the Pull Request process in
+here
+in our
+docs
+on Git Hub.
+A few things to keep in mind:
+Do not link commits or pull requests to a GCI task, as these are transient and not public,
+Link commits and pull requests to any relevant GitHub issue, and if there is no such issue, say so,
+Explain the problem and how it was solved in your commit message, not in your pull request.
+Setting up a Sugarizer environment
+Your Equipment
+Your Operating System
+Our Recommendation
+You have a computer
+Linux, Windows or macOS
+Install the
+Sugarizer package
+for your operating system.
+You have a tablet or phone
+Android
+Install the
+Sugarizer app
+from Google Play.
+You have a tablet or phone
+iOS
+Install the
+Sugarizer app
+from the App Store.
+You have just a browser
+Any
+Test Sugarizer on the
+Sugarizer web site
+.
+See also
+#Getting started with coding in Sugarizer
+.
+Getting started with coding in Sugarizer
+A good way to start coding in Sugarizer is to complete the
+Sugarizer activity development tutorial
+.
+To learn more about Sugarizer architecture, see the dedicated page
+here
+.
+Getting a wiki account
+Some tasks require that you make edits to this wiki for which you'll need an account. Please email walter @ sugarlabs . org to request an account.
+Editing SVG
+Some tasks will require that you edit SVG. You are welcome to use any SVG editor you like, but we recommend
+Inkscape
+. That said, when saving from Inkscape, please be sure to "save as plain SVG." The default "save" puts extra data into the files which is not needed by Sugar and makes the file size quite large.
+Getting help
+Got a problem?  Ask your mentors, ask other students, or ask the Sugar Labs community.
+The Sugar Labs community is large, and there are people who are not mentors in the contest.  Mentors are
+listed
+.  Everyone else you talk with may be a non-mentor.
+As part of Sugar Labs community, non-mentors are to treat students in accord with the
+Code of Conduct
+, and as if they are new to Sugar Labs.
+Students should keep in mind that some people are non-mentors, and cannot see the contest tasks, contest progress, dates, or information about students.  When communicating widely, be sure to;
+introduce yourself, the first time;
+tell us what your task is, without relying on a link to the task (because we probably can't see it);
+talk about the task as if you want to do it yourself, not because of the contest; and,
+defend your technical decisions without using the contest as a defence.
+Non-mentors may give good guidance on technical decisions, but bad guidance on how they think a task is judged.  Always consult with your mentors as well.

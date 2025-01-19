@@ -1,0 +1,85 @@
+Title: Summer of Code/2010/Integration of LDTP with Sugar
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2010/Integration_of_LDTP_with_Sugar
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+What is your name?
+Harsh Verma
+What is your email address?
+yevlempy@gmail.com
+What is your Sugar Labs wiki username?
+yevlempy
+What is your IRC nickname?
+yevlempy
+What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+English & Hindi
+Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+India [UTC +0530]. I tend to work from 18:00 to 24:00
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+Have made a control panel extension for sugar i.e font-panel which will be released in 0.90 version (
+http://git.sugarlabs.org/projects/sugar/repos/yevlempy/commits/973b0bd9def313cf6cf9ffea967c4626ebb9ffc6
+), Documentation(
+http://yevlempy.wordpress.com/2010/03/27/the-sugar-font-panel/
+). Have also worked on Rubyonrails project(
+http://gitorious.org/tax-free/yevlempys-clone/commit/898169061696b330f14f3a922a5e3508811bae36
+).
+About your project
+What is the name of your project?
+Integration of sugar with LDTP
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+As sugar is build on top of GNOME libraries, the AIUI, the gnome library takes care of accessibility required for LDTP. The idea is of Integrating LDTP with sugar. Gnome/LDTP
+[1]
+(Linux Desktop Testing Project) seem to be doing this set of things for Gnome (and other desktops) the evince test suite includes automatic UI tests as well. Dogtail
+[2]
+too seems to be doing same sort of stuff. We can do a set of basic tests that simulate a user working with Sugar basically doing the "Smoke Test" stuff automatically, Having a fully working test suite that can not test few parts will also be a good idea to replace them.
+I basically will be using python(specifically python-orbit / pyatspi, twisted-python,python-imaging, imagemagick,twisted-python parts in python )along with pygtk, mago
+[3]
+. Few parts of XML(basically syntax).
+What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (July 6-13); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+I would be working around 40 hours a week on this project
+In the first trimester (from around 23 May - 22 June) : I will be reading documentation of various stuff like ldtp, mago various python specific stuff i require (i.e python-orbit / pyatspi, twisted-python,python-imaging, imagemagick,twisted-python ) . Will do a bit of research/ disscussion on tools and i require and make my system well compatible with various packages and stuffs i require for my project.i will be working on hands on experience on LDTP/Mago. In first schedule i will look specifically into Xvfb implementation.
+In the Second trimester (from around 23 June - 22 July) : Coding should be ideally starting during this phase with first of all i will start writing simple tests and working on its automation. Will design a kinda prototype . As a starter i will be needing some kind of test framework that starts up Sugar in a virtual X server(i.e. something like xvfb), wait for Sugar to start up(for most of the tests - maybe some might try to crash it by activating things while the UI is still is loading) and run a single test(each test will start fresh).I will work on integration of Mago and the Xvfb + Sugar environment. Plus will write upto 5 scripts. I plan to concentrate on delivering a basic version during the phase of mid-point evaluation. Produce weekly report on highlighting milestones achieved and work done so far.
+In the third trimester(from around 23 July to finally 10 August) : In this will make around 25 tests and work on them. Document religiously the progress and major milestones as soon as they are achieved. I plan to test and improvise on the features implemented, quality wise, based on User/Mentor feedback during this period.
+Will be working on more and more tests after achieving the prototype with around 30 tests in GSOC timeline, to make LDTP more and more integrated with sugar.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I am pursuing a bachelors degree in technology with Information technology stream. I have been using Linux since a long time, I am working pretty good on improving/enhancing my programming skills, my main programming language is python and pygtk(though in process of learning). I have done stuffs with web framework i.e Rubyonrails(
+http://gitorious.org/tax-free/yevlempys-clone/commit/898169061696b330f14f3a922a5e3508811bae36
+). Recentlly i have submitted a patch of control panel extension i.e font-panel to sugar (
+http://git.sugarlabs.org/projects/sugar/repos/yevlempy/commits/973b0bd9def313cf6cf9ffea967c4626ebb9ffc6
+) which is to be implemented in 0.90 version.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My answer: It will help the developers and end-users too a lot. We can do a set of basic tests that simulate a user working with Sugar basically doing the "Smoke Test" stuff automatically. It will help in testing the applications and automate the actions we do often. Having a fully working test suite that can not test those few parts will also be a  good idea  to replace them.
+From Tomeu Vizoso <tomeu@tomeuvizoso.net> : "I think this is a very good idea. Automatic tests are strongly needed and the approach you mention seem to me like the best one."
+Please feel free to add your comments here :) .
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+I am working as a volunteer in a goverment school named Bijra
+[4]
+at outskirts of my place where five pretty old computers have been made worth for rural childrens using LTSP. There we help kids learning stuff in an opensource environment and make them aware of various computer related stuff and tools. It would really be great and lovely to work with running the Sugar pilot group there which will help kids in best possible way. We have a group of people working there which can help in getting things done well.
+What will you do if you get stuck on your project and your mentor isn't around?
+Will Google it myself
+Will try and find/check stuff in sugarlabs/olpc wiki/mailing list
+Will talk with other GSOC mentors and previous GSOC students
+Will keep up the things on IRC
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+Mailing the progress I have made on the sugar devel mailing list, will constantly be updating the activity wiki page as I make progress, will be sending weekly reports to my mentor.
+Miscellaneous
+The modification to the development environment.
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "Restart." See the image on the right for an example. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+My changes to the development environment.
+What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+Large
+Describe a great learning experience you had as a child.
+I had very exciting childhood experiences as i was one of the most curious kid out their, I always was on why this things happen ?, what is this ?, why not this ? Although i didn't had computers way back then. I was very much attracted by electronic gizmos, video games, remote control stuff, mobiles. Was less of an outdoor kid though. Now when i look at OLPC, i really feel how blessed those kids are who are gaining knowledge from it and using it, this is the thing about OLPC which motivates me to work for it the most.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+The integration of LDTP with sugar is not a project to be completed in a specific time of GSOC, so i have proposed writing of around 30 tests as a good start and then will move ahead to more and more tests even after summers as automatic tests are strongly needed for sugar.

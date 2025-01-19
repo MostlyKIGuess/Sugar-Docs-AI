@@ -1,0 +1,47 @@
+Title: Sysadmin/Announcing downtime
+URL: https://wiki.sugarlabs.org/go/Sysadmin/Announcing_downtime
+--------------------------------------------------------------------------------
+How to announce service outages
+StatusNet
+Parties interested in receiving these notifications subscribe to
+our
+Infrastructure_Team/Contacts#Services_status
+feed.
+To quickly notify people about unplanned outages, send status updates to
+[1]
+crafted like these examples:
+!sugarlabsstatus {wiki,www,planet,lists}.sugarlabs.org: maintenance downtime for solarsail in 10mins
+ !sugarlabsstatus {wiki,www,planet,lists}.sugarlabs.org: solarsail going down now
+ !sugarlabsstatus {wiki,www,planet,lists}.sugarlabs.org: back up
+ !sugarlabsstatus beamrider: machine is unreachable, pls contact co-lo admins
+Please do not abuse this service, as some users configure their account to
+forward notifications as text messages to their mobile phones and may have to
+pay for each SMS received.
+hosted@sl.org
+The alias "
+hosted
+@
+sugarlabs.org
+" forwards outage notifications to several
+individuals and mailing lists who have services hosted at Sugar Labs. The alias is handled
+by our MX, therefore it won't work if
+Machine/sunjammer
+itself is down.
+Use this to notify about ahead-of-time about planned maintenance and
+possible service outages.
+Here's an example of what a notification may look like:
+Subject: develer.com: switch to new uplink, Aug 13 23:00 UTC
+
+The FSF sysadmins are going to relocate our virtual machine Sunjammer
+today in the evening.
+
+The new host has faster processors, twice as much memory, a faster RAID1
+array and generally better hardware.  The downtime is projected to last
+15-30 minutes, but it may last longer in case of unexpected issues.
+
+Apologies for any inconvenience,
+
+   -- Your dedicated BOFH
+Please format the subject line like in the example, provide detailed
+explanation of what services are affected, along with an estimate of
+time required to complete the work in average and worst-case scenarios.

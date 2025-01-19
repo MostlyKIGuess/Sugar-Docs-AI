@@ -1,0 +1,59 @@
+Title: Deployment Platform/1.0/Todo
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/1.0/Todo
+--------------------------------------------------------------------------------
+Initial Sugar Server release that is not intended to be used as-is in deployments. It is about having stable code base and infra to fulfil deployment needs in further 1.x releases.
+Contents
+1
+Initial coding of core components
+2
+Testing
+3
+Patch OBS
+4
+Prosody
+5
+Documentation
+6
+Tech demo
+Initial coding of core components
+sugar-server
+sugar-server-base
+mace
+Need to be polished though (see the rest of TODO).
+Testing
+sugar-server unit tests
+, initial work done the rest is in permanent process
+mace unit tests
+, initial work done the rest is in permanent process
+sugaroid, library and application that represent regular sugar client behaviour
+sugar-server integration tests using sugaroid library
+, initial work done the rest is in permanent process
+system tests of sugar-server + sugar-server-base infra with reproducing usual and stress behaviour of sugar client using sugaroids instances (up to 1K)
+sounds like more deployment related task, thus moved to 1.x releases
+Patch OBS
+produce binary packages with sugar-server, mace and sugar-server-base for Fedora-14
+while most of packages come from initial distro release, monitor for updates for some of package, e.g., xulrunner when hulahop needs to be rebuilt on any new xulrunner update
+all packages on obs are based on initial distro releases, hulahop/sugar were patched to not fail on every minor update
+announce packages.sl.o, not only for Sugar Server usage but also for sweets/sdk
+will be announced with sweets
+Prosody
+improve mod_sugar_roaster plugin to share the same memory structure of sugar roaster among all buddies
+using sugaroid bots, stress test prosody to compare with ejabberd
+not ready, moved to 1.x
+Sugar code is here,
+http://git.sugarlabs.org/server/prosody-sugar
+Documentation
+Initial documentation efforts on the wiki.
+Tech demo
+Test case:
+on unlocked XO, plug usb stick with demo server image, flash and booth
+on locked XO, inject lease demo keys from a usb stick and boot
+locked XO should be fine with:
+activate on boot on unlocked XO
+register user
+do journal backup
+restore journal
+connect to jabber
+Demo server XO image will be composed by adding
+downstream-server-demo
+package (and all its deps) during the regular XO image building process.

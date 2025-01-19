@@ -1,0 +1,124 @@
+Title: Colour The Part
+URL: https://wiki.sugarlabs.org/go/Colour_The_Part
+--------------------------------------------------------------------------------
+Contents
+1
+Fall '09 Summary and Future
+2
+Group Members
+3
+Project Description
+4
+Basic Concept
+5
+Implemented Domains
+6
+Project Plans
+7
+Future Plans
+8
+Concept Art & Design Sketches
+8.1
+Starting state of the first level
+8.2
+Effect of hitting a paint bucket
+8.3
+Effect of hitting a second paint bucket
+9
+How To Play
+10
+Development Plan
+11
+Lesson Plan
+12
+Project Files
+13
+Contacts
+Fall '09 Summary and Future
+Status:
+Abandoned
+tarball source
+Group Members:
+Spence Thompson, Forrest Marvez
+Incorporating math and color theory onto a platformer, create a fun and educational activity targeted at 4th grade Math students. The activity uses elements of platform games with obstacles and puzzle solving to teach addition and multiplication of fractions while keeping the player entertained.
+Forrest and I wrapped up the quarter with a working demo of the basic core mechanics of Colour The Part. We succeeded in having a working platformer on the XO. However, by succeeded we mean we have it running on there with some problems. One of them being that the game runs at a ridiculously slow frame rate compared to when it's being ran on anything else. We had some speculations on to what that might be, but those speculations were wrong. We also didn't reach our goal of an effective particle trail following the player (although the code has started and is there, just needs some tweaking) and the multiple levels. Additionally, the collision could be tweaked to have a better resolution after you collide. All and all, the game turned out to be a small success with what we here and what we took away.
+Problems Addressed:
+Slow FPS
+We looked into anything dealing with any for loops besides the main game loop and moving the character and this didn't solve it. We also looked into particles, but that wasn't the reason. We also looked into object creation in the update, but it wasn't fixing the problem. I want to say the XO can handle a simple platformer and it is our programming, but I could be wrong, so this needs to be looked into further for this game to go anywhere.
+Particle Trail
+The particle trail was started on, but wasn't fully implemented as we ran into the first bug. It's in the particles file and just needs some tweaking and rewriting for it to work fully. On top of that, the painted trail that goes with it needs to be worked on too.
+Collision
+Collision is simple bounding box collision. It uses the rect in pygame so that does all the checks for us there, however, the collision isn't the best for the resolution stage. It gets set back to a certain x or y after you collide with a side. That needs to be reworked as there were some bugs when jumping in the air and colliding.
+Future Addressed:
+Group Members
+Spence Thompson
+,
+Forrest Marvez
+Project Description
+Incorporating math and color theory onto a platformer, create a fun and educational activity targeted at 4th grade Math students. The activity uses elements of platform games with obstacles and puzzle solving to teach addition and multiplication of fractions while keeping the player entertained.
+This project is a part of the
+RIT Math4Team
+Educational initiative.
+Tone words: color, fractions, logic, problem solving
+Basic Concept
+The game revolves around teaching the players fractional multiplication on multiple levels using pre-generated sets of fractions. The player must navigate and overcome obstacles to reach fractional paint buckets which change their color to match the specified fractions and color present on the bucket. For instance, a 1/6th red paint bucket will be colored 1/6th of the red spectrum and have the fraction 1/6th visible on it. After the player reaches a fractional paint bucket, the color then follows behind the player as a trail painting the background as the player moves. When the player reaches multiple paint buckets the two trails combine to display the final color similar to the proper exit doorway. These elements are required to advance on the level as they also open locks to the exit doorways. Choosing the correct exit doorway by determining the proper Least Common Denominator (LDC) advances the player to the next level, while choosing the wrong doorway resets the level. Wrong exit choices result in an explanation of the user’s mathematical mistake, a time penalty, and a new set of fractions for the level from a pre-generated list.
+Player’s score is determined by time required to complete the level, selecting a wrong doorway resets the level but the timer continues to count up.
+Player’s avatar continually bounces and using colors collected from the paint bucket can use special abilities such as enhanced jumps and speed to overcome obstacles and solve puzzles.
+Implemented Domains
+4.N.4 	 Select, use, and explain models to relate common fractions and mixed numbers (1/2, 1/3, 1/4, 1/5, 1/6, 1/8, 1/10, 1/12, and 11/2), find equivalent fractions, mixed numbers, and decimals, and order fractions.
+4.N.10 	 Select and use appropriate operations (addition, subtraction, multiplication, and division) to solve problems, including those involving money.
+4.N.12 	 Add and subtract (up to five-digit numbers) and multiply (up to three digits by two digits) accurately and efficiently.
+4.N.18 	 Use concrete objects and visual models to add and subtract common fractions.
+4.P.6 	 Determine how change in one variable relates to a change in a second variable, e.g., input-output tables.
+Project Plans
+Colour the Part Timeline
+Must Implement:
+10 Levels
+Instructions
+Simple Particle System for player trails
+Timer and Persistent Scoreboard
+Explanation of Math and player mistakes
+Player Physics for character movement
+Cool If:
+Neighborhood Multiplayer
+Neighborhood Scoreboard
+Online Scoreboard
+Future Plans
+Leaderboards
+Networked Play (Teamwork and Problem Solving)
+More levels
+Player Attributes and upgrades
+Concept Art & Design Sketches
+Starting state of the first level
+Effect of hitting a paint bucket
+Effect of hitting a second paint bucket
+How To Play
+The player must navigate and overcome obstacles to reach fractional paint buckets which change their color to match the specified fractions and color present on the bucket.
+For instance, a 1/6th red paint bucket will be colored 1/6th of the red spectrum and have the fraction 1/6th visible on it.
+After the player reaches a fractional paint bucket, the color then follows behind the player as a trail painting the background as the player moves. When the player reaches multiple paint buckets the two trails combine to display the final color similar to the proper exit doorway. These elements are required to advance on the level as they also open locks to the exit doorways. Choosing the correct exit doorway by determining the proper Least Common Denominator (LDC) advances the player to the next level, while choosing the wrong doorway resets the level. Wrong exit choices result in an explanation of the user’s mathematical mistake, a time penalty, and a new set of fractions for the level from a pre-generated list.
+Player’s score is determined by time required to complete the level, selecting a wrong doorway resets the level but the timer continues to count up.
+Player’s avatar continually bounces and using colors collected from the paint bucket can use special abilities such as enhanced jumps and speed to overcome obstacles and solve puzzles.
+Development Plan
+The project goal is complete the 10 levels by the end of the Fall 2009 quarter. Our project will be made publically available on SugarLabs with a Wiki and goals so that other developers may pick the project up or continue it. Final delivery will be an OLPC activity with documentation, artwork, and source code.
+Lesson Plan
+I. Standards Addressed: 4.N.4,  4.N.10,  4.N.12,  4.N.18, 4.P.6
+II. Preparation/Materials
+Before the class has started, the teacher should familiarize themselves with how to play the game. Before the activity has begun, the students need to bring out their XO laptops and start up the "Colour The Part" game. When the game has started up, the students need to put in their username and begin the game. After that, the first part of the game should explain what the student needs to do to finish the activity. Each student needs to have their own XO laptop.
+III. Goals
+1.	Learn how to compare and order fractions and equivalent fractions
+2.	Learn how to multiply and add effectively.
+3.      Learn to determine how change in one variable relates to a change in a second variable.
+4.      Let the students have fun while learning.
+5.      Have the students gain puzzle solving skills.
+IV. Objectives
+1. Guide students into first level
+2. Let tutorial level teach students how to play
+3. Introduce the students to what concepts they are learning throughout the game
+4. Let the students write down the problems on paper if they're having trouble with the ordering of fractions.
+V. Rationale
+The purpose of the game is to promote math education through the use of fun and interactive game software. The game will be designed to teach students to use their math skills in a non-workbook setting.
+Project Files
+File:Colourthepart final.tar.gz
+Contacts
+Spence Thompson: stt6741@rit.edu
+Forrest Marvez: fmarvez@gmail.com

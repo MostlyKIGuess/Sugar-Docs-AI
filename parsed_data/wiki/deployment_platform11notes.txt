@@ -1,0 +1,125 @@
+Title: Deployment Platform/1.1/Notes
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/1.1/Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Design changes
+3
+Final solution
+4
+Supported platforms
+5
+Components
+6
+Getting the release
+7
+Looking forward
+8
+Credits
+Summary
+This is the first Sugar Server Kit release that is being positioned as ready for use in the field, thanks to the
+Paraguayan pilot program
+. This release should fulfill needs similar to those faced in Paraguay. The next step will be proving this system for restricted environments within the
+Server on an XO
+project for SSK-1.2.
+This is also the first release that is following the
+Sugar Server Kit release plan
+.
+Design changes
+Changes made from the initial,
+1.0
+, Sugar Server Kit implementation.
+Unified API for sugar-server
+The major way to interact with sugar-server for now, is a
+RESTfull API
+. The API inherited from the OLPC XS is preserved when it is possible, e.g., except Journal backups that were implemented differently from the beginning.
+sugar-client
+The
+sugar-client
+project is intended to be the only one on the client side to cover all possible interactions with a school server.
+Clients are identified by profile UIDs on a server
+In comparison with the 1.0 implementation, and the OLPC XS, as well, sugar-server-1.1
+identifies
+clients by a UID that is unique for the particular user's profile, i.e., not by the XO's UUIDs. This was done to cover use cases where the same hardware is being used for several learners.
+See the
+design overview
+for more details.
+Final solution
+This release is entirely based on experience gathered during the work on the Paraguayan pilot program, i.e., the functionality of Sugar Server Kit was improved and proven by using it in a school. As a result, the
+paraguayeduca-server
+, the final Sugar Server Kit based solution, was created.
+It covers the full life cycle of using school servers in environments similar to Paraguay, i.e.:
+Install Kit on USB stick to:
+install new server,
+migrate from existing installation,
+migrate from existing OLPC XS installation;
+Post-install school server automated tests;
+Initial setup for the Mothership to support new school servers;
+New client side behaviour based on sugar-client.
+Supported platforms
+LTS versions of Trisquel-4.1 (Ubuntu-10.04) GNU/Linux distributions.
+Fedora-14 will be added to supported platforms in
+1.2
+to provide
+Server on an XO
+solution.
+Components
+In comparison with the
+1.0
+release, there are the following changes:
+sugar-client
+a new component to interact with a school server on a client side;
+sugaroid
+was renamed to
+sugar-unit
+to expose the more general purpose of this project;
+sugar-server-demoxo
+was removed as an Sugar Server Kit component and will return as a supported
+final solution
+in
+1.2
+.
+See also the
+full list
+of Sugar Server Kit components.
+Getting the release
+Sources in tarballs can be found on
+package.sugarlabs.org
+and in
+master-1.1
+branches in repositories on
+git.sugarlabs.org
+.
+Binaries for supported distributions can be found on
+download.sugarlabs.org
+.
+Looking forward
+The next,
+1.2
+, release should contain the following major features:
+collecting
+usage statistics
+,
+return sugar-server-demoxo as a full featured Sugar Server Kit
+based solution
+.
+See the
+1.2 TODO list
+for more details.
+Credits
+Activity Central
+for support during the work on the 1.1 release.
+Paraguay Educa
+for support during the work on the 1.1 release, sharing deployment experience and needs, making it possible to have a pilot program in one of the Caacupe schools.
+The
+Wiki Team
+for continuous polishing of
+Sugar Server Kit
+wiki pages.
+The
+Infrastructure Team
+for support servers and services that are being used within the
+Sugar Server Kit
+project.

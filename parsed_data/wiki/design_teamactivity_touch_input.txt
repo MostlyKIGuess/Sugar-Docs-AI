@@ -1,0 +1,359 @@
+Title: Design Team/Activity Touch Input
+URL: https://wiki.sugarlabs.org/go/Design_Team/Activity_Touch_Input
+--------------------------------------------------------------------------------
+Contents
+1
+Abacus
+2
+Browse
+3
+Calculate
+4
+Chat
+5
+Chart
+6
+Clock
+7
+Conozco Uruguay/I Know Countries
+8
+Dimensions
+9
+Distance
+10
+Escribir Especial
+11
+Etoys
+12
+Falabracman
+13
+Finance
+14
+Flipsticks
+15
+FotoToon
+16
+Get Books
+17
+Geogebra
+18
+HelloWorld
+19
+Help
+20
+Image Viewer
+21
+Implode
+22
+Infoslicer
+23
+Jukebox
+24
+Labyrinth
+25
+Listen and Spell
+26
+Log
+27
+Maze
+28
+Measure
+29
+Memorize
+30
+Moon
+31
+Paint
+32
+Physics
+33
+Pippy
+34
+Portfolio
+35
+Pukllanapac
+36
+Read
+37
+Record
+38
+Ruler
+39
+Scratch
+40
+Speak
+41
+Spirolaterals
+42
+StopWatch
+43
+TamTamEdit
+44
+TamTamJam
+45
+TamTamMini
+46
+TamTamSynthLab
+47
+Terminal
+48
+TetrisMat2
+49
+Turtle Art
+50
+Turtle Confusion
+51
+Typing Turtle
+52
+WikipediaEN/ES
+53
+Words
+54
+Write
+Abacus
+Show live dragging feedback of abacus beads, not just updating the canvas when you release.
+Yeah. Easy enough. I was just lazy. --Walter
+For the custom abacus toolbar, spin button widgets are too fiddly to use due to the very small inc/dec arrows (should try to solve in system wide theme or depreciate use of this widget in activities)
+Some of these could be replaced by stretching or squeezing different parts of the abacus frame: to add more rods, upper or lower beads. I think for the numeric values, such as base and multiplication factor, I'll need some big buttons. --Walter
+Show abacus type name on the main canvas
+Also easy enough... stay tuned. --Walter
+Browse
+Touch and hold to trigger right click palette (for links, downloading, copy etc)
+Exit fullscreen icon in top right corner does not exit fullscreen when touched (only left clicked)
+Calculate
+Prevent auto expose of on screen keyboard for calculation entry widget and rely on canvas and toolbar buttons
+Manual reveal of keyboard for some more advanced actions
+Cursor left/right canvas buttons
+Backspace canvas button
+Scientific vs. Basic canvas display toggle (not essential but would improve touch experience)
+Major toolbar reword/reduction
+Most functions get canvas buttons in scientific mode
+New implementation of help
+Chat
+Left clicking or tapping the Activity icon should imediately display its palette, currently it only displays via cursor loiter and clicking actually prevents it from opening. This behaviour should be fixed for all basic toolbar activity designs
+Input area is at canvas bottom edge, with text appearing at the canvas top, need to detect OSK and layout canvas so input is still visible while keeping text visible (e.g. if there is still blank space don't scroll actual text content off screen)
+Chart
+Swipe right/left to change the chart type
+Two finger pinch gesture for canvas zoom in and out
+One finger drag to scroll around zoomed in chart
+Clock
+Dragging of clock hands feature should be landed to improve interaction possibilities (redraw performance needs work)
+Conozco Uruguay/I Know Countries
+Larger map size to allow distinguishing/easier touch for maps with some small countries
+^ Pinch to zoom
+Allow one finger drag around screen that highlights potential countries without selecting the country until finger lifted
+Dimensions
+Drag cards (Done in v41)
+Distance
+Configure toolbar settings for Temperature and Humidity are currently numerical input fields, should be migrated to spin buttons (pick up new touch friendly design versions)
+A click or touch of the toolbar Activity icon should instantly show the palette with the Activity name in (all activities should behave like this hen using the basic toolbar design)
+Escribir Especial
+Resize onscreen keyboard: make smaller and move to bottom of screen for more traditional "text above keyboard" layout
+Cleaner keyboard layout - implement similar to iOS method for special characters (ex. accents/tildes): hold key to show additional related characters
+Etoys
+Requires close work with upstream, tickets can be filed against the
+etoys-touch
+component for future work (no resources available at present)
+An experimental
+iPad version
+supporting multi-touch input available is for testers
+Adding the same "gripper" feature as in TurtleArt could be helpful for bricks rearrangement
+Falabracman
+Draggable joystick to play
+Alternate mode: touch letters (speed mode?) to spell
+Finance
+The 'goto now' toolbar button should only be active when you change away from the current time, Icon should be between the Next/Previous icons (and perhaps be a little lest abstract of a design)
+Flipsticks
+Touch support exists?
+Larger menus for touch support
+Dots used to represent joints should be larger
+FotoToon
+Save as Image should raise a confirmation alert to provide user feedback that a Journal entry was created
+[DONE in v 12]
+Resize widgets for all bubbles need to be much larger and visible
+[DONE in v 12, no sure about usability, used SIZE_GRID / 2]
+Bubble arrow (for spike or thought target) marker needs to be much larger and more visible
+[DONE in v 12, no sure about usability, used SIZE_GRID / 2]
+Get Books
+Combo box for selecting the archive source should fully open rather than making the user scroll navigate to see the three entries
+Geogebra
+Pinch gesture to resize shapes once placed
+Retool menu - icons need to be larger and more well organized
+HelloWorld
+A click or touch of the toolbar Activity icon should instantly show the palette with the Activity name in (all activities should behave like this hen using the basic toolbar design)
+Help
+Need to re-evaluate once the webkit port is running
+[Ported in Help v14]
+Image Viewer
+Two finger pinch gesture for canvas zoom in and out
+One finger drag to scroll around large (or zoomed in) image
+Double tap to toggle between 'Fit to window' & 'Original size'
+Two finger rotate gesture to trigger canvas clockwise/anti-clockwise rotation (user needs to rotate past N degrees and release before 90º rotate action triggered)
+Don't need to draw image manipulation in real time if not responsive enough, could use a simple grey checkerboard redraw for live touch feedback.
+Implode
+Tapping Easy/Medium/Hard should auto start a new game at that level of difficulty
+Infoslicer
+Jukebox
+A click or touch of the toolbar Activity icon should instantly show the palette with the Activity name in (all activities should behave like this hen using the basic toolbar design)
+[Jukebox 24 have a standard toolbar]
+Labyrinth
+Canvas zooming in/out with pinch gesture
+Canvas scrolling when dragging canvas (replace current behaviour of creating a node of a specific size, rely on single tap to create a node)
+Canvas zooming in when double tap on specific node
+Listen and Spell
+Could use an international keyboard. Would be interesting if switched languages based on keyboard language selected.
+Controls and sliders too closely spaced
+Log
+Log Collector palette should open on single touch / left click (currently uses hover loiter only)
+Log Collector needs a better icon, a bug with glasses or a magnifying glass?
+Copy tool button should only be active if a text selection is made
+Vertical view split needs larger hit target UI (system wide theme solution needed)
+List disclosure triangles are too small, allow touching anywhere in directory name text to open/close the node (might need a system theme solution for tree view)
+Maze
+Need to hide the fake Sugar pointer cursor when using touch events
+Measure
+Memorize
+General issues with combo box, will need to pickup new touch friendly gtk combo theme once available
+Toggling back and forth between Edit and Play mode has 1-2sec of seconds delay with a simple example quiz loaded, some user feedback would help (a spinner?) if the latency can't be reduced.
+Moon
+Some new enhancements would make the activity more useful/interactive
+Add a database of surface features and landings, allow touch/click to reveal name and information
+Display longitude and latitude of point clicked/touched
+Paint
+Single finger press and drag to create, size, and rotate shape tools (works fine with mouse events but John pointed out it needs work for the new F17 touch events)
+Single finger drag for Selecting an area (only working for mouse events)
+Single finger dragging a selection (only working for mouse events)
+Eraser tool default size should be _much_ larger
+Ability to draw with more than one finger at a time (e.g. multi-touch for Brush, Eraser, Stamp tools), need to confirm how many touches we can support to make this a worth while addition.
+Clicking Select Area should clear the current selection if present
+Brush properties palette, gtk spin button widget for brush size much too fiddly to use, perhaps replace with a slider between 1 and 100?
+Consider changing Brush properties Keep aspect to a
+gtk switch
+, or remove it (this feature just locks the aspect ratio of the selection tool so it is square, not sure it is really needed)
+Physics
+Can the current code support multiple interaction points?
+Probable F17 build related
+#3361
+crash bug for the Grab tool
+Grab tool not responding to touch interaction
+#3749
+(other tools working fine with touch events)
+Pinch/finger spread to resize shapes?
+Pippy
+Portfolio
+Pukllanapac
+Dynamic dragging for tile rearrangment - while shuffling other tiles dynamically
+Two-finger turn to rotate? Or hold down to rotate
+Read
+Vertical scrolling solution
+Page turning swipe gesture for paginatable documents
+Record
+Ruler
+No specific touch issues
+Touch enhancement would be to allow touching/dragging on the various rulers to have the exact numerical value displayed next to the above your finger/cursor
+Scratch
+Enlarge brick size for easier dragging
+Touch enhancement to allow for dragging individual bricks (rather than threads attached to that brick below) would be helpful
+Speak
+Needs work to re-layout when on screen keyboard is used so that the text input area is visible as well as the animated face
+Some combo button issues, should pick up new touch friendly combo theme once available
+touch dragging around the face should have the eyes continuously follow your finger (you can double tap, but they just look at the double tap coordinate)
+Addition of international keyboards and speaking language change based on international keyboard selection would be useful
+Spirolaterals
+Allow finger dragging around screen to touch buttons/explore (not just direct tap)
+StopWatch
+Tapping a text field should auto select the current text by default to allow easy replacing (rather than having to press delete many times before typing something new)
+TamTamEdit
+Requires most design and implementation work to be usable in a touch environment
+Piano roll note
+Notes are much too small to manipulate via a finger touch
+Notes don't respond to drag touch events so notes can be selected but not moved
+Too easy to click on the canvas and selecting whole tracks for modification
+Pinch zoom metaphor to increase vertical scale?
+Start with only one ore two instrument tracks, scale UI only as more instruments/tracks are added?
+No current way to record from playing the physical keyboard?
+Possibly a broken feature (there is a Record Keyboard feature but seems inoperative)
+If this feature is intended to work a virtual piano keyboard will also be necessary as per the other TamTam activities (canvas vertical zoom/panning certainly needed if we add a virtual keyboard)
+TamTamJam
+Visual UI limited to activating pre-made loops, no jamming available without a visual keyboard
+Current loop widgets do not respond to touch events, only mouse clicks and physical keyboard short cuts (you can switch them off with a touch, but not on)
+Possible full width, horizontal keyboard widget at bottom edge of screen (standardise widget across TamTam activities as noted in TamTamSynthLab)
+TamTamMini
+Visual UI limited to playing single note of each instrument
+Possible full width, horizontal keyboard widget at bottom edge of screen (standardise widget across TamTam activities as noted above in TamTamSynthLab)
+TamTamMini is currently very cluttered (and already requires the user to scroll), space is tight and needs some reorganisation fit in a keyboard as well
+Switch to standard Primary Toolbar layout
+This may help save space on the main canvas by moving the filters (animals/concrete/keyboard/people/percussion/strings/wind) into the primary toolbar (TODO: new Sugar toolbar icon designs needed for these)
+TamTamSynthLab
+No current visible UI for playing notes
+Possible full width, horizontal keyboard widget at bottom edge of screen (standardise widget across TamTam activities)
+Keyboard should support octave scrolling
+Should support lock/unlock keys for creating chords
+Key note letter show/hide (localised)
+Keys should visible change when pressed
+Keys should visible change if physical keyboard buttons are pressed (i.e. keyboard can provide visual feedback for users without touch screen compatible hardware)
+Linking modules not currently possible via touch
+Input/output connectors very small hit targets and obscured by finger
+Input/output connectors don't currently respond to touch events
+As UI is limited to 4 module instance of each type (13 icons max on canvas), increasing their on-screen size is one less invasive option (TODO: mock up)
+Pinch and zoom gestures could be used to zoom in/out of the canvas allowing the user to work as large as they like, here's a video
+example
+from Nathaniel LeCaude
+Otherwise, SynthLab is in pretty good shape for touch inteface usage
+Bug: Text hints don't update when selecting modules on main canvas (only appear/update if you change modules using the combo in the slider details view)
+Terminal
+Add warning confirmation alert strip to 'Become root' button to provide feedback
+The "Become root" button was already removed. See bugs
+SL#3689
+SL#2756
+and
+SL#2697
+. --danielf
+Will require a close to full feature on screen keyboard with modifiers and unusual characters
+Update tab design as per Browse to provide larger hit targets.
+Done. See
+SL#3354
+for the last commit. And commit
+2a3addb3
+. --danielf
+Drag scrolling
+More accurate text selection (system wide solution needed for touch)
+Drag scrolling through console history
+TetrisMat2
+Touch to select cells
+Drag cells to rearrange
+Turtle Art
+Canvas zooming in/out with pinch gesture
+Right now, there is no canvas zooming at all... just block zooming. --Walter
+Canvas scrolling when dragging canvas
+Will add to v138 (See commit at
+[1]
+). --Walter
+Performance on XO hardware was not great. Might make sense when in tablet mode only.
+Default to large blocks when used on a touch device to reduce obscuring effect of fingers & improve hit target. Perhaps extend the block shapes to have an otherwise blank  'gripper/ridged' area to the left or right
+What is the purpose of the gripper? --Walter'
+To allow a fat finger to easily drag a block about without obscuring its content and top edge for snapping onto other blocks --Gary
+Got it. It could be something that only appears on a touch-enabled machine (or when the XO is in tablet mode). I'll sketch something up. --Walter
+Portrait orientation clips too many toolbar icons (expect portrait orientation to be used much more frequently on tablet devices)
+As of v137, there is a scroll mechanism for clipped palettes... --Walter
+Toolbar hover hints clobbering view of block palettes (due to touch activation leaving pointer over toolbar buttons )
+These can be turned off and could be by default. --Walter
+Allow escaping from full screen mode (see Read for improved behaviour)
+All Save as/Export options should raise a confirmation alert to provide user feedback of Journal entry creation.
+Will add to v138 (See commit at
+[2]
+). --Walter
+Tapping a block tile or stack does not auto run it
+What is the difference between a tap and a click? (I added some code for XO3 to try to disambiguate between a tap and a small drag used in repositioning a block... may need revisiting) --Walter
+Not sure from an implementation perspective, just an observation of the current behaviour in TA, I can click a block/stack to auto run, but a tap and release (many careful attempts) of the same block/stack had no effect. --Gary
+Turtle Confusion
+Would benefit from re-design based on Etoys application
+Could use similar "grabber" function for brick rearrangement like in TurtleArt
+Needs separate gesture to move single brick vs. all bricks attached to that brick
+Typing Turtle
+WikipediaEN/ES
+Need to re-evaluate once the webkit port is running
+[Already available v33.5]
+Words
+No specific touch issues
+Write

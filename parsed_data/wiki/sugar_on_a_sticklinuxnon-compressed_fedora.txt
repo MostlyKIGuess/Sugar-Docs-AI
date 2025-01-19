@@ -1,0 +1,158 @@
+Title: Sugar on a Stick/Linux/Non-compressed Fedora
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Linux/Non-compressed_Fedora#AUTO_Login_to_SUGAR
+--------------------------------------------------------------------------------
+Proposed for Archive
+.
+It has been proposed that this page be regarded as an archive. It could be marked
+"Archive"
+or it could be moved to an
+Archive location.
+--
+Inkyfingers
+18:53, 4 March 2012 (EST)
+Please contribute to the discussion on the
+talk page
+.
+Contents
+1
+Full Fedora 13 Install of Sugar-Desktop on a Stick to USB
+1.1
+Make your OWN Custom SUGAR-DESKTOP USB Boot Stick
+1.2
+8 GB Gnome/Sugar-Desktop USB
+1.3
+Use liveinst command in terminal
+1.3.1
+If USB/SD (4GB for SOAS and 8GB for F12-edu images)
+1.4
+AUTO Login to SUGAR
+1.5
+Duplication of USB Sticks
+1.6
+Preparation of target device
+1.6.1
+Make Image from USB/SD:
+1.6.2
+Deleting /.Sugar Directory
+1.6.3
+use image to write USB Clone:
+Full Fedora 13 Install of Sugar-Desktop on a Stick to USB
+Uses
+Logical Volume Manager (LVM)
+layer over the file structure on the USB flash drive. Other methods on this page install a LiveUSB image that uses a compressed file system (
+SquashFS
+) to hold the system and content.
+Make your OWN Custom SUGAR-DESKTOP USB Boot Stick
+Uses Fedora Net Install CD,
+[1]
+Fedora-13-i386-netinst.iso
+so best with a fast internet connection.
+USB 2.0 recommended or install would take a excessive time using USB 1.0
+Requires 4-GB USB drive.
+(Tested with Cruzer Micro USB Stick, an 8-GB Toshiba USB drive works faster.)
+Boot from CD
+Enter language, time, location, root user password
+Replace existing Linux system
+Review and modify partitioning layout
+edit LVM VolGroup
+delete LV_swap (needed to fit on 4GB stick and for reduced writes to USB)
+edit LV_root  (Edit LVM  and increase to max size on (/dev/sda*)
+size:(change to max shown)
+yes for no swap file
+Write changes to disk
+*NOTE: Be sure this is the USB drive, or you will ruin your hard disk installation on the host PC.
+install boot loader Fedora/dev/mapper/VolGroup-lv_root
+enable network interface (DHCP, IPv4)
+retrieve install informtion for Fedora 13-i386
+Select customize now
+sugar-desktop ONLY / deselect gnome-desktop
+deselect other unwanted applications in categories (Games, etc)
+Installer will reformat drive; install bootloader; transfer xxx packages  (about 2 hours)
+reboot
+Configuration setup (Graphical), add user and password on first boot
+Log in User
+Select Sugar on selection bar
+You can also do a hard disk install of SUGAR this way
+(not tested yet)
+This procedure can be used with a Windows PC if it will boot from CD
+8 GB Gnome/Sugar-Desktop USB
+install gnome or KDE desktop with this technique and then, use add/remove programs to install sugar from other desktops
+you get a 8GB USB that boots either gnome or sugar (8 GB Toshiba USB)
+This Works well....can switch back between desktops by logging off and back on.
+Use liveinst command in terminal
+burn .iso to CD
+boot PC from CD and start sugar
+log in Name and select colors
+go to upper right area of sugar's frame and select application lists
+start sugar terminal type su -
+root terminal # type liveinst (a part of Anaconda installer) this will start graphical installation
+do normal install. (This works for Hard Disk or VM Installs )
+If USB/SD (4GB for SOAS and 8GB for F12-edu images)
+select custom install
+make new partitions:
+Label Size file-type 
+/boot 200    ext2
+/     3000   ext4 (5000 for f12-edu)
+(no swap)
+These are persistent USB/SD's and can be duplicated by dd command (see below)
+IF NOT LOGGED INTO FOR FIRST TIME
+AUTO Login to SUGAR
+TO bypass gdm Login and start up Stick in SUGAR DESKTOP:
+start up and log in to sugar
+Open Terminal Application
+su -
+password=sugarroot
+yum install gedit
+(after gedit is installed:)
+gedit /etc/gdm/gdm.schemas
+change:  (to true  and add sugar)
+--snip--
+<key>daemon/AutomaticLoginEnable</key>
+<signature>b</signature>
+<default>true</default>
+</schema>
+<schema>
+<key>daemon/AutomaticLogin</key>
+<signature>s</signature>
+<default>sugar</default>
+</schema> 
+ --snip--
+Reboot
+Duplication of USB Sticks
+Caution:
+This is a work in progress
+Preparation of target device
+Caution if you purchase Sandisk cruzer micro 4 GB USB you have to use Windows machine to to start the U3 program and delete the hidden U3 directory
+This will make the USB a full 4GB otherwise it will be too small to use dd to copy .img file
+U3 partition will not be removed by formating with Partition Manager
+CAUTION VERY DANGEROUS IF NOT ENTERED CORRECTLY:
+Enter Terminal
+su -
+<password>
+(Need to be ROOT or get permission denied)
+Target USB device MUST be larger for this to work (not all USB Sticks are exactly the same size)
+be certain of the device identifier, /dev/sd(x), for your USB Stick. (I use the partition editor in Ubuntu 9.04 to identify the USB device.)
+Note that .img file on Desktop can be compressed for distribution.
+Example of sucessful clone session:'
+Make Image from USB/SD:
+NOTE This should be done on NEWLY BUILT USB before using it. THIS COPIES EVERYTHING ON IT EXACTLY including 
+all of the things you have entered on it.
+If you have logged in and selected Name and Color's
+see below to remove personalisation in /.sugar directory on a USED USB/SD
+SAMPLE: 8-GB Toshiba USB
+root@xxxxx:/home/robert/Desktop# dd if=/dev/sda* of=USB8.img
+15687680+0 records in
+15687680+0 records out
+8032092160 bytes (8.0 GB) copied, 421.146 s, 19.1 MB/s
+Deleting /.Sugar Directory
+in Sugar Terminal:
+rm -rf ~/.sugar
+su -
+<password>
+shutdown -h now
+use image to write USB Clone:
+4-GB SanDisk Cruzer with U3 partition removed
+root@xxxx:/home/robert/Desktop# dd if=USB4C2.img of=/dev/sdg bs=4k
+986623+1 records in
+986623+1 records out
+4041211392 bytes (4.0 GB) copied, 595.509 s, 6.8 MB/s

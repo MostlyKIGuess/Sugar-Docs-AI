@@ -1,0 +1,94 @@
+Title: Sysadmin/User management
+URL: https://wiki.sugarlabs.org/go/Sysadmin/User_management
+--------------------------------------------------------------------------------
+Contents
+1
+Sunjammer (aka shell.sugarlabs.org)
+1.1
+Account creation
+1.2
+Editing users and groups
+1.3
+Passwords
+1.4
+Removing shell accounts
+1.5
+Manipulating groups
+1.6
+Password reset
+2
+Accounts on other hosts
+2.1
+Account creation
+2.2
+Account removal
+2.3
+Installing user keys to the remote host
+3
+See also
+Sunjammer (aka shell.sugarlabs.org)
+To carry on these procedures, you need root access on
+Machine/sunjammer
+.
+NOTE: You have to become root with 'sudo -i' before using the following commands. Prefixing the command with sudo won't work because it doesn't switch $HOME to /root, which is necessary to make the ldap commands source
+/root/.ldaprc
+.
+Account creation
+See
+Sysadmin/Add shell account
+.
+Editing users and groups
+Run "ldapvi"
+Edit with your favourite $EDITOR, save and exit
+Type "y" to accept changes.
+Passwords
+The users are supposed to update their password by going to
+https://ldap.sugarlabs.org/passwd
+Password logins are not permitted on any of our machines. The password
+is used by other authentication protocols: HTTP, IMAP, SMTP...
+We currently don't have single-sign-on on most of our web applications,
+but users can use our OpenID provider (id.sugarlabs.org).
+Removing shell accounts
+Use:
+system-userdel <user>
+Manipulating groups
+To add groups:
+system-groupadd
+To remove groups, there's no script. Simply use "ldapvi" with no arguments.
+Password reset
+When users have forgotten their password, you can hack the password
+information manually with
+ldapvi
+. Alternatively, go to the
+password web form
+and type sunjammer's
+root password where of the user's old password would normally go.
+If the user knows how to use GPG, send them the new password encrypted.
+In any case, ask them to change their password immediately.'
+Accounts on other hosts
+NOTE:
+accounts on
+Machine/lightwave
+,
+Machine/jita
+and other high-security machines shouldn't be given out lightly.
+Account creation
+With
+remote-useradd
+, you can automate account creation and provisioning on any Sugar Labs host.
+Log into sunjammer, become root and type:
+remote-useradd <remote host> <username> [<group>...]
+Of course, you'll need sudo access on the remote host. There's no need to invoke
+remote-auth
+afterwards.
+Account removal
+remote-userdel <remote host> <username>
+Installing user keys to the remote host
+remote-auth <remote host> <username> [<remote user>]
+See also
+Sysadmin/Add_shell_account
+-- how to add shell accounts on sunjammer
+Service/Account
+-- Account request procedure (for users)
+Service/shell
+-- Shell account rules and details (for users)

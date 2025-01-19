@@ -1,0 +1,72 @@
+Title: Sysadmin/Add resources to a VM
+URL: https://wiki.sugarlabs.org/go/Sysadmin/Add_resources_to_a_VM
+--------------------------------------------------------------------------------
+Contents
+1
+Hot-adding a virtio volume to a running VM
+2
+Adding memory to a VM
+3
+Extending a raw disk image
+4
+Extending a QCOW disk file
+Hot-adding a virtio volume to a running VM
+virsh vol-create-as housetree jita-srv 20G
+virsh attach-disk  jita /dev/housetree/jita-srv vdb
+Adding memory to a VM
+Shutdown the VM
+sudo virsh shutdown "name_of_vm"
+Edit the configuration of the VM
+sudo virsh edit "name_of_vm"
+...
+  <memory>XXXXXX</memory>    <--- XXXXXX is (number of gigabytes of memory * 1024 * 1024)
+  <currentMemory>XXXXXX</currentMemory>    <--- XXXXXX Should be the same as the previous line
+Start the VM
+sudo virsh start "name_of_vm"
+Extending a raw disk image
+This procedure applies to full-disk images containing an MBR partition table.
+NOTE: The VM using this disk MUST be shut down beforehand - or it will corrupt the filesystem!
+First, append some space at the end of the disk:
+dd if=/dev/zero bs=1M count=$((1024-256)) >>example-boot.img
+Then extend the partition to fill the entire disk:
+parted example-boot.img
+
+(parted) resizepart 1
+End?  [267MB]? -1
+
+(parted) p
+Model:  (file)
+Disk /var/lib/libvirt/images/boot/example-boot.img: 1074MB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type     File system  Flags
+ 1      1049kB  1073MB  1072MB  primary  ext4         boot
+
+(parted) quit
+Now create device nodes for the new partition table:
+# kpartx -av lightwave-boot-new.img
+add map loop7p1 (253:4): 0 2093152 linear 7:7 2048
+Grow the filesystem inside the partition (resize2fs requires an fsck beforehand):
+# e2fsck -f /dev/mapper/loop7p1
+# resize2fs /dev/mapper/loop7p1
+Now loopback-mount your grown up filesystem to check if it's healthy:
+# mount /dev/mapper/loop7p1 /mnt
+# df -h /mnt
+Filesystem           Size  Used Avail Use% Mounted on
+/dev/mapper/loop7p1  986M  112M  820M  12% /mnt
+Don't forget to unmount the filesystem and undefine the loopback devices!
+umount /mnt
+kpartx -d lightwave-boot-new.img
+Et voilà!
+Extending a QCOW disk file
+Create a file containing the amount of space you want to add to the VM
+sudo qemu-img create -f raw additional.raw <size>
+Shutdown the VM -----
+DO NOT SKIP THIS STEP.  YOU WILL CORRUPT THE VM IF YOU DO THIS WHILE IT IS RUNNING
+sudo virsh shutdown "name_of_vm"
+Convert the VM to raw if needed
+sudo qemu-img convert -f "name_of_vm".qcow2 -O raw "name_of_vm".raw
+Add the additional space to the VM
+sudo cat additional.raw >> "name_of_vm".raw

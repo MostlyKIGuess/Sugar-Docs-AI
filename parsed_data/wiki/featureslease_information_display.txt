@@ -1,0 +1,72 @@
+Title: Features/Lease Information Display
+URL: https://wiki.sugarlabs.org/go/Features/Lease_Information_Display
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Benefit to Sugar
+5
+Scope
+6
+UI Design
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Display Lease Expiry information in the "My Settings" -> "About My Computer" view.
+Currently, some useful information such as Build number, sugar release version, etc. are displayed in the About My Computer section in the My Settings menu. This menu can be extended to display more relevant information on these lines. Many OLPC deployments use the built in security system which involves leases which expire by certain dates.
+Expired leases cause a problem for technical support staff at deployments. They requested that if the security system is used, such information should be made easily accessible. This especially, was an important requirement coming out of the OLPC deployment in Paraguay.
+Another use case could be for the kids. During vacations, kids don't go to schools for many days and the leases can expire, resulting in the kids getting 'locked out'. If they can easily access this information, then they can make sure that this doesn't happen.
+Owner
+Name:
+Anish Mangal
+Email: anish@activitycentral.com
+Current status
+Targeted release: 0.98
+Status of code: The code has been tested to work without problems on sugar-0.94 based dextrose-3 images.
+Benefit to Sugar
+As noted above, this feature will make the lives of tech. support guys at deployments (and kids in some cases), who use the Lease/Security system easier. This feature was specifically requested by the OLPC deployment in Paraguay and is in use there since the last >1.5 years.
+Scope
+The current code has to be ported to sugar/mainline. The patch is quite small and should be modifiable very easily.
+UI Design
+See
+this
+pdf document (first part) which contains the mockup.
+How To Test
+Check for the existence of the lease.sig file.
+If not present, then goto (A)
+If present, then goto (B)
+(A) * Open My Settings ->  About My Computer
+There should be no field with the name "Lease"
+(B) * Open My Settings -> About My Computer
+There should be a field with the name "Lease"
+It should display "XX day(s) to expiry" where XX is the lease expiry date as contained in the lease.sig file
+User Experience
+If the lease information file (lease.sig) is present, users will see another entry in the "My Settings" -> "About my computer" section mentioning the number of days left before the lease expires.
+Currently, if the file is not present, "Information not available" is displayed in that field. That should and will be changed to making the entire field invisible in that case.
+Dependencies
+This feature is meant only for XO (Currently XO-1, XO-1.5, XO-1.75) laptops. However, since > 98% of sugar users are also XO users, this feature is generally relevant.
+Contingency Plan
+Don't implement it. / N.A.
+Documentation
+http://wiki.laptop.org/go/Firmware_Key_and_Signature_Formats#Antitheft.2FActivation_Lease
+Release Notes
+N.A.
+Comments and Discussion
+N.A.

@@ -1,0 +1,135 @@
+Title: Sugar on a Stick/Hardware
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Hardware
+--------------------------------------------------------------------------------
+Contents
+1
+A SoaS Hardware Effort
+1.1
+What's this about
+1.2
+What we're doing
+2
+Next Steps
+3
+Measuring Responsiveness
+4
+Program Members
+5
+Upcoming Improvements
+A SoaS Hardware Effort
+What's this about
+This attempt has been started shortly after the SoaS beta release on April 22nd and is focussed on tracking hardware compatibility with newer SoaS versions. The overall goal of this effort is to gather information about issues with various hardware configurations using
+SoaS
+. So if you just came across an issue or want to help us by providing your hardware specs, please follow these instructions.
+What we're doing
+We're using the
+Smolt
+project to keep information about the various systems. Smolt is a hardware profiler and has been introduced with
+Fedora 7
+. Since then, also openSUSE has joined the project.
+Smolt basically helps you to submit your hardware information to a place, where people like us developers can check them out. Smolt development is hosted
+here
+and if you're worried about your privacy, you can have a look at Smolt's
+privacy policy
+, too. Note that you can remove your hardware information at any time - instructions for this are also listed below!
+Next Steps
+So. What's next? Here're the instructions:
+Boot into SoaS and start the Terminal Activity.
+Just call (as root):
+smoltSendProfile
+It will ask you again if you're sure and will also give you a link to your profile and an admin password then. Please keep those!
+Now that you've received the link to your hardware profile, please add it to the table below, as this will help us a lot to get an overview on which hardware SoaS is used on where issues occur. Note that with your admin password, you'll be also able to rate your experience with SoaS regarding the hardware support on your profile page. You can also provide it if you're filing a bug report on our
+bug tracker
+.
+What if you want to remove your information?
+Just type in the terminal (again as root):
+smoltDeleteProfile
+Consider also reporting observations of your testing here,
+Sugar on a Stick/Getting Involved/Testing
+.
+Measuring Responsiveness
+We are trying to get a handle on what hardware produces a snappy experience, and what produces a sluggish, but acceptable experience. For slow machines, we are curious whether they could be upgraded by adding memory (potentially scavenged from other donated computers) or add a USB 2.0 card (<$10).  We are imagining getting a good number of donated, older computers, and we are thinking ahead about how to turn these into acceptable computers that kids could take home.
+Please report boot-up speed and how long it takes to open common activities for the 2nd time. Some of them are slow on the first load.  Turtle Art, Browse and Write are good ones to look at.
+Running
+dstat -at --output dstat.log
+in a terminal can be helpful.
+Program Members
+name
+smolt
+notes
+Sebastian Dziallas
+http://www.smolts.org/client/show/pub_cf5334e9-3337-49cd-a7af-747b77bbdda1
+Tom Gilliard
+http://www.smolts.org/client/show/pub_cf76bc48-7208-438b-a17a-6a6e94b8b230
+James Simmons
+http://www.smolts.org/client/show/pub_9bd8878e-aefa-4304-ac55-c87738969fdd
+used boot diskette, Browse wouldn't start.
+Mathieu Bridon
+http://www.smolts.org/client/show/pub_27aeaf15-0c96-45bf-b9db-01fe5772492c
+Tom Gilliard
+http://www.smolts.org/client/show/pub_ec31848d-9ef1-4d51-a7ce-17b7998113f2
+no wireless
+Luya Tshimbalanga
+http://smolts.org/client/show/pub_922b7f43-db28-4c56-8107-c95516dc2c59
+Freeze when multiple activities are open, audio and video not working on Record and TamTam
+Tom Gilliard
+http://www.smolts.org/client/show/pub_34858d7b-dda5-4fc0-bcca-57ade97d6048
+Fedora 11 beta with Sugar Desktop wired
+James Simmons
+http://www.smolts.org/client/show/pub_3aab3f17-ab4f-4883-a152-de25125d86bc
+used boot diskette, everything works, word highlighting on Read Etexts lags behind spoken words.
+Eduardo NH Silva
+http://www.smolts.org/client/show/pub_fe227e13-5847-494c-b96b-cfe2484aab90
+Acer Aspire 3003LMI, no wireless (besides, it needs a proprietary firmware)
+Frederick Grose
+http://www.smolts.org/client/show/pub_ae2467bf-9802-4dfe-9849-69922fd9082b
+VirtualBox2.2.0 on Jackalope64 host
+Tom Gilliard
+http://www.smolts.org/client/show/pub_b69296a9-4326-465e-b3e2-99963dfe75c3
+Soas2-200905031329 Live USB Creator Dell 520n
+Frederick Grose
+http://www.smolts.org/client/show/pub_7618393d-bf0c-4227-901a-0bb3f5cfc982
+USB stick prepared with livecd-iso-to-disk.sh on SoaS running in VirtualBox2.2.0
+Caroline Meeks Dell
+http://www.smolts.org/client/show/pub_fa888e3a-3c29-44dc-b1cb-e28be354f9c5
+Walter Bender
+http://www.smolts.org/client/show/pub_270553cf-91ed-495c-834c-521da796d345
+Magalâes Classmate: no sound
+Frederick Grose
+http://www.smolts.org/client/show/pub_ee2f82d0-f863-454f-9d72-b1ee60fb3c65
+USB stick prepared with LiveUSB-creator3.6.5 on Vista32
+Elena Grandi
+http://www.smolts.org/client/show/pub_a3bddcf4-644e-43dd-b0a1-b84b5c3b7201
+Soas2-200905031329.iso prepared with livecd-iso-to-disk.sh
+Frederick Grose
+http://www.smolts.org/client/show/pub_f2cf5101-8203-4941-be03-408deedd03e5
+soas-beta (0414) installed in VirtualBox2.2.2 disc on Win7-64 with onboard livecd-iso-to-disk
+Tom Gilliard
+http://www.smolts.org/client/show/pub_8b055063-0284-4dc3-99cc-ed3a3fb98e1a
+Fedora 11Preview Gnome with Sugar Desktop on Virtual box 2.2.2
+Nicolas Thill
+http://www.smolts.org/client/show/pub_3f863f30-dc41-4cc9-b236-8ab41295da00
+Lenovo X61 running SoaS release 1 (snapshot)
+Dave Bauer
+http://www.smolts.org/client/show/pub_56a19e3b-42b9-4e2e-9461-09e674f431e5
+Asus eeePC 901 SoaS 20090524 LiveUSB Creator from F11 Preview
+Frederick Grose
+http://www.smolts.org/client/show/pub_afb10e3a-749a-43c2-9679-067b9ac6ce50
+soas-strawberry-vdi in VBox2.2.4 on Vista32 host
+Tom Gilliard
+http://www.smolts.org/client/show/pub_21fbc300-c0d7-4fb0-8a20-100dde28eedc
+sugarVM F11 Appliance on EeePC1000HE running Ubuntu9.04 and VMPlayer wireless
+Frederick Grose
+http://www.smolts.org/client/show/pub_93fa0384-4b43-42c5-aa14-45fa662e77c1
+soas-2-blueberry on USB stick
+Frederick Grose
+http://www.smolts.org/client/show/pub_ecb85c75-cf2a-4417-bf8b-4d275170cdd7
+soas-2-blueberry on USB stick
+David Kergyl
+http://www.smolts.org/client/show/pub_9ce13a7d-e35d-45e7-8f2b-34ebc63577c2
+Dell Latitude D630 Soas-2-blueberry on non-compressed 4GB USB stick
+Tom Gilliard
+http://www.smolts.org/client/show/pub_8b9cd389-4dad-4a0d-9475-0cded2a36e27
+VMworkstation 6.5.2 running livinst installed (Soas_v4) soas-i386-20100817.16.iso to IDE Permanaent HD on Dell 520n running Ubuntu 9.04 (08/21/2010)
+Upcoming Improvements
+We're working on getting Smolt integrated in a Sugar Activity to ease the process of submitting the information.

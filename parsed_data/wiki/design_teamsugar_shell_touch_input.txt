@@ -1,0 +1,122 @@
+Title: Design Team/Sugar Shell Touch Input
+URL: https://wiki.sugarlabs.org/go/Design_Team/Sugar_Shell_Touch_Input
+--------------------------------------------------------------------------------
+Contents
+1
+System wide
+1.1
+Text editing
+2
+Frame
+3
+Home
+3.1
+Favourite view
+3.2
+List view
+4
+Neighborhood view
+5
+Group view
+6
+Journal
+7
+Details view
+System wide
+Hide pointer cursor when touch screen interaction is occurring, reveal if/when mouse or trackpad is used
+On Android 4 after not using the trackpad for a few seconds the cursor is hidden again, which works quite well --erikos
+John pointed me towards XFixes HideCursor/ShowCursor and that there is a
+feature ticket
+and a
+patch
+for gnome-settings-daemon that Sugar could hook into (out of my depth here, didn't get any working code) --gary
+Apparently John (mentioned briefly in a voice call) has added some hooks for us to easily enable and disable the hardware cursor, not yet investigated the code yet --gary
+Unclutter
+is a very simple utility that hides a cursor if it has not moved. Or maybe we can hide the pointer in tablet (e-book) mode and keep it in laptop mode?
+--
+Sridhar
+19:51, 20 August 2012 (EDT)
+Palette hover/click behaviours
+Single tap of a button with a primary action should _not_ trigger hover delay palette content (to prevent toolbar palettes and help hints obscuring UI after use)
+Touch and hold _should_ trigger full display of palette content (like a right click, no extra delay)
+I'm
+concerned
+about the undiscoverability of long-press actions, particularly for new users.
+--
+Sridhar
+19:51, 20 August 2012 (EDT)
+Tapping an icon with no primary action should instantly open the full menu/palette, no delay (e.g. Frame right edge buddy icon/s)
+Hide all keyboard shortcut accelerators when booting on touch only devices
+Make toolbar overflow drop-down widget a standard sugar toolbutton width to allow easier access
+Up/down menu/combo overflow UI too thin (hard to scroll up, gtk combo widget needs work here)
+Text editing
+Touch friendly text selection handles
+Custom Sugar design, use user colours for selection handles (or monochrome theme as a fallback) at each end of text (Carlos upstreamed
+patches
+to gtk3+)
+Example
+animation
+placing the cursor via touch
+Example
+animation
+making text selections via touch (long-press gesture)
+Example
+animation
+moving a multi line text selection's handles via touch
+Example
+movie
+of Gtk3 patches (not Sugar themed yet) from Carlos.
+Selection palette Cut/Copy/Paste/Speak (Share selection with friend feature?) Rough
+example mockup
+.
+Should Cut be introduced? Not something previously exposed in the Sugar UI. Drag & drop of a selection is difficult/error prone via touch, adding Cut would help mitigate a removal of selection drag & drop.
+We could rely on the Sugar primary Edit toolbar, but only if we can guarantee that the toolbar is always visible when an OSK is being displayed e.g. scrolling canvas to keep current input widget cursor visible and not behind the virtual keyboard.
+Text vs. icons vs. text & icons for palette
+Text only provides a minimum sized palette
+Icon only provides translation neutral palette but provides no textual hints to aid discovery
+Text and Icon palette may be too large (obscure too much canvas)
+Editable vs. non-editable widget interaction? e.g. Selecting text from web page, vs. selecting text in a text input widget should be identical if possible.
+Single tap to insert cursor (snap to end of existing word?)
+Drag cursor widget to move cursor position (other designs also raise a zoom lens for small screen accuracy but often designs based on Phone size screen limitations)
+Touch, hold and drag to make a selection (snap to end of existing word as per current Write implementation?)
+Touch and hold to auto select a single word, widget handles at each end of selection.
+Double tap and drag to select a range of text, same as above (double tap is not a Sugar design, but a fallback for users used to existing implementations as per Android/iOS)
+Double tap to auto select a single word, widget handles at each end of selection (double tap is not a Sugar design, but a fallback for users used to existing implementations as per Android/iOS)
+Frame
+Frame expose/hide gesture, swipe in from any screen edge, swipe out over any screen edge
+Hide Frame gesture would need to avoid being interpreted as a canvas scroll (will need tuning, probably a combination of touch start edge proximity and gesture speed)
+Need to consider Frame vs. page turning gestures, left/right page turning would need to avoid screen edge to allow for Frame gesture
+Frame expose/hide gesture, could be limited to a swipe in/out from any screen corner if we find accidental activations at screen edges are triggered too often
+Hide keyboard shortcut hint accelerators from tool buttons and palettes (on devices with touch only hardware)
+Investigate areas where we may want to add a visual button, make an existing button more accessible, or add a multi touch gesture in places where an accelerator key may be frequently used e.g. Alt-tab between open activities could be improved by making the Frame Activity Zoom icon act like Alt-tab (clicking more than once cycles between instances), or perhaps allowing an activity toolbar to be swiped to switch activities.
+Hide/expose on screen keyboard. Show either the Frame or on screen keyboard, but never both at the same time
+Access Point device palette in lower Frame edge does not respond to touch events
+Home
+Favourite view
+Instantly open the large central buddy XO icon palette when clicking/tapping
+Add new grid layout?
+Maximise Activity icon size for finger friendliness
+Disable Activity icon dragging for fixed layouts, or fully implement feature
+Activity palette start rework... (temporally might want to remove primary start action and just expose the full palette on click/tap)
+List view
+Scrolling
+Favourite star hit behaviour
+Neighborhood view
+Remove primary action from AP icons (prevent accidental connection to random APs)
+Remove primary action from ad-hoc icons (prevent accidental connection to random APs)
+Invoke full ad-hoc, AP, Activity, Buddy palettes on single tap
+Remove primary action from shared Activities (prevent accidental join of a shared activity)
+Group view
+Remove primary action from shared Activities
+Invoke Buddy palette on single touch
+Journal
+Touch and hold on an activity icon should open the full palette (like a right click)
+Touch dragging on an activity icon should allow that entry to be dragged to the bottom Journal pane UI for copying to another location
+Touch dragging up/down on the canvas should smooth scroll the Journal list
+Touching the Sort view toolbar icon while the palette is already visible, should dismiss the palette (should use this behaviour system wide)
+Single touching a combo widget (e.g. Anything, Anytime) should lock open the menu for easier discovery (touching and dragging is a nice quick way to access an item but less obvious)
+Combo widgets don't behave nicely if the current item selection is near the bottom of the menu, scrolling up is awkward, should show as many items as we can rather than lots of blank space when near the bottom of the list
+Details view
+Favorite star hit target too small to easily touch
+Confirmation alert dialogue needed for Erase toolbar button (to prevent accidental data loss)
+Confirmation alert dialogue needed for Duplicate toolbar button (for user feedback as to the action)

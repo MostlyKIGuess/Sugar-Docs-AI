@@ -1,0 +1,127 @@
+Title: Features/Introduction Tutorial
+URL: https://wiki.sugarlabs.org/go/Features/Introduction_Tutorial
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+6.1
+Sugar Modifications
+6.2
+Tasks
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Source Code
+14
+Release Notes
+15
+Comments and Discussion
+Summary
+Provide an interactive introduction to Sugar for first-time users.
+Owner
+Name:
+Erick Lavoie
+Email: Name above in lowercase AT gmail.com
+Current status
+Targeted release: Undefined
+Last updated: 04-26-2010
+Percentage of completion: Suspended
+Note: Due to a higher than expected work requirement at the master level, I'll be suspending work on Tutorius indefinitely.  I'll leave the page here, so that the idea is still available.  Should anybody want to have more information on how Tutorius was working, I'll be glad to share.
+Detailed Description
+The proposal consists in providing a default interactive tutorial for Sugar that will give an overview of the particularities of the Sugar interface.
+The proposal aims at giving an overview of the Frame, the different Views, the Journal, Browse and Write in a single tutorial.
+The tutorial should be stored as an XML file representing the execution states of the tutorial.
+Translation of the tutorial should be made using the gettext convention by storing translations of the tutorial strings along side the XML file using the gettext schema (.po, .pot, .mo files).
+The tutorial should be independent of the screen resolution.
+For the 0.90 release, the tutorial won't be user modifiable other than by modifying the XML format by hand, which won't be recommended.
+Benefit to Sugar
+This feature should lower the barrier of entry to Sugar by making it easier to learn the platform by having to resort less to external documentation.
+As discussed with Gerald Ardito, picking up Activities seems to work well for most students. However, getting used to the specific idioms of Sugar requires more efforts and therefore would benefit from having an interactive tutorial.
+Scope
+Most of the work has already been done as part of the Tutorius project that ended on December 2009. However, there is still some work to do before the existing system can reliably be integrated to Sugar.  The modifications to Sugar as well as the work to be done is outlined below.
+Sugar Modifications
+The major changes to Sugar consist in introducing two new concepts, Probes and Overlays, and an additional service in the sugar-session.
+Probes allow obtaining events from Activities/Shell and the execution of arbitrary actions from a separate process. This ability should be reviewed in light of the security policy of Sugar.
+Overlays are Layouts or Windows used to draw custom graphics on top of Activities, the Frame, the Journal or any Sugar View. A more complete description for Probes and Overlays is given in the Tutorius Architecture document referred in the Documentation section.
+The tutorius service in the sugar-session adds an Engine to execute tutorials, a registering mecanism to register and unregister Probes when Activities are started and stopped and a dbus interface to start and stop tutorials.
+Those changes involve modifications of less than 100 lines of code in the existing Sugar code base to the following files:
+sugar:bin/sugar-session (Add the tutorius service)
+sugar:src/jarabe/frame/frame.py (Add an Overlay and a Probe)
+sugar:src/journal/journalactivity.py (Add a Probe)
+sugar-toolkit:src/sugar/activity/activity.py (Add a Probe)
+sugar-toolkit:src/sugar/graphics/window.py (Add an Overlay)
+In addition to the previous modifications:
+The tutorius files should be found under the sugar.tutorius module.
+Some icons will be added.
+The tutorial will be stored under ./sugar/default/tutorius in the user home directory.
+Tasks
+Define an
+exact script
+for the introduction tutorial
+Rebase the existing Tutorius code base on top of Sugar 0.88
+Create a reliable
+Overlay
+for all the different Views and the Frame
+Make the Message Bubble position relative to the screen size
+Make sure the current localization mecanism is reliable
+Add the logging screen option (See UI Mocks)
+Add the option item to replay the introduction tutorial (See UI Mocks)
+Produce a tutorial
+Translate the tutorial in French
+Write documentation for the translation team
+The only risky item is the creation of a reliable Overlay for the different Views. For a technical description of what it involves, see
+Features/Introduction_Tutorial/Overlay
+. Any help from GTK gurus in the community is welcome, as our last attempt at this was unsuccessful.
+UI Design
+This tutorial should be accessible from the first login screen, right after the color selection, and from the option menu:
+The tutorial will provide an overview of the Desktop, the Group and the Neighborhood  Views as well as the Frame, the Journal, the Write and the Browse activity. Here are screenshots of what it might look like for some of them.
+The information presented to the user will be essentially composed of bubble messages pointing at screen elements. Progress through the tutorial will be accomplished by the user clicking a next button at the bottom of the screen. Once the tutorial is over, the user will be brought back to the Desktop screen where she will be able to resume interacting with the system normally. At any time during the tutorial, the user can press the Stop button to interrupt the current tutorial and return to the place she was when she started the tutorial.
+How To Test
+Features/Introduction Tutorial/Testing
+User Experience
+The tutorial won't affect the regular workflow or experience for the platform other than providing a tutorial on the first connexion.
+Dependencies
+None.
+Contingency Plan
+Revert to the previous release behavior.
+Documentation
+http://docs.google.com/Doc?docid=0AVT_nzmWT2B2ZGN3dDd2MzRfNTF0dzMyNGdnag&hl=en
+(Meeting with Gerald Ardito and John Tierney)
+http://docs.google.com/Doc?docid=0AVT_nzmWT2B2ZGN3dDd2MzRfNTBka3J4bW1kaA&hl=en
+(Tutorius Engine States)
+The following document provides a high-level view of the Tutorius Architecture.  The original system was more powerful since it allowed Creation and Sharing of tutorials from within Sugar also.  However, for the purpose of this feature proposal and to ease integration, only the Execution of tutorials will be considered.  For the time being, any reference to the Store, the Workshop, the Creator and the Remote may safely be ignored.  They are kept in case a further integration of those tools is accepted by the community in a later release.
+The execution scenarios presented are not completely up-to-date and will be revised in the next weeks.  For the time being, the most interesting part should be the component diagrams and descriptions.
+http://docs.google.com/Doc?docid=0ARkLUElWcqxDZGdkOWo3c2ZfOWdqeGtyZmY2&hl=en#Components_2405436521573161_98
+(Tutorius Architecture)
+http://www.tutorius.org (Website for the project that ended on December 2009; now owned by a domain grabber)
+Source Code
+http://git.sugarlabs.org/projects/tutorius
+Forks of sugar components:
+http://git.sugarlabs.org/projects/sugar-toolkit/repos/sugar-toolkit-tutorius
+http://git.sugarlabs.org/projects/sugar/repos/tutorius
+http://git.sugarlabs.org/projects/sugar-jhbuild/repos/tutorius
+Release Notes
+A default interactive tutorial is provided on the first login to help familiarize a new user to Sugar.  This tutorial can also be replayed anytime from the option menu.
+Comments and Discussion
+See
+discussion tab for this feature

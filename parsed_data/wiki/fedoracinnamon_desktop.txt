@@ -1,0 +1,127 @@
+Title: Fedora/Cinnamon desktop
+URL: https://wiki.sugarlabs.org/go/Fedora/Cinnamon_desktop
+--------------------------------------------------------------------------------
+Cinnamon Desktop
+Updated 2015/06/29
+Contents
+1
+f23 Cinnamon live spin
+1.1
+Alternate to netinstall (bfo.iso)
+1.1.1
+References
+1.1.2
+Testing
+2
+f22 Cinnamon live spin
+3
+f22 Cinnamon live spin
+4
+f21 Cinnamon Live
+4.1
+Download
+4.2
+Add Sugar to Cinnamon Desktop
+5
+f21-Cinnamon-Sugar-Remix
+5.1
+Kickstart files
+5.2
+Create Remix
+6
+Cinnamon Installed as a Second Desktop
+f23 Cinnamon live spin
+Only boots from EFI
+http://koji.fedoraproject.org/koji/taskinfo?taskID=10234581
+Alternate to netinstall (bfo.iso)
+As of 06/27/2015 boot.iso fails and lives only boot in EFI; so we need to have an alternate installer to test rawhide builds.
+http://dl.fedoraproject.org/pub/alt/bfo/bfo.iso
+starts in fedora server
+Change source to:
+https://kojipkgs.fedoraproject.org/mash/rawhide/x86_64/os/
+For rawhide
+References
+https://boot.fedoraproject.org/faq
+https://boot.fedoraproject.org/download
+Testing
+An advantage is this is based on f22 server so less complex password is accepted
+f22 Virtualbox
+f23 workstation x86_64
+f23 cinnamon x86_64 + Plasma from yumex-dnf
+USB external HD from CD
+f23 MATE and extras
+f22 Cinnamon live spin
+5/2/2015
+I would like to submit a Cinnamon spin for review and possible inclusion in future Fedora releases, though I am sure it is too late to include in F22. It is a spin simply using the Cinnamon desktop environment group, and I have been working with the Cinnamon maintainers to fix any issues that have come up in F21 or F22 beta. The proposed spin page is here:
+https://fedoraproject.org/wiki/Cinnamon_Spin
+The kickstart files are available in this repository:
+https://github.com/Grinnz/spin-kickstart-cinnamon
+I have uploaded ISOs for both F21 and F22 beta here:
+http://grinnz.com/public/spins-cinnamon
+-Dan Book
+https://github.com/Grinnz/spin-kickstart-cinnamon/
+f22 Cinnamon live spin
+5/2/2015
+I would like to submit a Cinnamon spin for review and possible inclusion in future Fedora releases, though I am sure it is too late to include in F22. It is a spin simply using the Cinnamon desktop environment group, and I have been working with the Cinnamon maintainers to fix any issues that have come up in F21 or F22 beta. The proposed spin page is here:
+https://fedoraproject.org/wiki/Cinnamon_Spin
+The kickstart files are available in this repository:
+https://github.com/Grinnz/spin-kickstart-cinnamon
+I have uploaded ISOs for both F21 and F22 beta here:
+http://grinnz.com/public/spins-cinnamon
+-Dan Book
+https://github.com/Grinnz/spin-kickstart-cinnamon/
+f21 Cinnamon Live
+Proposed Fedora 21 Spin
+https://fedoraproject.org/wiki/Cinnamon_Spin
+Information: irc freenode #fedora-mate
+Download
+https://grinnz.com/public/spins-cinnamon/
+Add Sugar to Cinnamon Desktop
+in root terminal:
+yum install sugar-runner @sugar-desktop
+f21-Cinnamon-Sugar-Remix
+Root terminal
+yum install livecd-tools spin-kickstarts
+setenforce 0
+Kickstart files
+Copy to Home
+https://raw.githubusercontent.com/Grinnz/spin-kickstart-cinnamon/master/fedora-livecd-cinnamon.ks
+https://raw.githubusercontent.com/Grinnz/spin-kickstart-cinnamon/master/fedora-cinnamon-packages.ks
+edit fedora-cinnamon-packages.ks
+Added (@sugar-desktop and sugar-runner)
+%packages
+
+@networkmanager-submodules
+@cinnamon-desktop
+@libreoffice
+# added by tg
+@sugar-desktop
+sugar-runner
+
+# unlock default keyring. FIXME: Should probably be done in comps
+gnome-keyring-pam
+
+# save some space
+-desktop-backgrounds-basic
+-PackageKit*                # we switched to yumex, so we don't need this
+
+%
+Create Remix
+root terminal
+livecd-creator \
+--config=/home/(user)/fedora-livecd-cinnamon.ks \
+--fslabel=fedora_live_cinnamon_soas_Remix --cache=/var/cache/live --verbose
+completed when this line appears:
+Setting supported flag to 0
+the resulting
+fedora_live_cinnamon_soas_Remix.iso
+is in /home/(user)/
+Cinnamon Installed as a Second Desktop
+Available in several Linux OS's
+http://cinnamon.linuxmint.com/?page_id=61
+f20 Cinnamon 2nd DE
+Download Net installer:
+http://download.fedoraproject.org/pub/fedora/linux/releases/20/Fedora/x86_64/iso/Fedora-20-x86_64-netinst.iso
+:Select Cinnamon
+Add as a second Desktop Environment
+yum install @cinnamon

@@ -1,0 +1,189 @@
+Title: Wish list
+URL: https://wiki.sugarlabs.org/go/Wish_list
+--------------------------------------------------------------------------------
+This is a page composed of selected
+wish list pages
+on the Sugar Labs wiki.
+Visit
+Category:Wish list
+for the known lists.
+Please click a section heading below to visit a featured wish list, and then add your wish.
+Contents
+1
+Teacher feedback
+1.1
+Spreadsheet Activity
+1.2
+Activity for presentations
+1.3
+Options for making a screenshot, screenshot more accessible
+1.4
+Concept maps
+1.5
+Add full name of user
+1.6
+Timeline Activity
+1.7
+Sequence Activity
+1.8
+Offline reading in Browse
+2
+Sugar wish list
+2.1
+Sugar Platform
+2.2
+sugar-emulator
+2.3
+Create a Sugar installation script that users can find with the default GNOME software installer
+3
+Activity Library wish list
+3.1
+Activity Collection comments
+3.2
+Nicknaming it SAL instead of ASLO
+3.3
+Improvements in L10n annotation
+4
+Features/GTK3/API wish list
+5
+Summary
+6
+Owner
+7
+Ideas
+7.1
+Toolbar items factory methods
+7.2
+Code to enable/disable power management
+7.3
+Code to recognize XO-1, XO-1.5, XO-1.75 and other hardware
+8
+School Server Wish List
+9
+Translation Proposal
+10
+See also
+Teacher feedback
+These are items that have been collected from the field by talking with teachers and what they miss using Sugar. Ideally they should be turned later into real
+Category:Feature
+pages later.
+Spreadsheet Activity
+Often Open Office (for kids) is installed to use Calc (spreadsheet) because the SocialCalc activity is not working reliably enough. Also, teachers would like to have an activity to do simple cake and bars graphics (they used SocialCalc for these tasks so far).
+Discussion
+about Open Office 4 kids and 'sugarization'.
+Activity for presentations
+Often Open Office (for kids) is installed to use Impress (presentations) because the SocialCalc activity is not working reliably enough.
+Options for making a screenshot, screenshot more accessible
+Many times they do a screenshot and open it in Paint to remove the toolbar. It would be nice to have options when making a screenshot like: only capture the active window, select an area to make a screenshot from. As well it would be nice to have the screenshot functionality and the options available in the UI. Has been turned into a
+Feature
+already.
+Concept maps
+Teachers would like to have an activity or enhance the labyrinth activity for doing Concept Maps, at the moment they use cmaptools in GNOME, paths forward have been discussed at
+this thread
+.
+Add full name of user
+The teachers asked if it is possible to add a field for the real name of the child and another one for the nickname, because it is difficult to identify them for collaboration.
+Timeline Activity
+To teach history an activity that let's you do timelines has been requested often.
+Sequence Activity
+It would be nice to create a video with a sequence of photos like with
+MovieMaker
+or
+kdenlive
+.
+Offline reading in Browse
+They propose to add an option to Browse to save a PDF file to enable offline reading.
+Sugar wish list
+Use this page to request new features or enhancements to Sugar.
+See also
+Request New Features
+.
+Sugar Platform
+satellit 02/18/2011
+always start sugar at Name_____ screen (not as many distros that start at Color____(for avitar).
+change avitar (CP/about me) name to match that logged in by user when first setting up sugar.
+Change IRC Name to match above and select the appropriate #channel for the distribution. This should be stored permanently until (CP/about me) is changed.
+sugar-emulator
+satellit 03/15/2011
+install sugar-emulator with command "sugar-emulator -f" as default
+This would allow sugar emulator to match screen size of hardware it is running on and always be full screen
+alternately provide a modal button on top frame of emulator window to switch to full screen and back at will.
+until then we keep mentioning it, e.g.
+how to configure full screen
+.
+Create a Sugar installation script that users can find with the default GNOME software installer
+>"Fedora 20's default GNOME3 graphical software installer tool fails to find Sugar, reportedly as Sugar is not considered to be an 'application'."
+This is a significant problem.  Sugar will be more successful if Linux users can easily find it by a simple keyword search in the default installer.  A user should not have to install a new installation app (yumex) in order to find Sugar.  I suggest that the team create an "application" that (i) meets Fedora's criteria for applications and (ii) automatically executes a script that downloads and installs the necessary components of Sugar.  Better yet, the Sugar Learning Platform Package App could even give a user a set of choices of available components and/or activity packages to add to the script.
+Activity Library wish list
+Enter here features or enhancements you would like in the
+Sugar Activity Library
+.
+To track implementation progress, go to
+developers' corner
+.
+Activity Collection comments
+Just like Activity comments
+Nicknaming it SAL instead of ASLO
+And personify SAL, the
+librarian
+, as a new century librarian of Sugar Activities.
+This would be friendlier to children and teachers, and further distinguish our library from the Mozilla origins.
+What about naming it simply:
+Library
+,
+Sugar Library
+, i.e., without any acronyms at all.
+alsroot
+21:55, 18 February 2011 (EST)
+There are befriending and marketing advantages to a nice nickname. Developers will use shorthand regardless, and sal is shorter and easier to pronounce than aslo. As children advance to developers, they will recognize their friend's name in use by the adults and maybe feel like, wow!, I would like to do that too.  There are lots of Salvadors, Sallys, Salvatores, Saleems, etc. who would take note. And we could even spins some legends about the serious activity leader who appropriated the software to build our library, and the Siberian A L who is keeping it working, and the South American and Aotearoan librarians who are working on curation. --
+FGrose
+21:01, 20 February 2011 (EST)
+Improvements in L10n annotation
+It would be good to know if an activity has been internationalized and set up for localization, whether is is hosted in the Sugar Labs Pootle instance or elsewhere.
+Cjl
+17:22, 21 February 2011 (EST)
+Features/GTK3/API wish list
+Summary
+There are a lot of code copy/pasted in the activities, and we can provide a easier API to new/occasional developers.
+Would be good use the change to GTK3 to improve our small sugar-toolkit/sugar APIs
+This pages is right now, to discuss ideas, and collect useful information.
+Owner
+The Activity Team
+Ideas
+Toolbar items factory methods
+Walter use in his activities factory methods to create buttons, separators, entry, etc.
+This remove a lot of duplicated code.
+Example:
+def _label_factory(label, toolbar):
+Factory for adding a label to a toolbar
+my_label = gtk.Label(label)
+   my_label.set_line_wrap(True)
+   my_label.show()
+   _toolitem = gtk.ToolItem()
+   _toolitem.add(my_label)
+   toolbar.insert(_toolitem, -1)
+   _toolitem.show()
+   return my_label
+def _entry_factory(length, toolbar, callback):
+Factory for adding a text enrty to a toolbar
+my_entry = gtk.Entry()
+   my_entry.set_max_length(length)
+   my_entry.set_width_chars(length)
+   my_entry.connect('changed', callback)
+   my_entry.show()
+   _toolitem = gtk.ToolItem()
+   _toolitem.add(my_entry)
+   toolbar.insert(_toolitem, -1)
+   _toolitem.show()
+   return my_entry
+We can add methods like create_button, create_label and create_entry to the toolbar
+Code to enable/disable power management
+Many activities have code to deal with pm.
+Code to recognize XO-1, XO-1.5, XO-1.75 and other hardware
+A few activities repeat code to recognize hardware.
+More problems ahead
+http://dev.laptop.org/ticket/11116
+School Server Wish List
+Translation Proposal
+See also
+Request New Features

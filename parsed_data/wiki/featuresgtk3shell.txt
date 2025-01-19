@@ -1,0 +1,352 @@
+Title: Features/GTK3/Shell
+URL: https://wiki.sugarlabs.org/go/Features/GTK3/Shell
+--------------------------------------------------------------------------------
+Manuq started the port of the shell branching the hippo removal. The main issues were identified by Daniel Drake some months ago and fortunately most of them are fixed at this point.
+Daniel Narvaez set up a sugar-build branch to make the port. To test:
+git clone
+git://git.sugarlabs.org/~dnarvaez/sugar-build/manuqs-shell-port.git
+That is sugar-build with this sugar components branched:
+http://git.sugarlabs.org/~manuq/sugar/manuqs-erikos-shell-port
+http://git.sugarlabs.org/~manuq/sugar-toolkit-gtk3/manuqs-sugar-toolkit-gtk3
+Contents
+1
+Open
+1.1
+foreach/forall
+1.2
+gtk_clipboard_set_with_data not introspected
+1.3
+gdk_property_change
+1.4
+gdk_property_get
+1.5
+Palettes
+1.6
+Icon/EventIcon: badge is not drawn at the correct position
+1.7
+Artwork
+1.8
+Port hardcoded styles to the CSS stylesheet
+1.9
+Palettes can't include menu and widgets at the same time
+1.10
+A handful of NMClient issues
+1.11
+Drag-and-drop in home view, random layout
+1.12
+Other issues
+2
+Done
+2.1
+Custom tree model for journal
+2.2
+key grabber
+2.3
+Xkl.ConfigRec does not have set_model() method
+2.4
+Owner icon allocation issue
+2.5
+Port the gstreamer code to pygi
+2.6
+Remove resize grips
+2.7
+Custom Icon cell renderer
+2.8
+gconf_client_get_list not introspectable
+2.9
+Custom TreeModelSort for home list view
+2.10
+can't call gdk_window_set_user_data()
+2.11
+do_forall not working in pygobject
+2.12
+cant call gdkwindow.raise()
+2.13
+can not listen to signals in subclassed subclasses
+2.14
+set_data/get_data not available anymore
+2.15
+libxklavier
+Open
+foreach/forall
+Using gtk_container_foreach or
+gtk_container_forall
+does expect the callback data to be passed in Python, it does work in a subclassed container due to Carlos
+fix in the GtkCallback annotations
+.
+gtk_clipboard_set_with_data not introspected
+In the
+annotations
+it is marked as non-introspectable.
+http://www.daa.com.au/pipermail/pygtk/2011-July/019940.html
+- check with pygobject devs if the above statement is still the case
+It seems like functions with multiple callbacks are still unsupported in pygi. I opened
+https://bugzilla.gnome.org/show_bug.cgi?id=682604
+but unless someone suggest a way to not break API perhaps we should just add our own sugar_clipboard_set_data using closures for now --dnarvaez
+gdk_property_change
+Is
+marked as non-introspectable
+in the annotations.
+>>> from gi.repository import Gdk
+>>> Gdk.property_change
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/erikos/sources/manuqs-shell-port/install/lib/python2.7/site-packages/gi/module.py", line 266, in __getattr__
+    return getattr(self._introspection_module, name)
+  File "/home/erikos/sources/manuqs-shell-port/install/lib/python2.7/site-packages/gi/module.py", line 115, in __getattr__
+    self.__name__, name))
+AttributeError: 'gi.repository.Gdk' object has no attribute 'property_change'
+We have a wrapper for this in sugar-toolkit-gtk3 --dnarvaez
+gdk_property_get
+The
+gdk_property_get annotations
+mark it as introspectable.
+Not working:
+def _property_get_trapped(window, prop, prop_type):
+    Gdk.error_trap_push()
+
+    prop_atom = Gdk.Atom.intern(prop, False)
+    type_atom = Gdk.Atom.intern(prop_type, False)
+
+    logging.warning("get prop %s %s %s", window, prop_atom, type_atom)
+    prop_info = Gdk.property_get(window, prop_atom, type_atom, 0, 9999, False)
+TypeError: Could not caller allocate argument 6 of callable property_get
+Maybe add to gdkwrapper in sugar-toolkit-gtk3? --dnarvaez
+Palettes
+Palettes in Views do popup/popdown in a loop:
+fix in sugar-toolkit-gtk3/port
+FavoritePalette: wrong order of items:
+fix in sugar/port
+when you switch views always the owner Palette comes up
+Home View: when a Palette is up, the search entry is de-focused
+Palette label: 1) icon has gray background and 2) the positioning is not at the left, 3) there is no separation line below the label
+Journal ListView entry Palette: "AttributeError: 'CellRendererActivityIcon' object has no attribute 'get_display'"
+Frame, friend Palette draws not at the correct position
+Mix Menus and Widgets: Palettes can not mix both Menus and Widgets. Gonzalo has implemented a
+SugarMenuItem
+which can be used instead.
+Icon/EventIcon: badge is not drawn at the correct position
+Filed as
+SL #3835
+Artwork
+Changes in the theme to adopt to:
+Palette Icon: background
+GtkLabel: background
+Browse: Notebook label: background
+Port hardcoded styles to the CSS stylesheet
+For example in sugar/extensions/cpsection/network/view.py we have things like:
+label_server = gtk.Label(_('Server:'))
+        label_server.set_alignment(1, 0.5)
+        label_server.modify_fg(gtk.STATE_NORMAL,
+                               style.COLOR_SELECTION_GREY.get_gdk_color())
+Palettes can't include menu and widgets at the same time
+We can use anything like this:
+class SugarMenuItem(gtk.EventBox):
+
+    __gsignals__ = {
+        'clicked': (gobject.SIGNAL_RUN_FIRST, None, [])
+    }
+
+    def __init__(self, icon_name, label_text):
+        gtk.EventBox.__init__(self)
+        self._sensitive = True
+        vbox = gtk.VBox()
+        hbox = gtk.HBox()
+        vbox.set_border_width(style.DEFAULT_PADDING)
+        self.icon = Icon()
+        self.icon.props.icon_name = icon_name
+        hbox.pack_start(self.icon, expand=False, fill=False,
+                padding=style.DEFAULT_PADDING)
+        align = gtk.Alignment(xalign=0.0, yalign=0.5, xscale=0.0, yscale=0.0)
+        text = '<span foreground="%s">' % style.COLOR_WHITE.get_html() + \
+                    label_text + '</span>'
+        self.label = gtk.Label()
+        self.label.set_use_markup(True)
+        self.label.set_markup(text)
+        align.add(self.label)
+        hbox.pack_start(align, expand=True, fill=True,
+                padding=style.DEFAULT_PADDING)
+        vbox.pack_start(hbox, expand=False, fill=False,
+                padding=style.DEFAULT_PADDING)
+        self.add(vbox)
+        self.id_bt_release_cb = self.connect('button-release-event',
+                self.__button_release_cb)
+        self.id_enter_notify_cb = self.connect('enter-notify-event',
+                self.__enter_notify_cb)
+        self.id_leave_notify_cb = self.connect('leave-notify-event',
+                self.__leave_notify_cb)
+        self.modify_bg(gtk.STATE_NORMAL, style.COLOR_BLACK.get_gdk_color())
+        self.show_all()
+        self.set_above_child(True)
+
+    def __button_release_cb(self, widget, event):
+        self.emit('clicked')
+
+    def __enter_notify_cb(self, widget, event):
+        self.modify_bg(gtk.STATE_NORMAL,
+                style.COLOR_BUTTON_GREY.get_gdk_color())
+
+    def __leave_notify_cb(self, widget, event):
+        self.modify_bg(gtk.STATE_NORMAL, style.COLOR_BLACK.get_gdk_color())
+
+    def set_icon(self, icon_name):
+        self.icon.props.icon_name = icon_name
+
+    def set_label(self, label_text):
+        text = '<span foreground="%s">' % style.COLOR_WHITE.get_html() + \
+                    label_text + '</span>'
+        self.label.set_markup(text)
+
+    def set_sensitive(self, sensitive):
+        if self._sensitive == sensitive:
+            return
+
+        self._sensitive = sensitive
+        if sensitive:
+            self.handler_unblock(self.id_bt_release_cb)
+            self.handler_unblock(self.id_enter_notify_cb)
+            self.handler_unblock(self.id_leave_notify_cb)
+        else:
+            self.handler_block(self.id_bt_release_cb)
+            self.handler_block(self.id_enter_notify_cb)
+            self.handler_block(self.id_leave_notify_cb)
+            self.modify_bg(gtk.STATE_NORMAL, style.COLOR_BLACK.get_gdk_color())
+And add them to a vbox:
+# TODO: private!!!
+        self._content.set_border_width(0)
+ 
+        self._play_pause_button = SugarMenuItem('player_play',
+                _('Say selected text'))
+        self._play_pause_button.connect('clicked', self.__play_clicked_cb)
+        vbox_menu.add(self._play_pause_button)
+To do the SegurMenuItem take all the width in the palette, we need set the border_width in _content to zero,
+but that is a private member. Then we need to look if we add a method to set the it, 
+or change the api to make the first container (where is the menu today) useful for other type of widgets.
+In Manuq branch, palettes are blinking when mouse is over the icon.
+AssertionError:
+Traceback (most recent call last):
+   File "/home/manuq/prog/manuqs-shell-port/install/lib/python2.7/site-packages/sugar3/graphics/palette.py", line
+     or isinstance(self._widget, _PaletteWindowWidget)
+ AssertionError
+A handful of NMClient issues
+See
+http://mail.gnome.org/archives/python-hackers-list/2011-August/msg00003.html
+and the other posts in the thread. Some problems resolved, some probably still pending.
+Drag-and-drop in home view, random layout
+Partially done in
+commit 204899e2
+.  Pending issue: the activity icon is not being displayed while dragging.
+(sugar-session:13647): Gtk-CRITICAL **: gtk_drag_source_set_icon_pixbuf: assertion `site != NULL' failed
+Other issues
+activity launch icon in the frame does not stop fading in and out, like loading
+widgets like icons and texts have grey background instead of black (toolbar-grey) - this is because of a change in gtk (seen in Browse too)
+Done
+Custom tree model for journal
+Fix from: Manuel Quiñones, Simon Schampijer, Gonzalo Odiard
+Custom tree model sample:
+http://dev.laptop.org/~manuq/shell-port/test_custom_treemodel-gtk3.py
+Having trouble reimplementing this. See
+http://mail.gnome.org/archives/python-hackers-list/2011-December/msg00010.html
+this bug
+might be related see 8f31e85db1392eb7222593fc0d05144c2bca06a3 in pygobject.
+Gonzalo provided an initial patch, and Manuq worked over it.
+key grabber
+Fix from: Simon Schampijer
+- grab_keys needs to be introspectable,
+patch
+- is_modifier does not allow to pass no mask anymore, has to be something like "is_modifier(keycode, mask=Gdk.ModifierType.MOD1_MASK)"
+Xkl.ConfigRec does not have set_model() method
+Fix from: Manuel Quiñones, Sergey V. Udaltsov
+This should be called in the setup keyboard at the startup. setup_keyboard_cb in sugar/bin/sugar-session .  Reported in pygobject as:
+https://bugzilla.gnome.org/show_bug.cgi?id=681566
+Seems that libxklavier needs a setter.  Reported to libxklavier as
+https://bugzilla.freedesktop.org/show_bug.cgi?id=53547
+Owner icon allocation issue
+Fix from: Simon Schampijer
+in commit cd29d065.
+Port the gstreamer code to pygi
+Fix from: Daniel Narvaez
+in commit f74489e6 .
+Remove resize grips
+Fix from: Manuel Quiñones
+Resize grip has been moved from GtkStatusbar to GtkWindow.  See "Resize grip" section of the
+GTK+2 > GTK+3 porting guide
+.
+Done in
+commit 3efb87f3
+.
+Custom Icon cell renderer
+Fix from: Manuel Quiñones
+sugar3.graphics.icon.CellRendererIcon is based on pygtks GenericCellRenderer - needs to be ported
+gconf_client_get_list not introspectable
+Workaround from: Daniel Drake
+The
+annotations
+mark it as non-introspectale.
+opened an upstream bug:
+https://bugzilla.gnome.org/show_bug.cgi?id=681433
+similar boxed types fix:
+https://bugzilla.gnome.org/show_bug.cgi?id=613247
+The keyboard is not set up yet because of this as is being called in setup_keyboard_cb in sugar/bin/sugar-session .
+Needs:
+http://git.sugarlabs.org/~manuq/sugar/manuqs-erikos-shell-port/commit/74c77ed68912ec9253f509ba25ff05cebb4fba97
+http://git.sugarlabs.org/~manuq/sugar/manuqs-erikos-shell-port/commit/be519897a1cbd759e4feca640a95317804bedbc0
+Custom TreeModelSort for home list view
+Fix from: Simon Feltman, Manuel Quiñones
+Can't inherit GtkTreeModelSort and pass a model to the parent constructor.  Filed as:
+https://bugzilla.gnome.org/show_bug.cgi?id=681477
+Working testcase for pygtk:
+http://dev.laptop.org/~manuq/test_listmodel2_gtk2.py
+Testcase that shows the issue in PyGi:
+http://dev.laptop.org/~manuq/test_listmodel2_gtk3.py
+Needs:
+can be made to work by passing keyword arguments e.g. "Gtk.TreeModelSort.__init__(self, model=self._model_filter)"
+can't call gdk_window_set_user_data()
+In the latest implementation we don't use set_user_data anymore AFAIK.
+http://mail.gnome.org/archives/python-hackers-list/2011-September/msg00006.html
+do_forall not working in pygobject
+Fix from: Tomeu Vizoso, John Palmieri, Carlos Garnacho
+Needs:
+https://bugzilla.gnome.org/show_bug.cgi?id=663052
+gobject-introspection was merged 2012-07-13
+https://bugzilla.gnome.org/show_bug.cgi?id=644926
+pygobject missing header file in patch. was merged 2012-03-27
+http://git.gnome.org/browse/gtk+/commit/?id=db569cbee7e3842d802c5f1d53e28d0dde98ffeb
+fix which landed in GTK+
+cant call gdkwindow.raise()
+Fix from: Martin Pitt
+Needs:
+https://bugzilla.gnome.org/show_bug.cgi?id=676746
+fix landed in pygobject
+use gtk_window.get_window().raise_ instead
+can not listen to signals in subclassed subclasses
+Fix from: Carlos Garnacho
+ActivityIcon.do_draw never called, see
+http://bugs.sugarlabs.org/ticket/3386
+Needs:
+https://bugzilla.gnome.org/show_bug.cgi?id=672864
+fix landed in pygobject
+set_data/get_data not available anymore
+Fix in toolkit-gtk3 from: Simon Schampijer
+More background info in:
+https://bugzilla.gnome.org/show_bug.cgi?id=641944
+Needs:
+http://git.sugarlabs.org/sugar-toolkit-gtk3/sugar-toolkit-gtk3/commit/af320f91f800ed9a46e84f12e9aa1ae3b95493b4
+we can use python attributes here
+libxklavier
+Fix from: Manuel Quiñones
+This is
+how
+Anaconda
+is using
+libxklavier
+in Python (found when coming across
+this bug
+, Colin
+enabled introspection for libxklavier
+).
+You have to use Xkl.Engine.get_instance(display)
+instead of the constructor
+. Manuq made sure the API we use is there.
+This testcase
+was useful.

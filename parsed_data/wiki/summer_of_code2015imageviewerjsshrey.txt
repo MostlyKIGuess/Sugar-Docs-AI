@@ -1,0 +1,242 @@
+Title: Summer of Code/2015/ImageViewerJSshrey
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2015/ImageViewerJSshrey
+--------------------------------------------------------------------------------
+Contents
+1
+About Me
+2
+About my project
+2.1
+APPLICATION FEATURES
+2.2
+APPLICATION FRAMEWORK/LIBRARIES USED
+3
+Me and the community
+4
+Miscellaneous
+About Me
+What is your name?
+Shrey Anand
+What is your email address?
+Email Address -  shrey.anand@ymail.com, shreyanandwhatever@gmail.com
+What is your Sugar Labs wiki username?
+Sugar Labs wiki  Username– Shrey
+What is your IRC nickname on irc.freenode.net?
+IRC nickname on irc.freenode.net
+:
+shrey_yay
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My first language is Hindi. I’m fluent in English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I live in New Delhi, India(Standard Time +0530 UTC)
+I tend to work from 4.00 – 20-00 hours (UTC)
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer
+I have not worked on  a project before this in open source.  I started coding an year back. I’m now
+comfortable in C, C++, python , java and JavasScript. I’ve learned these
+languages and made elementary programs with them and participated in
+competitive programming  but I think open source projects are a great way of implementing these languages, since you can read code
+written by professionals, improve them, and then write your own code.
+As stated by Richard Stallman in one
+of his interviews that students in colleges should contribute to open source as
+their college projects instead of making new projects from scratch, I think
+open source projects give us a vantage point to real and professional
+programming. This summer I would like to contribute to Sugar Labs for the port
+of ImageViewer activity in JavaScript.
+About my project
+What is the name of your project?
+Image Viewer/Processor JS
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+I will make an Image viewer in JavaScript( a web application) which will be similar to existing python Image Viewer in Sugar and will have additional features. The application will be made for students. It will induce creativity and learning through its playful user interface and fun tutorials attached with it. The detailed structure of the application is explained further.
+APPLICATION FEATURES
+The application will be able to view images from local disk or web
+It will be able to edit images, rotate, scale them.
+It will have advanced image processing features such as
+Crop, resize
+Control brightness, contrast, sharpness, noise  etc.
+RGB controllers. Three sliders for  R, G, B, with which students can increase or decrease respective values of the pixels of the image.
+HSV controllers. Three sliders for  H,S,V with which students can increase or decrease respective values of the pixels of the image.
+Apply effects like sepia ,grayscale ,vintage, removing red eye, lomo etc.
+For convolution filters, we can have an input matrix(3*3) in which weights can be adjusted by the students.
+It will have both mouse and key events. Example: zoom in can be achieved by clicking on icon and '+' key on the keyboard. Similarly others.
+It will  support Slide show of images
+It will also support text addition
+Drag and drop option
+Save edited image
+The application will also have  Exif support.
+It will have touch interface for the devices supporting touch technology.
+The application will have a Plugin mechanism for adding further effects and features.
+The application will have a  “
+fun facts”
+or “
+tutorial
+” section. In this section children will be introduced to the world of pixels. How pixels make an image and how they can be manipulated using the Image Viewer/Processor  application. Each filter will be explained through description/ images/ animations.  This will encourage them to think out of the box and if their effects created through RGB data manipulation  are good enough they can create their own plugin!  The RGB/HSV controllers can explain how pixels values can be changed in an image. Incresing all RGB values with the same amount increases the brightness, taking average of RGB values can give grayscale effect, for advance filters like blur,sharpness, edge detection which use convolution filters, an input matrix (3*3)  will be made so that students can enter different weights and see the consequent result. All these will be accompanied by live examples explained thoroughly in the tutorial section. Reference links for further advance study will also be given. ( A demo of this can be seen in the prototype mentioned below)
+Documentation
+LEARNER  INTERFACE ( UI )
+The learner interface designed will be  different from existing Python Imageviewer activity  and will have
+Pedagogical significance.
+Children
+of ages  young (3–5), mid-range (6–8), and older (9–12+)  have different likings of  UI of web apps as shown by studies. (source
+http://www.nngroup.com/articles/childrens-websites-usability-issues/
+)
+A Learner  Interface with bright colors, medium-large font will  be designed appealing to the minds of all children belonging to all age group.
+APPLICATION FRAMEWORK/LIBRARIES USED
+The application will use HTML5, CSS and JavaScript
+Most filters will be written from scratch  in javaScript so that they can be explained easily to the users.
+In JavaScript two libraries will be used –
+JQuery- for transitions ,and other events
+Caman.JS- It is a predefined library for effects, It’ll be used only for much advanced effects and filters.
+The application will use Canvas 2d and not traditional SVG because canvas is best for pixel manipulation. Source (
+http://blogs.msdn.com/b/ie/archive/2011/04/22/thoughts-on-when-to-use-canvas-and-svg.aspx
+)
+The application will not use Webgl, instead it will use canvas 2D  because for a small number of objects the difference is not much whereas canvas 2D is supported by more number of browsers. Source(
+https://developer.tizen.org/dev-guide/2.2.0/org.tizen.web.appprogramming/html/guide/w3c_guide/graphics_guide/performance_comparison.htm
+)
+What is the timeline for development of your project? The Summer of Code work period is from May 25 - August 21 tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then
+WEEK
+TASK
+27 April -  11 May
+Pre program week 1 – Discuss the final 
+  features required with my mentor walter, libraries to be used, any other information that is needed pertaining to the project
+11May  -25 May
+Work and Plan out the design of
+  the application, Cross browser compatible design and solutions
+25 May -  1 June
+Create the  structure
+  HTML,CSS ,Create JavaScript to
+  load images (semester exams in college).
+1 June – 8 June
+Add  basic features -
+Fullscreen, original view
+Crop, resize, rotate
+Start working on UI
+Keyboard events
+8 June – 15 June
+Add  advance features, filters-
+Grayscale
+Brightness
+Blur,sharpen
+Vintage,lomo etc
+Remove red eye
+Initiate tutorials
+15 june – 26 June
+Implement
+Plug in mechanism,
+Touch interface,
+Drag drop option,
+Save image
+Functioning application with almost all features will be ready.
+26 June – 3 July
+Mid term Evaluation Buffer week,
+3 July – 10 July
+If required we can add extra features like framing an image, adding watermarks.
+Demo plugins
+Check the code in multiple browsers, cross browser compatibility
+Testing
+10 July – 22 July
+Enhance tutorials.
+Present the code in front of kids and teachers,
+Note the challenges faced and collect their feedback,
+22 July – 5 August
+Make changes to code according to the feedback,
+Clean up UI,
+Fix bugs,
+Finalize
+5 August – 11 August
+Polish tutorials,
+Write documentation
+11 Aug – 21 Aug
+Wrap up the complete work and
+  submit the code for Final Evaluations
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences,credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I joined sugar labs a month back and from then I’m only concentrating on ImageViewer activity, I was considering to improve the original python imageviewer as a project but  since this time focus was on JavaScript and a port of imageviewer was required, I learned JavaScript and am determined to make a well designed, structured ImageViewer.
+I have developed a
+prototype
+with
+two templates
+to show how the application flow will be and how its interface can look like.
+1)
+http://github.com/Shreyanand/ImageViewerJS0
+http://rawgit.com/Shreyanand/ImageViewerJS0/master/index.html
+2)
+https://github.com/Shreyanand/ImageViewerJS
+http://rawgit.com/Shreyanand/ImageViewerJS/master/index.html
+Creativity- The project focuses on both the working code as well as the interface of the application equally, so like in my prototype the UI of the application can be made more attractive and child friendly.
+Optimization – I believe in creating code that is optimized to its best. A simple example: preloading images using image object of JavaScript instead of creating HTML image object. This helps in speeding up. Source(
+http://www.techrepublic.com/article/preloading-and-the-javascript-image-object
+). Small differences like these can go a long way. If such care is taken before
+writing every line of code, a robust application can be created.
+I was rank 393 worldwide and 31 in my country in a programming competition organized by Institute of Electrical and Electronics Engineers (
+IEEE
+) called IEEExtreme 2014. source (
+country India, name Bughunters
+)
+GSOC is top priority in summers, will work for around 45-50 hours a week and more if required.
+I’m familiar with submission, review, Github process
+I'm familiar with sugar environment, source code, activities
+I enjoy working with C,C++,java,Python, and JavaScript, HTML, CSS
+Me and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My thoughts:
+The project will be completed successfully.
+ImageViewer activity is an important cog in the sugar labs machine, It provides a graphical visualization of study material which reduces cognitive load and helps learners in managing their ideas and making connections between the information resources. Our brain defaults to images for words, when it can. We remember 
+images. We forget words. When kids first start to read, their brain tries to
+ interpret letters as images. Put several letters together and their brain
+ has to think through each individual letter as an image. At some point,
+ it reads combined letters and thinks of the image, instead of the word!
+No educational material is complete without Images and Imageviewer is an essential program to view them. Sugarlabs is creating web support for children who can’t afford an OLPC laptop, so Imageviewer in javascript running in any browser will help out to reach many more children who can benefit from sugar.
+This ImageViewer in JavaScript will have a new child-friendly learner interface and many new exciting features.One of the most important benefits of this activity is that it will induce learning. Image processing is a vast field and many creative things can be done through it. My application will
+also
+focus on  how children can understand pixel manipulation
+.   Through this they can learn how filters actually work and how they can create their own effects. Creativity has no bounds and when given the right tools one can create unimaginable art work.
+Walter Bender
+Image is a core modality of human expression. But we have
+few tools within Sugar to let the user manipulate images. Thus the importance
+of the project. But taking it a step further, we have an opportunity to engage
+the learning in some powerful ideas as they engage in expression with images: exposing
+them to the inner workings of image processing, not just doing the work for them, can make the application of the tool a learning moment.
+Gonzalo Odiard
+The impact on SugarLabs community would be to have better tools to understand how the images are processed by the computer, and increase the possibilities of expression of kids.
+Email id: godiard@sugarlabs.org
+Martin Abente Lahaye (tch)
+The more quality tools we provide the better, image processing can be an interesting tool for expression, it has been proven with many commercial tools for the general public, why would it be different for kids
+Email id: tch@sugarlabs.org
+What will you do if you get stuck on your project and your mentor isn't around?
+Getting stuck is not an option, If a problem occurs and my mentor isn’t around then
+I'm sure there will always be willing developers from the sugar community who can help
+IRC and mailing lists of sugar are a great way of asking doubts
+Internet is always a nonperishable source
+I’ve subscription to libraries if needed
+I’ve friends and teachers in college who’ll be ready to help whenever I need it.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+Create a
+Wiki page
+for overall project state containing: ToDo, wishlist, setup, how-to send patches/pull reqs, etc.
+Maintain a
+blog
+for detailed weekly progress and how the development is coming along.
+Questions asked via
+IRC
+and/or mailing list.
+Major milestones
+announced to Community via
+mailing list
+.
+Miscellaneous
+We want to make sure that you can set up a development environment before the summer starts. Please do
+one
+of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Describe a great learning experience you had as a child.
+I’ve always been a keen learner . I like to explore new things. As a child I was always fascinated by how laws of nature worked in rhythm explained by simple mathematical formulas, Later in my life when I started coding, I realized it is nothing but a structure of logical statements just like how nature works. The fact that I can create anything in this virtual world encourages me to code.
+Is there anything else we should have asked you or anything else that we
+should know that might make us like you or your project more?
+I believe that educating children  is
+the most effective way in which one can make a difference in someone’s life and
+from personal experience I find that teaching is a great way of clearing my own
+concepts.  While  developing the prototype and demo tutorials of
+this project a lot of my own doubts got cleared.
+The whole process of preparing , researching  and then making the GSOC project fosters so
+much understanding and creativity and if the end product of the project is itself
+a tool for learning then there’s nothing better than that. One of the reasons
+for joining Sugar Labs was so that I could be a part of this learning
+environment.

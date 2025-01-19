@@ -1,0 +1,57 @@
+Title: Math4Team/RIT/Projects/Question Support API/API Design
+URL: https://wiki.sugarlabs.org/go/Math4Team/RIT/Projects/Question_Support_API/API_Design
+--------------------------------------------------------------------------------
+Proposed API
+The Quiz API would be a python library, to act mostly as glue between various
+file formats (and local or remote resources) for question data and the client
+Activity.
+quizdata.open(uri, [cache=False])
+Opens a URI, returning a list of quizdata.Question instances.  A standard method of filtering question data based on parameters should be specified.  Examples of URIs that might be used:
+http://xs-server/math4class/current_topic?format=gift
+           file:///var/lib/mathquestions/quiz1?format=moodlexml
+xmpp://teacheraccount@xs.server/classname?format=gift&difficulty=hard&level=4
+The cache parameter would locally save the retrieved questions to a persistent storage so requests from the same URI (with cache=True) would read from the cache.
+class quizdata.Question
+This class contains individual data for a question:
+The question text
+The style of answer (incl. multiple-choice, numeric, free response, etc.)
+The correct answer (or if the question is subjective, that there *is* no correct answer). This includes answers for which the student may receive partial credit.
+Question difficulty
+Grade level
+Tags (for free-form grouping by topic, course, instructor, etc.)
+The question text and answers should support at least minimal markup, like that supported by pango, in addition to markup rendering with MathML/LaTeX syntax. (This requires a markup_type parameter of some kind.)
+The attributes listed above will should grow standardized names and be documented as part of the interface to the Question class.
+Question.answered
+Returns True if the student has provided an answer for the Question.
+Question.submitted
+Returns True if the student has submitted an answer for the Question. XXX: Useful to make a distinction between answered and submitted?
+Question.correct
+Returns True if the currently selected answer is correct for the Question. XXX: What to do about partial credit? Value between 0 and 1?
+Question.answer
+Returns the answer the student has currently selected, or None if no answer has been entered.
+quizdata.write_responses(questions, file_object, objective=None)
+Writes to file_object the CSV formatted information about the list of questions passed.  The CSV is formatted as follows: macaddress, nickname, learning_objective, correctness.  The macaddress field is to be only 12 hexadecimal digits, normalized to lower-case.  The learning_objective field can be supplied for all questions, or the write_responses function will simply leave the column blank if not supplied.
+URL Design
+As the example URLs above (in the documentation of quizdata.open) show, any number of possible scheme and resource-path implementations are possible, pending development time to implement them. The URLs will need to conform to certain constraints on parameters, in order to satisfy basic API requirements.  Most importantly, a required "format" specifies what parsing backend to use for the retrieved data.  Initially the following formats are being targeted:
+[
+Moodle GIFT
+]
+[
+Moodle XML
+]
+A native format (probably sqlite-based).
+Additional parameters could include the following:
+level
+The board grade-/other- level  of the question(s)
+difficulty
+The relative difficulty of the question, in comparison to other questions of the same  level.
+category / tag
+A general taxonomic filter. Possibly specified multiple times, if so, result is the *intersection* of the separate result sets (AND, not OR).
+More evaluation is necessary for the filtering functionality, perhaps a separate mechanism for filtering is needed.
+Implementation Issues
+The URI lookup and question filtering based on parameters will be necessary.
+Further design and discussion is required.
+Parsing the various format parsers necessary to build the Question objects.
+For markup support, some simple way to give the client activities and easy way
+to display it would be desirable. (Restrict the list of markup formats? Require
+supplying plain text in addition?)

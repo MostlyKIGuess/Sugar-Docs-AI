@@ -1,0 +1,22 @@
+Title: Activity Library/Devel/Queries
+URL: https://wiki.sugarlabs.org/go/Activity_Library/Devel/Queries
+--------------------------------------------------------------------------------
+Contents
+1
+Useful SQL Queries
+1.1
+Add-on Count
+1.2
+Listing of all 3.0 Add-ons without 3.1 compatibility
+1.3
+Listing of all Featured/Category Recommended addons
+Useful SQL Queries
+Add-on Count
+Retrieves the number of add-ons that support Firefox, are public, sandboxed, or nominated, and are active.
+select count(*) from addons inner join versions on versions.id=(select id from versions where versions.addon_id=addons.id order by id desc limit 1) inner join applications_versions on applications_versions.version_id=versions.id where addons.inactive=0 and addons.status in (1,3,4) and applications_versions.application_id=1;
+Listing of all 3.0 Add-ons without 3.1 compatibility
+Also used for a mail merge spreadsheet, hence the inclusion of developer contact info.
+select a.addon_id, translations.localized_string, sum(count), compat.topver, users.firstname, users.lastname, users.email from update_counts a join (select a.id, a.supportemail, a.name, max(e.version) as topver from addons a, versions c, applications_versions d, appversions e where a.id = c.addon_id and c.id=d.version_id and d.max = e.id and a.addontype_id =1 and d.application_id = 1 and e.version >= 3.0 group by a.id) as compat on (compat.id = a.addon_id) join translations on (translations.id = compat.name) join addons_users on (addons_users.addon_id = a.addon_id) join users on (addons_users.user_id = users.id) where date = '2009-01-14' and compat.topver < 3.1 and translations.locale = 'en-us' group by 1 order by 3 desc
+Listing of all Featured/Category Recommended addons
+Used to output a listing of all Featured and Category Recommended addons, with an outer join to show features.id.  If features.id = null then the addon is only category recommended and not featured.
+select a.id, b.localized_string, b2.localized_string, averagerating,totalreviews, max(e.version), features.id from (addons a, translations b, translations b2, versions c, applications_versions d, appversions e, addons_tags f, tags g, (select id from addons where id in (select addon_id from features) or id in (select addon_id from addons_tags where feature=1)) as h, (select tag_id from addons_tags where feature=1) as i) left join features on (a.id = features.addon_id) where a.id = h.id and a.id=f.addon_id and f.tag_id = g.id and g.name = b2.id and b2.locale = 'en-us' and g.id = i.tag_id and d.max=e.id and a.id = c.addon_id and c.id=d.version_id and a.name = b.id and b.locale = 'en-US' and a.addontype_id =1 and d.application_id = 1 group by 1 order by sum(weeklydownloads) desc

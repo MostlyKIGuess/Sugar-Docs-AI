@@ -1,0 +1,372 @@
+Title: Features/Enhanced color selector/Patch-view
+URL: https://wiki.sugarlabs.org/go/Features/Enhanced_color_selector/Patch-view
+--------------------------------------------------------------------------------
+diff --git a/extensions/cpsection/aboutme/view.py b/extensions/cpsection/aboutme/view.py
+index d92de87..6183f78 100644
+--- a/extensions/cpsection/aboutme/view.py
++++ b/extensions/cpsection/aboutme/view.py
+@@ -21,11 +21,14 @@ from gettext import gettext as _
+ from sugar.graphics.icon import Icon
+ from sugar.graphics import style
+ from sugar.graphics.toolbutton import ToolButton
+-from sugar.graphics.xocolor import XoColor
++from sugar.graphics.xocolor import XoColor, get_random_color
+ 
+ from jarabe.controlpanel.sectionview import SectionView
+ from jarabe.controlpanel.inlinealert import InlineAlert
+ 
++_DIRECTION_CENTER = 0
++_DIRECTION_LEFT = 1
++_DIRECTION_RIGHT = 2
+ 
+ class EventIcon(gtk.EventBox):
+     __gtype_name__ = "SugarEventIcon"    
+@@ -40,121 +43,56 @@ class EventIcon(gtk.EventBox):
+ 
+         self.add(self.icon)
+         self.icon.show()
+-"""
+-class StopButton(ToolButton):
+-
+-    def __init__(self, **kwargs):
+-        ToolButton.__init__(self, 'activity-stop', **kwargs)
+-        self.props.tooltip = _('Stop')
+-        self.props.accelerator = '<Ctrl>Q'
+-        self.connect('clicked', self.__stop_button_clicked_cb)
+-
+-    def __stop_button_clicked_cb(self, button):
+-        print "out damn spot"
+-"""
+-class ColorPicker(EventIcon):
+-    __gsignals__ = {
+-        'color-changed': (gobject.SIGNAL_RUN_FIRST,
+-                          gobject.TYPE_NONE,
+-                          ([str]))
+-    }
+-    def __init__(self, me, xo_color=None):
+-        EventIcon.__init__(self)
+-        self.icon.props.xo_color = xo_color
+-        self.icon.props.icon_name = 'computer-xo'
+-        self.icon.props.pixel_size = style.XLARGE_ICON_SIZE
+-        self.connect('button_press_event', self.__pressed_cb, me)
+-
+-    def __pressed_cb(self, button, event, me):
+-        me.set_random_colors()
+ 
+-class ColorPrev(EventIcon):
+-    __gsignals__ = {
+-        'color-changed': (gobject.SIGNAL_RUN_FIRST,
+-                          gobject.TYPE_NONE,
+-                          ([str]))
+-    }
+-    def __init__(self, me, xo_next_color=None):
+-        EventIcon.__init__(self)
+-        self.icon.props.xo_color = xo_next_color
+-        self.icon.props.icon_name = 'computer-xo'
+-        self.icon.props.pixel_size = style.STANDARD_ICON_SIZE
+-        self.connect('button_press_event', self.__pressed_cb, me)
+-
+-    def __pressed_cb(self, button, event, me):
+-        me.set_prev_colors()
+-
+-class ColorNext(EventIcon):
++class ColorPicker(EventIcon):
+     __gsignals__ = {
+         'color-changed': (gobject.SIGNAL_RUN_FIRST,
+                           gobject.TYPE_NONE,
+                           ([str]))
+     }
+-    def __init__(self, me, xo_next_color=None):
++    def __init__(self, me, xo_color=None, direction=_DIRECTION_CENTER):
+         EventIcon.__init__(self)
+-        self.icon.props.xo_color = xo_next_color
+         self.icon.props.icon_name = 'computer-xo'
+-        self.icon.props.pixel_size = style.STANDARD_ICON_SIZE
+-        self.connect('button_press_event', self.__pressed_cb, me)
+-
+-    def __pressed_cb(self, button, event, me):
+-        me.set_next_colors()
+-
+-class ColorUndo(EventIcon):
+-    __gsignals__ = {
+-        'color-changed': (gobject.SIGNAL_RUN_FIRST,
+-                          gobject.TYPE_NONE,
+-                          ([str]))
+-    }
+-    def __init__(self, me):
+-        EventIcon.__init__(self)
+-        self.icon.props.icon_name = 'edit-undo'
+-        # self.icon.props.icon_name = 'view-refresh'
+-        # self.icon.props.accelerator = '<Ctrl>z'
+-        xocolor = XoColor()
+-        xocolor.set_color("#FFFFFF,#FFFFFF")
+-        self.icon.props.xo_color = xocolor
+-        self.icon.props.pixel_size = style.MEDIUM_ICON_SIZE
+-        self.connect('button_press_event', self.__pressed_cb, me)
+-
+-    def __pressed_cb(self, button, event, me):
+-        me.undo_colors()
+-
+-class Prev(EventIcon):
+-    __gsignals__ = {
+-        'color-changed': (gobject.SIGNAL_RUN_FIRST,
+-                          gobject.TYPE_NONE,
+-                          ([str]))
+-    }
+-    def __init__(self, me):
+-        EventIcon.__init__(self)
+-        self.icon.props.icon_name = 'go-left'
+-        xocolor = XoColor()
+-        xocolor.set_color("#FFFFFF,#808080")
+-        self.icon.props.xo_color = xocolor
+-        self.icon.props.pixel_size = style.STANDARD_ICON_SIZE
+-        self.connect('button_press_event', self.__pressed_cb, me)
+-
+-    def __pressed_cb(self, button, event, me):
+-        me.set_prev_colors()
++        if direction == _DIRECTION_CENTER:
++            self.icon.props.pixel_size = style.XLARGE_ICON_SIZE
++            self.icon.props.xo_color = xo_color
++        else:
++            self.icon.props.pixel_size = style.STANDARD_ICON_SIZE
++            if direction == _DIRECTION_LEFT:
++                self.icon.props.xo_color = XoColor(xo_color.get_prev_color())
++            else:
++                self.icon.props.xo_color = XoColor(xo_color.get_next_color())
++        self.connect('button_press_event', self.__pressed_cb, me, direction)
++
++    def __pressed_cb(self, button, event, me, direction):
++        if direction == _DIRECTION_LEFT:
++            me.set_prev_colors()
++        elif direction == _DIRECTION_RIGHT:
++            me.set_next_colors()
++        else:
++            me.set_random_colors()
+ 
+-class Next(EventIcon):
++class DirectionButton(EventIcon):
+     __gsignals__ = {
+         'color-changed': (gobject.SIGNAL_RUN_FIRST,
+                           gobject.TYPE_NONE,
+                           ([str]))
+     }
+-    def __init__(self, me):
++    def __init__(self, me, direction):
+         EventIcon.__init__(self)
+-        self.icon.props.icon_name = 'go-right'
+-        xocolor = XoColor()
+-        xocolor.set_color("#FFFFFF,#808080")
+-        self.icon.props.xo_color = xocolor
++        if direction == _DIRECTION_LEFT:
++            self.icon.props.icon_name = 'go-left'
++        else:
++            self.icon.props.icon_name = 'go-right'
++        self.icon.props.xo_color = XoColor("#FFFFFF,#808080")
+         self.icon.props.pixel_size = style.STANDARD_ICON_SIZE
+-        self.connect('button_press_event', self.__pressed_cb, me)
++        self.connect('button_press_event', self.__pressed_cb, me, direction)
+ 
+-    def __pressed_cb(self, button, event, me):
+-        me.set_next_colors()
++    def __pressed_cb(self, button, event, me, direction):
++        if direction == _DIRECTION_LEFT:
++            me.set_prev_colors()
++        else:
++            me.set_next_colors()
+ 
+ class AboutMe(SectionView):
+     def __init__(self, model, alerts):
+@@ -162,9 +100,6 @@ class AboutMe(SectionView):
+ 
+         self._model = model
+         self._xo_color = XoColor(self._model.get_color_xo())
+-        self._undo_colors = self._xo_color.to_string()
+-        self._xo_next_color = XoColor(self._xo_color.get_next_color())
+-        self._xo_prev_color = XoColor(self._xo_color.get_prev_color())
+         self.restart_alerts = alerts
+         self._nick_sid = 0
+         self._color_valid = True
+@@ -184,7 +119,7 @@ class AboutMe(SectionView):
+ 
+         self._color_box = gtk.HBox(spacing=style.DEFAULT_SPACING)
+         self._color_alert_box = gtk.HBox(spacing=style.DEFAULT_SPACING)
+-        self._color_picker = None
++        self._current_color = None
+         self._color_alert = None
+         self._setup_color()        
+ 
+@@ -232,36 +167,28 @@ class AboutMe(SectionView):
+         self._color_box.pack_start(label_color, expand=False)
+         label_color.show()
+ 
+-        self._color_prev = ColorPrev(self,self._xo_prev_color)
+-        self._color_box.pack_start(self._color_prev, expand=False)
+-        self._color_prev.show()
++        self._color_previous = ColorPicker(self, self._xo_color,
++                                           _DIRECTION_LEFT)
++        self._color_box.pack_start(self._color_previous, expand=False)
++        self._color_previous.show()
+         
+-        self._prev = Prev(self)
++        self._prev = DirectionButton(self, _DIRECTION_LEFT)
+         self._color_box.pack_start(self._prev, expand=False)
+         self._prev.show()
+ 
+-        self._color_picker = ColorPicker(self,self._xo_color)
+-        self._color_box.pack_start(self._color_picker, expand=False)
+-        self._color_picker.show()
++        self._current_color = ColorPicker(self, self._xo_color, 
++                                          _DIRECTION_CENTER)
++        self._color_box.pack_start(self._current_color, expand=False)
++        self._current_color.show()
+ 
+-        self._next = Next(self)
++        self._next = DirectionButton(self, _DIRECTION_RIGHT)
+         self._color_box.pack_start(self._next, expand=False)
+         self._next.show()
+ 
+-        self._color_next = ColorNext(self,self._xo_next_color)
++        self._color_next = ColorPicker(self, self._xo_color, _DIRECTION_RIGHT)
+         self._color_box.pack_start(self._color_next, expand=False)
+         self._color_next.show()
+ 
+-        self._color_undo = ColorUndo(self)
+-        self._color_box.pack_start(self._color_undo, expand=False)
+-        self._color_undo.show()
+-
+-        """
+-        self._stop = StopButton()
+-        self._color_box.pack_start(self._stop, expand=False)
+-        self._stop.show()
+-        """
+-
+         label_color_error = gtk.Label()
+         self._group.add_widget(label_color_error)
+         self._color_alert_box.pack_start(label_color_error, expand=False)
+@@ -279,83 +206,51 @@ class AboutMe(SectionView):
+         self._color_alert_box.show()
+     
+     def set_prev_colors(self):
+-        # update next color to the current color
+-        self._xo_next_color.set_color(self._xo_color.to_string())
+-        self._color_next.icon.props.xo_color = self._xo_next_color
+-        self._color_next.emit('color-changed', self._xo_next_color.to_string())
+-        # update color picker to the prev color
+-        self._undo_colors = self._xo_color.to_string()
+-        self._xo_color.set_color(self._xo_prev_color.to_string())
+-        self._color_picker.icon.props.xo_color = self._xo_color
+-        self._color_picker.emit('color-changed', self._xo_color.to_string())
+-        # update prev color to its prev color
+-        self._xo_prev_color.set_color(self._xo_prev_color.get_prev_color())
+-        self._color_prev.icon.props.xo_color = self._xo_prev_color
+-        self._color_prev.emit('color-changed', self._xo_prev_color.to_string())
++        # update the next color to the current color
++        self._color_next.icon.props.xo_color = self._xo_color
++        # update the current color to the previous color
++        self._xo_color.set_color(self._xo_color.get_prev_color())
++        self._current_color.emit('color-changed', self._xo_color.to_string())
++        self._current_color.icon.props.xo_color = self._xo_color
++        # update the previous color to its previos color
++        prev_color = XoColor(self._xo_color.get_prev_color())
++        self._color_previous.icon.props.xo_color = prev_color
+ 
+     def set_random_colors(self):
+-        # update this color to a random color
+-        self._undo_colors = self._xo_color.to_string()
+-        self._xo_color.set_color(self._xo_color.get_random_color())
+-        self._color_picker.icon.props.xo_color = self._xo_color
+-        self._color_picker.emit('color-changed', self._xo_color.to_string())
+-        # update prev color from the current color
+-        self._xo_prev_color.set_color(self._xo_color.get_prev_color())
+-        self._color_prev.icon.props.xo_color = self._xo_prev_color
+-        self._color_prev.emit('color-changed', self._xo_prev_color.to_string())
+-        # update next color from the current color
+-        self._xo_next_color.set_color(self._xo_color.get_next_color())
+-        self._color_next.icon.props.xo_color = self._xo_next_color
+-        self._color_next.emit('color-changed', self._xo_next_color.to_string())
++        # update the current color to a random color
++        self._xo_color.set_color(get_random_color())
++        self._current_color.icon.props.xo_color = self._xo_color
++        self._current_color.emit('color-changed', self._xo_color.to_string())
++        # update the previous color from the current color
++        prev_color = XoColor(self._xo_color.get_prev_color())
++        self._color_previous.icon.props.xo_color = prev_color
++        # update the next color from the current color
++        next_color = XoColor(self._xo_color.get_next_color())
++        self._color_next.icon.props.xo_color = next_color
+ 
+     def set_next_colors(self):
+-        # update prev color to the current color
+-        self._xo_prev_color.set_color(self._xo_color.to_string())
+-        self._color_prev.icon.props.xo_color = self._xo_prev_color
+-        self._color_prev.emit('color-changed', self._xo_prev_color.to_string())
+-        # update color picker to the next color
+-        self._undo_colors = self._xo_color.to_string()
+-        self._xo_color.set_color(self._xo_next_color.to_string())
+-        self._color_picker.icon.props.xo_color = self._xo_color
+-        self._color_picker.emit('color-changed', self._xo_color.to_string())
+-        # update next color to its next color
+-        self._xo_next_color.set_color(self._xo_next_color.get_next_color())
+-        self._color_next.icon.props.xo_color = self._xo_next_color
+-        self._color_next.emit('color-changed', self._xo_next_color.to_string())
+-
+-    def undo_colors(self):
+-        # undo last change
+-        tmp = self._xo_color.to_string()
+-        self._xo_color.set_color(self._undo_colors)
+-        self._undo_colors = tmp
+-        self._color_picker.icon.props.xo_color = self._xo_color
+-        self._color_picker.emit('color-changed', self._xo_color.to_string())
+-        # update prev color from the current color
+-        self._xo_prev_color.set_color(self._xo_color.get_prev_color())
+-        self._color_prev.icon.props.xo_color = self._xo_prev_color
+-        self._color_prev.emit('color-changed', self._xo_prev_color.to_string())
+-        # update next color from the current color
+-        self._xo_next_color.set_color(self._xo_color.get_next_color())
+-        self._color_next.icon.props.xo_color = self._xo_next_color
+-        self._color_next.emit('color-changed', self._xo_next_color.to_string())
+-    
++        # update the previous color to the current color
++        self._color_previous.icon.props.xo_color = self._xo_color
++        # update the current color to the next color
++        self._xo_color.set_color(self._xo_color.get_next_color())
++        self._current_color.icon.props.xo_color = self._xo_color
++        self._current_color.emit('color-changed', self._xo_color.to_string())
++        # update the next color to its next color
++        next_color = XoColor(self._xo_color.get_next_color())
++        self._color_next.icon.props.xo_color = next_color
++
+     def setup(self):
+         self._nick_entry.set_text(self._model.get_nick())
+-        # mycolor = self._model.get_color_xo()
+-        self._color_picker.icon.props.xo_color = self._xo_color
+-        self._color_next.icon.props.xo_color = self._xo_next_color
+-        self._color_prev.icon.props.xo_color = self._xo_prev_color
+-
+         self._color_valid = True
+         self._nick_valid = True
+         self.needs_restart = False
+-        self._nick_change_handler = self._nick_entry.connect( \
++        self._nick_change_handler = self._nick_entry.connect(
+                 'changed', self.__nick_changed_cb)
+-        self._color_change_handler = self._color_picker.connect( \
++        self._color_change_handler = self._current_color.connect(
+                 'color-changed', self.__color_changed_cb)
+ 
+     def undo(self):
+-        self._color_picker.disconnect(self._color_change_handler)
++        self._current_color.disconnect(self._color_change_handler)
+         self._nick_entry.disconnect(self._nick_change_handler)
+         self._model.undo()
+         self._nick_alert.hide()
+@@ -392,8 +287,8 @@ class AboutMe(SectionView):
+         self._nick_alert.show()
+         return False
+ 
+-    def __color_changed_cb(self, colorpicker, xocolor):        
+-        self._model.set_color_xo(xocolor)
++    def __color_changed_cb(self, colorpicker, xo_color):
++        self._model.set_color_xo(xo_color)
+         self.needs_restart = True
+         self._color_alert.props.msg = self.restart_msg
+         self._color_valid = True

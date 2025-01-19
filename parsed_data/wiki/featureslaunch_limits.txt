@@ -1,0 +1,101 @@
+Title: Features/Launch Limits
+URL: https://wiki.sugarlabs.org/go/Features/Launch_Limits
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+7.1
+Notes on using Gconf
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Provide limits to the number of open activities and number of open instances of an activity.
+Owner
+Name:
+Walter Bender
+Email: <walter AT sl.o>
+Current status
+Targeted release: (1.02)
+Last updated: (5 November 2013)
+Percentage of completion: 100%
+See
+[1]
+and
+[2]
+Detailed Description
+Set limit to open activities and open instances
+At the request of OLPC AU (in an effort to reduce OOM freezes) this
+patch uses gconf to set a maximum number of open activities. An
+alert is shown if the user tries to launch more activities than the
+maximum asking them to close an activity before opening a new one. If
+maximum_number_of_open_activites is not set or == 0, then there is no
+maximum limit applied.
+Further, Some activities don't behave well if more than one instance
+is open (e.g., SL #4554). This patch sets a limit on the number open
+instances of an activity based on a new field in activity.info:
+single_instance.
+If and only if the single_instance field is present in
+activity.info, is it used to set the limit of open instances.
+single_instance = yes
+Benefit to Sugar
+This is a feature that is already used in one major deployment. It seems to reduce OOM freezes and confusion about why activities such as Record fail when multiple copies are open.
+Scope
+In sugar: jarabe/desktop/homewindow.py jarabe/journal/journalactivity.py jarabe/journal/misc.py jarabe/view/launcher.py and jarabe/model/shell.py
+In the toolkit: sugar3/bundle/activitybundle.py
+Also impacts the activity.info file of any activity that wishes to set a limit to the number of open instances:
+single_instance = yes
+How To Test
+Maximum instances:
+Add a single_instance = yes field to the activity.info file of an activity
+Launch repeatedly and see if a limit is set
+Maximum launches:
+From terminal gconftool-2 -t int -s /desktop/sugar/maximum_number_of_open_activities 4
+reboot
+See if more than 4 activities can be launched
+From terminal gconftool-2 -u /desktop/sugar/maximum_number_of_open_activities
+reboot
+See if there is any limit to the number of activities that can be launched
+Notes on using Gconf
+The previous "how to test" section assumes familiarity with Gconf. Gconf is the Gnome preferences configuration system. It is being used to store Sugar preferences in this case. You can start the tool from the command line in Terminal. The -2 in gconftool-2 means that you are using version 2 of Gconf. Typical switches are
+-s    set a value
+-u    unset a value
+-g    get (print) a value
+-t     set the type (eg int) of a value
+User Experience
+The direct impact on the user who have the gconf limit set is to get feedback when too many activities are launched. Activity developers can set a limit to the number of instances that can be launched.
+Dependencies
+No new dependencies
+Contingency Plan
+None. The feature is complete pending code review.
+Documentation
+The gconf setting used by this feature is:
+/desktop/sugar/maximum_number_of_open_activities
+The new (optional) field in the activity.info file is:
+single_instance
+Release Notes
+Comments and Discussion
+http://lists.sugarlabs.org/archive/sugar-devel/2013-November/045585.html
+See
+discussion tab for this feature

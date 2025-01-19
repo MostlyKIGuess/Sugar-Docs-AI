@@ -1,0 +1,127 @@
+Title: Summer of Code/2009/Multimedia-broadcasting
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2009/Local-multimedia-chat
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+Q:
+What is your name?
+A: Geza Kovacs
+Q:
+What is your email address?
+A: gkovacs -at- mit -dot- edu
+Q:
+What is your Sugar Labs wiki username?
+A: gkovacs
+Q:
+What is your IRC nickname?
+A: gkovacs
+Q:
+What is your primary language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+A: English
+Q:
+Where are you located, and what hours do you tend to work? (We also try to match mentors by general time zone if possible.)
+A: USA, either Pacific or Eastern time zones. I tend to work anytime between 8AM to midnight.
+Q:
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+A: My two most successful open-source projects to date (with over 2 million downloads apiece) are Wubi and UNetbootin, both of which I launched during my high school years. I have also worked on some other minor projects for which I have open-sourced code, most of which can be found around my launchpad page if they are of particular interest; however the major projects I am currently working on as part of undergraduate research (mostly related to audio and video analysis in the context of emotion recognition based on facial and speech features) are unfortunately currently proprietary (but we expect to open-source it in May).
+http://wubi-installer.org/
+Designed, initially led development of, and created the prototypes and early versions of the Windows-based Ubuntu Installer, now part of Ubuntu 8.04, which allows Windows users to safely install Ubuntu Linux without repartitioning their hard drives.
+http://unetbootin.sourceforge.net/
+Creator, Lead Developer, and Maintainer of UNetbootin, a cross-platform utility to perform network installations or create bootable USB flash drives for a wide variety of Linux distributions.
+Further details about of my FOSS development activities (code repository, bug reports, specs) can be found on
+http://launchpad.net/~gezakovacs
+About your project
+Q:
+What is the name of your project?
+A: A Framework for multimedia broadcasting to students on the local network
+Q:
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+This project aims to create an Activity to allow users (primarily teachers or students presenting material in clas) to easily broadcast and stream audio and video from their webcam and microphone or their computer's display output to a classroom's central server, and share the live feed with their peers (the rest of the classroom). This would be of use for various other purposes as well, such as for displaying lecture slides. This will be integrated into the Neighborhood View (as a "broadcast audio and video to" option or similar) to allow for most seamless sharing of broadcasts.
+Rationale
+This project does not aim to recreate Skype or similar central-server small-scale conferencing software; rather it aims to displace the usage of expensive projectors for displaying lecture slides and multimedia. This project's local-peer-discovery and mass-broadcasting architecture would be of use in a classroom setting for the following reasons:
+As we have seen in classroom settings such as MIT's TEAL project (for teaching introductory Physics), in the context of displaying live information, whether it be a video feed from a presentation or just lecture slides, to a large group of students for an experiment, lecture, or the like, a video feed must be established and broadcast, ideally via several video displays. In TEAL, many projectors placed throughout the classroom are used for this purpose; however for an elementary school this would be prohibitively expensive. Assuming said elementary school is running a pilot program of Sugar-equipped laptops, they can instead have each student's laptop "listen" to incoming audio and video broadcasts, and display it when received.
+To summarize, this is essentially more of an attempt to replicate what projectors, presentations, and laser pointers are used for today (broadcasting info to the students and soliciting their feedback), rather than an activity-specific rich-immersion one-on-one student
+collaboration attempt. The advantage is merely convenience and cost; it eliminates the need for an expensive projector to display lecture slides, and if the student is receiving the stream from the teacher, he can view it from
+the convenience of his laptop, or he can for example pause, rewind, or record the stream if it's being cached, which he would be unable to do
+if the teacher is merely displaying information on a projector.
+Architecture
+This will utilize an architecture involving multiple peers and a single local Icecast server, all communicating over the local wireless network/mesh. When a user intends to broadcast a new video, the client will automatically send a request, authentication and identification details, to the classroom's Icecast server. The Icecast server does not necessarily have to be a dedicated server; the software could, for example, be running on the teacher's laptop; it would merely need to advertise its service via mDNS. Once confirmed, the stream is then uploaded and streamed to the local Icecast server via GStreamer, creating a unique URL for the stream. When the user invites others, or perhaps the entire class, to view the stream, then it would send the URL of the stream to the target user, and the peer's identification details. This would be done through the central server to increase security by making spoofing more difficult. By utilizing an external Icecast server to handle the video broadcasting itself, even a resource-constrained machine such as an XO-1 should be able to broadcast video, albeit encoded with less cpu-intensive codecs and settings to compensate for the lack of cpu power on such machines.
+Since Icecast lacks support for multicast broadcasting, another FOSS streaming server such as Helix Server or VLC may need to be used; alternatively Farsight's RTP multicast may also be of use; I will investigate this prior to the start of GSoC.
+Accepting New Streams
+There is an obvious security risk of unsolicited streams appearing on students' laptops, especially if the broadcasting occurs from an online source (though this GSoC project does not aim to address online sources, since most in-class activity originates locally anyhow). It is also crucial to make the display of new streams from teachers or peers as easy as possible. Thus, an identification scheme (PGP keys? OpenID?) should be available to uniquely identify users on the network and their role as either peers or teachers. For notification, there can either be a background service which will monitor the port designated for announcing new streams and display a notification, or this monitoring functionality could be built into the activity itself, though this would require that students have the activity open when the stream broadcast is announced.
+For locally-originating sources (within a classroom), a confirmation dialog will display the name of the broadcaster, and if confirmed, will launch the multimedia broadcasting/receiving activity if it has not already been launched, and will display the stream. For higher-priority sources, such as teachers in that particular classroom, the stream could be launched without confirmation to ensure that students do not accidentally miss the confirmation notice.
+Broadcasting Interface
+Upon launching the activity, the user will be presented with a "Broadcast" button. Upon clicking this, the user will be presented with a list of possible video sources the user can select - webcam or screen. The user will also be given the option to broadcast an audio source - in this case a microphone. The user will also be shown a map of laptops on the local neighborhood to which the stream can be broadcast and the associated laptop's user's name. and the user may either individually check laptops to broadcast the stream to, or press a "broadcast to all" button which would broadcast to all the local laptops, or if bandwidth issues would be encountered due to the presence of too many laptops, the situation would be handled as mentioned in the next section. After selecting multimedia sources and broadcasting targets, the user would press a "Start Broadcasting" button, and the laptop would display the stream that is currently being broadcast, and a "stop broadcasting" button to end the broadcast.
+Addressing Bandwidth Issues
+For extremely large classrooms, bandwidth issues may arise due to limitations of the wireless network. In this case, to ensure that all students are able to view the stream without saturating the network, when the teacher selects "Broadcast to All", the software would first determine the number of new streams that could be streamed based on existing network activity, bandwidth required per stream, and the network's bandwidth capacity. Then, it would retrieve the locations of the laptops in the classroom, and select a number of laptops equivalent to the number of supported streams such that the selected laptops would be in proximity to the unselected laptops, thereby allowing those students who are not receiving the streams to their own laptop to view the stream on a nearby laptop.
+Alternatively, bandwidth usage when broadcasting to a large classroom with unicast could also be limited by broadcasting a low-framerate stream based on the number of users. While this would lead to a clear degradation in quality in the case of full-motion video, this is a rather niche medium to be shown in class; rather, lecture slides, which are what projectors are usually used for, would appear perfectly with a low-framerate stream.
+The usage of UDP multicast broadcasting will also help conserve bandwidth and prevent lag in the video, thus as mentioned in "Architecture" if a streaming server such as Helix Server is used instead then this can be taken advantage of. However the combined usage of multicast and unicast streams on a single access point introduces many performance issues, so this may not be realistic in the context of broadcasting full-motion video (though for the primary target usage, lecture slides, which requires considerably less bandwidth to broadcast, there shouldn't performance issues with either unicast or multicast).
+Viewing Interface
+Since students may be interested in viewing multiple streams at once (for example, one stream showing the overall demonstration of the experiment and one showing a magnified view of a particular bacteria culture), then the interface should be able to automatically resize and tile individual streams to display them all at once while best utilizing screen space.
+The interface will also include options to save streams to the journal, from which they could later be viewed. If the stream is being cached to the disk, the student will also have an option to pause and rewind the video stream.
+Audio and Video Sources
+For the project, Webcams and X11 desktop output would be supported as video sources, and the microphone for would be an audio source. Capturing X11 desktop output would additionally allow for presentation of lecture slides via this system. These will of course not be hard-coded into the application, but will be represented as generic "media source" plugins. For example, since this architecture could have the potential to replace the standard projector-based lecture presentation mechanism, perhaps other media formats, namely PDF lecture slides, might be supported as a future enhancement (beyond the scope of this GSoC) as well.
+Video Interaction
+There should be some equivalent of a "pointer" on the video broadcasting-side, for highlighting important information. There might also be a "pointer" for pointing out comments on the receiver's side, though this would probably cause more trouble and distraction in the classroom rather than promote useful feedback to the presenter, thus this probably won't be implemented. For the sake of cpu usage efficiency on less powerful machines like XOs, annotations will not be encoded as part of the video stream; they will instead be transmitted seperately from the video file, much like external subtitles, in a format using a simple coordinate system (time, x, y, color) and would be overlayed on top of the video following decoding.
+Programming Languages and Libraries
+Since sugar-chat-activity uses Python, I will likely be using it for this project as well. The GStreamer libraries will be used for communicating with the Icecast server and uploading multimedia. Ogg will probably be used as the container, Theora will be used as the video codec, and Vorbis will be used as the audio codec, since this is a relatively well-supported combination (supported for in-browser playback on upcoming browsers) and poses no licensing issues, though thanks to the flexibility of GStreamer any other supported codecs and container could alternatively be used. As XOs do not apparently have enough cpu power to encode Theora video live at acceptable resolution and framerates, older, less cpu-intensive codecs, such as MPEG-1, MJPEG, or H.261 may be used as video codecs instead.
+Contingency Plan
+Discussions on the mailing list have made it clear that full-motion video broadcasting over a wireless network to a large classroom, either via unicast or multicast, is going to be a very difficult technical challenge. Potential solutions to this are listed under "Addressing Bandwidth Issues". Should all of this nevertheless run into technical issues that prevent large-scale broadcasting of full-motion video due to bandwidth and airtime issues, this activity could still be a useful means to broadcast lecture slides, which require much lower framerates and bandwidth and are thus less likely to run into bandwidth issues, or perhaps for small-scale audio and video broadcasting (aka one-to-one video conferencing).
+Q:
+What is the timeline for development of your project? The Summer of Code work period is 7 weeks long, May 23 - August 10; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (July 6-13); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Prior to the start of the coding period
+Review the GStreamer and Sugar APIs.
+Week 1
+Write a GStreamer-based webcam video capture backend and X11 desktop video capture backends.
+Week 2
+Write the microphone audio capture backend, and the Icecast server uploading code.
+Week 3
+Write the server-side authentication code and security mechanisms.
+Milestone 1 Reached
+Week 4
+This week is set aside for finishing up work from weeks 1-3 if needed, soliciting and addressing any feedback regarding the backend, documenting the backend code on the wiki, and performing testing and bug-fixing of the backend with a rudimentary, very simple client-side frontend.
+Week 5
+Create the client-side frontend, as described in "Interface".
+Week 6
+Finish work on the client-side frontend, and integrate options to broadcast multimedia into the Neighborhood view.
+Week 7
+Finish any work on the client-side frontend that has yet to be finished, perform a second cycle of feedback gathering, and testing, then write client-side documentation on the wiki.
+Q:
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I have created successful (2 million+ downloads) FOSS projects in the past, with similar intense development timelines of a few weeks (please see details on the two major FOSS projects I created,
+Wubi
+and
+UNetbootin
+, described above, as well as my
+Launchpad
+profile).
+With respect to experience this field of multimedia broadcasting I created a prototype application in Qt for an unrelated project with a feature that performs video broadcasting over Icecast to local devices (albeit via gstreamer-tools, in a more crude manner than I aim to do so) a few months ago, which can be found at
+http://launchpad.net/tde
+In that project, the focus was on interaction of mobile Internet Tablet devices with other household electronics, such as TVs and the like, as well as the exploration of a time-centric desktop computing paradigm. However, the icecast-based broadcasting architecture there is similar (albeit far more primitive, lacking security features, and restricted to only local devices as targets) to what I aim to implement here. Having learned more about the constraints and architecture of mass-video broadcasting over Icecast, I believe I now have the necessary knowledge to deliver a production-ready implementation of the described multimedia-broadcasting activity.
+In addition, I have also worked with video APIs (primarily FFmpeg's libavcodec/libavformat, and OpenCV, though I have used GStreamer on another project) as part of my current undergaduate research project (unfortunately currently proprietary) focused on emotion recognition based on facial and speech features, so I am familiar with how to perform real-time video and audio capture and addressing the usual issues that show up in terms of laggy capture performance or locking threads; in this case this should be even simpler as no data processing must be done.
+Regarding development pace, I will have no other commitments this summer so I will be able to spend my full time on development.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Answer from me:
+The completion of this project would give teachers more dedicated to traditional, presentation-based curriculum a new means to broadcast multimedia such as lecture slides, live lab demonstrations, live demonstrations on software usage, or other multimedia. The potential for this project to reduce teachers' dependence on projectors, and even replace the need for expensive projectors, would also make it attractive financially for any budget-limited schools considering participation in the pilot program.
+Sugar Labs will be working to set up a small (5-30 unit) Sugar pilot near each student project that is accepted to GSoC so that you can immediately see how your work affects children in a deployment. We will make arrangements to either supply or find all the equipment needed. Do you have any ideas on where you would like your deployment to be, who you would like to be involved, and how we can help you and the community in your area begin it?
+At this time I not certain of whether I will be spending my summer in Cambridge, MA, or Garden Grove, CA. I believe, however, that I will likely be at the former location. I believe there are already some deployments nearby that I can visit, and have no particular preference for the other questions.
+What will you do if you get stuck on your project and your mentor isn't around?
+I would utilize the mailing lists to get help from others. Given that the bulk of this project consists of several mostly-independent backend components, I could also fix issues with the other backends, or work on writing documentation and cleaning code up while awaiting help.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+For documenting general progress and milestones achieved, I will be using a page on the Sugar Wiki which can be watched by any interested members. For any problems or questions I encounter, I will be sending email to the appropriate mailing lists, so those subscribed to them would be informed about it.
+Miscellaneous
+Replaced "Reboot" with "gkovacs@mit.edu".
+What is your t-shirt size? (Yes, we know Google asks for this already; humor us.)
+L
+Describe a great learning experience you had as a child.
+The first time I entered the local public library with the intention of checking out books for personal reading enjoyment, I went through the fiction section and checked out many well-known fantasy novels, then spent the next 3 weeks reading through them, probably doing more reading than I had ever done before. Though I didn't learn much factual information, the experience instilled in me a passion for reading.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?

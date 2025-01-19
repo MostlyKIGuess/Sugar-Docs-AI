@@ -1,0 +1,60 @@
+Title: Human Interface Guidelines/Core Ideas
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/Core_Ideas
+--------------------------------------------------------------------------------
+english
+|
+español
+|
+한국어
+|
+português
+HowTo
+[ID# 73628]
++/-
+←
+Introduction
+Core Ideas
+Design Fundamentals
+→
+Contents
+1
+Core Ideas
+1.1
+Activities, Not Applications
+1.2
+Presence is Always Present
+1.3
+Tools of Expression
+1.4
+Journaling
+Core Ideas
+Activities, Not Applications
+There are no
+software applications
+in the traditional sense on the laptop. The laptop focuses children around "
+activities
+." This is more than a new naming convention; it represents an intrinsic quality of the learning experience we hope the children will have when using the laptop. Activities are distinct from applications in their foci—collaboration and expression—and their implementation—journaling and iteration.
+API Reference
+Sugar Activity APIs
+Sugar Library Package: sugar.presence
+Presence is Always Present
+Everyone has the potential for being both a learner and a teacher.  We have chosen to put collaboration at the core of the user experience in order to realize this potential. The presence of other members of the learning community will encourage children to take responsibility for others' learning as well as their own. The exchange of ideas amongst peers can both make the learning process more engaging and stimulate critical thinking skills. We hope to encourage these types of social interaction with Sugar.
+In order to facilitate a collaborative learning environment, Sugar employs a network to interconnect users. By exploiting connectivity, every activity has the potential to be a networked activity. We aspire that all activities take advantage of the network; any activity that is not network-aware should perhaps be rethought in light of connectivity.  As an example, consider the web-browsing activity bundled with Sugar distribution. Normally one browses in isolation, perhaps on occasion sending a friend a favorite link. On Sugar, however, a link-sharing feature integrated into the browser activity transforms the solitary act of web-surfing into a group collaboration. Where possible, all activities should embrace the network and place strong focus on facilitating such collaborative processes.
+Tools of Expression
+Starting from the premise that we want to make use of what people already know in order to make connections to new knowledge, our approach focuses on thinking, expressing, and communicating with technology. The laptop is a "thing to think with"; we hope to make the primary activity of the children one of creative expression, in whatever form that might take. Thus, most activities will focus on the creation of some type of object, be it a drawing, a song, a story, a game, or a program. In another shift in the language used to describe the user experience, we refer to objects rather than files as the primary stuff of creative expression.
+As most software developers would agree, the best way to learn how to write a program is to write one, or perhaps teach someone else how to do so; studying the syntax of the language might be useful, but it doesn't teach one how to code. We hope to apply this principle of "learning through doing" to all types of creation, e.g., we emphasise composing music over downloading music. We also encourage the children to engage in the process of collaborative critique of their expressions and to iterate upon this expression as well.
+The objectification of the traditional filesystem speaks more directly to real-world metaphors: instead of a sound file, we have an actual sound; instead of a text file, a story. In order to support this concept, activity developers may define object types and associated icons to represent them.
+Journaling
+The concept of the
+Journal
+, a written documentation of everyday events, is generally understood, albeit in various forms across cultures. A journal typically chronicles the activities one has done throughout the day. We have chosen to adopt a journal metaphor for the filesystem as our basic approach to file organization. While the underlying implementation of such a filesystem does not differ significantly from some of those in contemporary operating systems, it also holds less importance than the journal abstraction itself.
+At its core, our journal concept embodies the idea that the filesystem records a history of the things a child has done, or, more specifically, the activities a child has participated in.  Its function as the store of the objects created while performing those activities is secondary, although also important. The Journal naturally lends itself to a chronological organization (although it can be tagged, searched, and sorted by a variety of means).  As a record of things a child has
+done
+—not just the things a child has
+saved
+—the Journal will read much like a portfolio or scrapbook history of the child's interactions with the machine and also with peers. The Journal combines entries explicitly created by the children with those which are implicitly created through participation in activities; developers must think carefully about how an activity integrates with the Journal more so than with a traditional filesystem that functions independently of an application. The activities, the objects, and the means of recording all tightly integrate to create a different kind of computer experience.
+←
+Introduction
+Core Ideas
+Design Fundamentals
+→

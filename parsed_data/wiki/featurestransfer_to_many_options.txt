@@ -1,0 +1,151 @@
+Title: Features/Transfer to many options
+URL: https://wiki.sugarlabs.org/go/Features/Transfer_to_many_options
+--------------------------------------------------------------------------------
+Contents
+1
+Basic Usage
+2
+Credits
+3
+Example Workflow for Peer-To-Peer Mode
+4
+NOTES
+5
+SCREENSHOTS
+6
+[PEER 1] "Journal" - View.
+7
+[PEER 1] Detail view of the journal-entry. Note the preview presence.
+8
+[PEER 1] Initial "Local Shares" View
+9
+[PEER 1] Copy the journal entry to "Local Shares", to make it available for sharing to other peers.
+10
+[PEER 1] "Local Shares" view, after copying the entry.
+11
+[PEER 1] The detail view in "Local Shares". NOTE that the preview MUST be present, and it must be same as that of "Journal".
+12
+[PEER 2] Initial "Journal" - View.
+13
+[PEER 2] Neighborhood View.
+14
+[PEER 2] Click on "Access Share" of the peer, whose shares need to be accessed.
+15
+[PEER 2] The peer's shares are mounted.
+16
+[PEER 2] Copy the entry to the journal.
+17
+[PEER 2] Final "Journal" View.
+18
+[PEER 2] Detail-view of the entry. Note that the preview is the same as was on the remote peer.
+19
+Example Workflow for Via-School-Server Mode
+20
+NOTES
+21
+SCREENSHOTS
+22
+[UPLOAD] Initially, no entries are present on the school-server.
+23
+[UPLOAD] Choose an entry to upload to the school-server.
+24
+[UPLOAD] Enter the pasphrase when prompted.
+25
+[UPLOAD] After uploading, ensure that the entry has in fact been uploaded to the school-server.
+26
+[DOWNLOAD] Initial "Documents" view.
+27
+[DOWNLOAD] Choose to copy the entry from school-server, to "Documents".
+28
+[DOWNLOAD] Enter (incorrect) password.
+29
+[DOWNLOAD] 'Passphrase not match' error occurs.
+30
+[DOWNLOAD] Try copying again.
+31
+[DOWNLOAD] Enter (correct) password.
+32
+[DOWNLOAD] Confirm that the entry has been successfully downloaded.
+33
+[DOWNLOAD] Ensure that in the detail view, the uploader-details are present.
+34
+TEST-CASES THAT NEED TO PASS
+Basic Usage
+This feature helps share Journal/Documents/Mounted-Drives' entries across XOs, via the following two mechanisms ::
+Peer-to-Peer mode
+Sharing in this mode is possible, only when the server and client XO(s) are on the same networks. Thus, peer-to-peer sharing would work on
+XOs connected to the same Access Point.
+Adhoc-Network connections.
+Via-School-Server mode
+In this mode, an XO uploads an entry to the central School Server; from where the client XO(s) may download the entry.
+This mode of sharing works as long as the School-Server is HTTP-pingable between the server and client XOs. Thus, this mode of sharing would work when
+XOs are connected to the same Access Point (as long as school-server is pingable throughout).
+XOs are connected to the different Access Points (as long as school-server is pingable throughout).
+XOs are conencted to Adhoc-Network (as long as school-server is pingable throughout).
+Credits
+Plan Ceibal
+For supporting this feature development.
+Sascha Silbe
+silbe@activitycentral.com
+Initial Proposal for the solution based on WebDAV.
+Anish Mangal
+anish@activitycentral.com
+Showed why simply accessing the webdav shares via "Browse" activity won't work.
+The reason is that accessing Sugar-WebDAV shares via "Browse" (or in any browser), would show only the availability of files. But a Sugar-entry is more than just the (data) file; it is a combination of
+Metadata-file
+Data-file
+Preview-file (optional)
+Also, the current workflow conforms to the sugar look-and-feel too. (Thanks again Anish).
+Ruben Rodriguez
+ruben@activitycentral.com
+Feedback on the "peer-to-peer" mechanism; now when the user clicks "Access Share", the user is directly taken to the newly mounted remote-share view.
+Nitika Mangal
+nitika@activitycentral.com
+Testing
+David Rodriguez
+daroal@activitycentral.com
+Testing
+Example Workflow for Peer-To-Peer Mode
+NOTES
+An entry present in "Local Shares", is available to other peers, when the peer(s) mount this XO's shares.
+Note that the entries present in "Local Shares", have nothing to do with the entries present in "School Server Shares".
+In the following screenshots' example, "PEER 2" mounts the shares of "PEER 1"; and uses that to copy entries onto its own XO. Thus, the entry is copied from XO-of-PEER-1 to XO-of-PEER-2.
+SCREENSHOTS
+[PEER 1] "Journal" - View.
+[PEER 1] Detail view of the journal-entry. Note the preview presence.
+[PEER 1] Initial "Local Shares" View
+[PEER 1] Copy the journal entry to "Local Shares", to make it available for sharing to other peers.
+[PEER 1] "Local Shares" view, after copying the entry.
+[PEER 1] The detail view in "Local Shares". NOTE that the preview MUST be present, and it must be same as that of "Journal".
+[PEER 2] Initial "Journal" - View.
+[PEER 2] Neighborhood View.
+[PEER 2] Click on "Access Share" of the peer, whose shares need to be accessed.
+[PEER 2] The peer's shares are mounted.
+[PEER 2] Copy the entry to the journal.
+[PEER 2] Final "Journal" View.
+[PEER 2] Detail-view of the entry. Note that the preview is the same as was on the remote peer.
+Example Workflow for Via-School-Server Mode
+NOTES
+An entry present in "School Server Shares", is available to all the XOs. There isn't any mounting or anything required as such.
+Note that the entries present in "School Server Shares", have nothing to do with the entries present in "Local Shares".
+In the following screenshots' example, an XO uploads an entry to the school-server, and then downloads the same. HOWEVER, NOTE THAT ANY XO WOULD BE ABLE TO DOWNLOAD THE ENTRY PRESENT ON THE SCHOOL-SERVER, AND NOT ONLY NECESSARILY THE UPLOADER.
+SCREENSHOTS
+[UPLOAD] Initially, no entries are present on the school-server.
+[UPLOAD] Choose an entry to upload to the school-server.
+[UPLOAD] Enter the pasphrase when prompted.
+[UPLOAD] After uploading, ensure that the entry has in fact been uploaded to the school-server.
+[DOWNLOAD] Initial "Documents" view.
+[DOWNLOAD] Choose to copy the entry from school-server, to "Documents".
+[DOWNLOAD] Enter (incorrect) password.
+[DOWNLOAD] 'Passphrase not match' error occurs.
+[DOWNLOAD] Try copying again.
+[DOWNLOAD] Enter (correct) password.
+[DOWNLOAD] Confirm that the entry has been successfully downloaded.
+[DOWNLOAD] Ensure that in the detail view, the uploader-details are present.
+TEST-CASES THAT NEED TO PASS
+Inter-copying an entry between Journal/Documents/Mounted-Drives/Local-Shares/School-Server-Shares should behave in the same way. For eg, in the peer-to-peer mode, it was shown that the source-entry (on PEER-1) had a preview; the same was true when the entry finally arrived on PEER-2. In particular, the preview should "go along" as and when the entry goes,
+intra-XO
+or
+inter-XO
+.
+Things should work fine, irrespective of the fact that whether the sharing is done via single-mode, or batch-mode.

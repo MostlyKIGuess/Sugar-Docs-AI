@@ -1,0 +1,119 @@
+Title: 0.84/Turtle Art
+URL: https://wiki.sugarlabs.org/go/0.84/Turtle_Art
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+errors
+3
+What is new for users
+3.1
+Portfolio
+4
+What is new for developers
+5
+Internationalization (i18n) and Localization (l10n)
+6
+Compatibility
+7
+Detailed changes
+8
+Credits
+Introduction
+Turtle Art is an activity with a Logo-inspired graphical "turtle" that draws colorful art based on Scratch-like snap-together visual programming elements.
+More Info:
+Activities/Turtle Art
+errors
+Running sugar emulator as root on Fedora11 Turtle Art would not load any apps:
+http://www.youtube.com/watch?v=1Lvvjvi3yE0
+What is new for users
+Turtle Art underwent a major overhaul since 0.82. From the user-interface perspective, there is more extensive use of the Sugar Toolbar. Functionally, there are a number of new blocks, including named variables (blocks) and subroutines (stacks), a FILO for passing arguments to subroutines and doing recursion, an in-line user-programmable brick for extending the math library, and support for text, image, audio, and video primitives.
+You can export your Turtle Art creations to [[Activities/Turtle Art
+#
+Exporting to Berkeley Logo|Berkeley Logo]].
+Portfolio
+A new portfolio feature lets you use Turtle Art to create multimedia slide shows from material retrieved from your Journal. The basic idea is to import images into slide templates, not unlike Powerpoint, and then show a presentation by stepping through them. The Portfolio includes the typical major functions of presentation software: an editor that allows text to be inserted and formatted (this is largely incomplete), a method for inserting images (from the Journal), and a slide-show system to display the content. What makes it a bit different than tools such as Powerpoint is that you can program your slides using Turtle Art blocks.
+Turtle Art also has an export-to-HTML function so that presentations can be viewed outside of the Sugar environment.
+More Info:
+Activities/Turtle Art
+What is new for developers
+No News
+Internationalization (i18n) and Localization (l10n)
+Added support for de, el, fi, it, mn, nl, pt, ru, sv, tr, vi, and zh_TW
+Compatibility
+This version is not compatible with OLPC Build 656 and earlier (it will run, but not save properly to the Journal).
+Detailed changes
+Changes to Turtle Art since 0.82
+Turtle Art was not part of Fructose 0.82; that it has reached a level of maturity and stability to be included as part of the standard library of Sugar Activities is perhaps the most significant change.
+Rebase of Turtle Art graphics from GIF to SVG
+Support for de, el, fi, it, mn, nl, pt, ru, sv, tr, vi, and zh_TW
+Support for sharing
+Rebase to standard Sugar toolbars
+Run and slowmo buttons added to toolbar
+Clicking on blocks in the palette will move them to the canvas
+Rebase from pickle to cjson for project sharing and saving
+Support for arbitrary screen resolution
+Nameable stacks
+Nameable variables
+Text block to enable the Turtle to print text on the canvas
+Image block to enable the Turtle to render images on the canvas
+Video block to enable the Turtle to play movies
+Audio block to enable the Turtle to play sounds
+Redesign of arithmetic operators
+Programmable block for adding user-defined math and time operators
+Presentation templates to enable the Turtle to make programmable slide shows from Journal entries
+FILO for passing arguments to subroutines
+Support for exporting project to Berkeley Logo
+Support for export of presentations to HTML
+New documentation page (
+Activities/Turtle Art
+)
+Minor bug fixes as documented on
+bugs.sugarlabs.org
+(
+#389
+;
+#343
+;
+#299
+;
+#240
+;
+#194
+;
+#116
+;
+#102
+)
+Minor bug fixes as documented on dev.laptop.org (
+#9027
+,
+#8589
+,
+#8569
+)
+Keyboard shortcuts added for major toolbar actions
+While many bugs were fixed, there are still a few known problems that
+we hope to address by the time next release:
+Text input should wrap instead of overrun the input box (
+#489
+)
+Text input should be editable (
+#489
+)
+Text input should support all Unicode characters (input in some languages--el, zh--currently disabled) (
+#489
+)
+Repeated video playback unreliable (
+#490
+)
+Share won't synchronize if sharer leaves session (
+#491
+)
+Sensor input is disabled because of
+#155
+User-definable brick disabled because of
+#451
+Credits
+Brian Silverman, Arjun Sarwl, Luis Michelena, Aleksey Lim, Walter Bender

@@ -1,0 +1,123 @@
+Title: 0.84/0.83.2 Notes
+URL: https://wiki.sugarlabs.org/go/0.84/0.83.2_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.83.2 Release Notes
+1.1
+Announcement
+1.2
+Compatibility
+1.3
+Glucose modules
+1.4
+Glucose news
+1.4.1
+sugar-toolkit
+1.4.2
+sugar
+1.5
+Fructose modules
+1.6
+Fructose news
+1.6.1
+read-activity
+1.6.2
+browse-activity
+1.6.3
+imageviewer-activity
+1.6.4
+turtleart-activity
+1.6.5
+jukebox-activity
+1.7
+Fructose dependencies
+1.8
+Fructose dependencies news
+1.8.1
+hulahop
+Sucrose 0.83.2 Release Notes
+Announcement
+This is our second Development Release in the 0.84
+cycle
+. Besides all the great bug fixing that has been going into this release we want to highlight some interesting changes.
+Some great work has been going into this release regarding the 'View source' support. The source of all the activities can be shown, and browse does still support showing the source of the document.
+Sugar now supports setting up a priority list of languages. Not all programs have translations for all languages. You can create a list of languages in the Control panel that are used to display messages in place of a non-existent translation.
+More work has been going into the sugar support for NM 0.7. We finished the support for wireless devices in the frame, updated the radio off code in the control panel to work with NM 0.7 and added WPA support.
+Three great activities are now part of fructose, the Image Viewer activity, Turtleart and Jukebox. They have been included in sugar-jhbuild. Give them a try!
+Compatibility
+When you upgrade a computer running an earlier version,
+The old datastore will be updated to the new format.
+Your old profile (in
+.sugar/default/config
+) will be imported into GConf
+If you later downgrade from Sucrose 0.83.x to an earlier version,
+The datastore is incompatible
+You will be prompted to enter all your profile settings like you are on first boot
+Most of the activities in Sucrose 0.83.x should be compatible with Sucrose 0.82 , the version shipped with OLPC Release 8.2.0.  An exception is Browse, which depends on new versions of XULRunner and Hulahop.  Read likewise may soon depend on a new version of Evince
+Glucose modules
+sugar-toolkit 0.83.2
+sugar 0.83.3
+sugar-artwork 0.83.1
+sugar-base 0.83.1
+sugar-datastore 0.83.0
+sugar-presence-service 0.83.1
+etoys 3.0.2160
+Glucose news
+sugar-toolkit
+Fixed misformed plural equation (russian po)
+Add view-source-related methods HandleViewSource and GetDocumentPath
+sugar
+fix uninstalling activities from the home view
+Make sugar control panel support selection of multiple languages d.l.o
+#8876
+add saving and loading of the nm connections and support for WPA
+Implement a global handler for the view source key
+Initial implementation of activity notifications
+#9
+wireless network frame device.
+#8876
+Make sugar control panel support selection of multiple languages
+#7
+update Icon in the AP palette
+#8131
+Control Panel needs to list wireless firmware version
+Fructose modules
+read-activity 61
+chat-activity 60
+terminal-activity 20
+imageviewer-activity 4
+jukebox-activity 5
+turtleart-activity 16
+browse-activity 101
+etoys-activity 96
+write-activity 60
+calculate-activity 25
+log-activity 16
+pippy-activity 25
+Fructose news
+read-activity
+Sugar API update: Use self.shared_activity not self._shared_activity
+Updated translation: ja
+Remove timeout hack for object picker
+browse-activity
+Return the document source to the shell for displaying in the view source dialog. This is used by the new source view code to display the document source.
+imageviewer-activity
+Show an object picker if no file is specified initially
+Initial Journal support
+turtleart-activity
+Turkish and Mongolian language support
+shebang patch
+jukebox-activity
+Encoding error fixed for bn_IN.po
+Full Screen option
+Volume Control support
+Supporting m3u playlists
+Internet radios through m3u files.
+Next/Previous buttons , if you open a playlist with more than one song
+Fructose dependencies
+hulahop 0.4.8
+Fructose dependencies news
+hulahop
+Remove flags which are breaking the build on latest libtool
+Add AC_PROG_CXX

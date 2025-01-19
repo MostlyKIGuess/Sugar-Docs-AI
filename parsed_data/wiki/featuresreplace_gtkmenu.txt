@@ -1,0 +1,89 @@
+Title: Features/Replace GtkMenu
+URL: https://wiki.sugarlabs.org/go/Features/Replace_GtkMenu
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+7.1
+Resources (Other Platforms)
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Polan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+Get rid of Gtk.Menu based palettes - use a modal.
+Owner
+Name: Sam
+Email: sam@sl.o
+Current status
+Targeted release: 0.108
+Last updated: 7/July/2015
+Percentage of completion: 40%
+Detailed Description
+Gtk.Menu palettes (namely, clipboard and journal) are hard to maintain and theme.  They should be removed.
+The only reason they are used now is because they support nesting of menus.  However, a modal could be used instead.
+Benefit to Sugar
+This will make sugar easier to maintain and reduce the amount of visual bugs.
+Scope
+Adding a modal should be a quick process.  It would probably only involve:
+Adding a modal primitive to sugar3.graphics.modal.SelectorModal`  (DONE, patch:
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/238
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/249
+)
+Migrating the 2 users of the Gtk.Menu to the modal and Gtk.Window based palettes
+The clipboard in the frame (DONE, patch:
+https://github.com/sugarlabs/sugar/pull/551
+https://github.com/sugarlabs/sugar/pull/567
+)
+The journal palettes
+UI Design
+Screenshots are on this pull request description
+https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/238
+Resources (Other Platforms)
+Android 4.x
+GNOME 3.16.2
+Firefox OS 3.0.0.0-prerelease
+How To Test
+Install the patches
+Open log
+Drag text to clipboard
+Right click on the clipboard item
+Click open with
+User Experience
+Users will no longer have the open with sub-menu.  This means that they will have to move their mouse more.  However, the search bar will make life eaiser for power users as they can jusotsearch and press <enter>.
+Users will notice that palettes look more beautiful, as they are not Gtk.Menu based.
+Dependencies
+Contingency Polan
+Documentation
+Bits of documentation in the code, however improving them is still on the TODO list.
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+http://lists.sugarlabs.org/archive/sugar-devel/2015-May/050174.html
+http://lists.sugarlabs.org/archive/sugar-devel/2015-May/050209.html
+See
+the discussion tab for this feature.

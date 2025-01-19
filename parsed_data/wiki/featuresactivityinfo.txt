@@ -1,0 +1,82 @@
+Title: Features/Activity.info
+URL: https://wiki.sugarlabs.org/go/Features/Activity.info
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+It would facilitate the packaging of Sugar activities into RPMs and DEBs if there were additional information available in the activity.info file.
+Owner
+Name:
+Walter Bender
+Email: walter AT sugarlabs DOT org
+Note:
+While I am proposing this new feature, I am not in any way qualified to implement it as I have never built an RPM or DEB.
+Current status
+Targeted release: (0.88)
+Last updated: (never)
+Percentage of completion: 00%
+Detailed Description
+In walking the process of creating an RPM of one of my activities with
+Sebastian Dziallas
+, who is doing lots of packaging for Fedora and SoaS, we observed that many fields in packages' .spec files could readily be pulled from the activity.info file. A few additional fields would be necessary, such as the following:
+a short summary
+an URL to the source package
+an URL to the activity home page
+the required dependencies to run
+None of these additional fields are particularly onerous for an activity developer to provide and it would enable the creation of a script (as part of setup.py/bundlebuilder.py) to do most of the work in creating the .spec file. (I assume .deb has similar requirements to .rpm). Things are more complex for activities that include binaries and the like, but for the most part, we should be able to greatly facilitate upstream maintenance of our code while asking little more of Sugar developers. None of these additional fields need be required, but their inclusion would make things easier. (This is not a new idea, but one that seems timely given all the upstream interest in Sugar these days.)
+Benefit to Sugar
+Why will Sugar become a better platform or project because of this feature?
+Because we'll be easier for upstream adoption and hence potentially get into more distros more quickly with fewer headaches. All of this means reaching more learners.
+Scope
+We can do this is stages:
+solicit the pertinent info from packages as to what is currently missing from activity.info for pure Python activities
+add these fields as options
+modify bundlebuilder to utilize these files to auto generate spec files
+go back to Step 1 for activities with additional dependencies
+UI Design
+Does the feature have a direct impact on the work flow, or does it need a UI?
+It has a very minor impact (optional) impact on activity developers in that they need to add additional fields to the activity.info files; it will be a real time-saver for packagers and will (presumably) result in fewer mistakes in transcription.
+How To Test
+Features/Activity.info/Testing
+User Experience
+NA
+Dependencies
+Just bundlebuilder.py
+Contingency Plan
+NA
+Documentation
+I will work with packagers to put together a strawman.
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+See
+discussion tab for this feature

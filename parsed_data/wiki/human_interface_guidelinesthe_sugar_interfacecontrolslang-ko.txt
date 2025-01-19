@@ -1,0 +1,299 @@
+Title: Human Interface Guidelines/The Sugar Interface/Controls/lang-ko
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/The_Sugar_Interface/Controls/lang-ko
+--------------------------------------------------------------------------------
+번역근원
+HIG-Controls
+원문
+english
+|
+español
+|
+한국어
++/-
+차이
+←
+롤오버
+컨트롤
+커서
+→
+Contents
+1
+컨트롤
+1.1
+컨트롤 영역
+1.2
+버튼
+1.3
+기본적인 선택 컨트롤
+1.3.1
+체크박스
+1.3.2
+라디오 버튼
+1.3.3
+팝업 메뉴
+1.3.4
+팝업 팔레트
+1.3.5
+콤보 박스
+1.4
+추가적인 선택 컨트롤
+1.4.1
+컬러 피커
+1.4.2
+Date Picker
+1.4.3
+오브젝트 피커
+1.4.4
+검색/대체 파레트
+1.5
+조정 컨트롤
+1.5.1
+스태퍼
+1.5.2
+기본 슬라이더
+1.5.3
+표시가 있는 슬라이더
+1.5.4
+컬러 슬라이더
+1.6
+인디케이터
+1.6.1
+막대 결정
+1.6.2
+중간에 위치한 진행 막대
+1.6.3
+활동 스피너
+1.6.4
+레벨 인디케이터
+1.6.5
+등급 인디케이터
+1.6.6
+관련성 인디케이터
+1.7
+텍스트 컨트롤
+1.7.1
+텍스트 필드
+1.7.2
+토컨 Tokenized Texto Fields
+1.7.3
+검색 필드
+1.7.4
+토컨 검색 필드
+1.7.5
+패스워드 필드
+1.7.6
+멀티라인 텍스트 필드
+1.8
+보기 컨트롤
+1.8.1
+기본 소트 바
+1.8.2
+추가 소트 바
+1.8.3
+소트 바 뷰 토글
+1.8.4
+탭 바
+1.8.5
+탭 사이드바
+1.8.6
+개방 삼각형
+1.8.7
+툴팁
+1.9
+그룹핑 컨트롤
+1.9.1
+세퍼레이터
+1.9.2
+트레이
+1.10
+커스텀 컨트롤
+1.10.1
+커스텀 컨트롤의 쓰임새
+1.10.2
+컨트롤 컬러 팔레트
+1.10.3
+컨트롤 사이징
+컨트롤
+슈가는 노트북 사용자 인터페이스를 만들기 위한 자체 컨트롤 위젯 세트를 정의합니다. 대부분의 가용한 컨트롤들이 개발자들의 기대에 부합하겠지만, 우리는 이 노트북의 사용자 경험에 보다 적합하도록 새로운 컨트롤들을 개발하고, 기존 것들의 동작을 변경하였습니다. 이러한 새로운 개발과 더불어, 슈가 내의 광범위한 목표와 메타포를 유지하고, 협동적인 사용자 인터페이스 환경의 개발을 도울 수 있도록 컨트롤들의 용도와 위치에 관한 새로운 지침을 설립합니다.
+컨트롤 위젯 스펙과 치침은 이 문서의 상당한 부분을 차지하므로, 페이지 네비게이션에 의한 내부 페이지는 각 컨트롤 세트의 헤드를 클릭함으로써 접근할 수 있습니다. 또한, 개별 페이지들은 위젯에 대한 상세한 스펙과 그것들의 다양한 상태를 설명합니다. 마지막으로, 우리는 지속적인 초기 어플리케이션 레이아웃과 디자인 모크업을 위해 최신
+슈가 컨트롤 스펙 (07.04.05)
+을 어도비 pdf 파일 포맷으로 제공합니다. 이러한 스펙들과 실행이 아직 초기 단계이며, 디자인 역시 UI의 발전 상황에 맞춰 변화할 수 있음에 주의해야 합니다. 우리는 곧 컨트롤 API 링크를 제공하겠습니다.
+Sugar defines its own set of control widgets that will create the user interface on the laptops. Though most of the available controls will match developers' expectations, we've also developed some new controls and altered behaviors of others to better suit the user experience on the machines. With these new developments comes a new set of guidelines for their usage and placement which both maintains the broader set of goals and metaphors setup within Sugar and aids in the development of collaborative user interface environments.
+As the control widget specification and guidelines compose a substantial portion of this document, internal page by page navigation is available by clicking on the header for any control set. In addition, the individual pages provide detailed specifications for the widgets and their various states. Finally, we're providing developers with an Adobe Illustrator file of the most up to date
+Sugar Control Specification (07.04.05)
+in order streamline early application layout and design mockups. Please understand these specifications and their implementations remain in early development, and their designs may change as the UI progresses. We'll provide links to APIs for the controls as they become available; Thanks for your patience.
+컨트롤 영역
+슈가에서, 사전에 정의된 컨트롤 영역들에 컨트롤들이 위치하게 됩니다. 컨트롤이 위치할 영역의 백그라운드 컬러를 제한함으로써, 시각적 규칙의 일관된 세트가 심지어 컬러를 사용하지 않고서도 충분한 대비를 유지하면서 다양한 컨트롤들의 타입과 상태 모두를 정의할 수 있습니다. 오른쪽에 보이듯, 기본 영역은 캔버스, 툴바, 그리고 팔레트입니다.
+캔버스:
+어떤 활동 내에서 범용으로 이용되는
+창조
+공간입니다— 그림, 글쓰기, 또는 기타 작업 영역. 창조는 우리의 목표 중에서 우선적인 위치에 있으므로, 이것이 모든 활동에서 스크린의 주된 영역이기를 희망합니다. 캔버스 영역은 컨텐트 생성을 위한 특별한 곳이며, 그 위에는 어떤 컨트롤도 위치해서는 '안됩니다.' 마찬가지로, 캔버스는 활동이나 사용자가 원하는 어떤 컬러를 가질 수 있지만, 슈가는 흑백을 기본 디폴트로 지정합니다.
+툴바:
+활동 툴바는 다른 컨트롤 영역과 구별되는 고유한 진회색입니다. 이 프레임은 또한 고유한 진회색 명암을 통해, 어린이가 어떤 뷰나 활동에서도 활성화 시킬 수 있는 omnipresent  툴바임을 알리고 있습니다.
+패널:
+필요하다면, 활동은 스크린의 일정 부분을 추가적인 컨트롤을 위해 제공하고, 그 컨트롤이 툴바 외부에서 그리고 글로벌 활동 문맥에서 보다 의미를 가지도록 돕습니다. 이 영역에 위치한 컨트롤들은 해당 활동 또는 편집과 관련된 상태와 관계없이, 항상 적절성을 유지해야 합니다.
+팔레트:
+여러 문맥에서 나타나는 다목적 컨트롤 영역입니다. 전통적인 윈도우나 메뉴가 없는 인터페이스 안에서, 팔레트는 컨트롤의 세컨드 레이어로서 사용자 인터페이스의 많은 측면에 대해 유용한 해법을 제공합니다. 그 용도에 관한 완전한 설명은
+팔레트와 롤오버
+섹션을 참조하십시오.
+컨트롤:
+이 섹션의 나머지는 귀하의 활동 UI 내에서의 용도를 위한, 특정 컨트롤들과 지침을 다룹니다. 여기서 제시되는 모든 컨트롤들의 디자인은, 다양한 상태에서 각 컨트롤이 보여줄 컬러, 선, 그리고 크기에 관한 기본적인 규칙 세트를 따릅니다. 이러한 광범위한 디자인 결정에 관한 세부 사항은 커스텀 컨트롤 섹션에서 다루어 집니다.
+In sugar, a predefined set of control regions provide the surfaces upon which controls may be placed. Limiting the background colors that the controls sit on allows for a consistent set of visual rules to define both the type and state of various controls while maintaining sufficient contrast even without the use of color. Shown to the right, the basic regions are the Canvas, Panel, Toolbar, and Palette.
+Canvas:
+The canvas is the general purpose "creation" space within any activity — the region for drawing, writing, or otherwise working within it. Since creation ranks high among our goals, we also hope that this is the dominant region of the screen in most activities. The canvas region is specifically for generating content and 'should not' have any controls placed upon it. As such, the canvas may be any color the activity or the user desires, though Sugar specifies both white and black as the basic defaults.
+Toolbars:
+Activity toolbars have a unique dark gray color which distinguishes them from the other control regions. The Frame also uses this unique shade of gray to indicate its purpose as an omnipresent toolbar that a child may activate from within any view or activity. Each activity will have a toolbar at the top of the screen, though when necessary additional toolbars may also be specified.
+Panels:
+When appropriate, an activity may devote a portion of the screen to additional controls which make more sense outside of the toolbar and within the global activity context. Controls placed in this region should always remain relevant at all times, regardless of any other state associated with the activity or editing context.
+Palettes:
+Palettes serve as multipurpose control regions which appear in several contexts. In an interface without traditional windows and menus, palettes step in to provide a versatile solution in many aspects of the user interface as the second layer of control. For a full description of their uses, please see the section on Palettes and Rollovers.
+Controls:
+The remainder of this section focuses largely on the specific controls and guidelines for their usage within your activity's UI. The designs of all controls presented here follow a basic set of rules regarding colors, line weights, and sizing for each of its various states. More detail about these broader design decisions is discussed in the custom controls section.
+버튼
+Human Interface Guidelines/The Sugar Interface/Controls/Buttons/lang-ko
+기본적인 선택 컨트롤
+체크박스
+용도:
+동작:
+지침:
+라디오 버튼
+용도:
+동작:
+지침:
+팝업 메뉴
+용도:
+동작:
+지침:
+팝업 팔레트
+용도:
+동작:
+지침:
+콤보 박스
+용도:
+동작:
+지침:
+추가적인 선택 컨트롤
+컬러 피커
+용도:
+동작:
+지침:
+Date Picker
+용도:
+동작:
+지침:
+오브젝트 피커
+용도:
+동작:
+지침:
+검색/대체 파레트
+용도:
+동작:
+지침:
+조정 컨트롤
+스태퍼
+용도:
+동작:
+지침:
+기본 슬라이더
+양도:
+동작:
+기준:
+표시가 있는 슬라이더
+용도:
+동작:
+지침:
+컬러 슬라이더
+용도:
+동작:
+지침:
+인디케이터
+막대 결정
+용도:
+동작:
+지침:
+중간에 위치한 진행 막대
+용도:
+동작:
+지침:
+활동 스피너
+용도:
+동작:
+지침:
+레벨 인디케이터
+용도:
+동작:
+지침:
+등급 인디케이터
+용도:
+동작:
+지침:
+관련성 인디케이터
+용도:
+동작:
+지침:
+텍스트 컨트롤
+텍스트 필드
+용도
+동작
+지침
+Usage:
+Behavior:
+Guidelines:
+토컨 Tokenized Texto Fields
+용도
+동작
+지침
+Usage:
+Behavior:
+Guidelines:
+검색 필드
+용도
+동작
+지침
+Usage:
+Behavior:
+Guidelines:
+토컨 검색 필드
+용도
+동작
+지침
+Usage:
+Behavior:
+Guidelines:
+패스워드 필드
+용도
+동작
+지침
+Usage:
+Behavior:
+Guidelines:
+멀티라인 텍스트 필드
+용도
+동작
+지침
+Usage:
+Behavior:
+Guidelines:
+TRANSLATOR NOTE
+the images [[Image:textfield_suggestions.png]], [[Image:searchfield_suggestions.png]], [[Image:textfield_multiline.png]] have been 'lost/removed'...
+보기 컨트롤
+기본 소트 바
+추가 소트 바
+소트 바 뷰 토글
+탭 바
+탭 사이드바
+개방 삼각형
+REVIEW CONCEPT / TRANSLATION
+툴팁
+그룹핑 컨트롤
+세퍼레이터
+트레이
+커스텀 컨트롤
+커스텀 컨트롤의 쓰임새
+컨트롤 컬러 팔레트
+컨트롤 사이징
+←
+롤오버
+컨트롤
+커서
+→

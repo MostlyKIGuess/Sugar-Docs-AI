@@ -1,0 +1,54 @@
+Title: Development Team/Almanac/Sugar.presence.activity
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/Sugar.presence.activity
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+Class: PresenceService (gobject.GObject)
+What are some of the properties of a shared activity that I can extract using a reference to the presence Activity object?
+The Activity class in presence has several
+GObject properties
+that can be accessed using the get_property() method on the activity object. The code below shows how some of these properties are accessed and printed.
+#### Method: _print_activity_props, which prints some basic activity properties
+    # made available in sugar.presence.activity.Activity
+    def _print_activity_props(self, activity):
+        print activity.get_property('id') 
+        print activity.get_property('name') #e.g. 'Turtle Activity'
+        print activity.get_property('tags')
+        print activity.get_property('color') 
+        print activity.get_property('type') #e.g. 'org.laptop.TurtleArtActivity'
+        print activity.get_property('private') #True or false value about whether this activity is private
+        print activity.get_property('joined')

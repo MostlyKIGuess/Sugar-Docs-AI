@@ -1,0 +1,70 @@
+Title: Features/Touch/Programming Tips
+URL: https://wiki.sugarlabs.org/go/Features/Touch/Programming_Tips
+--------------------------------------------------------------------------------
+While touch will just work for many activities, there are some times when some intervention is needed. The examples below will hopefully help Sugar activity developers as they touch-enable their code.
+Accessing the On-Screen Keyboard
+If you use a Gtk.Entry or Gtk.TextView widget, then the Sugar OSK will appear automatically when in tablet mode. However, if you directly query for keyboard events, then you are out of luck. But do not despair. In Turtle Art, for example, I position blocks rendered with SVG at arbitrary places on the screen that contain user-modifiable text. I had been capturing keyboard events and then modifying the text in the block under the cursor. But by placing a TextView over the block, I can invoke the OSK.
+The details:
+1.
+In order to position a TextView in an arbitrary place on the screen, you need to use a Gtk.Fixed. Fixed lets you "put" and "move" widgets.
+def _fixed_resize_cb(self, widget=None, rect=None):
+    """ If a toolbar opens or closes, we need to resize the vbox
+    holding out scrolling window. """
+    self.vbox.set_size_request(rect.width, rect.height)
+self.fixed = Gtk.Fixed()
+self.fixed.connect('size-allocate', self._fixed_resize_cb)
+self.fixed.show()
+self.set_canvas(self.fixed)
+self.vbox = Gtk.VBox(False, 0)
+self.vbox.set_size_request(
+    Gdk.Screen.width(),
+    Gdk.Screen.height() - style.GRID_CELL_SIZE)
+self.fixed.put(self.vbox, 0, 0)
+self.vbox.show()
+self._canvas = Gtk.DrawingArea()
+self._canvas.set_size_request(int(Gdk.Screen.width()),
+                              int(Gdk.Screen.height()))
+self._canvas.show()
+self.show_all()
+self.vbox.pack_end(self._canvas, True, True, 0)
+self.vbox.show()
+2.
+To make your TextView match the font you use in your activity, use the widget modify_font method. (I wasted hours trying to use tags, to no avail, because as soon as the user clicks outside of the tagged region, the font attributes are lost.)
+self.text_entry = Gtk.TextView()
+self.text_entry.set_justification(Gtk.Justification.CENTER)
+self.text_entry.set_pixels_above_lines(4)
+self.text_entry.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(0, 0, 0, 0))
+font_desc = Pango.font_description_from_string('24')  # Your font size
+self.text_entry.modify_font(font_desc)
+3.
+To properly size your text, set the dpi.
+def _get_screen_dpi():
+    xft_dpi = Gtk.Settings.get_default().get_property('gtk-xft-dpi')
+    dpi = float(xft_dpi / 1024)
+    logging.error('Setting dpi to: %f', dpi)
+    return dpi
+def _set_screen_dpi(self):
+    dpi = _get_screen_dpi()
+    font_map_default = PangoCairo.font_map_get_default()
+    font_map_default.set_resolution(dpi)
+4.
+The interaction is as follows: (1) in the button_press event, show the TextView widget and move it into position; (2) the on-screen keyboard will appear when the TextView is clicked;  (3) when exiting the TextView, get the text from the buffer and then hide the widget.
+self.text_buffer = self.text_entry.get_buffer()
+self.fixed.put(self.text_entry, x, y)
+self.text_entry.show()
+def _text_focus_out_cb(self, widget=None, event=None):
+    bounds = self.text_buffer.get_bounds()
+    text = self.text_buffer.get_text(bounds[0], bounds[1], True)
+    # Do something with text
+    # Then hide the TextView widget
+    self.text_entry.hide()
+self.text_entry.connect('focus-out-event', self._text_focus_out_cb)
+self.text_entry.grab_focus()
+self.fixed.show()
+See
+Paint
+,
+Turtle Blocks
+, and
+Portfolio
+for examples of all of this coming together.

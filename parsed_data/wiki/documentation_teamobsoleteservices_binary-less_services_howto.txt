@@ -1,0 +1,32 @@
+Title: Documentation Team/Obsolete/Services Binary-less Services HOWTO
+URL: https://wiki.sugarlabs.org/go/Documentation_Team/Obsolete/Services_Binary-less_Services_HOWTO
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Was only draft content.
+Work flow for services that don't require a compilation stage, thus, they could be just packaged and used as is on server side:
+Create a local, initial service.info file by invoking
+0sugar init
+, then tweak the newly created
+service/service.info
+file.
+Increase/change the version field in the
+service.info
+file.
+Execute
+0sugar dist
+to change the local feed in
+dist/
+and place the tarball there.
+Run
+0sugar push stable
+to rsync changed files from
+dist/
+to the server.
+See
+#Release workflows
+for other release scenarios.

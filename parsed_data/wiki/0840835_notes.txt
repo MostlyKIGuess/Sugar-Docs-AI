@@ -1,0 +1,180 @@
+Title: 0.84/0.83.5 Notes
+URL: https://wiki.sugarlabs.org/go/0.84/0.83.5_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.83.5 Release Notes
+1.1
+Announcement
+1.1.1
+Journal
+1.1.1.1
+Journal entry palette
+1.1.2
+Naming Alert
+1.1.3
+Palettes
+1.1.4
+Keep error when displaying a file in Browse, Read, ImageViewer
+1.1.5
+Resume activity
+1.1.6
+Control Panel
+1.1.7
+Frame Devices
+1.1.8
+Clipboard
+1.2
+Compatibility
+1.3
+Glucose modules
+1.4
+Glucose news
+1.4.1
+sugar-toolkit
+1.4.2
+sugar
+1.4.3
+sugar-artwork
+1.4.4
+sugar-datastore
+1.5
+Fructose modules
+1.6
+Fructose news
+1.7
+Fructose dependencies
+Sucrose 0.83.5 Release Notes
+Announcement
+This is Release Candidate 1 for the upcoming 0.84 Release - see the
+Development Team/Release/Roadmap#Schedule
+for more details. Only two more weeks to go in this release cycle. Please test this release and report all the bugs you find that we are able to fix them in time. A friendly
+BugSquad
+will be available to triage those bugs accordingly and the developers can never have enough bug food. If you have non-bug feedback about features you can use the sugar-devel mailing list to share it with us.
+From a user point of view we want to highlight the following changes that have been made:
+Journal
+The translation of the dates in the Journal is working now again. Please verify with your favorite language that this works for you. A 'Clear search' button has been added to the 'No matching entries' message, following Eben's specification. Also the space used and left is now displayed in the volume palette in the Journal.
+Journal entry palette
+The journal entry palette has seen some great improvements. We have a 'View Details' option that brings you to the details of the entry directly. Also the icon for the file transfer was designed and added by Gary C. Martin. Furthermore you do not need to go to the detail view any more to select the activity you want to start or resume the entry with - this option is now available in the palette as well.
+Naming Alert
+When you stop an activity from the Frame the activity is resumed and one can refine the activity metadata in the Naming Alert. As well a saving error of the activity will not prevent one any more from closing the activity due to the Naming Alert.
+Palettes
+There were some positioning issues of the palette that got fixed. Please report back any issues you still find. Another palette related fix was that on right click on an Access Point icon we do reveal the palette as it is the behavior in all the other places in the UI and do not try to connect to the Access Point.
+Keep error when displaying a file in Browse, Read, ImageViewer
+This is one of my favorite fixes as this has been broken for quite a while. When trying to display for example an image in Browse or the ImageViewer there was an keep error when closing the activity.
+Resume activity
+Last release we added the ability to resume an activity by default instead of creating a new instance. The list of the available entries in the palette when you hover of the activity in the home view is now updated directly. As this is an interesting new feature, we would like to hear about any issues you might have with it and positive feedback of course as well.
+Control Panel
+We now hide any OLPC-specific fields on non-xo machines. For example in the 'About my Computer' section we display the build dependent on the distribution (i.e. Fedora). As the Power section was only relevant on the XO, it is hidden in non OLPC distributions.
+Frame Devices
+Right-clicking on the speaker device icon does not mute the speakers anymore.
+Clipboard
+Several fixes were made to the detection of images dragged and dropped to the clipboard in the Frame.
+Thanks everyone for your great contributions!
+Compatibility
+When you upgrade a computer running an earlier version,
+The old datastore will be updated to the new format.
+Your old profile (in
+.sugar/default/config
+) will be imported into GConf
+If you later downgrade from Sucrose 0.83.x to an earlier version,
+The datastore is incompatible
+You will be prompted to enter all your profile settings like you are on first boot
+Most of the activities in Sucrose 0.83.x should be compatible with Sucrose 0.82 , the version shipped with
+XO Software Release 8.2.0
+.  An exception is Browse, which depends on new versions of XULRunner and Hulahop.  Read likewise may soon depend on a new version of Evince
+Glucose modules
+sugar-toolkit 0.83.6
+sugar 0.83.7
+sugar-artwork 0.83.4
+sugar-base 0.83.3
+sugar-datastore 0.83.3
+sugar-presence-service 0.83.3
+etoys 4.0.2205-2
+Glucose news
+sugar-toolkit
+Dates in journal are not translated
+#55
+Keep error when displaying a file in Browse, Read, ImageViewer, etc
+#258
+Palette positioning fixes
+#298
+'Resume' activity window when NamingAlert is displayed
+#293
+Naming alert prevents activity close on keep error
+#224
+sugar
+Resume Activity list is not updated directly
+#322
+Fix network panel on XO (Sascha Silbe)
+#290
+Only show cp power section on xo
+#320
+Add logout option to the buddy menu (Sayamindu)
+#207
+Launch activity also when clicking on the palette icon
+#335
+Use the activity icon for the 'Start new' palette item
+#314
+Close the object chooser when the activity is closed
+#329
+Dates in journal are not translated
+#55
+Don't mute when right-clicking the speaker icon
+#278
+Correctly cache the connection to the OHM service
+#249
+Show launcher screen immediately after the user clicks to start an activity
+#243
+Use documend-send icon (Gary C Martin)
+#227
+Try harder to get an icon for a clipping
+Hide the journal activity in the home view
+#87
+Correctly initialize the TrayIcon
+Add 'View Details' option to object palette in journal
+Translation updates
+Hide OLPC-specific fields on non-xo machines
+#133
+Add a 'Clear search' button to 'No matching entries' message
+#266
+Correctly detect when a query in the journal is empty
+#255
+Avoid launching two instances of the same activity instance
+#238
+Add start-with option to objectpalette in the journal
+Fix dnd of icons in the favorite view
+#213
+Right click on AP should reveal palette not connect to AP
+#10
+Display space used and left in the volume palette in the journal
+#33
+Don't update the zoom level when a dialog window pops up
+Fix filtering the objectchooser with data types
+#219
+sugar-artwork
+Add documend-send icon (Gary C Martin)
+#227
+Add application-x-generic as a copy of application-octet-stream
+#13
+Add icons drive-harddisk and drive
+sugar-datastore
+Rename the installed package from olpc.datastore to carquinyol
+Only try to remove the checksum dir if it already exists
+Fructose modules
+read 63
+chat 62
+terminal 21
+imageviewer 5
+jukebox 6
+turtleart 23
+browse 103
+etoys 99
+write 61
+calculate 28
+log 16
+pippy 25
+Fructose news
+No News.
+Fructose dependencies
+hulahop 0.4.8

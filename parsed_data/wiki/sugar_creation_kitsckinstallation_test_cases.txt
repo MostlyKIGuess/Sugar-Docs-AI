@@ -1,0 +1,147 @@
+Title: Sugar Creation Kit/sck/Installation test Cases
+URL: https://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/Installation_test_Cases
+--------------------------------------------------------------------------------
+These are additional test Cases for
+https://fedoraproject.org/wiki/Test_Day:2012-03-22_Sugar_Desktop
+All of these test require that an network interface is configured
+Select this box when it appears:
+[Configure network Interface]
+Contents
+1
+liveinst to Hard Drive from booted CD
+2
+netinstall to hardisk-sugar only
+3
+netinstall to hardisk with Gnome
+4
+DVD install to hardisk-sugar only
+5
+DVD install to hardisk with Gnome
+6
+tools_livecd-iso-to-disk install Fedora-17-Beta-i686-Live-Soas
+6.1
+Prepare USB Stick
+6.2
+Terminal Command
+7
+Graphical liveusb-creator
+7.1
+Prepare USB Stick
+7.2
+Install Graphical liveusb-creator
+liveinst to Hard Drive from booted CD
+boot CD
+In sugar_terminal:
+su
+livinst
+use whole disk non LVM
+Boot from Hard Drive
+Successful Boot?
+netinstall to hardisk-sugar only
+IMPORTANT Memory Required for F17 &
+Testing in Virtualbox of anaconda (liveinst) 1024 minimum should be used
+Message that 769 MB memory is required. (I have been told that this is hard wired in anaconda)
+Download
+http://dl.fedoraproject.org/pub/alt/stage/17-Beta.TC2/Fedora/i386/iso/Fedora-17-Beta-TC2-i386-netinst.iso
+Install to Hard Drive, VirtualBox, or 8 GB USB
+select
+customize now
+wait for download of selections
+Select
+Sugar-Desktop
+De-select
+Gnome
+Install
+Does the Install Boot
+Firstboot
+Does Sugar start?
+netinstall to hardisk with Gnome
+IMPORTANT Memory Required for F17 &
+Testing in Virtualbox of anaconda (liveinst) 1024 minimum should be used
+Message that 769 MB memory is required. (I have been told that this is hard wired in anaconda)
+Download
+http://dl.fedoraproject.org/pub/alt/stage/17-Beta.TC2/Fedora/i386/iso/Fedora-17-Beta-TC2-i386-netinst.iso
+Install to Hard Drive, VirtualBox, or 8 GB USB
+select
+customize now
+wait for download of selections
+Select
+Sugar-Desktop
+Install
+Does the Install Boot
+Firstboot
+Does Sugar start?
+DVD install to hardisk-sugar only
+IMPORTANT Memory Required for F17 &
+Testing in Virtualbox of anaconda (liveinst) 1024 minimum should be used
+Message that 769 MB memory is required. (I have been told that this is hard wired in anaconda)
+Download
+http://dl.fedoraproject.org/pub/alt/stage/17-Beta.TC2/Fedora/i386/iso/Fedora-17-Beta-TC2-i386-DVD.iso
+Install to Hard Drive, VirtualBox, or 8 GB USB
+select
+customize now
+wait for download of selections
+Select
+Sugar-Desktop
+De-select
+Gnome
+Install
+Does the Install Boot
+Firstboot
+Does Sugar start?
+DVD install to hardisk with Gnome
+IMPORTANT Memory Required for F17 &
+Testing in Virtualbox of anaconda (liveinst) 1024 minimum should be used
+Message that 769 MB memory is required. (I have been told that this is hard wired in anaconda)
+Download http: not available until Beta Release
+Install to Hard Drive, VirtualBox, or 8 GB USB
+select
+customize now
+wait for download of selections
+Select
+Sugar-Desktop
+Install
+Does the Install Boot
+Firstboot
+Does Sugar start?
+tools_livecd-iso-to-disk install Fedora-17-Beta-i686-Live-Soas
+Download link:
+http://koji.fedoraproject.org/koji/getfile?taskID=3978921&name=Fedora-17-Beta-i686-Live-SoaS.iso
+Set the
+tools_livecd-iso-to-disk.sh
+script as executable (Properties)
+Download link:
+http://git.fedorahosted.org/git/?p=hosted/livecd;a=blob;f=tools/livecd-iso-to-disk.sh;hb=HEAD
+Prepare USB Stick
+4 GB
+Fat 16; boot flag set
+NOTE: use diskutility to unmount /dev/sdg1
+DO NOT TRY TO UPDATE
+Update is too large and will fill up disk
+Terminal Command
+/dev/sd(x)1
+(x)
+is the device name: enter mount in terminal to what it is. eg: /dev/sdb1 /dev/sdc1 /dev/sdd1 /dev/sdg1
+be sure to add the partition number (1) to command
+Type "mount" in terminal to see device name
+sudo ./tools_livecd-iso-to-disk.sh --reset-mbr --overlay-size-mb 500 --home-size-mb 700 --delete-home --unencrypted-home Fedora-17-Beta-i686-Live-SoaS.iso /dev/sd(x)1
+Graphical liveusb-creator
+Prepare USB Stick
+4 GB
+Fat 16; boot flag set label=LIVE (caps)
+Install Graphical liveusb-creator
+Boot the Live CD
+http://koji.fedoraproject.org/koji/getfile?taskID=3978921&name=Fedora-17-Beta-i686-Live-SoaS.iso
+http://koji.fedoraproject.org/koji/getfile?taskID=3978922&name=Fedora-17-Beta-x86_64-Live-SoaS.iso
+sugar terminal:
+su
+yum install liveusb-creator
+liveusb-creator
+Graphical liveusb-creator starts
+insert prepared usb-stick and note it's label appear ie: /dev/sd(x)1 (LIVE)
+[Use existing Live CD]
+insert 2nd USB (not target) with .iso
+look in /run/media/liveuser/(usb label)
+select .iso [Open]
+move Persistent Storage (xxx) slider to desired size
+[Create Live USB]

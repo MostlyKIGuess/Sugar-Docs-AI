@@ -1,0 +1,66 @@
+Title: Features/Replace combo box in journal search
+URL: https://wiki.sugarlabs.org/go/Features/Replace_combo_box_in_journal_search
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+When lots of activities are installed, the "what" combo box on the Journal toolbar becomes unwieldy. This feature would replace the combo box with a palette.
+Owner
+Name:
+Walter Bender
+Email: <walter at sugarlabs dot org>
+Current status
+Targeted release: 1.02
+Last updated: 2014-02-17
+Percentage of completion: 100%
+See
+https://github.com/walterbender/sugar/tree/replace-combo-boxes
+Detailed Description
+When lots of activities are installed, the "what" combo box on the Journal toolbar becomes unwieldy. This feature would replace the combo box with a palette (as shown in the figure). (In addition, the current implementation of the combo box sorts the activities by bundle_id, not very useful. The new code would sort by Activity name.)
+From the palette, you see more choices w/o needed to scroll. Plus the palette is much easier to use with touch.
+A palette is also used for the "when" filter for consistency.
+Benefit to Sugar
+This feature will help us scale to more activities.
+Scope
+The intervention is limited to:
+sugar/src/jarabe/journal/journaltoolbar.py
+sugar-artwork/icons/scalable/actions/view-type.svg, a new icon for the what filter, and
+gtk-toolbar-style = GTK_TOOLBAR_BOTH_HORIZ in gtk3/theme/settings
+How To Test
+Features/Replace combo box in journal search/Testing
+User Experience
+The user will see a palette displayed instead of a combo box. In the example illustrated, it means that rather searching through an un-alphabetized list in a combo box 10x the screen height, the user scans 2.5 screens of items in alphabetical order.
+Dependencies
+No new dependencies
+Contingency Plan
+There is no adverse impact if this feature does not land.
+Documentation
+Release Notes
+Comments and Discussion
+See
+discussion tab for this feature

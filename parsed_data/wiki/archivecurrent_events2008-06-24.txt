@@ -1,0 +1,81 @@
+Title: Archive/Current Events/2008-06-24
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2008-06-24
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Community jams and meetups
+3
+Tech Talk
+4
+Sugar Labs
+Sugar Digest
+1. Milan meeting: There will be a Sugar Labs meeting in Milan on Monday, 30 June. Please contact Walter Bender if you are interested in participating. (Walter also will be at the University of Tampere the weekend of the 28th—he is happy to meet with anyone interested in discussing Sugar before or after sauna.)
+Community jams and meetups
+2. FOSSED: Kevin Cole is helping to promote the Free & Open Source Software in Education (FOSSED) conference to be held at the Governor's Academy in Byfield, Massachusetts, August 4th through 6th (For details, see
+http://fossed.blogspot.com/
+). The conference is (mainly) aimed at introducing teachers to FOSS.
+Tech Talk
+3. Home page: Tomeu Vizoso has been working on the layout for the Home page. This week, he:
+Made "favorite icons" draggable;
+Stored the position of favorite icons;
+Made the layouts in the favorites view pluggable; and
+Implemented a random layout option.
+4. Browse: The Sugar team released a new version of the Browse activity this week (
+Web-90.xo
+). It has many interesting features; please try it and give us feedback.
+5. activities.sugarlabs.org: David Farning is working on converting
+https://addons.mozilla.org/en-US/firefox/
+to work with Sugar and its ecosystem of activities.
+6. Certificates: Marco Pesenti Gritti has made some progress on support for custom certificates in the Browse activity.
+7. Documentation: There are a number of complementary efforts for documenting the Sugar API and the process for creating sugar activities: (1) a high-level functional design of Sugar (See
+http://wiki.laptop.org/go/Human_interface_guidelines
+); (2) a set of "how to's"; (3) a set of APIs generated from the actual code (extracted through pydocs); and (4) some basic startup guides.
+David Farning has spent the week cleaning up the Sugar application programming interface (API) reference documentation at api.sugarlabs.org. Code for the site is at
+api.git
+and a rough draft of an API tutorial can be found in the wiki (
+Documentation Team/API Documentation
+). David is soliciting modules from developers to add to the build_api.sh script, which he plans to run daily.
+Faisal Anwar is writing a Sugar almanac to help new Sugar/Python developers. He is soliciting code samples and feedback. This week, he updated the section on how the basic activity creation tasks (Please see
+Sugar.activity.activity
+). In addition, he has written up some examples of basic datastore access. Additional documentation can be found at
+Sugar-api-doc
+.
+Christoph Derndorfer and the team at OLPC Austria have been working on a handbook for activity developers (
+Activity Handbook
+).
+Meanwhile, Walter Bender is pulling together a new Getting Started Guide based upon the one he wrote for OLPC, but that is reflective of a variety of platforms and considers some of the new features in the Joyride builds.
+8. Read: James Simmons is working on text to speech with "Karaoke" highlighting be a built in part of the Sugar environment (Please see
+http://wiki.laptop.org/go/Read_Etexts
+and download it from
+ReadEtexts-5.xo
+).
+9. SocialCalc: Luke Closs is seeking feedback about the Socialcalc-xocom integration work he has done (Please see
+http://github.com/lukec/socialcalc-xocom/tree/master
+and download it from
+SocialCalcActivity-1.xo
+).
+10. Meta tools: David Van Assche and Martin Langhoff have been discussing various approaches to school administration tools on the Server Development list. Moodle, which will be bundled with the school server by default is compatible with a number of different tools, notably openadmin (
+http://richtech.ca/openadmin/
+). David recommends considering using ClaSS (
+http://www.laex.org/class
+) as it is "more targeted to just the administration of the school, attendance, grading, reporting and general student management." Please share your experiences with these tools.
+11. Koji: Marco Pesenti Gritti, Dennis Gilmore, and Michael Stone have been discussing how to arrange our Koji tags for the 8.2.0 release. Assuming no serious objections, Michael will freeze the dist-olpc3 tag in the OLPC-3 CVS branch and create dist-olpc3-{devel,testing,updates} and dist-olpc4 tags. (OLPC-3 represents OLPC's third buildroot. Buildroots contain the  compilers and basic system libraries necessary to build other packages. It may be helpful to create a dist-olpc3-devel-sugar to separate unrelated streams of development.)
+dist-olpc3-devel - the site of ongoing development (by default, your packages will be built into this tag);
+dist-olpc3-testing - things that are ready for QA testing;
+dist-olpc3-updates - things that pass QA;
+dist-olpc4 - Fedora Rawhide tracker and buildroot experimentation (OLPC-specific changes needed to make Rawhide-based builds).
+12. Feature freeze: An update on the status of the ongoing features can be found in the wiki (
+Development Team/Release/Roadmap#New_features
+).
+13. Test plans: Michael Stone and the OLPC QA team are requesting that each release we get in the stable build is associated with a set of tests that they will perform to verify that things works as expected. It is proposed that it be mandatory to have a Trac item associated with each "news" in the git changelog and each Trac item would have a corresponding testcase.
+In parallel, we'd like to start more formal user-testing in the field of some of the proposed Sugar feature changes. Walter had been in discussion with the deployment teams in Uruguay, Paraguay, and Peru about designating test environments. We'll likely use the new Frame behavior as a test case for testing.
+14. Developers Meeting: Simon Schampijer reports that a summary of this week's developers meeting can be found here in the wiki (
+12 June notes
+). Simon will be on a well-deserved holiday for the next two weeks; Tomeu will be hosting the weekly meeting on irc.
+Sugar Labs
+15. Wiki translations: Chris Leonard has added GoogleTrans templates to many of the pages in wiki.sugarlabs.org; while machine translation is not yet as good as human translation, it gives a reasonable facsimile, hence making the wiki more immediately accessible to a broader audience.
+16. Self-organizing map (SOM): Gary Martin has generated another SOM from the past week of discussion on the IAEP mailing list (Please see
+Image:2008-June-07-13-som.jpg
+). The discussion seems to have been focused on features ("needs") and documentation.

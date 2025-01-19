@@ -1,0 +1,74 @@
+Title: The Undiscoverable/Collaboration
+URL: https://wiki.sugarlabs.org/go/The_Undiscoverable/Collaboration
+--------------------------------------------------------------------------------
+The basic idea of collaboration in Sugar is that the user can share any Activity, which then shows up in the Neighborhood view. Anyone else in the group can click on the icon for the shared activity to join it. There are a number of other features that children need to be shown.
+Contents
+1
+Friend
+2
+Share an Activity
+3
+Join Shared Activity
+4
+Different Sharing Modes
+5
+Save a Shared Activity Session
+6
+Send Documents
+7
+Jabber: The Server/Prosody
+8
+Ad-Hoc and Mesh Networking
+9
+Telepathy-salut vs Telepathy-gabble
+Friend
+In the Neighborhood view, right-click on any icon to bring up a menu showing the person's name, with the option Make Friend. Friend icons appear in the Friend view, in their colors if their users are present, and in monochrome if they are not. You can share  documents with friends who are present and invite them to join your shared Activity sessions.
+Share an Activity
+On the Activity tab, select My Neighborhood on the Share With: menu. An icon for the activity in your colors will appear in the Neighborhood view. When someone else joins, a small personal icon in that person's colors will appear next to the icon for the shared activity. You can invite others to join your Activity with the Invite To option on the hover menu.
+Join Shared Activity
+When you see an Activity icon in Neighborhood view in another person's colors, you can either click on it to join, or point at it and wait for the hover menu to unfold to show the Join option. In either case, a small version of your personal icon appears by the shared Activity icon. If an entire class shares an activity, a large cloud of icons will surround the Activity icon.
+Different Sharing Modes
+A person joining a shared Activity will be able to collaborate in whatever way the Activity provides: with a second brush in paint, another cursor in Write, another musical instrument in TamTam, an opponent in a game. Some Activities do not provide any colloborative functions beyond simple observation.
+We want to let two users join to play a game like owari, chess, or go, and any number of others to observe. The observers will be able to chat about the game without the players seeing their comments.
+Save a Shared Activity Session
+Any participant can save a shared Activity session with the Keep button on the Activity tab. When the saved session is resumed, it is not shared by default. We do not have a way to open a session with the original participants.
+Send Documents
+In the Journal, the menu for any entry includes the option to send it to any friend who is present at the time.
+Jabber: The Server/Prosody
+Technical: Jabber setup
+The Server/Prosody
+Ad-Hoc and Mesh Networking
+Collaboration on Ad-hoc Networking must be initiated by XO-1.5 when connecting to an XO-1
+Mesh Networking:
+(Re: [Testing] [OLPC New Zealand] os873 on XO-1.5 and os873 on XO-1 -07/15/2011) testing@lists.laptop.org 07/18/2011 -Samuel Greenfield
+XO-1.5's do not have Mesh networking support, so they use 802.11 Ad-hoc
+networks.  XO-1's default to Mesh networks at the moment for compatibility,
+because that is what they historically have done.
+Once an XO-1.5 starts an Ad-hoc network, the XO-1's will spot that network
+within a minute or two, and use the same Mayan numeral as the XO-1.5 to
+indicate its presence.  If all the XOs leave an Ad-hoc network it
+disappears; but Network Manager/Sugar cache its presence for a while in case
+a scan accidentally missed a network.
+When an XO-1 sees an Ad-hoc networks they are all filled in as "occupied",
+because an XO-1 does not show the unfilled variants to allow an XO-1 to
+start them.
+This behavior has been around since OLPC build 10.1.3 (860) & Sugar 0.90,
+and is described at
+http://wiki.sugarlabs.org/go/Features/Ad_hoc_Networking
+I believe XO-1's can be adjusted to default to Ad-hoc as well if desired
+Enable Ad-hoc network on XO-1
+(Re: [Testing] [OLPC New Zealand] os873 on XO-1.5 and os873 on XO-1 -07/23/2011) -Gary Martin
+1) You can enable ad-hoc networking on recent XO-1 builds with (your neighbour hood view will be populated with the three new Mayan numbered adhoc icons as well as the usual three mesh icons):
+gconftool-2 -s  /desktop/sugar/network/adhoc -t bool true
+2) Unfortunately I am not aware of current builds properly supporting disabling
+(e.g. a gconf setting would be nice) mesh network on XO-1 hardware… 
+There was talk and some patches floating about, but I'm not sure anything landed. 
+The closest seems to be the below terminal command, but it does not survive a power cycle, or sleep/wake cycle :
+( Maybe there is some power script this could be added to for folks who want to disable mesh permanently (until we get something more elegant in place for the future)?
+su
+echo 0 > /sys/class/net/eth0/lbs_mesh
+Telepathy-salut vs Telepathy-gabble
+07/23/2011 IRC:#sugar
+<silbe> Sugar will use link-local collaboration (telepathy-salut), using multicast on the LAN (e.g. wifi). 
+If a Jabber server is configured, Sugar will try to connect to it (using telepathy-gabble).
+As soon as the Jabber connection has been established, Sugar will deactivate the link-local collaboration.

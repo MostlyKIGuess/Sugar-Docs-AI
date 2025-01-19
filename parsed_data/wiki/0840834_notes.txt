@@ -1,0 +1,238 @@
+Title: 0.84/0.83.4 Notes
+URL: https://wiki.sugarlabs.org/go/0.84/0.83.4_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.83.4 Release Notes
+1.1
+Announcement
+1.1.1
+Naming alert on journal entry creation
+1.1.2
+Display recent activities in the home view
+1.1.3
+Journal
+1.1.4
+New ColorToolButton Widget
+1.1.5
+Control Panel
+1.1.6
+Autoconnect to Access Point
+1.1.7
+Logout Option
+1.1.8
+New Logic for the devices positions
+1.1.9
+Table of Content Support in Read
+1.1.10
+Acknowledgment
+1.2
+Compatibility
+1.3
+Glucose modules
+1.4
+Glucose news
+1.4.1
+sugar-toolkit
+1.4.2
+sugar
+1.4.3
+sugar-base
+1.4.4
+sugar-presence-service
+1.4.5
+sugar-datastore
+1.4.6
+sugar-artwork
+1.4.7
+etoys
+1.5
+Fructose modules
+1.6
+Fructose news
+1.6.1
+calculate
+1.6.2
+read
+1.6.3
+browse
+1.6.4
+chat
+1.6.5
+write
+1.7
+Fructose dependencies
+Sucrose 0.83.4 Release Notes
+Announcement
+Since, this date is Feature, API, String freeze everyone was busy getting their features in.
+From a user point of view we want to highlight the following:
+Naming alert on journal entry creation
+The journal's search and browsing capabilities are less useful if all entries are named the same regardless of their actual content or
+meaning to the user. That is why an alert has been added that encourage the user to set the title and other properties, like available in the journal detail view, of a newly created journal entry. This alert is only shown on the creation of a new journal entry, not on resume.
+Display recent activities in the home view
+In order to make easier to continue past work, the home view will display recent entries in the activity palettes.
+You can decide if you want the activity icons to represent the last journal entry with a new setting in the favourites view palette:
+Journal
+Tomeu Vizoso has been doing a wonderful work of bringing the journal implementation closer to its design.The Object chooser can now be filtered by data type.
+A favourite filter has been added to the journal toolbar to give a better way of marking entries as 'important'. More regression fixes went into the support of removable devices after moving from maintaining an index file on the device to the use of POSIX calls.
+New ColorToolButton Widget
+Benjamin Berg added a new ColorToolButton widget. It is already in use in the Write activity to select a colour for the text.
+Control Panel
+The 'About my XO' section has been renamed to 'About my Computer' to reflect the use of Sugar on non-XO hardware. Morgan Collett added the possibility to change the jabber server without restarting Sugar.
+Autoconnect to Access Point
+NetworkManager does autoconnect on Sugar startup to the last Access Point you were connected successfully to.
+Logout Option
+Sayamindu Dasgupta added a logout option to the xomenu. Eben Eliason added the accessibility of the xomenu to the groups and mesh view and to the friends tray in the frame.
+New Logic for the devices positions
+The logic to position the frame devices has been reworked. Plug in your devices and try it out.
+[500 external devices eg. USB drive]
+[400 3rd party devices eg. speech]
+[300 transient connection devices eg. AP]
+[200 transient devices eg. camera]
+[100 static devices eg. battery]
+Table of Content Support in Read
+The Read activity now shows the Table of Content for PDF files which support this feature. This eases navigation of large PDF files considerably.
+Acknowledgment
+A big thanks goes to all the translators, that are working so hard to make Sugar a terrific localized environment and the infrastructure team that provides our members with tools and services to make their live easier.
+Thanks everyone for your great contributions!
+Compatibility
+When you upgrade a computer running an earlier version,
+The old datastore will be updated to the new format.
+Your old profile (in
+.sugar/default/config
+) will be imported into GConf
+If you later downgrade from Sucrose 0.83.x to an earlier version,
+The datastore is incompatible
+You will be prompted to enter all your profile settings like you are on first boot
+Most of the activities in Sucrose 0.83.x should be compatible with Sucrose 0.82 , the version shipped with
+XO Software Release 8.2.0
+.  An exception is Browse, which depends on new versions of XULRunner and Hulahop.  Read likewise may soon depend on a new version of Evince
+Glucose modules
+sugar-toolkit 0.83.4
+sugar 0.83.5
+sugar-artwork 0.83.3
+sugar-base 0.83.3
+sugar-datastore 0.83.2
+sugar-presence-service 0.83.3
+etoys 4.0.2205-2
+Glucose news
+sugar-toolkit
+separate debug settings from xsession
+#163
+show an alert on activity close for suggesting the user to set properties of the entry
+#215
+add a colorpicker to Sugar, only the ColorToolButton is public for now
+move the palette to new style gobject properties
+#3060
+Add the possibility of filtering the object chooser by data type
+fix uninstallling of activities that use symlinks
+#171
+remove the hacks for asking the X server for screenshots and use gtk.Widget.get_snapshot() instead
+sugar
+make the journal entries in the favorites palette resumable
+simplify the constants used to identify favorite layouts
+separate debug settings from xsession
+#163
+add logout option
+#207
+to xomenu (sayamindu, icon by eben)
+change jabber server without sugar restart
+#142
+About my XO -> About my Computer
+#196
+Fix setting the timezone in debian
+autoconnect to AP that we connected to last
+#8
+add a favorites mode setting for deciding if the favorites view resumes by default or not
+resume by default the last activity from the favorites view
+implement filtering by file type for removable devices
+#132
+Filter by timestamp, not by mtime
+add support for text queries on removable devices
+dont abort if we cannot read a file from a removable device
+add a favorite filter to the journal toolbar
+sanitize the file name when we copy to removable devices
+#36
+Refresh the detailed view when the entry changes
+#38
+Refresh full metadata when editing so we dont lose properties
+Focus Search is not exposed via dbus anymore
+#89
+#131
+'open with' does not work for clipboard item
+#165
+Install bundles when they get into the journal
+add Resume item to the file transfer palette
+#126
+Fix erase button in the journal
+following eben's spec for the device positions
+sugar-base
+Don't print logs to tty instead of shell.log in the emulator
+Trivial port to GIO instead of GnomeVFS
+sugar-presence-service
+#142
+Restart a server-based collaboration session / switch servers on the fly
+sugar-datastore
+#181
+Replace deprecated os.popen by subprocess
+#140
+Crash when joining a shared Read
+sugar-artwork
+add activity-journal icon to artwork
+add system-logout icon (part of
+#207
+)
+add everything needed for the colorpicker. That is a small icon and a bit in the gtkrc.
+fix triangular arrows by looking at the parent_bg_color option
+add icons for object transfers
+etoys
+offer full authoring-tools menu to all users
+make Anthy based Japanese input work
+add About flap on start screen
+enable screen scaling a bit more eagerly
+include icons for mimetypes
+Fructose modules
+read 63
+chat 62
+terminal 21
+imageviewer 5
+jukebox 6
+turtleart 23
+browse 103
+etoys 99
+write 61
+calculate 28
+log 16
+pippy 25
+Fructose news
+calculate
+Support 'real' scientific notation
+#4250
+Add switching between exponential/scientific notation
+Allow changing of number of displayed digits
+Change cursor on equations to Hand
+#6612
+Fix fall-through of unhandled CTRL keys (eg CTRL+Q)
+Add recursion detection
+Fixed error-handling bug
+read
+#7343
+Enable a horizontal scroll bar
+#2837
+Implement TOC navigation in Read (sayamindu)
+#145
+Prevent object chooser appearing when joining a shared session
+browse
+use cjson instead of json (nirbheek)
+new translations
+chat
+use cjson instead of simple-json (nirbheek)
+Updated translations: he, en_US, sv
+write
+Make use of the ColorToolButton that benzea landed in sugar-toolkit
+#3060
+Filter object chooser so it shows only images
+#8972
+Save to OpenDocument if we cannot export in the original format
+Fructose dependencies
+hulahop 0.4.8

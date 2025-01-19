@@ -1,0 +1,45 @@
+Title: One tester's jhbuild experience 23Aug9
+URL: https://wiki.sugarlabs.org/go/One_tester%27s_jhbuild_experience_23Aug9
+--------------------------------------------------------------------------------
+How do I get TOC to work?
+videos
+http://www.youtube.com/results?search_query=pleabargain+jhbuild&search_type=&aq=f
+Ubuntu 9.04
+1100 reading install instructions
+http://wiki.sugarlabs.org/go/Development_Team/Jhbuild
+Why? I had Sugar installed on Ubuntu 9.04 but it stopped building ~19Aug. I deleted the directory. rm -rf sugar...
+1110 on irc waiting for git to finish download/ uploading video
+user@ubuntu:~/sugar-jhbuild$ ./sugar-jhbuild update
+http://www.youtube.com/watch?v=YOZ8Se1TZFo
+1119 ./sugar-jhbuild depscheck returns ok
+1120 ./sugar-jhbuild build in process
+1202 lost internet. Apparently build still pulls from repository
+note use pastebin and look at errors before making fool of oneself on irc, very easy to lose cred with devs
+1218 retrying at 25 of 38 now
+1222 epic romance of failure: *** Installing read *** [26/38]
+python setup.py install --prefix /home/user/sugar-jhbuild/install
+Traceback (most recent call last):
+File "setup.py", line 19, in <module>
+   from sugar.activity import bundlebuilder
+ImportError: No module named sugar.activity
+Error during phase install of read: ########## Error running python setup.py install --prefix /home/user/sugar-jhbuild/install *** [26/38]
+[1] Rerun phase install
+ [2] Ignore error and continue to next module
+ [3] Give up on module
+ [4] Start shell
+ [5] Reload configuration
+This has been going on now for at least four days as of 23 Aug. Is there anyone building Sugar from Jhbuild but not on a VM?
+fedora 11
+1312
+.jhbuild-sugar run
+got sugar started tried opening activities then it freezes whole screen
+<dgd> you're going to love this... f11 jhbuild. no activities start...
+<dgd> the video will be available in about 20 minutes, UI is there but activities do NOT start
+<dgd> and even better, F11 just crashed...
+<dgd> this machine runs fine except when running sugar...
+<dgd> unfortunately video will not be available as machine has just crashed  :(
+1333
+iwikiwi_ runs sugar-emulator on f11 without any problems
+<iwikiwi_> dgd: also by default the dev-logging in f11 sugar is disabled, so might want to edit ~/.sugar/debug and enable logging by uncommenting them.
+video
+http://www.youtube.com/watch?v=uh6dc1c1yfc

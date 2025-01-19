@@ -1,0 +1,123 @@
+Title: Features/Multiple home views
+URL: https://wiki.sugarlabs.org/go/Features/Multiple_home_views
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+7.1
+gsettings instructions for Sugar 102+
+7.2
+gconf instructions for Sugar 100
+7.3
+Notes on using Gconf
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Option to have different collections of activities on the Home View for formal (classroom) and informal (home) use.
+Owner
+Name:
+Walter Bender
+Email: <walter at sugarlabs dot org>
+Current status
+Targeted release: 0.100
+Last updated: 09.26.2013
+Percentage of completion: 100%
+Detailed Description
+It has been reported that teachers are upset by the fact that children have differing collections of activities on their home views; to the extent that some deployments forbid children from loading "unofficial" activities onto their machines. As an easy workaround to both offering the teacher a consistent classroom experience for each child and for the children to have the freedom to modify their system's look and feel to their convenience and taste, I am proposing to have two home views: one for school and one for personal use.
+I propose replacing the spiral vs random view buttons with school vs personal buttons (using the school and xo icons). There would be a separate collection of activities for each view, set in the list view. View names can also be set.
+There are several ways we could implement this:
+The most simple, non-invasive solution would be to have starred and unstarred views. The starred view would be exactly the same as the current home view. The unstarred would show those activities that are not starred.
+A variant of the above would be to have a tristate star in the list view, where a third star is in the user's colors and the two home views be filled or user filled.
+Instead of a star, there would be a school and an xo. Activities could appear in either, both, or none (As shown in the illustration below).
+Note: In the illustration, the selection is in the secondary menu. Upon reflection, I think it should part of the primary selection (in line with the list view, replacing the current circle icon).
+Note: the current method of selecting home view style, e.g.,spiral or random, could (arguably should) be replaced by standard secondary menus. (Is there anywhere else in the entire interface where we use these secondary button menus? -- admittedly, this style may be more suitable for touch, in which case all secondary menus should work that way.)
+Benefit to Sugar
+The Sugar user would have more options regarding layout (most window managers provide multiple desktops) and the teacher could ask for a more structured configuration when desired.
+Scope
+The changes would be to sugar/src/jarabe/desktop activitylist.py, favoriteslayout.py and favoriteview.py
+How To Test
+In Sugar 100, you need to use gconf settings to enable it. In Sugar 102+, we use gsettings.
+gsettings instructions for Sugar 102+
+Add an override to /usr/share/glib-2.0/schemas/sugar.oob.gschema.override
+[org.sugarlabs.desktop]
+homeviews=[{'layout': 'ring-layout', 'view-icon': 'view-radial', 'favorite-icon': 'emblem-favorite'}, {'layout': 'ring-layout', 'view-icon': 'view-radial', 'favorite-icon': 'emblem-favorite'}]
+In the example above, a second homeview using the standard icons is created.
+After updating the override file, you must recompile the gsettings:
+sudo glib-compile-schemas
+Reboot and you should have multiple homeviews.
+gconf instructions for Sugar 100
+In desktop/sugar/desktop, you need to add view_icons entries (and optionally, favorite_icons), e.g.:
+<?xml version="1.0"?>
+<gconf>
+<entry name="view_icons" mtime="1375102663" type="list" ltype="string">
+<li type="string">
+<stringvalue>view-radial</stringvalue>
+</li>
+<li type="string">
+<stringvalue>view-radial</stringvalue>
+</li>
+</entry>
+<entry name="favorite_icons" mtime="1375102663" type="list" ltype="strin
+g">
+<li type="string">
+<stringvalue>emblem-favorite</stringvalue>
+</li>
+<li type="string">
+<stringvalue>emblem-favorite</stringvalue>
+</li>
+</entry>
+</gconf>
+This will result in two homeviews, each using the standard view-radial icon on the desktop and the emblem-favorite icon in the list view.
+from the cmd line, you can configure it something like this:
+gconftool-2 -s /desktop/sugar/desktop/view_icons --type list --list-type string ['view-radial','view-radial']
+gconftool-2 -s /desktop/sugar/desktop/view_favorites --type list --list-type string ['emblem-favorite','emblem-favorite']
+Then restart Sugar.
+If you want more than two desktops, add more icons to the lists, e.g., three home views:
+gconftool-2 -s /desktop/sugar/desktop/view_icons --type list --list-type string ['view-radial','view-radial','view-radial']
+gconftool-2 -s /desktop/sugar/desktop/view_favorites --type list --list-type string ['emblem-favorite','emblem-favorite','emblem-favorite']
+And just unset to go back to one homeview:
+gconftool-2 -u /desktop/sugar/desktop/view_icons
+Notes on using Gconf
+The previous "how to test" section assumes familiarity with Gconf. Gconf is the Gnome preferences configuration system. It is being used to store Sugar preferences in this case. You can start the tool from the command line in Terminal. The -2 in gconftool-2 means that you are using version 2 of Gconf. Typical switches are
+-s    set a value
+-u    unset a value
+-g    get (print) a value
+-t     set the type (eg int) of a value
+User Experience
+The user would have have two desktops,  plus the list view. As is the case now, all activities will show up in the list view.
+Dependencies
+No new dependencies
+Contingency Plan
+Documentation
+Release Notes
+Multiple home pages are enabled using gconf, e.g., to enable two home views:
+gconftool-2 -s /desktop/sugar/desktop/view_icons --type list --list-type string ['view-radial','view-radial']
+gconftool-2 -s /desktop/sugar/desktop/view_favorites --type list --list-type string ['emblem-favorite','emblem-favorite']
+gconftool-2 -s /desktop/sugar/desktop/favorite_names --type list --list-type string ['Home View','Student View']
+A deployment might enable this in:
+olpc-os-builder:modules/sugar/kspost.50.gconf.inc
+Comments and Discussion
+See
+discussion tab for this feature

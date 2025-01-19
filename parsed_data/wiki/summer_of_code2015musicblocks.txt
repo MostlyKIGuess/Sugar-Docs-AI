@@ -1,0 +1,182 @@
+Title: Summer of Code/2015/MusicBlocks
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2015/MusicBlocks
+--------------------------------------------------------------------------------
+Contents
+1
+About me
+2
+About my project
+3
+Me and The Community
+4
+Miscellaneous
+About me
+What is your name?
+My name is Yash Khandelwal and I am a 2nd year undergraduate student at
+IIIT-Hyderabad
+.
+What is your email address?
+yk51294@yahoo.in
+What is your Sugar Labs wiki username?
+k_yash
+What is your IRC nickname on irc.freenode.net?
+k_yash
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My first language is Hindi, I am fluent in English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+My location : Hyderabad, India
+UTC + 5:30 (Indian Standard Time)
+Working Hours (not strict, flexible): (UTC + 5:30) 12:00 - 17:00 and 22:00 - 1:00
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer
+I am new to open source. I simply love the way Sugar gives quality education to children that too on such a large scale reaching out to 3 million children across 40 countries. By contributing to open source I get to know how things work outside the box, by this we get exposure to the real world. I can put up my ideas, work on them, and have freedom to develop things I like for the benifit of the organisation. Open source is a platform where my skills can reach a large number of people.
+About my project
+What is the name of your project?
+Music Blocks
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+The project music blocks is for Children/music-newbies to learn music in an interactive and graphical manner. Learning Music through music blocks (music tools suite) will be more fun than the traditional way of music learning.
+The project will have analogy to blocks as in turtleblocksJS. By the idea of block programming, modular chunks of melodies could be made, which could be manipulated in order to create new melodies and forms. Chunks could be combined together and automated to create different different music patterns, polyphony etc. They could also be sequenced logically (if-then-else) and automated.
+There is a need for this kind of activity in sugar because it is very boring and tedious job to get the concepts of notations, pitch, octaves, scale, chords etc, which has more theoretical part. With the Music Blocks activity getting through these things and also understanding concepts of phrasing, time signature, scaling could be fun for music newbies. Things mentioned above could be exported as a MIDI, Lillypond, MusicXML file, which could also help children to understand language like MusicXML. MIDI file could also further act as input file to application like audacity to edit and further convert them to audio.
+The technologies I will use in the project will be mostly Javascript with HTML/CSS.I will mainly use Tone.js and Createjs. Some more javascript libraries like Reqwest.js, require.js etc will also be used.
+-> Jquery for HTML document traversal and manipulation, event handling, and Ajax making it simpler.
+-> Tone.js is a Web Audio framework for creating interactive music in the browser. It offers prebuilt synths and effects, as well as presets for them.
+-> CreateJS is a suite of modular libraries. It contains easelJS, tweenJS, preloadJS and soundJS. I'll use EaselJS for working with canvas, tweenJS for HTML5 animation and preloadJS for coordination between various things like CSS, SVG, audio.
+I will use Agile methodology in incremental order for the project.
+I have made following basic UI design mockups :
+I thought it would be better if we split the UI into two parts ( basic and advanced tools), because it will be easier for a new user to understand the music blocks activity. With my personal experience in using turtleblocksJS, I tried to think from a child's perspective, I felt that when the child is new to the activity, he/she could get easily confused on seeing all the palettes together in one window ranging from boolean palette to sensor palette. So firstly, if the user gets used to with basic tools, then it will not be difficult for him/her to understand the whole activity. It is also a faster approach to get familiar with all the functionalities and to use them smoothly.
+Home ->
+Beginner Play Tools : When the user just wants to play music, record sounds, use primary functionalities only.
+Advanced Learning Tools : Contains whole set of music blocks functionalities. User could implement chunks, do their logical sequencing, and can also implement virtual instruments etc.
+Beginner Play Tools ->
+Upper navigation bar will provide user Play, Stop sound, view/hide palette bar. User can also seek help by viewing the tutorial and could also erase the project. There will be some more of such functionalities I intend to implement.
+Palette bar contains palettes which in turn contains blocks. Each palette has distinct functionality and so the blocks.
+Right Side bar contains planet (where user can export project on web and import from web), functionalities to import and export project locally, hide/show the bar etc.
+Beginner Play Tools will contain palettes with basic functionalities like playing note with different pitches and note values, play music by uploading music files(music player palette will contain blocks like play, pause, stop, volume, upload etc). User can play/view examples that I intend to make, which will help them to become familiar with the music blocks functionalities and how to use them. There will be some more such palettes.
+Advanced Learning Tools ->
+It will contain whole set of functionalities of music blocks. It will contain palettes like chunk(for implementation of modular pieces of melodies called chunks), tools(for parameters like scale, time signature etc), Logical Sequencing(to sequence chunks based on some logic like if-then-else), virtual instruments(contains blocks for parameters like harmonics etc, by manipulation of which virtual instruments could be created), export(to export the project as MIDI, lilypond, .tb format which could be further imported into other applications). There will be more palettes with different functionalities, some could be similar to that of turtleblocksJS.
+The picture below is a basic example of how Chunks can be implemented using blocks and can be sequenced together.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Note
+- I have tried to keep a fair amount of ‘holidays’ so that I get some free time to relax, look into other commitments and not feel overwhelmed by work. Though not mentioned explicitly, I plan to take Sundays off from work.
+DAYS
+WORK TO BE DONE
+May 5 - May 10
+Go through turtleblocksJS code thoroughly to understand the flow, primitives, methods in good detail. I have basic understanding  of the code because of my previous contribution to sugar.
+May 11- May 13
+Understanding Western Music Theory  deeply(I have basic the knowledge but I believe there’s always room for improvement for everyone), I am good in Indian classical music, so it’ll be easier to understand the analogy between both.
+May 14 - May 16
+Discuss about Features, Functionalities and architecture of the project. Discuss about methods of implementation specified in this proposal.
+May 17 - May 23
+Narrowing down turtleblocksJS, getting rid of stuff we don’t need. Making UI / UX, working on design aspects.
+May 24 - June 4
+-> Making structure for the activity i.e. how blocks, blockfactory etc should work.
+-> Making primitive blocks required.
+June 5 - June 15
+Making a basic Music tools suite.
+Implementing functionalities like:
+->Playing note with different note values
+->Playing input music files
+->Pitch, Time signature
+->Chunks for sequencing notes and giving modularity to melodies.
+->different type of oscillators
+->implementing polyphony by playing multiple chunks together
+->recording sound.
+->implementing cache for the activity to expedite the process of retrieving data
+June 16 - June 19
+Break for family trip.
+June 20 - June 23
+Adding functionality to create virtual instruments(their sounds)  and also required parameters to do the same.
+June 24 - June 26
+Buffer period, Taking reviews from Devin and Walter for the work done so far
+June 27
+Apply for Mid-term evaluation
+June 28 - July 3
+-> Improving UI/UX
+-> improving primitives(to run blocks, palettes etc in backend)
+-> Documentation of work done so far
+-> tracking status of commitments.
+-> testing the functionalities implemented so far by covering all the possible cases
+July 4 - July 10
+Begin working on Automation, where user could put the logic(like steps to go up/down, scale, time signature) which could create a notes sequence. Order of chunks could be manipulated using logic sequences.
+July 11 - July 14
+I will continue working on Automation (this functionality could also require some changes in primitives) and complete it in this time period.
+July 15 - July 19
+Implementing export functionality of the project made in  the activity (as MIDI, lilypond, XML, .tb)  and .tb file could act as input to the turtle Art and I will try to implement that output .tb file of turtle Art project could also act as input file for for music blocks.
+July 20 - July 25
+Buffer period
+July 26 - Aug 1
+Making examples for the activity, which could be imported, it’ll help users to get better understanding of the functionalities out there, and how to use them.
+Aug 2 - Aug 12
+Discuss with Walter and Devin, if there’s anything more that we’d like to implement. Implement it.
+Aug 13 - Aug 16
+->  Organize whole code
+-> UI improvements.
+-> testing all the modules and variations.
+->  fix remaining small issues
+Aug 17 - Aug 20
+> Pencils down date
+-> Scrub code
+-> re-factor the code to remove out unnecessary/commented code and its repetitions also
+-> adding comments which will help further development of the activity easier for other people.
+Aug 21
+-> Firm pencils down date
+-> Submit final evaluations to Google.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+My 4th semester exams end on 5th May 2015 and I have my next semester starting from last week of July 2015, so I will be able to spend only 30-35 hours per week once my vacation ends. I need to spend around 5 hours per week as a part of additional work under my research mentor in college for 1.5 months. Apart from that I do not have any prior commitments and I can easily devote 40-45 hours per week for the project. In my college, I am bound to strict deadlines, so I am apt to work with deadlines that allows me to complete projects/tasks on time. I will consider my work during GSoC as full time work and so I will be working with complete dedication during the entire duration.
+I also developed a basic prototype :
+Link to it ->
+https://docs.google.com/document/d/1Rj-Tr19EAz3SUxt2cL43hdfvo1jXGXFmSSLq7gUvCnw/edit?usp=sharing
+The project I have completed successfully as part of my college course work are as follows:
+webERP
+: Converted webERP into web 2.0  UI type using laravel framework
+SkyNote
+: Built Notes keeper in web2py framework. It is an application which helps you to save your notes in browser when offline and on server when online
+Carrom
+: Built Single player Carrom Board developed using openGL and c++
+File Transfer Protocol
+: Application developed in C, which uses TCP protocol for File sharing (upload / download), Indexed searching and file hashing .
+Top-Shooter
+: Built a 3-D top shooter game in openGL-2 and c++
+Me and The Community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My answer
+:
+The project Music Blocks is about learning concepts of Music theory easily in interactive and graphical manner. It will help around 3 million children to learn music easily and not only learn but enjoy it too. The activity will open a different stream of learning apart from activities related to memory, puzzles, programming, physics and it will add to their knowledge sphere.
+The five processes which enhance learning in any subject are authentic to musical experience which are :
+listen->perceive
+question->inquire
+create->produce or invent
+perform->memorize
+reflect->set goals/plans
+So, I think that music blocks activity will also promote these processes.
+Walter
+:
+The correlation between music and mathematics has long been celebrated but there is another important reason why enhancing the music offerings in Sugar is important: it is one of the few areas where a learner can engage in open-ended problem solving.
+Schools everywhere are squeezing open-ended problem solving out of their curriculums in order to add more "measurable" learning experiences. We need to combat this trend by making a great platform for exploration.
+What will you do if you get stuck on your project and your mentor isn't around?
+If I am stuck at any point I try to sought it out myself, usually I search for it on the web, related links to the context. If it does not work, then I’ll ask other developers on irc for help, or I’ll drop a mail on mailing list. In college I’m surrounded by people who have expertise in various areas, I will try to seek help from my colleagues who have more knowledge about that domain in which problem resides.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I will have a page on wiki, where I will update my progress, future plans, any problems faced or questions weekly. I will get my work reviewed from mentor weekly. This is how community will be aware of the progress made by me so far.
+Miscellaneous
+We want to make sure that you can set up a development environment before the summer starts. Please do one of the following: Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Made Google-maps plugin for turtleblocksJS :
+https://github.com/walterbender/turtleblocksjs/pull/154
+Merged
+Improvements in palettes in turtleblocksJS:
+https://github.com/walterbender/turtleblocksjs/pull/196
+Merged
+A small fix in resizing palette:
+https://github.com/walterbender/turtleblocksjs/pull/204
+Merged
+Added shortcuts in browse activity :
+https://github.com/sugarlabs/browse-activity/pull/6
+unreviewed
+Extracting nutrition plugin data from webAPI :
+https://github.com/walterbender/turtleblocksjs/pull/169
+closed
+Describe a great learning experience you had as a child. Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+In childhood, I always thought that God is behind everything which is happening around me, like why moon goes opposite to my direction while travelling, why sun rises in the east, why breathing is necessary to live. But when science entered in my life, I started realizing that everything has reason behind its happening. It totally changed the way I look at things around me.
+There was another incident, till last year I always thought "why do people learn classical music, they just have to sing out words, why they sing out solfege?". But When I entered into the field of music, I realized that nothing is possible without classical music. It is like building blocks of music and now I can appreciate its importance. By the way, I play flute :) .
+Recently I performed for the first time in my college. Here is the
+link
+.

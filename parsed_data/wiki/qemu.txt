@@ -1,0 +1,113 @@
+Title: QEMU
+URL: https://wiki.sugarlabs.org/go/QEMU
+--------------------------------------------------------------------------------
+The
+QEMU
+emulation environment, including the accelerators kqemu and kvm, lets you run a variety of software on your computer in a protected environment. This includes software that is incompatible with your operating system, and software for different processors. Other options are
+VirtualBox
+(Free Software) and
+VMware
+, commercial software with a no-cost runtime version.
+Contents
+1
+Use Cases
+2
+Getting Started
+3
+HOWTO
+3.1
+Creating disk images
+3.2
+Minimum Command
+3.3
+Virtual Hardware
+3.4
+Install School Server
+3.5
+Command Line
+4
+qemu monitor
+5
+Resources
+Use Cases
+Windows
+: Run
+Sugar
+,
+School Server
+, Linux more generally (for example, as a method for shifting from Windows to Linux)
+Macintosh
+: Run Sugar, School Server, any Linux
+Linux on Linux:
+Fedora
+(including School Server) on
+Ubuntu
+and the like
+Sugar on Arm processors: Encore
+Mobilis
+and proposed
+XO-2
+BSD: qemu in development
+You can run
+Emulator image files
+of almost any version of Sugar and the XS school server in qemu, including daily builds, releases, Sugar on a Stick, Live CDs, sugar-jhbuild, and whatever else we come up with. As we
+port Sugar
+to other computer architectures, such as ARM[
+[1]
+], this will become increasingly important, so that developers and testers do not have to purchase one of each. There are emulation modules for qemu to emulate a wide range of processors and peripherals.
+Getting Started
+One of these commands will work in most Linux distributions, using yum for Red Hat-style packages on Fedora and related distros, or apt-get for Debian-style packages on Debian, Ubuntu, and related distros. Otherwise, consult system documentation for package installation or installing from source.
+yum install qemu
+apt-get install qemu
+There are full-screen text and windowed graphical package manager clients such as aptitude and Synaptic to assist you.
+You should install an accelerator if at all possible, that is, if your processor supports virtualization in hardware. To find out whether it does, run the command
+$ egrep '(vmx|svm)' /proc/cpuinfo
+flags : fpu vme de pse tsc msr pae mce cx8 … vmx …
+flags : fpu vme de pse tsc msr pae mce cx8 … vmx …
+Some of the output is truncated in this example, and your results will probably differ elsewhere.
+There are two sets of flags because the processor used for this example has two cores.  You would be looking for the “vmx” flag for an Intel-VT and the “svm” flag for an AMD-V processor.
+This test succeeds if you get any lines of text as a result, and fails if the result is blank.
+Installing KVM on Ubuntu is completely automatic, using
+$ apt-get install kvm
+The installation script gets the source code, compiles it into your kernel, and configures it to Just Work[TM]. Consult system documentation for other Linux distros and other OSs, or if you want to install kqemu instead. Either kqemu or kvm will give you something like a ten times performance boost, according to some sources. Your mileage may vary.
+HOWTO
+You can run qemu on a variety of disk images, including .iso (CD image format), .img (raw disk images), .qcow2 (qemu Copy-On-Write).
+Creating disk images
+To create an empty, compressed, expandable hard drive image of 300 GB capacity, enter
+$ qemu-img create my.img 300G
+using the name of the image file you want to create. The file will be in qcow2 format unless you specify another option.
+300 GB is what the School Server installation program wants. After installation, the image file will expand to 6.8 GB.
+$ qemu-img info XS.img
+image: XS.img
+file format: qcow2
+virtual size: 300G (322122547200 bytes)
+disk size: 6.8G
+cluster_size: 4096
+To convert a read-only CD image such as the
+Sugar on a Stick
+Beta to read-write qcow2,
+$ qemu-img convert -O qcow2 soas-beta.iso soas-beta.img
+Minimum Command
+$ qemu -hda hda.img
+or
+$ kvm -hda hda.img
+where you will substitute the name of your .img or other disk image file.
+Similarly for .iso images such as a Sugar LiveCD.
+$ kvm -cdrom cd.iso
+This may well boot your image and run, letting you log in and try out your software, assuming that your image file is valid and your processor is not too old. Depending on what your purpose is, you may prefer to add other options. Here are some examples. For full details, consult the qemu documentation.
+Virtual Hardware
+Set memory size, sound, networking, second hard drive, CD
+$ kvm -m 512 -soundhw es1370  -net user -net nic,model=rtl8139 -hda hda.img -hdb hdb.img -cdrom cd.iso
+Install
+School Server
+$ kvm -m 512 -hda hda.img -cdrom XS.iso
+Pay attention to the boot sequence or it will just skip to its defaults. Press F12 when instructed to get to the boot menu, and tell it to boot from CD. Follow on-screen instructions. The process is almost completely automated. You will then have to set up networking to make this image accessible to jabber users and the like.
+Command Line
+This is actually a full terminal interface. It is good for remote virtual servers, where you don't want to run X (too unstable) but you want to be able to log in with ssh to administer the system. This also lets you run full-screen text mode applications such as aptitude and Midnight Commander. Curses is named for the full-screen terminal cursor, which can be anywhere in a 24 × 80 field.
+$ kvm -m 512 -curses -hda hda.img
+qemu monitor
+The key combination Ctl-Alt-2 (not F2) transfers you from your running virtual machine to the qemu command line. This lets you query the system, save and load snapshots, and perform other administrative tasts. See the qemu documentation for available commands. Unfortunately the process of saving snapshots is not reliable. It may appear to work, but create a corrupted image.
+Resources
+QEMU home page
+more on KVM
+OLPC:QEMU

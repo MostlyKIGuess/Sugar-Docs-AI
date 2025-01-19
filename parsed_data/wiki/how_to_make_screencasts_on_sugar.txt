@@ -1,0 +1,55 @@
+Title: How to make screencasts on Sugar
+URL: https://wiki.sugarlabs.org/go/How_to_make_screencasts_on_Sugar
+--------------------------------------------------------------------------------
+Contents
+1
+RecordMyDesktop steps
+2
+GStreamer
+3
+Why make screencasts?
+4
+Possible errors you may encounter with RecordMyDesktop
+RecordMyDesktop steps
+I found this page
+Activity Screencast!
+Must research and test!
+Get Sugar installed and internet connection working
+Go to terminal (can be found in list of activities)
+Go to root by typing
+su
+You are looking for
+RecordMyDesktop
+. Read the very old
+help pages
+. They'll give you some clues to the operation of RecordMyDesktop(RMD) though I must say that after playing with RMD on Sugar I much prefer RMD on Ubuntu.
+Type:
+yum install recordmydesktop
+RecordMyDesktop is command line only. Use GTK below for the GUI.
+yum install gtk-recordmydesktop
+or this one written in
+Python
+WHICH should be more stable on Sugar as Sugar is written in Python... though amazingly qt-recordmydesktop asked for 27M of space where gtk-recordmydesktop only asked for a few 100K! Bemasc at the IRC rightly pointed out that QT is a big app and that there are huge buffering considerations for using RMD in general.
+yum install qt-recordMyDesktop
+GStreamer
+Bemasc found this. Test it on the command line. Let us know.
+gst-launch ximagesrc ! video/x-raw-rgb,framerate=5/1 ! ffmpegcolorspace ! theoraenc ! oggmux ! filesink location=desktop.ogg
+Why make screencasts?
+Video, when done properly, can explain a lot more than text. And video can overcome some of the language barriers by SHOWING people what to do and their expected outcomes.
+Possible errors you may encounter with RecordMyDesktop
+[root@localhost liveuser]# gtk-recordMyDesktop 
+
+/usr/lib/python2.6/site-packages/recordMyDesktop/rmdMonitor.py:10: DeprecationWarning: The  popen2 module is deprecated.  Use the subprocess module.
+  import popen2
+/usr/lib/python2.6/site-packages/recordMyDesktop/rmdSimple.py:223: DeprecationWarning: os.popen3 is deprecated.  Use the subprocess module.
+  (stdin,stdout,stderr)=os.popen3(xwininfo_com,'t')
+The program 'gtk-recordMyDesktop' received an X Window System error.
+This probably reflects a bug in the program.
+The error was 'BadAlloc (insufficient resources for operation)'.
+  (Details: serial 3927 error_code 11 request_code 53 minor_code 0)
+  (Note to programmers: normally, X errors are reported asynchronously;
+   that is, you will receive the error a while after causing it.
+   To debug your program, run it with the --sync command line
+   option to change this behavior. You can then get a meaningful
+   backtrace from your debugger if you break on the gdk_x_error() function.)
+No known workaround for this yet.

@@ -1,0 +1,50 @@
+Title: Features/Multiple home views/Testing
+URL: https://wiki.sugarlabs.org/go/Features/Multiple_home_views/Testing
+--------------------------------------------------------------------------------
+In Sugar 100, you need to use gconf settings to enable it. In Sugar 102+, we use gsettings.
+gsettings instructions for Sugar 102+
+Add an override to /usr/share/glib-2.0/schemas/sugar.oob.gschema.override
+[org.sugarlabs.desktop]
+homeviews=[{'layout': 'ring-layout', 'view-icon': 'view-radial', 'favorite-icon': 'emblem-favorite'}, {'layout': 'ring-layout', 'view-icon': 'view-radial', 'favorite-icon': 'emblem-favorite'}]
+In the example above, a second homeview using the standard icons is created.
+After updating the override file, you must recompile the gsettings:
+sudo glib-compile-schemas
+Reboot and you should have multiple homeviews.
+gconf instructions for Sugar 100
+In desktop/sugar/desktop, you need to add view_icons entries (and optionally, favorite_icons), e.g.:
+<?xml version="1.0"?>
+<gconf>
+<entry name="view_icons" mtime="1375102663" type="list" ltype="string">
+<li type="string">
+<stringvalue>view-radial</stringvalue>
+</li>
+<li type="string">
+<stringvalue>view-radial</stringvalue>
+</li>
+</entry>
+<entry name="favorite_icons" mtime="1375102663" type="list" ltype="strin
+g">
+<li type="string">
+<stringvalue>emblem-favorite</stringvalue>
+</li>
+<li type="string">
+<stringvalue>emblem-favorite</stringvalue>
+</li>
+</entry>
+</gconf>
+This will result in two homeviews, each using the standard view-radial icon on the desktop and the emblem-favorite icon in the list view.
+from the cmd line, you can configure it something like this:
+gconftool-2 -s /desktop/sugar/desktop/view_icons --type list --list-type string ['view-radial','view-radial']
+gconftool-2 -s /desktop/sugar/desktop/view_favorites --type list --list-type string ['emblem-favorite','emblem-favorite']
+Then restart Sugar.
+If you want more than two desktops, add more icons to the lists, e.g., three home views:
+gconftool-2 -s /desktop/sugar/desktop/view_icons --type list --list-type string ['view-radial','view-radial','view-radial']
+gconftool-2 -s /desktop/sugar/desktop/view_favorites --type list --list-type string ['emblem-favorite','emblem-favorite','emblem-favorite']
+And just unset to go back to one homeview:
+gconftool-2 -u /desktop/sugar/desktop/view_icons
+Notes on using Gconf
+The previous "how to test" section assumes familiarity with Gconf. Gconf is the Gnome preferences configuration system. It is being used to store Sugar preferences in this case. You can start the tool from the command line in Terminal. The -2 in gconftool-2 means that you are using version 2 of Gconf. Typical switches are
+-s    set a value
+-u    unset a value
+-g    get (print) a value
+-t     set the type (eg int) of a value

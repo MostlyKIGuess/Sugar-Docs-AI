@@ -1,0 +1,1043 @@
+Title: 0.102/Notes
+URL: https://wiki.sugarlabs.org/go/0.102/Notes
+--------------------------------------------------------------------------------
+Sucrose 0.102.0 Release Notes
+Contents
+1
+Introduction
+1.1
+tar files
+2
+Summary of changes
+3
+What is new for users
+3.1
+videos
+4
+What's new for developers
+5
+How to contribute with testing
+6
+Commits to Sugar Core since 0.100
+6.1
+Sugar
+6.2
+Sugar Toolkit
+6.3
+Sugar Web
+6.4
+Sugar Artwork
+7
+Changes to Sugar Activities since 0.100
+7.1
+Write 94
+7.2
+Read 113
+7.3
+Log 36
+7.4
+Jukebox 32
+7.5
+Browse 156
+7.6
+Pippy 61
+7.7
+Turtle Blocks 206
+7.8
+Chat 79
+8
+Credits
+Introduction
+Sugar 0.102.0 (stable) is the release version of the
+Sugar learning platform
+. It was released 1 July 2014.
+The main changes in this cycle are primarily bug fixes and enhancements to existing features. Worth noting is the large number of patches contributed by new (and young) community members.
+tar files
+http://download.sugarlabs.org/sources/sucrose/glucose/sugar/sugar-0.102.0.tar.xz
+http://download.sugarlabs.org/sources/sucrose/glucose/sugar-toolkit-gtk3/sugar-toolkit-gtk3-0.102.0.tar.xz
+http://download.sugarlabs.org/sources/sucrose/glucose/sugar-artwork/sugar-artwork-0.102.0.tar.xz
+http://download.sugarlabs.org/sources/sucrose/glucose/sugar-datastore/sugar-datastore-0.102.0.tar.xz
+http://download.sugarlabs.org/sources/sucrose/glucose/sugar-runner/sugar-runner-0.102.0.tar.xz
+Summary of changes
+Sugar
+Add age and gender to intro pages and About Me settings; configurable limits imposed on the number of open activities; activities can be limited to opening a single instance at a time; improvements to the updater; reworking of wireless control panel; improvements to batch processing; improvements to View Source; removal of OLPC-specific code from Control Panel; improvements to the layout of the Web Accounts Control Panel; improvements to the layout of the Languages Control Panel; improvements to the Journal toolbar filters; improvements to the Sugar notification system; new mechanism for adjusting microphone input level; and an improved backup mechanism in the Control Panel.
+Sugar Toolkit
+Conversion to gsettings; improvements to mimetype handling; Journal searching; inhibit suspend while activity is sharing
+Sugar Artwork
+New icons for backup and restore; age and gender; document-open. Improvements to the battery-charging icons. Some style improvements.
+Sugar Activities (Fructose)
+Pippy, the Sugar Python editor got a major overhaul. It supports multiple tabs and numerous new export mechanisms. In combination with Turtle Blocks, it is now possible to create new Sugar Activities entirely within Sugar itself: (1) Create a Turtle Blocks project; (2) Export the project as Python; (3) Import the Python code into Pippy; and (4) Export the Python code as a Sugar Activity. You can even create a Sugar icon for your project using Turtle Blocks, which can export projects to Python. The Chat activity had a major stylistic overhaul.
+Other Sugar Activities (Honey)
+Major updates to Maze, Spirolaterals, Fraction Bounce, Words, Music Painter, et al.
+What is new for users
+optionally capture age and gender for each user
+refactored the notification system
+added labels to the icons on the webservices control panel
+refactored the journal toolbar filters
+refactored the language control panel (separating language selection from region selection)
+added an adjustment for the microphone level
+Built-in backup and restore tool
+The new chat look and feel
+Winning Turtle Art project from Turtle Art Day Kathmandu
+The same project as Python code.
+limit the number of open activities
+limit certain activities to one open instance at a time
+the proper icon appears on the Frame when running non-Sugar activities
+videos
+Gonzalo Odiard has prepared videos of some of the new Sugar features (Sugar 100 and 102):
+In English:
+https://www.youtube.com/watch?v=baAYGtEwEbM
+https://www.youtube.com/watch?v=-wxizr3elPQ
+En español:
+https://www.youtube.com/watch?v=Ot_T9impkNw
+https://www.youtube.com/watch?v=10ljkueuBU0
+What's new for developers
+See
+[1]
+icon_size is deprecated (use pixel_size)
+Conversion to gsettings (gconf is deprecated)
+max_participants is moved to activity.info and is "honored", i.e., users will not be able to join an activity where max_participants has been reached until someone drops out. (max_participants as specified in activity.py is deprecated.)
+How to contribute with testing
+Testing and reporting issues is a big help for the developing team.
+You can set up the Sugar developer environment by following the instructions found at
+http://developer.sugarlabs.org
+See
+0.102/Testing
+for unstable images.
+Commits to Sugar Core since 0.100
+Sugar
+Author
+Commit
+Gonzalo Odiard
+Show the Join option in the activity palette in neighborhood
+Gonzalo Odiard
+Fix display of multiple alerts in home view
+Ignacio Rodríguez
+Fix "Show in Journal" functionality
+Martin Abente Lahaye
+Use del instead of IconInfo.free
+Walter Bender
+Fix circular import
+Martin Abente Lahaye
+Remember last ad-hoc used
+Gonzalo Odiard
+Notify the view about changes in external devices
+Gonzalo Odiard
+Fix delete metadata of files in subdirectories
+Gonzalo Odiard
+Save/Load metadata for files in subdirectories in Documents and devices
+Gonzalo Odiard
+Don't remove the extension on external files - Fixes #2949
+Gonzalo Odiard
+Assign the right mountpoint to files located in Documents directory
+Gonzalo Odiard
+Cache get_documents_path value
+Martin Abente Lahaye
+Set keep values as strings
+Gonzalo Odiard
+Implement filter by activity in devices and Documents - Fixes #4523
+Gonzalo Odiard
+Implement filter by favorite in devices and Documents - Fixes #3813
+Martin Abente Lahaye
+Block KeepIcon callback in ExpandedEntry
+Martin Abente Lahaye
+Do not overflow transfer palette
+Gonzalo Odiard
+Flake8 fixes
+Sam Parkinson
+Fixes #2382, don't star journal entries from the object chooser
+Sam Parkinson
+Stop a null device crashing the journal
+Walter Bender
+Don't offer to join beyond maximum participants
+Walter Bender
+More robust locale matching
+Martin Abente Lahaye
+Do not cache BuddyMenu in favorites view
+Martin Abente Lahaye
+Fix notification badges position and size
+Gonzalo Odiard
+Avoid pulsing icon at startup - Fixes #4767
+Gonzalo Odiard
+Replace use of dbus on aboutcomputer panel
+Gonzalo Odiard
+Delay saving the sound volume, to avoid saving many times
+Gonzalo Odiard
+Avoid mixing signals received by settings updates - Fixes #4759
+Gonzalo Odiard
+Speech palette: don't save values for every slider movement
+Prasoon Shukla
+Fixed ticket 4686.
+Sam Parkinson
+Find if an activity is GTK2 or 3 in the view source dialog
+Gonzalo Odiard
+Use introspection instead of dbus to set wireless on/off
+Jerry Vonau
+correct potfiles.in for file rename
+Emil Dudev, et al.
+Add control for microphone level setting …
+Daniel Narvaez
+Add a bunch of missing translations
+Daniel Narvaez
+Modernize gettext setup
+Daniel Narvaez
+Fixes for pep8 1.5
+Daniel Narvaez
+Update POTFILES.in
+Sam Parkinson
+Add NotificationBox to current activity palette …
+Sam Parkinson
+Display badges in activities tray icons …
+Martin Abente Lahaye
+Fix NotificationPulsingIcon property name …
+Sam Parkinson
+Display badge in corner notification icon …
+Walter Bender
+Replace journal filter combo boxes …
+Walter Bender
+Replace combobox with palettes on Language cpsection The Language-sel… …
+Walter Bender
+add labels to webservice icons …
+Sebastian Silva
+Try to use X11 window icon on Activities tray. Needs icon pixbuf supp… …
+Gonzalo Odiard
+Don't break the updater with a malformed activity.info file …
+Ignacio Rodríguez
+Color coded devices …
+Manuel Quiñones
+Change icon for Backup in Control Panel
+Martin Abente Lahaye
+Clean temporary icons before microformat query …
+Gonzalo Odiard
+Updater: show icons for new activities - Fixes #4657 …
+Martin Abente Lahaye
+Update corner notification icon …
+Martin Abente Lahaye
+Add or remove system notification buttons …
+Martin Abente Lahaye
+Add system notifications widgets …
+Martin Abente Lahaye
+Listen notifications from activities tray …
+Martin Abente Lahaye
+General notifications container widget …
+Gonzalo Odiard
+Solve the flow of text with long messages in backup/restore cp
+Gonzalo Odiard
+Add tests …
+Gonzalo Odiard
+Save the mime type in the generated backup file metadata …
+Gonzalo Odiard
+Add mime type for backup files
+Gonzalo Odiard
+Show a start message earlier …
+Gonzalo Odiard
+Save metadata in generated backup file …
+Gonzalo Odiard
+Better naming of the generated backup file …
+Gonzalo Odiard
+Add UI interaction to the backend …
+Martin Abente Lahaye
+Support volumes backup …
+Gonzalo Odiard
+Initial backupmanager and section in the control panel …
+Martin Abente Lahaye
+Extend notifications model …
+Gonzalo Odiard
+Updater: disconnect signals when cp view is closed - Fixes #4740 …
+Martin Abente Lahaye
+Connect to same event once at a time from _Account …
+Ana Balica
+Manage restart message on reverting to initial username …
+Ana Balica
+Fix #4733 - remove warning on username change …
+Gonzalo Odiard
+The updater need reset the internal state when finish with error …
+rcunning01
+Update LGPL-python.txt …
+rcunning01
+Update LGPL-C.txt
+Gonzalo Odiard
+Show a error message if the activity updater can't connect to the server …
+Gonzalo Odiard
+Microformat updater: fix parser …
+rcunning01
+Set GNU GPL in monospace font …
+Ignacio Rodríguez
+Use hardcode names and colors.
+Gonzalo Odiard
+Microformat updater: set cache header …
+Ignacio Rodríguez
+Unit test for profile, age, gender, color and nick.
+Daniel Narvaez
+Pyflakes fixes
+Frederick Grose
+Rework wireless control panel section to respect non-wireless connect… …
+Daniel Narvaez
+Fix pep8 errors
+Prasoon Shukla
+Fixed ticket 4694. …
+Emil Dudev
+A small bug fix, due to the GSettings port and homeview key merging
+Gonzalo Odiard
+Inhibit suspend while doing text to speech …
+Gonzalo Odiard
+Display keyboard shortcuts in palettes - Fixes #4716 …
+Gonzalo Odiard
+CurrentActivityIcon need check if _home_activity is None - Fixes #4725 …
+Ignacio Rodríguez
+Use set_color_xo instead set_color …
+Manuel Quiñones
+Expose variables used by inner functions
+Daniel Narvaez
+Revert "Remove unused variable from journal misc.py" …
+Daniel Narvaez
+Remove unused variable from journal misc.py
+Walter Bender
+add missing file: agepicker.py
+Daniel Narvaez
+Add keybinding to dump the ui tree
+Walter Bender
+Add age and gender to user profile …
+Manuel Quiñones
+Icon API change: use pixel_size …
+Gonzalo Odiard
+Fix error while trying to open journal palette. Fixes #4637 …
+Martin Abente Lahaye
+Fix missing options in batch copy palette …
+Gonzalo Odiard
+Add viewhelp.py to POTFILES.in
+Gonzalo Odiard
+Implement Activity Help feature …
+Emil Dudev
+Asynchronous file copying
+Daniel Narvaez
+Add the gsettings schemas for translation
+Emil Dudev
+GConf to GSetitngs port, tier 2 …
+Gonzalo Odiard
+Fix method name in journal multiple objects operation …
+Manuel Quiñones
+Remove monochrome from battery icon while charging …
+Walter Bender
+Fix typo in GConf code …
+Ignacio Rodríguez
+Port AboutMe section to Grid
+Emil Dudev
+Use .splice_async() in filetransfer.py …
+Emil Dudev
+GConf backward compatibility …
+Emil Dudev
+Change paths to non deprecated scheme
+Emil Dudev
+GConf to GSettings port
+Daniel Narvaez
+Remove trailing space
+Sam Parkinson
+Fixed an issue with the show_launcher option having no effect
+Gonzalo Odiard
+CP background section need set the cursor at exit - SL #4667 …
+Gonzalo Odiard
+Fix control panel search focus issue - SL #3188 …
+Gonzalo Odiard
+Fix "Show feedback in detailview when sugar can't manage a entry" …
+Gonzalo Odiard
+Fix "Restart button in detailview does not works if palette is opened… …
+Gonzalo Odiard
+Fix Clone of gtk3 activities - SL #4608 …
+Gonzalo Odiard
+Consolidate the control of what can be resumed in the journal …
+Gonzalo Odiard
+Show feedback in detailview when sugar can't manage a entry - SL #328 …
+Gonzalo Odiard
+Fix regression introduced by ae54fc4 …
+ChristoferR
+Unnecessary checkout for getting file size, Fixes: #2303 …
+Walter Bender
+add jarabe/view/alerts …
+Walter Bender
+Set limit to open activities and open instances …
+Daniel Narvaez
+Revert "Shows path instead of activity name in Title bar. Fixes #3073" …
+Daniel Narvaez
+Add padding to the journal button palette …
+cheekujodhpur
+Shows path instead of activity name in Title bar. Fixes #3073
+Daniel Narvaez
+Revert "Removes pulsing from start-up icon. Fixes #3092" …
+Jerry Vonau
+Remove OLPC specific code from sugar-control-panel …
+Gonzalo Odiard
+Do not update the journal when in the detail view - SL #4658 …
+Gonzalo Odiard
+Reorganize the code to avoid duplications …
+Gonzalo Odiard
+About computer: show when was the last update on system packages …
+Gonzalo Odiard
+About this computer: Display secondary licenses if needed …
+Gonzalo Odiard
+Display the model in the control panel About this computer section …
+Gonzalo Odiard
+Add a gconf option to show/hide the Register option - SL #4640 …
+Daniel Narvaez
+Improve shutdown/restart/logout configurability …
+Daniel Narvaez
+Trivial string change …
+Gonzalo Odiard
+Avoid popup the palette while a dragging in the Journal - SL #3999 …
+Walter Bender
+The set hidden attribute ioctl doesn't work for …
+Gonzalo Odiard
+Add 5 GHz frequency channels table - SL #4459 …
+Gonzalo Odiard
+Update version of Sugar to 0.100 …
+Walter Bender
+Fix to fix of SL #4650 …
+Gonzalo Odiard
+Avoid switch to the Journal or change views when a modal window is op… …
+Sugar Toolkit
+Author
+Commit
+Martin Abente Lahaye
+Remove Palette logic out of PaletteWindow …
+Martin Abente Lahaye
+Fix black palettes …
+Gonzalo Odiard
+Enable collaboration by default on activities …
+Sam Parkinson
+Remove a double / in webkit1 activity's request's filenames
+Gonzalo Odiard
+Fix regression introduced by b9d6b62 …
+Gonzalo Odiard
+Fix drawing of gap on palettes attached to widget - Fixes #4776 …
+Martin Abente Lahaye
+Fix and clean Palette secondary label …
+Gonzalo Odiard
+Show palettes at the screen bottom with the right size - Fixes #4673 …
+Gonzalo Odiard
+Avoid breaking activity startup by dbus timeout on sigle instance - F… …
+Gonzalo Odiard
+Pep8 and pyflakes fixes to sugar-activity
+Gonzalo Odiard
+Add a method to get all the extensions associated to a mime type …
+Gonzalo Odiard
+Pep8 fix
+Walter Bender
+Assign max_participants in activity.info …
+Martin Abente Lahaye
+Add Icon.get_badge_size …
+Gonzalo Odiard
+Make webactivity and webkit1 implementations independent …
+Prasoon Shukla
+Add description in journal object palette - Fixes #4686
+Emil Dudev
+Add capture device support …
+Daniel Narvaez
+Add missing translations
+Daniel Narvaez
+Modernize gettext setup
+Sam Parkinson
+Now show sugar object choosers as file pickers in web activities
+Daniel Narvaez
+Fixes for pep8 1.5
+Sam Parkinson
+Extend API for activities notifications …
+Daniel Narvaez
+Fix pep8
+Sebastian Silva
+Implementation of pixbufs for use with X11 window icons.
+James Michael DuPont
+better debugging
+Gaurav Parida
+Add verbosity to the activity tests
+Gaurav Parida
+port optparse to argparse in bundlebuilder.py
+Gonzalo Odiard
+Remove c implementation of mime methods …
+Gonzalo Odiard
+Implement mime.get_mime_parents using python …
+Gonzalo Odiard
+Use Gio.content_type_guess to identify mime type - Fixes #4715 …
+Gonzalo Odiard
+Add accelerator to PaletteMenuItem - Fixes #4716 …
+Gonzalo Odiard
+Restore suspend catch the wrong exception …
+Gonzalo Odiard
+Inhibit suspend while a activity is shared …
+Gonzalo Odiard
+Remove unused code …
+Gonzalo Odiard
+Webkit1 compatibility: send 404 error if the file don't exists …
+Sam Parkinson
+Fixes #1929, update toolbar examples in activity doc strings
+Martin Abente Lahaye
+Revert "Keep updated CellRendererInvoker self.path updated - Fixes #4… …
+Gonzalo Odiard
+Keep updated CellRendererInvoker self.path updated - Fixes #4717 …
+Manuel Quiñones
+Icon: deprecate icon_size …
+Ignacio Rodríguez
+pep8 fixes for 'Add menu width chars'
+Ignacio Rodríguez
+Add menu width chars to sugar3
+Daniel Narvaez
+Fix chaining up to the parent
+Daniel Narvaez
+Fix pyflakes errors
+Sai Vineet
+Add Activity Testing API and check command to setup.py …
+Emil Dudev
+Touch UI: esc fullscreen …
+Emil Dudev
+Remove GConf completely …
+Daniel Narvaez
+Remove unnecessary check for python headers …
+Emil Dudev
+GConf to GSettings port
+Gonzalo Odiard
+Add get_show_launcher() in bundles other than activitybundle …
+Akshay Nautiyal
+Use proper formatting syntax, fixes #2170
+Sam Parkinson
+Fixes #4634, issue where spaces in bundle ids crashed sugar
+Gonzalo Odiard
+Be able to click in a tooltip - Fixes #991 …
+Gonzalo Odiard
+Make webactivity compatible with webkit1 …
+Gonzalo Odiard
+Fix cloning activity in sugar - SL #4608 …
+Walter Bender
+Add single_instance field to activity bundle …
+dnaula
+Fixes #3665: add is_fullscreen() method to Window class …
+Ezequiel Pereira
+Add journal filter for .xo bundles …
+Daniel Narvaez
+Make gir files depend on their library …
+Sugar Web
+Author
+Commit
+Daniel Narvaez
+Browsers must be a list
+Daniel Narvaez
+Need full path to sugar-web-test
+Daniel Narvaez
+Add script launcher karma plugin
+Daniel Narvaez
+Add a grunt based build …
+Daniel Narvaez
+Split envSpec in unit and functional bits
+Daniel Narvaez
+Consolidate functional/unit split
+Daniel Narvaez
+Fix indentation …
+Rogelio Mita
+karma conf to run unit test only
+Rogelio Mita
+karma-shared configuration
+Code Raguet
+remove unnecessary variable aliasing from getObjectId
+Code Raguet
+fixes unnecessary long timeout
+Code Raguet
+improves getObjectId's spec describe
+Rogelio Mita
+Grouping unit tests
+Rogelio Mita
+Moving toolkitContractSpect.js to functional tests directory
+Rogelio Mita
+Moving datastore functional tests to separate file
+Daniel Narvaez
+Update to the latest karma config format …
+Code Raguet
+add FIXME on env.getEnvironment()
+Rogelio Mita
+Refactor: Grouping up responsibilities in sugar mode
+Code Raguet
+env.getEnvironment should return {} in standalone mode
+Code Raguet
+(temporaly) stub env.isStandalone = false when describing environment… …
+Code Raguet
+stub env.isStandalone = false when describing datastore module
+Code Raguet
+stub env.isStandalone = false when describing datastore object
+Code Raguet
+stub env.isStandalone = false in sugar mode
+Rogelio Mita
+datastore integration tests: increase waitFor timeout
+Code Raguet
+Merge pull request #100 from rogemita/fix_tests_sugar_mode-try2 …
+Code Raguet
+fix false positive specs: getEnvironment when env was not set, yet
+Rogelio Mita
+Fix: functional test for envSpec
+Daniel Narvaez
+Revert "Turn on debug logging" …
+Rogelio Mita
+better semantics, test: "should run in standalone mode"
+Daniel Narvaez
+Turn on debug logging …
+Code Raguet
+test: it should set global sugar in standalone mode
+Code Raguet
+add test: it should run callback on EnvironmentSet event
+Code Raguet
+ensure env setter to be undefined before getEnvironment gets called
+Code Raguet
+force environment to be undefined
+Rogelio Mita
+Refactor: common code on setup and teardown methods
+Rogelio Mita
+Grouping up related tests: "in sugar mode"
+Rogelio Mita
+test: should set onEnvironmentSet handler …
+Rogelio Mita
+test: should run callback with null error and environment. …
+Rogelio Mita
+js-beautify fix
+Rogelio Mita
+js-beautify fix
+Rogelio Mita
+Refactor: Ensure standalone mode on "dictstore on standalone mode" de… …
+Rogelio Mita
+dictstore save method uses isStandalone method
+Rogelio Mita
+dictstore init uses isStandalone method
+Rogelio Mita
+Add webL10n missing definition path
+Rogelio Mita
+isStandalone method for env module
+Rogelio Mita
+test: Ensure the datastore object has an objectId (datastore)
+Daniel Narvaez
+More strict mode fixes
+Daniel Narvaez
+Missing var keyword
+Manuel Quiñones
+Set JS strict mode …
+Code Raguet
+modify "save" to solely run the callback when running under standalon… …
+Manuel Quiñones
+New module, helper to store localStorage in the datastore
+Sugar Artwork
+Author
+Commit
+Gonzalo Odiard
+Fix clipboard icon size - Fixes #4751
+Walter Bender
+icon for audio input …
+Walter Bender
+gtk-toolbar-style = GTK_TOOLBAR_BOTH_HORIZ …
+Walter Bender
+Changes in support of Journal toolbar …
+Manuel Quiñones
+New backup icon for Control Panel
+Manuel Quiñones
+Remove double line in menuitem separators …
+Manuel Quiñones
+Add icons for Backup and Restore …
+Walter Bender
+New icons for age-gender feature …
+Manuel Quiñones
+Fix fill of charging battery icon 100 …
+Ignacio Rodríguez
+Add document-open to make file
+Ignacio Rodríguez
+Add document-open icon
+Robert King
+Fixes #44 . Adds charging icon to charging battery sign
+Ignacio Rodríguez
+Add icon for the python mime type …
+Frederick Grose
+Use Sugar-themed hand for the touchpad icon. …
+Changes to Sugar Activities since 0.100
+Write 94
+Author
+Enhancements/Bug Fixes
+gauravp94
+Change icon_size to pixel_size
+Gonzalo Odiard
+Disable saving the content as text if abi version == 3.0 (exports)
+Gonzalo Odiard
+Delay imports to improve activity startup time
+Gonzalo Odiard
+Delay speech initialization to speed up the activity startup
+Read 113
+Author
+Enhancements/Bug Fixes
+Gonzalo Odiard
+Save the mimetype in the metadata when download a shared file
+Gonzalo Odiard
+Don't set path in the downloader
+Gonzalo Odiard
+Copy file in read_file method
+Gonzalo Odiard
+Use Gio to identify the mime type of transferred files
+Log 36
+Author
+Enhancements
+Gonzalo Odiard
+Use activity root to generate the collector file - SL #4407
+Jukebox 32
+Author
+Enhancements
+Sai Vineet
+Add reorder capability to Jukebox
+Browse 156
+Author
+Enhancements/Bug Fix
+Gonzalo Odiard
+Delay Evince import until is needed to improve activity startup time
+Gonzalo Odiard
+Make consistent the tooltip of the show/hide tray button
+Manuel Quiñones
+Clear URL entry when Escape is pressed
+anubhavj
+Workaround for #4638  no palettes in sugar-build
+Pippy 61
+Author
+Enhancements
+Athar Haque
+Shortcut keys for switching tabs
+Walter Bender
+Set tab label with file name when loading examples
+Walter Bender
+Set focus on text view
+Gonzalo Odiard
+Improvement to search for sound resources
+Sai Vineet
+Export as disutils, as library, as example
+Sai Vineet
+Edit on multiple tabs
+Ignacio Rodriguez
+Add custom icon selection when saving as Sugar activity
+Emil Dudev
+Add confirmation alert before loading new projects
+Ignacio Rodriguez
+Use open palette instead of treeview
+Sai Vineet
+Show/Hide terminal widget
+Walter Bender
+Added new examples (math/pi, math/stern-brocot)
+Jorge Alberto Gómez López
+Added i18n support for examples
+Jorge Alberto Gómez López
+Added tutorials
+Ignacio Rodriguez
+Reenable copy/paste
+Walter Bender
+New icons
+Author
+Bug Fixes
+Sebastian Silva
+Fix indentation problem in GroupThink
+Sebastian Silva
+Fix scrollbar in activity template
+Walter Bender
+Fixed problem with importing sample code into empty notebook
+Athar Haque
+Fixed "output of the program is not fully displayed" (SL #4661)
+Walter Bender
+Sort out numerous cases regarding saving/restoring tabs/tabs content
+Walter Bender
+Fixed problem with sound check in sugar-build env.
+Walter Bender
+Don't offer up sound examples if TamTam is not installed
+Walter Bender
+Work around problem importing sugar3.activity to generate bundle_path
+Walter Bender
+Keep dialog window on top after cycling between activities
+Walter Bender
+Fix problems with sound library
+Walter Bender
+Using elements package from Physics
+Walter Bender
+Fixed a problem that prevented Pippy from opening .py files
+Walter Bender
+Fixed many issues with export Sugar activity code
+Turtle Blocks 206
+Author
+Enhancements
+Walter Bender
+new sample project from Nepal
+Walter Bender
+add set_font block
+Walter Bender
+use 'clamp' format for start and action blocks
+Walter Bender
+autosave in GNOME
+Andrés Aguirre
+set default on save
+Walter Bender
+add Alt-s as keyboard shortcut for Stop button
+Alan Aguiar
+speed up no_help test
+Walter Bender
+make default background color match default fillscreen color
+Walter Bender
+add new python example: text line
+Walter Bender
+new example project (w/Bernie)
+Walter Bender
+Use journal or file block for all media types
+Walter Bender
+Play audio and video from the web
+Walter Bender
+Eliminate extra space around protoblock labels
+Walter Bender
+Code cleanup: separate classes for Selectors and PaletteViews
+Walter Bender
+Use built-in Python mimetype processing
+Walter Bender
+Cleaned up gplay code (uses debug_output)
+Jorge Alberto Gómez López
+Export project as Sugar icon
+Jorge Alberto Gómez López
+Export project as ODP
+Scimonster
+Added URL block
+Walter Bender
+Save/restore palette settings in GConf
+Alan Aguiar
+Add confirmation when emptying trash in GNOME version
+Daniel Francis
+Add load/save plugin dialog to GNOME version
+Walter Bender
+Add busy cursor when projects are being prepared to run
+Marian Zepf
+Export Python branch (This is really fun. Give it a try.)
+Walter Bender
+Added busy cursor while project is loading from store
+Walter Bender
+Added tabbing through palette proto-blocks
+Cynthia Solomon
+New sample program
+Walter Bender
+Merged new translations
+Author
+Bug Fixes
+Andrés Aguirre
+hide stop button when using keyboard shortcut
+Walter Bender
+check for writeable file for save
+Walter Bender
+post alert when trying to save to read-only directory
+Walter Bender
+fix start block sizing
+Walter Bender
+make sure autosave directory is writeable
+Walter Bender
+add defer draw
+Walter Bender
+set background color; cleanup
+Walter Bender
+enable deferred display of sprites when loading
+Walter Bender
+fix regression find_hat (w/Alan Aguiar)
+Walter Bender
+add ifthenelse card
+Walter Bender
+more robust search for media
+Walter Bender
+save size of forever block
+Walter Bender
+catch exceptions in upload process
+Walter Bender
+simplify with time block
+Walter Bender
+don't reset timer on clear
+Walter Bender
+clean up unused sample projects
+Walter Bender
+look for proper connection testing for connection above when action b… …
+Walter Bender
+readjust block positioning due to new action style
+Walter Bender
+use en for en versions of intros
+Walter Bender
+add new thumbnails
+Walter Bender
+fix problem with docking to unavailable
+Walter Bender
+warning when running empty start stack
+Walter Bender
+account for more corner cases in journal block thumbnails
+Walter Bender
+add thumbnail for media-jpournal-stats
+Walter Bender
+move temp data to samples/data
+Walter Bender
+add missing thumbnail file
+Walter Bender
+fix regression in bullet lists
+Walter Bender
+less kludgy work-around to protoblock-skin regression
+Walter Bender
+fix regression in picture block prototypes
+Walter Bender
+fix regression in trash; fix regression in media blocks
+Walter Bender
+add support for vectors; fix bug in restore from trash; add new block… …
+Walter Bender
+fixed regression in save to ODP code
+Walter Bender
+update remote turtle before drawing text
+Walter Bender
+put TurtleBlocks ahead of TurtleBots in modules path
+Walter Bender
+bypass plugin start in order to accommodate exported Python code
+Walter Bender
+look for datafiles in bundle_path
+Walter Bender
+fix problem with label offset (SL #4754)
+Walter Bender
+fix problem with starting plugins from Python export
+Alan Aguiar
+fix problem with help status button infinite loop
+Walter Bender
+fix block scaling problem
+Walter Bender
+work around ColorObj/Box bug
+Walter Bender
+remove spurious \ character from define
+Walter Bender
+fix problem with unselecting blocks with no labels
+Walter Bender
+Fixed bug with color constants when used with push/pop and boxes
+Alan Aguiar
+Fixed bug with hover help in GNOME
+Walter Bender
+Fixed problem with dragging canvas while programming is running
+Walter Bender
+Fixed problem with Returns in action and box names (as reported by quozi)
+Walter Bender
+Fixed problem with label positioning on some blocks
+Walter Bender
+Fixed rendering problem with filled shapes using arcs
+Walter Bender
+Fixed problem with sharing filled shapes using arcs
+Ignacio Rodriguez
+Make save_as_icon button insensitive when no svg output available
+Ignacio Rodriguez
+Make save_as_ODP button insensitive when no saved pictures available
+Walter Bender
+Added missing parens for some binary operations in Python export
+Walter Bender
+Fixed positioning of help messages (#4679)
+Walter Bender
+Reworked Duplicate Blocks warning graphic to reflect current block shapes
+Walter Bender
+Refactor until block shape to better reflect flow logic
+Walter Bender
+Enabled load file to heap/save heap to file to use the Sugar journal
+Alan Aguiar
+Fixed shade block dock settings
+Alan Aguiar
+Fixed bug in empty trash
+Walter Bender
+Set active turtle after 'clean' in exported Python code
+Walter Bender
+Execute 'until' body once before entering loop in exported Python code
+Walter Bender
+Fixed problem with running_blocks flag not being cleared (cause of spurious "hit stop button" messages.
+Walter Bender
+Fixed problem with errant text entry widget on run.
+Jorge Alberto Gómez López
+Fixed problem with text wrap of SVG output #1856
+Walter Bender
+Logging errors in project metadata for making learning visible
+Walter Bender
+Prevent text blocks from docking to blocks requiring numeric arguments
+Chat 79
+Author
+Enhancements
+Jorge Gomez
+Chat should note when a continuous string of characters extends beyond the end of the screen
+Jorge Gomez
+Chat should provide notification of new activity if scrollbar is not in the bottom position
+Ignacio Rodriguez
+Audio notifications
+Walter Bender
+keep name and message on same line
+Walter Bender
+resize conversation when screen size changes
+Walter Bender
+more fine-tuning of smiley window; resize when screen changes
+Walter Bender
+use grid instead of table; tweak grid calculations
+Walter Bender
+add toolbar to smiley window
+Walter Bender
+inform user that they must be connected before trying to chat
+Walter Bender
+calling resize for each message when screen changes
+Walter Bender
+major overhaul of layout
+Walter Bender
+move smiley button to text entry
+Walter Bender
+need to define nick color even for status messages
+Walter Bender
+use similar color scheme for both sending and receiving messages
+Walter Bender
+merge color label for nick into the textbox
+Walter Bender
+set Label justification
+Walter Bender
+adjust box widths
+Walter Bender
+Improve padding calculation
+Walter Bender
+switch from box to grid
+Gonzalo Odiard
+Move the open the journal logic to the activity
+Gonzalo Odiard
+improved visuals
+Walter Bender
+setting message colors
+Walter Bender
+add support for tails
+Walter Bender
+use standard activity toolbar
+Walter Bender
+add more smilies
+Walter Bender
+add fixed to position content around OSK
+Credits
+Many people contributed to this release indirectly, including testing, documentation, translation, contributing to the Wiki, outreach to education and developer communities. On behalf of the community, we give our warmest thanks to the developers and contributors who made this Sugar release possible.
+We want to especially thank:
+the
+Google Code-in participants
+who were major contributors to this release,
+the
+Infrastructure team
+which does all this great work in the background without which the development would not be possible at all,
+the
+deployments
+that provide the development team with feedback from the field,
+the
+Design team
+which guided the design of features with UI changes or impact on the workflow,
+the
+Translation team
+which makes sure that Sugar is enjoyable in the local languages of our users,
+the
+developers
+that submit patches for new features and bug fixes and do review other's patches,
+the
+maintainers
+that make sure their code is shippable and which provide packagers with new tarballs,
+the
+packagers
+which provide distributions with new Sugar packages,
+the
+SoaS team
+for providing a Sugar version to test with during the development cycle,
+the
+testers
+for finding the small and bigger issues,
+the
+release team
+and
+Development team
+for coordinating those efforts.
+Daniel Narvaez took the responsibility of manage the release.

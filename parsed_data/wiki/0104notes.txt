@@ -1,0 +1,717 @@
+Title: 0.104/Notes
+URL: https://wiki.sugarlabs.org/go/0.104/Notes
+--------------------------------------------------------------------------------
+Sucrose 0.104.0 Release Notes
+Contents
+1
+Introduction
+2
+Summary of new features
+2.1
+New Sugar Activities since Sugar 102
+3
+Tarballs
+4
+How to contribute with testing
+5
+Commits
+5.1
+Changes to Sugar since 0.102
+5.1.1
+Sugar
+5.1.2
+Sugar Toolkit GTK3
+5.1.3
+Sugar Web
+5.1.4
+Sugar Artwork
+5.1.5
+Sugar Docs
+5.2
+Changes to Sugar Activities since 0.102
+5.2.1
+Browse 157
+5.2.2
+Physics 25
+5.2.3
+Read 115
+5.2.4
+Write 96
+5.2.5
+Terminal 43
+5.2.6
+Fototoon 22
+5.2.7
+Image Viewer 61
+5.2.8
+IRC 11
+5.2.9
+Calculate 42
+5.2.10
+Help 19
+5.2.11
+Paint 64
+5.2.12
+Pippy 64
+5.2.13
+Turtle Blocks 209
+6
+Credits
+6.1
+Patches contributors
+6.2
+Translations contributors
+6.3
+We want to especially thank
+Introduction
+Sugar 0.104 is the new STABLE version of the
+Sugar learning platform
+. It was released on February the 13th 2015. This release includes new features and bug fixes from Google
+Code-In
+and
+Summer of Code
+students, deployments and community members.
+Summary of new features
+Extended microformat updater with optional activities in automatic updates
+[1]
+.
+New dconf setting to disable adhoc autoconnect policy
+[2]
+.
+New "spent-times" entry in activities metadata
+[3]
+.
+New "New ASLO" back-end for activities updates
+[4]
+.
+New text-to-speech API in gtk3 toolkit
+[5]
+.
+Customizable groups instead of fixed ages in "About Me" section.
+This is the
+full list
+of features proposed, we expect to re-evaluate unmerged proposals in the next release cycle.
+New Sugar Activities since Sugar 102
+Buttons and Scissors
+by Utkarsh
+Dasher
+by cristian
+3D Shapes
+by rishi
+Bibliography
+by Sam
+Crossword
+by cristian
+Football
+by Sammiester
+TurtleBlocks3D
+by Walter, Anubhav
+Hangman game
+by icarito, Salvarez
+Comodo
+by icarito, kaametza, josers, cristian
+Diamond Fusion
+by francocorrea
+Music Painter
+by wuhsi.li
+Tarballs
+sugar
+sugar-toolkit-gtk3
+sugar-artwork
+sugar-datastore
+sugar-runner
+How to contribute with testing
+We will provide more options for testing this release soon. For now, please try it out using
+sugar-build
+.
+Commits
+Changes to Sugar since 0.102
+Sugar
+Author
+Commit
+Martin Abente Lahaye
+Fix EN and AGR po files from crashing sugar …
+Ignacio Rodríguez
+Use 'retrieve' instead of 'retrive' …
+Sam Parkinson
+Flush the busy cursor on homeview load …
+Martin Abente Lahaye
+Use SugarExt.clipboard_set_with_data …
+Ignacio Rodríguez
+Hide the Speech TrayIcon if GST or the espeak module isn't installed …
+Gonzalo Odiard
+Show a wait cursor while the journal is updating - Fixes #4330
+Gonzalo Odiard
+Show activity name in the search entry when one activity is selected …
+Gonzalo Odiard
+Fix selection filter …
+James Cameron
+configure.ac: fix version for 0.103.1 …
+Sam Parkinson
+Use the bundle registry in sugar-install-bundle (when sugar is running)
+Sam Parkinson
+Elipsize view source title to prevent toolbar overflow, fixes #4755 …
+Martin Abente Lahaye
+Revert "Use the bundle registry in sugar-install-bundle; fixes #4722" …
+Ignacio Rodríguez
+Show Journal accelerator in palette. …
+Goutam Nair
+Ellipses defaulted to end of long activity titles;fixes 1429
+Ezequiel Pereira
+Fix unicode escapes in clipboard objects …
+Sam Parkinson
+Use the bundle registry in sugar-install-bundle; fixes #4722 …
+Ignacio Rodríguez
+Use 'sugar' icons and no 'gnome' icons. …
+Ignacio Rodríguez
+Remove markup for palettes. …
+Sam Parkinson
+Change "control panel" to "My Settings"; fixes #3601
+Gonzalo Odiard
+Remove uneeded code
+Ignacio Rodríguez
+Add Image viewer for source view …
+Ignacio Rodríguez
+PEP8 corrections
+James Cameron
+Show busy on register to school server …
+DakshShah
+Add Busy Cursor on bundle install …
+Ezequiel Pereira
+Use busy cursor during launch
+Gonzalo Odiard
+Revert "Using DEFAULT_ELLIPSIS_CHARACTERS constant" …
+Ezequiel Pereira
+Using DEFAULT_ELLIPSIS_CHARACTERS constant
+Sam Parkinson
+Fix weirdness with pressing SHIFT & ALT on the home screen - fixes #1490
+Sam Parkinson
+Add updater option for the new ASLO …
+Sam Parkinson
+Close dialogs along with activities - fixes #2503
+Gonzalo Odiard
+View Help: don't use symlinks for images directory …
+Martin Abente Lahaye
+Fix age/gender flake8 issues …
+Walter Bender
+Fix age/gender i18n …
+Martin Abente Lahaye
+Fix age/gender INTRO gender-selection and CP grade setup …
+Martin Abente Lahaye
+Fix age/gender flawed default-nick logic …
+Martin Abente Lahaye
+Fix age/gender INTRO widgets visibility …
+Walter Bender
+Add configurable database for age/gender selection …
+Sam Parkinson
+Fix UTC time handeling, fixes #2195 …
+Sam Parkinson
+Include all UTC time zones …
+Sam Parkinson
+Remove GMT time zones - they are the same as UTC …
+Gonzalo Odiard
+Move the tts implementation to the toolkit …
+Martin Abente Lahaye
+Make ad-hoc autoconnnect optional …
+Martin Abente Lahaye
+Do not select optional activities in updater UI …
+Martin Abente Lahaye
+Filter optional activities in automatic updates …
+Martin Abente Lahaye
+Support olpc-activity-optional field in BundleUpdate …
+Martin Abente Lahaye
+Parse olpc-activity-optional field …
+James Cameron
+Fix extra blanks in Sugar Backup restore …
+James Cameron
+Fix missing confirm button in Sugar Backup restore …
+Martin Abente Lahaye
+Fix MetadataLookup signal definition …
+Gonzalo Odiard
+ObjectChooser: preserve filter type …
+Sam Parkinson
+Don't show 'Clear Query' when the activities preset is active
+Sam Parkinson
+Don't let 'Clear Query' override activities preset filters
+Sugar Toolkit GTK3
+Author
+Commit
+Ignacio Rodríguez
+Raise the palette window when its mapped …
+Martin Abente Lahaye
+Provide access to Gtk.Clipboard.set_with_data …
+Ignacio Rodríguez
+Log error when the espeak plugin is not installed. …
+Goutam Nair
+Ellipses defaulted to end of long activity titles;fixes 1429
+Ignacio Rodríguez
+Get markup text as default …
+Sam Parkinson
+Merge branch 'fix_parsing_exception' of
+https://github.com/godiard/su…
+…
+Gonzalo Odiard
+Fix import of exception from ConfigParser …
+Gonzalo Odiard
+Don't break if translation can't be parsed …
+Sam Parkinson
+BundleBuilder: Don't crash on malformed translation files …
+Gonzalo Odiard
+Add parameters to configure tts …
+Gonzalo Odiard
+Add a structure to store the translated voice names
+Gonzalo Odiard
+Initialize Gst before use speech …
+Gonzalo Odiard
+TTS: Cache the voices list
+Gonzalo Odiard
+Add a list of language names to translate …
+Gonzalo Odiard
+Move SpeechManager from sugar to sugar-toolkit-gtk3 …
+Gonzalo Odiard
+Add a testing method to open a activity with a uri …
+Gonzalo Odiard
+Bundlebuilder check if activity files are in git …
+Martin Abente Lahaye
+Save spent time on activities …
+Sugar Web
+Author
+Commit
+Gonzalo Odiard
+Loading the activity palette template from a file break activity work… …
+Gonzalo Odiard
+Add a method to show a alert with the Sugar style …
+Gonzalo Odiard
+Make isStandalone() compatible with webkit1 …
+Sugar Artwork
+Author
+Commit
+Ignacio Rodríguez
+Fix wrong styling for column-header.button …
+Ezequiel Pereira
+Fixed Sharing Palette Highlight Bug
+Sugar Docs
+Author
+Commit
+Sam Parkinson
+Add information about sugar-build and proxies
+Lionel LASKE
+New release of Sugarizer don't need update of sugar-web
+Soumen Ganguly
+Fixes a typo in activity.md
+Walter Bender
+Added reference to gsettings and log files
+Changes to Sugar Activities since 0.102
+Browse 157
+Author
+Enhancements/Bug Fixes
+Sam Parkinson
+Don't put toolbars over the bottom of a pdf documents
+Gonzalo Odiard
+Pyflakes fixes …
+Gonzalo Odiard
+Pep8 fixes
+Ignacio Rodríguez
+Add button & mechanism for export page as pdf
+Gaurav Parida
+replace icon_size with pixel_size
+James Cameron
+add mp3 to partial fix - SL #3933 #4465 …
+Physics 25
+Author
+Enhancements/Bug Fixes
+Sam Parkinson
+Add categories for the New ASLO
+Walter Bender
+add add_badge code back into tools code since it is not yet upstream… …
+Walter Bender
+more examples
+Walter Bender
+remove Inkscape spam
+Ignacio Rodríguez
+Add a gallery of samples.. Need samples..
+Ignacio Rodríguez
+Add an ObjectChooser for physics projects.
+Ignacio Rodríguez
+AUTOPEP8 for all code.
+Walter Bender
+clean up icons; remove unneeded separator; bump version number
+Sai Vineet
+Add increase/decrease execution speed
+Sai Vineet
+pep8 all I could
+Sai Vineet
+Add ability to move motors and pins around :)
+Sai Vineet
+Add more achievements using the new add_badge method of toolkit
+Walter Bender
+rename elements to eliminate name conflict on SoaS
+Walter Bender
+fix problem with cursor when right-clicking
+Read 115
+Author
+Enhancements/Bug Fixes
+Sam Parkinson
+Add CBZ support to Read; fixes #4241
+Write 96
+Author
+Enhancements/Bug Fixes
+Gonzalo Odiard
+Do not show export to pdf option when abiword version == 3.0 …
+Gonzalo Odiard
+Do not show "speak" palette when abiword is version 3.0 …
+Gonzalo Odiard
+Save on format rtf instead of odt …
+Terminal 43
+Author
+Enhancements/Bug Fixes
+Gonzalo Odiard
+Make terminal compatible with Vte 0.38 …
+Gonzalo Odiard
+Save font size for every tab
+Gonzalo Odiard
+Pep8 fixes
+Goutam Nair
+Added keyboard shortcuts for tabs
+DakshShah
+Allow change to dark-theme …
+DakshShah
+pep8 fixes
+Gonzalo Odiard
+Update repository information in activity.info
+Sam Parkinson
+Remove a "/" from the help message
+Sam Parkinson
+Remove duplicate defs in hus po file …
+Gonzalo Odiard
+Do not save terminal content to avoid random crash - SL #4627 …
+Fototoon 22
+Author
+Enhancements/Bug Fixes
+Gonzalo Odiard
+Set max_participants = 1 in activity.info file
+Gonzalo Odiard
+Fix remove temporary directory in video creation
+Cristian Garcia
+Adding a button for new instaces
+Gonzalo Odiard
+Check if self.page is created
+Gonzalo Odiard
+Pep8 fixes
+Sam Parkinson
+Add an export as movie (ogg) feature
+Sam Parkinson
+Add a slideshow option that uses the timings
+Sam Parkinson
+Add a 'slideshow duration' property for comic photos
+Ignacio Rodríguez
+Add screenshots and categories for the new ASLO
+Image Viewer 61
+Author
+Enhancements/Bug Fixes
+Gonzalo Odiard
+Remove non standard fields from activity.info file
+Gonzalo Odiard
+Set max_participants in activity.info file
+Goutam Nair
+Keyboard shortcuts, small fixes …
+Goutam Nair
+Next, previous buttons to view images
+Gonzalo Odiard
+Pep8 fixes
+James Cameron
+fix overexposed render of Record photographs …
+Gonzalo Odiard
+Update repository information in activity.info
+IRC 11
+Author
+Enhancements/Bug Fixes
+Ignacio Rodríguez
+Added the summary and repository fields to activity.info
+trinidadg
+Add connect/disconnect button …
+Ignacio Rodríguez
+Ping notifications when the window is not opened. + Audio notifications
+Ignacio Rodríguez
+Use xo colors, and black and white for tabs …
+Ignacio Rodríguez
+Set locale for default room in IRC
+Ignacio Rodríguez
+Autopep8 for all code.
+Gonzalo Odiard
+Remove unused imports
+Gonzalo Odiard
+Use json instead of simplejson
+Gonzalo Odiard
+Port to gtk3 …
+Calculate 42
+Author
+Enhancements
+Amitjha1412
+Implement select all operation when the user press Ctrl+a - Fixes #4738
+Gonzalo Odiard
+Pyflakes fixes
+Gonzalo Odiard
+Fix all the pending pep8 fixes
+Vikram Ahuja
+Do not show decimal zeros if the result is an integer
+Vikram Ahuja
+Input 2+x**y (of form a+x**y) was going to an infinite loop and thus … …
+Amitjha1412
+converted the files in pep8 style
+Amitjha1412
+added is_prime function Fixes #4812
+Gonzalo Odiard
+Checking for first occurence of '+' and '-' just after ** in x**y fun… …
+Gaurav Mishra
+Definition of b10bin() updated this fixes #4811
+Vikram Ahuja
+Fac() function removed - Fixes #3531
+Gaurav Mishra
+Fixes Raising of Errors by adding ArgumentError Class hence #4807
+Vikram Ahuja
+Fix log10 function using base 10 algorithm - Fixes #4809
+Help 19
+Author
+Enhancements/Bug fixes
+Gonzalo Odiard
+Merge pull request #11 from vikramahuja1001/master …
+Vikram Ahuja
+Calculate functions added in source/calculate.rst
+Gonzalo Odiard
+Add irc activity page to index.rst and helplink.json
+DakshShah
+IRC Guide
+Ignacio Rodríguez
+Save state in Help activity. …
+Gonzalo Odiard
+Update Story page
+Gonzalo Odiard
+Clean musickeyboard page
+Gonzalo Odiard
+Update helplink.json with the new activities added
+DakshShah
+Index Fixed …
+DakshShah
+Story Help Guide Added
+DakshShah
+Star Chart Help Guide Added
+DakshShah
+Labyrinth Help Guide Added
+DakshShah
+Get Books Help Guide Added
+DakshShah
+Distance Help Guide Added
+DakshShah
+Chart Help Guide Added
+DakshShah
+Turtle Blocks 3D Guide improved …
+DakshShah
+Music Keyboard Guide Improved …
+DakshShah
+Finance Guide Improved …
+Gonzalo Odiard
+Fix order on index.rst
+Gonzalo Odiard
+Add stopwatch page to the index. Limit screenshot size
+Cristian Garcia
+Adding help for StopWatch
+Sai Vineet
+Add physics page
+Gonzalo Odiard
+Merge pull request #3 from SAMdroid-apps/log-try2 …
+Sam Parkinson
+Add screenshots and categories for the new ASLO
+Sam Parkinson
+Add help for Log Activity
+Gonzalo Odiard
+Add more information to Jukebox page
+Cristian Garcia
+Adding help for Jukebox
+Gonzalo Odiard
+Add Abacus & Dimensions to the index
+Gonzalo Odiard
+Fixes to abacus page
+Gonzalo Odiard
+Update contribution tutorial
+DakshShah
+Help Guide for TurtleBlocks3D
+DakshShah
+Music Keyboard Help Guide
+DakshShah
+Finance Help Guide
+DakshShah
+Dimensions Help Guide
+DakshShah
+Abacus Help Guide
+Gonzalo Odiard
+Pep8 fixes
+Gonzalo Odiard
+Don't use symlink for images dir …
+Gonzalo Odiard
+Add localization scripts
+Gonzalo Odiard
+Implement a custom setup.py …
+Gonzalo Odiard
+Add Poll activity documentation
+Paint 64
+Author
+Enhancements/Bug Fix
+Ignacio Rodríguez
+Use Kaleidoscope instead of Kalidoscope in tooltip …
+Gonzalo Odiard
+Simplify kalidoscope code
+Gonzalo Odiard
+Don't open stamps dialog when the tool button is pressed …
+Gonzalo Odiard
+Set max_participants in activity.info file
+Gonzalo Odiard
+Pyflakes fixes
+Ignacio Rodríguez
+i5o authored on Jan 8  godiard committed on Jan 13
+Gonzalo Odiard
+Pep8 fixes
+Cristian Garcia
+Adding kalidoscope tool
+Ignacio Rodríguez
+Load stamps from journal and remember it. …
+Ignacio Rodríguez
+Add Tux Paint stamps to paint …
+Pippy 64
+Author
+Enhancements/Bug fixes
+Vikram Ahuja
+Solved the problem of naming tabs when adding/deleting tabs
+Vikram Ahuja
+Executing the Ctrl-w code if number of tabs is greater than 1
+Sakala Venkata Krishna Rohit
+Fixed the problem of naming of tabs while adding new tabs
+Sakala Venkata Krishna Rohit
+Fixed tab name changing problem
+Vikram Ahuja
+Make Ctrl-(1-9) changes current tab to that number
+Vikram Ahuja
+Checking if number of tab is 1 when Ctrl+w is pressed and then hide c… …
+Goutam Nair
+Ctrl+Shift+Tab on first tab goes to the last
+Goutam Nair
+Ctrl+Tab on last tab changes to first tab
+Sai Vineet
+A bit of pep8
+Sai Vineet
+Add copyright notice
+Sai Vineet
+Hide close button if only one tab is present
+Sai Vineet
+Add font size +/-
+Walter Bender
+corrections suggested by Jean THIERY
+Rafael Cordano
+Updated thanks example
+Turtle Blocks 209
+Author
+Enhancements/Bug fixes
+Ignacio Rodriguez
+Add macro for index block
+Cristian Gracia
+new sample project
+Ignacio Rodríguez
+add dbus to default imports
+Ignacio Rodríguez
+Fix alert msg
+Ignacio Rodríguez
+Use alert instead popup
+Ignacio Rodríguez
+Dont export if not start block
+Walter Bender
+Set default values for index block to something that works
+Ignacio Rodríguez
+AUTOPEP8 for all TurtleArt code.
+Walter Bender
+use tb and don't save turtle
+Ignacio Rodríguez
+A graphics sample
+Ignacio Rodríguez
+Index block. Works like python: Text[start:end]
+Daniel Francis
+thumbnail for new project
+Fred Lopesy
+update to Brazilian PT
+Walter Bender
+remove redundant turtle updates
+Walter Bender
+use box instead of box1
+Alan Aguiar
+reuse palettes when running make_palette
+Alan Aguiar
+Using existing power management from utils library
+Walter Bender
+suppress power management error messages
+Walter Bender
+inhibit suspend if camera block is in use
+Walter Bender
+add white circle in the center
+Walter Bender
+fix regressions in paste and save-as-svg
+Walter Bender
+save/restore private block data
+Walter Bender
+new sample project: pinwheel
+Walter Bender
+don't use coordinate scale on media blocks
+Alan Aguiar
+fix to SL#4788; add export to SVG to GNOME menu
+Walter Bender
+fix bug in rendering of if-then-else block
+Walter Bender
+fix some issues with label placement
+Walter Bender
+fix problem with color compare
+Walter Bender
+resize 3arg blocks on load
+Walter Bender
+catching one more corner case in autosave logic
+Walter Bender
+fixed bug with autosave
+Walter Bender
+add turtle window to before and after methods
+Walter Bender
+add a private attribute to block class
+Walter Bender
+rescale mouse coordinates
+Walter Bender
+rescale constants when rescaling coordinates
+Credits
+Many people contributed to this release indirectly, including testing, documentation, translation, contributing to the Wiki, outreach to education distributions, packaging, and developer communities. On behalf of the community, we give our warmest thanks to the developers and contributors who made this Sugar release possible.
+Patches contributors
+Sam Parkinson
+Ignacio Rodríguez
+Ezequiel Pereira Lopez
+Daksh Shah
+Goutam
+James Cameron
+Walter Bender
+Gonzalo Odiard
+Martin Abente Lahaye
+et al.
+Translations contributors
+Chris Leonard
+Tymon Radzik
+Samson Goddy
+Chukwuebuka Abazie
+Christan Nnah
+et al.
+Please note
+Well over 50% of the patches to Sugar Activities came from youths in the Sugar community. Just under 50% of the patches to Sugar core libraries came from youths in the Sugar community.
+We want to especially thank
+the Infrastructure team which does all this great work in the background without which the development would not be possible at all,
+the deployments that provide the development team with feedback from the field,
+the Design team which guided the design of features with UI changes or impact on the workflow,
+the Translation team which makes sure that Sugar is enjoyable in the local languages of our users,
+the developers that submit patches for new features and bug fixes and do review other's patches,
+the maintainers that make sure their code is shippable and which provide packagers with new tarballs,
+the packagers which provide distributions with new Sugar packages,
+the SoaS team for providing a Sugar version to test with during the development cycle,
+the testers for finding the small and bigger issues,
+the release team and Development team for coordinating those efforts.
+This time, Martin Abente Lahaye took the responsibility of manage the release.

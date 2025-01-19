@@ -1,0 +1,67 @@
+Title: Development Team/Prerequisites
+URL: https://wiki.sugarlabs.org/go/Development_Team/Prerequisites
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Software components
+2.1
+Python
+2.2
+Gtk+
+2.3
+Telepathy
+2.4
+D-Bus
+2.5
+NetworkManager
+2.6
+Metacity
+2.7
+X11
+3
+Resources
+3.1
+Memory
+3.2
+General processing
+3.3
+Graphics processing
+3.4
+Persistent storage
+Summary
+This page explains what needs to be in a computer so it can run Sugar 0.86. Also are mentioned ways in which the dependency could be weakened.
+A diagram can be seen in
+Development_Team/Architecture
+.
+Software components
+Python
+Almost all of Sugar is written in python, small bits of C are used to interface with libraries or to improve the performance of computationally intensive operations.
+Some language features and extension modules that appeared at Python 2.5 are used, but reducing the dependency to 2.4 should be possible without much effort.
+Gtk+
+We depend on Gtk+ 2.18 but should be possible to fall back to 2.16 or even 2.14 with relatively little effort. Gtk+ is used all around Sugar so in order to drop this dependency we would need to rewrite pretty much all.
+Telepathy
+Presence of contacts and collaboration between activities is implemented using the Telepathy framework.
+D-Bus
+Communication between processes is done with D-Bus. Due to indirect dependencies we need at least version 1.1.
+NetworkManager
+Sugar uses the API that landed in NM 0.7. Though NetworkManager is not required for Sugar to start, you lose management of network devices.
+Metacity
+Sugar can work with most standard-compliant X11 window managers, but these differ a lot on how they handle corner cases and thus using any other window manager would require extensive testing.
+X11
+Sugar interfaces directly with X for window and session management. In order to remove this dependency, alternate implementations would need to be developed and an abstraction interface be created.
+Resources
+Memory
+Sugar on Fedora can run on 128MB of virtual memory with a reduced number of concurrent activities. The required amount of memory can be reduced by:
+- streamlining the rest of the platform (e.g. use OpenEmbedded),
+- substitute static bindings with ones generated at runtime (work ongoing upstream),
+- optimization in Python,
+- optimization in Sugar,
+- forking all python processes from the same process (pre-forking).
+General processing
+Only shell and activities startup is dominated by non-graphics CPU power. A Geode LX 700 is acceptable. By using dynamic bindings instead of pregenerated ones, this limit can be lowered.
+Graphics processing
+Sugar uses scaled graphics in all its UI. A system that is able to render an animation at fullscreen using Cairo at 12 fps will give a smooth user experience. If the system is not able to sustain that, memory can be traded for performance using the X11 composition extension or profiling work can happen at the librsvg, cairo and X driver levels.
+Persistent storage
+Sugar itself requires only about 40 MB of disk space. Its dependencies will require more or less space depending on the distribution used, OLPC's needs less than 500MB. For Sugar activities, 10-100 MB would be reasonable, plus some hundreds of MB for user data. A backup server is recommended, so users don't need to keep all their data locally.

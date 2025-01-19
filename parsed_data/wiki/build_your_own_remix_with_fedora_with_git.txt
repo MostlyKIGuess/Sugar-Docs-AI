@@ -1,0 +1,52 @@
+Title: Build Your Own Remix with Fedora with git
+URL: https://wiki.sugarlabs.org/go/Build_Your_Own_Remix_with_Fedora_with_git
+--------------------------------------------------------------------------------
+test Digest, Vol 97, Issue 3
+Comment (by adamwill)
+I can build live images if needed. Actually, you probably could too, it's
+actually very simple to do. You basically just need a git checkout of
+spin-kickstarts:
+http://git.fedorahosted.org/git/?p=spin-kickstarts.git
+and the livecd-tools package installed. Then you run a command something like this:
+livecd-creator -c /path/to/spin-kickstarts/fedora-live-desktop.ks -v -f
+my_awesome_live -t /home/adamw/local/live/tmp/
+--cache=/home/adamw/local/live/cache/
+
+-c is the kickstart to use, -v is verbose, -f is the filename and label to
+use for the resulting image, -t specifies the temporary directory and
+--cache specifies the cache directory (I think otherwise it uses /tmp and
+/var/something; I do this so the temp stuff can be re-used on subsequent
+attempts and the cache doesn't overflow my smaller / partition).
+
+To do your customizations, you can take advantage of kickstart inclusion.
+Create a new kickstart file which includes the official kickstart you want
+to base your image on, and adds your customizations. So I have this
+kickstart file which just adds a couple of repos, for instance:
+
+--------------
+
+%include spin-kickstarts/fedora-livecd-desktop.ks
+
+repo --name=side --baseurl=file:///home/adamw/local/repo2/$basearch
+BR
+repo --name=bleed
+--baseurl=
+http://kojipkgs.fedoraproject.org/mash/bleed/$basearch
+--------------
+
+Or one which adds a package:
+ 
+--------------
+
+%include spin-kickstarts/fedora-livecd-desktop.ks
+
+repo --name=side --baseurl=file:///home/adamw/local/repo/$basearch
+BR
+#repo --name=bleed
+--baseurl=
+http://kojipkgs.fedoraproject.org/mash/bleed/$basearch
+%packages
+BR
+rendercheck
+BR
+%end

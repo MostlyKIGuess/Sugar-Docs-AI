@@ -1,0 +1,859 @@
+Title: Talk:Testing/Activity Test Table/Install Test Table
+URL: https://wiki.sugarlabs.org/go/Talk:Testing/Activity_Test_Table/Install_Test_Table#Test_results
+--------------------------------------------------------------------------------
+Contents
+1
+Activity Testing
+2
+Testing Outline
+3
+Install Testing
+3.1
+Preparing a stick or CD for smoke testing
+3.1.1
+USB-scr =./livecd-iso-to-disk
+3.1.2
+USB-LC = fedora Liveusb-creator (Windows/Linux)
+3.1.3
+USB-Un = Unetbootin (Windows/Linux)
+3.1.4
+CD = Booted from CD
+3.1.5
+dd =  direct install to USB
+4
+Smoke-testing a SoaS stick or CD
+5
+Reporting test results
+5.1
+template for more lines
+5.2
+Test results
+5.3
+CD Boots 2nd Archive
+Activity Testing
+Go to:
+Testing/Activity Test Table
+Testing Outline
+for Discussion
+Please edit or make suggestions
+Testing Matrix Suggestions: revised 07/30/2010
+See proposed Test Matrix:
+Talk:Sugar_on_a_Stick_release_process#Test_Matix
+NEW
+(Almost all of these items are covered in the Table of Results below and in the Activity Test Table)
+1-
+Bootable USB
+a- liveusb-to-disk script
+ b- liveusb-creator Windows/Linux
+ c- unetbootin
+ d- dd=?
+2-
+Can be Installed
+yes/no
+ a- liveinst (Anaconda)
+ b- zyx-liveinstaller (have to yum install)
+ c- Virtualbox
+3-
+Burned CD  works?
+yes/no
+ a-i386
+ b-i386-64	
+4-
+Test against Activities
+a. Installed
+ b. Downloaded from ASLO or Drag-Dropped from ASLOxo-3 USB
+[1]
+c.
+Report Activity Tests Here:
+:
+Testing/Activity_Test_Table#Activity_Test_Results
+5-
+Collaboration worked between:
+Note which activities, and Sugar Versions (a-f)
+ a- XO--1
+ b- XO-1.5
+ c- 0.84
+ d- 0.86
+ e- 0.88   
+ f- 0.89-0.90
+6-
+Wireless works?
+yes/no
+ - Models of XO/Netbook/PC/Mac
+ - wireless drivers employed (if known)
+Install Testing
+Preparing a stick or CD for smoke testing
+This is the first Phase of testing:
+sticks can be made using many methods:
+USB-scr =./livecd-iso-to-disk
+USB-LC = fedora Liveusb-creator (Windows/Linux)
+USB-Un = Unetbootin (Windows/Linux)
+CD = Booted from CD (burn the .iso to a CD)
+SC = SugarClone
+Sugar_on_a_Stick/Sugar_Clone
+Advanced methods for experts only NOT USED FOR REGULAR TESTING
+ZYX = zyx-liveinstaller install to USB- requires double the size of USB min 4Gb recommended 8 GB
+liveinst = (Anaconda) install to USB- requires double the size of USB min 4Gb recommended 8 GB
+dd = dd write.iso file to USB-
+USB-scr =./livecd-iso-to-disk
+This is a test using the script livecd-iso-to-disk
+1. Download to you desktop the weekly Nightly Compose of soas.spin  :
+http://download.sugarlabs.org/soas/test/
+Download also to your desktop if you have not done so before
+http://download.sugarlabs.org/soas/releases/livecd-iso-to-disk.sh
+2. In terminal change directory to your desktop:
+cd /home/Desktop
+enter the command:
+mount
+You should see the USBdevice name ie: /dev/sdb, /dev/sdc, /dev/sdd etc.
+Write it down
+THIS IS VERY IMPORTANT as if you enter this wrong you can DISTROY your HARD DISK Install. DO NOT USE /dev/sda EVER
+Unless you have NO HARD_DISK in your computer
+HINT: copy the following commands to a text editor first. Then edit them and be certain that they are correct. Then copy-paste into the terminal.
+(--format --reset-mbr)This will overwrite everything on your USB.
+enter the commands:
+sudo su
+./livecd-iso-to-disk  --format --reset-mbr --overlay-size-mb 800 /home/xxx/Desktop/soas-i386-20100xxx.xx.iso /dev/sd(x)
+(x)=this is your device name for the USB  found above with mount command.
+--overlay-size-mb 800  for 2 GB USB
+--overlay-size-mb 1200 for 4 GB USB
+USB is formatted fat16   ( overlay has to be <2000 for fat16 )
+Example Write to USB:
+::xxx@xxxxx:~$ sudo su
+[sudo] password for xxxx: 
+root@xxxxxx:/home/xxxxx # cd Desktop
+root@xxxxxx:/home/xxxx/Desktop# ./livecd-iso-to-disk  --format --reset-mbr --overlay-size-mb 1200 /home/xxxx/Desktop/soas-i386-20100xxx.xx.iso /dev/sd(x)
+Verifying image...
+./livecd-iso-to-disk: line 385: checkisomd5: command not found
+Are you SURE you want to continue?
+Press Enter to continue or ctrl-c to abort
+WARNING: THIS WILL DESTROY ANY DATA ON /dev/sdg!!!
+Press Enter to continue or ctrl-c to abort
+Waiting for devices to settle...
+mkdosfs 3.0.1 (23 Nov 2008)
+Copying live image to USB stick
+Updating boot config file
+Initializing persistent overlay file
+1200+0 records in
+1200+0 records out
+1258291200 bytes (1.3 GB) copied, 284.256 s, 4.4 MB/s
+Installing boot loader
+USB stick set up as live image!
+root@xxxxx:/home/xxxx/Desktop#
+3. Remove USB and place in Netbook USB Slot
+4. Boot from it
+5, Begin Smoke Tests
+Talk:Testing/Activity Test Table/Install_Test_Table#Smoke-testing_a_SoaS_stick_or_CD
+USB-LC = fedora Liveusb-creator (Windows/Linux)
+Download Liveusb-­creator
+https://fedorahosted.org/liveusb-creator/
+How to use liveusb-creator
+fedora:FedoraLiveCD/USBHowTo
+fedora:How to create and use Live USB#Graphical Method - Windows or Fedora
+Begin Smoke Tests
+Talk:Testing/Activity Test Table/Install_Test_Table#Smoke-testing_a_SoaS_stick_or_CD
+USB-Un = Unetbootin (Windows/Linux)
+Web Page:
+http://unetbootin.sourceforge.net/
+unetbootin­windows­471.exe
+http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe
+unetbootin­linux­471
+http://unetbootin.sourceforge.net/unetbootin-linux-latest/
+Unetbootin­ Command_line  (Advanced)
+http://sourceforge.net/apps/trac/unetbootin/wiki/commands
+Begin Smoke Tests
+Talk:Testing/Activity Test Table/Install_Test_Table#Smoke-testing_a_SoaS_stick_or_CD
+CD = Booted from CD
+burn the Test Soas.iso to a CD with a disk burning program
+boot From the CD
+Note there will be no persistence
+Your settings and colors will not be retained when you reboot from the CD
+Begin Smoke Tests
+Talk:Testing/Activity Test Table/Install_Test_Table#Smoke-testing_a_SoaS_stick_or_CD
+dd =  direct install to USB
+This is the simplest and fastest method to make a
+non-persistent Soas USB
+.
+NOT A RECOMMENDED INSTALL METHOD
+It is quite dangerous to use and is ONLY FOR ADVANCED USERS
+One error in typing can destroy your Hardisk formatting with no error warnings.
+Sample Install to USB
+root@xxxx:/home/xxxx/Desktop# dd if=soas-i386-20100702.15.iso of=/dev/sdg
+974848+0 records in
+974848+0 records out
+499122176 bytes (499 MB) copied, 137.931 s, 3.6 MB/s
+root@xxxx:/home/xxxx/Desktop#
+Note that the entire write takes slightly more than 2 minutes.
+Great way to make an installer USB if you have no CD/DVD on your netbook
+Smoke-testing a SoaS stick or CD
+The Second phase of Testing begins:
+USB or CD Boots to Name______ screen
+then Color_______screen (click on XO Avitar to change colors till you like color combos.)
+hit enter
+F3 Circle of Activities Appears with your avitar in center.
+Point mouse cursor at Avitar XO and hit right mouse button-Menu appears, select "My Settings"
+Control Panel Appears. Test each of the applications on Control Panel to see that they work
+Exit Control Panel with X in top right corner
+Hit F1 Key (or move mouse cursor to right top corner of white part of screen, a black frame appears on window, select the left circle with many dots and click mouse)
+Screen changes and you avitar becomes much smaller
+Do other avitars appear after 1-2 minutes? (If so you are seeing other sugar instances in your neighborhood)
+Point mouse cursor at your Avitar XO in the center of the screen and hit right mouse button. Drop-Down Menu appears select "Shutdown"
+Sugar Exits and shuts down computer.
+Reboot (skip this step for CD), You should boot directly to the f3 screen with  the Circle of Activities and your avitar in center with the Correct colors.
+Point mouse cursor at your Avitar XO in the center of the screen and hit right mouse button. Drop-Down Menu appears select "Shutdown"
+Sugar Exits and shuts down computer.
+Test Is Complete.
+Enter your results in Test Table.
+Thank You for testing
+Reporting test results
+To Report Individual Activity Tests:
+Testing/Activity Test Table
+template for more lines
+Copy this code to the table to generate more lines.
+Testing/Activity Test Table/Install_Test_Table
+It will look correct when editing
+KEY
+USB-scr =./livecd-iso-to-disk  --format --reset-mbr --overlay-size-mb 1200 soas-i386-20100xxx.xx.iso /dev/sd(x)
+USB-LC = fedora Liveusb-creator
+USB-Un = Unetbootin
+CD     = Booted from CD
+NO PERSISTENCE
+ZYX = zyx-liveinstaller install to USB- requires double the size of USB min 4Gb recommended 8 GB (not on .iso, requires yum install zyx-liveinstaller gparted)
+liveinst = (Anaconda) install to USB- requires double the size of USB min 4Gb recommended 8 GB
+dd     = dd write.img file to USB
+NO PERSISTENCE
+Soas Boots,Starts and Stops Correctly
+P=Pass
+F=Fail
+note: I am also using an external USB 500GB hard drive with an daily updated f14(rawhide) install of Gnome-sugar as a livecd-creator-soas.ks build system.
+I use this to compare with the daily builds
+these results are marked below as ***.remix
+Test results
+LOOK AT "PAGE" TAB FOR OLDER ARCHIVED TESTS
+xxx=not tested yet
+Tester
+Nightly Composes No.
+Date
+Test
+i386
+x86_64
+PC/Netbook Type
+Notes and Bug No.
+TEST
+satellit
+soas-v3-Mirabelle-remix.iso
+07/27/2010
+CD
+CD=PASS
+Hp Pavillion Laptop TurionAMD 64x2
+Built on Hp Pavillion Laptop TurionAMD 64x2 with USB 250 GB HD f(13) Sugar on a Stick 3 (Mirabelle) Fedora 13 (Goddard) 0.88.1
+satellit
+soas-i386-20100727.16.iso
+07/28/2010
+CD
+FAIL
+ACER ASPIRE One Atom N454
+mount: wrong fs type, bad option,bad superblock on /dev/mapper/live-rw sleeping forever can't mount root filesystem = bug 619020
+[2]
+It looks like bug 615443 got fixed
+TEST
+satellit
+soas-v4-0730-Remix (
+fedora-logos
+)
+07/30/2010
+CD
+FAIL
+Hp Pavillion Laptop TurionAMD 64x2
+f13 Build system w/ rawhide repo=CD Does not boot (Blank Screen after isolinux text)
+satellit
+soas-i386-20100803.15.iso
+08/04/2010
+CD
+PASS=CD & liveinst=FAIL[
+EeePC900
+CD boots Fine
+liveinst Bug
+[3]
+satellit;
+soas-i386-20100805.20.iso
+08/06/2010
+CD,HD
+CD=PASS;liveinst=PASS
+Hp Pavillion Laptop TurionAMD 64x2 ;
+All Activities OK* (record has no sound)
+satellit;
+soas-i386-20100806.15.iso
+08/07/2010
+CD
+CD=PASS liveinst=PASS
+Hp Pavillion Laptop TurionAMD 64x2 ;
+All Activities OK* (record has no sound) livinst=replace existing..../boot 500 ext4 / 15000 ext4 no swap(16 GB USB)
+satellit
+soas-i386-20100807.17.iso
+08/09/2010
+CD
+CD=PASS*liveinst=PASS*
+At boot:*hold <ESC> <TAB> linux0 init=/sbin/upstart
+new build
+liveinst=need to edit menu.lst and add linux0 init=/sbin/upstart from root
+satellit
+soas-i386-20100810.15.iso
+08/10/2010
+CD
+CD=PASS*
+At boot*hold <ESC> <TAB> linux0 init=/sbin/upstart
+new build
+[4]
+*TEST
+satellit
+Fedora-14-Alpha-RC3.1-i686-Live.iso
+[5]
+08112010
+CD
+CD=PASS   livecd-creator=PASS*
+Hp Pavillion Laptop TurionAMD 64x2
+*USED livinst to USB HD installed livecd-tools spin-kickstarts used fedora-livecd-soas.ks to build F14 Soas from rawhide with livecd-tools (see Remixability feature) CD Soas-v4-Mangolassi-remix booted and worked.
+TEST for Remixability
+satellit
+Weekly Test Image
+[6]
+soas-i386-20100811.16.iso
+08122010
+CD USB-scr
+CD=Pass* USB-scr=Pass*
+Hp Pavillion Laptop TurionAMD 64x2 ;
+Sugar on a Stick 4 (Mango lassi) 0.89.1 *boots to console; firstboot; sugar name field+color; then F3 only first time booted
+NEW FEATURE ?
+systemd info
+[7]
+satellit
+soas-i386-20100812.16.iso
+08132010
+CD USB-scr
+CD=Pass*
+Hp Pavillion Laptop TurionAMD 64x2 ;
+Sugar on a Stick 4 (Mango lassi) 0.89.1 *boots to console; firstboot; sugar name field+color; then F3 only first time booted
+systemd?
+info
+[8]
+NOTE: "register" freezes up F3 Screen
+satellit
+soas-i386-20100814.19.iso
+08/15/2010
+CD
+CD=PASS zyx=FAIL liveinst=PASS
+EeePC900 and external usb DVD/CD
+Sugar on a Stick 4 (Mango lassi) Fedora 14 (Laughlin) 0.89.1 *boots to console; firstboot; sugar name field+color; then F3 only first time booted
+REGISTER DOES NOT CHANGE JABBER SERVER
+(does not connect on ch 1 AD HOC wireless network with XO-1 os353pyg on channel 1 AD HOC in CHAT or browse) does not reconnect to jabber on wireless ap have to reboot to get back on jabber ?
+satellit
+soas-i386-20100815.17.iso
+08/16/2010
+CD
+CD=PASS
+EeePC900 and external usb DVD/CD
+Sugar on a Stick 4 (Mango lassi) Fedora 14 (Laughlin) 0.89.1 *boots to console; firstboot; sugar name field+color; then F3 only first time booted
+TEST
+satellit
+Soas-v4-Mangolasi-08152010-remix.iso
+08/16/2010
+CD
+CD=PASS
+EeePC900 and external usb DVD/CD
+Remix built on 8 GB USB
+livinst from soas-i386-20100814.19 (5 HRS to Build with livecd-tools)
+[9]
+Used sugar-terminal and gedit 0.89.2 rawhide - no jabber connection rest works fine  note "register" gives "Registration Failed" message.
+satellit
+soas-i386-20100816.15.iso
+08/17/2010
+CD
+CD=PASS liveinst=PASS
+ACER ASPIRE One Atom N454 and external usb DVD/CD
+Sugar on a Stick 4 (Mango lassi) Fedora 14 (Laughlin) 0.89.1 *boots to console; firstboot; sugar name field+color; then F3 only first time booted
+Note: yum install sugar* broke NetworkManager (NO NETWORK) loads *NetworkManager i686 1:0.8.1-4.git20100817.fc14* (sugar to 0.89.3 from updates testing)
+satellit
+soas-i386-20100817.16.iso
+08/18/2010
+CD
+CD=PASS liveinst=Pass
+ACER ASPIRE One Atom N454 and external usb DVD/CD
+Sugar on a Stick 4 (Mango lassi) Fedora 14 (Laughlin) 0.89.1 *boots to console; firstboot; sugar name field+color; then F3 only first time booted
+VMworkstation did sucessful liveinst to persistent IDE drive
+[10]
+will work on VMplayer after decompression. Installs to QEMU HD with liveinst (yum install @virtualization in f13 gnome terminal)
+satellit
+Weekly Test Image
+[11]
+soas-i386-20100818.16.iso
+08/19/2010
+CD
+CD=PASS liveinst=Pass
+ACER ASPIRE One Atom N454 and external usb DVD/CD
+Sugar on a Stick 4 (Mango lassi) Fedora 14 (Laughlin) 0.89.1 *boots to console; firstboot; sugar name field+color; then F3 only first time booted
+TEST
+satellit
+desktop-i386-20100818.16.iso
+08/19/2010
+CD
+CD=PASS (no firstboot with CD) liveinst=PASS
+Hp Pavillion Laptop TurionAMD 64x2
+liveinst to USB external HD (*boots to console; firstboot) yum groupinstall sugar-desktop -  yum install sugar-emulator (uses rawhide repo) f14(branched) sugar 0.89.3
+Testing has moved
+Testing has moved
+08/21/2010
+Testing has moved
+Testing has moved
+Testing has moved
+Go to:
+http://wiki.sugarlabs.org/go/Talk:Sugar_on_a_Stick_release_process#Test_Matix
+–
+–
+–
+–
+–
+–
+CD Boots 2nd Archive
+Boots  (yes/no)
+(xxxxxxxxx.iso)
+Test Date mmddyyyy
+Submitter
+Wireless works (yes/no)
+Models of XO/Netbook/PC/Mac
+Comments (include Trac Numbers for Bugs)
+yes
+soas-i386-20100817.16.iso Sugar on a Stick 4 (Mango lassi) Fedora 14 (Laughlin) 0.89.1
+08192010
+satellit
+yes
+ACER ASPIRE One Atom N454 and external usb DVD/CD
+*boots to console; firstboot; sugar name field+color; then F3 only first time booted
+yes
+soas-i386-20100818.16.iso Sugar on a Stick 4 (Mango lassi) Fedora 14 (Laughlin) 0.89.1
+[12]
+08192010
+satellit
+yes
+ACER ASPIRE One Atom N454 and external usb DVD/CD
+Weekly Test Image
+[13]
+*boots to console; firstboot; sugar name field+color; then F3 only first time booted
+yes
+TEST
+Soas-v3-08222010-Remix Sugar on a Stick 3 (Mirabelle) Fedora 13 (Goddard) 0.88.1
+08222010
+satellit
+no
+Hp Pavillion tx1417d Laptop AMD Turion 64x2
+Remix from f13 XFCE installed to an external USB Hard Disk( Build System using fedora-livecd-soas.ks and livecd-tools) -updates: Physics 4>5 Record 66>79 Write 69>70 Turtle Blocks 89>95
+no
+soas-i386-20100824.16.iso
+08242010
+satellit
+n/a
+ACER ASPIRE One Atom N454 and external usb DVD/CD
+boots thru firstboot; then starts x ends up with blank screen with X cursor no gdm or sugar login
+yes
+desktop-x86_64-20100818.16.iso
+08252010
+satellit
+no but 3 new Ad-hoc Networks AP's
+Hp Pavillion tx1417d Laptop AMD Turion 64x2
+*boots to console; firstboot; sugar name field+color; then F3 only first time booted  livinst to external USB 250 GB HD then yum installed sugar* sugar-emulator=fedora 14 (branched) 0.89.3
+no
+soas-i386-20100826.15.iso
+[14]
+08262010
+satellit
+n/a
+Hp Pavillion tx1417d Laptop AMD Turion 64x2
+Weekly Test Image
+[15]
+boots thru firstboot; then starts x ends up with blank screen with X cursor no gdm or sugar login
+no
+soas-i386-20100828.21.iso
+08302010
+satellit
+n/a
+Hp Pavillion tx1417d Laptop AMD Turion 64x2
+boots thru firstboot; then starts x ends up with blank screen with X cursor no gdm or sugar login
+no
+soas-i386-20100829.17.iso
+08302010
+satellit
+n/a
+Hp Pavillion tx1417d Laptop AMD Turion 64x2
+boots thru firstboot; then screen freezes on smolt send screen 475304:
+[16]
+no
+soas-i386-20100830.15.iso
+[17]
+08312010
+satellit
+n/a
+Hp Pavillion tx1417d Laptop AMD Turion 64x2
+Weekly Test Image
+[18]
+boots thru firstboot; then starts x ends up with blank screen with X cursor no gdm or sugar login
+no
+TEST
+Remix using f14 x64 and f14 x64-updates Repos (edited fedora mini.ks) used soas.ks with livecd-tools) for build; f14 based build system
+09012010
+satellit
+n/a
+Hp Pavillion tx1417d Laptop AMD Turion 64x2
+*boots to console; firstboot fails after smolt no gdm or sugar
+yes
+TEST
+Remix using f14 x64  Repo (edited fedora mini.ks) used soas.ks with livecd-tools) for build; usingf14(branched) build system
+09052010
+satellit
+n/a
+Hp Pavillion tx1417d Laptop AMD Turion 64x2
+*boots to console; firstboot,smolt,sugar 0.89.1 f14 (branched)
+f14-updates repo has problem?
+- liveinst to 4GB USB works see below
+NOTE Confirmed: Made 2nd .iso with f14-updates repo. boots,ends up with blank screen with X cursor no firstboot, gdm or sugar login
+no
+soas-i386-20100908.15.iso
+[19]
+09092010
+satellit
+n/a
+EeePc1000HE and external Hp DVD/CD writer
+Weekly Test Image
+[20]
+ends up with blank screen with X cursor
+no
+soas-x86_64-20100910.16.iso (i386 failed to build:Error creating Live CD : Unable to download from repo)
+09112010
+satellit
+n/a
+Hp Pavillion tx1417d Laptop AMD Turion 64x2
+ends up with blank screen with X cursor <alt><ctrl> f5 firstboot command runs firstboot then startx says other server0 active unable to connect to X server   similar to Bug 475304
+[21]
+no
+soas-i386-20100911.18.iso
+09122010
+satellit
+n/a
+EeePc1000HE and external Hp DVD/CD writer
+ends up with blank screen with X cursor Bug 632818:
+[22]
+Bug 627401:
+[23]
+no
+soas-i386-20100912.17.iso
+09132010
+satellit
+n/a
+EeePc1000HE and external Hp DVD/CD writer
+ends up with blank screen with X cursor Bug 632818:
+[24]
+Bug 627401:
+[25]
+ON boot: "unable to parse graphical.service" <alt> <ctrl> f5; login root: firstboot=fades to black screen after firstboot ends; PC unresponsive (will try with USB with persistence so can reboot and fix graphical,service link)
+no
+soas-i386-20100913.15.iso
+09142010
+satellit
+n/a
+EeePc1000HE and external Hp DVD/CD writer
+ends up with blank screen with X cursor
+yes
+soas-i386-20100915.17.iso
+[26]
+09162010
+satellit
+yes
+Hp Pavillion tx1417d Laptop AMD Turion 64x2
+Weekly Test Image
+[27]
+boots to name___ works fine have f1 neighborhood f14 sugar 0.89.3,
+http://bugs.sugarlabs.org/ticket/2339
+trys to get keyring password 6+ times (it has not been set) then goes to f3 ring
+yes
+soas-i386-20100916.15.iso
+09172010
+satellit
+yes
+EeePc1000HE and external Hp DVD/CD writer
+boots to name___ works fine have f1 neighborhood f14 sugar 0.89.3  no changes seen since yesterdays.
+http://bugs.sugarlabs.org/ticket/2339
+trys to get keyring password 6+ times (it has not been set) then goes to f3 ring
+yes
+soas-i386-20100917.16.iso
+09182010
+satellit
+yes
+EeePc1000HE and external Hp DVD/CD writer
+boots to name___ works fine have f1 neighborhood f14 sugar 0.89.3  no changes seen since yesterdays.
+http://bugs.sugarlabs.org/ticket/2339
+trys to get keyring password 6+ times (it has not been set) then goes to f3 ring
+yes
+TEST_Remix
+liveusb-creator running from CD; downloads soas-v3-mirabelle and makes bootable USB; boots to Name____
+09192010
+satellit
+yes
+EeePc1000HE and external Hp DVD/CD writer
+TEST_Remix
+f14-soas-v4 Remix with liveusb-creator and zyx-installed Built on f13-DVD installed USB HD, livecd-tools with modified.ks files.
+http://bugs.sugarlabs.org/ticket/2339
+trys to get keyring password 6+ times (it has not been set) then goes to f3 ring
+yes
+soas-i386-20100919.18.iso
+09202010
+satellit
+yes
+EeePc1000HE and external Hp DVD/CD writer
+grey boot screen-boots to Name______ pops up enter keychain password 6x does not work then it lets soas run
+[28]
+network neighborhood starts Ad-hoc Network 1 wireless AP logs in fine then see Avitars. sugar 0.89.3 f14(Laughlin) Sugar on a stick (Mango Lassi)   CP Software update does not work
+[29]
+yes
+soas-i386-20100920.16.iso
+09212010
+satellit
+yes
+EeePc1000HE and external Hp DVD/CD writer
+boots to Name______ pops up enter keychain password 6+times (does not work) then it lets soas run
+[30]
+network neighborhood starts Ad-hoc Network 1 wireless AP logs in fine then see Avitars. sugar 0.89.3 f14(Laughlin) Sugar on a stick (Mango Lassi)   CP Software update does not work
+[31]
+yes
+soas-i386-20100921.15.iso
+09222010
+satellit
+NO
+Hp Pavillion tx1417d Laptop AMD Turion 64x2 (no wireless AP show)
+grey boot screen, boots to Name______ pops up enter keychain password 6+times (does not work) then it lets soas run
+[32]
+(no wireless AP show) f14(Laughlin) Sugar on a stick (Mango Lassi)   CP Software update does not work
+[33]
+yes
+soas-i386-20100921.15.iso
+09222010
+satellit
+yes
+EeePc1000HE and external Hp DVD/CD writer
+grey boot screen, boots to Name______ pops up enter keychain password 6+times (does not work) then it lets soas run
+[34]
+wireless AP show starts logged in to Ad_Hoc Network 1   f14(Laughlin) Sugar on a stick (Mango Lassi)   CP Software update does not work
+[35]
+wrong names of format xxxxxxxxxx@jabber, sugarlabs.org
+[36]
+yes
+soas-i386-20100922.16.iso
+09232010
+satellit
+yes
+EeePc1000HE and external Hp DVD/CD writer
+Weekly Test Image
+[37]
+NEW fedora boot screen
+boots to Name______ pops up enter keychain password 6+times (does not work) then it lets soas run
+[38]
+wireless AP show starts logged in to Ad_Hoc Network 1   f14(Laughlin) Sugar on a stick (Mango Lassi)   CP Software update does not work
+[39]
+no f1 neighborhood avitars
+yes
+TEST_Remix
+Soas-v4-SB-23092010-Remix.iso F14_Beta-RC3 Netinstall with livecd-tools and spin-Kickstarts fedora-14&arch=i386 and updates-testing-f14&arch=i386 repo in fedora-live-mini.ks
+09232010
+satellit
+yes
+EeePC1000HE and external Hp DVD/CD writer
+fedora 14 boot screen and artwork boots to Name______ pops up enter keychain password 6+times (does not work) then it lets soas run
+[40]
+f14(Laughlin) Sugar on a stick (Mango Lassi)  0.89.6 sugar CP Software update does not work
+[41]
+telpathy-gabble works with garbled names in neighborhood
+[42]
+yes
+soas-i386-20100924.16.iso
+09242010
+satellit
+yes
+EeePC1000HE and external Hp DVD/CD writer
+boots to Name______ pops up enter keychain password 6+times (does not work) then it lets soas run
+[43]
+f14(Laughlin) Sugar on a stick (Mango Lassi)  0.89.6 sugar CP Software update does not work
+[44]
+telepathy-gabble names correct
+bug 2355 looks fixed
+yes
+openSUSE-Sugar-11.3.i686-1.0.0-Build6.3.iso
+[45]
+09262010
+satellit
+yes
+EeePC1000HE and external Hp DVD/CD writer
+Boots to color____ need to <back> to change name  sugar 0.88.0 openSUSE 11.3 (i586)
+yes
+soas-x86_64-20100924.16.iso
+09262010
+satellit
+not available
+Hp Pavillion tx1417d Laptop AMD Turion 64x2 (no wireless AP show)
+boots to Name______ pops up enter keychain password 4+times (does not work) then it lets soas run
+[46]
+f14(Laughlin) Sugar on a stick 4  0.89.3 (Mango Lassi) CP Software update does not work
+[47]
+yes
+soas-i386-20100925.18.iso
+09262010
+satellit
+yes
+EeePC1000HE and external Hp DVD/CD writer
+boots to Name______ pops up enter keychain password 7+times (does not work) then it lets soas run
+[48]
+f14(Laughlin) Sugar on a stick 4
+new 0.89.6
+(Mango Lassi) CP Software update does not work
+[49]
+XO color selector in CP:About Me
+telpathy-gabble works with garbled names in neighborhood
+[50]
+yes
+soas-i386-20100926.17.iso
+09272010
+satellit
+yes
+EeePC1000HE and external Hp DVD/CD writer
+boots to Name______ pops up enter keychain password 9+times (does not work) then it lets soas run
+[51]
+f14(Laughlin) Sugar on a stick 4  new 0.89.6 (Mango Lassi) CP Software update does not work
+[52]
+; XO color selector in CP:About Me; telpathy-gabble works with garbled names in neighborhood
+[53]
+yes
+soas-i386-20100927.15.iso
+09292010
+satellit
+n/a
+Hp Pavillion tx1417d Laptop AMD Turion 64x2 (no wireless AP show)
+boots to Name______ pops up enter keychain password 9+times (does not work) then it lets soas run
+[54]
+f14(Laughlin) Sugar on a stick 4  new 0.89.6 (Mango Lassi) CP Software update does not work
+[55]
+; XO color selector in CP:About Me; telpathy-gabble works with garbled names in neighborhood
+[56]
+yes
+soas-x86_64-20100928.17.iso     (no i386 .iso built:
+Error creating Live CD : Unable to download from repo : Cannot retrieve repository metadata (repomd.xml) for repository: fedora
+)
+09292010
+satellit
+n/a
+Hp Pavillion tx1417d Laptop AMD Turion 64x2 (no wireless AP show)
+boots to Name______ pops up enter keychain password 9+times (does not work) then it lets soas run
+[57]
+f14(Laughlin) Sugar on a stick 4  new 0.89.6 (Mango Lassi) CP Software update does not work
+[58]
+; XO color selector in CP:About Me; telpathy-gabble works with garbled names in neighborhood
+[59]
+boot basic video
+option
+yes
+soas-i386-20100929.16.iso
+09292010
+satellit
+yes (Apple Airport Extreme)
+ACER ASPIRE One Atom N454 and external usb DVD/CD
+boots to Name______ pops up enter keychain password 9+times (does not work) then it lets soas run
+[60]
+f14(Laughlin) Sugar on a stick 4  0.89.6 (Mango Lassi) CP Software update does not work
+[61]
+Users Avitar shown 2nd time in f1 Neighborhood
+boot basic video option
+yes
+soas-i386-20100930.15.iso
+10012010
+satellit
+yes (Apple Airport Extreme)
+EeePC1000HE and external Hp DVD/CD writer
+boots to Name______ pops up enter keychain password 9+times (does not work) then it lets soas run
+[62]
+f14(Laughlin) Sugar on a stick 4  0.89.6 (Mango Lassi) CP Software update does not work
+[63]
+; boot basic video option; use of color selector in CP/about me causes loss of f1 Jabber connectivity unpredictably
+[64]
+yes
+soas-i386-20101001.16.iso
+01021010
+satellit
+n/a
+Hp Pavillion tx1417d Laptop AMD Turion 64x2 (no wireless AP show)
+boots to Name______ pops up enter keychain password 7+times (does not work) then it lets soas run
+[65]
+f14(Laughlin) Sugar on a stick 4  0.89.6 (Mango Lassi) CP Software update does not work
+[66]
+; boot basic video option; use of color selector in CP/about me causes loss of f1 Jabber connectivity
+[67]
+yes
+soas-i386-20101002.18.iso
+10042010
+no changes same as soas-i386-20101003.16.iso
+yes
+soas-i386-20101003.16.iso
+10042010
+satellit
+yes
+EeePC1000HE and external Hp DVD/CD writer
+boots to Name______ pops up enter keychain password 7+times
+(does not appear to work but must be entered at least once to work)
+then it lets soas run
+[68]
+f14(Laughlin) Sugar on a stick 4  0.89.6 (Mango Lassi) CP Software update does not work
+[69]
+; boot basic video option; use of color selector in CP/about me causes loss of f1 Jabber connectivity
+[70]
+This occurs if you do not enter keychain password at 1st pop up login and when doing restart
+yes
+soas-i386-20101004.16.iso
+10052010
+satellit
+yes
+EeePC1000HE and external Hp DVD/CD writer
+boots to Name______ pops up enter keychain password 7+times
+(does not appear to work but must be entered at least once to work)
+then it lets soas run
+[71]
+f14(Laughlin) Sugar on a stick 4  0.89.6 (Mango Lassi) CP Software update does not work
+[72]
+; boot basic video option; use of color selector in CP/about me causes loss of f1 Jabber connectivity
+[73]
+This occurs if you do not enter keychain password at 1st pop up login and when doing restart
+yes
+TEST_Remix
+f14-soas-v4007102010-Remix-dd Built on HD installed from dd to USB of f14-Beta-live.iso livecd-tools and customized spin-kickstart to point to updates testing repo
+10072010
+satellit
+n/a
+Hp Pavillion tx1417d Laptop AMD Turion 64x2 (no wireless AP show)
+boots to Name______ pops up enter keychain password 7+times (does not appear to work but must be entered at least once to work) then it lets soas run
+[74]
+f14(Laughlin) Sugar on a stick 4
+Sugar 0.90.0
+(Mango Lassi);CP Software update does not work
+[75]
+; use of color selector in CP/about me causes loss of f1 Jabber connectivity
+[76]
+This occurs if you do not enter keychain password at 1st pop up login and when doing restart
+yes
+soas-i386-20101007.16.iso
+10082010
+satellit
+n/a
+Hp Pavillion tx1417d Laptop AMD Turion 64x2 (no wireless AP show)
+boots to Name______ pops up enter keychain password 7+times (does not appear to work but must be entered at least once to work) then it lets soas run
+[77]
+f14(Laughlin) Sugar on a stick 4
+Sugar 0.90.0
+(Mango Lassi);CP Software update does not work
+[78]
+; use of color selector in CP/about me causes loss of f1 Jabber connectivity
+[79]
+This occurs if you do not enter keychain password at 1st pop up login and when doing restart

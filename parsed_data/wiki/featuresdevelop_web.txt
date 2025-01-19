@@ -1,0 +1,148 @@
+Title: Features/Develop Web
+URL: https://wiki.sugarlabs.org/go/Features/Develop_Web
+--------------------------------------------------------------------------------
+Contents
+1
+Rejected
+2
+Summary
+3
+Owner
+4
+Current status
+5
+Detailed Description
+6
+Benefit to Sugar
+7
+Scope
+8
+UI Design
+9
+Collaboration
+10
+Timeline
+11
+Future Scope
+12
+How To Test
+13
+User Experience
+14
+Contingency Plan
+15
+Documentation
+16
+Release Notes
+17
+Comments and Discussion
+Rejected
+This is a process to discuss Sugar Fetures. Activities (as Develop Web) can be developed without need follow this process.
+Summary
+DevelopWeb
+is an Activity for Web Development using which children can develop Web Sites through HTML, Javascript and other web technologies. Children can learn quickly how to develop web pages in a step by step approach through examples provided for each HTML component.
+Owner
+This should link to your home wiki page so we know who you are
+Name:
+Kartik K Perisetla
+Include you email address that you can be reached should people want to contact you about helping with your feature, status is requested, or technical issues need to be resolved
+Email: kartik.peri@gmail.com
+Current status
+Targeted release: (SUGAR_VERSION)
+Last updated: (DATE)
+Percentage of completion: XX%
+Detailed Description
+Introduction:
+The domain/area which is yet to be explored by children is Web. This activity is a step towards the effort to help them learn HTML and Web development. Using this activity, children can
+Easily create HTML pages using HTML tags
+Embed Javascript within HTML pages
+Develop web site by creating set of HTML pages
+Features:
+IDE:
+This will be an Integrated Development Environment (IDE) where toolbars will be presented with HTML components on it. Thus providing drag-drop feature for creating HTML pages just by dragging HTML components on canvas. The drag-drop operation on canvas will generate HTML markup in the backgroud and save to the file.
+Modes of Operation:
+It will support three modes-
+(a) Design Mode:
+In this mode, children can create HTML pages on the fly using drag-drop feature. The HTML components will be visible on canvas with re-sizing border. Double clicking on any HTML component will bring up its properties loaded into "Properties" window (Shown right below toolbar in screen mockup).
+(b) Source Mode:
+In this mode, children can create HTML pages by writing the HTML markup by themselves, as in writing the Source code.
+(c) Publish Mode:
+In this mode, children can view the page as it will appear when published. Support for view the HTML page within the activity.i.e. opening the resultant HTML page within same activity in this mode.
+Toolbar:
+The toolbar consisting of HTML components will be beneficial to children to quickly create HTML pages just by drag and drop. As a result the HTML markup will be added automatically to Source of the file. This way Children can see how to write HTML markup in source
+Tabbed Canvas
+: Multitab feature where several pages can be edited simultaneously.
+Flow:
+The flow will be like this: User starts with a new document. A 'New' document will be a new tab in multi-tabbed widget with a canvas as its child. Then the user can proceed in any of two development modes (design and source). Consider the design mode first. The user can create HTML pages on the fly by drag-drop the HTML component on to the canvas. This will bring up the component on canvas and at the same time the resulting HTML markup for entire document will be saved to file (if it is already saved) or to a temp file (if it is not yet saved by user).  This mode provides quickest way to create HTML pages. The HTML components listed in toolbar will consists of TextBox, Checkbox, Paragraph, Headings, Tables, Radio button and other HTML markups currently in use. Now consider the source mode. In this mode the user can view the HTML markup. He can write HTML markup on his own in this mode. This will be beneficial for children to practice creating pages once they have idea of structure of markup of HTML components.
+Children can switch between Design, Source and Publish modes to view page in different perspective.
+Benefit to Sugar
+Sugar includes lot many activities that are targeted for children's learning. This activity will add to learning activity base using which children can learn something new. This will impart knowledge through examples on how HTML pages, Javascript and on the whole web sites are developed. Also, this will prove fruitful with respect to classroom perspective where teachers and mentors can impart good knowledge to children through this activity.
+Scope
+Tasks to develop this activity (at high level, these can be broken down into several tasks):
+Identify the requirements, features to design and implement.
+Design the User Interface.
+Code and test unit functionality like individual features, i.e., design mode, source mode and publish mode.
+Create properties windows.
+Write functionality to save and load the HTML, JavaScript files.
+UI Design
+Screen Mockups:
+Design Mode:
+This image shows the mockup of screen in Design Mode. On the left side, there is a toolbar consisting of HTML components from where children can drag and drop them on to the canvas on the right side. 'Canvas' is the region within a tab where HTML components are placed. In this mode the canvas provides the capability to move, and reorder HTML components with the mouse.
+The HTML component can be re-sized within canvas by mouse. However, the properties of component needs to be changed through "Properties Window" that pops up on double clicking the HTML component. The following screen shows how the component properties and their values will be shown.
+Source Mode:
+This image shows the mockup of screen in Source Mode.
+Publish Mode:
+This image shows the mockup of screen in Publish Mode. The page appears as it is viewed in web browser (i.e., Browse activity)
+Collaboration
+The best and fun part is collaborative work with this activity. Children can form teams and can develop their web site or web application simultaneously from different places.Children can share the web pages they created within this activity. In spite of using the bulletin board, children can just share the page from within the activity. Also, In future scope we are planning to include a small server component that will be used to host the web site/application. Thus children can host their application and make it live to be accessible by others. This server component will be useful at places where there is no internet to serve content.
+Timeline
+Proposed Timeline: ( Duration -6 months)
+Month 1:
+1.Identify the requirements, features to design and implement.
+2.Design the User Interface carefully by understanding the GTK+ framework, PyGTK and how Sugar shell understands it.
+3.Identify and understand the components/widgets required to develop this activity.
+4.Design the components under the light of Sugar Human Interface Guidelines.
+5.[Milestone] Design and develop the ElementToolbox to hold web elements that can be dragged or clicked to bring them on Canvas holding the web page
+Month 2:
+1.Develop properties windows. Develop Muti-tabbed Canvas where user can simultaneously open several web project entities like web page, script file, image,etc.
+2.Develop Sugar Toolbar with button for design mode, source mode and publish mode
+3.[Milestone]Write python class to handle canvas entities and events. like opening the properties windows when element is clicked on web page; Save page on hard disk, read page or file from disk
+Month 3:
+1.Write Callback functions to handle events on Items listed in Element toolbox.
+2.[Milestone]Rendering component that will render entities like image, page, script onto canvas.
+3.Write functionality to save and load the HTML, JavaScript files.
+Month 4:
+1.[Milestone]Develop and complete design mode using the classes and components written so far.
+2.[Milestone]Develop and complete source mode using classes and components written so far.
+3.[Milestone]Develop and complete publish mode using classes and components written so far.
+Month 5:
+1.Identify the approach to use for deploying the web application or site.
+2.Design and develop the classes and components to be used for serving the resources for web application.
+3.[Milestone]Develop small web server component to deploy developed web site or web application based on above described approach and classes.
+Month 6:
+1.Devise support for HTML 5 widgets. Once we are ready with base version of this Activity we can definitely add these.
+2.Support for deployment to server can be provided where user can select server to FTP files created through this activity.
+3.[Milestone]Collaboration: Support to allow multiple users working on same web project(or website)- editing different pages or parts to complete it in collective manner- This will enhance teamwork and encourage collective working environment.
+4.To make it more interesting,link the activity with a small server component developed in previous step that will serve the web pages created through this activity. Children can then directly host the pages by hitting a button in this activity. i.e they can deploy/undeploy the web application with one click.
+Share the activity for testing among developers, testers in the community.
+Once the activity is reviewed it can be hosted under Sugar Activities.
+Future Scope
+The future work can include support for HTML 5 widgets. Once we are ready with base version of this Activity we can definitely add these.
+Support for deployment to server can be provided where user can select server to FTP files created through this activity.
+Support to allow multiple users working on same web project(or website)- editing different pages or parts to complete it in collective manner- This will enhance teamwork and encourage collective working environment.
+To make it more interesting, we can include a small server component that will serve the web pages created through this activity. Children can then directly host the pages by hitting a button in this activity.
+How To Test
+Features/Develop Web/Testing
+User Experience
+This feature will bring noticeable change in their Sugar environment. This activity will allow users to create,learn and explore HTML,JavaScript and Web Development.
+Contingency Plan
+If you cannot complete your feature by the final development freeze, what is the backup plan?  This might be as simple as "None necessary, revert to previous release behaviour."  Or it might not.  If your feature is not completed in time, we want to assure others that other parts of Sugar will not be in jeopardy.
+Documentation
+Is there upstream documentation on this feature, or notes you have written yourself?  Has this topic been discussed in the mailing list or during a meeting? Link to that material here so other interested developers can get involved.
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+Comments and Discussion
+See
+discussion tab for this feature

@@ -1,0 +1,62 @@
+Title: Features/Metacity
+URL: https://wiki.sugarlabs.org/go/Features/Metacity
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Switch window manager from Matchbox to Metacity.
+Owner
+Name:
+Tomeu Vizoso
+Email: tomeu@sugarlabs.org
+Current status
+Targeted release: 0.86
+Last updated: August 14th 2009
+Percentage of completion: 100%
+Detailed Description
+We need to make Sugar run Metacity instead of Matchbox, change the shell to maximize activity windows, correct those activities that are setting incorrectly their window size and configure Metacity so works well along the Sugar shell.
+Benefit to Sugar
+Sugar uses presently Matchbox, a window manager designed for small devices that run all applications maximized. Sugar can run in devices with bigger screens and some applications break when run in Matchbox. Using Metacity instead means that some unsugarized apps would run better inside Sugar and that Sugar activities would behave better when run outside Sugar.
+Scope
+Affects the Sugar shell, some activities will need to be fixed and Sugar packagers will need to reflect this change in their packages.
+How To Test
+Features/Metacity/Testing
+Run Sugar with several activities and check that the user experience is the same regarding window management as 0.84, except for non-sugarized applications, which should be fully usable regardless of the number of windows they open.
+User Experience
+The user shouldn't notice any change when running Sugar with any activities. When running an application such as Gimp, windows will have decorations and will have reasonable sizes.
+Dependencies
+Metacity.
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+http://dev.sugarlabs.org/ticket/602
+Release Notes
+TBD
+Comments and Discussion
+See
+discussion tab for this feature

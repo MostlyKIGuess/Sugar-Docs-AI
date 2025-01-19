@@ -1,0 +1,143 @@
+Title: Python Math
+URL: https://wiki.sugarlabs.org/go/Python_Math
+--------------------------------------------------------------------------------
+Contents
+1
+Python Math
+1.1
+Puzzles
+1.1.1
+Base Implementation
+1.1.2
+Requirements
+1.1.3
+Standards
+1.1.4
+Addition
+1.1.5
+Subtraction
+1.2
+Mechanics
+1.2.1
+General Mechanics
+1.2.2
+Movement
+1.2.3
+Gates
+1.2.3.1
+Addition Gates
+1.2.3.2
+Subtraction Gates
+1.2.3.3
+Combined Gates
+1.2.4
+Walls
+1.3
+Menu
+1.3.1
+General Design
+1.3.2
+Aesthetic
+1.3.3
+Functionality
+1.3.3.1
+Instruction Screen
+1.3.3.2
+Puzzle Selection Screen
+1.3.3.3
+Pause Screen
+1.4
+Aesthetics
+1.4.1
+General Aesthetic
+1.4.2
+Adder's Design
+1.4.2.1
+Color
+1.4.2.2
+Segments
+1.4.3
+Gates
+1.4.4
+Level
+1.5
+License
+1.6
+To-Do
+1.7
+Fork us on Github
+1.8
+Contact Us and Get Involved
+Status:
+Active
+In Progress
+Group Members:
+Danny Shumway, Brian Escriche, Dylan Markowski, Mike Tubinis
+A Snake-like puzzle game meant to teach first grade level math concepts.
+Python Math
+Python Math - Adder’s Garden Adventure is a Snake-like puzzle game meant to teach first grade level math concepts, as defined by the New York State math curriculum, to children.
+Puzzles
+Base Implementation
+Python Math’s puzzles are based around passing through gates that will make the player’s avatar bigger or smaller as decided by the gate being passed through. Gates must be passed through multiple times in order to make the avatar large enough to match the door to the next puzzle or next section of the puzzle.
+Requirements
+Python Math will at base follow the New York State  and Massachusetts math curriculum for first grade students (Section 1.OA). Puzzles will teach concepts involving addition and subtraction for numbers from one through twenty.
+Standards
+Puzzles will be required to have a gate that will change the avatar’s size as well as a goal the avatar must match. Puzzles that introduce a concept will have just the two gates and subsequent puzzles will require the avatar to navigate around obstacles such as walls and eventually having multiple gates that require navigating through to reach the appropriate goal.
+Addition
+The snake will start off smaller than required to go through the exit gate. The Player will have to use the level's addition gates to increase in size until the required number is reached and they can exit the level.
+Subtraction
+The Snake will start off larger than required to go through the exit gate. The Player will have to use the subtraction gates to decrease in size until the require number is reached and they can exit the level.
+Mechanics
+General Mechanics
+Python Math - Adder’s Garden Adventure is a tile-based Snake-like game. As such, the avatar travels from tile to tile with the tail following behind, taking up that tile. The avatar will pass through gates which will make the avatar longer or smaller as dependent on the gate. Once the avatar is of the appropriate size, they will be able to exit the puzzle.
+Movement
+The avatar that the player controls with the arrow keys will move from one tile to another and can only go up, down, left, or right by one tile when doing so. As the game takes after Snake, the avatar will be unable to cross over a tile which has a tail segment in it, though this will not automatically end the attempt for the puzzle. Movement will not be automatic as the game is not meant to test reflexes, but more directly test problem solving ability.
+Gates
+The avatar will be required to pass through various gates to change their length in order to leave through the ending door.
+Addition Gates
+Addition gates will increase the length of the avatar , corresponding to the number that is displayed on the gate. For example a gate marked as two will increase the avatar’s length by two, whereas a gate marked with four would increase the length by four. There can be multiple addition gates in a particular puzzle as the avatar could be made bigger than what is required for the ending door.
+Subtraction Gates
+Subtraction gates will decrease the length of the avatar, corresponding to the number displayed on the gate, much like the Addition gates do. There can be multiple Subtraction gates in a level as it could be required to go through different valued gates to reach a specific ending number.
+Combined Gates
+Combined gates would be gates that would either increase or decrease the length of the avatar depending on which direction they are entered from. The main purpose of these gates would be used in more advanced problems that would have paths blocked off and would require taking a specific route through the gates.
+Walls
+Walls would be used to block the avatar’s path for the more complex puzzles, such as creating specific routes that the avatar needs to progress through with certain routes resulting in the avatar’s length being incorrect.
+Menu
+General Design
+The menus and game screens need to be designed with usability in mind due to the target audience for the game. As such, a minimalistic approach is required, both for allowing for anyone to navigate through the game and to outright explanation to a minimum.
+Aesthetic
+Most screens in the game are going to be fairly bare in terms of direct functionality, with a small number of buttons that the player can select from to take them to different screens. The bottom half of the screen should be dedicated to any sort of text or explanations, with the top offering some sort of visualization about what is being discussed. As an example, the Puzzle Selection item should have a brief text blurb giving a general description of the what the player will be able to do on said screen and a screenshot of said screen. These two in conjunction should give enough information to the player so that they may be able to decide if the screen being displayed is the screen they wish to go to.
+Functionality
+The various screen will have differing functionality dependent on what is required of them. Every menu screen will have a way to exit to the main menu except for the main menu, which will be able to close the program.
+Instruction Screen
+The instructions screen will come up whenever a new concept is being introduced to the player, such as introducing walls to block the avatar’s path or using a gate to change the avatar’s length. This screen is able to have focus taken away from it and will have reference to any information that it has already been displayed to it before. This screen will also be used to teach the initial controls for the player.
+Puzzle Selection Screen
+The Puzzle Selection screen will available after the player has beaten any puzzle in the game so they may visit the puzzles again if they would like to refresh concepts they have already learned or if someone new is playing the game. As a menu screen, this will be able to access and be accessed by the Main Menu and will also be accessible from the main game screen so the player can change puzzles in the middle of playing.
+Pause Screen
+The Pause screen is a menu screen that will be only accessible from the main game screen as it does not have a use outside of gameplay. As a menu screen, it will be able to take the player back to the main menu and restart a puzzle should the player decide that they have put themselves in an unwinnable state.
+Aesthetics
+General Aesthetic
+Due to the limitations of the system that we are using are, we have to strongly consider the art assets for the project. The most important elements are color, both contrast and visibility, resolution, and scalable. The XO has a fairly small screen size and as such it is required that the player be able to distinguish the player avatar from other objects on screen. It is also important to keep in mind that the target audience is children that are entering first grade.
+Adder's Design
+Adder is the central avatar for the game and how the player will interact with the puzzles in the game.
+Color
+Adder should have a fairly bright color with dark outline so he can be easily separated from the surrounding environment. Adder should have a color somewhere in the green to yellow portion of the color wheel.
+Segments
+Python Math is a tile based game and Adder will take up a variable number of tiles and will require being able to move in any cardinal direction other than straight back, as such it is important that each individual segment be able to stand by itself as part of the snake. As such, circular segments are the best choice as they do not need to be linked up to one another in any particular way.
+Gates
+Gates are split into the addition and subtraction gates. The gates should have the same design overall, but with opposing colors. Blue would be used as the color for the Addition gates and red for the subtraction gates. Gates would be conjoined so depending on which direction that Adder enters from, the desired effect operation happens. Each gate needs to display the number that is being used for the operation as well as the proper direction to enter from to have that number added or subtracted. An arrow colored to match the gates color pointing towards the gate is used to show portray this idea.
+Level
+Level assets are very simple objects that would be found in a garden such as bushes, creating a hedge maze of sorts. These would be mostly darker shades of green and brown. There is little required as these are mostly backdrop elements.
+License
+This project is open source licensed under the MIT License:
+http://opensource.org/licenses/MIT
+To-Do
+Please see the project's issue tracker for all outstanding bugs and/or milestones:
+https://github.com/danShumway/python_math/issues?page=1&state=open
+Fork us on Github
+https://github.com/danShumway/python_math
+Contact Us and Get Involved
+shumway.danny@gmail.com
+crewofthearcadia@gmail.com
+bke2759@rit.edu
+michaeltubinis@gmail.com

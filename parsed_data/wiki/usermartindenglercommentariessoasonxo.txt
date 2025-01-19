@@ -1,0 +1,103 @@
+Title: User:MartinDengler/Commentaries:SoaSonXO
+URL: https://wiki.sugarlabs.org/go/User:MartinDengler/Commentaries:SoaSonXO
+--------------------------------------------------------------------------------
+Contents
+1
+Some Discussion on SoaS and using it on the XO
+2
+Discussion Items
+2.1
+NAND images
+2.2
+non-Fedora bits
+2.3
+OLPC-like update mechanism
+3
+Background
+3.1
+Comparison
+3.2
+Sugar on a Stick
+3.3
+Rawhide XO
+4
+Original IRC Discussion
+Some Discussion on SoaS and using it on the XO
+Can I get SoaS on my XO?
+is a FAQ without a simple answer.
+An IRC discussion on #sugar
+raised the
+following questions for discussion
+:
+Discussion Items
+NAND images
+Should SoaS2's software artifacts include a XO-1 NAND .img/crc file?
+This would allow people to not have to convert the Soas2 .iso to a NAND .img (or to transfer the .iso to a USB key and run liveinst after booting from that stick).
+This section is intentionally not titled "jffs2 images".
+non-Fedora bits
+Should Soas2's software artifacts include non-Fedora (that is, non-upstream) bits or yum repositories?  For example: a) OLPC kernel (2.6.25); or b) Via wireless drivers?
+Though (and this is potentially a big "though") these bits/repos must be supported by SugarLabs without any upstream assistance (this statement is a bit less equivocal than strictly necessary), they would provide a solution with a lot more working features.  For example, it's hard to imagine an accepted XO-1 solution without power management, or an accepted Eee (is that Via???) solution without wireless.  However, these may not be enough of SoaS's target audience to merit the additional work.
+OLPC-like update mechanism
+Should an
+olpc-update-like
+mechanism be supported?  This is quite a lot of work.  There is still some
+work being done on olpc-update
+.
+Background
+Comparison
+Neither SoaS nor Rawhide XO currently support XO-1 power management, display management, or mesh networking.  SoaS2's next release will not; Rawhide XO will.
+SoaS is being maintained by SugarLabs, Rawhide XO by OLPC. Both are built using the same (rawhide) RPM repos and common kickstart files.  They are both composed from a set of kickstart files in the same repo:
+http://git.sugarlabs.org/projects/soas
+Soas2 and Rawhide-XO are built at different times by different groups, and this is expected to continue.
+Sugar on a Stick
+Codename:
+SoaS
+.  See more about goals at
+Sugar_on_a_Stick/Project_Goals
+.  Target audience: USB-stick instances of Sugar that are portable among different computers.  Also used to refer to the *next* version of Sugar on a Stick (as opposed to *any future* version).
+SoaS target hardware: anything supported by Fedora 11 (and exactly Fedora 11 - for example XO-1s will run SoaS but, currently, without OLPC's power management and mesh networking patches.  See the Discussion section below.)
+SoaS current software: Fedora 11; Sugar 0.84
+SoaS target software: Fedora 11; Sugar 0.84
+codename for these target hardware/software: SoaS
+Rawhide XO
+Latest OLPC software spin.  See more about goals at
+OLPC:Rawhide-XO
+.  "Rawhide-XO" also refers to the as-yet-unnamed next OLPC release for the XO-1 (all details TBD, including target hardware)
+Rawhide XO target hardware: XO-1, XO-1.5
+Rawhide XO current software: snapshots based on Rawhide, approaching F11
+Rawhide XO target software: Fedora 12, Sugar 0.86
+Original IRC Discussion
+20:39 < sdziallas> mtd: hm... I see, makes some sense to me. I guess we (or OLPC at least) might want a non-live solution at a later point.
+20:39 < sdziallas> nubae: I can only tell you about Fedora stuff... but in Fedora, the etoys package contains the activity bits.
+20:39 < mtd> isma-1d3e, sdziallas: re the Fedora-excluded stuff, it'd be nice to host those kmdls in the sugar repo.  I think we've discussed this before but it's quite premature to make a decision I guess (there are technical, legal, and, well "principle" issues)
+20:40 < mtd> sdziallas: I would think a non-live solution is what OLPC will require, definitely.
+20:40 < sdziallas> mtd: regarding the rpmfusion or other 3rd party stuff: I guess I can't / won't make that decision on my own...
+20:40 < mtd> sdziallas: sure
+20:41 < sdziallas> mtd: maybe we might want to get that on the ML
+20:43 < mtd> sdziallas: yeah it'd be nice to have a build server.  I bet I could convince you to create .img files of Soas2 then :).
+20:43 < mtd> sdziallas: I am considering lending out the 8 XOs OLPC UK got for the lending library with Soas2 on them.
+20:44 < sdziallas> mtd: buildslave2 doing a rather good job... ;) oh, cool! that's great (btw, work in progress for a soas test day!) let me know if there's anything how we can easily enhance the out-of-the-box impression of soas on the XO!
+...
+20:47 < sdziallas> mtd: I start to pull this discussion out of the jacket every time now and then: the basic question is for me: how does SL want to behave on behalf of the XO
+20:47 < sdziallas> mtd: several possibilities are coming up to me:
+20:47 < sdziallas> * trying to get a good out-of-the-box impression for ONE general soas iso
+20:48 < sdziallas> (which would obviously include more drivers than needed just for the XO)
+20:49 < mtd> sdziallas: (and kernel / software selection that would be unnecessary for the XO and even "regressions" vs. 767/801)
+20:48 < sdziallas> * recommending rawhide-xo (which is soas MINUS drivers but PLUS gnome)
+20:49 < sdziallas> * doing our own builds of soas especially for the XO (which would be rawhide-xo MINUS gnome)
+20:49 < sdziallas> (which seems to be more or less redundant then)
+20:52 < sdziallas> mtd: I want to hear opinions! that's why I start disturbing all the people with this discussion over and over again.
+20:51 < mtd> sdziallas: I have two objections to handing it off to rawhide-xo:
+20:52 < mtd> sdziallas: 1a) OLPC (meaning cjb ;)) will not have as many release targets as Soas2 will, so the rawhide-xo spins will possibly be behind Soas2
+20:53  * sdziallas agrees and notes that "currently" rawhide-xo's sugar part is equivalent to the soas one. but that's "currently"...
+20:53 < mtd> sdziallas: 1b) there will at a minimum likely be a *difference* between Soas2 and OLPC release schedules, and if the .img/.crc files are just one more line in the "build" script, what's the big deal?  It's a lot less confusing than saying "if you want the latest sugar, go to SL unless you have an XO in which case fo to olpc and the software might be out-of-sync)
+20:54 < mtd> sdziallas: well there are two big differences, which you know: 1) Sugar-as-default in rawhide-xo vs. GNOME-as-default in Soas2; and 2) package/driver selection goals.
+20:55 < sdziallas> mtd: well, but then,... hm! sure, there will be a difference between the schedules. but I'm wondering whether it's worth creating our own XO-only images.
+20:55 < mtd> sdziallas: and I think there will be a third before rawhide-xo becomes olpc-next-release: autologin experience.  This is of course a *huge* user expereince difference.
+20:55 < mtd> sdziallas: what is the downside?
+20:56 < mtd> sdziallas: I would like to see the SL XO images auto-login to sugar, and am willing to do the work (and finally close to being able to get to that stage, having gotten the kernel being stalled and the images built and some UK laptops lent out).
+20:57 < mtd> sdziallas: I'd also like to see them have a PM + DCON kernel and boot in 1/2 the time that they do now, which I've done as well (this is of course XO-specific).
+20:57 < sdziallas> mtd: heh. I mean I won't prevent you from doing that. I'd really love to see that getting done. And in this case I'd try to help where I can!
+20:58 < mtd> sdziallas: no you're being quite helpful and I don't see you as preventing that.  What I'm preparing you for is to ask you to build another .ks .iso and then run the livecd-to-xo.sh script (or descendant) and host the big fat image :).
+20:59 < mtd> sdziallas: and I know I will ask on the ML and others will opine, etc.
+21:00 < sdziallas> mtd: this sounds... more or less like a plan to me :) at least, it looks like you've one. and that's a really good thing!

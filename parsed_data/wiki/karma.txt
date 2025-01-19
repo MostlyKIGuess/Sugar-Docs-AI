@@ -1,0 +1,298 @@
+Title: Karma
+URL: https://wiki.sugarlabs.org/go/Karma#Version_Control
+--------------------------------------------------------------------------------
+Contents
+1
+The Karma Project
+1.1
+Rationale
+1.2
+Status
+1.3
+What Karma Is
+1.4
+What Karma Isn't
+1.5
+Design Philosophy
+1.6
+Design Goals
+1.7
+Technical Architecture
+1.8
+Conventions
+2
+Version Control
+3
+Meetings
+4
+GSoC Project
+4.1
+GSoC Meetings
+5
+Project Roadmap
+5.1
+0.1 "Osito"
+5.2
+0.2 "Gatito"
+5.3
+0.3 "niño"
+5.4
+Future Direction of Karma
+5.5
+Library
+6
+Subpages
+The Karma Project
+Karma is a framework for creating educational software using JavaScript, html5, and SVG. The Karma team is primarily focused on developing Sugar activities but you can also Karma to create lessons that run in any web browser that supports html5. The best ways to get involved are to join the
+mailing list
+and
+get the code
+Rationale
+Anyone with a modern standards-compliant web browser and a text editor should be able to create learning activities that can be used by anyone with a computer. Sugar should not be a walled garden that only allows learning activities expressly designed for it and it alone but rather gives extra power and depth to learning activities. Karma uses a specialized vocabulary that features a number of specialized terms. Please refer to the
+Karma Dictionary
+early and often.
+Status
+Karma is a sub-project of Sugar Labs that is under active development. The latest examples can be seen at
+http://karma.sugarlabs.org
+. You can also check out the
+Karma Project blog
+for updates.
+To try out the karma examples you need to have an html5-capable browser. The Browse activity within Sugar does not currently support html5. To try out karma within Sugar you need to install
+Surf
+and its webkit dependencies or run Firefox 3.5 from the command-line (yum install pywebkitgtk WebKit-gtk gnome-python2-gconf).
+The current focus of development is to convert Nepal's set of lessons coded in Squeak smalltalk. You can find the list of lessons to be converted
+here
+. This is a good place for new contributors to get started
+What Karma Is
+Karma is a simple framework to create simple interactive learning activities primarily for Sugar but also to be viewable through any web browser that supports html5
+Karma is used to create simple activities that run off-line w/out access to the Internet
+Karma is for web developers who want to contribute to Sugar using their current skills
+Karma is built on top of open web standards such as html5, javascript, and CSS.
+Karma is built to run on top of web browsers that support html5, particularly the canvas element.
+Karma is built around the concept of individual "lessons" and multiple lessons can be aggregated into a sugar activity
+Karma is the evolution of OLE Nepal's work on the EPaath suite of lessons in Nepal
+Karma is designed with pervasive and easy internationalizaton in mind and integration with moodle, particularly for monitoring student progress
+Karma is pedagogically agnostic. Pedagogical choices are left to the lesson author.
+What Karma Isn't
+Karma is not compatible with Internet Explorer because Internet Explorer does not support html5 apis such as canvas, svg, localStorage, etc.
+Karma is not meant to replace pyGTK as the dominant toolset for creating Sugar activities
+Karma is not a tool for creating activities with complex 3D graphics. Karma is a tool for creating activities with simple 2D graphics
+Karma is not meant as a basis for a WYSIWG programming environment like TurtleArt, EToys, or Logo
+Karma is not built to support browsers that do not support html5, such as Internet Explorer and Firefox < version 3.5
+Karma is not intended to teach programming to children though it could be used as such
+Design Philosophy
+A Karma lesson is composed of a valid html5 document, javascript code, and css stylesheets and optional assets such as images, audio, video and lesson plans. Karma should be very easy for inexperienced developers to understand and work with. Even non-programmers should be able to make visible changes by tweaking the code and liberal use of cut-and-paste. Complexities such as integration with pootle, local storage, and certain types of animation should be abstracted so that novice developers don't have to understand them in order to effectively use Karma. Karma strictly adheres to the Model-View-Controller Pattern and similarly to unobtrusive JavaScript. In essence. you should be able to substantially change the look and feel of a Karma lesson by modifying the CSS or you could translate the activity, without having to understand the JavaScript code.
+Design Goals
+Unobtrusive JavaScript
+No globals
+No extension of native objects
+Technical Architecture
+Run-time - Karma will work with basic functionality on any W3C standards-compliant browser that supports HTML5 tags canvas, audio, and svg. This notably excludes Microsoft's Internet Explorer. Karma will be particularly tailored to work with Sugar's Journal and collaboration through Telepathy. Longer-term we hope to extend Karma to take advantage of Sugar's collaboration features.
+Primary Programming language -
+Javascript 1.6
+i18n
+-- Pervasive internationalization is a critical part of Karma
+Supported types of i18n  -- ToDo
+Output of Native Digits
+Image switching per locale
+Regular text, though it is unclear how to support plural forms, grammar shifts, and gender
+Audio switching per locale
+Integration with pootle
+Utilities
+-- we primarily use
+narwhal
+for command-line scripting and
+jsdoc
+for documentation
+Journal, Telepathy Integration -- method to be determined, perhaps using html5's offline storage feature, some resources
+here
+and
+here
+Moodle Integration -- method to be determined
+Repo and Bundle layout
+UI Widgets
+Scoreboard
+Dialog -- use standard jQuery UI one?
+Conventions
+Anatomy of a Karma Lesson
+The
+Karma Dictionary
+Karma Specifications
+(early draft)
+Anti-Conventions
+-- coding no-nos
+Layout for converted Squeak Lessons
+Source Code stored in
+http://git.olenepal.org/karma/karma
+Each lesson must be in a folder named according to the schema "karma_Grade_Maths_title_WeekNo" where the week number is optional
+The following are valid names
+ karma_3_Maths_LargestNumber_15
+ karma_2_English_MatchingPuzzle
+ karma_6_Maths_AddingUpTo10_4
+Version Control and repository management see the
+Version Control
+section of this page
+Unit testing is required for the karma.js library but not for individual lessons
+http://karma.sugarlabs.org/tests/
+Project Documentation kept in the Sugar Labs wiki
+Coding conventions: Based on
+Dojo Style Guide
+Use sadCamelCase for function names and variables
+Exception to above -- object constructors should start with a capital letter
+boolean variables should be prefixed with "is", "has", "can", or "should"
+counters should be prefixed with "num" or "count"
+Whenever possible, use
+jslint
+File naming conventions: lowercase letters, underscore instead of spaces  (need to write more about it)
+Coding Pattern - We generally try to follow this coding pattern as it makes it easier to browse your code
+Put code in following order
+1) variable declarations
+2) method declarations
+3) method calls
+Version Control
+Currently all lessons are stored in the examples/ folder of
+main karma repository
+Here is how you can use the karma_lesson template to create a new repository from scratch
+$ git clone
+git://git.sugarlabs.org/karma_lesson/mainline.git
+$ mkdir ../karma_3_English_3  # create a new lesson directory following our naming convention
+ $ cp -r * ../karma_3_English_3  
+ $ cd ../karma_3_English_3
+ $ rm -r .git     # make sure you get rid of the old git directory
+ $ git init
+ $ git add .
+ $ git commit -a -m "first commit"
+Now go to the
+http://git.sugarlabs.org/projects/new
+, make sure you are logged in
+Create a new project, use the same name as you did for your lesson's main folder
+then,
+$ git remote add origin git://...   # the pubic push url
+Then on to coding your lesson ;)
+From then on
+$ git push origin master   # will sync your local tree w/ the server
+Tagging
+-- a karma lesson can be in only one of two states, stable or unstable. Any commit tagged 'stable' is the stable version of your code. Every other version of your code is unstable. We will not use numeric versioning such as 0.1, 1.0, 1.2, etc. for the foreseeable future.
+Meetings
+Karma:Meeting 21 December 2009
+GSoC Project
+Karma started as a GSoC project with Felipe Lopez Toledo "SubZero" as the student participant and
+Bryan Berry
+as mentor.
+GSoC Meetings
+Notes from GSoC meetings - kept for archival purposes
+Karma:Meeting 12 May 2009
+Karma:Meeting 02 Jun 2009
+Karma:Meeting 09 Jun 2009
+Karma:Meeting 23 Jun 2009
+Karma:Meeting 30 Jun 2009
+Karma:Meeting 21 Jul 2009
+Karma:Meeting 4 Aug 2009
+Karma:Meeting 11 Aug 2009
+Karma:Meeting 18 Aug 2009
+Karma:Meeting 24 Aug 2009
+Karma:Meeting 08 Sep 2009
+Karma:Meeting 14 Sep 2009
+Karma:Meeting 21 Sep 2009
+Karma:Meeting 21 December 2009
+Project Roadmap
+0.1 "Osito"
+Was completed September 11, 2009
+1 Working example in "adding_up_to_10"
+cleaned up documentation with jsdocs api documentation and cleaned up README.txt
+integrate chakra and "adding_up_to_10" and knavbar
+adding_up_to_10 works on the XO
+Surf
+Browse
+0.2 "Gatito"
+Completed mid-December 2009
+unit testing added to karma.js using QUnit
+API documented w/ jsdoc-toolkit
+support for SVG and canvas animation
+3 working examples
+Adding_Up_to_10 using both SVG and canvas
+Quadrilaterals
+"Conozco A Uruguay" done with karma  -- 50% done
+0.3 "niño"
+Due 31 March 2010
+Full i18n support
+All Squeak lessons converted to Karma
+Integrate all of the existing E-Paath lesson into chakra
+narwhal build script to build one giant karma bundle w/ all the E-Paath lessons inside it and chakra
+At least 6 lessons ready that have been translated into 3 languages each
+Version 0.1 draft of karma specification done
+Future Direction of Karma
+No schedule yet.
+This page
+has more information.
+Library
+here lies a lot of links to resources specific to karma
+UI
+Iphone Human Interface Guide
+http://developer.apple.com/iphone/library/documentation/userexperience/conceptual/mobilehig/MobileHIG.pdf
+Palm Pre interface guide
+http://developer.palm.com/images/palm/pdf/palm_webos_hi_guidelines.pdf
+30 Usability Issues To Be Aware Of
+http://www.smashingmagazine.com/2007/10/09/30-usability-issues-to-be-aware-of/
+10 Usability Nightmares You Should Be Aware Of
+http://www.smashingmagazine.com/2007/09/27/10-usability-nightmares-you-should-be-aware-of/
+"The Design of Everyday Things" book by Don Norman
+"Don't Make me think" by Steve Krug, guide to usability for web apps
+HTML5
+http://www.smashingmagazine.com/2009/07/16/html5-and-the-future-of-the-web/
+http://www.w3.org/TR/html5-diff/
+Differences between html4 and html5
+Dive Into HTML5
+General Web Design
+"Web Design in a Nutshell" from O'Reilly
+Apple "Web Page Development: Best Practices"
+http://developer.apple.com/internet/webcontent/bestwebdev.html
+Canvas
+demos:
+http://html5demos.com/
+basics:
+http://dev.opera.com/articles/view/html-5-canvas-the-basics/
+painting web app:
+http://dev.opera.com/articles/view/html5-canvas-painting/
+mozilla canvas tutorial:
+https://developer.mozilla.org/en/Canvas_tutorial
+using canvas on webkit:
+http://developer.apple.com/documentation/AppleApplications/Conceptual/SafariJSProgTopics/Tasks/Canvas.html
+http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html
+SVG
+The
+SVG Primer
+a very detailed and in-depth resource
+Raphaeljs documentation
+https://developer.mozilla.org/en/svg
+Javascript
+Eloquent Javascript
+best beginning javascript resource
+"Javascript: The Good Parts" book by Doug Crockford
+"jQuery in Action" book
+"Pro Javascript Techniques" by john resig
+All the tutorials at www.ejohn.org, esp.
+http://ejohn.org/blog/how-javascript-timers-work/
+Coding Tools and Conventions
+Firebug  ---
+http://www.getfirebug.com
+Web-Inspector --- webkit's answer to firebug
+Browsers --- We primarily work with Chromium and Firefox > 3.5
+For emacs users -- nxhtml mode and magit.el for working w/ git
+jslint
+inkscape
+narwhal
+Subpages
+Karma/Anti-conventions
+Karma/Assessment
+Karma/Bundle layout
+Karma/Collaboration
+Karma/Dictionary
+Karma/Future Direction
+Karma/Layout Converted Squeak Lessons
+Karma/Nepal
+Karma/Specifications
+Karma/To-Do
+Karma/Utilities
+Karma/application
+Karma/i18n

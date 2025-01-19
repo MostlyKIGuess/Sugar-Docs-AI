@@ -1,0 +1,275 @@
+Title: Testing/Reports/SoaS installation variations
+URL: https://wiki.sugarlabs.org/go/Testing/Reports/SoaS_installation_variations#Download_a_non-live.2C_ext3_File_Structured.2C_blueberry_USB
+--------------------------------------------------------------------------------
+This page discusses the experimentation with various installation tools and parameters with the aim of finding more robust methods.
+References on How to Create a Live USB from a Live CD
+fedora:How to create and use a Live CD
+Contents
+1
+Sugar Creation Kit DVD
+2
+FEDORA based Live USB devices
+2.1
+Cautions with using Live USB devices
+2.2
+dd command from terminal (
+non-persistent
+)
+2.3
+liveusb-creator from command line in terminal
+2.4
+livecd-iso-to-disk script
+2.4.1
+USING 8 GB Installer USB
+2.4.1.1
+1-) liveusb-creator
+2.4.1.2
+2-) Use livecd-iso-to-disk to write 2 GB USB=
+2.4.1.3
+Make backup .img file
+2.4.1.4
+Restore to new 8 GB USB
+2.5
+Download a non-live, ext3 File Structured, blueberry USB
+2.6
+Duplicating SoaS with customization
+3
+Virtualization
+3.1
+VMware Player
+3.2
+VirtualBox
+3.3
+QEMU
+Sugar Creation Kit DVD
+Sugar Creation Kit DVD
+Download:
+[1]
+Caution 4.2 GB
+Complete DVD containing all the resources required to create all 3 versions of Sugar-on-a-Stick without requiring Internet access
+List of Contents:
+[2]
+ALSO SEE:
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit
+Uses:
+"sneakernet" or behind firewall at school.
+should save bandwidth on servers.
+Download 1 time and distribute copies Locally
+FEDORA based Live USB devices
+Cautions with using Live USB devices
+Wait for delayed writes to the USB device to finish (up to 15 seconds) before pulling it out of the system. If writes do not complete, you will corrupt the USB device file system and it will not boot.
+If you do a yum update on a small USB device, you can overload the persistent overlay.
+[3]
+"Fedora 10 adds the 'reset_overlay' option that you can pass on the kernel command line which helps to recover." See
+LiveOS image
+,
+Talk:Downloads
+, &
+this page
+for more discussion of storage economics.
+Use a larger device (4 GB or even 8 GB), if you plan to do updates or install new programs.
+If you use a 1-GB device, do not (i) install large updates or activities or (ii) download large files.  The 300-MB overlay will quickly fill up (e.g., within an hour), and your device will become corrupted (i.e., unbootable) without any warning.  You may use the
+Sugar Cellar
+utility to monitor the usage of the persistent overlay. Also, check your Journal free space frequently.
+Use zyx-liveinstaller
+Sugar_on_a_Stick/ZyX-LiveInstaller
+for soas-v2-
+Blueberry
+or
+liveinst
+command for Fedora based installs in a terminal to make a non-live installation. It will require about 2x as large device as the file structure will not be compressed. These non-live installs are more robust in use but may have a shorter service lifetime (See
+olpc:How to Damage a FLASH Storage Device
+.)
+Fedora 13-based SoaS-
+Mirabelle
+will install with either
+liveinst
+(Anaconda) or
+zyx-liveinstaller
+Download Instructions:
+[4]
+Hint:you can also use:
+livecd-iso-to-disk
+[5]
+or
+liveusb-creator
+[6]
+[7]
+to create the device.
+NOTE:USB used with liveusb-creator needs to be labeled "FEDORA" for liveusb-creator to make a bootable USB
+notes on ext3 / ext4 file systems:
+[8]
+(It looks like ext3 formatting may be more robust.)
+Discussion on causes of failure
+[9]
+delayed writes
+[10]
+Types of SD Cards: SD, SDHC, SDXC
+[11]
+dd command from terminal (
+non-persistent
+)
+You will not be able to store anything on this USB. (It will be new each time you start it.)
+[root@localhost Desktop]# dd  if=soas-i386-20100329.19.iso of=/dev/sd(*)
+954368+0 records in
+954368+0 records out
+488636416 bytes (489 MB) copied, 128.247 s, 3.8 MB/s
+[root@localhost Desktop]#
+NOTE Important to get name of USB device correct VERY DANGEROUS IF WRONG
+type "mount" in terminal and look for /dev/sd(*)  ie: sda,sdb,sdc.....
+It will disappear the next time you remove the target USB and enter the command again.
+liveusb-creator from command line in terminal
+(
+using Fedora 12
+)
+a- Open terminal and type:
+liveusb-creator --reset-mbr
+b- Move slider "Persistent Storage ( )MB" - to set size of USB Persistence file
+c- Select correct  "Target Device" (the USB you want to use)
+d- OPTIONAL: To find your USB enter command "mount" in terminal. look for /dev/sd(x) with description of your USB
+e- select the .iso file you plan to use "Use existing Live CD"
+f- select "Create Live USB"
+livecd-iso-to-disk script
+takes a downloaded soas.iso file and writes it directly to a USB stick
+Download script:
+livecd-iso-to-disk.sh
+to your Desktop
+Right click on the script file in your file manager, and change the file properties to allow executing the file as a program.
+Place the source.iso file on your Desktop.
+Enter command "mount" in a terminal. Look for /dev/sd(x) with a description of your device. Use the correct device node, /dev/sd
+?
+, in the script.
+Hints:
+Use a text editor to write the command line for the script, and review it for correctness. Then copy-paste it into the terminal. (safer)
+See
+LiveOS image
+for ideas on optimizing your storage choices.
+(--overlay-size-mb 800 sets size of persistence file.)
+Delete this option if you want a device with non-persistent storage of changes.
+Use "--overlay-size-mb 300" for 2-GB devices
+Be advised about changing the device file system format in
+Talk:Downloads
+.
+$ su -c "livecd-iso-to-disk  --format --reset-mbr --overlay-size-mb 800 /home/xxx/Desktop/soas-i386-20100208.16.iso /dev/sdb"
+Results in this transcript:
+Password: 
+Verifying image...
+/home/xxx/Desktop/soas-i386-20100208.16.iso:   44687aba6b97248baf4416851a433e75
+Fragment sums: dfd2916ccb45fa174cf96685e7fdee526f45ce58ad199d63a57ae8fd6b45
+Fragment count: 20
+Checking: 100.0%
+The media check is complete, the result is: PASS.
+It is OK to use this media.
+WARNING: THIS WILL DESTROY ANY DATA ON /dev/sdb!!!
+Press Enter to continue or ctrl-c to abort
+Warning: The kernel was unable to re-read the partition table on /dev/sdb (Device or resource busy).
+This means Linux won't know anything about the modifications you made until  you reboot.  You should reboot your computer before doing anything with /dev/sdb.
+Waiting for devices to settle...
+mkdosfs 3.0.1 (23 Nov 2008)
+Copying live image to USB stick
+Updating boot config file
+Installing boot loader
+USB stick set up as live image!
+$
+wget
+http://download.sugarlabs.org/soas/releases/livecd-iso-to-disk.sh
+USING 8 GB Installer USB
+1-) liveusb-creator
+Boot from new USB
+Terminal
+liveusb-creator
+select MyFiles and xxx.iso
+insert target USB
+set persistence ( slider will not move?)
+Create Live USB
+shut down installer USB
+wait for delayed writes to USB target (2 min)
+Boot from new USB
+NO Persistence why?
+2-) Use livecd-iso-to-disk to write 2 GB USB=
+cd /media/Myfiles
+cp livecd-iso-to-disk /
+[root@localhost /]# ./livecd-iso-to-disk  --format --reset-mbr --overlay-size-mb 600  /media/Myfiles/Soas-v3-Mirabelle.iso /dev/sdc1
+Verifying image...
+/media/Myfiles/Soas-v3-Mirabelle.iso:   0ce28e3947106fd37bab9317abf09938
+Fragment sums: a3c6e5fd5fba11d2b4da71771e8732b63bcb62b841971f7f39ab5c187f64
+Fragment count: 20
+Checking: 100.0%
+The media check is complete, the result is: PASS.
+It is OK to use this media.
+WARNING: THIS WILL DESTROY ANY DATA ON /dev/sdc!!!
+Press Enter to continue or ctrl-c to abort
+Warning: The resulting partition is not properly aligned for best performance.
+Waiting for devices to settle...
+mkdosfs 3.0.9 (31 Jan 2010)
+Copying live image to USB stick
+Updating boot config file
+Initializing persistent overlay file
+600+0 records in
+600+0 records out
+629145600 bytes (629 MB) copied, 102.38 s, 6.1 MB/s
+Installing boot loader
+USB stick set up as live image!
+[root@localhost /]#
+Make backup .img file
+insert USB and mount to Desktop
+terminal:
+sudo su
+cd Desktop
+dd if=/dev/sdb* of=xxxxx.img
+Restore to new 8 GB USB
+insert USB and mount to Desktop
+terminal:
+sudo su
+cd Desktop
+dd  if=xxxxx.img of=/dev/sdb*
+Download a non-live, ext3 File Structured, blueberry USB
+A very stable alternate 4GB blueberry stick
+use dd command in terminal to write to 4GB USB
+Download
+Details and How To
+Note1: you may get a "not enough room on device" message when you dd this .img to a 4GB USB but but the .img is really only 3GB is size and should work.
+Note2: liveusb-creator will NOT work in this USB as this in not a live system.
+Note3: This is  modified version of bernie's
+soas-2-blueberry-direct-2GB.img
+Announcement and description
+Original file is no longer available 11/09/2011 satellit_
+Duplicating SoaS with customization
+http://lists.sugarlabs.org/archive/soas/2010-April/000998.html
+http://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Sugar_Clone
+Notes:(revised 4/29/2010)
+after SugarClone Script revision
+Adding Script to USB
+http://people.sugarlabs.org/fgrose/SugarClone
+1-)
+BOOTED live soas USB:
+in sugar root terminal:
+su
+cd /mnt/live/
+wget
+http://people.sugarlabs.org/fgrose/SugarClone
+.
+OR
+2-)
+Live soas USB inserted and opened on another PC
+download
+http://people.sugarlabs.org/fgrose/SugarClone
+to PC
+Right click on Properties/Permission and check allow executing as a Program
+Copy and Paste into opened USB on Desktop. (This is the /mnt/live/ directory on the USB when it is booted and running)
+Make Clone Custom USB
+Insert Target USB
+In the Terminal Activity of that running SoaS image, enter the command:
+/mnt/live/SugarClone
+Script will show you what USB's are present and proceed to write to the one you select.
+SugarClone script will be present on all sticks that are created by the first custom stick with all of the customizations you have done to the master.
+Target USB will prompt for Name and Color on first startup as this information is not preserved.
+great way to make a customized spin for special uses
+Virtualization
+Windows#Running_Sugar_in_an_emulator
+VMware Player
+VMware
+VirtualBox
+VirtualBox
+QEMU
+QEMU

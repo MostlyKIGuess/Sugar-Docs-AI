@@ -1,0 +1,165 @@
+Title: Dextrose/3/Todo/EduJAM
+URL: https://wiki.sugarlabs.org/go/Dextrose/3/Todo/EduJAM
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Moved and died at
+http://sugardextrose.org
+These items are Dextrose specific. The raw brainstorm data is here:
+EduJAM/2011/Brainstorm
+.
+Bug reports from Uruguayan teachers on Dextrose 1
+SocialCalc activity doesn't work (and you can't download)
+Bugs:
+save/restore is sometimes broken
+sometimes it doesn't even start
+export format isn't compatible with anything
+no way to export a PNG image
+graphs are misaligned/broken
+uses random delays for synchronization between python/javascript
+ACTION: work on fixing bugs (Nick Doiron)
+ACTION: improve support for JavaScript activities in Sugar (CScott)
+ACTION: bernie & dsd recommend writing a new activity based on Gnumeric, like we did with Write based on Abiword
+STATUS: Nick has the ASLO part resolved, will upload new versions there. --dirakx
+Maps activity doesn't work (doesn't work and you cannot download it)
+FIXED by Nick
+STATUS: Nick has the ASLO part resolved, will upload new versions there. --dirakx
+The quality of video is horrible
+We save the video uncompressed, then we compress.
+We could try a different codec (jnettlet have a webm patch, is it fast enough for the XO-1?)
+ACTION: Gonzalo will work on improving Record
+The activity that allows you to download videos and watch them later doesn't work
+Activity name: BajarYouTube
+ACTION: identify activity, find maintainer
+ACTION: works for Christopher
+ACTION: activity team will look into it
+ACTION : This activity is not yet in ASLO, is from CeibalJam
+LINK:
+http://ceibaljam.org/drupal/sites/default/files/tmpYlc-pn.xo
+STATUS:
+Closed
+, this activity works o.k but we cannot distribute it on ASLO, it has a large YouTube icon (registered mark).
+Wine does not work any more...
+ACTION: dirakx will hunt down the Wine maintainer to fix this
+STATUS: Contacted cristian javier tejeda farias (ctejeda@gmail.com), the maintainer. Awaiting response. --dirakx
+Etoys projects don't download from squeakland.org
+This is a regression
+squeakland website thinks you're running a PC... probably the User-Agent string changed
+The download message is in english, so kids probably don't figure out that they could download anyway
+ACTION: almost fixed by bertf
+We'd like to take cropped screenshots
+maybe doable in paint? -- gonzalo says yes
+implement an alternate shortcut that just excludes the toolbar (only works for sugarized activities)
+implement a shift-shortcut that lets you draw a rectangle
+ACTION: erikos already has a patch
+There are huge efforts, but insufficient to sugarize activities...
+ACTION: New sugar-toolkit written in C or Vala, probably when we switch to GNOME3/GTK3), will probably happen in 1-2 years
+ACTION: Improve the sugarize script
+ACTION: Intercept open(3) to open things from the journal (Bert)
+ACTION: Make Sugar visually distinguish activities that are not registering for a minimum set of DBus services
+Accessibility / keyboard navigability
+ACTION: Remove HippoCanva (silbe + erikos)... probably at the same time of GTK3/GNOME3?
+ACTION: Make Orca work in Sugar (who could work on it??? Plan Ceibal has no resources to work on accessibility right now)
+We would like to get involved in sugarizing more activities
+ACTION: Better GNOME integration?
+ACTION: Implement Journal FileChooser for GTK apps (CScott)
+ACTION: Visually distinguish proper sugar activities from half-backed ports
+In general, the mesh network sucks (sic). It interferes with collaboration more than it helps.
+When they say "mesh network", almost always they mean "collaboration"
+ACTION: Tomeu rewrote it for 0.90, Erikos fixed a bunch of bugs for 0.92... looks stable now.
+ACTION: Improve collaboration between Sugar and GNOME (rgs)
+No automatic memory management in Sugar
+Not enough memory on XO-1, pretty slow, works much better on 1.5
+ACTION: if there's a specific complaint Bert could work on it.
+ACTION: Could we handle memory better?  Could we close activities automatically when we're low on memory?  Could we refuse to open new activities when low on memory?  Cscott says Android keeps a limited number (5?) of apps open at any one time.  Android mandates that activities know how to sync their state -- we need to do this too, if not now then in Future Sugar.
+ACTION: Tamagotchi XO man icon
+Sharing objects can lead EToys to present a message that recommends quitting
+Bert says "error message has 'Abandon' button", the teachers interpret it as saying they should quit eToys, but it really just means one object had a bug and you can close it.  Cscott says sometimes it happens when loading a project.
+ACTION: Fix bad translation.  Hard to know where the bug is since this error appears anytime there's a fatal bug.  Pablo says error messages are bad in general, maybe we can just ignore it.  Cscott says we could suggest closing other activities (also see answer above).
+The Record activity should allow modifying the time of recording, because it creates huge files
+Bernie says the limit is supposed to prevent you from filling up the Journal, but it doesn't do that because it isn't hooked up to disk space at all.  So should we just remove the limit?
+Video cameras show a countdown of how much time you *could* record for, and let you decide.  It's a bit difficult because we don't know when recording how much space the recording is going to use, it's a two-stage recording and converting process.  Also, there is a larger intermediate file that goes away afterwards.  Scott says you can still make some inferences here -- known bitrate * intermediate file.  CBR formats help.
+Pablo wants to be able to record to an external disk with more space, but the Journal doesn't let you choose where your new journal object is going to go.  Cscott points out that other devices might not have fast enough data rates.
+ACTION: Gonzalo is rewriting the Record UI.
+PROPOSAL 1: Remove the "duration" altogether, and let kids work it out.
+PROPOSAL 2: Add an "unlimited" duration. make it default, and then remove all the others in a later release.
+ACTION: Make a consistent set of icons for multimedia.
+We'd like to add some things, such as video editing... is this related to permissions?!?
+No.  Video editor plan is to sugarize Pitivi.
+It might need newer gstreamer than we have.
+Teachers would like a Timeline activity, for e.g. history activity
+Steve Thomas, written in eToys, in response to this request.  There is a youtube video and a blog post, it was posted on iaep.
+ACTION: walter's new Portfolio activity does (part of) this
+Notes from the Journal track at the EduJam Unconference
+Cloud (tch)
+Journal to be backed up to XS automatically
+A view in the XS for Journals, works can be seen in the web view and the teacher can see the work of many pupils from wherever they are.  The teacher could provide feedback in this view and have it show up on the child's computer.  Similar idea: Achivements Unlocked.
+Currently we rsync journals but we use --delete, we could not use --delete so that the journal always grows, then prune after a year or whatever.  We could write a simple php/django app to show the items.
+cscott: Tool to backup the journal to a Gmail account, one-button operation.  Both save and restore.
+Tony: has written Data Manager activity, uses sftp, saves everything ever made, then lets you see what's local and what's remote and you can grab remote files down locally.
+Bernie: children put a huge amount of data in, not enough bandwidth to back it all up
+Scott: Manual, not automatic.
+Gonzalo: Home mode and school mode, separate journal views so it's easier to see what you did where.  You could only back up school mode?  cjb doesn't like this idea because he would do all the interesting work at home.  :-)
+Rodolfo: ssh-fuse for school server disk
+ACTION: tch wants to work on this, the XS journal view idea.
+stats (we never talked about this)
+rgs/tch worked on this, he went to 10 school servers in py, ran a script to collect statistics on the backed up journals, summarized into which activities are most used, how much space does each type of file take, but we need more metadata.  What metadata is actually useful?
+Tony collects start and stop times of the activity.  We don't save that stuff in Sugar, though.
+ACTION: Implement start and stop time metadata saving.  Time should only increment when the activity has focus.  Time tracker activity?  Have to be careful about privacy, though.  rgs gets volunteered again.  :-)
+multi-select (tch)
+Apply operations like delete over multiple journal entries at the same time.  Reuse Gmail's UI for this.
+ACTION: tch will do it
+Journal search is suboptimal -- "last week, last day, last month".  You want to search for old things to delete them!  cscott wants "everything older than a month" for deleting things, so that he doesn't have to click on each one.  Reverse sort order option isn't good enough.  Dextrose has "sort by size", it's been upstreamed too.
+Bernie: Journal is gtktreeview, we could use a different widget?
+file-system access (cscott, walter)
+Zeitgeist backend, could be just another backend for the journal like filesystems are.
+If you have lots of files in a pendrive the Journal takes a long time to find them, maybe we should have a hierarchical view for pendrives.
+cscott says if you implement the zeitgeist backend you'll fix both of these, using tags
+ACTION: investigate zeitgeist?  have a separate Journal Team!  Walter will try to organize a meetup.
+star (pablo, tch, cscott)
+Gmail-style interface: different types of stars, not just one.  Implemented as a tag, but you just click through on the star until you see the icon that they want.  E.g. there might be an icon for your portfolio.
+cscott: automatically star things which, based on a heuristic, are interesting to you -- maybe you edited it a bunch of times and then haven't changed it in a while.
+Kids aren't using tags right now, but maybe they would if they were more visual and intuitive?
+Gary has a mockup for tags.
+ACTION: should be a tag in the backend, so we need to fix up tags support first.
+replacing datastore with files in doc (bernie)
+ACTION: Showing the Documents folder in GNOME in the Journal like a device, two-way interaction.
+ACTION: bernie gave an old Dextrose patch to Walter who upstreamed it
+See
+[1]
+Universal ID (Bert, Walter et al.)
+Refer from one Journal object to another, so you need a way to reference them.  Right now we have the UUID, but when you transfer the Journal object to another user the UUID doesn't go with it?  So maybe this problem doesn't exist anymore?
+if you put an MP3 into eToys they don't actually copy it (to save space) but then there's no way to reference it
+ACTION: Walter to reproduce, if there's a bug then Simon and Gonzalo can work on it.  The Journal team will talk about whether having an ID in the metadata is a good idea.
+Using a hash for this owuld provide a content-addressable store and all of its benefits, such as deduplication of files -- you can see whether you already have a file before saving a redownloaded version.
+Export (RSS, blog) (cscott)
+the Journal should be running a very simple HTTP server on some port which exports all Journal entries as an RSS feed and implicitly also a URL for each entry, perhaps there's a "public" tag to control when this happens.  The URL syntax should allow for filtering based on tag?
+http://journal/feed/blog
+, first only export /feed/public.  See cscott's journal-too talk.
+"Sharing journal entries / making journal entries public" is the basic idea.
+This is similar to the XS journal view idea but it's client-side instead of server-side.
+ACTION: Implementation strategy is:  first, the HTTP server.  then in parallel: (a) think about security, (b) figure out how people should be finding the IP address of their friend in order to see their journal.  Collaboration work needed.
+WebDav is interesting too, RSS is nice because you can view it all in a normal browser.
+'Write to journal anytime' (erikos, walter)
+erikos is working on this.  What is it?  Replace the "name your journal entry" dialog with the Journal detail view, and add a button that brings this up.
+cscott's suggestion:  A standalone offline "Twitter" activity which just records short snippets of text and puts them in the journal.  Think of it as the "git commit" activity.
+ACTION: erikos was working on this during the codecamp
+We need a "send to all" / "send to friends" feature in the Journal
+ACTION: Extension to the share menu that's already in the journal.  Erikos will work on this.
+Date separators for the Journal -- you can see items by day.  "Today .. Yesterday .."
+0.86 toolbar in Journal
+Filter by activity doesn't work well when too many activities are installed. Maybe on a subtoolbar, sort by ASLO categories?
+ACTION: who's gonna work on this??? Maybe tch!
+Misc. ideas aggregated by Anish
+Clock for the frame
+ACTION: use secure NTP to sync the clocks (from mothership)
+Notification system
+ACTION: tch is working on it
+Network connectivity indicator
+ACTION: anish would like to respin this design discussion on this feature
+Tamagotchi resource indicator
+ACTION: anish would like to respin this design discussion on this feature

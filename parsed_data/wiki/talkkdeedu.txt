@@ -1,0 +1,16 @@
+Title: Talk:KDEEdu
+URL: https://wiki.sugarlabs.org/go/Talk:KDEEdu
+--------------------------------------------------------------------------------
+First off, thanks for making the effort; your proposal is interesting, and it would be great for Sugar if you can accomplish your underlying goal.
+However, I am not an expert on gtk/qt issues, but honestly I think that idea, as you present it, is a bit of a stretch. If you want this proposal to be ready by the deadline, you will have to devote some real time to hanging out on IRC and getting help with it. As a start, I think you should consider including QT in the activity itself. It is AFAICT around 20 MB of bloat, which is unfortunate, but it will get you there so much faster. So your project would be something like
+1. get qt to work without a package manager, from inside activity directory
+2. use qgtkstyle to get it to look superficially sugary
+3. reprogram it to be compatible with sugar - toolbar, rainbow security, autosave, dbus, etc. This is the real work of sugarizing. It is better if you can avoid forking the application - if it provides its interface via widgets which you can rearrange via another layer you put above. You would have to research whether this is possible.
+4. document the above so it's easy to do with other kdeedu activities.
+5. (optional) It would be cool if you could figure out some strategy to avoid repeatedly downloading 20MB of QT, yet still rely on just .xo packages without real package or dependency management.
+Steps 1 and 2 should be relatively simple. I have no good idea how hard step 3 would be.
+Again, unless you pester the sugar-devel mailing list and/or IRC, your proposal will probably not be ready in time. If you do do so, you may want to keep an open mind and ask about exploring other project ideas, either instead of this one or in addition to it; though you will have to decide relatively quickly, as you do not have a lot of time to get a proposal (or proposals) into shape.
+Homunq
+18:23, 31 March 2009 (UTC)
+Please be more specific
+Talk about some of the specific UI choices, and any changes in save behavior, to make your app fit into sugar. Include some of this analysis in your schedule - when would you imagine you'd be working on what?

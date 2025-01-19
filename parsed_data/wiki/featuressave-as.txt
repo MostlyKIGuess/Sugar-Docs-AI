@@ -1,0 +1,103 @@
+Title: Features/Save-As
+URL: https://wiki.sugarlabs.org/go/Features/Save-As
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+Provides the 'save' and 'save as' capabilities common to document processing applications.
+Owner
+Name:
+Utkarsh Tiwari
+Email: Utkarsh Tiwari <iamutkarshtiwari@gmail.com>
+Current status
+Targeted release: 0.112
+Last updated: 15th September 2017
+Percentage of completion: 100%
+Detailed Description
+For a new document (start new), when the user
+Stops
+the activity, a popup provides an opportunity for the user to give the Journal entry a name. The user can choose from the 'Save' and 'Don't Save' options. However, an instance will appear in the Journal for statistical purpose but no changes would be saved if user selects 'Don't Save' option.
+For an existing document, when the user
+Stops
+the activity, a popup provides an opportunity to give it a new name.
+In this case, if the user supplies a new name (different from original), a new instance is created with the new changes while the original (previous) will remain preserved.
+If the user saves with the same name, the document is saved replacing the original.
+If the user selects 'Don't Save' option, no changes are saved (no new entry is created) and the original instance will remain preserved.
+Provides a settings (GConf & GSettings) to enable or disable the feature.
+GConf -
+https://github.com/sugarlabs/sugar/pull/751
+GSettings -
+https://github.com/sugarlabs/sugar/pull/750
+After pressing Stop if the user feels that he needs to continue with the current work, he can
+dismiss
+the alert by pressing
+'Esc' key
+on keyboard.
+Benefit to Sugar
+What is the
+benefit
+to the platform?  If this is a major capability update, what has changed?  If this is a new feature, what capabilities does it bring? Why will Sugar become a better platform or project because of this feature?
+Currently Sugar saves objects to the Journal with the name of the activity. In the original toolkit design, the name was displayed to the top left of the toolbar so that a user could enter their own name. At that time, the user had a 'keep' button on the toolbar which enabled an object to be saved while continuing to work as found on most document based applications.
+Currently, there is no keep button because Sugar does that automatically. This change comes with a serious flaw. Sugar uses the existing jobject when an activity is opened so that the original is overwritten. For example, a TurtleBlocks program could be resumed and the user decide to do a new program. His previous program is lost.
+With this feature, the activity creates a new object cloned from the original. If the user saves the document (Turtle Blocks program) under a different name, the original remains in the Journal.
+If the name is not changed, the object replaces the original.
+This feature is modeled on the behavior of the 'save' and 'save as' feature of conventional document handling programs.
+Make sure to note here as well if this feature has been requested by a specific deployment, or if it has emerged from a bug report.
+Requested by Tony Anderson. Implemented by Utkarsh Tiwari as part of GSOC 2016.
+Scope
+What work do the developers have to accomplish to complete the feature in time for release?  Is it a large change affecting many parts of the distribution or is it a very isolated change? What are those changes?
+pull request review,
+documentation changes.
+Feature is implemented in activity.py (sugar and sugar3). 
+A gsetting was added to make enabling the feature optional.
+UI Design
+Direct impact on work flow.  A visual mockup is in
+https://github.com/sugarlabs/sugar-toolkit/pull/4
+How To Test
+Features/Save-As/Testing
+User Experience
+When the user presses the stop button or ctrl + q, a dialog will appear giving the opportunity to name or rename the associated Journal entry.
+The user can chose not to save the object.
+If the document has been resumed from the Journal or the Home View, the user will be able to supply a new name so that this entry is added to the Journal instead of overwriting the original.
+Dependencies
+No dependencies.
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Documentation
+See PR #327 at
+https://github.com/sugarlabs/sugar-toolkit-gtk3
+Release Notes
+Save As
+A user or deployment can enable this feature by setting 'save as'. This feature provides a capability comparable to the 'save' and 'save as' capabilities offered by conventional document processing programs such as those of Libre Office.
+Comments and Discussion
+Link to the discussion on lists.sugarlabs.org:
+http://lists.sugarlabs.org/archive/sugar-devel/2017-April/054141.html
+See
+the discussion tab for this feature.

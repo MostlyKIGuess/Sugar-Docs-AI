@@ -1,0 +1,111 @@
+Title: Math4Team/RIT/Projects/Fun Towers
+URL: https://wiki.sugarlabs.org/go/Math4Team/RIT/Projects/Fun_Towers
+--------------------------------------------------------------------------------
+Our modified version of fun towers
+Contents
+1
+Group Members
+2
+Project Description
+3
+Implemented Domains
+4
+Completed Modifications
+5
+Future Plans
+6
+How To Play
+7
+Project Files
+8
+Project Resources
+9
+Project Setup
+10
+Accessing Game Code
+11
+Contacts
+Group Members
+Eric Mallon
+Tyler Bragdon
+Chris Daniels
+Project Description
+Fun Towers is a pre-existing game that can be found online in several version (
+http://www.funnytowers.com/
+is one example) that has been ported to the XO, written in Squeak. Our team is modifying this purely numerical/card based game into one that can be used as a teaching tool as part of the 4th grade math project.
+Our initial goals in modifying the pre-existing game remain relatively simple and achievable, and our goal is to produce verifiable results that can be used to point to the very preliminary success of the math4 program, while more in-depth projects are still in development.
+The game itself is simple, users are given a card and with it are able to remove from one of 3 pyramids of cards a card that is one greater or one lower in value. This card that has been removed is the users new card, and any cards that were covered by the removed card are now in play.
+We have completed the initial proposed modifications to the game to make it applicable to 4th grade math education. At this point we consider the game 'done' for all practical purposes, and it is now a viable option to help teach 4th grade math on the XO laptop.
+While the code and cards are complete, we cannot get the resources of the cards to correctly load at this time, so it does not load correctly on the XO.  The pr file containing the code to run the game on the XO uses a different mechanism to load image resources.  At this time, we are unable to load these resources. Using the modifications below the game will run in Squeak though.
+Implemented Domains
+4.N.4: Select, use, and explain models to relate common fractions and mixed numbers (1/2, 1/3, 1/4, 1/5, 1/6, 1/8, 1/10, 1/12, and 11/2), find equivalent fractions, mixed numbers, and decimals, and order fractions.
+4.N.2: Represent, order, and compare large numbers (to at least 100,000) using various forms, including expanded notation, e.g., 853 = 8 x 100 + 5 x 10 + 3.
+4.N.5: Identify and generate equivalent forms of common decimals and fractions less than one whole (halves, quarters, fifths, and tenths).
+4.N.11: Know multiplication facts through 12 x 12 and related division facts. Use these facts to solve related multiplication problems and compute related problems, e.g., 3 x 5 is related to 30 x 50, 300 x 5, and 30 x 500.
+4.N.18: Use concrete objects and visual models to add and subtract common fractions.
+4.P.3: Determine values of variables in simple equations, e.g., 4106 – x = 37, 5 = y + 3, and s – y = 3.
+Completed Modifications
+Remove Timer: Though most versions of the Fun Towers game include some sort of timer, it would not be as applicable in an educational version of the game. Fourth grade students will learn better when not rushed by a timer. The timer is still in game, to give a sort of metric for how quickly the student completes it, but there is no penalty for running out of time.
+Change card graphics: The game currently only supports cards which are integers from 1~13, new cards contains over twenty math related levels.
+Implement level select: The player can use a simple level selector to switch between all the levels.
+Fun Tower Level Select Code Description
+Future Plans
+The original team working on the math4 modification of this game considers it complete. The game is now a viable teaching tool, with several different standards being addressed. Although we are done with our planned work, and will not continue working on the game, there are several potential future modifications that we have thought of that anyone interested is more then welcome to add to the game:
+Multi-player support: Allow players to work together to take down the towers, potentially allowing students of different skill levels to work together, by having each student working with a different topic, each topic contained within a different tower.
+Description of tasks to be performed per level, localized.
+Integrate teacher reporting API (potentially using
+SoapCore
+) to output time it takes for student to finish level
+Addressing more standards, or standards of a different education system (Current standards are all Massachusetts based)
+If you have any questions about the project, email Tyler Bragdon at eldrac@gmail.com
+How To Play
+You have one card of your own; your goal is to remove all the cards from the towers
+You can remove a face-up card from the towers if it is one unit up or down from the card you have. 8 Units of change vary between levels, each level corresponds to a math4 standard. The standard unit is 1, so a card displaying the number 6 allows you to remove a card with a 5 or a 7 from the towers. Another example of a unit is 1/4, so if you have 2 1/2, you can remove 2 1/4 or 2 3/4's.
+If you click on a card in the tower to remove it, and it is a valid removal (one unit up/down) then that card becomes your new card, displayed to the right of the deck.
+At any time, the student can click on the deck to receive a new card.
+The game is won when all cards from all 3 of the towers have been removed
+To switch levels, click the scroll buttons in the bottom left of the screen until the desired level is displayed. Hit the start button to switch to the new level.
+Project Files
+Game Image File (
+http://www.cs.rit.edu/~gtb2909/FunTowers/FunTowersImage.zip
+)
+Teacher Documentation (
+http://www.cs.rit.edu/~gtb2909/FunTowers/FunTowersTeacher.doc
+)
+Modified Game Card files (
+http://www.cs.rit.edu/~gtb2909/FunTowers/Cards.zip
+)
+Project Resources
+Fun Towers Original XO Game Download (
+http://www.hpi.uni-potsdam.de/hirschfeld/projects/olpc/media/Funtowers_080601.xo
+)
+Fun Towers Original Game Source (
+http://www.hpi.uni-potsdam.de/hirschfeld/projects/olpc/media/Funtowers_OLPC_080121.sar
+)
+Squeak by Example (
+http://www.iam.unibe.ch/~scg/SBE/SBE.pdf
+)
+An Introduction to Morphic: The Squeak User Interface Framework (
+http://stephane.ducasse.free.fr/FreeBooks/CollectiveNBlueBook/morphic.final.pdf
+)
+Squeak Download (
+http://www.squeak.org/Download/
+)
+EToys image download (
+http://etoys.laptop.org/src/etoys-image-and-pr.zip
+)
+SoapCore Squeak SOAP client (
+http://map.squeak.org/package/dab9b621-00d2-41c3-966c-458bf62b8008
+)
+Project Setup
+First go to the squeak download page linked above, and download the version of squeak appropriate for your operating system.  Also download Fun Tower's image file linked in the project files section, and extract both files into the same folder.  Run squeak.exe, and it will ask you to select an image file - chose the one with funtowers in its name.  The game should now be running on your computer.
+Accessing Game Code
+Follow the steps above to get the game running on your computer, then hold down Alt and click on the game in the screen, options buttons should appear surrounding the game - select the red menu button in the top mid-left.  From that menu go down to debug, and select browse morph class.  The window containing the browser for the games code should now appear.
+Contacts
+Math4 mod team
+Eric Mallon (EricMallon@gmail.com)
+Tyler Bragdon (eldrac@gmail.com)
+Chris Daniels (chris.m.daniels@gmail.com)
+Original authors:
+Thomas Beyhl, Johannes Dyck, Robert Gurol, Maximilian Jenders, Johannes Köhler, Matthias Richly, and Marcus Wacke at
+http://www.hpi.uni-potsdam.de/swa/

@@ -1,0 +1,383 @@
+Title: Talk:Features/Write to journal anytime
+URL: https://wiki.sugarlabs.org/go/Talk:Features/Write_to_journal_anytime#Log_from_Design_Team_Meeting_08_January_2012
+--------------------------------------------------------------------------------
+See
+Design Team/Meetings
+.
+08 January 2012
+13 March 2011
+27 February 2011
+20 February 2011
+review thread
+Log from Design Team Meeting 08 January 2012
+walterbender
+: hi JT4sugar
+JT4sugar
+: Hi Walter
+satellit_
+: listening
+walterbender
+: waiting for Christian
+erikos
+: is here
+erikos
+: walterbender: read your proposal and added a link to mine
+erikos
+: walterbender: (see email)
+walterbender
+: while we are waiting for Christian, please see
+http://wiki.sugarlabs.org/go/Features/Write_to_journal_anytime#Detailed_Description
+walterbender
+: erikos: I added a link to your mock up from ^^
+walterbender
+: erikos: so you have your code snippet for ^^
+walterbender
+: ^so^do
+erikos
+: walterbender: I might have it somewhere but have to first locate it
+erikos
+: walterbender: I did code it for the mockup indeed
+walterbender
+: I wrote the code for the Entry Alert, but didn't do the toolbar integration...
+walterbender
+: can we reach consensus about a few points to ground the discussion?
+walterbender
+: (1) that we don't want a modal interface for writing to the journal?
+erikos
+: hmm, i don't see the modal alert as a too bad option
+walterbender
+: (2) that we don't need to display the entire entry as most of it is not human-editable
+walterbender
+: erikos: I really think it is a big problem for the use case: taking notes while you work on things
+JT4sugar
+: walterbender, I like the look of Simon's alternative. Could description be renamed to reflection? Think this is the direction working towards not notes
+walterbender
+: and #2 is problematic because it means the activity is almost entirely obscured
+erikos
+: I agree on (2) that if we go down the approach sketched in the wiki page (yours or mine) we do not need all the entries of the detail view
+erikos
+: JT4sugar: it is named description because that is the name in the Journal as well
+walterbender
+: erikos: but maybe we could add a star for favorite to whatever widget we use
+walterbender
+: erikos: what is your argument in favor of modal?
+erikos
+: walterbender: what I like about the approach sketched from Christian is that the relation to the Journal is clear
+walterbender
+: JT4sugar: +1 for "refection"
+walterbender
+: erikos: that is made clear by #2, not #1, is it not?
+erikos
+: walterbender: if I click on the 'take notes'-button in the activity or the details button of an entry in teh Journal we always display the same page/alert
+erikos
+: I like that consistancy
+walterbender
+: erikos: I would like to change the latter as well, but not for 0.96
+erikos
+: walterbender: change the latter in which way?
+walterbender
+: erikos: we have nice mockups of expanding the detail view in place in the journal list view
+walterbender
+: much better, I think as it keeps a context...
+walterbender
+: so I wouldn't want to preserve consistency with something we may be changing anyway
+walterbender
+: plus the use case is different
+walterbender
+: I don't disagree with the need for some reference to Journal
+JT4sugar
+: erikos, Yes but in a writing sense you are trying to prompt reflection that is aking for more than a description? the key in the classroom is condtioning this reflective action.Can we rename field? Or create new one?
+walterbender
+: hence my use of a Journal icon
+walterbender
+: JT4sugar: I think description in the Journal entry could be changed to reflection as well
+erikos
+: JT4sugar: that is what I meant, if you think 'reflection' is a better name then 'description' it should be changed in both places
+JT4sugar
+: walterbender, Can you explain what exactly "Modal" refers to?
+JT4sugar
+: erikos, Gotcha
+walterbender
+: JT4sugar: you are unable to do anything else until you take action in that window
+erikos
+: walterbender: ok, maybe inline editing will be a nice thing, but we have to try that out first
+erikos
+: walterbender: not sure it is the golden solution
+JT4sugar
+: OK
+erikos
+: walterbender: so, that we change to inline editing is an assumption as well
+walterbender
+: erikos: agreed... just bringing it up as one reason I am not wedded to replicating the detail view in this instance
+erikos
+: ok
+erikos
+: walterbender: what we should take into account as well is the usability with touch
+erikos
+: walterbender: as this will come sooner or later
+walterbender
+: replication is just one mechanism for being referential... our crack design team can come up with others
+erikos
+: walterbender: sure
+walterbender
+: erikos: yes... we could add a virtual keyboard to your widget
+walterbender
+: erikos: having hacked on a XO-3.0 for 48 hours, lots of observations... for another meeting perhaps
+walterbender
+: erikos: but fundamentally, Sugar is not a bad experience
+walterbender
+: wonders where Christian is... will send him email
+erikos
+: walterbender: yeah, a lot of things are already in place, indeed
+walterbender
+: this was his suggested meeting time
+erikos
+: walterbender: I thin khe forgot
+walterbender
+: sent him an email
+walterbender
+: let's assume we go with some sort of widget on the toolbar or an alert as per the mockups...
+walterbender
+: what are the advantages/disadvantages of showing the entire description (reflection) field?
+walterbender
+: advantage is you see you past work/context for your new reflection
+erikos
+: yeah, lets use the time to discuss this a bit
+walterbender
+: disadvantage is that it takes up more room
+walterbender
+: and it may be more info than you need at the moment
+walterbender
+: I keep going back to commit messages as a model
+walterbender
+: you don't need to see the old ones to write a new one
+erikos
+: so you would want to appaned it?
+walterbender
+: it is a separate activity to review them collectively
+erikos
+: maybe an example can help:
+erikos
+: It is Saturday, I do start writing my essay for Monday,
+erikos
+: before closing the activity I add a description.
+erikos
+: On Sunday I resume the Jurnal entry, write another paragraph,
+walterbender
+: erikos: that is the old model
+walterbender
+: the new model is note taking in a more continuous fashion
+erikos
+: before I close the activity I want to edit the description
+walterbender
+: I decide to use this picture instead of that one, so I make a note of why at the time of the decision
+erikos
+: walterbender: well, it happens inside the activity
+erikos
+: walterbender: whether at the end of the session or during you can not really control up to the user
+walterbender
+: it is more of a continuous monologue of decisions while using the activity
+JT4sugar
+: Understand we are trying to get in next release but in a long term vision kind of way would there be any way this could be combined with chat like abilities that would allow a teacher to pose a question into the "Reflection Box" that then child reflects on and is captured this way? Chat like functionality would allow for peer reflection or individual with a journaling/diary feel as well
+walterbender
+: erikos: yes... but we want to encourage more rather than less writing and reflecting
+walterbender
+: JT4sugar: that could be a nice use of the alert mechansim
+walterbender
+: erikos: I have a skewed world-view... everything seen through the eyes of Turtle Art
+erikos
+: walterbender: hmmm, but then it would be like leaving messages
+walterbender
+: erikos: yes...
+walterbender
+: lots of commit messages
+erikos
+: walterbender: so we would need to stamp it maybe to make clear
+walterbender
+: stamp as in timestamp?
+erikos
+: or at least show them in a bubble
+walterbender
+: that's OK
+erikos
+: walterbender: yes
+walterbender
+: +1 to timestamps
+erikos
+: so you somehow have a history inside the activity entry
+walterbender
+: erikos: this is why I was leaning more towards the UI I had mocked up... more of a short message model
+erikos
+: this is a bit like versions...;p
+walterbender
+: well... more like a commit log
+walterbender
+: if we had versions... it would fit nicely
+erikos
+: sure
+walterbender
+: but I am mostly concerned about making it easy to add reflections... path of least resistance
+walterbender
+: which is why I am almost tempted to have the alert or widget always present if the Activity toolbar is open
+erikos
+: ok, so let's assume we would do the approach, add 'messages', display them in bubbles and add timestamps
+walterbender
+: to me it is more important than changing the activity name
+walterbender
+: maybe flip them... that message entry "bubble" is always available and the title entry is invoked with a button
+erikos
+: hmm, i think the title is important too
+walterbender
+: it is important, but not something you change as often
+erikos
+: but as we reomved the keep button, I think we have space for adding a 'message' field
+walterbender
+: erikos: in a manner such as your widget...
+erikos
+: the title entry could be shorter as well
+erikos
+: walterbender: no, maybe directly on the toolbar
+walterbender
+: I guess what I am saying is that by default, the widget should be open...
+erikos
+: walterbender: yes, understood
+walterbender
+: erikos: do you really think there is room for both?
+walterbender
+: not in Turtle Art, but that may be exceptional
+walterbender
+: I could rework how I do my toolbars
+erikos
+: in TA you have the exports as well, right?
+walterbender
+: lots of different types of exports and imports
+erikos
+: ok
+walterbender
+: but I could put them on a submenu
+erikos
+: I could imagine as well the activity toolbar having the height doubled
+walterbender
+: erikos: that is sort of what I had in mind
+erikos
+: to give more room
+walterbender
+: the widget always expanded
+erikos
+: would like to sketch that now to show walter
+walterbender
+: erikos: actually, this raises an issue I encountered with the XO-3.0
+walterbender
+: the slightly smaller screen meant that many activity toolbars went off the end...
+erikos
+: walterbender: so either the widget expanded by default: for example: I click on the activity toolbar to expand it and it somes up like in my screenshot
+erikos
+: walterbender: or making it double the size by default and rearrange the items
+walterbender
+: I think that should wrap to an double-height toolbar
+erikos
+: walterbender: ahh, the screen is smaller ok
+walterbender
+: we could make that happen by default instead of the pull-down menu???
+walterbender
+: but that is outside the scope of 0.96
+walterbender
+: but I think a double-sized activity toolbar would not break anything and would make this current issue easier to address
+walterbender
+: so the buttons an activity adds beyond the defaults would go on the bottom row?
+JT4sugar
+: If height doubled would that open up room for more buttons/functionality(for post 0.96 work)? If so is that where the Chat like functionality for peer review and Teacher question prompting could be put in place?
+erikos
+: walterbender: when you say activity toolbar, do you mean the subtoolbar?
+erikos
+: walterbender: or the main toolbar?
+walterbender
+: erikos: yes
+walterbender
+: is that not what the subtoolbar is called right now? /me looks
+erikos
+: ok, I am talking as well about the activity subtoolbar with the title entry
+erikos
+: walterbender: yeah, just making sure
+walterbender
+: whatever toolbar is associated with the ActivityToolbarButton
+erikos
+: good good
+walterbender
+: so if we double its size and add the reflection entry, bump the activity specific buttons to the second row?
+walterbender
+: maybe add a star-for-favorites button too?
+erikos
+: yeah, space wise it is possible I guess
+erikos
+: (we might class with the star button in Browse (session bookmark) though)
+walterbender
+: erikos: I could try coding this up (maybe in time for the next devel team meeting)
+erikos
+: I think the sharing button we might want to move up to the main toolbar as well....
+walterbender
+: +1
+erikos
+: walterbender: maybe a mail summarizing what we discussed is enough for now
+walterbender
+: let me make some quick sketches too
+erikos
+: but if you have time, of course
+walterbender
+: erikos: me... all the time in the world
+erikos
+:
+walterbender
+: well, maybe we have gotten as far as we can w/o Christian and/or Gary
+walterbender
+: I will grab the log and add it to the wiki page and write up an email summary
+walterbender
+: but I think we are heading in a good direction
+erikos
+: walterbender: wonderful, thanks!
+walterbender
+: thank you
+erikos
+: walterbender: yes, it was very productive indeed
+walterbender
+: two heads are better than one
+erikos
+: yes, was a pleasure
+walterbender
+: three even better than two (jt)
+erikos
+:
+JT4sugar
+: Thanks for pushing this its very important on educational side-You staying around for 11 am meeting with Christain??
+walterbender
+: I'll stick around
+Mockups
+Detail view 20110313
+from Christian M. Schmidt
+File:Detailview 20110313.pdf
+Detail view 20110226
+from Christian M. Schmidt
+File:Detailview 20110226.pdf
+Name for the Journal entry extended view
+The set of data currently appears with a header title of 'Name this entry', (an instruction), and no separate title when retrieved from a Journal entry.
+With the new ability to write notes at any time, this form should have a new title.  The menu title 'Write to Journal' may be confused with 'save to Journal', 'keep in Journal', etc.
+Some possibilities for a new title,
+Enter notes
+Activity notes
+Activity summary
+Note in Journal
+Edit Journal summary
+Enter details
+The small 'forward arrow' button at the far right of the Journal entry should have a pop-up with the new title.
+Entry notes
+Activity notes
+Activity summary
+View notes
+See Journal summary
+View details
+The Journal entry instance extended data view, itself, is properly titled solely by the name provided in the top text entry box, as the Resume, Copy, and Erase buttons refer to the entire Journal entry (except for the default Copy action, which produces various types of clippings) and not just the extended data.
+Better visual connections of this extended view to the parent entry would be helpful. For example, having it roll out, drop down, expand up, or similar transition from the Journal entry line would be helpful.  This might be achieved without processing expensive animations.
+The activity instance (Journal entry) title should have exactly the same appearance in the extended view (including showing the title in bold, except when editing, to match the behavior in the primary entry), and it should actually appear to be embedded in the extended view (except for the forward button, which might morph to a return button).
+--
+FGrose
+16:57, 16 November 2011 (EST)

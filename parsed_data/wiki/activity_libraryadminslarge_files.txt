@@ -1,0 +1,14 @@
+Title: Activity Library/Admins/Large Files
+URL: https://wiki.sugarlabs.org/go/Activity_Library/Admins/Large_Files
+--------------------------------------------------------------------------------
+For files too large to be uploaded through the regular interface, the following process should be followed in Remora until
+bug 371208
+is fixed:
+Add-on author submits stub file(s) with only an install.rdf. Author completes entire additem process with these stubs. Author may wish to include something about not pushing the file public in the Notes to Reviewer.
+Add-on author files mozilla.org :: Server Operations bug and cc's administration@add-ons.bugs. The bug should include links to the real files and a link to this process, as well as the add-on id.
+Server Ops goes to REPO_PATH (as defined in site/app/config/config.php) and goes to the directory of the add-on ID.
+Server Ops copies the remote files to this directory with the same file names as the existing files for that version.
+Add-on author e-mails amo-editors AT mozilla.org (preferred) or requests in #addons on IRC (please be patient) for the next step.
+An AMO admin goes to the Add-on Manager in the Admin Control Panel and goes to the add-on. The admin recalculates the hash and size for the file(s).
+If the admin wishes to push the new version public, he may do so from this panel, which will copy the files to PUBLIC_STAGING_PATH. If the admin wishes the version to undergo normal review, he can leave it like it is and the file will be copied when an editor pushes public. The author will probably want to remove the "do not review" part of the Notes to Reviewer if this option is selected.
+Note: if sysadmin handling this will be oremj, a quicker alternative to this entire process may be threatening the cluster with physical violence, causing it to do all of the above steps itself. Just be careful of mrapp08, we don't want another "accident" which causes the colo to smell like server poop for days.

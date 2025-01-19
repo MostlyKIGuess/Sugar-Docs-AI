@@ -1,0 +1,77 @@
+Title: Features/Notification Replacement
+URL: https://wiki.sugarlabs.org/go/Features/Notification_Replacement
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Benefit to Sugar
+5
+Scope
+6
+UI Design
+7
+How To Test
+8
+Dependencies
+9
+Contingency Plan
+10
+Documentation
+11
+Release Notes
+12
+Comments and Discussion
+Summary
+Allow notifications to be replaced by new notifications.
+Owner
+Name:
+Sam P.
+Email: samDELETEME@sugarlabs.org  (You need to get rid of the DELETEME.)
+Current status
+Targeted release: 0.104
+Last updated: 10/Aug/2014
+Percentage of completion: 50% - needs discussion
+Benefit to Sugar
+Progress notifications
+Compatibility with the rest of the Linux desktop world
+Scope
+It is a small change that does not break compatibility.
+It pretty much needs
+Features/Notification_Urgency
+so you can replace notifications without a flashy popup thing.
+UI Design
+None - the notifications are just changed - no animation - no nothing
+How To Test
+Run and change this in Pippy:
+import dbus
+BUS_NAME = 'org.freedesktop.Notifications'
+OBJ_PATH = '/org/freedesktop/Notifications'
+IFACE_NAME = 'org.freedesktop.Notifications'
+bus = dbus.SessionBus()
+notify_obj = bus.get_object(BUS_NAME,OBJ_PATH)
+notifications = dbus.Interface(notify_obj,IFACE_NAME)
+
+id = notifications.Notify("Software Update", 0, "", "New activities are available!", "Please check your activities list", [], {'x-sugar-icon-name': 'module-updater', 'urgency': 1}, -1)
+
+import time
+time.sleep(10)
+
+notifications.Notify("Software Update", id, "", "MORE New activities are available!", "Please check your activities list AGAIN", [], {'x-sugar-icon-name': 'module-updater', 'urgency': 0}, -1)
+Dependencies
+None!
+Contingency Plan
+People are sad :(
+Documentation
+https://developer.gnome.org/notification-spec/#basic-design
+It just these the
+replace id
+standard.
+Release Notes
+Added notification replacement functionality.
+Comments and Discussion
+https://github.com/sugarlabs/sugar/pull/393

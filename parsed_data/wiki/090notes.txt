@@ -1,0 +1,329 @@
+Title: 0.90/Notes
+URL: https://wiki.sugarlabs.org/go/0.90/Notes
+--------------------------------------------------------------------------------
+english
+HowTo
+[ID# 81551]
+Development Team
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Please do not edit unless you are part of the Sugar Release Team!
+Sucrose 0.90 Release Notes
+Contents
+1
+Introduction
+2
+What is new for users
+2.1
+Remove the Presence Service
+2.2
+Sugar ad hoc networks
+2.3
+Enhanced color selector
+2.4
+Spiral Home View
+2.5
+New ordering options in the Journal
+2.6
+New Keybindings for the Frame and the Journal
+2.7
+OLPC XO-1 touchpad mode selector
+2.8
+Turtle Art
+2.9
+Etoys
+2.10
+Sugar Activities
+3
+What is new for distributors and deployers
+4
+What's new for developers
+4.1
+Widgets
+4.2
+API
+4.3
+Activity Authors guidelines
+5
+What's new for packagers
+6
+Internationalization (i18n) and Localization (l10n)
+7
+Compatibility
+8
+Update to this version
+9
+Getting the sources
+9.1
+Glucose modules
+9.2
+Fructose modules
+10
+Installing/running 0.90
+10.1
+On Fedora from the shell:
+10.2
+Install sugar-emulator
+11
+Looking at the release cycle details
+12
+Looking forward to 0.92
+13
+Credits
+Introduction
+Sucrose 0.90 is the latest version of the
+Sugar learning platform
+: Sugar promotes collaborative learning through
+Sugar Activities
+that encourage critical thinking, the heart of a quality education. Designed from the ground up especially for children, Sugar offers an alternative to traditional “office-desktop” software. Furthermore it provides a flexible and powerful platform for activity developers.
+Sugar is Free and Open Source Software and consists of
+Glucose
+, the base system environment; and
+Fructose
+, a set of demonstration activities. This new release contains many new features, performance and code improvements, bug fixes, and translations.
+What is new for users
+Remove the Presence Service
+Collabora
+has sponsored
+Tomeu Vizoso
+to replace the
+Presence Service
+with components from the
+Telepathy framework
+. There are no directly visible changes for the user but the overall collaboration experience should be more stable and this work paves the way for future enhancements in this area.
+Sugar ad hoc networks
+To mimic the mesh behavior on devices where mesh hardware is not available and make the "under a tree"-scenario possible the Sugar ad hoc networks have been added. The
+feature
+adds three default ad hoc networks, for channel 1, 6, and 11. They are represented with designated icons in the Neighborhood view.
+Simon Schampijer
+from
+OLPC
+has been working on this feature and has also back ported it to Sugar 0.84.
+Enhanced color selector
+A new
+color selector
+is available for the control panel, thanks to the ongoing efforts of Walter Bender and the design team. Originally proposed for 0.88 this feature went through several design iterations and finally consensus was reached. Now, we are excited to hear what the learners think about it. The color selector in the "About Me" control panel section has been modified to allow the user to cycle through different combinations of stroke and fill colors. This replaces the "random" color selector.
+Spiral Home View
+Walter Bender has been working on another Feature during this cycle.
+The Spiral Home View
+is an enhancement to the Home View to enable the display of more icons. If the circle becomes too large, rather than shrinking the icons, it morphs into a spiral.
+New ordering options in the Journal
+Andrés Ambrois has added
+new ordering options
+to the Journal. You can order now by size, creation date and modification date. The feature originally implemented for
+Dextrose
+(sponsored by
+Activity Central
+) has found it's way into 0.90, too.
+New Keybindings for the Frame and the Journal
+Daniel Drake has added keybindings for the Journal (F5) and the Frame (F6). This will help to access those important views quicker on hardware on which there is no designated key.
+OLPC XO-1 touchpad mode selector
+The original version of the
+OLPC XO-1
+laptop ("CL1") included a dual-mode touchpad manufactured by ALPS, where the center section could be used as a regular capacitive, finger-based mouse device, or the full width of the touchpad could be used as a resistive, tablet-style input device. Unfortunately, when used as a capactive, finger-based input device, the mouse cursor is often jumpy and difficult to use. This is due to hardware bugs, which the driver attempts to work around, with only limited success. However, some users report that when the mouse is used in the alternative resistive mode, no such jumpiness is present.
+Sugar-0.90 adds a new icon to the devices section of the Sugar frame which allows the user to switch between the two modes. By default, the laptop boots in the regular capacitive/finger mode, where the mouse can be manipulated ordinarily with a light touch of the finger. In this state, the icon appears as follows:
+Clicking on the icon will switch into the resistive/stylus mode, where the mouse is then operated by a stylus. When in this mode, the mouse cannot be operated by a soft touch of the finger as before, so don't panic if it seems like your mouse has broken (you can just click again to revert back to capactive/finger mode). When in resistive/stylus mode, you can simply use any kind of stylus (use the non-writing end of a pen, for example) to move the mouse around. The icon appears as follows:
+Note that this icon will only be displayed when Sugar is running on the XO-1 where this hardware is present. Due to the problems associated with the hardware, later models of the XO-1 ("CL1A") switched to a more standard and more reliable Synaptics-based capactive touchpad, and this Synaptics-based pad is also included in the XO-1.5 and XO-1.75 laptops.
+Turtle Art
+The most visible changes are the incorporation of some new blocks, such as the 'Fill' block for created filled polygons, Gray, Black, and White blocks, and the 'Turtle Sees' block, that enables the turtle to directly interact with its canvas. There is also a
+new site
+for uploading and downloading Turtle Art projects.
+Turtle 'sees'
+http://turtleartsite.appspot.com/
+Please see
+0.90/Turtle Art
+for more details.
+Etoys
+Sugar 0.90 includes the latest
+Etoys
+release. Some of the new features in Etoys 4.1 are
+DrGeo
+, speech bubbles, a timer tile and persistent preferences. Also, the QuickGuides have been translated into several languages.
+DrGeo in Etoys
+Speech Bubbles
+Translated QuickGuide
+An important change is that projects are not saved automatically anymore when you exit the Etoys activity. Instead of the regular Stop button, you will see an Exit button:
+Find out more in the
+Etoys 4.1 release notes
+.
+Sugar Activities
+While we bundle a small subset of the Sugar Activities within Sucrose, most of the Activity "activity" can be tracked by visiting
+the Sugar Activity Library
+.
+We have recently surpassed
+3.6-million
+Sugar Activity downloads! There are
+hundreds of activities
+available for download in a variety of categories!
+Thanks to
+all
+the activity maintainers and developers
+for making this happen.
+Category
+No. of Activities
+Search & discovery
+36
+Documents
+13
+News
+3
+Chat, mail and talk
+6
+Media creation
+25
+Programming
+13
+Maths & science
+85
+Maps & geography
+5
+Media players
+1
+Games
+60
+Teacher tools
+107
+Find out more in
+Recent Activity Additions
+and
+New Experimental Activities
+.
+What is new for distributors and deployers
+Sugar Ad-hoc networks: The GConf key "/schemas/desktop/sugar/network/adhoc" has been added. If set to "True", Sugar will show default Ad-hoc networks for channel 1,6 and 11 in the neighborhood view.
+Protected activities: The GConf key "/schemas/desktop/sugar/protected_activities" has been added. You can set a list of activities that users will not be allowed to erase through the list view.
+What's new for developers
+The following changes are important for developers using the Sucrose 0.90 developer platform.
+Widgets
+An
+ErrorAlert
+has been added to the set of alert widgets. It should be used when notifying a user about an error. Besides the title and the message it has an 'Ok' button for dismissing the alert. It is currently used by notifying the user when an error occurs while copying files to external devices.
+API
+Sugar does print warnings about the deprecated
+activity.info
+fields.
+Use 'bundle_id' instead of 'service_name'.
+Use 'exec' instead of 'class'.
+Please adjust your activity.info file as soon as possible.
+Activity Authors guidelines
+There are still many activities that do not use the new activity toolbars introduced in 0.86. We encourage activity authors to use the new toolbars as there have been huge improvements in usability (e.g., stopping an activity).
+Jim Simmons has written a guide to writing Sugar Activities (Please see
+Make your own Sugar Activities!
+) which details how to convert your activity to the new toolbars while still keeping backward compatibility with older Sugar versions.
+What's new for packagers
+New API has been added to telepathy-gabble and telepathy-salut to support the work on the collaboration framework, which results in needing 0.10.x for tp-gabble and 0.4.x for tp-salut.
+One of the goals of the collaboration refactoring was dropping functionality in Sugar that has been implemented in
+telepathy-mission-control
+, so Sugar now depends on tp-mission-control 5.6.x.
+Of course, latest minor releases of those stable branches are recommended.
+Internationalization (i18n) and Localization (l10n)
+still to come...
+Compatibility
+There a no known compatibility issues, as of today.
+Update to this version
+Please use the instructions for your distribution (SoaS, Fedora, Ubuntu, Debian, etc.) of choice to upgrade to this release. Note that it may take a while until the release is packaged for each distribution. Please stay tuned for distribution specific announcements and watch out for updates at
+Get Sugar
+.
+Getting the sources
+If you want to package Sugar for your favorite distribution or just want to examine Sugar's lovely code here are the released bundles. If you are interested in the full changelog you can use the
+Sugar git repositories
+.
+Glucose
+modules
+sugar 0.90.3
+sugar-datastore 0.90.0
+sugar-toolkit 0.90.2
+sugar-base 0.90.1
+sugar-presence-service 0.90.1
+sugar-artwork 0.90.0
+etoys 4.1.2390
+hulahop 0.7.1
+Fructose
+modules
+Pippy 37
+Browse 120
+Calculate 34
+Etoys 116
+Chat 68
+TurtleArt 98
+Jukebox 20
+Log 24
+ImageViewer 15
+Write 71
+Installing/running 0.90
+On Fedora from the shell:
+yum groupinstall sugar-desktop
+will install Sugar 0.90 as a GDM selection on login.
+Install sugar-emulator
+yum install sugar-emulator
+Run:
+sugar-emulator -f
+to run Sugar in a full screen window in a Gnome session.  See
+how to make a desktop icon to do this
+.
+Note
+: You may need to disable SELinux (See
+http://www.crypt.gen.nz/selinux/disable_selinux.html
+)
+Looking at the release cycle details
+You can browse the notes of each development release in
+0.90/Roadmap#Schedule
+. Their respective sources are listed there as well.
+Looking forward to 0.92
+For 0.92 we plan to focus on some architectural work that won't have a direct impact as perceived by most users. Sugar is a very thin layer of code that sits on top of hundreds of other components developed by other projects. There are ongoing changes to the components we depend on most directly, and we need to adapt Sugar to those changes so it keeps being shipped by Linux distributions and benefits from future improvements.
+The changes include that the Python bindings for GNOME will be available dynamically through
+GObjectIntrospection
+rather then through the current static bindings provided by
+PyGTK
+. So a goal for 0.92 will be to port Sugar and all the activities to GNOME 3 through
+GObjectIntrospection
+.
+Planning of the next release cycle has started at
+0.92/Roadmap
+.
+Credits
+Many people contributed to this release indirectly, including testing, documentation, translation, contributing to the Wiki, outreach to education and developer communities. On behalf of the community, we give our warmest thanks to the developers and contributors who made this Sugar release possible.
+We want to especially thank:
+the
+Infrastructure team
+which does all this great work in the background without which the development would not be possible at all,
+the
+deployments
+that provide the development team with feedback from the field,
+the
+Design team
+which guided the design of features with UI changes or impact on the workflow,
+the
+Translation team
+which makes sure that Sugar is enjoyable in the local languages of our users,
+the
+developers
+that submit patches for new features and bug fixes and do review other's patches,
+the
+maintainers
+that make sure their code is shippable and which provide packagers with new tarballs,
+the
+packagers
+which provide distributions with new Sugar packages,
+the
+SoaS team
+for providing a Sugar version to test with during the development cycle,
+the
+testers
+for finding the small and bigger issues,
+the
+release team
+and
+Development team
+for coordinating those efforts.

@@ -1,0 +1,117 @@
+Title: Development Team/Code guidelines
+URL: https://wiki.sugarlabs.org/go/Development_Team/Code_guidelines#Tools
+--------------------------------------------------------------------------------
+Contents
+1
+Introduction
+2
+It's all about communication
+3
+Consistency
+4
+Class design
+5
+Dependencies
+6
+Code style
+7
+Miscellaneous
+8
+Tools
+9
+Buildbot
+10
+References
+Introduction
+The community around Sugar is very diverse and only a small part of it is directly involved in software development. Of those, an even smaller part is personally responsible for the quality of the software, its growth, and its availability to translators, distributors and deployers. See
+Development Team/Release/Modules
+for a list of modules with their maintainers and peers.
+But this smaller group of people aren't the only ones that can contribute to the development of Sugar itself. Anyone with some spare time and enough skills and passion can make significant contributions to Sugar, but in order to bound to a limit the maintenance work, the submitted code needs to have some characteristics, explained on this page.
+Please take these recommendations with a grain of salt, they are intended to make the life of your fellow developers easier, and are not intended to be general rules of "good programming".
+Furthermore, with the View Source feature in Sugar, the source code is designed to be conveniently available to all. Please mind that they find consistent and well written code to learn from.
+It's all about communication
+Your code will run as interpreted by the Python interpreter, but other people won't be able to efficiently work with it if you don't address people as well when writing it. Write your code first for people and secondarily for the machine.
+Consistency
+If you are going to do things differently, be sure to have a really good reason. Often a bad standard is better than no standard at all.
+Just because it looks smarter is probably a bad reason, as most of the people that will be reading at your code won't be doing it for pleasure or edification, but in order to fix bugs or add features. In those cases, it's better when code is boring and predictable.
+Class design
+When designing your classes and their dependencies, keep
+coupling
+low and
+cohesion
+high.
+Avoid reference cycles, and use signals to break such cycles when redistributing responsibility is not enough.
+Keep the size of your modules, classes, methods and functions under reasonable limits. Splitting a method in two is a good opportunity to put a name to a block of code.
+Make sure that
+API policy
+rules are respected.
+Dependencies
+Dependencies need to be fulfilled on all platforms running Sugar (i.e., they need to be available for all and need to be installed, which means occupying disk space), so think twice before introducing new ones. It's always a good idea to check whether sufficiently recent versions of your proposed dependencies are already packaged for all (stable releases of the) major distributions, on
+all
+of their (semi-)supported architectures (e.g., ARM and PowerPC). If not, start requesting them (at the distribution bug trackers) ASAP, and also mention it during
+Code Review
+.
+Code style
+First rule is to use the same style as the existing code around your new method, class or module. Sugar code is quite consistent as of now (August 6th 2009) so you shouldn't need to change styles often except when modifying very old code.
+Follow
+PEP 08
+, but as it is quite broad, it's not enough in itself to guarantee a minimum of consistency. Some more comments below.
+Use inline comments sparingly. If you feel your code needs an inline comment, consider instead splitting the method in two, with a reasonable name and API comment. API comments should say
+what
+the code does, not
+how
+it does it. How your code works should be clear from the code structure—refactor until the code structure is a clear reflection of its purpose.
+Take your time when choosing names for variables and other identifiers, it's your best chance to make your code understandable along with code organization. The cost of interpreting abbreviated identifiers is most often not worth the less typing.
+Python is a very expressive language that allows for different programming models, before using the more exotic features consider readability over compactness, and think that we want people to be able to contribute to Sugar without needing to be familiar with the whole Python syntax.
+Miscellaneous
+Use
+logging.debug('foo %r bar', x)
+instead of
+logging.debug('foo %r bar' % x)
+. This is more robust and formatting only happens if we actually log something.
+When logging strings, consider using
+%r
+instead of
+%s
+because
+%r
+will take care of quoting and escaping the string as needed
+When you catch an exception and want to log it, use logging.exception(), this will print the whole backtrace and exception information, which is very useful when debugging.
+"Short" string literals should use single quotes (
+'
+) unless the string contains a single quote (that would need to be escaped)
+"Long" string literals should use three double quotes (
+"""
+)
+Tools
+When possible use tools to check your code, this will save lots of time for everybody involved.
+Please try to use
+pylint
+to verify your patch for things like exceeding 80 columns etc., unused imports and unused variables. Pylint is not a tool you can rely on 100%, but it helps to follow some guidelines and to avoid the most stupid errors like typos. It gets called with the name of the (installed) Python module to check, e.g. for sugar:
+./sugar-jhbuild build -n jarabe
+./sugar-jhbuild run pylint jarabe
+You can also run it on individual files so you don't need to install first (doesn't work well for sugar-base and sugar-toolkit because they use the same module name):
+./sugar-jhbuild run pylint source/sugar-datastore/src/carquinyol/*.py
+pep8.py
+catches more style errors than pylint, so make sure to run that one, too:
+./sugar-jhbuild run pep8 --repeat source/sugar-datastore/src/carquinyol/*.py
+In the sugar packages use 'make distcheck' to make sure all files are included and the POTFILES.in is up to date.
+Buildbot
+We are running periodic builds of Sugar using
+Buildbot
+. If you break the build you are responsible to get it fixed. If you don't, the release team will take care of it, most likely by reverting your patch. More in detail:
+Every change that causes build or test suite failures should be immediately fixed or reverted.
+Every change that causes pylint or PEP8 warnings should be fixed or reverted within 24 hours.
+You can pass the
+--check
+option to
+Jhbuild
+to execute the same checks that
+Buildbot
+is doing:
+./sugar-jhbuild buildone -n --check sugar-artwork
+References
+Most projects have their own style guides, it's often useful to read them and understand the rationales behind the non-arbitrary bits.
+http://developer.gnome.org/doc/guides/programming-guidelines/index.html
+https://developer.mozilla.org/En/Mozilla_Coding_Style_Guide
+http://code.google.com/p/soc/wiki/PythonStyleGuide

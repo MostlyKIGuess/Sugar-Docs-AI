@@ -1,0 +1,153 @@
+Title: Service/Nameservers
+URL: https://wiki.sugarlabs.org/go/Service/Nameservers
+--------------------------------------------------------------------------------
+Contents
+1
+Administrative contact
+2
+Hostmasters
+3
+Registered nameservers
+4
+Editing zone data
+5
+Checkout nameserver config
+6
+Edit zone data
+7
+Push changes back to master nameserver
+8
+GIT repository implementation details
+9
+DNSSEC details
+9.1
+How to create keys for a new domain
+9.2
+How to manually sign a zone
+9.3
+Add DS records to TLD
+9.4
+How to validate zone data
+9.4.1
+Online validators
+9.4.2
+CLI tools
+Administrative contact
+To request changes to DNS records, contact <hostmaster AT sugarlabs DOT org>
+Hostmasters
+Current hostmasters are:
+Bernie Innocenti
+(please use preferably the administrative address)
+Registered nameservers
+The following nameservers are currently registered in whois records for our domains:
+hostname
+aka
+location
+IPv4
+IPv6
+ns1.sugarlabs.org
+lightwave
+Sonic, Santa Rosa CA, USA
+192.184.220.216
+2001:5a8:601:f::216/64
+ns2.sugarlabs.net
+sunjammer
+FSF, Boston, USA
+208.118.235.53
+2001:470:142:7::11
+ns1.codewiz.org
+neo
+Develer, Firenze, Italy
+2.228.72.10
+2001:b02:400:1::10
+Editing zone data
+We use distributed version control and admin scripts to arbitrate edits to the zone files and nameserver configurations.
+DO NOT EDIT THESE FILES DIRECTLY ON THE MASTER NAMESERVER, ANY CHANGES WILL BE OVERWRITTEN
+.
+Checkout nameserver config
+Checkout the git repository containing the DNS zone data:
+git clone lightwave.sugarlabs.org:/var/lib/bind/etc/bind ns
+NOTE:
+Your user on
+Machine/lightwave
+needs to be in group hostmaster. Do not clone the repo on lightwave, clone it to your local host.
+To push changes, you will also need the DNSSEC private keys for your domain. For security reasons, these
+are not kept on the master DNS itself. Ask one of the other hostmasters for a copy and put it in the keys/
+directory alongside the public keys.
+Edit zone data
+Guidelines for editing zones:
+Please keep the zone files tidy, by following indentation style
+Add comments as needed to describe obscure records in the zone files
+Remember to keep reverse zones always up to date
+Bump the serials after each update!
+(this is done automatically by our update-zone script)
+Push changes back to master nameserver
+After you edited the sugarlabs.org zone, execute this script to re-sign the zone
+and push your changes to the master DNS:
+./update-sugarlabs
+The script does:
+bump the serial number
+re-sign the zone with the DNSSEC private keys (which you must copy to keys/)
+commit your changes
+push the commit to the remote repository
+The post-receive hook automates the rest of the procedure:
+send a notification email to systems-logs@
+checkout your changes to the bind configuration directory
+make BIND reload its configuration
+watch BIND's log file to ensure there are no errors and slaves are actually transferring the changed zones
+For other domains hosted on Sugar Labs infrastructure (such as eg. somosazucar.org) use:
+./update-zone turtleartday.org
+This will check the zone before pushing.
+GIT repository implementation details
+We use a detached working directory to allow the automatic checkout to work (see post-receive hook below). The git repository is in
+/var/lib/bind/etc/bind.git
+and the working directory lives in
+/var/lib/bind/etc/bind
+.
+/etc/bind
+is a symlink to the working directory (
+/var/lib/bind/etc/bind
+).
+See
+Sysadmin/Autocheckout repositories
+for all the implementation details.
+DNSSEC details
+How to create keys for a new domain
+We standardized on algorithm 13 (ECDSAP256SHA256) because it's what RFC 8624 recommends and what Cloudflare uses:
+cd keys
+dnssec-keygen -K keys -3 -a ECDSAP256SHA256 -n ZONE codewiz.org
+dnssec-keygen -K keys -3 -a ECDSAP256SHA256 -n ZONE -f KSK codewiz.org
+How to manually sign a zone
+Normally, you should use the update-zone script
+dnssec-signzone -S -e +31536000 -K keys -d keys -o codewiz.org masters/codewiz.org.zone
+systemctl restart bind9
+Add DS records to TLD
+This step must be performed using the interface of the registrar (I used name.com).
+The data to copy is written by dnssec-signzone to the file keys/dsset-DOMAIN and looks like this:
+codewiz.org.            IN DS 53631 13 2 C31F7790197F0DC5CE7726F731FA55A9189289540749A68A937BFD09 797D72E6
+How to validate zone data
+Online validators
+https://dnssec-analyzer.verisignlabs.com/codewiz.org
+https://dnsviz.net/d/codewiz.org/dnssec/
+CLI tools
+Validate zone data with dig:
+dig +dnssec +multiline -t ns codewiz.org. @1.1.1.1 | grep ad
+;; flags: qr rd ra ad; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+Validate zone data against domain DNSKEY:
+$ unbound-host -y 'codewiz.org. DNSKEY 256 3 13 IbIcUsP+G7cnSmi12BpuiMjM9LnqvDaRS+qiquGKXxH/qAuOGlODFA4E 18O1OErfu0CkFjg6JEynOG6cSR40yg==' -v codewiz.org
+codewiz.org has address 209.51.188.53 (secure)
+codewiz.org has IPv6 address 2001:470:142:7::11 (secure)
+codewiz.org mail is handled by 10 neo.develer.net. (secure)
+Validate zone data against a domain's DS key:
+unbound-host -f keys/dsset-sugarlabs.org. -v sugarlabs.org
+sugarlabs.org has address 185.199.111.153 (secure)
+sugarlabs.org has address 185.199.110.153 (secure)
+sugarlabs.org has no IPv6 address (secure)
+sugarlabs.org mail is handled by 10 mail0.codewiz.org. (secure)
+sugarlabs.org mail is handled by 20 sunjammer.sugarlabs.org. (secure)
+Validate zone data against the root DNSKEY:
+unbound-host -D -v wiki.sugarlabs.org
+wiki.sugarlabs.org is an alias for sunjammer.sugarlabs.org. (secure)
+sunjammer.sugarlabs.org has address 209.51.188.53 (secure)
+sunjammer.sugarlabs.org has IPv6 address 2001:470:142:7::11 (secure)
+sunjammer.sugarlabs.org has no mail handler record (secure)

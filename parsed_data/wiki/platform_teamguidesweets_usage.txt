@@ -1,0 +1,265 @@
+Title: Platform Team/Guide/Sweets Usage
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Guide/Sweets_Usage#Sugar_via_Sweets
+--------------------------------------------------------------------------------
+This guide describes how to use Sugar Labs' Packaging Management System. See also
+introduction page
+and
+Packaging guide
+.
+Contents
+1
+Installation
+1.1
+Required packages
+1.2
+Install
+1.3
+Upgrade
+2
+Usage
+2.1
+Launch
+2.2
+Troubleshooting
+2.3
+Search
+3
+Current limitations
+4
+Feedback
+Installation
+Required packages
+First, install PackageKit related packages. The following command will also install Polkit authentication agent for Gnome sessions (if you start sugar emulator from Gnome Desktop Environment).
+Important notes for XO users:
+Some XO images might mount
+/var/cache/yum
+to the tmpfs. With this limited cache capacity, it will be mostly impossible to install anything of large size from the Fedora repositories. To work around this limitation, become a
+root
+user and enter the
+umount /var/cache/yum
+command in the Terminal activity or a console. To persist this change for subsequent boots, remove the corresponding line from the
+/etc/fstab
+file.
+Fedora specific instructions:
+sudo yum install gnome-packagekit
+Debian and Ubuntu (starting from 11.10) based distributions specific instructions:
+sudo apt-get install gnome-packagekit
+Ubuntu (before 11.10) based distributions specific instructions:
+sudo apt-get install packagekit-gnome
+After installing PackageKit, you need to restart the DBus system bus. The easiest way is to just restart the machine.
+Install
+Enter in the Terminal activity, or any other terminal:
+wget
+http://download.sugarlabs.org/sweets/sweets/installer.sh
+sh installer.sh
+Relogin from X session to take into account the new PATH environment variable value.
+Alternatively,
+sweets
+might be run from the
+sources
+.
+Upgrade
+Enter in the Terminal activity, or any other terminal:
+sweets upgrade
+Usage
+Read the
+Sweets Glossary
+to understand the basic concept (and
+overview
+of the bigger picture). The rest of the text will operate with the following terms:
+SWEET
+, the full
+interface
+URL, like
+http://sweets.sugarlabs.org/sdk/sugar
+, or the short one, like
+sdk/sugar
+;
+COMMAND
+,
+sweet'
+s command that indicates how to run a particular
+sweet
+; by default,
+sweet
+s have only the
+run
+command, but it is possible to have several commands;
+VERSION
+,
+sweet'
+s version
+See the
+Sugar via Sweets
+guide for real examples of how to use
+Sweets
+to run Sugar Shell.
+Launch
+To launch a
+sweet
+with verbatim passing of optional
+ARGUMENTS
+:
+sweets
+<SWEET>
+[
+<ARGUMENTS>
+]
+Sometimes
+sweet
+s support several launching commands; it is possible to specify one during the launch:
+sweets
+<SWEET>
+:
+<COMMAND>
+To run a particular, but not the latest, version:
+sweets
+<SWEET>
+=
+|
+>=
+|
+<=
+<VERSION>
+To get the full list of available versions:
+sweets status
+<SWEET>
+-v
+To get information, e.g., a list of supported commands, about a
+sweet
+:
+sweets show
+<SWEET>
+Troubleshooting
+After getting any unpredictable Sweets behaviour, read the following notes.
+Keep feeds up-to-date
+Feeds
+are being updated from time to time. After experiencing any problems, and for refreshing the local
+feeds
+cache, it will be useful to re-download
+feeds
+. Use, once, the
+-R
+command line argument for the launch command (make sure that
+-R
+goes before the
+SWEET
+, because using it afterwards will cause passing it as a
+SWEET
+'s argument):
+sweets -R
+<SWEET>
+Analyze dependencies tree
+If
+sweets
+can't find a proper
+implementation
+, see the
+e
+lines in the output of:
+sweets status
+<SWEET>
+-vdd
+Keep the system in consistent state
+Asking Sweets to launch a sweets might mean installing new packages via PackageKit. In most cases, PackageKit can handle possible issues with native packages and, at worst, will fail as well, in order to stop any further Sweets operations. Nevertheless, it can be useful to keep unbroken native packages.
+Search
+It is possible to search
+sweet
+s among locally known ones and those registered on
+http://sweets.sugarlabs.org
+(not yet implemented). The search is based on the
+Xapian
+search engine. Thus, it is possible to use Xapian's
+query language
+.
+For command format is:
+sweets search
+<QUERY>
+Notice that
+partial
+search is enabled. So, the query
+tele
+will be treated as
+tele*
+to search all words that start from
+tele
+.
+sweets
+supports the following search
+prefixes
+based on
+recipe options
+:
+interface
+the first interface from the implementations list, e.g.,
+http://sweets.sugarlabs.org/sdk/sugar
+;
+sweet
+the first interface from the implementations list in short Sweets notations, e.g.,
+sdk/sugar
+;
+implement
+the list of implemented interfaces;
+associate
+the list of associated interfaces;
+name
+the short name of a sweet;
+summary
+sweet's summary;
+description
+long sweet's description;
+category
+list of category names;
+license
+list of licenses;
+type
+sweet's type, which might be
+library
+,
+application
+or
+activity
+;
+keep
+if activity, that a sweet is representing, is favorited;
+tags
+the list of sweet's tags;
+mime_types
+the list of activity MIME types, that a sweet is representing or supports.
+So, it is possible to search only among particular sweet attributes, like
+name:telepathy
+to search only among particular sweet names.
+sweets
+support additional notation for exact searching in the form of
+prefix
+:=
+string
+. For example the query
+name:=sugar
+will find
+sweet
+s only with exactly
+sugar
+as a name and omit names like
+sugar-base
+. If the search string contains spaces, wrap it within double quotes,
+name:="Sugar Commander"
+. Note, wildcards do not work in the exact search case where asterisks will be treated literally.
+Current limitations
+For now,
+sweets
+knows only enough about the glucose dependencies to install them from native packages in Debian, Ubuntu, Fedora, Mandriva, openSUSE.
+Activities can't reuse sweets benefits.
+Feedback
+Submit
+your bug report or feature request.
+Subscribe to the
+sugar-devel
+mailing list and email with the subject prefixed with
+[SWEETS]
+.
+Ask your question on IRC channels,
+#sugar
+(not logged) or
+#sugar-newbies
+(logged).

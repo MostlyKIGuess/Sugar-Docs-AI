@@ -1,0 +1,145 @@
+Title: Machine/Discovery One/Node
+URL: https://wiki.sugarlabs.org/go/Machine/Discovery_One/Node
+--------------------------------------------------------------------------------
+Contents
+1
+ASLO Node
+2
+Components
+2.1
+Setup Network
+2.2
+Install php server
+2.2.1
+Install needed packages
+2.2.2
+Install required php modules
+2.2.3
+Create user to run scripts
+2.2.4
+Switch to activities user
+2.2.5
+Checkout ASLO sources
+2.2.6
+Fetch external dependencies
+2.2.7
+Set up NFS mount points
+2.2.8
+First-time ASLO setup
+2.2.9
+Crontab for activities user
+2.2.10
+Create vhost
+ASLO Node
+While discussing activities.sugarlabs.org maintainability with Dogi this afternoon, he suggested that instead of thinking about web, proxy, and database nodes we create a standard ALSO node which we can adopt and tune via configs.
+Components
+Setup Network
+Set the IP address for the each nic
+/etc/networks/interfaces
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet static
+        address 10.0.0.101
+        netmask 255.255.255.0
+        network 10.0.0.0
+        broadcast 10.0.0.255
+        gateway 10.0.0.1
+
+#auto eth1
+iface eth1 inet static
+        address 10.0.0.201
+        netmask 255.255.255.0
+        network 10.0.0.0
+        broadcast 10.0.0.255
+        gateway 10.0.0.1
+restart the network
+/etc/init.d/networking restart
+Install php server
+Install needed packages
+sudo apt-get install gettext
+Install required php modules
+sudo pear config-set preferred_state beta 
+sudo pear install Archive_Zip
+Create user to run scripts
+sudo useradd -d /srv/activities activities
+Make sure that all files in /srv/activities
+has apache(web-data) user
+activities
+group
+group write access
+umask is 002
+Switch to activities user
+sudo -i -u activities
+Checkout ASLO sources
+git clone
+git://git.sugarlabs.org/slo-activities/mainline.git
+~
+git checkout production -b production
+Fetch external dependencies
+cd ~/site/vendors/
+svn co
+http://svn.mozilla.org/libs/product-details
+svn co
+http://svn.mozilla.org/libs/fizzypop.mozdev
+fizzypop
+svn co
+http://svn.mozilla.org/libs/phorms
+svn co
+http://svn.mozilla.org/libs/zxtm-api
+Set up NFS mount points
+Create directories
+mkdir -p ~/files
+mkdir -p ~/staging
+Add the following lines to the end of `/etc/fstab'
+sunjammer.sugarlabs.org:/srv/nfs/activities/files /srv/activities/files nfs rsize=8192,wsize=8192,timeo=14,intr
+sunjammer.sugarlabs.org:/srv/nfs/activities/staging /srv/activities/staging nfs rsize=8192,wsize=8192,timeo=14,intr
+First-time ASLO setup
+Using
+~/aslo/config.php
+as template, setup ASLO settings in file
+~/site/app/config/config.php
+. Template file was configured for
+dev
+environment, switch it to production by  setting
+SITE_STATE
+variable to
+production
+.
+Setup other env defines in file
+~/site/app/config/config-local.php
+define('DEBUG', 0);
+define('DEV', false);
+define('QUERY_CACHE', true);
+Create directories
+mkdir -p ~/site/app/tmp/cache/persistent
+mkdir -p ~/site/app/tmp/cache/models
+mkdir -p ~/site/app/tmp/cache/views
+mkdir -p ~/files/temp
+mkdir -p ~/files/extracted
+mkdir -p ~/data
+Minify css/js stuff
+~/aslo/minify.py
+Merge ASLO gettext strings
+~/aslo/po-compile.sh
+Crontab for activities user
+@hourly $HOME/aslo/cron/hourly
+# do not use @daily to make sure that we start job after aslo-proxy
+01 08 * * * $HOME/aslo/cron/daily
+Create vhost
+vim /etc/apache2/sites-available/activities.sl.org
+<VirtualHost *:80 *:443>
+        ServerName activities.sugarlabs.org
+        ServerAlias activities2.sugarlabs.org # for test/install
+        ServerAdmin webmaster@sugarlabs.org
+
+        DocumentRoot /srv/activities/site/app/webroot
+
+        LogFormat "%h %V %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{HTTP_COOKIE}i\"" addons
+        CustomLog /srv/activities/data/access addons
+        CustomLog /var/log/apache2/all-access.log vhost_combined
+        #CustomLog /var/log/apache2/performance.log performance
+</VirtualHost>

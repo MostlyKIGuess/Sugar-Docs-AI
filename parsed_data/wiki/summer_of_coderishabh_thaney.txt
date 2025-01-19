@@ -1,0 +1,362 @@
+Title: Summer of Code/Rishabh Thaney
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/Rishabh_Thaney
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar on Raspberry Pi
+1.1
+About Me
+1.2
+About your project
+1.3
+Days Task
+1.4
+Miscellaneous
+Sugar on Raspberry Pi
+About Me
+What is your name?
+My name is Rishabh Thaney and I am a 2nd year undergraduate student at
+Bharati Vidyapeeth's College of Engineering, New Delhi, India.
+What is your email address?
+My email address is rishabhthaney@gmail.com
+What is your Sugar Labs wiki username?
+My Sugar Labs wiki username is Rishabh42
+What is your IRC nickname on irc.freenode.net?
+My IRC nickname is Rishabh42
+What is your first language? (We have mentors who speak multiple
+languages and can match you with one of them if you'd prefer.)
+My first language of communication is English and I am also fluent in Hindi.
+Where are you located, and what hours (UTC) do you tend to work?
+(We also try to match mentors by general time zone if possible.)
+I am located in New Delhi, India and my time zone is Indian Standard Time (UTC
++ 5:30). I am planning to work from 6:00 to 14:00 (UTC) but my timings are
+flexible. I'm very excited to work on this project during the summer and I can
+surely manage my time and be active when the mentors are available.
+Have you participated in an open-source project before? If so, please
+send us URLs to your profile pages for those projects, or some other
+demonstration of the work that you have done in open-source. If not,
+why do you want to work on an open-source project this summer?
+I am new to the world of open-source. The whole idea of working with
+developers all across the world and developing software that millions of people
+can use and contribute to has always fascinated me.
+I've been using Sugar since the past couple of months and I'm truly
+mesmerized by the work being done over here. Sugar labs gave me a deeper
+understanding about the technological advances in education and I believe that
+contributing to an open-source project under Sugar Labs would consequently
+improve the quality of education and as a result more people will be educated.
+As far as my involvement with an open-source project is concerned, I have
+reported a critical bug that I found in the browse activity, the whole bug report
+can be found here:
+https://github.com/sugarlabs/browse-activity/issues/48
+I also have 2 open-source repositories on Github which have the MIT opensource
+license. These are listed as follows:
+Defend My Castle game for Sugar:
+Earlier I was working on developing an activity using PyGame for Sugar, and
+the link to my project is:
+https://github.com/Rishabh42/DMC-Sugar-Activity.git
+Solutions of the programming assignments of the Andrew Ng machine
+learning course:
+This repository contains my solutions to the programming assignments of the
+course which I successfully completed:
+https://github.com/Rishabh42/Machine-Learning-Stanford-Exercises
+About your project
+We are looking for projects that will enhance the Sugar Learning Platform.
+Please consider how your project will have impact on children learning.
+What is the name of your project?
+The name of my project is Sugar on Raspberry Pi.
+Describe your project in 10-20 sentences. What are you making? Who
+are you making it for, and why do they need it? What technologies
+(programming languages, etc.) will you be using?
+Project Description:
+The Raspberry Pi is a system on chip (SoC) computer that can be used for a variety of
+projects and has been heralded as a great boon to education due to its low cost, flexibility
+and simplicity. The Raspberry Pi provides a very robust platform for educational institutions
+to incorporate new technologies in education especially when teaching children how to
+program and it is because of this functionality of the Pi that it has seen widespread
+adoption in schools. It would be a marvelous idea if we could get Sugar to run on the
+Raspberry Pi as it would provide students and teachers with an intuitive and interactive
+learning environment.
+Aim of the project:
+The aim of the project is to make Sugar run perfectly on the Raspberry Pi like it does on
+the XO laptops and to create an image of Sugar which is suitable for inclusion on the
+Raspberry Pi download page.
+I've installed Sugar on my Raspberry Pi 3 and it seems to work pretty well except some
+features which are in need of essential development.
+Project Goals and Tasks:
+The goals and tasks of the project have been listed as follows:
+Goals:
+Make a Raspbian image of the Sugar desktop environment which can be flashed on the SD card of the Raspberry Pi. An “image” in this case is an array of data blocks for a micro SD card which will contain a partition table, a boot and root filesystem specifically designed for the Raspberry Pi.
+Document the whole process and publish a script showing how others can make the image themselves.
+Ensure all the activities work well or are removed from the image.
+List the Raspbian Sugar desktop image on Raspberry Pi Foundation's downloads page.
+Tasks:
+Write scripts to build a Raspbian Sugar desktop image, and document how to do it
+Upload the scripts to github and call for others to reproduce the script and record results
+Publish the build to the mailing list and the Wiki page so that other members of the community can test, and record results
+Figure out a way to list the image on Raspberry Pi foundation's download page.
+Talk to Debian developers (Jonas, Sebastian) to ensure that my work is included in their task.
+Fix the following list of activities:
+Browse(Debian bug #848840)
+Browse activity fails to start and shell.log displayed the following errors:
+Traceback (most recent call last):
+File "/usr/bin/sugar-activity", line 220, in <module>
+main()
+File "/usr/bin/sugar-activity", line 164, in main
+module = __import__(module_name)
+File "/usr/share/sugar/activities/Browse.activity/webactivity.py", line 52, in <module>
+from collabwrapper.collabwrapper import CollabWrapper
+ImportError: No module named collabwrapper.collabwrapper
+Possible solution:
+Adding an empty __init__.py file in
+/usr/share/sugar/activities/Browse.activity/collabwrapper/ seemed to have
+solved the problem and browse is working fine.
+The main repository of the browse activity and the xo file does have this fix so
+there's a good chance that the problem began after the Debian packaging of
+Sucrose, therefore a newer release of the activity(Browse-201) is suggested
+because then it will trigger the Debian team to package the activity again and
+remove the bug as a side effect.
+The following diagram shows the benefits of releasing a new version of browse:
+Diagram credits: James Cameron
+From the above diagram, it is quite evident that if a new release of browse is
+made then there would be a cascade of positive effects but just patching the
+__init__.py fix when building the image won't cause that cascade to happen.
+The following screen shot shows the browse activity running on the raspberry
+pi after I fixed the __int__.py file:
+Physics Physics.py doesn't run inside the Pippy activity and gives the following errors:
+Traceback (most recent call last):
+File "/home/pi/.sugar/default/org.laptop.Pippy/tmp/physics.py", line 17, in <module>
+world = physics.Elements(screen.get_size())
+File "/usr/lib/python2.7/dist-packages/elements/elements.py", line 107, in __init__
+self.world = box2d.b2World(self.worldAABB, self.gravity, self.doSleep)
+TypeError: __init__() takes at most 3 arguments (4 given)
+Expected result: Fix the code of physics.py so that it can start inside the
+Pippy activity.
+Write(Debian bug #842443)
+Every time the write activity starts it makes the screen flicker and the text in
+the document opened inside the write activity is therefore unreadable.
+The bug might be caused because of an interaction between libabiword
+and libgtk.
+My approach: To bisect the problem by gtk feature development; start with
+known good gtk and abiword versions, then look at gtk release notes to find
+what changed in the API, and consider the same changes in the abiword source
+code.
+Jukebox
+Jukebox fails to start and shell.log reported the following errors:
+Traceback (most recent call last):
+File "/usr/bin/sugar-activity", line 220, in <module>
+main()
+File "/usr/bin/sugar-activity", line 164, in main
+module = __import__(module_name)
+File "/usr/share/sugar/activities/Jukebox.activity/activity.py", line 51, in
+<module>
+from player import GstPlayer
+File "/usr/bin/player.py", line 14, in <module>
+from PIL import Image, ImageTk
+ImportError: cannot import name ImageTk
+Possible causes: According to what I have understood, the activity fails inside a package
+called pillow on an import, even though the activity clearly does not import pillow. In
+addition to that, pillow installs /usr/bin/player which is a python script and the activity has a
+player.py file in the bundle. The import player should use bundle source, but it instead
+uses a /usr/bin file which could be caused because the activity was using an incorrect
+python path.
+Expected result: sugar-toolkit-gtk3 in git already has the fix, so my work will be
+to ensure that the fix reaches the image and jukebox can start.
+Stretch goals:
+Add turtleblocks or measure activity in Sucrose.
+Make a demo video about the activities being used on the Raspberry pi.
+What is the timeline for development of your project? The Summer of
+Code work period is from mid-May to mid-August; tell us what you will
+be working on each week. (As the summer goes on, you and your
+mentor will adjust your schedule, but it's good to have a plan at the
+beginning so you have an idea of where you're headed.) Note that you
+should probably plan to have something "working and 90% done" by
+the midterm evaluation (end of June); the last steps always take
+longer than you think, and we will consider canceling projects which
+are not mostly working by then.
+Following is the timeline that I plan to follow:
+Days Task
+4th May to 29th May
+Community Bonding Period
+Get thorough with the code base of Sucrose(Though I already have
+some experience)
+Gain insight on the code bases of Browse, physics.py, Write,
+jukebox activities
+Interact with the mentors and other community members and
+devise a suitable plan to fix the activities.
+30th May to 5th June
+(Exam week in college)
+Talk to Debian developers (Jonas, Sebastian) to ensure that my
+work is included in their task.
+Discuss the different tools and techniques used to make raspbian
+images and also find an efficient way to build Sucrose.
+6th June to 12th June
+Start working on the browse activity.
+Fix the bugs in it's code base and prepare a new release(browse-201)
+13th June to 14th June
+Send in patches for review by the mentors.
+Make sure that the activity is working fine
+15th June to 22nd June
+Start writing scripts to build a Raspbian Sugar desktop image for
+RPi, and document how to do it.
+22nd June to 23rd June
+Upload the scripts to github and call for others to reproduce the
+script and record results
+Publish the build to the mailing list and the Wiki page so that other
+members of the community can test, and record results
+24th June to 26th June
+Prepare for phase 1 evaluations, re-evaluate the submitted patches
+and update the documentation.
+Browse activity should be working and the first build image of
+Sugar should be completed by phase 1 evaluation
+26th June to 30th June
+Phase 1 evaluation
+1st July to 8th July
+Review the changes to be made in the image build based on the
+feedback from the community.
+Start working on physics.py
+Make sure that the code of physics is running inside pippy.
+9th July to 10th July
+Send patches for review by the community
+11th July to 18th July
+Start working on the jukebox activity
+Ensure that the sugar-toolkit-gtk3 fix reaches the image and jukebox can
+start.
+19th July to 20th July
+Send patches for review by the community
+21st July to 23rd July
+Prepare for phase 2 evaluations, re-evaluate the submitted patches
+and update the documentation.
+Include jukebox activity and physics.py in the build image of
+Sucrose
+24th July to 28th July
+Phase 2 evaluation
+Buffer period
+29th July to 5th August
+Start working on the write activity
+Test to confirm that the write activity is fixed
+6th August to 7th August
+Send patches for review by the community.
+8th August to 12th August
+Include write activity in the build image of Sucrose.
+13th August to 16th August
+Reach out to the Raspberry Pi Foundation and figure out a way with
+them to list the image on their page
+17th August to 20th August
+Update the documentation and the wiki page.
+Test the build image to ensure that everything is working perfectly.
+Add comments that will help further development
+Work on completing the stretch goals
+21st August to 29th August
+Final week evaluation
+Convince us, in 5-15 sentences, that you will be able to successfully
+complete your project in the timeline you have described. This is
+usually where people describe their past experiences, credentials,
+prior projects, schoolwork, and that sort of thing, but be creative. Link
+to prior work or other resources as relevant.
+I am familiar with the code base of Sugar since I've been using it and have also
+been interacting with the community since the past month. I have discussed
+some of the Sugar activity problems and image build methods on IRC with other people in
+the Sugar community who helped me develop a clear understanding of the goals
+and tasks of the project and now I know exactly what needs to be developed
+and how. During my college summer break this year, I have no other
+commitments apart from GSOC so there won't be any obstacles regarding my
+availability and the goals I aim to accomplish within the stipulated time.
+Moreover, I have already started working on this project and have also found a
+fix for the browse activity, in addition to that I had also reported a critical bug
+in the browse activity which was preventing it from installing the activities
+downloaded from the Sugar activity store.
+The link to that report is:
+https://github.com/sugarlabs/browse-activity/issues/48
+I was also working on developing an activity for Sugar earlier and have
+clearly understood how the activities work on the platform. This is an
+ongoing project and the link for the same is here:
+https://github.com/Rishabh42/DMC-Sugar-Activity.git
+Past experience & credentials :
+Slide game: A simple slide game made using python, link of the project
+is:
+https://github.com/Rishabh42/Slide-game
+Defend my Castle: A tower defense game made using the PyGame
+library in python. Link of the project is:
+https://github.com/Rishabh42/Defend-My-Castle
+Tic Tac Toe game for android: Made a simple Tic Tac Toe game for
+Android during my freshman year in college, the link of the project is:
+https://github.com/Rishabh42/TicTacToe-Android-
+Web crawler: A python script which can extract data from the desired
+web page, it was made using the beautifulsoup library in python. Link of
+the project is:
+https://github.com/Rishabh42/WebCrawler
+Machine Learning course(Andrew Ng): Successfully completed the
+Andrew Ng machine learning course on coursera. My answers to the
+programming assignments of the course can be found here:
+https://github.com/Rishabh42/Machine-Learning-Stanford-ExercisesYou
+and the community
+If your project is successfully completed, what will its impact be on
+the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in
+length. The first one should be yours. The other two should be
+answers from members of the Sugar Labs community, at least one of
+whom should be a Sugar Labs GSoC mentor. Provide email contact
+information for non-GSoC mentors.
+My answer:
+The purpose of the project “Sugar on Raspberry Pi” is to provide a more
+economical option as compared to the XO laptop and OLPC's NL3, since a single
+Raspberry Pi unit costs around $40 as opposed to the price of a single XO
+laptop which costs around $200. It is quite evident that the price difference
+between the two is quite large and switching to the Raspberry Pi will
+significantly reduce the costs of the organization using it, even if you include
+the cost of keyboards, mice and displays that will be attached to the Pi. It will
+also provide a more efficient way of using Sugar on displays like a monitor as it 
+has a small form factor compared to a CPU which, as a result, will save more
+desk space.
+Walter Bender's answer:
+Raspberry PI is a rapidly growing community and especially popular within the "maker
+movement". A solid and easy-to-install version of Sugar would be a nice fit as we share
+many of the same pedagogical values. This project presents a great opportunity to expand
+our community of users and contributors.
+In addition to the responses I got from the members of the Sugar Labs community, I
+have also received a response from Mr. James Cameron which is as follows:
+Work on this project has the potential to benefit owners of Raspberry Pi hardware, users of
+Debian, and users of Ubuntu. Of slightly lower benefit will be upstreamed fixes that are
+applicable to users of Fedora, SoaS, and Trisquel. For the Sugar Labs community the
+project will provide critical interactions and a sense of common purpose. For OLPC, fixes
+to activities will benefit our product offering, and the availability of a ready-made image for
+Raspberry Pi will increase awareness of the Sugar Learning Environment in the wider
+education community.
+Disclosure: James Cameron works for OLPC Inc, which uses Sugar in their products.
+Email ID: quozl@laptop.org
+What will you do if you get stuck on your project and your mentor isn't
+around?
+In such situation , I will first try to solve the problem by searching on web for
+suitable solutions. If this doesn't work, then I will contact other developers on
+the IRC channel and also post on the mailing list. From my past experience, I
+have noticed that the members of community are quite responsive and I'm
+sure that they will be able to help me out. I'm also in contact with a couple of
+people who work on open-source projects and some who are also Raspberry Pi
+enthusiasts like me, so I can reach out to them and I'm pretty sure that they
+will help me out.
+How do you propose you will be keeping the community informed of
+your progress and any problems or questions you might have over the
+course of the project?
+I am planning on maintaining a blog regarding the project where I will post
+updates of the progress, obstacles being faced and their solutions. As far as
+daily progress is concerned, I will keep my mentors informed of my progress by
+sending them links and any other useful updates over mail or on IRC if they are
+online. I will also keep the community informed by giving them updates over
+IRC and the mailing list about the milestones I achieve. This project also
+requires me to engage with other open-source communities like Debian project
+and the Raspbian project which I also plan to do over IRC and mail.
+Miscellaneous
+We want to make sure that you can set up a development environment before
+the summer starts. Please do one of the following:
+Send us a link to a screen shot of your Sugar development
+environment with the following modification: when you hover over the
+XO-person icon in the middle of Home view, the drop-down text should
+have your email in place of "logout".
+Describe a great learning experience you had as a child.
+When I was in school, I used to actively participate in technology and science
+related competitions. Once, my teacher told me about an inter school game
+making competition 3 days before the final date of submission and even
+though it was quite late to start coding the game from scratch and finishing it, I
+still didn't give up and tried my best to make the game and successfully
+submitted it. Even though I didn't win that competition but the whole journey of
+making that game helped me unearth my passion for coding and taught me
+how to stay calm and focused under stressful situations.

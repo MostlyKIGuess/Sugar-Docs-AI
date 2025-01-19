@@ -1,0 +1,66 @@
+Title: Fun Tower Level Select
+URL: https://wiki.sugarlabs.org/go/Fun_Tower_Level_Select
+--------------------------------------------------------------------------------
+The core of the level selection is the cardColors Class method.  Methods in Smalltalk (and the dialect used by Squeak) can belong to either the class or the instance of that class.  The new cardColors is now an instance method instead of a class since the method (class methods are only received from the class and not the instance so for our instance of the game to interact with this we needed to move it).  The method now looks like:
+cardColors
+"possible card colors -- modified by RIT Funtowers Team to use levels"
+| returnVal level |
+   level := (self selectedLevel) + 1. "not zero based indexing"
+   
+   (level = -1) 
+       ifTrue:  [returnVal := FtGame levels atRandom]                                    
+       ifFalse: [returnVal := FtGame levels at: level].
+    
+   ^ returnVal
+It uses an instance variable selectedLevel to select the level to use.  The levels are captured in a class method called levels.  How the images are loaded was not changed, so unless we change that chunk of code we'll have to adopt the file naming conventions for the existing images.  I set it up to use the existing cards.
+levels
+^ OrderedCollection
+               withAll: #(  
+                   #('fire' 'fire' 'fire' 'fire') 
+                   #('water' 'water' 'water' 'water') 
+                   #('air' 'air' 'air' 'air') 
+                   #('ground' 'ground' 'ground' 'ground')).
+To go along with this levels collection there is a corresponding levelsDescription, which provides the string the UI label uses.  I just used the same string as the file name (fire, water, air, ...) but it could be completely different.  It'll probably be something like #('thirds' thirds' thirds' thirds') #('fourths' 'fourths' 'fourths' 'fourths') ... for the new images.
+levelDescriptions
+"a parallel collection with descriptions for each element of FtGame level"
+^ OrderedCollection
+               withAll: #(  
+                   'fire'
+                   'water'
+                   'air' 
+                   'ground').
+The event handling methods for the two buttons call the selectedLevel method from FtGame which sets the selectedLevel to whatever the user passed in modulo how many different levels there are.  Since collections in Smalltalk are 1 based, this number gets a + 1 when it is used.  This method also changes the text label by looking up the appropriate string from levelDescriptions using the same selectedLevel index.
+selectedLevel: selectedLevelValue
+"sets the currently selected level and updates UI"
+selectedLevel := selectedLevelValue \\ (FtGame levelCount).
+   self levelLabel contents: (FtGame levelDescriptions at: (selectedLevel + 1)).
+The FtGame initialize method also changed so that the new UI morphs were added.  There were also some minor changes to make sure the existing code used the right cards so some "FtGame cards" statements were changed to "self cards."  For example in the cards method you should see "result := Array new: (self cardColors size * FtGame cardValues size)" before cardColors was a class method and had FtGame as the sender instead of self.
+initialize
+super initialize.
+   
+   self levelLabel: 
+       (StringMorph new
+           extent: 50@150;
+            contents: 'Test').
+           
+   self selectedLevel: -1.
+   
+   self initSubmorphs;
+       newForm: self background;
+       posSubmorphs;
+       addCardsToDrawStack;
+       gameIsRunning: false.
+   
+   "position level selection morphs -- offset stuff from the score button"
+   
+   self levelLabel 
+       position: self scoreCounter position + (25@-20).
+   self leftLevelButton
+       position: self scoreCounter position + (0@-20).
+   self rightLevelButton
+       position: self scoreCounter position + (80@-20).
+   
+   self addMorph: levelLabel.
+The last thing I wanted to point out was the hack I added to FtGameLeftButton and FtGameRightButton.  I made these two buttons classes but I'm not sure they need to be separate.  Any way, I added a method that allows for the FtGame reference variable to be set so the button event handler can talk to the game.
+newFtGame: ftGameInst
+ftGame := ftGameInst.

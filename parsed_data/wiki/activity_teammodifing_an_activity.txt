@@ -1,0 +1,676 @@
+Title: Activity Team/Modifing an Activity
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Modifing_an_Activity#Editing
+--------------------------------------------------------------------------------
+Contents
+1
+Editing
+1.1
+The vi editor
+1.2
+The GNOME desktop on dual desktop laptops
+1.3
+Using GEdit from Terminal
+1.4
+Using Pippy or Write
+1.5
+Develop Activity
+2
+Turtle in a pond
+3
+Modifying Turtle Art Files
+3.1
+talogo.py
+3.2
+turtleart.py
+3.3
+tacanvas.py
+3.4
+Localizing Turtle Art
+4
+Modifying Speak
+4.1
+Editing a language dictionary
+4.2
+activity.py
+5
+Modifying Ruler
+5.1
+util.py
+5.2
+show_angles.py
+6
+Modifying Calculate
+6.1
+layout.py
+7
+Modifying TamTam
+7.1
+Add new instrument
+7.2
+Add new drum kit
+8
+Modifying Chat
+8.1
+Using Pippy
+8.2
+Text Display
+9
+Modifying SocialCalc
+9.1
+socialcalcconstants.js
+9.2
+formula1.js
+10
+Modifying Physics
+10.1
+Changing block properties - density
+10.2
+Adding a keyboard shortcut
+10.3
+Adding toolbar buttons
+11
+Modifying ConozcoUruguay Activity (in Spanish)
+12
+Terminology
+13
+Readings
+Editing
+This describes how to reprogram activities using just the tools that come with the Sugar operating system. It does not require any extra development tools. Development is done directly on the OLPC XO, alternatively it can be done using the
+Live CD
+,
+Sugar on a Stick
+or other implementations of Sugar.
+This page is targeted at beginners, more experienced users may find reading
+Activities/Turtle Art/Patching
+,
+Activity Team/Resources
+and
+Activity Team/Creating a New Activity
+useful.
+The activities are  stored  at
+/home/olpc/Activities
+and you can use Browse as a "file manager" to browse the file system using the URL prefix
+file://
+For example, type
+file:///home/olpc/Activities/TurtleArt.activity
+into the browser address bar to see the Python files that make up the Turtle Art activity. Click on one of the *.py files to inspect the code.
+You can view the code but not edit it in Browse.
+There are the following options for file editing
+The vi editor
+In terminal type
+vi
+filename
+The syntax of vi is obscure for the unfamiliar.
+an alternate to vi is to install GEdit, to download and install Gedit type
+su yum install gedit
+in sugar terminal (satellit 06/09/2010)
+The GNOME desktop on dual desktop laptops
+Double click on "Computer" to navigate, double clicking a file will open it in GEdit.
+Using GEdit from Terminal
+GEdit will be found on dual desktop systems, notably the
+Paraguay builds
+.
+If used as above, it does not allow editing in directories above /home/olpc.
+To access the higher level directories run GEdit from Terminal in either Sugar or GNOME and use the su or sudo commands. (If editing OLPC system level files, it is wise to have backed up important work and know how to
+reflash the operating system
+).
+su
+ gedit
+or
+sudo gedit
+Using Pippy or Write
+To edit, select the code in Browse and copy to the clipboard (ctrl c) and open Pippy (the Python editor) and paste it to the code window (ctrl v). You can then edit the code and save it to the Journal,
+keep as Pippy document
+and using a suitable filename (eg
+filename.py
+)
+To run the modified code, you need to copy it from the journal back to the directory that the activity resides in, in this case
+/home/olpc/Activities/TurtleArt.activity
+Start the terminal activity and navigate to the activity's directory. It is a good idea to use mv (move) to backup the original file to
+filename.bak
+before it gets overwritten. Then copy the edited file from the journal.
+cd /home/olpc/Activities/TurtleArt.activity
+mv filename.py filename.bak
+copy-from-journal filename.py
+(Though there may be a message that it is copying the latest of a large number of  objects of that name, mostly that's OK, but occasionally I find that I have saved an empty file. I think
+copy-from-journal
+copies the most recent item in the journal, so access these items immediately before you copy them)
+Due to a bug(?), it may save as
+filename..py
+If you need to rename the file use the move command
+mv filename..py filename.py
+Develop Activity
+There is an activity
+Develop
+which has a file manager and an editor, currently (at writing this) version 35 seems to be buggy. It shares the limitation with the above method that it saves to the journal, not the activity's directory. If working OK, its only benefit may be avoiding the step of copying from Browse to Pippy
+Turtle in a pond
+Activities/Turtle in a Pond
+is an Activity designed to be modified. Keep the Turtle in the pond. Write your own short Python program.
+Modifying Turtle Art Files
+(see also
+Activities/Turtle Art-0.88#Programmable_Brick
+)
+Turtle Art has a special block that is programmable in Pippy. Look for the tamyblock.py entry in your Journal. Try uncommenting one of the examples.
+Use the Pippy import button to import your code into Turtle Art.
+Your code is associated with the myblock.svg block found on the Sensors palette.
+Examples:
+File Viewer
+Orbital Motion
+Oscilloscope
+talogo.py
+The file
+talogo.py
+does a lot of the calculating. For example, careful divide avoids overflow errors by returning 0 for division by zero.
+def careful_divide(x,y):
+if y==0: return 0
+return x/y
+Modify it to return 42 for division by zero
+def careful_divide(x,y):
+if y==0: return 42
+return x/y
+Swap the functions of pen up and pen down by substituting
+True
+and
+False
+was:
+defprim(lc,'pendown', 0, lambda lc: setpen(lc.tw.turtle, True))
+defprim(lc,'penup', 0, lambda lc: setpen(lc.tw.turtle, False))
+becomes:
+defprim(lc,'pendown', 0, lambda lc: setpen(lc.tw.turtle, False))
+defprim(lc,'penup', 0, lambda lc: setpen(lc.tw.turtle, True))
+turtleart.py
+This file is not used by Sugar to launch Turtle Art but you can use it to launch Turtle Art from the terminal, go to
+/home/olpc/Activities/TurtleArt.activity
+and type
+python turtleart.py
+it will open without the menu bar, it is also in Spanish because it is hard coded.
+twNew(win1, os.path.abspath('.'),'es')
+change
+es
+to
+en
+in the file
+turtleart.py
+and it will launch in English
+twNew(win1, os.path.abspath('.'),'en')
+tacanvas.py
+This file handles the turtle drawing functions, for example the following code calculates which of the 36 turtle sprites, each rotated by 10 degrees to draw, depending on the heading.
+def turn_turtle(t):
+   setshape(t.spr, t.shapelist[(int(t.heading+5)%360)/10])
+A correction of 5 degrees is added so that the turtle is facing straight up for headings -4.999 to +4.999 degrees.
+Change +5 to +0 and the turtle is rotated left for any heading<0
+def turn_turtle(t):
+   setshape(t.spr, t.shapelist[(int(t.heading+0)%360)/10])
+Localizing Turtle Art
+The best way to contribute to translations for Sugar Activities is through
+http://translate.sugarlabs.org/
+In the next release cycle, your translations will be available to millions of users.
+Here follows a quick and dirty hack to add translations to a local copy of Turtle Art.
+For Turtle Art, the translations' source resides at /home/olpc/Activities/TurtleArt.activity/po For example, the Slovenian translation source is in sl.po. The file consists of untranslated and translated string pairs:
+msgid "untranslatedstring"
+msgstr "translatedstring"
+This file can be edited with the
+vi editor or
+write (as described at the head of this article, use copy-to-journal -m text/plain, edit with write and copy-from-journal) or
+on dual boot laptops use the GNOME desktop
+Compile the po file to a mo file using the command
+msgfmt
+in terminal.
+Put the compiled mo file in the right directory and with the right file name, eg for Slovenian that is /home/olpc/Activities/TurtleArt.activity/locale/sl/LC_MESSAGES/org.laptop.TurtleArtActivity.mo
+Set your language to Slovenian at My Settings Language (click on the centre of the home view)
+In the example below a number of strings were edited with X at the start of the translated string
+Modifying Speak
+Editing a language dictionary
+This is based on information at
+laptop.org
+Instructions for implementing a new language "voice" for Speak on the XO.
+In the following, Speak is modified so that it spells out the letters in 'OLPC' rather than trying to pronounce it as a word, only the English pronunciation dictionary is modified.
+There is a dictionary for each language (eg. en_dict for English) which is compiled from a rules file and a list file, you can find a description of the syntax for these files in the
+dictionary documentation
+. In this example, the rules and list files are downloaded as a zip (compressed) file, the en_list file is edited and a new dictionary en_dict is created from the files en_rules and en_list
+Download the source files for espeak from
+http://kent.dl.sourceforge.net/sourceforge/espeak/espeak-1.40.02-source.zip
+Go to the Journal where you will find File espeak-1.40.02-source.zip
+Open this with Etoys, extract all to the suggested directory /home/olpc/isolation/1/uid_to_home_dir/1004/data/MyEtoys
+1004 (or similar) seems to be a temporary directory and may be different in your case, keep Etoys open till you have copied the required files
+In
+laptop.org
+the suggestion is to use the Linux vi text editor, here Write is used as the text editor.
+Open Terminal and go to directory /home/olpc/isolation/1/uid_to_home_dir/1004/data/MyEtoys/espeak-1.40.02-source/dictsource   (or similar)
+cd /home/olpc/isolation/1/uid_to_home_dir/1004/data/MyEtoys/espeak-1.40.02-source/dictsource
+copy-to-journal
+the list and rules files for the English dictionary, the Mime
+1
+2
+3
+type is text/plain
+copy-to-journal en_list -m text/plain
+    copy-to-journal en_rules -m text/plain
+Go to the Journal and open the en_list file with Write and edit to indicate that the string 'OLPC' is to be spoken as an abbreviation:
+ok	        $abbrev
+    olpc	$abbrev
+    omg	$abbrev
+keep as text
+Go to Terminal and copy both files from the Journal
+(these files are copied to a temporary directory /home/olpc rather than the final destination /usr/share/espeak-data because either
+copy-from-journal
+does not have the required permission or I do not know the syntax for user root)
+cd /home/olpc
+    copy-from-journal en_list
+    copy-from-journal en_rules
+I think
+copy-from-journal
+copies the most recent item in the journal, so access both these items immediately before you copy them, keep them as text.
+The files are copied across as en_rules.txt and en_list.txt to directory cd /home/olpc
+You can use Browse to check the contents of both files, just put /home/olpc in the address bar
+Finally, go to the destination directory, /usr/share/espeak-data , change the user to root, back up the old dictionary, copy the list and rules files from /home/olpc while removing the txt extension, compile them to create a new en_dict and exit root user shell
+cd /usr/share/espeak-data
+    su
+    mv en_dict en_dict.bak
+    mv /home/olpc/en_rules.txt en_rules
+    mv /home/olpc/en_list.txt en_list
+    espeak --compile=en
+    exit
+Start Speak and type OLPC
+activity.py
+Files are at
+/home/olpc/Activities/Speak.activity
+Modify the initial greeting on startup by editing
+Hello %s.  Type something
+%s
+is a placeholder for your name
+self.say(_("Hello %s.  Type something.") % xoOwner.props.nick)
+Modifying Ruler
+subactivity.py
+the menu system
+show_rulers.py
+the initial screen of 3 rulers
+show_grids.py
+the cm and mm grids
+checkers.py
+the checker board
+show_angles.py
+the 90deg and 360 deg protractors
+util.py
+4 utility functions including pixel (dots per inch) to mm conversion
+util.py
+The conversion to mm is by
+def mm(n):
+   return n / 25.40 * 200
+change to inches and tenths with
+def mm(n):
+   return n / 10.00 * 200
+challenges:
+change labels from cm & mm to inches and tenths
+get the protractors correctly centred on the screen
+show_angles.py
+Shown below is the code relating to drawing the quadrant protractor, comments are added.
+class Angles90(paper.Drawing):
+   def draw(self,c):
+       self.set_background_color('white')
+c.set_antialias(True)
+ox = mm(0)                     #x origin at LHS
+       oy = mm(99)                    #y origin at bottom
+       d = mm(90)                     #default line length 90mm
+       def xy(angle,m=d):             #calculate line x,y from angle
+           return cos(-angle)*m+ox,sin(-angle)*m+oy
+       def ray(angle,r0=0,r1=d):      #default lines from origin
+           c.move_to(*xy(angle,r0))   #start point
+           c.line_to(*xy(angle,r1))   #end point
+lw = 6                         #line width 6 pixels
+       c.set_line_width(lw)
+       c.move_to(ox,oy+lw/2)
+       c.line_to(*xy(pi/2))           #vertical line
+       ray(0)                         #horizontal line
+       c.stroke()
+c.save()
+       c.set_line_width(3)
+       c.set_dash([mm(5)])
+       ray(pi/4)                      #dashed line 45 degrees
+       c.stroke()           
+       c.restore()
+c.set_line_width(4)            #line width 4 pixels
+       for a in range(10,81,10):      #every 10 deg from 10 to 81
+           ray(d2r(a),mm(10),mm(85))  #radius 10 to 85mm
+       c.stroke()                     #10 degree lines, thick outer section
+       c.set_line_width(2)            #width 2 pixels
+       for a in range(10,81,10):      #every 10 deg from 10 to 81
+           ray(d2r(a),mm(3),mm(20))
+       c.stroke()         #10 degree lines, thin inner section (overwritten by 5 deg lines)
+c.set_line_width(2)            #width 2 pixels
+       for a in range(1,90,1):        #every 1 deg from 1 to 90
+           ray(d2r(a),mm(70),mm(80))  #1 deg lines from 70 to 80 radius
+       c.stroke()                     #1 degree lines
+       c.set_line_width(2)            #width 2 pixels
+       for a in range(0,90,5):        #every 5 deg from 0 to 90
+           ray(d2r(a),mm(20),mm(81))  #radius 20 to 81mm
+       c.stroke()                     #5 degree lines
+The purpose of the numeric coefficients should be apparent. Try altering them and predicting the result.
+Challenges:
+Try adding numbers to the 10 degree lines.
+Display the mouse coordinates in mm.
+Modifying Calculate
+layout.py
+Two mods to increase the discoverability of the help and plot functions. Two new buttons are added. A help (?) button puts the string 'help' into the display, pressing enter then displays help. A plot (plt) button puts the plot template in the display. Enter values and press enter.
+Reduce the width of the clear button
+was:
+[3, 0, 3, _('Clear'), self.col_gray1, lambda w: self._parent.clear()],
+becomes:
+[4, 0, 2, _('Clear'), self.col_gray1, lambda w: self._parent.clear()],
+and add two buttons, one for help and the other for plot
+add:
+[2, 3, 1, '?', self.col_gray2, lambda w: self._parent.add_text('help')],
+[3, 0, 1, 'plt', self.col_gray3, lambda w: self._parent.add_text('plot(eqn,var=-a..b)')],
+Modifying TamTam
+Add new instrument
+Obtain two images for new instrument (see
+examples
+)
+dimensions 112x112
+alpha channel should present
+one copy for normal-state
+name is "<name_of_instrument>.png"
+image of instrument is "shadowed"
+one copy for selected-state
+name is "<name_of_instrument>sel.png"
+image of instrument is not "shadowed"
+image is framed
+Place all files to common/Resources/Images directory
+Obtain sound file for new instrument with follow preferable characteristics
+filename is "<name_of_instrument>" (w/o suffix)
+Uncompressed PCM, 16KHz
+...
+Place file to common/Resources/Sounds directory
+Change common/Util/Instruments.py file by adding new line
+_addInstrument("<name_of_instrument>", <type>, <register>, '<category>', <start>, <end>, <duration>, <scale>)
+type
+type of sound processing
+INST_SIMP
+"simple" playing (try it first)
+INST_TIED
+some kind of processing filters
+register
+...
+LOW
+...
+MID
+...
+HIGH
+...
+PUNCH
+...
+category
+group of instruments
+animals
+percussions
+strings
+winds
+percussions
+keyboard
+concret
+people
+Add new drum kit
+Prepare three images, two like for
+regular instrument
+and follows one
+name is "<name_of_instrument>selgen.png"
+image is (another) framed
+see
+Place all files to common/Resources/Images directory
+Create sound files
+13(do not sure about hardcoded nature of this number)
+sound files(use unique name for each stage instead of <name_of_instrument>)
+for different stages of drum playing
+one
+sound file
+for drum itself
+and place them all to common/Resources/Sounds directory
+Add follows line to common/Util/Instruments.py for every of 13 stages
+_addInstrument("<unique_name_of_drum_stage>", <type>, <register>, '<category>', <start>, <end>, <duration>, <scale>, kitStage=True)
+and lines for drum itself
+<any_unique_varname> = { 24 : "<name_of_drum_stage_1>",
+                         26 : ...,
+                         28 : ...,
+                         30 : ...,
+                         32 : ...,
+                         34 : ...,
+                         36 : ...,
+                         38 : ...,
+                         40 : ...,
+                         42 : ...,
+                         44 : ...,
+                         46 : ...,
+                         48 : "<name_of_drum_stage_13>" }
+_addInstrument("<name_of_drum>", 0, 0, "percussions", 0, 0, 0, 1, <any_unique_varname>)
+To use new drum kits in TamTamMini
+#285
+bug should be fixed.
+Modifying Chat
+Using Pippy
+Modifying the Chat activity can be done with Pippy! (since
+#5542
+)
+Open up the Chat activity and hit fn + spacebar (view source key). The source for the Chat activity will be shown in the Journal. Click Start to open the source with Pippy.
+Make your modifications to Chat and
+Keep
+-->
+As Activity Bundle
+. Your new activity will pop up as "Chat Source Bundle" in the Journal. Click start to try out your modifications.
+Text Display
+Changing how text is displayed in text is done in the function:
+def add_text(self, buddy, text, status_message=False):
+The source contains a description and diagram of how to modify how text is displayed on the screen.
+Display text on screen, with name and colors.
+
+        buddy -- buddy object or dict {nick: string, color: string}
+                 (The dict is for loading the chat log from the journal,
+                 when we don't have the buddy object any more.)
+        text -- string, what the buddy said
+        status_message -- boolean
+            False: show what buddy said
+            True: show what buddy did
+
+        hippo layout:
+        .------------- rb ---------------.
+        | +name_vbox+ +----msg_vbox----+ |
+        | |         | |                | |
+        | | nick:   | | +--msg_hbox--+ | |
+        | |         | | | text       | | |
+        | +---------+ | +------------+ | |
+        |             |                | |
+        |             | +--msg_hbox--+ | |
+        |             | | text | url | | |
+        |             | +------------+ | |
+        |             +----------------+ |
+        `--------------------------------'
+Modifying SocialCalc
+SocialCalc
+is a spreadsheet activity. You can find information on how it is programmed at
+PROGRAMMING OF SOCIALCALC.
+It is primarily written in Java with some Python code to "Sugarise" it. You will find the Python code at //home/olpc/Activities/SocialCalcActivity and the Java code in the web subdirectory.
+socialcalcconstants.js
+In the web subdirectory the file
+socialcalcconstants.js
+contains a number of constants including the error message strings and date format.
+For example at line 341, the string
+s_calcerrunknownname: "Unknown name"
+is the error message for when you type an unrecognised string into a cell. Try typing
+=abc
+into a spreadsheet cell and it displays as
+Unknown name "ABC"
+You can use Pippy as your editor, even though the file being edited is Java script. Just follow the instructions at the beginning of this article but substitute .js for .py
+Editing line 341 to read
+s_calcerrunknownname: "Unknown namey thing"
+results in an error message for
+=abc
+of
+Unknown namey thing "ABC"
+The month names for date formatting cells are at line 310
+s_FormatNumber_monthnames: ["January", "February", "March", "April", "May", "June", "July", "August", "September",             "October", "November", "December"],
+Edit this to change month names in cells which are date formatted.
+The help for the functions are at lines 352-462. For example, edit the string
+s_fdef_ACOS: 'Trigonometric arccosine function. ',
+to change the text shown in this image.
+Help for the arguments that the functions require are at lines 464-499. For example, the string
+s_farg_v: "value",
+results in the image below.
+The text for the function categories is at lines 503-512
+s_fclass_all: "All",
+  s_fclass_stat: "Statistics",
+  s_fclass_lookup: "Lookup",
+  s_fclass_datetime: "Date & Time",
+  s_fclass_financial: "Financial",
+  s_fclass_test: "Test",
+  s_fclass_math: "Math",
+  s_fclass_text: "Text",
+There are lots more constants that you can experiment with.
+formula1.js
+formula1.js parses formulae entered into cells. It also has the code for functions.
+Modifying Physics
+Changing block properties - density
+Physics
+is based on Box2D v2.0.2 , there is good
+documentation
+. It is 'wrapped' in a python wrapper called
+elements
+which is then 'Sugarised' to make Physics. It was originally on the
+OLPC wiki
+but has now migrated to the
+Sugarlabs wiki
+.
+You will find the 'Sugarising' code at
+/home/olpc/Activities/Physics.activity
+directory and the Elements code in the
+elements
+subdirectory and the Box2D code in a further
+box2d
+subdirectory.
+Here is an example, you can make rectangles have a lower density than other shapes.
+Edit the file
+tools.py
+in the
+/home/olpc/Activities/Physics.activity
+directory.
+In the box creation tool
+# The box creation tool        
+    class BoxTool(Tool):
+edit line 103 to read
+self.game.world.add.rect(self.rect.center, self.rect.width/2, self.rect.height/2, dynamic=True, 
+    density=0.01, restitution=0.16, friction=0.5)
+Alternatively you could get the same result editing the file
+add_objects.py
+in the
+/home/olpc/Activities/Physics.activity/elements
+directory. Force the function
+def rect(...)
+to have density of 0.01. at line 147 add the following code
+density = 0.01
+Equal density (1.0)
+Modified so rectangles have a density of 0.01
+Adding a keyboard shortcut
+A more sophisticated approach would be to use keyboard shortcuts
+l = light, density=0.1
+n = normal, density=1.0
+h = heavy, density=10
+Edit the file
+tools.py
+in the
+/home/olpc/Activities/Physics.activity
+directory.
+Add the following code in the event handler, handleEvents(self,event), of class Tool(object)
+elif event.key == K_h:
+               self.setdensity=10
+           elif event.key == K_l:
+               self.setdensity=0.1
+           elif event.key == K_n:
+               self.setdensity=1
+add the following code in the __init__ method of class BoxTool(Tool)
+self.setdensity =1
+finally modify this line of code to set density to self.setdensity rather than 1.0
+self.game.world.add.rect(self.rect.center, self.rect.width/2, self.rect.height/2, 
+        dynamic=True, density=self.setdensity, restitution=0.16, friction=0.5)
+Do the same for circles, triangles and polygons.
+Explanation
+The class BoxTool is a derived class of the base class Tool. Attributes in a derived class override attributes in a base class, if the attribute is not defined in the derived class, then the base class attribute is inherited. When an instance of BoxTool is created, the __init__ method of class BoxTool runs, the __init__ method of class Tool is overridden. But handleEvents(self,event) is inherited from class Tool because it is not defined in class BoxTool. The default density is set in __init__ , it is altered by handleEvents and is used to create a rectangle of the appropriate density in self.game.world.add.rect
+The significance of 'self' is that it is the current instance of BoxTool. Using self.density means the variable density in the current instance.  For more on classes see
+Python Tutorial, Section 9, Classes
+or
+Gasp Lessons
+.
+Adding toolbar buttons
+The *.svg icons were created for the 3 densities, using the vector drawing package Inkscape. A feather, wood and rock:
+feather.svg
+http://www.box.net/shared/f2cu2mmjdg
+wood
+http://www.box.net/shared/goqicaiiyt
+rock
+http://www.box.net/shared/ybnc686fhy
+They can be downloaded to the journal, they save as
+File index.php from...
+Do not open them or the paint activity will corrupt them. They need, each in turn, to be the top (most recently accessed) items in the journal for copy-from-journal to work.
+In terminal change to directory /home/olpc/Activities/Physics.activity/icons
+copy-from-journal feather.svg
+ mv feather..svg feather.svg
+and same again for wood and rock.
+Edit the activity.py file in the directory /home/olpc/Activities/Physics.activity add the following code in build_toolbar(), just after the code for self.destroy that places three new toolbuttons to the right of the existing buttons.
+self.light = RadioToolButton(group=self.box, named_icon='feather')
+       self.light.set_tooltip(_("Light"))
+#        self.light.connect('clicked',self._light_cb)
+       create_toolbar.insert(self.light,-1)    
+       self.light.show()
+       self.normal = RadioToolButton(group=self.box, named_icon='wood')
+       self.normal.set_tooltip(_("Normal"))
+#        self.normal.connect('clicked',self._normal_cb)
+       create_toolbar.insert(self.normal,-1)    
+       self.normal.show()
+       self.heavy = RadioToolButton(group=self.box, named_icon='rock')
+       self.heavy.set_tooltip(_("Heavy"))
+#        self.heavy.connect('clicked',self._heavy_cb)
+       create_toolbar.insert(self.heavy,-1)    
+       self.heavy.show()
+Modifying ConozcoUruguay Activity (in Spanish)
+See
+http://drupal.ceibaljam.org/?q=node/46
+for how to modify the contents of the ConozcoUruguay Activity to develop content, create new questions and new levels of play. This description is particularly directed to those who have no programming skills. (in Spanish but see translate.google.com for a translation)
+Terminology
+OLPC
+XO
+the One Laptop per Child laptop hardware
+Linux
+the underlying computer operating system. If you start the Terminal activity you are looking at a Linux command line interface.
+Sugar
+the GUI (Graphical User Interface) for the operating system. It is written in Python and launched from Linux. It is what you see when you turn on your XO or launch Sugar on a Stick.
+Python
+the programming language that most activities are written in. Source files have a *.py extension. It is an interpreted language, not a compiled one; programs run when the Python interpreter reads and interprets the *.py files; there are no executable (*.exe) files. The Pippy activity is a Python editor.
+Libraries
+If you read a *.py python source file, you are not seeing the whole story. Libraries of code are imported, often at the start of a *.py file you will see libraries imported,
+e.g.
+,
+import pango
+import gtk
+Some of the more commonly used libraries:
+GTK
+- a library for creating graphical user interfaces.
+pango
+- text rendering library
+cairo
+- graphics rendering library
+pangocairo - the library integrating Pango and cairo
+math
+- gives access to library functions for floating point math
+time
+- this module provides various time-related functions.
+sugar
+- the sugar Package allows access to several modules and subpackages
+gobject
+- an abstraction layer that allows programming with an object paradigm
+os
+- this module provides a unified interface to a number of operating system functions.
+Readings
+olpc:Sugar_Architecture/API
+http://xo-whs.wikispaces.com/Terminal
+Linux
+Application development for the OLPC laptop
+Activity handbook - Olpcaustria
+http://www.python.org/doc/
+Python

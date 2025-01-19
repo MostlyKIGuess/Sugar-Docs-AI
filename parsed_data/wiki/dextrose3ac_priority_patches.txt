@@ -1,0 +1,133 @@
+Title: Dextrose/3/AC Priority Patches
+URL: https://wiki.sugarlabs.org/go/Dextrose/3/ACPriorityPatches
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Moved and died at
+https://sugardextrose.org/projects/dextrose/wiki/AC_Priority_Patches
+Contents
+1
+Activity Central Priority Patches list & Status after Dextrose 3 release
+1.1
+Notification enhancements (Martin Abente)
+1.2
+Database support for 3G control panel (Andrés Ambrois)
+1.3
+Add lease duration information in about my computer (Anish Mangal)
+1.4
+Memory and cpu resource indicator (Anish Mangal)
+1.5
+Globalkey for touchpad device icon (Martin Abente)
+1.6
+Change the method to add new actitivities in the activities list in home view (Jorge Saldivar)
+1.7
+Share 3g connection (Martin Abente)
+1.8
+Operations over multiple files in the journal
+1.9
+Extend sugar-launch with more options (Martin Abente)
+1.10
+Flickering and unknown icons in the window bar #870 (Aleksey Lim)
+1.11
+Set default scaling to 100 (unknown author)
+1.12
+Journal Backup / Restore (Martin Abente)
+1.13
+Clipboard menu off screen #2201 (Aleksey Lim):
+1.14
+Enable to call the frame from arbitrary code avoiding circular imports (Aleksey Lim)
+Activity Central Priority Patches list & Status after Dextrose 3 release
+High priority patches from
+Dextrose/3/PatchesState
+. The list is prioritized.
+Notification enhancements (Martin Abente)
+Patch not found, prepare a feature request, comments in link:
+https://wiki.sugarlabs.org/go/Notification_system_draft
+To review actual state in regard to GTK3.
+[anish, ask on sugar-devel if porting to gtk3 first. Goal: having design discussed in sugar-devel and the feature upstream]
+[DISCUSS how to implement this]
+Database support for 3G control panel (Andrés Ambrois)
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0042-Database-support-for-3G-control-panel.patch
+Assigned to: Anish (m_ainsh)
+Current status/Blockers: This probably requires porting some of the code in model.py to be NM 0.9 compliant. A simple port of this patch to mainline didnt work out of the box (preliminary attempt)
+Add lease duration information in about my computer (Anish Mangal)
+We need check xo-1.75 compatibility
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0046-Add-lease-duration-information-in-about-my-computer.patch
+Assigned to: Anish (m_anish)
+Blockers: None
+Current status: Patch Coming soon (port to mainline done)
+Memory and cpu resource indicator (Anish Mangal)
+It needs to be re-designed. ?  CPU cycles code must be tuned for ARM ?
+Does this needs CPU cycles, suspend resume behavior?, Using it only with the fram is open.
+Assigned to: Anish (m_anish)
+CUrrent status: Not ported
+Blockers:
+Design issues. Fixing the sad face
+Heuristic issues. The heuristic needs to be ARM compliant.
+Disagreement on whether such numbers should be made visible in the fashion they are with this implementation.
+Action: Check and update feature page.
+Globalkey for touchpad device icon (Martin Abente)
+Must be upstreamable,.especify for only 1.0. to check deviceicon/touchpad.py for specific path and verify hotkey <alt-m> ??
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0040-Globalkey-for-touchpad-device-icon.patch
+Assigned to: Anish (m_anish)
+Blockers: None
+Current status: Patch coming soon (tested, ported)
+Change the method to add new actitivities in the activities list in home view (Jorge Saldivar)
+This patch seems o.k but needs to be updated to latest sugars.
+https://bugs.sugarlabs.org/ticket/1660
+(in comment).
+Assigned to: Rafael (dirakx)
+Blockers: Don't think there are any
+Current Status: Being discussed with upstream (follow ticket history)
+Share 3g connection (Martin Abente)
+Need investigation regards New network manager versions, impleting share connection feature (for all kinds of connections), and needs desing for sugar interface experience.
+First we need to apply:
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0036-Make-sure-Adhoc-is-Sugar-Adhoc.patch
+Then:
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0035-Share-3g-connection.patch
+Bug reference:
+https://dev.laptop.org.au/issues/1028
+Assigned to : Ajay
+[DISCUSS how to implement this]
+Operations over multiple files in the journal
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0082-uy-1242-Batch-Operations-on-Journal-Entries-Copy-Era.patch
+Needs design discussion.
+[DISCUSS how to implement this]
+Extend sugar-launch with more options (Martin Abente)
+We need to make a feature page for that, the change its simple but its needs discussion.
+https://patchwork.sugarlabs.org/patch/594/
+[anish]
+Flickering and unknown icons in the window bar #870 (Aleksey Lim)
+Needs review and testing to get it upstream, its an interesting bug to work.
+https://bugs.sugarlabs.org/attachment/ticket/870/0001-Flickering-and-unknown-icons-in-the-window-bar-870.patch
+[anish?]
+Set default scaling to 100 (unknown author)
+in GTK3 is going to be possible to set scale with other units than pixels. like CSS. We must see Gnome bugs..and ask Carlos Garnacho.
+Assigned to: Anish (m_anish)
+Blockers/Current status: Downstream patch is a hack, upstream needs to be a proper fix, for which discussions with gnome need to happen. As for the current patch, I'll post it upstream, but it would be understandable if its rejected. Further research and follow up with gnome is outside the scope of upstreaming this particular patch.
+Journal Backup / Restore (Martin Abente)
+Redo feature page and analyse if this can be done on the control panel.
+PATCH :
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0019-Journal-Volumes-Backup-and-Restore.patch
+Old:
+http://wiki.sugarlabs.org/go/Sugar_Creation_Kit/sck/Backup-restore
+[DISCUSS how to implement this]
+Clipboard menu off screen #2201 (Aleksey Lim):
+Note: We nend to add new functionality to the pallete in order to allow max widht and add widgets instead of only text.
+Better to  do in gtk3 port, this patch its a hack.
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0045-Clipboard-menu-off-screen-2201.patch
+Assigned to: Anish (m_anish)
+Current status: Resend patch with typo in description fixed
+Link:
+https://bugs.sugarlabs.org/ticket/2201
+Blockers: None
+Enable to call the frame from arbitrary code avoiding circular imports (Aleksey Lim)
+Not sure why this one is necessary. We should fix circular imports by refactoring rather than adding hacks to break the cycle.
+Status unknow. What is the problem that this patch is trying to fix, bug fixes?
+PATCH :
+http://git.sugarlabs.org/dextrose/mainline/blobs/bleeding-edge/rpms/sugar/0056-Let-call-the-frame-from-arbitrary-code-avoiding-curc.patch
+[?]

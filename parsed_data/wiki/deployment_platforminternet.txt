@@ -1,0 +1,61 @@
+Title: Deployment Platform/Internet
+URL: https://wiki.sugarlabs.org/go/Deployment_Platform/Internet
+--------------------------------------------------------------------------------
+Contents
+1
+Background
+2
+Server side
+3
+Client side
+4
+Getting involved
+Background
+This is
+one of the possible
+deployment scenarios for
+Deployment Platform
+. This page is intended to describe procedures for end users connected to the
+Internet
+.
+Targeting environment
+The standard targeting environment assumes:
+End users have reliable Internet connectivity at all times.
+Server is located on the Internet and has singular access point.
+Server side
+For now, there are the following Sugar Network servers publicly available on the Internet:
+node-devel.sugarlabs.org
+Development server that does not contain important data and is free for any experiments (administrative privileges for anonymous users);
+node-testing.sugarlabs.org
+Recent stable release with regular data import from the production server; is still free for any experiments;
+node.sugarlabs.org
+Production server.
+Client side
+Configuration
+Point clients to one of the existing Sugar Network servers by populating the
+/etc/sweets.conf
+configuration file with the following options:
+[client]
+api-url =
+SERVER-API-URL-HERE
+By default, clients look for the production server.
+Run Sugar Network clients
+Follow the
+Try it
+install instructions to setup Sugar Network client.
+While working, Sugar Network client logs can be found
+~/.sugar/default/logs/sugar-network-client
+file. The logging verbosity level depends on the
+global Sugar setting
+.
+Getting involved
+Subscribe to the
+sugar-devel
+mailing list and email with the subject prefixed with
+[PLATFORM]
+.
+Ask your question on IRC channels,
+#sugar
+(not logged) or
+#sugar-newbies
+(logged).

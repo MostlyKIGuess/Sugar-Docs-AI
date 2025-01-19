@@ -1,0 +1,255 @@
+Title: Tuquito
+URL: https://wiki.sugarlabs.org/go/Community/Distributions/tuquito
+--------------------------------------------------------------------------------
+Use Ubuntu startup disk creator to install the DVD to a 4 GB USB stick. Works Very well --
+Satellit
+15:00, 21 March 2012 (EDT)
+CD contains 3 language selections: en; es; pt.
+Fully loaded with Groveshark; banshee; BLC; totum; Shotwell; flash; Thunderbird; Pidgin; Gwibber; Xchat; Openoffice; Giver; PdfPrinter; filezilla; Skype; Audacity; Picassa; Google Earth; wine; VirtualBox; Garfio and many other extras to make it very user friendly.
+Tuquito-6 cinnamon Screen-shot :
+Sugar versions available in Ubuntu repos:0.84; 0.86; 0.88; 0.90
+some of which have missing dependecies
+Contents
+1
+Download
+1.1
+Install
+Sweets-Distribution sugar 0.94
+in tuquito6-dvd-cinnamon
+2
+Blog
+3
+Review
+4
+Request for Help
+4.1
+Patch: python_xpcom.deb
+5
+Older Testing
+5.1
+Install Sugar 0.88.0 from Ubuntu/maverik/with symantic
+5.2
+Install Sugar-desktop 0.88 "SWEETS"
+5.3
+NOTES
+5.3.1
+Problems
+Download
+Tuquito-6 Cinnamon
+alsroot added Tuquito to the recognized ubuntu 12.04 versions.
+Updated 03/31/2013
+(Ubuntu Precise 12.04 LTS)
+http://mirrors.opencomunity.com/tuquito/guarani/tuquito-6-cinnamon-dvd-32bit-beta.iso
+http://www.tuquito.org.ar/donar?f=tuquito6-dvd-cinnamon-64
+http://mirrors.opencomunity.com/tuquito/guarani/tuquito-6-cinnamon-dvd-64bit-beta.iso
+http://www.tuquito.org.ar/donar?f=tuquito6-dvd-cinnamon-32
+Other Software:
+Classmate:
+http://mirrors.opencomunity.com/tuquito/classmatepc/
+OLPC:
+http://mirrors.opencomunity.com/tuquito/olpc/
+Install
+Sweets-Distribution sugar 0.94
+in tuquito6-dvd-cinnamon
+Tutorial with screenshots of install of Sweets in tuquito-6
+Click ^ to see how to install
+Tuquito 5
+(Ubuntu 11.04) page updated 11/15/2011
+Sugar 0.88 and 0.90 + Ubuntu Sugar Remix in software manager
+Sweets-Sugar 0.94.1
+http://www.tuquito.org.ar/cd.html
+http://www.tuquito.org.ar/donar?f=tuquito5-cd-32
+http://www.tuquito.org.ar/donar?f=tuquito5-cd-64
+http://www.tuquito.org.ar/dvd.html
+http://mirrors.opencomunity.com/tuquito/pampa/tuquito-5-gnome-dvd-32bit.iso
+http://mirrors.opencomunity.com/tuquito/pampa/tuquito-5-gnome-dvd-64bit.iso
+Tuquito 4.1
+(Ubuntu 10.04)
+Sugar 0.88 in software manager (see below)
+http://mirrors.opencomunity.com/tuquito/toba/tuquito-4-main-i386.iso
+http://mirrors.opencomunity.com/tuquito/toba/tuquito-4-main-amd64.iso
+Install sweets sugar
+sweets-distribution information
+Blog
+Review
+http://distrowatch.com/table.php?distribution=tuquito
+Request for Help
+http://lists.sugarlabs.org/archive/sugar-devel/2011-March/030593.html
+[Sugar-devel] Sugar in Tuquito Distribution 3/27/2011:
+I would like to learn more about Sugar and the procedures that are needed to
+be folowed  in order to make that tuquito (
+http://tuquito.org.ar
+this is an
+ubuntu derivated distribution) takes part of the distributions that are
+officially supported by sugar.
+I would like to tell you our case, and what we have done until now
+
+1. Necessity
+Classmate netbooks has been chosen in some provinces of Argentine and in the
+"Conectar Igualdad Plan" (
+http://www.conectarigualdad.gob.ar/
+). These
+computers will have distributions based on Ubuntu. One of the problems the
+users of ubuntu are facing is that the packages of sugar are not up to date
+or we have problems to compile the hulahop seccion and we have errors
+executing the browse activity because of the updating of xulrunner .
+
+2. Solutions
+considering the situation that we have with the people of Tuquito, we have
+decided to try to solve these problems and compile sugar from jhbuild. You
+can see on these links 2 tickets created by me relating to this job (
+http://bugs.sugarlabs.org/ticket/2496
+http://bugs.sugarlabs.org/ticket/2629
+).
+
+3. Procedures that we have followed  to compile sugar in Tuquito (can be
+applied in ubuntu 10.10 too)
+first step:
+In  /sugar-jhbuild/sjhbuild/sysdeps.py add the following line
+Line 18: 'Tuquito': 'unstable',
+in line 53 we add 'Tuquito'
+Line 53: elif name in ['ubuntu', 'debian','Tuquito']:
+second step
+add 3 files to ~/sugar-jhbuild/config/sysdeps using the xml for ubuntu
+cp 50ubuntu-10.10.xml 50tuquito-4.1.xml
+cp 50ubuntu-allversions.xml 50tuquito-allversions.xml
+cp 10ubuntu-allversions.xml 10tuquito-allversions.xml
+
+third step
+add the next packages to solve dependecies to compile
+
+libgtk2.0-dev libdbus-glib-1-dev libxml2-dev libpopt-dev python-dev libtool
+intltool python-gconf python-gnome2-dev python2.7-dev python-gtk2-dev
+python-gnome2-dev libgnome-desktop-dev libgnomecups1.0-dev libwnck-dev
+librsvg2-dev gtk-doc-tools libtelepathy-glib-dev libasound2-dev icon-slicer
+xulrunner-dev libcroco3-dev libtelepathy-glib-dev icon-naming-utils shtool
+libgconf2-dev abiword espeak espeak-data libabiword-2.8-dev
+libtelepathy-glib0 libdbus-glib-1-dev metacity pep8 pylint python-abiword
+python-evince python-rsvg python-telepathy python-wnck python-xklavier
+telepathy-gabble telepathy-salut xulrunner-1.9.2 python-lxlm y
+python-beautifulsoup
+
+forth step:
+We have built a package to solve the xulruner problem. Here you can find the
+package
+http://acercadelaeducacion.com.ar/scripts/python_xpcom
+with this procedure we are able to compile the sugar from jhbuild in tuquito
+(in theory works in ubuntu 10.10 too)
+
+A Question:
+I have done this with short knowledge of sugar and with a lot of help from
+the local chapter of sugarlabs (sugarlabs Argentina). Our aim would be to
+officially reach the support of sugar in Tuquito.
+
+   - Which procedure should we follow to be an official distribution for
+   sugar?
+
+Next Steps
+In order to test this version of sugar I have done a script that builds the
+package (sugar-jhbuild) and the sugar.desktop in /usr/share/applications.
+This script also makes the xssesion to execute the sugar-emulator in full
+screen mode. We would also like to make a version of Tuquito and sugar in
+which the users could choose the enviroment to start the computer (gnome or
+sugar and not the sugar-emulator). Could you explain us how to do this?
+You can see the script here
+http://www.acercadelaeducacion.com.ar/scripts/script_sugar_tuquito.sh
+Best regards
+Alvar
+Re: [Sugar-devel] Sugar in Tuquito Distribution  08:14 AM 03/28/2011
+....clip....
+By the way we are packing sugar-jhbuild in deb format, so later you can
+install latest sugar in tuquito (or other debian distributions) from
+repositories directly. With this the browse problem is fixed because we are
+going to put in our repositories the package xpcom
+http://www.acercadelaeducacion.com.ar/scripts/python_xpcom.deb
+another thing I have made a patch for add support to tuquito in sugar I sent
+it to sugar labs but I don't know the exactly steps for add changes to
+sugar-repo so I attached this patch in this email so you maybe can add this
+or send to the right people.
+about tuquito license, it is licensed under GPL
+Patch: python_xpcom.deb
+http://people.sugarlabs.org/Tgillard/python_xpcom.deb
+Older Testing
+Install Sugar 0.88.0 from Ubuntu/maverik/with symantic
+>gnome-terminal:
+sudo su
+(password)
+#
+>symantic
+reload
+search for "sugar"
+select all sugar named items (select each one from list-
+DO NOT SELECT Ubuntu Sugar Remix items
+)
+install
+>close symantic
+># apt-get install libgtk2.0-dev libdbus-glib-1-dev libxml2-dev libpopt-dev python-dev libtool
+intltool python-gconf python-gnome2-dev python2.7-dev python-gtk2-dev
+python-gnome2-dev libgnome-desktop-dev libgnomecups1.0-dev libwnck-dev
+librsvg2-dev gtk-doc-tools libtelepathy-glib-dev libasound2-dev icon-slicer
+xulrunner-dev libcroco3-dev libtelepathy-glib-dev icon-naming-utils shtool
+libgconf2-dev abiword espeak espeak-data libabiword-2.8-dev
+libtelepathy-glib0 libdbus-glib-1-dev metacity pep8 pylint python-abiword
+python-evince python-rsvg python-telepathy python-wnck python-xklavier
+telepathy-gabble telepathy-salut xulrunner-1.9.2 python-lxlm y
+python-beautifulsoup
+>exit terminal
+Problem:NO BROWSER installed in sugar
+Sugar-browse not present or installed (03/29/2011) satellit
+install sugar-browse-120.xo from 2nd USB disk
+Download python_xpcom.deb
+http://people.sugarlabs.org/Tgillard/python_xpcom.deb
+Install with Package installer but
+it will still not start.
+Sugar-log: ImportError: No Module named hulahop
+Solution: Load surf-115.xo onto 2nd USB and insert in slot.
+Download (In firefox outside of sugar) surf-115.xo to a 2nd USB from here:
+http://people.sugarlabs.org/Tgillard/Surf-115.xo
+Start sugar
+click on the journal in sugar main view
+click on the USB icon on bottom of frame (left) after frame retracts
+Drag drop surf-115.xo[1] from 2nd USB to journal icon in left corner.
+Start surf and click on "activities" link on top right corner of start screen (ASLO)
+Install any activities you want.
+Install Sugar-desktop 0.88 "SWEETS"
+NEW
+02/03/2011 alsroot and satellit
+This is dextrose-2, thus more then just 0.88. it contains several features that still not committed to the trunk + bug fixes from 0.90+
+Sugar 0.88 sweets
+Boot Install and open terminal
+sudo su
+cd /etc/apt
+gedit sources.list (gedit opens)
+add these lines to sources.list:
+deb
+http://bazaar-download.sugarlabs.org/Trisquel%3a/4.0/Ubuntu-10.04
+./
+save file; exit gedit
+add bazaar gpg key: (in root terminal)
+gpg --keyserver keys.sugarlabs.org --recv-keys 75BB5FDF
+gpg --armor --export 75BB5FDF | apt-key add -
+synaptic 
+Reload Package Information [X]
+Search for "sweets"
+check "sweets-distribution" in Synaptic
+apply
+"Downloading Package Files" "Installing software"
+Exit synaptic
+77 files
+NOTES
+DL 03/28/2011 for testing with VirtualBox 4.0.4for OS X (satellit)
+206 updates
+seems to require over 1024 memory  1530 speeds up mouse
+Sweet-distribution selected 77 files
+how to configure full screen
+.
+http://lists.sugarlabs.org/archive/sugar-devel/2011-March/030593.html
+Problems
+Browse will not start
+FIX:
+Load surf onto 2nd USB disk and insert in slot.
+click on the journal in sugar main view
+click on the USB icon on bottom of frame (left) after frame retracts
+Drag drop surf-115.xo[1] from 2nd USB to journal icon in left corner.
+Download surf to your 2nd USB from here: [1]
+http://people.sugarlabs.org/Tgillard/Surf-115.xo

@@ -1,0 +1,63 @@
+Title: Activity Team/Git Migration
+URL: https://wiki.sugarlabs.org/go/Activity_Team/Git_Migration
+--------------------------------------------------------------------------------
+Team Home
+·
+Join
+·
+Contacts
+·
+Resources
+·
+FAQ
+·
+Roadmap
+·
+To Do
+·
+Meetings
+Contents
+1
+Import a module from dev.laptop.org
+2
+See also
+How to migrate activity source control from laptop.org to sugarlabs.org.
+Import a module from dev.laptop.org
+Create
+an account on
+http://git.sugarlabs.org
+Log in
+and
+create a new project
+from the projects page (please use
+only lower case
+, e.g. sugar, turtleart, sugar-toolkit).
+Clone
+your git module from dev.laptop.org, e.g.
+git clone
+git://dev.laptop.org/projects/pippy-activity
+See
+all the remote branches with:
+git remote show origin
+Check out
+the remote branches you want to migrate, e.g.
+git checkout -b sucrose-0.82 origin/sucrose-0.82
+Push
+it to git.sugarlabs.org with something like:
+git push gitorious@git.sugarlabs.org:pippy-activity/mainline.git
+Add
+the pootle user as a committer (from the "add committer" link on the mainline page) and send mail to
+Sayamindu
+, to point pootle to new remote.
+Notify
+sugar-devel
+about the move.
+Make sure
+that sugar-jhbuild points to the new repository (ask someone to do it for you if you have no access)
+See also
+A
+Git/Gitorious FAQ
+cgit
+interface for git.sugarlabs.org
+http://wiki.sugarlabs.org/go/Activity_Team/Git_Activity_Maintainer_Walkthrough
+http://people.sugarlabs.org/Tgillard/git-from-bottom-up.pdf

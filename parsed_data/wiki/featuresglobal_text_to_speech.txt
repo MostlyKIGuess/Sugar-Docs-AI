@@ -1,0 +1,105 @@
+Title: Features/Global Text To Speech
+URL: https://wiki.sugarlabs.org/go/Features/Global_Text_To_Speech
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Old information:
+6
+Benefit to Sugar
+7
+Scope
+8
+UI Design
+9
+How To Test
+10
+User Experience
+11
+Dependencies
+12
+Contingency Plan
+13
+Documentation
+14
+Release Notes
+15
+Comments and Discussion
+Summary
+When the user press Alt+Shift+S the currently selected text should be said by the computer.
+Owner
+Name:
+Gonzalo Odiard
+Email: gonzalo at laptop dot org
+Current status
+Targeted release: 0.96
+Last updated: 13 Feb 2012
+Percentage of completion: 100%
+Detailed Description
+The feature add a service to provide text to speech, and a device in the frame to configure pitch and velocity.
+A already reserved alt-shift-s key stroke say the selected text in any activity.
+The actual implementation does not add any new dependency, and a initial version has been sent to sugar-devel for review.
+Thread in sugar-devel:
+http://lists.sugarlabs.org/archive/sugar-devel/2011-November/034274.html
+Old information:
+This is information about old intents of implementing this feature. Is a different implementation, then is here only for reference.
+http://wiki.laptop.org/go/Speech_Server
+http://wiki.laptop.org/go/Speech_synthesis
+Tickets:
+A GSOC project from Hemant Goyal worked in this area, related links:
+Google Summer of Code Logs ‐
+http://wiki.laptop.org/index.php?title=User:Hemant_goyal
+python‐dotconf – parser for the dot.conf configuration file ‐
+http://code.google.com/p/python‐dotconf/
+pydotconf API documentation ‐
+http://www.nsitonline.in/hemant/stuff/python‐dotconf/docs/
+speech‐dispatcher RPM packages for OLPC ‐
+http://koji.fedoraproject.org/koji/packageinfo?packageID=6374
+python‐dotconf RPM  packages for OLPC –
+http://koji.fedoraproject.org/koji/packageinfo?packageID=6527
+Patches for sugar ‐
+http://dev.laptop.org/git?p=users/hemantgoyal/speech;a=summary
+speechd python API ‐
+http://cvs.freebsoft.org/repository/speechd/src/python/speechd/client.py?view=markup
+Active dev.laptop.org TRAC tickets relevant to the project
+Inclusion of speech‐dispatcher packages  ‐
+http://dev.laptop.org/ticket/7906
+Inclusion of python‐dotconf packages ‐
+http://dev.laptop.org/ticket/7907
+Integration of speech‐synthesis into Sugar ‐
+http://dev.laptop.org/ticket/7911
+Speech Device Icon Review ‐
+http://dev.laptop.org/ticket/7911
+Listen n Spell ‐
+http://wiki.laptop.org/go/Listen_and_Spell
+Read Etexts
+http://wiki.laptop.org/go/Read_Etexts
+Benefit to Sugar
+Text to speech is a good feature to kids, when they are learning to read, and to kids with disabilities.
+This feature does not cover the more complex uses of text to speech, like multiple languages and word highlighting.
+In the future, we can move part of this code to sugar-toolkit to do easier to the activities use TTS and avoid duplicating code.
+The backend can be changed in the future too, if you see there are better voices for example in Festival. Doing the change in a single place will be easier than modify every activity.
+Scope
+The change is isolated.
+UI Design
+I propose use de default language now, and only expose controls to set pitch and velocity. In a later change, we can implement have more than one language enabled,
+and a switch to change it.
+The UI will be a device in the frame, with the needed controls in the palette.
+How To Test
+Features/Global Text To Speech/Testing
+User Experience
+Dependencies
+We already include all the needed dependencies.
+Contingency Plan
+Documentation
+Release Notes
+Comments and Discussion
+See
+discussion tab for this feature

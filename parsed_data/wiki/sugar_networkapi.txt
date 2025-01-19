@@ -1,0 +1,966 @@
+Title: Sugar Network/API
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Sugar_Network/API#Authentication
+--------------------------------------------------------------------------------
+This page describes the API that Sugar Network clients use to interact with a Sugar Network server. See also a guide to basic Sugar Network
+concepts
+and
+its twin page
+for a technical point of view. In addition, visit the
+introduction page
+.
+Note
+Until announcing API freeze, this document describes the most recent development version of the API.
+You can find its implementation on the
+node-devel.sugarlabs.org
+server.
+Contents
+1
+Overview
+2
+API version
+3
+Nodes
+4
+Resources
+5
+Base API
+5.1
+Aggregated properties
+5.2
+Notifications
+6
+Node API
+6.1
+Authentication
+6.2
+Authorization
+6.3
+Retrieving releases
+6.4
+Upload releases
+6.5
+Node statistics
+7
+Client API
+7.1
+Offline mode
+7.2
+Launching
+8
+Experimental API
+8.1
+Access to Sugar Journal
+9
+Usage
+10
+Getting involved
+Overview
+To better understand this API, see a technical explanation of its
+conceptual level
+and
+objects model
+in particular.
+The API operates with
+Sugar Network
+resources
+, which are collections of objects. All objects are identified by globally unique identifiers, GUIDs, and available for operation via
+basic actions
+. The API is being provided from a
+node server
+or a
+client
+. While processing requests, API providers generate
+events
+.
+The API is
+RESTful
+, and is served via HTTP(S) using
+JSON
+notation. The common request url format is:
+http[s]://
+SERVER
+[/
+RESOURCE
+[/
+GUID
+[/
+PROPERTY
+]]][?[cmd=
+COMMAND
+][&
+ARGUMENT
+=
+VALUE
+..]]
+When:
+SERVER
+,
+particular
+Sugar Network API server;
+RESOURCE
+, name one of the
+existing
+resources;
+GUID
+, the
+RESOURCE
+'s particular object;
+PROPERTY
+, particular property of
+GUID
+object;
+COMMAND
+, optional command name; combination of HTTP request method (
+GET
+,
+POST
+,
+PUT
+, or,
+DELETE
+) and [possibly empty]
+COMMAND
+composes the requested
+action
+;
+ARGUMENT
+s and
+VALUE
+s depend on the particular
+action
+.
+In most cases, the server replies in JSON notation. If a request fails, the replied JSON object will contain a
+request
+key, with the original request, and
+error
+key, with an error message.
+API version
+Sugar Network nodes might support multiple API versions at once but only one of them is default, i.e., the one which is in use if clients do not specify particular API version. To specify API versions in client request, setup the
+X-API
+HTTP header with chosen version. If such header is omitted, default version will be used by the node;
+Currently available API versions:
+0.1
+initial API implementation, should not be used;
+0.2
+the most recent version, the rest of the document describes exactly this version.
+Nodes
+These are standard Sugar Network API servers publicly available.
+node-devel.sugarlabs.org
+Development server which does not contain important data and is free for any experiments (administrative privileges for anonymous users); default API version is
+0.2
+;
+node-testing.sugarlabs.org
+Recent stable release with regular data import from the production server; is still free for any experiments; default API version is
+0.1
+;
+node.sugarlabs.org
+Production server;
+localhost:5001
+default url to get access to
+local proxy
+provided from user side application; ; default API version is
+0.1
+.
+Resources
+The following diagram shows the full list of objects implemented by the Sugar Network
+API
+.
+Sugar Network objects
+Property types
+Generally, Sugar Network objects' property types correspond to JSON types. The only exceptions mentioned in the following list:
+enum
+, is an enumerated type when a value is a string from the predefined list of constants;
+markdown
+, is a string formatted in the
+Markdown
+syntax;
+blob
+, is a file represented by string value which is a
+SHA-1
+digest of file's content; the file itself can be obtained from the
+GET
+/blobs/
+DIGEST
+request;
+aggregated
+, is a list of JSON objects which has
+special API
+to treat its items; each aggregated item has a unique identifier; items might be created not only by the object's authors.
+Resource.author
+A dictionary of authors working on the corresponding resource. Keys are Sugar Network
+User
+guids, or, if particular author is not registered in the Sugar Network, full user names. Values are dictionaries with the following keys:
+name
+Full author's name;
+role
+An integer which is a bit-wise ORed value of the following constants:
+0x1
+, author is registered in the Sugar Network (and
+guid
+key is set);
+0x10000
+, author is the original author of the corresponding resource; if it is not set, user is only a maintainer, e.g., an uploader of a book which has its original authors;
+avatar
+An url to author's avatar.
+Resource.status
+This is a system level property which can be set only by node editors. It is a list of "badges" editors set depending on the object quality. Currently supported statuses are:
+featured
+, the object is popped up by node editors.
+Resource.pins
+This property makes sense only for objects provided from a
+local proxy
+. The property is intended to store local user's preferences or statuses remote object has in local environment. Currently supported values are:
+favorite
+, set if a user has
+"stared"
+the object;
+checkin
+, applied to Context objects only, set if a user has
+"pinned"
+the context to keep its most recent version permanently in the local system;
+stale
+, applied to Context objects only, set if previously checked-in Context might have more fresh releases on the node; it is not possible to filter Contexts by this value;
+inprogress
+, applied to Context objects only, set if the Context is in the process of downloading content from the node; it is being temporally set before launching the Context or checking it in; it is not possible to filter Contexts by this value.
+Context.type
+activity
+, Sugar application;
+book
+, books in various forms;
+group
+, a social group of related activities;
+talks
+, sub-type to mix-in offline discussion forum;
+project
+, sub-type to mix-in issue tracker and polling functionality.
+Context type specifies how context, and all related resources, can be used. For example,
+activity
+type assumes activity bundles uploaded to the
+Context.releases
+property, or,
+Post.type
+depends on Context type it was created for.
+Context.releases
+Contexts with
+activity
+or
+book
+types might have releases, i.e., activity or book versions that users can download. The
+releases
+property is aggregated where each item describes one particular version. There is no need in working with the
+releases
+property directly, there are high-level API commands to
+upload
+and
+download
+releases.
+Post.type
+Choose Post types according to Context
+types
+the Post belongs to.
+topic
+, general purpose discussion;
+talks
+Contexts;
+artefact
+, object generated by Context application;
+activity
+Contexts;
+issue
+, problem with the Context;
+project
+Contexts;
+poll
+, a poll within the Context;
+project
+Contexts;
+post
+, a comment for a parent Post object; Context type independent.
+Post.topic
+Only
+post
+type Post objects belong to a parent Post which guid should be specified in the
+topic
+property. The system design assumes only a two-level Posts hierarchy.
+Post.resolution
+Post types
+issue
+and
+poll
+topics might have a resolution to expose the current status. The only way to change topic resolution is creating a dependent post with resolution property set.
+Resolutions for
+issue
+Post objects:
+unconfirmed
+, newly created issue;
+new
+, confirmed issue;
+needinfo
+, posted information about the issue is insufficient, more details needed;
+resolved
+, the issue is resolved, closed;
+unrelated
+, the issue does not related to the Context, closed;
+obsolete
+, the issue is already solved in recent Context releases, closed;
+duplicate
+, the issue is a duplicate, closed.
+Resolutions for
+poll
+Post objects:
+open
+, the poll is open for votes;
+closed
+, the poll is closed for votes.
+Base API
+List of actions common of all API providers.
+POST
+/
+RESOURCE
+Create new resource object.
+JSON object keys to send:
+RESOURCE
+'s properties.
+JSON object keys to receive:
+guid
+, with globally unique identifier that specifies the created object.
+PUT
+/
+RESOURCE
+/
+GUID
+Modify resource object. By default, might be called only by
+GUID
+creator.
+JSON object keys to send:
+RESOURCE
+'s properties to modify.
+DELETE
+/
+RESOURCE
+/
+GUID
+Delete resource object. Actual object destruction won't happen, the object will be hidden. Garbage collection of hidden objects will be processed by Network administrators. By default, this action may be called only by the
+GUID
+creator.
+GET
+/
+RESOURCE
+[?offset=
+INTEGER
+][&limit=
+INTEGER
+][&query=
+STRING
+][&reply=
+PROP
+][&order_by=[+|-]
+PROP
+][&group_by=
+PROP
+][&
+PROP
+=
+VALUE
+][&
+!PROP
+=
+VALUE
+]
+Find resource objects.
+Where:
+offset
+,
+int
+start index to return entries from, the default value is
+0
+;
+limit
+,
+int
+do not return more then specified value, maximal and default values are being setup on server side;
+query
+,
+str
+search request in
+Xapian
+notation; if property is boolean, integer or datetime, it supports searching by ranges, i.e.,
+PROP
+:[
+START
+]..[
+END
+]
+;
+PROP
+,
+str
+supplements
+query
+with filtering by exact value of the
+PROP
+property; the resulting query string will be
+PROP
+=
+VALUE
+AND (
+QUERY
+)
+; argument is multiple;
+!PROP
+,
+str
+supplements
+query
+by excluding exact value of the
+PROP
+property; the resulting query string will be
+NOT
+PROP
+=
+VALUE
+AND (
+QUERY
+)
+; argument is multiple;
+reply
+,
+str
+RESOURCE
+properties to return; by default, return only
+guid
+property; argument is multiple;
+order_by
+,
+str
+property to sort the resulting list by; if starts with the
+-
+, the order is descending, otherwise it is ascending;
+group_by
+,
+str
+property name to group resulting list by.
+JSON object keys to receive:
+total
+, total number in requested query (the reply might contain only the portion restricted by
+limit
+request argument);
+result
+, an array of dictionaries with resource object properties, dictionaries contain at least
+guid
+property.
+GET
+/
+RESOURCE
+/
+GUID
+[?reply=
+PROP
+]
+Where:
+reply
+,
+str
+RESOURCE
+properties to return; by default, return only
+guid
+property; argument is multiple;
+Return properties for a particular resource object.
+JSON object keys to receive:
+properties that were specified in
+reply
+argument(s), at least
+guid
+.
+PUT
+/
+RESOURCE
+/
+GUID
+/
+PROP
+Modify particular resource property. By default, might be called only by
+GUID
+creator.
+GET
+/
+RESOURCE
+/
+GUID
+/
+PROP
+Return property value for particular resource object.
+Data to receive:
+property value in JSON notation for regular properties;
+raw data or redirection for BLOB properties.
+Aggregated properties
+Aggregated
+properties have special API to treat their content.
+POST
+/
+RESOURCE
+/
+GUID
+/
+PROP
+Submit new item. The command returns an id for newly created aggregated item. Depending on particular property, new items might be created not only by object's authors.
+PUT
+/
+RESOURCE
+/
+GUID
+/
+PROP
+/
+ID
+Update existing aggregated item. Depending on particular property, the command is allowed either to object's authors or to aggregated item submitter.
+DELETE
+/
+RESOURCE
+/
+GUID
+/
+PROP
+/
+ID
+Delete existing aggregated item. Depending on particular property, the command is allowed either to object's authors or to aggregated item submitter.
+Notifications
+It is possible to subscribe to server events. Notification will happen using HTML5
+Server-sent events
+(SSE).
+To start subscription, send the following request:
+GET
+/?cmd=
+subscribe
+Response will be served with
+text/event-stream
+MIME type for default SSE message type. SSE message will be a JSONified object with the following, at least, attributes:
+event
+event type.
+Node API
+This is an API provided by Sugar Network nodes on top of
+base one
+.
+Authentication
+Right now, the only way to be authenticated on a Sugar Network server is by running a
+local application
+on the client side and using the API it
+provides
+.
+TODO
+Authorization
+Read-only access is available for anonymous requests, except special content like machine serial numbers. But to process any changes, clients need to be authenticated.
+Right after creating any Sugar Network object, its author becomes the only user who can process any object modifications afterwards. Authority information will be kept in the
+author
+property and can be modified using the following commands.
+PUT
+/
+RESOURCE
+/
+GUID
+?cmd=
+useradd
+&user=
+USER
+&role=
+ROLE
+Add another user who can modify the corresponding object.
+USER
+argument should be either
+User
+guid (for authors registered in the Sugar Network), or, full author name.
+PUT
+/
+RESOURCE
+/
+GUID
+?cmd=
+userdel
+&user=
+USER
+Remove user from the authority list. It is not possible to remove yourself.
+USER
+argument should be either
+User
+guid (for authors registered in the Sugar Network), or, full author name.
+TODO
+Retrieving releases
+To easy download Context
+releases
+and avoid reading raw
+Context.releases
+property, there are special high-level API commands.
+GET
+/context/
+GUID
+?cmd=
+solve
+[&lsb_id=
+LSB_ID
+][&lsb_release=
+LSB_RELEASE
+][&assume=
+DEPENDENCY
+-
+VERSION
+]
+The command returns information about what particular releases should be downloaded depending on provided requirements. This command might return not only one release, e.g., activities might have dependencies either system packages or another Sugar Network Contexts.
+Solving requirements might be:
+LSB_ID
+, if Context releases depend on system packages, specify the
+LSB
+distributor id to consider while choosing particular packages;
+LSB_RELEASE
+, if Context releases depend on system packages, specify the
+LSB
+release number of the distribution to consider while choosing particular packages;
+DEPENDENCY-VERSION
+, the
+assume
+argument instructs server to assume that specified
+dependency
+is already available on client side and should be taken into account while solving; this is especially important for package dependencies when server considers packages available only from official repositories but users might have more recent package versions installed in local system; e.g., the above example request will fail without
+sugar-0.94
+because neither
+lsb_id
+nor
+lsb_release
+were specified (even if LSB information is passed, server might not have information about what package versions come from official repositories).
+The resulting info is a JSON object with keys equal to Context guids and value objects for chosen release with the following keys:
+blob
+, bundle
+digest
+to download;
+version
+, chosen version number;
+title
+, the
+Context.title
+value;
+command
+, a command to launch the bundle, only for Sugar activities.
+For example, the
+GET
+/context/org.laptop.TurtleArtActivity?cmd=solve&assume=sugar-0.94
+request returns:
+{
+  "org.laptop.TurtleArtActivity": {
+    "title": "Turtle Blocks",
+    "version": "202",
+    "blob": "
+http://download.sugarlabs.org/activities/4027/turtleblocks-202.xo
+",
+    "content-type": "application/vnd.olpc-sugar",
+    "size": 4715955,
+    "unpack_size": 12873871,
+    "command": "sugar-activity TurtleArtActivity.TurtleArtActivity",
+  },
+  "sugar": {
+    "version": "0.94",
+  },
+}
+Like the
+solve
+command,
+clone
+makes a solution but returns bundle itself, so, there is no way to get information about possible dependencies.
+GET
+/context/
+GUID
+?cmd=
+clone
+[&lsb_id=
+LSB_ID
+][&lsb_release=
+LSB_RELEASE
+][&assume=
+DEPENDENCY
+-
+VERSION
+]
+Upload releases
+To easy upload Context
+releases
+and avoid writing to raw
+Context.releases
+property, there is a special high-level API command.
+POST
+/context?cmd=
+submit
+[&
+PROP
+=
+VALUE
+][&initial]
+Where the
+PROP
+arguments are optional release properties. The
+initial
+argument asks the system to create new Context resource new release will belong to.
+The posting data might be two types,
+Sugar activities in .xo bundles,
+there is no need in
+PROP
+arguments, all properties will be populated basing on metadata from a .xo bundle; including release notes from the
+CHANGELOG
+file in
+Markdown
+notation; besides, only in this case
+initial
+makes sense because it is the only way to get Context properties;
+Arbitrary data,
+all required release properties should be specified in
+PROP
+arguments, at least
+context
+and
+version
+;
+license
+should be specified only if there are no existing releases to pickup license from.
+Node statistics
+The node statistics are about the entire server and depersonalized. Statistics are being collected by analyzing regular requests to an API server and stored for each Sugar Network node. To read such info, call the command:
+GET
+/?cmd=
+stats
+[&start=
+SECONDS
+][&end=
+SECONDS
+][&event=
+EVENT
+][&limit=
+NUMBER
+]
+Where:
+start
+and
+end
+is a time interval to get statistics for; if omitted, the beginning and the end of entire life cycle will be used;
+event
+, multiple argument to specify what stats should be returned; if omitted, return all sources;
+limit
+, number of stat records to return for the
+start
+-
+end
+interval; note that this amount is not precise, the final resultset might be smaller or bigger depending on chosen resolution; stats resolution depends on node configuration, default values are 1 day, 10 days, 30 days, 365 days; if omitted, return
+end
+record only.
+Possible events are:
+users
+, total number of existing
+User
+objects;
+contexts
+, total number of existing
+Context
+objects;
+released
+, average number of newly uploaded
+Context.releases
+for specified time frame;
+solved
+, average number of requested
+Context
+solutions
+for specified time frame; note that this value does not equal to the number of solution usages on client side since solutions might be cached;
+reported
+, average number of newly uploaded failure
+Report
+objects for specified time frame;
+topics
+, total number of top-level
+Post
+objects;
+posts
+, total number of dependent
+Post
+objects.
+Client API
+The reasons to proxy Sugar Network data on users side:
+Seamless support
+offline workflow
+;
+One-click launch
+Sugar activities hosted on Sugar Network.
+Proxying happens by providing the same Sugar Network API (with some extra functionality, see below) from
+local process
+launched beforehand.
+Offline mode
+Being connected to a Sugar Network node, local proxy provides
+original API
+from the node. If the connection is lost, the proxy will switch to local Sugar Network storage and continue working providing only
+base API
+. Any content created in offline mode will be uploaded to the node after getting a connection back.
+Besides, local Sugar Network storage will be reused to keep users preferences, such as:
+Favorited Contexts
+to select preferred
+Context
+resources; these Contexts will be marked by
+favorite
+value in the
+Context.layer
+property;
+Checked-in Contexts
+to keep most recent Context (for
+activity
+and
+book
+types) version in local storage to make it available in offline; note that there is no need in checking-in to speedup online lunch, versions are being
+cached
+anyway; these Contexts will be marked by
+checkin
+value in the
+Context.layer
+property.
+To control users preferences there are special API commands:
+PUT
+/context/
+GUID
+?cmd=
+favorite
+Set favorite status.
+DELETE
+/context/
+GUID
+?cmd=
+favorite
+Unset favorite status.
+PUT
+/context/
+GUID
+?cmd=
+checkin
+[&spawn]
+Check-in the specified Context. By default, the command will return streamed
+text/event-stream
+MIME type data to monitor the progress. If the
+spawn
+argument is specified, the command will exit immediately with
+asynchronous sending
+progress events.
+DELETE
+/context/
+GUID
+?cmd=
+checkin
+Checkout the Context.
+Launching
+Sugar Network Contexts (for
+activity
+and
+book
+types) can be launched as-is. The launching process is implicit and includes selecting the most recent (and appropriate for software contexts) version, downloading bundles from the Sugar Network, installing missed
+software dependencies
+, execution itself. All downloaded bundles will be cached [with further garbage collecting] to speedup further launching.
+Sugar activities will be directly executed. Book Contexts will be opened in the proper application according to its MIME type.
+GET
+/context/
+GUID
+?cmd=
+launch
+[&args=
+ARG
+][&activity_id=
+ACTIVITY_ID
+][&object_id=
+OBJECT_ID
+][&uri=
+URI
+][&app=
+APP
+][&spawn]
+Arguments that make sense only for Sugar activities:
+ARG
+, command line argument to pass to launched activities, repeat
+ARG
+for each argument;
+ACTIVITY_ID
+, internal activity id which will be auto set if omitted;
+OBJECT_ID
+, Journal object id to resume;
+URI
+, URL to resume if activity supports this functionality.
+Arguments that make sense only for books:
+APP
+, specify application Context to open the book by; if omitted, the system will try to find most appropriate option, among all existing software Contexts.
+Common arguments:
+spawn
+, by default, the command will return streamed
+text/event-stream
+MIME type data to monitor the whole launching process until exiting the application; if the
+spawn
+argument is specified, the command will exit immediately with
+asynchronous sending
+launching events.
+Experimental API
+There is no guaranty that the following API will be stated as stable or frozen sometime.
+Access to Sugar Journal
+It is possible to get access to local Sugar Journal using special,
+journal
+, resource provided from
+client API
+. This kind of access might be useful when local applications cannot use DBus sugar-datastore API, e.g.,
+Javascript
+applications. API to Journal is restricted only to read-only access:
+GET
+/journal?offset=
+INTEGER
+&limit=
+INTEGER
+[&query=
+STRING
+][&order_by=[+|-]
+PROP
+][&
+QUERY_PROP
+=
+VALUE
+[&...]]
+GET
+/journal/
+JOURNAL_ID
+[?reply=
+PROP
+[,..]]
+GET
+/journal/
+JOURNAL_ID
+/
+PROPERTY
+Usage
+Being HTTP based, Sugar Network API can be used in any manner regular HTTP requests can be handled. But for command-line access, there is a handy tool,
+sugar-network
+, which takes care about Sugar Network specific like launching local API (if it is not already available) to get access to
+local proxy
+.
+The sugar-network command-line format is below. Call
+sugar-network --help
+for more detailed info.
+sugar-network GET|POST|PUT|DELETE
+PATH
+ARG=VALUE
+[..]
+PATH
+, is an url path;
+ARG=VALUE
+, request arguments as they being passed to in url.
+POST
+and
+PUT
+commands require data to pass, use the following command-line arguments:
+-f FILE
+to specify the file to pass;
+-d DATA
+to specify string to pass;
+-j
+posted data should be encoded into JSON before posting.
+Getting involved
+Submit
+your bug report or feature request.
+Browse our implementation
+discussions
+, and post your feedback. (You should
+join
+this discussion list in order to avoid having your messages postponed for moderation.)

@@ -1,0 +1,109 @@
+Title: Features/Journal Sort
+URL: https://wiki.sugarlabs.org/go/Features/Journal_Sort
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Implementation
+13
+Documentation
+14
+Release Notes
+15
+Comments and Discussion
+Summary
+Implements sorting in the Journal UI as described in
+this Design Proposal
+. Also adds support for the two new properties (filesize and ctime) to the datastore.
+Owner
+Name:
+Andrés Ambrois
+Email: <andresambrois@gmail.com>
+Current status
+Targeted release: 0.90
+Last updated: 06/06/10
+Percentage of completion: 100%
+Detailed Description
+This feature adds a ToolButton to the Journal toolbar. In its palette, the user can select the following sorting criteria: "Sort by file size", "Sort by last edit", "Sort by creation date".
+Benefit to Sugar
+Sorting by filesize is vital in the field where users need to free up disk space. Currently, the only way to find candidates for deletion is to access the expanded view of each entry, one by one. This can be a very time consuming process and often leads to indiscriminate deletion and thus potential loss of valuable data. This is bad.
+Sorting by creation time (ctime) is also implemented as described in the Design
+Proposal.
+This feature was requested in
+SL1915
+and sponsored by
+Activity Central
+.
+Scope
+Add support for ctime and filesize to the datastore (DONE)
+Implement sorting in the Journal (DONE)
+Add new icons to sugar-artwork (DONE)
+UI Design
+Please see
+the Design Proposal
+.
+Sort palette
+Sorting by file size
+How To Test
+Features/Journal Sort/Testing
+User Experience
+If this feature is noticeable by its target audience, how will their experiences change as a result?  Describe what they will see or notice.
+Dependencies
+None
+Contingency Plan
+None necessary, revert to previous release behaviour.
+Implementation
+sugar commits:
+http://git.sugarlabs.org/projects/sugar/repos/mainline/commits/780eed1a3871f0cd47cdc06a655782a90eee28ea
+http://git.sugarlabs.org/projects/sugar/repos/mainline/commits/4c2d26ccaeb502037484ced70b5944e3e20aa3f6
+http://git.sugarlabs.org/projects/sugar/repos/mainline/commits/a4efed250c56dc6dd656bafb572a1a56e034d254
+http://git.sugarlabs.org/projects/sugar/repos/mainline/commits/2c90107e36448d00dbe5a64f70024d003e7e531b
+http://git.sugarlabs.org/projects/sugar/repos/mainline/commits/532594bb856c96e13462e7825187551c940d41f2
+http://git.sugarlabs.org/projects/sugar/repos/mainline/commits/bc1edfa2193ca554d385c68e43c2cef0b9795a54
+http://git.sugarlabs.org/projects/sugar/repos/mainline/commits/dbcd0223a87815d3b0d8c79061046d52c4418922
+http://git.sugarlabs.org/projects/sugar/repos/mainline/commits/addd33e5963f27996fed46f0a34ccc4f4a0c796c
+http://git.sugarlabs.org/projects/sugar/repos/mainline/commits/0a69741474c775c2dba92e527a94db9b86c27722
+http://git.sugarlabs.org/projects/sugar/repos/mainline/commits/b1a05110a85ea6d1ba55cd75ccdfcb509c12276c
+http://git.sugarlabs.org/projects/sugar/repos/mainline/commits/6099b087c80d7fb80856d4e157f8743ce74ec922
+http://git.sugarlabs.org/projects/sugar/repos/mainline/commits/48c2eeaf5d3007f0970a0f31745efe22063c4465
+sugar-datastore commits:
+http://git.sugarlabs.org/projects/sugar-datastore/repos/mainline/commits/089ba387eafec10734ce3023665a163c531b82b4
+http://git.sugarlabs.org/projects/sugar-datastore/repos/mainline/commits/f3f71c3dad6fdf3b69b3624a6a584002c4c4fb28
+http://git.sugarlabs.org/projects/sugar-datastore/repos/mainline/commits/faa9974381f5ad70307e6c394d096b56134391e7
+http://git.sugarlabs.org/projects/sugar-datastore/repos/mainline/commits/7475a1fe38fca3ee4491bc272a59693805136f1e
+http://git.sugarlabs.org/projects/sugar-datastore/repos/mainline/commits/19845394f5f74f67e32192e3a09ce396522329bd
+sugar-artwork commits:
+http://git.sugarlabs.org/projects/sugar-artwork/repos/mainline/commits/55a2fe370eb22ac042ac1c4670f8fa3a111c8f38
+Documentation
+Initial submission to sugar-devel (Sugar patches)
+Initial submission to sugar-devel (DS patches)
+Second submission to sugar-devel (Sugar patches)
+Second submission to sugar-devel (DS patches)
+Icons
+Release Notes
+A new menu has been added to the Journal to choose from various sorting options.
+Users can now select one of "Date modified", "Date created" and "Size" to sort their journal entries. In each case, the last column will change to display the selected property.
+Comments and Discussion
+See
+discussion tab for this feature

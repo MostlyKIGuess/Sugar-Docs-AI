@@ -1,0 +1,398 @@
+Title: Sugar Network/Recipe Specification
+URL: https://wiki.sugarlabs.org/go/Sugar_Network/Recipe_Specification#Predefined_constants
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Spec file locations
+3
+Configuration sections
+3.1
+Common options
+3.2
+[Activity]
+3.3
+[Archive]
+3.4
+[Build]
+3.5
+[Source]
+3.6
+Predefined constants
+4
+Version numbers
+5
+Software stability levels
+6
+Dependencies
+7
+Glob patterns
+Summary
+The document describes software specification files format which is a superset on top of the Sugar
+activity bundles
+specification. This format is backwards compatible with
+activity.info
+files to make sure that software starts well from the regular Sugar Shell. But the major purpose of introducing new format is supporting software hosted on the
+Sugar Network
+. In particular, new format assumes the following functionality:
+Support binary based software;
+Provide information about software dependencies;
+Introduce stability levels to make it possible (for interested in people) to run development versions using the same, like for stable releases, distribution channel;
+Distribute not only Sugar activities, e.g., software libraries;
+Include all required information to make it possible to reuse the same spec file on different software evolution phases, like, making sources tarball, building binaries on Sugar Labs
+instance
+of the
+Open Build Service
+, executing.
+The format is partially based on the
+Zero Install
+specification
+since implementation code reuses Zero Install library in order to launch software on users side.
+Spec file locations
+There are two possible spec file locations (staring from the top directory of a distribution bundle):
+/activity/activity.info
+for Sugar activities to make them capable to be launched from the regular Sugar Shell;
+/sweets.recipe
+in the rest of cases.
+Configuration sections
+As
+activity.info
+files, new format is based on
+INI files
+and should contain at least one of the following sections.
+Common options
+Regardless of the software type, a recipe section (or one of them) should contain the following options.
+context
+=
+GUID
+Required (but see the
+[Activity]
+section). The value which uniquely identifies a software project this particular version implements. This is a Sugar Network
+Context
+GUID.
+name
+=
+NAME
+Optional. Free-form name. (It is equal to the
+implemented
+, by default.)
+summary
+=
+ONE_LINE_TEXT
+Required. Short descriptive line.
+description
+=
+MULTI_LINE_TEXT
+Optional. Long descriptive text. To wrap long text, all lines starting from the second, should start with spaces. This field is equal to
+summary
+by default.
+license
+=
+LICENSE
+[; ...]
+Required. Short license names. The licenses should conform with the
+Activity Library
+licensing
+policy
+.
+homepage
+=
+URL
+Required. Software project home page.
+icon
+=
+FILENAME
+Optional (but see the
+[Activity]
+section). Path to the icon file starting from the path where the recipe file is located.
+tags
+=
+TAG
+[; ...]
+Optional. Tags give more context by which to group the software. This is done to allow users to make search more easily.
+version
+=
+VERSION
+Required. Current version of the software using
+special notation
+. Note, to make Sugar activity bundles compatible with pristine Sugar, use a limited format subset supported by the Sugar Shell.
+stability
+=
+LEVEL
+Required. Stability level of the current version. Values conform to the
+below list
+.
+requires
+=
+DEPENDENCY
+[; ...]
+Optional. List of
+dependencies
+that should exist at run-time before launching the release.
+[Activity]
+This section type should be present only in Sugar activities.
+activity_version
+=
+VERSION
+Required. An alias of the
+version
+option.
+bundle_id
+=
+BUNDLE_ID
+Required. An alias of the
+context
+option.
+icon
+=
+FILENAME_WITHOUT_SUFFIX
+Required. Behaviour from
+activity.info
+is supported (value should not have a
+.svg
+suffix, and the icon file can be found only in the
+activity
+subdirectory) and, while deprecated, it needs to be used to not break backwards compatibility. For the remaining cases, the regular
+icon
+behaviour should be used instead.
+exec
+=
+SHELL_COMMAND
+Required. Sugar will pass additional
+command line arguments
+to this command.
+mime_types
+=
+MIME_TYPE
+[; ...]
+Optional. List of mime types supported by the activity. It's used when opening a file from the web, or to present to the user a list of activities that can open a certain Journal object.
+[Archive]
+This configuration section makes sense only while building binary distribution bundles from the sources. The section is optional for spec files that describe software assumed to be launched as-is, e.g.,
+.xo
+bundles.
+Each
+[Archive]
+section describes one particular binary bundle. There are might be several sections to define binaries for different cases:
+To save storage space or bandwidth when some bundles will contain any-arch data that are common for all platforms, and another bundle will contain binaries for a particular platform;
+Per language bundles, e.g., for media content.
+All archive sections are named:
+Archive[:
+SUBNAME
+]
+And contain the following options:
+include
+=
+GLOB
+[; ...]
+Optional.
+Glob pattern
+for files to include in the archive. By default, all files are assumed.
+exclude
+=
+GLOB
+[; ...]
+Optional. Like the
+include
+option, but used for excluding files from the archive. In addition, various temporary files will be excluded, like
+.bak
+or
+.pyc
+.
+arch
+=
+ARCH
+Optional. Makes sense only for binary archives, and can contain:
+all
+for noarch (by default),
+any
+for binaries to use the current architecture.
+[Build]
+This section is required if software needs additional work in order to prepare a ready-to-use installation. It is important to use
+predefined constants
+for options that contain shell commands. All shell commands will be executed from the
+%(BUILDDIR)s
+directory.
+NOTE
+The commands in this section will be executed, not only in the developer's environment, but also in the user's, if a proper binary wasn't found; so move all development-related commands, like
+autogen.sh
+, to the
+[Source]
+section.
+requires
+=
+DEPENDENCY
+[; ...]
+Optional. This defines what
+dependencies
+should be present before building the software from sources. Note that common
+requires
+option values are not auto included in the build-time dependencies.
+clean
+=
+SHELL_COMMAND
+Optional. Cleanup build environment before running
+configure
+command.
+configure
+=
+SHELL_COMMAND
+Optional. Shell command to configure sources before building, e.g., invoking the configure script in auto-tools-based projects. If the source code does not require a configuration stage, this option could be omitted.
+make
+=
+SHELL_COMMAND
+Optional. Shell command to make binaries from sources. If the source code does not require a making stage, this option could be omitted.
+install
+=
+SHELL_COMMAND
+Required. Shell command to place files that are ready for distribution into the
+%(DESTDIR)s
+directory. If
+install
+is missing, the entire
+%(BUILDDIR)s
+(excepting temporary files) will be copied.
+[Source]
+The section makes sense only while building sources bundles and is a replacement of former
+MANIFEST
+file in Sugar activity bundles.
+exec
+=
+SHELL_COMMAND
+Optional. Execute an external program to create sources tarball. Option might be used, e.g., to run
+make dist
+command.
+include
+=
+GLOB
+[; ...]
+exclude
+=
+GLOB
+[; ...]
+Optional. If the
+exec
+option was not used, all files will be bundled and these
+glob patterns
+might be used to reify the selection.
+requires
+=
+DEPENDENCY
+[; ...]
+Optional. The
+dependencies
+that should be present before creating sources tarball. For example, if the
+exec
+command generates .c files from .vala, the vala dependency should be mentioned in the
+requires
+option.
+Predefined constants
+Constants defined within the
+[Build]
+section:
+BUILDDIR
+where the build happens, directory contains un-tarred sources bundle. This variable can be used in
+binding
+options as well. During the local build, it will point environment variables to the root of sources directory.
+DESTDIR
+temporary path to place installed files before bundling them
+PREFIX
+should be used as installation prefix path, e.g., for
+./configure --prefix
+CFLAGS
+default gcc CFLAGS
+CXXFLAGS
+default gcc CXXFLAGS
+In sections that contain a
+langs
+option:
+LANG
+current language while building per language implementation
+Version numbers
+A version number string has the following form:
+Version := DottedList ("-" Modifier? DottedList?)*
+DottedList := (Integer ("." Integer)*)
+Modifier := "pre" | "rc" | "post"
+Numerically, the modifiers come in the order "-pre" (pre-release), "-rc" (release candidate), "-" (no modifier name), "-post" (post-release or patch level). Versions are ordered like this:
+0.1
+1
+1.0
+1.2-pre
+1.2-pre1
+1.2-rc1
+1.2
+1.2-0
+1.2-post
+1.2-post1-pre
+1.2-post1
+1.2.1-pre
+1.2.1.4
+1.2.2
+1.2.10
+3
+Software stability levels
+The spec file also gives a stability rating for each implementation. The following levels are allowed (must be lowercase in the feed files):
+stable
+,
+testing
+,
+developer
+,
+buggy
+,
+insecure
+.
+Stability ratings are expected to change over time. When any new release is made, its stability should be set to testing. Users who have selected Help test new versions will then start using it. Other users will continue with the previous stable release. After a while (days, weeks or months, depending on the project) with no serious problems found, the implementation's stability can be changed to stable so that everyone will use it.
+If problems are found, it can instead be marked as
+buggy
+, or
+insecure
+to avoid selecting these versions while launching on users side.
+developer
+is like a more extreme version of
+testing
+, where the program is expected to have bugs.
+When to use
+buggy
+? Don't mark old releases as buggy every time you do a new release, just because a few bugs have been fixed. People who have selected network connectivity automatically pickup the new version anyway, so marking an older version as
+buggy
+only affects people who have explicitly stated that they don't want to use the latest version, but would prefer to use an older release to save network use.
+Dependencies
+Dependencies might be used to declare software that the current release depends on.
+The format of a dependency string is:
+DEPENDENCY
+[(<|<=|=|>=|>)
+VERSION
+]
+The
+DEPENDENCY
+value is a GUID associated with dependency project, i.e.,
+context
+value from dependency spec file. In general, it might be any software Sugar Network
+Context
+, but current implementation assumes only GNU/Linux
+packages
+.
+Glob patterns
+The
+include
+and
+exclude
+options contain file patterns. A pattern could be of two types:
+doesn't contain
+/
+or
+**
+substrings, will be applied only to file names
+contains
+/
+or
+**
+substring, will be applied to the full file path (relative to the root), thus could affect several directory levels
+Only these pattern symbols are allowed:
+*
+matches everything, except directory separator
+?
+matches any single character, except directory separator
+**
+matches everything, including directory separator

@@ -1,0 +1,179 @@
+Title: Features/Revised Browse default-bookmarks.html
+URL: https://wiki.sugarlabs.org/go/Features/Revised_Browse_default-bookmarks.html
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+1.1
+Ideas from Soas #sugar-meeting: 06/14/2010
+1.1.1
+NOTES:
+1.1.2
+older Comments
+2
+Owner
+3
+Current status
+4
+Detailed Description
+4.1
+This is the Proposed start screen
+5
+Benefit to Sugar
+6
+Scope
+7
+UI Design
+8
+How To Test
+9
+User Experience
+10
+Dependencies
+11
+Contingency Plan
+12
+Documentation
+13
+Release Notes
+14
+Comments and Discussion
+Summary
+What I am trying to Achieve:
+An enhanced "start new" screen for sugar.browse in the fedora.spin-soas v4.
+It should have a added customizable link and possibly Graphic Elements Suitable for
+SoaS v4 Mango Lassi
+Ideas from Soas #sugar-meeting: 06/14/2010
+Idea Crystallization credits to mchua:, mtd and others.
+This is the second idea we discussed
+Proposed custom default page for SoaS v4 Mango Lassi
+Summary: add new link 'Introduction:-Mango Lassi' inserted to the left of the existing 5 links.
+The Use of a customized introduction page on the wiki is a part of this proposal.
+List of proposed links (left to right)
+Introduction:-Mango Lassi
+Link to Custom wiki page
+Special page on wiki with Needed Materials for using Soas-v4-Mango Lassi
+This is a  way for teachers and users to access information from the wiki and other pertinent web sites.
+Uses this link:
+http://wiki.sugarlabs.org/go/Talk:Sugar_Creation_Kit#Introduction_to_Soas-v3_Mirabelle
+- This will change for v-4
+THIS IS A SAMPLE ONLY
+Home
+Wiki
+Bugs
+Activities
+Google search
+NOTES:
+06/21/2010 soas meeting:
+Make ASLOxo a separate Proposal
+pbrobinson likes destination page now for Intro to Mirabelle
+Must go into GIT for testing
+In Git:
+http://git.sugarlabs.org/projects/browse/repos/satellits_clone_browse_homepage/logs/master
+Accepted in #sugar-meeting 07/05/2010
+http://me.etin.gs/sugar-meeting/sugar-meeting.log.20100705_1502.html
+older Comments
+mtd: a customizable start page exists.
+This is the first thing a SoaS user will see when the Sugar web browser is launched.  This is a critically important page.  I don't think we should accept anything until these groups have looked at it:
+Existing SoaS deployments
+Other sugar deployments
+SL Marketing
+Fedora Marketing (not sure if this is applicable)
+At least as much thought should go into changing the page as went into creating it in the first place.
+MartinDengler
+15:06, 14 June 2010 (EDT)
+Owner
+Name:
+Tom Gilliard
+Email: satellit@bendbroadband.com
+Current status
+Targeted release: SoaS_v4_Feature
+Last updated: (07/05/2010)
+Percentage of completion: 100%
+Need to make git account and do edits so a diff can be created (mchua 06/16/2010)
+DONE: In Git
+http://git.sugarlabs.org/projects/browse/repos/satellits_clone_browse_homepage/logs/master
+(satellit 06/24/2010)
+Meeting Log 07/05/2010:
+[15:29:57] <mchua> #agreed Browse start page feature accepted - mchua is the feature sponsor
+[15:30:17]
+[15:30:40] <mchua> #info Implementation: genericize patch, push to upstream Browse, edit wiki pages it links to - use this as an example of the feature process, as it's simple but an obvious change
+[15:30:51]
+[15:31:01] <mchua> hm, "clearly visible and easily to understand" is probably better than "obvious" but anyway...
+[15:31:24] <mchua> satellit__: so go ahead and move it to the "accepted" section of the features list, and let me know when you're going to be in Portland and we'll sit down and work on it then.
+Detailed Description
+In a discussion with Peter Robinson, I discovered that a custom bookmark Browse.rpm can be downloaded from the fedora repository.
+I propose we use this fact to add a link on the startup page to a Customized Introductory page on the wiki for Soas with links to:
+Instructions
+Compatable Activities
+Installation Methods
+Floss Manuals
+Pertinent links to pages on wiki.sugarlabs.org
+Artwork -DVD/CD Covers etc
+e-books (?)
+Other sources of information (blogs/web sites etc)?
+This should be a simple edit in Browse to point to file:///usr/share/bookmarks/default-bookmarks.html instead of file:///usr/share/sugar/activities/Browse.activity/data/index.html.
+This allows a number of custom startup screens depending on the deployment or a schools requirements for Soas v4
+Bernie has such a revised startup screen in his os240py software for the XO-1
+This is the Proposed start screen
+Use the existing Browse start screen and just insert one Custom Link
+Introduction:Soas_Mango_Lassi
+CLICK THIS LINK TO TEST:
+http://people.sugarlabs.org/Tgillard/index14.html
+This example will be changed when Mango Lassi becomes available
+This looks like the most acceptable Idea
+Discussion with mchua 06/16/2010 on #Sugar-meeting
+I need to start a Git account
+Make proposed changes in Git to file
+http://git.sugarlabs.org/projects/browse/repos/mainline/blobs/master/data/index.html
+Suggestions on just what content should be included on this screen must be determined from discussions on the lists.
+The Customized Browse index-html will be used for the build of the Browse.appliance in the v4 Soas-spin.
+Benefit to Sugar
+A simple enhancement to sugar.browse
+MartinDengler
+13:51, 14 June 2010 (EDT) In fact this is not an enhancement, it's a hack.  The browse homepage should be made configurable (perhaps via gconf) and have a sensible default.  In fact, you should do some research before you hack an app to pieces: this customisation is already possible and designed-for...see
+http://cgit.sugarlabs.org/browse/mainline/tree/webactivity.py#n354
+and
+http://cgit.sugarlabs.org/browse/mainline/tree/webactivity.py#n162
+.  The desired homepage should go in /usr/share/library-common/index.html .  Please can we do some research before we flail about doing stuff.  Sorry about the language but I don't have time to say this more nicely.
+Scope
+Revise the browse start new screen for Soas
+(optionally) Edit the Browse activity to point to default-bookmarks.html or some other file specified by fedora
+UI Design
+Does the feature have a direct impact on the work flow, or does it need a UI? Link here mockups, or add detailed descriptions.
+Prototype start-page:
+http://people.sugarlabs.org/Tgillard/index14.html
+REVISED
+06/19/2010
+How To Test
+Prototype start-page:
+http://people.sugarlabs.org/Tgillard/index14.html
+REVISED
+06/19/2010
+User Experience
+If this feature is noticeable by its target audience, how will their experiences change as a result?  Describe what they will see or notice.
+When Browse is started with
+Start new
+or for first time, this page will open. Custom content with links to web pages will be displayed.
+Dependencies
+What other packages (RPMs) depend on this package?  Are there changes outside the developers' control on which completion of this feature depends?  In other words, does your feature depend on completion of another feature owned by someone else or that you would need to coordinate, which might cause you to be unable to finish on time?  Other upstream projects like Python?
+The advantage is that the Modified default-bookmarks file is updated from fedora in a normal way to Soas and is part of the build of v4
+Fedora requires a .rpm packaging
+Original Index.html is customizable.
+Contingency Plan
+Alternate path:
+edit /usr/share/sugar/activities/Browse.activity/data/index.html
+Duplicate with SugarClone, locally,for small number of customized sticks
+Documentation
+Is there upstream documentation on this feature, or notes you have written yourself?  Has this topic been discussed in the mailing list or during a meeting? Link to that material here so other interested developers can get involved.
+Discussed with pbrobinson initially and mchua today 06/12/2010 on #sugar-meeting
+Soas Meeting 06/13/2010
+http://me.etin.gs/sugar-meeting/sugar-meeting.minutes.20100614_1502.html
+Release Notes
+The Sugar Release Notes inform end-users about what is new in the release. An Example is
+0.84/Notes
+. The release notes also help users know how to deal with platform changes such as ABIs/APIs, configuration or data file formats, or upgrade concerns.  If there are any such changes involved in this feature, indicate them here.  You can also link to upstream documentation if it satisfies this need.  This information forms the basis of the release notes edited by the release team and shipped with the release.
+not a release in normal sense
+Comments and Discussion
+See
+discussion tab for this feature

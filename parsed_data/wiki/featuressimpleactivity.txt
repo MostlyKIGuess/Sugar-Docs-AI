@@ -1,0 +1,66 @@
+Title: Features/SimpleActivity
+URL: https://wiki.sugarlabs.org/go/Features/SimpleActivity
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Documentation
+11
+Release Notes
+12
+Comments and Discussion
+Summary
+SimpleActivity is a module that does in a simple way things common to every Sugar activity; it also provides a
+much
+simpler way to implement sharing in an activity.
+Owner
+Name:
+Agustin Zubiaga
+Email: <aguz at sugarlabs dot org>
+Current status
+Last updated: 21/11/13
+Percentage of completion: "100%"
+Detailed Description
+We have a lot of repeated code across our activities and some commonalities that can be consolidated. Also, why not make some things simpler, like creating the toolbar automatically with an  activity icon.
+Also included in this feature is SharedActivity, which is a class that derives from SimpleActivity, and does all the collaboration process by itself: you don't have to worry about dbus, tubes, telepathy, even about the service, path or interface name. SharedActivity will do everything for you.
+You just define a list of "events" with the respective callbacks to execute when an event is received, and then start sending events!
+Benefit to Sugar
+Since this module makes it simpler to create an activity framework, developers new to Sugar can more readily make Sugar activities; in this way we may get more activities from a larger developer base.
+Scope
+This extension to the toolkit doesn't impact any existing work: developers can choose to use SimpleActivity/SharedActivtiy or continue doing everything as before.
+How To Test
+You can clone
+this demo activity
+which uses many SimpleActivity's features.
+User Experience
+Actually, the user won't be feel the difference, but we can make more Activities for him/her!
+Dependencies
+Nothing, just copy simpleactivity.py into your activity directory, and make everything simpler!
+Documentation
+You can found the documentation in docstrings for now.
+Web docs soon
+.
+Release Notes
+Comments and Discussion
+Should this be an extension to the toolkit? --
+Walter
+(
+talk
+) 21:28, 21 November 2013 (EST)

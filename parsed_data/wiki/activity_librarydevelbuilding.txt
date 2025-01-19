@@ -1,0 +1,35 @@
+Title: Activity Library/Devel/Building
+URL: https://wiki.sugarlabs.org/go/Activity_Library/Devel/Building
+--------------------------------------------------------------------------------
+NOTICE:
+This page is a draft in active flux...
+Please contribute to these contents and discuss issues on the
+discussion page
+.
+This document outlines the build process for AMO.
+This system may be expanded to other web properties, but for now it is AMO-specific.
+Alert IT of upcoming push at least 24 hours in advance
+If pushing core changes (anything not look/feel) file an
+IT Request
+to load test
+Freeze code if not already done
+Checkout trunk
+Within trunk, cd bin and `./build.sh path_to_jre`
+If jre is installed on your system (khan has it), path_to_jre should be `which java` (
+with backticks
+).
+If not you should download a copy of jre from
+http://www.java.com/en/download/manual.jsp
+and use the path to the java binary (example: `./build.sh ../../jre#.#.#_##/bin/java`)
+This file will do the following (in order):
+Check the latest revision of trunk, the css files about to be compressed, and the js files about to be compressed
+Write these to ../site/app/config/revisions.php as REVISION, CSS_REVISION, and JS_REVISION
+Concatenate and minify jquery-compressed.js and addons.js into jquery.addons.min.js
+Concatenate and minify type.css, color.css, screen.css, and print.css into style.min.css
+Recompile all .po files (make sure there are no errors from this!)
+Check all modified code from ../site/ back into SVN
+Update the production external (/tags/prodexternal) with the current revision as per instructions in the
+SVN Guidelines
+File an
+IT Request
+to push to production with the desired time.

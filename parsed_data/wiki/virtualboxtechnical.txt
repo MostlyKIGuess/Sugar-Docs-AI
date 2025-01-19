@@ -1,0 +1,53 @@
+Title: VirtualBox/Technical
+URL: https://wiki.sugarlabs.org/go/VirtualBox/Technical
+--------------------------------------------------------------------------------
+VirtualBox
+®
+is an x86 virtualization system available as either GPL or commercial software. It runs on either Win32, Intel Mac or Linux host machines, allowing you to run
+Sugar images
+within the virtual machine. The following instructions are mostly for VirtualBox OSE (Open Source Edition), which is available in packages in many Linux distributions. You can also download it and its documentation from the
+VirtualBox.org
+Web site.
+Contents
+1
+Bugs
+2
+QEMU image conversion
+3
+Mounting Drives
+3.1
+Hard Drives
+3.2
+USB
+3.3
+Shared Directories
+Bugs
+Problems using MacBook Pro i7 (Sandy Bridge) with some OS Guests
+http://www.virtualbox.org/ticket/8474
+QEMU image conversion
+You can also convert .img image files from
+QEMU
+formats, such as qcow2, to vmdk format, which VirtualBox can open. The qemu-img command usually detects the source image format automatically.
+$ qemu-img convert -O vmdk file.img file.vmdk
+Mounting Drives
+Hard Drives
+When booting from a CD image, with a hard drive image attached, you can mount the hard drive by creating an empty directory to mount it on. The form of the command is
+$ mount -t ext3 /dev/sda1 /mnt/drive
+for the first hard drive. The mount point can be anywhere you have permission to create a directory, although /mnt and ~/mnt are the usual choices.
+This gives you a place to save files that cannot be written to CDs.
+USB
+USB access is not available in the Open Source Edition of VirtualBox.
+In order to access USB storage devices, the user must have access to the usbfs file system. The permissions for usbfs can be changed by editing the /etc/fstab file.
+For example, most Linux distributions have a user group called usb or similar, of which the current user must be a member. To give all users of that group access to usbfs, make sure the following line is present in /etc/fstab:
+# 85 is the USB group
+none /proc/bus/usb usbfs devgid=85,devmode=664 0 0
+Replace 85 with the group ID that matches your system (search /etc/group for "usb" or similar).
+After this, you should be able to mount real USB drives in the normal manner.
+Shared Directories
+In order to access a directory on your real hard drive, VirtualBox needs the Guest Additions installed.
+Mount the VBoxGuestAdditions.iso file
+Change to the directory where your CD-ROM drive is mounted and execute as root:
+sh ./VBoxLinuxAdditions-x86.run
+In a 64-bit Linux guest, use VBoxLinuxAdditions-amd64.run instead.
+After this installation, you can create a share in the VirtualBox GUI, and mount it in somewhat the normal way, but with the vboxsf file system type.
+mount -t vboxsf [-o OPTIONS] sharename mountpoint

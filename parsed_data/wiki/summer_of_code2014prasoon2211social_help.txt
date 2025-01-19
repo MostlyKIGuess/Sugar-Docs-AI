@@ -1,0 +1,209 @@
+Title: Summer of Code/2014/Prasoon2211/Social Help
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2014/Prasoon2211/Social_Help
+--------------------------------------------------------------------------------
+Project blog:
+http://sugargsoc.wordpress.com/
+Contents
+1
+About Me
+2
+About my project
+2.1
+Abstract
+2.2
+Deliverables
+2.3
+Details
+2.3.1
+Overview
+2.3.2
+Technical Details
+2.4
+Timeline
+3
+Me and the community
+4
+Miscellaneous
+About Me
+> What is your name?
+Prasoon Shukla
+> What is your email address?
+prasoon92.iitr@gmail.com
+> What is your Sugar Labs wiki username?
+Prasoon2211
+> What is your IRC nickname on irc.freenode.net?
+prasoon2211
+> What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+Hindi. But I'm quite comfortable in English as well.
+> Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I'm located in Kanpur, India (+5:30 UTC). I usually tend to work from 10 - 11 in the mornings (~05:00 UTC) to 9 - 10 in the night (~16:00 UTC) with a few breaks in the middle.
+> Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I've contributed code to a couple of open-source projects. Chief among those is SymPy[1] in which I participated as a student in last year's summer of code (GSoC 2013)[2]. I've contributed to three patches in mercurial - one got merged[3]. A few more patches went to SimpleCV, all but one were merged[4]. One-off patches include this one in django[5] (unmerged) and this one in django-browserid (merged)[6]. Also, I've contributed to two patches to sugar core, one got merged and the other has changes suggested to it[7] which I'll take up as soon as I'm done with my proposal.
+[1]: Some important patches:
+One
+,
+Two
+,
+Three
+,
+Four
+[2]:
+Majority of code
+,
+Official link(please see the github repo for the complete code
+[3]:
+One
+,
+Two
+,
+Three
+,
+Merged Patch
+[4]: Merged:
+One
+,
+Two
+,
+Three
+.
+Unmerged:
+Four
+[5]:
+Django, Patch
+[6]:
+django-browserid, Patch
+[7]:
+One
+,
+Two
+About my project
+> What is the name of your project?
+My project is called 'Social Help for Sugar'.
+> Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+Disclaimer: This is a bit larger than 20 sentences.
+Abstract
+To create an easily accessible, highly usable platform that sugar users can use to discuss, debate and share ideas about everything related to sugar.
+Deliverables
+Tight integration of the Discourse discussion forum with sugar.
+One click context based launch into topicwise discussion.
+A WebKitGTK+ based social-help activity.
+Set of data migrations scripts that will be used to populate DBs for new Discourse setups.
+Details
+Overview
+I will be integrating the Discourse open-source discussion platform into sugar. Users will be can launch themselves into topicwise discussion right from the sugar shell. This will be much like sugar help where users can click on the help icon to access context based help.
+This project is aimed at all sugar users. The ability to start a discussion on any help-related topic with a single mouse click will be extremely helpful for the users. The
+real aim
+of this project is to develop a repository of all information regarding sugar - much like StackOverflow - that will be the go-to place for sugar users. For these reasons, it is imperative that this project be undertaken.
+Technical Details
+Work will be in Python for the most part. Some taks like tweaking Discourse might require some me to deal with Ruby. For cutomizing the frontend, I shall need to work with HTML5/CSS3/JS as well. I've worked extensively with all these technologies except Ruby which I'll need to brush up.
+The major tasks to be accomplished are:
+Making a social-help activity based on WebKitGTK+ that would be similar to the browse activity.
+Getting the Discourse platform tweaked according to the needs of  sugar. This will include:
+Getting the UI of Discourse match (at least to some extent) with that of sugar.
+Setting up standard system that would fetch as much data as it can from sugar shell, making the one time registration as simple as entering a password. This I was thinking of doing like so:
+The first time the user opens up social help, we'll capture the email id from the sugar shell.
+The full name will be captured as well.
+There are two options for the default username (which of course the user can modify during registration):
+Either we can take the part before the '@' from the email.
+Or, we can employ a Quora like strategy - the username is FirstName-LastName-<index> where we'll need to fetch the 'index' from the Discourse database.
+The user will need to feed in the password.
+Developing an authentication bridge for use with Discourse. This is a topic of discussion. We've had some
+opinions posted on the mailing list
+. All of these strategies can work - but, we need to decide on one of these. (I talked to Walter on IRC and he said to make this discussion a part of your project - maybe something to be done during the community bonding period). Here are the things we can do:
+The first approach is to add two methods to the social-help activity - a set_cookie and a get_cookie - these can be accessed via DBus by Sugar shell. Here's the workflow:
+When user opens social help, we'll read the session cookies from a config file set it in the social-help activity (unless the cookies are already set).
+When the user closes the social-help activity, we check if the session cookie is set. If so, we overwrite the config file with this new cookie.
+The second approach is to log users in via facebook/google. This approach I do not like as it won't work in areas with only a local network. Also, I don't like the idea of tying this to a non-free (as in freedom) service.
+The third approach could be similar to sugar webservices (facebook, putlocker etc.) The
+discussion on this is here
+.
+A fourth way, and this was
+told to me by the Discourse devs
+, is to use Discourse SSO (Single Sign On). But this would require an existing service on which we can
+hang
+the Discourse auth onto.
+Any one of these methods can work. At the moment, I am leaning towards the first approach.
+> What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Timeline
+Week
+Work to be done
+21st April - 19th May (Community Bonding Period)
+Discuss which authentication bridge to use with Discourse. Get to know the community. Make a standalone WebKitGTK+ activity that can be later ported to sugar.
+19th May - 26th May
+Begin coding. Add the social help button to sugar menus. Start working on the social-help activity.
+26th May - 2nd June
+Complete the social-help activity. Set up a local Discourse environment that can be launched from within sugar via social-help.
+2nd June- 9th June
+Work on tweaking the Discourse styling to suit sugar.
+9th June - 23rd June
+Build the auth bridge. The way this would be done would depend on the approach chosen for this. Likely however is that we'll add cookie based methods to social-help accessible via DBus
+23rd June - 27th June
+Iron out the kinks in the code developed till now for the midterm evaluation deadline.
+Midterm Evaluation
+Milestone:
+Show a working sugar shell that can launch into Discourse and get the user logged in.
+27th June - 4th July
+Make a data migration script that can be used to set up Discourse locally with the data from the central DB.
+4th July - 11th July
+Manually add all major possible topics to Discourse and populate it with data from the wiki and any other relevant sources.
+11th July - 18th July
+Open the data-populated Discourse for testing on Heroku. I’ll personally test of course, but, it will be great if the community helps - it usually helps catch a large number of bugs.
+18th July - 1st August
+Fix bugs, test and file more bugs, repeat. By the end of these two weeks, we should be pretty bug-free.
+1st August - 11th August (Pencils down date)
+Polish out the code and add documentation to ready them for release.
+End Term Evaluation
+Milestone:
+Show the final, working social help platform via Google Hangout, that can be tested on Heroku.
+> Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+As I've said before, I've worked with a few open source projects before. Also, I've participated in last year's GSoC. This shows that I'm capable of understanding the architecture of large codebases and successfully modifying small components in that codebase.
+Apart from my open source source contributions, I've developed a few other applications in Python/Django for my college's intranet portal. These applications include:
+A virtual market for my institute for buying and selling used items,
+A user contributed directory of all items lost and found in the campus with user accounts,
+A
+pinterest
+like application for sharing original creative works (painting, poetry etc) which is in active development, and,
+An application that helps students review courses and faculty.
+Unfortunately however, I cannot share the code of these applications since the code officially belongs to the institute. All of this work is a part of work I've done as part of a campus students' group - the Information Management Group. We are the guys who've made the
+CMS
+for managing the large amount of content on the
+college website
+and developed a great intranet portal for the institute;
+Photos
+.
+Some More
+.
+I've also done some work in PHP and NodeJS. You can find it at my
+github profile
+.
+Me and the community
+> If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Me: If this project is successfully completed, the users will have instant access to a discussion platform on which they can ask any question related to sugar. Over time, this information will develop itself into a repository of information where most common questions related to the platform would be present. This repository of information will be hugely beneficial for the sugar community.
+Walter
+: People are social and learning is social. Having a forum for sharing ideas and help is invaluable -- especially in light of the decentralized nature of the Sugar community. While the developer community is comfortable with IRC, we have not been successful in getting our user community to use it: they are seeming more comfortable with web tools (e.g. there is a large community of teachers using Facebook to discuss Sugar.) It would of course be better to have a FOSS solution. But also one that didn't require a lot of maintenance and support by the Sugar developer community. Hence, a connection to an existing FOSS platform would be attractive.
+Sai Vineet
+: There is currently no way to get instant help from real people from inside Sugar, except the IRC activity, which sadly is too complicate and distributed(hard to find stuff which one needs, no logs, there are security problems). We really need a way to get children help quickly, and this is what this project will give us. It will, with time, also become a full help repository, and also a way for children to talk and discuss things in a more social manner than it is now. Thus the Social Help project is invaluable to Sugar and it's vision, that learning is a social process.
+Note:
+All comments can be found
+on the mailing list
+.
+> What will you do if you get stuck on your project and your mentor isn't around?
+Normally in such cases, I like to leave the problem for a little while, work on something else, then come back to the problem. This usually helps me take a new angle on the problem and normally, this resolves the problem. However, if I'm still stuck, then, I'll try to contact other members of the sugar community who are familiar with the components that I'm working on.
+> How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I shall write a report every one or two weeks (depending on the distribution of components) of all the work done the previous week(s) - all the problems that I faced, how I solved those and what I plan to do in the coming week. This would be a good way to stay on schedule.
+Miscellaneous
+> We want to make sure that you can set up a development environment before the summer starts. Please do one of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug.
+It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Here are my two patches:
+#244, Merged.
+Set of two PRs for ticket 4686, both merged. This one required quite a few reiterations:
+#326, sugar
+,
+#132, sugar-toolkit-gtk3
+.
+> Describe a great learning experience you had as a child.
+I remember that I used to have this RC car in my childhood. I always wondered how it ran - so I took it apart and when I knew how it worked (with the DC motor), I tore away the motor from the car. Subsequently, I taped the motor to the top of the car along with batteries, made a makeshift propeller with scrap pieces of aluminium from my backyard, expecting the car to fly, if uncontrollably. But it didn't - the car was heavy. I was left with a broken car and a lesson on concepts of force and lift. The other lesson I learnt from this experience was that just because it seems that something should work does not mean that it will; in fact it rarely ever does.
+> Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+Nothing much but I suppose, there is one thing. Sugar is primarily used by children. So one possible question could have been whether I have ever needed to teach a child - especially something technical. Someone who really understands what the end-user (in this case, children) really wants is usually capable of creating a better UX. I have, in fact, taught my little cousin some C programming once and that experience has taught me a little about how a child approaches technology. This could be helpful, I think.

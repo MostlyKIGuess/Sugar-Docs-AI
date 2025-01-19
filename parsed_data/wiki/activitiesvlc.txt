@@ -1,0 +1,46 @@
+Title: Activities/VLC
+URL: https://wiki.sugarlabs.org/go/Activities/VLC
+--------------------------------------------------------------------------------
+How to install the VLC Media Player in Sugar
+Warning! This instructions do not work. The file
+http://rpm.livna.org/livna-release-7.rpm
+do not exist (30-november-2009). and, in the Uruguayan release of XO, you can not 
+send the command "su": "bash: /bin/su: Permiso denegado" - Request for comments to alejandro.lavarello (at) gmail.com
+VLC media player is a highly portable multimedia player for various audio and video formats (MPEG-1, MPEG-2, MPEG-4, DivX, mp3, flv, avi, ogg, ...) as well as DVDs, VCDs, and various streaming protocols.
+It can also be used as a server to stream in unicast or multicast in IPv4 or IPv6 on a high-bandwidth network.
+The VLC Player is considered to be better by some users then MPlayer because it offer more settings, options and features. There is also no need to run it from Terminal.
+Installation
+This will require a live internet connection.
+Open the terminal activity (Located on the Activity Tool bar).
+Type the following command lines one command line at a time. If you get an option for either Y/N, type Y and Press ENTER.
+su
+and press enter
+rpm --import
+http://rpm.livna.org/RPM-LIVNA-GPG-KEY
+and press enter
+rpm -i
+http://rpm.livna.org/livna-release-7.rpm
+and press enter
+yum update
+and press enter
+wget
+http://dl.atrpms.net/all/libdvdnav4-0.1.10-2.fc7.i386.rpm
+and press enter
+The file libdvdnav4-0.1.10-2.fc7.i386.rpm is no longer available at the url provided !?
+Where do I find it now? _
+JoGnet
+09:00, 30 October 2008 (UTC)
+rpm -ivh libdvdnav4-0.1.10-2.fc7.i386.rpm
+and press enter
+wget
+ftp://ftp.univie.ac.at/systems/linux/fedora/updates/7/i386/libopendaap-0.4.0-4.fc7.i386.rpm
+and press enter (Note:there is a space between wget and the link ok)
+rpm -ivh libopendaap-0.4.0-4.fc7.i386.rpm
+and press enter
+yum install vlc
+and press enter
+exit
+and press enter
+You are done. To run VLC, just type VLC in Terminal and press enter. To be able to run it just like all the pre-installed activities in Sugar, sugar coat it through the instructions on
+Running Linux Applications Under Sugar
+.

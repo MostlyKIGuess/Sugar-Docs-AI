@@ -1,0 +1,286 @@
+Title: User:Tonyforster
+URL: https://wiki.sugarlabs.org/go/User:Tonyforster
+--------------------------------------------------------------------------------
+Contents
+1
+Me
+2
+Preschool student Activities, some links
+3
+Turtle Art - text free
+4
+Text-less outdoor lesson for Turtle Art
+5
+Sliderule
+6
+Presentations - Software Freedom Day Melbourne
+7
+Sea Surface Temperature Mapping
+8
+Reflashing Sugar
+8.1
+Unsigned XO1
+8.2
+Unsigned XO1.5
+8.3
+Signed builds
+8.4
+Deployment key signed builds
+8.5
+Nand blaster XO1.5
+9
+Dodo mobile broadband on the XO
+10
+Sugar security
+11
+Enabling debug output
+12
+Starting Gnome
+13
+Setting the clock
+14
+Text dungeon
+14.1
+Keyboard commands
+15
+1.75 accelerometer
+16
+Screenshots in Sugar
+16.1
+Simple screenshot
+16.2
+Screenshot with cursor
+17
+Miscellaneous_Technical_Notes
+18
+GIT and patches
+18.1
+GIT local repository
+18.2
+Patch
+Me
+http://tonyforster.blogspot.com/
+blog, random thoughts, Turtle Art samples
+http://www.freewebs.com/schoolgamemaker/
+game programming and learning
+forster at ozonline dot com dot au
+Interests:
+Activities which maximise the opportunity for self-directed learning: low floor, wide walls and high ceiling with particular emphasis on the walls and ceiling. My Sugar favourites:
+Turtleart
+, Scratch, Etoys.
+Game Maker
+still my Windows favourite.
+Currently user testing Turtleart and Sliderule, experimenting with
+Pippy
+. Supporting the
+Timor Leste deployment
+.
+Preschool student Activities, some links
+Radia Perlman in the 70s when at student at MIT did extensive experiments with preliterate children and the LOGO turtle and built a number of interfaces for them. She also spent some time at Xerox PARC and did many similar experiments with chldren 3 years on up.
+http://www.formatex.org/micte2006/virtual/pdf/582.pdf
+see fig 3 with plastic cards showing visual images of turtle commands
+http://www.formatex.org/micte2006/virtual/ppt/582.ppt
+similar image
+http://logothings.wikispaces.com/
+towards the end, photo of Radia Perlman's Button Box for Pre-Schoolers
+http://alumni.media.mit.edu/~mcnerney/personal-ubicomp.pdf
+more discussion than the above
+Turtle Art - text free
+To what extent could pre-literate children use Turtle Art?
+Are graphics on blocks really better than text?
+Does keeping text labels help develop literacy?
+What graphics are best?
+Some features, eg. the heap are unlikely to be used by pre-literate children, should they be omitted or retained with text labels?
+The following graphic is a discussion starter
+or another [
+suggested layout
+]]
+Text-less outdoor lesson for Turtle Art
+Sliderule
+http://tonyforster.blogspot.com/2010/09/pippy-sliderule.html
+Pippy
+File:Pippy sliderule.doc
+http://tonyforster.blogspot.com/2010/09/turtle-sliderule.html
+Turtle art
+http://www.freewebs.com/schoolgamemaker/#lobject
+Game maker
+File:Slideruletute.pdf
+tutorial
+Presentations - Software Freedom Day Melbourne
+File:Softwarefreedomday10.pdf
+presentation
+http://luv.asn.au/sfd2010/
+photos
+File:Olpc-rotary.odp
+File:Ictev11.odp
+Sea Surface Temperature Mapping
+Sea surface temperature mapping, inspired by
+http://oceanpc.org
+. Described here is a program to read and display the temperature data which is available at
+http://www.ncdc.noaa.gov/oa/climate/research/sst/sst.html
+The data format is described at
+ftp://eclipse.ncdc.noaa.gov/pub/ersstv3b/README
+The first record in the file
+ersst_v3b_2010_2019.asc
+, the 2010 to 2019 data set, reads:
+-9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999   -19    13    18    11     7    25    64   132   255   427   607   791   990  1198  1408  1616  1816  1999  2149  2258  2327  2360  2365  2355  2347  2359  2393  2443  2500  2568  2654  2736  2789  2826  2869  2904  2911  2903 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999  1489  1432 -9999 -9999 -9999 -9999 -9999   713 -9999   656   715   780   796   744   669   596   476   298   156   113    70  -134  -180  -180  -180  -180
+-9999 represents land, the other numbers are degrees C x100
+This record represents a line running from the south pole through to the north pole in 2 degree increments at longtitude 0 for the first month and year. The next record is for lattitude 2 degrees east and so on.
+Sample Pippy(Python) program
+This Pippy(Python) mapping program is supplied as a starter and as inspiration for further investigation
+File:Write Activity sst.odt
+Pippy code as open office doc. Download and open in Journal. Copy from the Write session, paste into Pippy and run.
+Alternatively download this content bundle
+File:Sst.xol
+to the journal, starting the bundle from the journal installs the bundle as off line web content which is accessible from the Browse home page as sst in the Science category. This content includes the Python source and a sample data file.
+Challenges
+Display the other months and years in the file
+Display the month and year in the title bar
+Animate the display
+Do a legend
+Display the temperature at the cursor
+Map other data
+Error checking
+Display partly corrupted data sets without crashing
+Create models of ocean or atmosphere
+More ideas at
+http://oceanpc.org
+,
+http://marinedataliteracy.org/index.html
+and
+http://data.worldbank.org/
+(This program has also been
+done in Game Maker
+on the Windows OS)
+Reflashing Sugar
+Unsigned XO1
+See
+Get a developer key and unlock your XO
+Download the OS image (e.g. osxxx.img) and its CRC file (e.g. osxxx.crc) to USB
+Press escape at power on for the OK prompt
+probe-usb copy-nand disk:\osNNN.img
+Will not work if there are 2 partitions,
+[1]
+To install from Open Firmware on an unlocked XO-1, download the .onu and .uim files and run:
+ok update-nand u:\osXX.onu
+Unsigned XO1.5
+see
+Get a developer key and unlock your XO
+Download osxxx.zd, osxxx.zsp.fs.zip, (seem to only need the zd file)
+rename the zip file to fs.zip
+Pressing the "check mark"(tick) game key, Turn on the laptop, (don't seem to need the tick)
+press ESC (X) to get to the OFW prompt "ok",
+fs-update u:\osxxx.zd
+Signed builds
+see
+Download osxxx.img, osxxx.img.fs.zip to the top directory of a USB drive
+(osxxx.zd,osxxx.zsp.fs.zip on XO1.5),
+Rename the zip file to fs.zip
+hold the 4 game keys at boot
+Deployment key signed builds
+http://dev.laptop.org.au/projects/xo-au/wiki/Installing_signed_builds
+Nand blaster XO1.5
+http://wiki.laptop.org/go/Nandblaster_for_XO-1.5
+Dodo mobile broadband on the XO
+Connected to the
+Dodo mobile broadband
+network with the Huawei E160E
+username my username
+password my password
+number *99#
+APN dodolns1
+PIN blank
+PUK blank
+(best with power management turned off)
+Sugar security
+Some Activities are 'protected', that is they can't be deleted. This also means that the Activity can't be downgraded or crossgraded  to the same revision number.
+To achieve this you need to delete the Activity's directory in
+/home/olpc/Activities
+This is easily done in older builds in Gnome but newer builds have a hidden and protected Activities directory
+sudo gedit
+allows you to edit files but not delete
+chmod 777 ~/Activities
+chmod 777 ~/Activities -r    #contents too?
+unprotects the directory but it is still hidden, in the file manager
+nautilus
+check show hidden files
+To automate this every time Gnome starts, add the following 2 commands to System, Preferences, Startup applications
+rm .hidden
+ chmod 777 Activities
+Enabling debug output
+Edit /home/olpc/.sugar/debug and uncomment :
+export SUGAR_LOGGER_LEVEL=debug
+Starting Gnome
+If not in my settings
+echo gnome > /home/olpc/.olpc-active-desktop
+and restart
+Setting the clock
+From firmware, using the internet, networkname is your modem/router eg DLINK
+ok  essid networkname 
+	ok  ntp-set-clock pool.ntp.org
+	ok  .clock
+Worked despite timeout message
+or
+http://wiki.laptop.org/go/Fix_Clock#Reprogram_the_time.2Fdate
+Text dungeon
+A text dungeon game for literacy and numeracy
+Most of this page transferred to
+Activities/Textdungeon
+, just the command line version here
+The dungeon
+File:Sampledungeon.doc
+File:Textdungeon.doc
+is a version of the program's Python code which works from the command line
+File:Textdungeon1.xo
+is a Sugarised install bundle, works Sugar 0.88 - 0.92
+File:Textdungeon2.xo
+Sugar compliant icon, do not load sample file if resuming, backspace supported, journal entry saves progress)
+Keyboard commands
+h - help
+f - forward
+r - right
+l - left
+b - list backpack contents
+p item - pick up item
+d item - drop item
+u item - use item
+q - quit
+1.75 accelerometer
+The vertical axis is raw reading/4 so 1G=250
+File:Turtle Art Activity 3 axis.ta
+Screenshots in Sugar
+Simple screenshot
+To take screenshots press Alt 1
+This will capture the screen but not the mouse cursor
+Screenshot with cursor
+To also capture the mouse cursor, install gnome-screenshot. Type the following in Terminal:
+sudo yum install gnome-utils
+You can then start the interactive version of gnome-screenshot:
+gnome-screenshot --interactive
+Check that you have the right options selected and that 'Include pointer' is selected, then click Take Screenshot. Do not navigate away to the screen you want the screenshot of because you will be unable to navigate back to the utility. At this point we are just checking that the options are correct.
+Select a suitable save location such as 'Documents' and click Save.
+Now you are ready to take a screenshot. Start gnome-screenshot from Terminal with a suitable delay, eg. 2 seconds
+gnome-screenshot -d 2
+Immediately go to the screen you wish to capture, position the cursor where you want it, get the menus etc. as you want them and wait for the dialog box. Click Save. (Later versions of Sugar allow you to access the saved file in Documents but the folder contents are not updated, you may need to switch between Journal and Documents to see the updated file listing.)
+Miscellaneous_Technical_Notes
+http://wiki.laptop.org/go/User:Kevgor/Miscellaneous_Technical_Notes
+GIT and patches
+GIT local repository
+sudo install git
+clone the git of the Turtle, in a terminal, make:
+git clone
+git://git.sugarlabs.org/turtleart/mainline.git
+In the mainline folder there are all turtle's files..
+Patch
+sudo yum install patch
+or
+sudo yum install patch --nogpg
+Should be a "raw patch" link (eg. 2b4ecb0cc7095f47fc944c54512e055c21537ab5.patch)
+1. Save that page as a file into ~/Activities/TurtleArt.activity  (eg patching Turtle Art)
+2. From terminal run the patch command as follows:
+patch -p1 < 2b4ecb0cc7095f47fc944c54512e055c21537ab5.patch
+That is it. (Note, you should be able to use autocomplete when typing
+the command line by hitting tab after typing the first few letters of
+the patch file name.)
+Activities/Butialo
+Features/Parental_controls

@@ -1,0 +1,35 @@
+Title: The Undiscoverable/Change keyboard
+URL: https://wiki.sugarlabs.org/go/The_Undiscoverable/Change_keyboard
+--------------------------------------------------------------------------------
+Current Sugar
+For Sugar installation from 2009, Sugar now has an easier way to change the keyboard layout that's discoverable from the Control Panel.  See
+Personalising Sugar
+.
+Older Sugar
+For the OLPC XO-1 sugar version: the XO can be set up for more than one writing system and locale. In this case, the ×÷ key may be replaced by a key to switch keyboards. This is essential in areas that have the same language written in different alphabets, notably India and Pakistan with Hindi in Devanagari and Urdu in Arabic. It is also essential in areas where more than one official language is in use, and they are written in different alphabets. Again, India is the leading case, with 22 official ("Scheduled") languages written in 10 different alphabets.
+Instructions for configuring the ×÷ to switch between two languages, or cycle between more than two, are provided at
+Customizing NAND images#Keyboard
+. This procedure is not intended for end users, since it requires editing system configuration files.
+Whether or not there is such a key on a particular XO, it cannot support all of the languages, writing systems, and keyboard layouts that may be desired. Thus it is necessary to know how to change keyboards by other means. In Terminal, the command
+setxkbmap dvorak
+will change to a US Dvorak keyboard, and the command
+setxkbmap us
+will change to a US keyboard.
+Commands for other layouts
+are provided in the OLPC Wiki. It is useful to make a script file to change back. Thus, one could have the files
+Name: aoeu
+#!/bin/bash
+setxkbmap us
+and
+Name: asdf
+#!/bin/bash
+setxkbmap dvorak
+where the names asdf and aoeu are typed on the same keys, at the left end of the home row.
+or, to go between US Latin and Russian Cyrillic,
+Name: ru
+#!/bin/bash
+setxkbmap ru
+Name: фыва
+#!/bin/bash
+setxkbmap us
+That way you will have a Cyrillic name, also typed at the left end of the home row, to get out of Cyrillic.

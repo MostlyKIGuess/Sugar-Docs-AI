@@ -1,0 +1,108 @@
+Title: Summer of Code/2014/Proposal to port sugar core to python3
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2014/Proposal_to_port_sugar_core_to_python3
+--------------------------------------------------------------------------------
+Contents
+1
+Proposal to port the Sugar core to Python 3
+1.1
+About me
+1.2
+About my project
+1.3
+Schedule
+1.4
+Me and the community
+1.5
+Miscellaneous
+Proposal to port the Sugar core to Python 3
+About me
+Name
+: Ravi Kumar L
+email
+: upman16@gmail.com
+Sugar Labs wiki username
+: Ravi Kumar
+IRC nickname on freenode
+: upman
+Education
+I'm doing my second year of an undergraduate course in Computer Science and Engineering at
+Reva Institute of Technology and Management
+First Language
+I speak Tamil primarily, But I'm perfectly comfortable with English.
+Location and working hours
+I'm based in Bangalore, India(UTC+5:30), I prefer to work from around late afternoon till about midnight (approximately UTC 10:30 - 18:30 )
+Skills and Experience with Open-source
+I'm comfortable with SCM using git and proficient with Python, Ruby and C. I'm also familiar with the MVC web-frameworks django and ruby on rails. But to be honest, I have been mostly learning and fiddling around with things up until now and never really done any proper projects or made any real contributions to open-source projects. You can check out bits of my experimental code on
+github.
+But I plan on porting a dependency, telepathy-python to demonstrate that I'm capable of handling the project. I see GSoC as a wonderful opportunity to become part of a community, contribute and also learn something valuable.
+About my project
+Name
+Polyglot port of Sugar core
+Description
+For sugar to be future ready, it's core has to be compatible with python 3.x . Python 2.7+ would also need to be supported for existing activities to run without a hitch. This would represent developers who prefer python 3 as well as those who prefer python 2.7+ to be able to contribute to sugar.
+One approach would be to sort out python 3 support for all the dependencies, and then run 2to3 on the core code as a cronjob and provide a wrap around script that would handle both python 2.7+ and 3 activities. But maintaining the code could turn messy real quick. Fixing a python 3 specific bug with this kind of a setup would be really complicated.
+My plan of action is to have a single, easy to maintain codebase that can run on python versions 2.7 through to 3.3. Towards this end, I would automate tests to run across python2.7 - 3.3 with
+tox
+or a similar tool first, and then write polyglot code with
+six
+incrementally.
+I grepped for imports on both sugar and sugar-toolkit-gtk3. A few of the modules have been renamed/relocated in python 3, but all of them are available, except for telepathy-python which as I have already said, I will be porting in the coming week.
+Something like
+import six
+from six.moves import configparser
+from six.moves import html_parser
+from six.moves import xmlrpc_client
+would import configparser, htmlparser and xmlrpc client in both python 2 and 3(These are some of the modules used by Sugar that I found were relocated in python 3).
+Of course just try, except blocks will work just the same, but that code would just feel hacky and ugly. Not to mention that six provides a whole host of other
+features
+like syntax compatibility and is not limited to just wrapping around relocated libraries.
+My project would infact introduce no new features at all, but it would make Sugar future ready and also backwards compatible. It might actually make development/maintenance harder on the core libraries in the short term, because the developers would need to understand the polyglot written using six or ad-hoc polyglot. But it would provide long-term benefits and a wider potential future developer reach. This issue I believe can be circumvented by writing proper documentation which I plan to do towards the end of the project.
+Schedule
+April 21 - May 19 (Community Bonding Period)
+Research into and learn more about gtk and dbus.
+Get familiar with the codebases of sugar and sugar-toolkit-gtk3
+Look into the unit tests and determine if test cases are robust enough to support a porting effort. If required, write test cases with the help of the community and also encourage fellow GSoC-ers and developers to practice TDD.
+Discuss with the core developers and mentor(s) my initial approach I have detailed above and iron out the rough edges or discuss and decide on an alternative approach if need be.
+Research other python projects that were ported with the same approach. Contact the developers and learn about the issues they faced that I'm likely to face while porting.
+Get familiar with Tox or discuss with mentor(s) and choose a different testing framework to automate testing across python versions and get familiar with the same.
+Get to know the mechanisms Sugar's build scripts.
+Bond with the Community. Get to know the developers responsible for writing/maintaining the Sugar core, so I know whom to ask for help if I run into trouble.
+May 19 - June 23 (First half of the official coding period)
+Week 1: Automate testing across python versions using the decided on approach, make all the tests pass on python 2.7.
+Week 2: Incrementally patch code on Sugar toolkit with six to run on python 3.x and pass unit tests.
+Week 3: Do the same on Sugar core
+Week 4 and 5: Look for and Iron out bugs and patch the bugs with unit tests so they don't pop up again.
+Mid-term Evaluation
+By this time, I plan to have finished writing polyglot for sugar and sugar-toolkit-gtk3 and have an automatic cross version testing setup in both of these.
+June 23 - August 11(Second half of the official coding period)
+Week 1: Add python 3.x specific dependencies into the list of things to be fetched and installed by the build scripts.
+Week 2: Write documentation on maintaining Sugar core and Sugar toolkit under the new setup to ease future development.
+Week 3: If the mentor(s) and the core developers are satisfied with the code and think that the codebase is solid, try and port sugar-build in the same way.
+Deliverables at the end of GSoC
+Automated tests across python versions for sugar and sugar-toolkit-gtk3
+Fully Python 3 compatible polyglot codebases of sugar and sugar-toolkit-gtk3
+Python 3 compatible sugar-build (optionally)
+Post GSoC, I would be available to help port activities and sugar-buildbot to python 3.x and also write a porting guide for activities for developers.
+Why I think I can complete this project successfully
+I don't have any open-source contributions that I can reference here, but I did a wordpress site for my I believe in the cliche about actions speaking louder than words, so I plan on porting
+telepathy-python
+to python3 in the coming week, So I can show that I'm committed and capable of undertaking this project. I strongly feel for Sugar and want to contribute to it one way or another, so much so I would be interested in doing so regardless of whether I get into GSoC.
+Me and the community
+Impact of the project
+At the end of my project, the testing on the Sugar toolkit and the Sugar core would have improved greatly and I strongly believe that a robust set of unit tests is a must for every project. Python 3 has better unicode support and I think a lot of activities based around text would greatly benefit from porting to python 3.
+There are several reasons why this project is important to Sugar Labs: (1) we need to keep pace with the projects we depend upon upstream -- Python 3 is being to become de rigour -- and (2) Python 3 has much better support for i18n and unicode -- critical to the global nature of our project. --
+Walter
+(
+talk
+) 13:38, 20 March 2014 (EDT)
+In case of getting stuck on the project in the absence of my mentor
+First there's the Sugar Labs community, I'm sure there will always be someone around on the mailing list or the IRC who are willing to help. Then there's always the internet, which is an amazing resource. So much so that I could say that half the things I've learnt in my life have been through the Internet. Sites like stack-overflow have a very diverse community that is always willing to offer help. If none of it works out, I would try working on a different part of the project until my mentor is available or I find a proper solution.
+Keeping the Community informed
+I plan on writing a report every week on my
+blog
+and also discuss with people regularly  over the mailing list or the IRC channel.
+I might also write articles about six and the approaches I use to write polyglot so I can keep the developers in the know of what I'm doing. This could also serve as documentation for when somebody is looking to add to the Sugar core/toolkit or simply fix a bug in the future.
+Miscellaneous
+I've been able to setup the development environment and here's the screenshot of it with the suggested modification of my email replacing the "logout" text.
+A learning Experience I had as a kid that I would like to describe is the classes of my Science teacher in the 3rd and 4th grade. He held a questions day weekly, where every student could come up with a question about the world around us. The entire week, we would nitpick trivial things around us and come up with questions such as 'Why do we sneeze?' or 'Why is the sky blue?' and the likes. Then he would answer every question patiently as each of us listened in rapt attention. This taught me that we listen to answers when we are interested in the question. Questions and answers together on a platter just isn't the right way to learn. It taught me that learning comes from curiosity and we can find it all around us - but we have to come up with the questions, rack our brains and finally be eager to find the  right answer... that is when we truly learn something of value. I think I still remember exactly why we sneeze.
+I would like to write a little bit about why I want to contribute to sugar in particular. Education, I think, still hasn't been modernized, we aren't making use of all the technologies we have at our disposal to make learning better and more effective. I also believe that education has to be free and accessible to everyone. I think Sugar does a great job towards this end and I want to be a little part of this effort to modernize education.

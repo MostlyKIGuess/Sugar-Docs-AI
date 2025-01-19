@@ -1,0 +1,145 @@
+Title: Summer of Code/2014/curiousguy13/Port To Python3
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2014/curiousguy13/Port_To_Python3
+--------------------------------------------------------------------------------
+Contents
+1
+About you
+2
+About your project
+3
+You and the community
+4
+Miscellaneous
+About you
+What is your name?
+My name is Kunal Arora and I am a 2nd year undergraduate at Netaji Subhas Institute Of Technology,New Delhi.
+What is your email address?
+My E-mail address is kunalarora.135@gmail.com
+What is your Sugar Labs wiki username?
+Curiousguy13
+What is your IRC nickname on irc.freenode.net?
+curiousguy13
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+My first language is Hindi but I am pretty comfortable with English.
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I am located in New Delhi,India. I tend to work from afternoon to midnight IST ie 17:30 to 5:30 UTC but it can be adjusted if required.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other
+demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I started diving into the FOSS community since January ,2014. I started my open source journey with Mozilla.
+I have contributed and am still involved with mozmill which is an automated testing tool for firefox.
+Here is a link to my mozilla bugzilla ID:
+https://bugzilla.mozilla.org/user_profile?user_id=494874
+Although , I haven't made much contribution but I have worked on a few bugs and some of my patches are still under review.
+Also, i have recently contributed to the BinPy repository.
+https://github.com/curiousguy13/BinPy
+But , more than that most of the softwares I use are open-source becuase I believe that software should be
+open-source and communities should work together to improve the softwares and move towards a better future.
+About your project
+What is the name of your project?
+Port To Python3
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+My project aims at porting sugar to Python3 . It will also include writing a robust test suite for sugar and a Python3 porting guide for sugar activities. 
+Python3 is the future of python and every software will eventually be ported to Python3. The main difference that makes Python3 better than Python2.x is that the support for unicode is greatly improved in Python3 . This will also be useful for sugar as sugar has users in more than 100 languages and it's easy to translate strings from unicode to other languages. Also, gtk3+ , on which sugar is built has a better unicode support too, so along with gtk3+ and Python3 , sugar will get more efficient and developer friendly.
+More differences between Python2 and 3 can be found here:
+http://docs.python.org/3/whatsnew/3.0.html
+In this project, I would first start by porting sugar-toolkit-gtk3 to Python 3 compatible code. It won't have to be backwards compatible because the activities are run using dbus , so the activities written in Python2 will still work.  After that, I will port the sugar-shell to Python 3 compatible code. Some tools that can be used to port are 2to3 and autopep8(
+https://pypi.python.org/pypi/autopep8/
+).
+The process that I will follow will be:
+Check if all the dependencies are compatible with Python3, if not first port them to Python3.
+Use AutoPEP8 to make the code comply with PEP8 style guide which will also help with the porting.
+Use 2to3 to make the code Python 3 compatible.
+Go through the remaining code manually and sort out any errors or discrepancies.
+A more thorough porting guide for sugar activities will be written.
+Further changes in porting strategy, if any , will be discussed during or before the community bonding period.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Week/Days
+Work to be done
+21 April-19 May (Community Bonding Period)
+Understand the existing sugar and sugar-toolkit code and discuss the porting options with sugar community.Also resolve any dependency issues.
+19 May-26 May (Week 1)
+Start porting sugar-toolkit to Python 3 compatible code.
+26 May-2 June (Week 2)
+Continue with porting sugar-toolkit
+2 June-9 June (Week 3)
+Port existing sugar-toolkit tests into Python 3.Write new tests to check Python 3 compatibility, test sugar-shell and remove bugs.
+9 June- 16 June (Week 4)
+Start porting sugar into Python 3 compatible code.
+16 June-23 June (Week 5)
+Continue with porting sugar
+23 June-30 June (Week 6)
+Mid-term Evaluation Week
+(Port existing tests and write new tests.)
+30 June-7 July (Week 7)
+Port sugar-build to Python3
+7 July-14 July (Week 8)
+Buffer Week.
+14 July-21 July (Week 9)
+Write new tests to check Python 3 compatibility, test sugar-toolkit and remove bugs.
+21 July-28 July (Week 10)
+Port an existing sugar activity and document the process.(Porting Guide)
+28 July-4 August (Week 11)
+Buffer Week
+4 August-11 August (Week 12)
+Brushing up the code , adding tests and documentation , removing bugs.
+11 August-18 August (Week 13)
+Evaluation Week
+If time permits , I will try to port all the fructose activities to Python3 during the GSoC. If not, I will pert the fructose activities to Python3 post-GSoC.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+Although I haven't worked on as big a project as sugarlabs but I have been involved in many projects that are listed below:
+I implemented a paddle ball game using graphics library in C++ when I was in 11th class:
+Link:
+https://github.com/curiousguy13/paddle-ball
+A project on tourism using C++ when I was in 12th class:
+Link:
+https://github.com/curiousguy13/travel
+I am good with algorithms and data structures and I like to do algorithmic puzzles on projecteuler which can be found here:
+Link:
+https://github.com/curiousguy13/project_euler
+I successfully completed CS50x (on edx.org) last year in which I made a finance website using HTML/CSS ,PHP, javascript and MySQL.I cannot share it's code though due to the Honour code.
+Link:
+https://s3.amazonaws.com/verify.edx.org/downloads/1c2174e5034f446fb0f3e0439dfb8c1a/Certificate.pdf
+I also made a BMI calculator android app in Java as a final project of CS50x which can be found here:
+Link:
+https://github.com/curiousguy13/calc
+I also successfully completed 6.001x of MIT (from edx.org) last year with 96% and created a web parser to monitor newsfeed over the internet as one of the  problem sets.I cannot share it's code though due to the Honor Code that was promised by me.
+Link:
+https://s3.amazonaws.com/verify.edx.org/downloads/eba70bcc05ac483da493a0dde7ef9bcf/Certificate.pdf
+I am also currently involved with the mozmill(mozilla) team to port mozmill to Python3 and thus have experience using 2to3 and autopep8.
+I have also ported all the sugar and sugar-toolkit-gtk3 tests to Python3.
+Link :
+https://github.com/curiousguy13/sugar-python3-tests
+I am really enthusiastic about being a part of such a great project and am ready to devote 50+ hours per week this summer as this will be the only big project that I will be involved with.
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+Kunal Arora
+: This project would port sugar to Python 3 which is the future of Python. It has better unicode support which would make it easier for developers to work with strings which would now be in unicode as unicode is easier to translate into different languages. Hence ,porting will help the sugar community in internationalization and will also make sugar up to date with modern technologies that rely on Python3.
+There are several reasons why this project is important to Sugar Labs: (1) we need to keep pace with the projects we depend upon upstream -- Python 3 is being to become de rigour -- and (2) Python 3 has much better support for i18n and unicode -- critical to the global nature of our project. --
+Walter
+(
+talk
+) 16:31, 19 March 2014 (EDT)
+A planned transition to python 3 is needed to keep Sugar updated. Need work coordinated with the community and upstream projects. --
+Godiard
+(
+talk
+) 07:59, 20 March 2014 (EDT)
+What will you do if you get stuck on your project and your mentor isn't around?
+I will first search around on the web for same or similar issues , if unsuccessful, I will ask on the IRC and if still unsuccessful, I will ask on the mailing list for some help. I will also try to critically analyze the problem and try to solve it myself until the problem is solved or i can figure out a workaround, if that still fails , I will work on a different part of the project until I figure out the solution.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+I will keep the community informed about the project using my blog (
+http://kunalarora135.blogspot.in/
+) and weekly updates regarding my project on the mailing list.
+Miscellaneous
+We want to make sure that you can set up a development environment before the summer starts. Please do one of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug.
+https://git.sugarlabs.org/calculate/mainline/merge_requests/18
+https://git.sugarlabs.org/calculate/mainline/merge_requests/19
+It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Describe a great learning experience you had as a child.
+When I was in high school I used to convert my books to audiobooks and listen to them in my free time in order to utilize time more efficiently.
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+I chose sugar-labs as my mentoring organisation for this summer as I really appreciate the work being done by sugar-labs and I want to be a part of this great cause and at the same time it will provide me an opportunity to increase my knowledge and skill  by working with very experienced and skilled developers .
+Any other engagements this summer that may collide with GSoC period?
+I have my College End-Semester Exams from 12th May ,2014 to 24th May,2014, so I will be busy during that period but I will cover for that lost time by working in the community bonding period and working harder after my exams are over.

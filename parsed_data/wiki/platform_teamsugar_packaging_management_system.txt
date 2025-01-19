@@ -1,0 +1,58 @@
+Title: Platform Team/Sugar Packaging Management System
+URL: https://wiki.sugarlabs.org/go/Documentation_Team/Services/Scalable_development_model#Implementation_ideas
+--------------------------------------------------------------------------------
+Important note, this text is about community-driven processes that are decentralized by design. Deployment organisations like OLPC are more centralized by their nature and have absolutely different deployment schemes. And, of course, both schemes are important and useful.
+Contents
+1
+Purposes
+2
+Implementation ideas
+2.1
+Intermediate level libraries
+2.2
+0install deployment mechanism
+3
+Activity developer's point of view
+Purposes
+Sugar is not unique when faced with questions such as how to deploy new features to users. There are well-tested and robust models in the FOSS world for projects that follow regular release schedules, e.g., 6-month, support, long-term supported releases, etc. But, there may be cases where Sugar has its own specific needs:
+The most broad Sugar audience includes teachers, students, schools and other educational organizations. Thus, we can not rely on the supposition that all Sugar users will use only the latest stable Sugar release. For example, the latest OLPC Sugar is
+0.82, next will be 0.84, but the latest stable version is 0.88
+.
+Many developers participate on a casual basis, thus, supporting several Sugars (one for stable OLPC, one for next stable OLPC, and one for the latest stable upstream) for their activities is too much work for them. As such, people support only one branch, and either drop other user categories, or do not implement useful features from the latest Sugar (like the new toolbar design).
+One of Sugar's original purposes is stimulating people to hack existing code and share their code. Having (in the ideal case) such a huge heap of code, we can't rely on the chance that all these activities will work on so many Sugar releases. For example, someone may take the Record activity (maybe not the last version) and implement a new feature. Then, he just wants to share his hack, but not test this new code on several Sugar Platforms, or ask QA to test it, or ask ASLO editors to review, etc., just share it in a casual but still useful manner.
+So, the right answer could be a more scalable and decentralized development model. That doesn't mean we should follow only a decentralized model, but we can effectively mix both—a centralized model with the core team that features regular releases—and add an optional, decentralized model.
+Implementation ideas
+Activity development could be based on a pair of software-level solutions that are tied to each other.
+Intermediate level libraries
+A decentralized development model here means that the activity developers' focus is moved from core releases to releases of core libraries that they use in activities. So, the cornerstone idea is switching from a
+monolithic Sucrose
++
+activities
+scheme to a
+monolithic Sucrose
++
+intermediate level libraries
++
+activities
+.
+The major purposes in having intermediate software-level libraries are:
+Support several Sucrose releases that are popular in deployments right now, so activity developers won't have to code a bunch of if statements to support several Sucrose releases, they just use what current, intermediate libraries can provide and the activity will work (or gracefully fallback) on all Sugars in the field.
+Such libraries are designed to be 0install'ed instead of installing only from native packaging systems.
+See
+Polyol group
+to learn about a possible implementation.
+0install deployment mechanism
+Intermediate level libraries will be especially useful if their recent versions could be installed on every Sugar in the field, whatever the Sucrose release on a particular machine. 0install is an obvious choice since it is
+An overall GNU/Linux distribution mechanism,
+Could be installed to the user's home directory, i.e., without having root privileges.
+Another, but no-less-useful 0install feature is having several versions of the code at the same time. For example, if an activity can work only with a particular version of some intermediate library, it should work with this exact version even if it is really old, of course, this library version should be still supported.
+See
+Sugar Services
+to learn about possible implementations.
+Activity developer's point of view
+Having covered all the above, an activity developer needs only assure one thing to be sure that his activity will work on all Sugars in the field: Declare what intermediate libraries are needed and, maybe, what particular versions are needed. See
+Activity Developers Guide
+to learn how it is implemented in 0sugar.
+So, to support a huge repository of Learner's/doer's code (see 3rd point of
+purposes
+), there is no need in having a huge QA effort to review every new piece of code—we just rely on the activity coder having declared all the required libraries/versions (those used during activity coding).

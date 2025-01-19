@@ -1,0 +1,109 @@
+Title: Platform Team/Server Kit/sugar-unit
+URL: https://wiki.sugarlabs.org/go/Platform_Team/Server_Kit/sugar-unit
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Library
+3
+System testing scenarios
+3.1
+Scenario files
+3.2
+Actions
+3.3
+Launch
+4
+Getting involved
+5
+Resources
+Summary
+The project is intended to emulate regular Sugar client behaviour to help, e.g., with testing
+Sugar Server Kit
+components and
+Sugar Server Kit
+based solutions.
+Library
+It is useful for python code that tests, e.g., the school server internals.
+See sugar-server
+integration tests
+for examples.
+System testing scenarios
+In this mode, the sugar-unit application tries to behave as a regular host with sugar launched on it, including anti-thief features specific only for XO laptops.
+Scenario files
+Regular use involves writing scenarios—python scripts that need to be launched by the
+sugar-unit
+program, i.e., such files need to have headers (you need to have the path to the source
+sugar-unit
+file in the
+PATH
+environment variable):
+#!/bin/env sugar-unit
+Scenario files should classes inherited from
+sugar_unit.tests.Case
+that are regular
+unittest.TestCase
+classes.
+Actions
+The building blocks of sugar-unit scenarios are actions. Actions are objects of classes inherited from
+sugar_unit.context.Action
+. Action classes represent one particular aspect of some sugar client behaviour, e.g., activation or backup.
+A simple scenario looks like:
+import os
+from sugar_unit import tests, actions
+
+class Test(tests.Case):
+
+   def test_XO_walkthrough(self):
+       self.assertAction(actions.Activation)
+       self.assertAction(actions.Registration, force=True)
+
+       ds_path = self.bot.store('foo', 'bar')
+       self.assertAction(actions.Backup)
+
+       os.unlink(ds_path)
+       self.assertAction(actions.Restore)
+       assert exists(ds_path)
+       assert file(ds_path).read() == 'bar'
+
+       self.assertAction(actions.Presence)
+Launch
+Useful command-line arguments.
+nick
+While working, sugar-unit will behave on behalf of only one Sugar user. By default, user's nick is
+test
+, but it might be changed using the
+--nick
+command-line argument. The XO serial number and UUID will be calculated basing on nickname. Default nickname is also hardcoded in
+sugar-server
+sources, so, sugar-server will always have a lease for this nick. For non-default nicknames, the corresponding leases need to be
+registered
+in sugar-server, getting SN and UUID from
+sugar-unit id
+output.
+profile-dir
+sugar-unit will create a directory for Sugar profile, i.e., an analog of profile directories in
+~/.sugar
+. By default, profile directory will be created in the current one using nickname as a directory name. It might be changed using the
+--profile-dir
+command-line argument.
+lease-key
+To verify leases gotten from the sugar-server, sugar-unit should know the lease public key, the default one (which sugar-server uses for default lease) comes with sugar-unit sources. For non-default leases, use the
+--lease-key
+command-line argument to specify the key path.
+api-url
+By default, sugar-unit will look for default, hardcoded in Sugar Shell sources, API url,
+http://schoolserver:8000
+. But, it is possible to specify any other, using the
+--api-url
+command-line argument.
+Getting involved
+Report
+on bugs.
+Read the
+HACKING
+file to know how to contribute with code.
+Resources
+Sources
+.

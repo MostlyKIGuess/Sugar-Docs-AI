@@ -1,0 +1,143 @@
+Title: Activities/Quiz
+URL: https://wiki.sugarlabs.org/go/Activities/Quiz
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+Taking a Quiz
+2.1
+Image Quiz
+2.2
+Matching Image
+2.3
+Flashcard
+2.4
+Audio Flashcard
+3
+Making a Quiz
+3.1
+Flashcard Quiz
+3.2
+Audio Flashcard Quiz
+3.3
+Image Matching Quiz
+3.4
+Image Quiz
+4
+Utility Functions
+4.1
+Import
+4.2
+Export
+4.3
+Delete
+4.4
+Reset
+5
+Quiz Bundle
+6
+Features Requested
+6.1
+To Do
+6.1.1
+Sharing
+6.1.2
+Scorekeeping
+6.1.3
+Question types
+6.1.4
+Collections
+7
+Links
+Description
+The Quiz activity is an expanded version of the
+ImageQuiz
+activity created by Chris Hager and Georg Witwer.
+It adds additional quiz types: matching picture, text flashcard, and audio flashcard. It provides the capability for the user to create a quiz 
+and export it as a bundle (mime_type: application/x-imagequiz) with the extension .iqxo. This bundle can be imported into the Quiz activity on other
+XOs.
+Taking a Quiz
+Initial screen
+When launching the Quiz activity, the initial screen is often not immediately visible. To see the screen just move your fingers on the trackpad!
+To take a quiz, select 'Pick Quiz' from the menu to the left of the screen.
+List of available quizzes
+This shows a list of available quizzes (categories). The number in parentheses is the number of questions in that quiz. To see the additional quizzes click on '<more>'.
+On the second screen, select the xo-laptop quiz
+To go back click on <back>. In this case, click on xo-laptop to start that quiz.
+Image Quiz
+The xo-laptop quiz is an example of an image quiz. The question is given in text at the top of the screen. Answer by clicking on the correct place in the image.
+image quiz question from the xo-laptop quiz. Hint: click on the big chip
+Matching Image
+The English quiz is an example of a matching image quiz. Four images are shown. An audio clip describes the correct image. Respond by clicking on that image. Notice the scoreboard at the bottom of the screen. The smiling face for correct answers. The devil's grin for wrong anwers. At the top right is shown more detail. A correct answer is worth 10 points. The boxes keep track of results. There are 12 questions in the quiz. The first box shows questions which have not yet been answered or where the last answer was incorrect. For each correct answer the question is moved to the next box. If it is in the fifth box, it is not shown in the quiz. The goal is to move all questions to the fifth box. In this case there is one question answered wrong, ten which have been answered correctly the last time presented, and one which has been answered correctly twice in a row. The 
+next item shows the response time in seconds.
+image quiz question from the English quiz.
+Flashcard
+The math quizzes are examples of the flashcard quiz. A text prompt is shown. Respond by typing in the correct response. The response is checked when you hit the 'enter' key.
+flashcard question from the math facts quiz showing the answer before the enter key was hit
+Audio Flashcard
+The spelling quiz is an example of an audio flashcard quiz. The prompt is an audio clip. Respond by typing in the word (with correct spelling!).
+The response is checked when the 'enter' key is hit.
+audio flashcard question from the Spelling quiz. The audio is: beautiful, oh what a beautiful day, beautiful.
+Making a Quiz
+make submenu
+The first step is to click on 'make' in the main menu in the left sidebar. This will display the 'make submenu'.
+Give the new quiz a name
+If you click on 'Select Quiz', you will see a list of the available quizzes similar to the 'Pick Quiz' menu option. Click on the quiz you want to edit. If you click on 'New Quiz', you will be asked for a name for the new quiz.
+Make's working screen - lots of buttons!
+This is a busy screen! On the menu, you will click on 'done' when you are ready to save the new or modified quiz. The left/right buttons at the bottom of the menu sidebar are for navigation. If you are editing an existing quiz, this allows you to find the question to modify. If you click on the forward (right arrow) button after the last question or if this a new quiz, you will get this screen ready to define a new question.
+Generally, questions in a quiz should be of the same type (image quiz, image matching, flashcard, or audio flashcard). Mixing questions is truly 'constructive discovery'.
+Flashcard Quiz
+To make a flashcard question: click on the prompt line. Type the text for the prompt in the entry in the middle of the screen. Hit the return key to update the prompt. If it is not correct simply repeat the process. Next click on the response line to enter the answer. If more than one answer is correct (.e.g. egg and the egg), enter all acceptable alternatives separated by the '/' character (e.g. egg/the egg) When editing of the question is complete, press the forward (or back) button to move to a different question.
+Audio Flashcard Quiz
+In this case, you need to record (or re-record) an audio clip with the prompt. Click on the record button (red ball at bottom of the central frame). Speak the question loudly, slowly, and distinctly. Click the record button again to stop recording. Recording is indicated by a yellow 
+led in the upper right of the XO. Don't forget to stop recording. DON'T FORGET TO STOP RECORDING!!! Otherwise your memory will fill with a 
+big audio file. Click on the response line and enter the text for the response. The 'magnifying glass' button shows a list of audio clips in the quiz database or in the Journal. This allows using prerecorded clips. The play button to the left of the record button plays the current clip for the question.
+Image Matching Quiz
+Image list
+There are two steps to create an image matching question. First, select an image. Second, record a word or phrase that identifies the image.
+An image matching quiz shows four images at a time - only one which matches the audio prompt. The images to be shown include the 'question image' which matches the audio prompt plus three randomly chosen images from the same quiz. This means the quiz must have at least four questions (12-16 is typical). To select the image, click on the 'magnifying glass' to the left of the word 'image' at the bottom left of the center frame. This will show a list of images already in the quiz database plus images in the datastore. Click on an image to select it. It will than be shown in the center frame. Then record a clip identifying the picture by the same procedure as the Audio Flashcard Quiz.
+Image Quiz
+This image is from the xo-laptop quiz showing the 'ink' around the left speaker
+The image quiz question requires (1) an image, (2) a text prompt, and (3) a map. Selecting the image is the same process as for the Image Matching Quiz. The difference is only in the image. Image matching images generally are very simple with only one object. Image quiz images are generally more complex, showing many objects. For example, an image matching picture might show a hand. An image quiz picture might show the whole human body. Enter the text prompt first (following the procedure for flashcards). This avoids a temporary glitch. Next select the image. To create the 'map' defining where clicks will be accepted as correct responses, click on the big pencil button. Move the cursor to the image and 'draw' a closed figure around the area of 'correct' clicks. The map is defined as a series of line segments connecting points. The points are defined by the releasing the left 'mouse' button. The trick is to click on the first point, then release, move the cursor a ways and click again. The last two points will automatically be connected to close the figure. The 'undo' arrow above the navigation buttons erases the map so it can be redrawn.
+Utility Functions
+These utility functions are not needed for normal use of the Quiz activity.
+Import
+The import utility shows a list of quiz bundles in the datastore. If a bundle is selected (clicked), the utility will unzip the bundle, copy the images and audio clips to the local activity files, and enter the questions in the SQLite database. When complete, the utility blanks the screen. The user can then pick that quiz from the 'Pick Quiz' menu option.
+Export
+The export utility shows a list of the quizzes in the database. If a quiz is selected, the utility creates a control file (deck.xml) and copies the required images and audio clips to a work folder. The files are then zipped into a bundle which is saved in the datastore (Journal). The bundle can 
+be stored on a usb drive (copy from the Journal) and installed on a different XO using the Import utility function. This function will be needed for a newly created quiz to be shared via the schoolserver or a usb drive.
+Delete
+The delete utility shows a list of the quizzes in the database. If a quiz is selected, it is deleted from the database. If an image or audio clip is not used in another quiz, it is also deleted. There is no 'undo'!
+Reset
+The reset utility removes the entire database as well as all of the images and audio clips. The next time the Quiz activity is launched it will 
+start with a fresh copy to the pre-installed quizzes. All other quizzes will be gone.
+Quiz Bundle
+The Export utility saves a bundle in the datastore (Journal). The bundle has the mime_type: application/x-smile and the file extension .iqxo.
+It is a zipfile which contains the control file (deck.xml) and the images and audio clips required for the quiz. The current version does not import a bundle from the Journal Activity - the Quiz activity must be launched and the bundle imported from the selection screen using the import utility function. The bundle is a means to exchange quizzes. The Quiz activity stores the questions for each quiz in an SQLLite database and copies the images and audio clips into the activities local files.
+Features Requested
+User:Cjb
+would love to see a collaborative quiz activity that works something like this:
+gives a shared countdown and then asks a question, and gives points based on who answered correctly/first/etc, and keeps track of scores over time
+this could either use static written questions, or randomly generated questions based on rules (like a math problem generator that comes up with questions by choosing from random numbers inside a given range)
+would be a great way to showcase collaboration and harness the power of competition for learning e.g. math
+If you're interested in helping out, please add your wiki name to this list!
+User:Cjb
+To Do
+Sharing
+It should be possible for a 'quiz-giver' to share a quiz so that each 'quiz-taker' can respond either at the quiz-giver's pace or at their own pace. The quiz-giver should be able to see the responses with a highlight showing correct and incorrect responses. This feature will be implemented using as much of the existing code in the ClassroomPresenter (or ShowNTell) activity as possible given that Quiz is implemented in pygame not gtk.
+In the sharing mode, verbal responses should also be possible - although checked manually by the quiz-giver.
+Scorekeeping
+The scorekeeping display should be made more appealing (and game-like). The number of points given for a correct answer should be adjusted based on the response time. For example, there should be a way to save the sum of the response times for the math facts so that one could demonstrate the ability to respond correctly to all 100 in (say) less than one minute. The response time is measured from when the question can be answered (it is displayed) until the answer is given (hit return). There probably should be audible 'ataboys' for beating one's best time or for getting all answers correct (first box is empty).
+Question types
+It should be possible to have an audio prompt for an imagequiz question. 
+Cloze questions should be possible for flashcards.
+There could be a 'quiz' mode in which (say) ten questions are presented at one time (true/false or multiple choice).
+The matching image algorithm could be easily adapted to text multiple choice questions. In addition, educators might like a multiple-choice 
+question where the 'wrong' answers are also specified.
+It might be possible to have an 'arithmetic' quiz with automatically generated questions.
+Collections
+For learning vocabulary or math facts or spelling, it would be desirable to have a quiz 'collection'. The user would be able to add a quiz to a collection. For example, the new vocabulary list for this week would be added to the vocabulary collection. The user could then practice the new vocablulary as well as review the earlier words. As the words are learned they would advance to the fifth box and not be seen again. There would be a 'review' option: all questions in the fifth box would be moved to the fourth box for that quiz; those answered correctly move back to the fifth box; while those answered incorrectly move to the first box. This would require them to answered correctly four times in a row to get back to the fifth box. One obvious use for this capability is to review for a high-stakes test or to review at the start of a new school year.
+Links
+Quiz activity
+source

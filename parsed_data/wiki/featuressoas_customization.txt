@@ -1,0 +1,165 @@
+Title: Features/SoaS customization
+URL: https://wiki.sugarlabs.org/go/User:Carlo/sandboxSoas
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+14
+References
+Summary
+SOAS Deployment Customization
+Owner
+Name:
+Carlo Falciola
+Email: <cfalciola dot yahoo dot it>
+Current status
+Targeted release: (0.88)
+Last updated: (2009 Nov 24)
+Percentage of completion: 5%
+Detailed Description
+In order to support deployments activities the standard SOAS image should allow a limited degree of customization for basic/advanced settings.
+This page would be the start of a documentation effort aimed to document those basic interfaces:
+Benefit to Sugar
+to ease the personalization efforts from field organizations
+to avoid regression issues related to personalization done in the wrong places
+to ease peacefully coexistence between personalization needs and bug fixing/support activities
+Scope
+Actually will be mostly a documentation effort - no impact on code in this phase.
+How To Test
+Features/SoaS customization/Testing
+User Experience
+In case of a deploy in a school we could not expect children or teacher to spend a large initial amount of time to set up basic parameters for SOAS usage (es. LANGUAGE, Timezone, Keyboard, servers, etc).
+Whatever approach would be taken in order to land those initial settings in the actual sticks/images, the very first step is to try to define with increasing detail:
+what  all those settings are
+where a deployer or developer could find them
+how to operate changes to those setting without creating regression errors in the procedure
+Dependencies
+None on code
+Once consensus being reached on the customization documentation, developers that changes Sugar in areas that impact this documentation set should fell obliged to update it consistently and notify downstream.
+Contingency Plan
+If we don't complete this feature, it can be left out. Nothing else depends upon it.
+Documentation
+SOAS Deployment Settings Table (Draft)
+Description
+What
+Where
+How
+Complexity
+Notes/References
+Language
+LANGUAGE and LANG environment variables
+conf file, login/boot scripts
+....
+....
+Timezone
+Environment that define timezone
+login/boot scripts
+....
+.....
+Jabber Server(s)
+address of jabber server for the school/class
+conf file?
+......
+...
+WiFi settings (auto connect)
+in case of proxy, passwords needed
+conf file?
+.....
+...
+see also mail: (
+http://lists.sugarlabs.org/archive/sugar-devel/2009-November/020967.html
+)
+Added Activity  (added to the default set)
+Activity Bundle
+Filesystem or Journal?
+...
+...
+see also mail: (
+http://lists.sugarlabs.org/archive/sugar-devel/2009-November/020967.html
+)
+Preferred Activities list reworked/reordered
+text file, proprietary format
+/home/liveuser/.sugar/default/favorite_activities (in Soas)
+...
+...
+see also mail: (
+http://lists.sugarlabs.org/archive/sugar-devel/2009-November/020967.html
+)
+User account
+parameters
+conf file ?
+schoolclass  info to be added (?)
+...
+...
+Additional Drivers
+Linux drivers to support specific HW
+Standard Linux Drivers locations
+Link to an Howto Page
+(Could be hard)
+Additional Multimedia
+to enhance localization for specific packages (es. Gcompris Voices, openstreetmap dataset)
+/Activities...
+...
+...
+Additional Contents (eBooks, images, ecc.)
+files
+to land in Journal or in compressed r/o partition
+...
+...
+Additional static HTML (local homepage, etc.)
+files
+to land in ...
+...
+...
+see also mail: (
+http://lists.sugarlabs.org/archive/sugar-devel/2009-November/020967.html
+)
+Note: The "Complexity" column could be the base for differentiate the effort/scope of personalization effort:
+some of them could be defined as "standard" and potentially we could have half baked tools to smooth efforts (the idea is that's far easier to write a well done & safe script to be used by deployer on the field other than  increase the Sugar UI with rarely used features)
+some of them could be defined as "hard" and then documented only then left to field/deployers will...
+Release Notes
+...
+Comments and Discussion
+See
+discussion tab for this feature
+References
+A basic list of setting to be described could be taken from
+http://wiki.sugarlabs.org/index.php?title=Request_New_Feature
+(by
+Andrea
+16:41, 21 May 2009 (UTC) ):
+Date, Time & Timezone
+Language
+User Accounts
+WiFi settings
+Jabber server(s).
+Add/Remove Programs
+System Updates
+Desktop GUI settings
+Name SD card and USB media drives, etc.
+.....
+What else?

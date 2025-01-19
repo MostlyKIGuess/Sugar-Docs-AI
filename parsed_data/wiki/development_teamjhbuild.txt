@@ -1,0 +1,805 @@
+Title: Development Team/Jhbuild
+URL: https://wiki.sugarlabs.org/go/Development_Team/Jhbuild#Creating_an_xsession_for_Sugar-jhbuild
+--------------------------------------------------------------------------------
+english
+|
+日本語
+|
+spanish
+HowTo
+[ID# 89573]
++/-
+Contents
+1
+Deprecated
+2
+sugar-jhbuild
+3
+Compatible platforms
+4
+Check distro-specific instructions
+5
+Some general advice
+6
+Prerequisites
+7
+Check out sugar-jhbuild
+8
+Build sugar base system and its dependencies
+8.1
+Dealing with dependencies
+8.2
+Some tips
+8.3
+If build breaks after an update
+9
+Run Sugar
+10
+Running sugar in a VNC session
+11
+Run an individual activity
+12
+Configure the mode and resolution of Xephyr
+13
+Other commands
+14
+From within Sugar
+15
+Customize
+16
+Compiling using 2 or more CPU cores
+17
+Using ccache to speed up rebuilds
+18
+Building specific version of Sugar
+18.1
+Suggestions
+19
+Useful Internal Links
+20
+External links
+21
+Known issues
+21.1
+Known issue with hulahop
+22
+Dual-Booting F17 and F14
+22.1
+Install F17, using a LiveUSB. This would erase all the previous existing OSes (if any).
+22.2
+Re-install F17, using a LiveUSB (but this time on a dedicated partition)
+22.3
+Install F14, using a LiveUSB (on a dedicated partition)
+22.4
+Enabling dual-boot
+22.5
+Useful links
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Deprecated
+Note:
+Sugar-jhbuild is deprecated.
+Please use
+sugar-build
+.
+sugar-jhbuild
+Sugar-jhbuild will automatically download the latest of Sugar's dependencies as well as Sugar itself directly from their source repositories, rather than relying on source packages that may have become stale.
+Below are generic instructions on how to use jhbuild to get up and running with Sugar.
+Compatible platforms
+Jhbuild is quite demanding with regard to the packages and setup for the host Linux distribution. As a result there are only a few Linux distributions which are known to work with it.
+See the distribution-specific instructions for information about whether your distribution is currently supported. Other distros which have a recent-enough release (e.g. including the latest stable GNOME release) can be supported if someone is willing to maintain the dependencies for that distro release (in config/sysdeps).
+Check distro-specific instructions
+Many distributions have some quirks that need to be catered for and there are different package managing tools in use, so please check the page for your distribution before proceeding:
+Debian
+Fedora
+(some
+videos of the Fedora jhbuild install process
+).
+Ubuntu
+Distro packaging guidelines vary, so please don't worry if jhbuild requires twice/half the packages in one distro that it did on another.
+Some general advice
+Note: Like most other Unix applications, sugar-jhbuild should never be run as root. It may easily screw up your whole system and/or break in unexpected ways if you do. If you get any permissions error, there's something wrong with your installation that should be fixed.
+If you're stuck or if you get strange errors, feel free to ask for help on the
+#sugar IRC channel
+or the
+sugar-devel mailing list
+. Don't waste too much time chasing strange problems: usually it's caused by some basic, easy to fix problem. You might also want to check the
+bug tracker
+to see if it's a known issue.
+Prerequisites
+python
+The sugar-jhbuild command is a Python script, so you need the Python interpreter.
+git
+To get the source code of sugar-jhbuild itself and many other Sugar packages you need the
+git
+command-line tool from the distributed version control system of the same name. In many distributions the minimal package you need to install is "git-core".
+subversion
+A few packages (as of January 2010, only squeak and part of etoys) do not use git, and you need the
+svn
+command-line tool from the Subversion version control system to get their source code.
+These should be enough to run sugar-jhbuild itself on a typical Linux installation.  Running
+sugar-jhbuild depscheck
+(see below) will probably list dozens of additional required packages.
+Check out sugar-jhbuild
+In a suitable directory (i.e. usually your user's home directory i.e. /home/yourusername/~), execute
+git clone
+git://git.sugarlabs.org/sugar-jhbuild/mainline.git
+sugar-jhbuild
+You'll know if it worked if you get something like this:
+localhost ~]$ git clone git://git.sugarlabs.org/sugar-jhbuild/mainline.git sugar-jhbuild
+Initialized empty Git repository in /home/denny/sugar-jhbuild/.git/
+remote: Counting objects: 4688, done.
+remote: Compressing objects: 100% (1998/1998), done.
+remote: Total 4688 (delta 2759), reused 4488 (delta 2638)
+Receiving objects: 100% (4688/4688), 1.86 MiB | 197 KiB/s, done.
+Resolving deltas: 100% (2759/2759), done.
+Build sugar base system and its dependencies
+Go into the directory you created and start the build. It takes about 30 minutes on a 1.6ghz machine with a wireless G connection.
+cd sugar-jhbuild
+./sugar-jhbuild update
+./sugar-jhbuild depscheck
+Install everything depscheck complains about.
+Read the distro-specific instructions
+for how to do this.
+Now build all Sugar packages in sugar-jhbuild:
+./sugar-jhbuild build
+Here are videos of the process
+.
+If everything worked out fine, you can now
+run Sugar
+.
+If it doesn't run or you have other problems read on.
+Dealing with dependencies
+sugar-jhbuild depscheck
+will print a list of required packages. They are part of the distribution you're using and should be installed using your favourite package manager (e.g. aptitude/synaptic for Debian, yum for Fedora).
+If you notice that there's a package missing from the
+./sugar-jhbuild depscheck
+output (i.e. it's required for Sugar to work properly and not installed, but depscheck does not mention it), please
+file a bug report
+(login required first, but currently no automatic redirection to login page) against the sugar-jhbuild Component in the
+Sugar Labs bug tracker
+.
+Some tips
+A useful sequence of commands for building Sugar, from the
+Sugar mailing list
+: (Note that build without -n will update first anyway, so run update separately if you want to see what changed more easily.)
+./sugar-jhbuild update
+./sugar-jhbuild build -n -a --clean
+./sugar-jhbuild run sugar-emulator
+The use of -a and --clean flags are needed when a file is removed so that autogen.sh is run.
+Note:
+Some packages, e.g., squeak and etoys, don't have a
+make clean
+. Just ignore the error.
+If build breaks after an update
+The packages in sugar-jhbuild are the latest development versions, so you not only get the latest features, but also the latest breakages. The dependencies may change often, too, so be sure to run
+./sugar-jhbuild depscheck
+regularly and install the missing packages.
+If your problem persists for more than a day (and even though you installed all missing packages), please
+file a bug report
+.
+Run Sugar
+Note: if you have a non-US keyboard, please follow the instructions on
+running Sugar in a VNC session
+instead.
+This command launches Sugar in a nested X session:
+./sugar-jhbuild run sugar-emulator
+To set debug variables, modify
+~/.sugar/debug
+(this file will be created on first run of Sugar).
+Note that due to a
+bug in Xephyr
+your keyboard might not work as expected. A partial workaround is to run
+setxkbmap <keymap name>
+by adding this command line to
+~/.sugar/debug
+. Most "regular" keys should work fine after that, some "special keys" (e.g. cursor up/down) might still refuse to operate as intended.  The "keymap name" usually is a two letter country code, e.g. "de" for german or "fr" for french.
+Running sugar in a VNC session
+Many users and developers have reported problems with running sugar-emulator because it uses Xephyr. As an alternative, you can run sugar in a VNC session. To accomplish this create a
+~/.vnc/xstartup
+file containing the code below:
+#!/bin/sh
+exec ~/sugar-jhbuild/sugar-jhbuild run dbus-launch --exit-with-session sugar
+Note: The above code assumes that sugar-jhbuild is installed in the
+~/sugar-jhbuild/
+directory.
+Now, you may run Sugar by creating a VNC session and accessing it using a VNC viewer. E.g.:
+vncserver :1
+vncviewer :1
+Run an individual activity
+Within sugar, e.g. in Terminal, this command launches an individual activity for testing:
+sugar-launch
+bundle_name
+You will see debug output appearing in Terminal.
+Configure the mode and resolution of Xephyr
+You can make Xephyr run fullscreen or specify a size (in pixels):
+./sugar-jhbuild run sugar-emulator --fullscreen
+./sugar-jhbuild run sugar-emulator --dimensions 1200x900
+./sugar-jhbuild run sugar-emulator --dimensions 832x624
+The default size of 800x600 is currently the minimum that should work without issues. I.e., activities should be tested to work in this mode (and in others as well).  832x624 approximates the display proportions of the XO laptops, closely matching the toolbar, for example.
+Other commands
+JHBuild has several other commands that can be useful for development. You can get an overview with:
+./sugar-jhbuild --help-commands
+From within Sugar
+Once you have Sugar running, here are some useful commands (these are not specific to sugar-jhbuild or sugar-emulator, but work in all Sugar sessions):
+Alt+Shift+F
+makes the frame appear and disappear
+Ctrl-Q
+quits an activity
+Alt+Shift+Q
+quits Sugar
+Alt+Shift+O
+opens the search
+Alt+Shift+R
+rotates the screen
+Customize
+To customize the build you can modify the configuration file named
+sugar.jhbuildrc
+or create a copy of it and pass
+--file /path/to/your/new/config
+to sugar-jhbuild.
+Compiling using 2 or more CPU cores
+Before running
+./sugar-jhbuild build
+, append this to
+sugar.jhbuildrc
+:
+os.environ["MAKEFLAGS"] = "-j4 -l4"
+Adjust the numbers to be twice the number of CPU cores in your machine.
+Using ccache to speed up rebuilds
+To speed up full rebuilds of sugar-jhbuild (i.e. running
+./sugar-jhbuild build
+after removing the
+source
+directory) you can use
+ccache
+. Install it and append the following to
+sugar.jhbuildrc
+:
+os.environ["CCACHE_DIR"] = os.path.join(os.path.dirname(__file__), "ccache")
+os.environ["PATH"] = "/usr/lib/ccache:"+os.environ["PATH"]
+Adjust
+/usr/lib/ccache
+to the path used by your distribution and create the
+ccache
+directory (inside your
+sugar-jhbuild
+checkout).
+Building specific version of Sugar
+To build a specific version of Sugar do the following:
+Open
+sugar.jhbuildrc
+and find line:
+modulesets = 'sugar'
+Set this to:
+modulesets = 'sugar-0.84'
+customizing the latter to your specific needs.
+Copy
+sugar.jhbuildrc
+to
+~/.jhbuildrc
+./sugar-jhbuild
+Suggestions
+Copy all your sugar-jhbuild to sugar-jhbuild-0.84 (for example) or check the repositories out again.
+rm -r install source/
+If you want to keep the
+source
+directory to save bandwidth, you need to be extra careful: delete all unpacked tarballs and  cleanup all git repositories with
+git clean -d -a
+.
+Don't forget to delete or modify
+.jhbuildrc
+after building the specific version of Sugar if you still want to receive the latest updates from the repositories,
+OR
+Create another user.
+Useful Internal Links
+Understanding Sugar Code
+Taxonomy
+-- explains the components of Sugar (Glucose, Fructose, Sugar, Starches)
+Sugar Instructions
+-- how to actually use Sugar once you have it running
+[1]
+External links
+JHBuild manual
+Known issues
+Known issue with hulahop
+hulahop stopped building because I had installed a more recent version of xulrunner on my machine. The workaround was to
+rm -rf ~/sugar-jhbuild/source/hulahop
+and then run update and build again.
+Dual-Booting F17 and F14
+Install F17, using a LiveUSB. This would erase all the previous existing OSes (if any).
+Start "Install to Hard Drive".
+Choose "Use the entire space", with "Use LVM" UNCHECKED. Note that this is important, since using the LVM option prevents the drive to be partitioned later for the two Fedoras.
+When asked for bootloader-installation position, choose "MBR in /dev/sda".
+Installation should complete successfully.
+Re-install F17, using a LiveUSB (but this time on a dedicated partition)
+Start "Install to Hard Drive".
+Choose "Create Custom Layout".
+Delete "dev/sda4" (extended-partition-root). This should also automatially delete "/dev/sda5" (extended-partition-leaf).
+Now, select on the "Free" chunk (mine was 500 GB).
+Click "Edit".
+Select "/" as the mount-point.
+Choose an appropriate space (I chose 300 GB).
+Click "OK".
+This sould create "/dev/sda4" as the extended-partition-root, and "/dev/sda5" (worth 300 GB of space) as extended-partition-leaf.
+Click "Next".
+When asked for bootloader-installation position, choose "MBR in /dev/sda".
+Installation should complete successfully.
+Install F14, using a LiveUSB (on a dedicated partition)
+Start "Install to Hard Drive".
+Choose "Create Custom Layout".
+Now, select on the "Free" chunk (mine was about 175 GB).
+Click "Edit".
+Select "/" as the mount-point.
+Choose an appropriate space (I chose 175 GB).
+Click "OK".
+This sould create "/dev/sda6" as the extended-partition-leaf.
+Click "Next".
+When asked for bootloader-installation position, choose "First sector of /dev/sda6".
+Installation should complete successfully.
+Enabling dual-boot
+At the moment, with all LiveUSBs removed, I was able to boot into F17 only. I could not see any option to boot into F14.
+Boot into F17.
+In one terminal, open the file "/etc/grub2.cfg" (in editable mode). The original contents should be on the lines of
+#
+# DO NOT EDIT THIS FILE
+#
+# It is automatically generated by grub2-mkconfig using templates
+# from /etc/grub.d and settings from /etc/default/grub
+#
+
+### BEGIN /etc/grub.d/00_header ###
+if [ -s $prefix/grubenv ]; then
+  load_env
+fi
+set default="${saved_entry}"
+
+if [ x"${feature_menuentry_id}" = xy ]; then
+  menuentry_id_option="--id"
+else
+  menuentry_id_option=""
+fi
+
+export menuentry_id_option
+
+if [ "${prev_saved_entry}" ]; then
+  set saved_entry="${prev_saved_entry}"
+  save_env saved_entry
+  set prev_saved_entry=
+  save_env prev_saved_entry
+  set boot_once=true
+fi
+
+function savedefault {
+  if [ -z "${boot_once}" ]; then
+    saved_entry="${chosen}"
+    save_env saved_entry
+  fi
+}
+
+function load_video {
+  if [ x$feature_all_video_module = xy ]; then
+    insmod all_video
+  else
+    insmod efi_gop
+    insmod efi_uga
+    insmod ieee1275_fb
+    insmod vbe
+    insmod vga
+    insmod video_bochs
+    insmod video_cirrus
+  fi
+}
+
+if [ x$feature_default_font_path = xy ] ; then
+   font=unicode
+else
+insmod part_msdos
+insmod ext2
+set root='hd0,msdos5'
+if [ x$feature_platform_search_hint = xy ]; then
+  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos5 --hint-efi=hd0,msdos5 --hint-baremetal=ahci0,msdos5 --hint='hd0,msdos5'  1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+else
+  search --no-floppy --fs-uuid --set=root 1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+fi
+    font="/usr/share/grub/unicode.pf2"
+fi
+
+if loadfont $font ; then
+  set gfxmode=auto
+  load_video
+  insmod gfxterm
+  set locale_dir=$prefix/locale
+  set lang=en_US
+  insmod gettext
+fi
+terminal_output gfxterm
+set timeout=5
+### END /etc/grub.d/00_header ###
+
+### BEGIN /etc/grub.d/10_linux ###
+menuentry 'Fedora Linux' --class fedora --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-1ff89cae-60bc-40fb-9e3c-e16e4850caa3' {
+	load_video
+	set gfxpayload=keep
+	insmod gzio
+	insmod part_msdos
+	insmod ext2
+	set root='hd0,msdos5'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos5 --hint-efi=hd0,msdos5 --hint-baremetal=ahci0,msdos5 --hint='hd0,msdos5'  1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+	else
+	  search --no-floppy --fs-uuid --set=root 1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+	fi
+	echo	'Loading Linux 3.3.4-5.fc17.i686 ...'
+	linux	/boot/vmlinuz-3.3.4-5.fc17.i686 root=UUID=1ff89cae-60bc-40fb-9e3c-e16e4850caa3 ro rd.md=0 rd.lvm=0 rd.dm=0 SYSFONT=True  KEYTABLE=us rd.luks=0 LANG=en_US.UTF-8 rhgb quiet 
+	echo	'Loading initial ramdisk ...'
+	initrd	/boot/initramfs-3.3.4-5.fc17.i686.img
+}
+submenu 'Advanced options for Fedora Linux' $menuentry_id_option 'gnulinux-advanced-1ff89cae-60bc-40fb-9e3c-e16e4850caa3' {
+	menuentry 'Fedora Linux, with Linux 3.3.4-5.fc17.i686' --class fedora --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.3.4-5.fc17.i686-advanced-1ff89cae-60bc-40fb-9e3c-e16e4850caa3' {
+		load_video
+		set gfxpayload=keep
+		insmod gzio
+		insmod part_msdos
+		insmod ext2
+		set root='hd0,msdos5'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos5 --hint-efi=hd0,msdos5 --hint-baremetal=ahci0,msdos5 --hint='hd0,msdos5'  1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+		else
+		  search --no-floppy --fs-uuid --set=root 1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+		fi
+		echo	'Loading Linux 3.3.4-5.fc17.i686 ...'
+		linux	/boot/vmlinuz-3.3.4-5.fc17.i686 root=UUID=1ff89cae-60bc-40fb-9e3c-e16e4850caa3 ro rd.md=0 rd.lvm=0 rd.dm=0 SYSFONT=True  KEYTABLE=us rd.luks=0 LANG=en_US.UTF-8 rhgb quiet 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initramfs-3.3.4-5.fc17.i686.img
+	}
+	menuentry 'Fedora Linux, with Linux 3.3.4-5.fc17.i686 (recovery mode)' --class fedora --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.3.4-5.fc17.i686-recovery-1ff89cae-60bc-40fb-9e3c-e16e4850caa3' {
+		load_video
+		set gfxpayload=keep
+		insmod gzio
+		insmod part_msdos
+		insmod ext2
+		set root='hd0,msdos5'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos5 --hint-efi=hd0,msdos5 --hint-baremetal=ahci0,msdos5 --hint='hd0,msdos5'  1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+		else
+		  search --no-floppy --fs-uuid --set=root 1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+		fi
+		echo	'Loading Linux 3.3.4-5.fc17.i686 ...'
+		linux	/boot/vmlinuz-3.3.4-5.fc17.i686 root=UUID=1ff89cae-60bc-40fb-9e3c-e16e4850caa3 ro single rd.md=0 rd.lvm=0 rd.dm=0 SYSFONT=True  KEYTABLE=us rd.luks=0 LANG=en_US.UTF-8 rhgb quiet
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initramfs-3.3.4-5.fc17.i686.img
+	}
+}
+if [ "x$default" = 'Fedora Linux, with Linux 3.3.4-5.fc17.i686' ]; then default='Advanced options for Fedora Linux>Fedora Linux, with Linux 3.3.4-5.fc17.i686'; fi;
+### END /etc/grub.d/10_linux ###
+
+### BEGIN /etc/grub.d/20_linux_xen ###
+### END /etc/grub.d/20_linux_xen ###
+
+### BEGIN /etc/grub.d/20_ppc_terminfo ###
+### END /etc/grub.d/20_ppc_terminfo ###
+
+### BEGIN /etc/grub.d/30_os-prober ###
+menuentry 'Fedora release 17 (Beefy Miracle)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-simple-9a669232-ec18-4571-85da-904db5b24112' {
+	insmod part_msdos
+	insmod ext2
+	set root='hd0,msdos1'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1 --hint='hd0,msdos1'  f2a4fc34-1b1d-494e-903f-7481e6381302
+	else
+	  search --no-floppy --fs-uuid --set=root f2a4fc34-1b1d-494e-903f-7481e6381302
+	fi
+	linux /vmlinuz-3.3.4-5.fc17.i686 root=/dev/sda2
+	initrd /initramfs-3.3.4-5.fc17.i686.img
+}
+submenu 'Advanced options for Fedora release 17 (Beefy Miracle)' $menuentry_id_option 'osprober-gnulinux-advanced-9a669232-ec18-4571-85da-904db5b24112' {
+	menuentry 'Fedora release 17 (Beefy Miracle) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/vmlinuz-3.3.4-5.fc17.i686--9a669232-ec18-4571-85da-904db5b24112' {
+		insmod part_msdos
+		insmod ext2
+		set root='hd0,msdos1'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1 --hint='hd0,msdos1'  f2a4fc34-1b1d-494e-903f-7481e6381302
+		else
+		  search --no-floppy --fs-uuid --set=root f2a4fc34-1b1d-494e-903f-7481e6381302
+		fi
+		linux /vmlinuz-3.3.4-5.fc17.i686 root=/dev/sda2
+		initrd /initramfs-3.3.4-5.fc17.i686.img
+	}
+}
+
+### END /etc/grub.d/30_os-prober ###
+
+### BEGIN /etc/grub.d/40_custom ###
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+### END /etc/grub.d/40_custom ###
+
+### BEGIN /etc/grub.d/41_custom ###
+if [ -f  $prefix/custom.cfg ]; then
+  source $prefix/custom.cfg;
+fi
+### END /etc/grub.d/41_custom ###
+In another terminal, mount F14 on a directory.
+[ajay@localhost ~]$ su -
+Password: 
+
+[root@localhost ~]# mkdir qq
+
+[root@localhost ~]# mount -t ext4 /dev/sda6 qq
+
+[root@localhost ~]# ls -l qq/boot
+total 19064
+-rw-r--r--. 1 root root   114968 Oct 18  2010 config-2.6.35.6-45.fc14.i686
+drwxr-xr-x. 3 root root     4096 Oct 22  2010 efi
+-rw-r--r--. 1 root root   166756 May 25  2010 elf-memtest86+-4.10
+drwxr-xr-x. 2 root root     4096 Aug  5  2010 grub
+-rw-r--r--. 1 root root 12562626 Jun 15 15:59 initramfs-2.6.35.6-45.fc14.i686.img
+-rw-r--r--. 1 root root  1106254 Oct 22  2010 initrd-plymouth.img
+-rw-r--r--. 1 root root   165080 May 25  2010 memtest86+-4.10
+-rw-r--r--. 1 root root  1681526 Oct 18  2010 System.map-2.6.35.6-45.fc14.i686
+-rwxr-xr-x. 1 root root  3696448 Oct 18  2010 vmlinuz-2.6.35.6-45.fc14.i686
+Now, open the contents of "qq/boot/grub/menu.lst"
+# grub.conf generated by anaconda
+#
+# Note that you do not have to rerun grub after making changes to this file
+# NOTICE:  You do not have a /boot partition.  This means that
+#          all kernel and initrd paths are relative to /, eg.
+#          root (hd0,5)
+#          kernel /boot/vmlinuz-version ro root=/dev/sda6
+#          initrd /boot/initrd-[generic-]version.img
+#boot=/dev/sda6
+default=0
+timeout=0
+splashimage=(hd0,5)/boot/grub/splash.xpm.gz
+hiddenmenu
+title Fedora (2.6.35.6-45.fc14.i686)
+	root (hd0,5)
+	kernel /boot/vmlinuz-2.6.35.6-45.fc14.i686 ro root=UUID=333b5104-4f4a-41d9-856a-c7802677bec0 rd_NO_LUKS rd_NO_LVM rd_NO_MD rd_NO_DM LANG=en_US.UTF-8 SYSFONT=latarcyrheb-sun16 KEYBOARDTYPE=pc KEYTABLE=us rhgb quiet
+	initrd /boot/initramfs-2.6.35.6-45.fc14.i686.img
+Now, in the originally opened "/etc/grub2.cfg", add the entry for boot-option for Fedora-14. Take note that
+Replace the UUID, with the UUID of F14 partition (as seen from contents of "qq/boot/grub/menu.lst".
+The arguments to "initrd" should of the initramfs of  F14 (As seen from the output of
+ls qq/boot
+).
+hd0,msdos5
+(corresponding to "/dev/sda5" for F17) is replaced by
+hd0,msdos6
+(corresponding to "/dev/sda6" for F14).
+Finally, the command
+kernel /boot/vmlinuz-2.6.35.6-45.fc14.i686 ro root=UUID=333b5104-4f4a-41d9-856a-c7802677bec0 rd_NO_LUKS rd_NO_LVM rd_NO_MD rd_NO_DM LANG=en_US.UTF-8 SYSFONT=latarcyrheb-sun16 KEYBOARDTYPE=pc KEYTABLE=us rhgb quiet
+(as seen in
+qq/boot/grub/menu.lst
+, used to boot up kernel vis F14's grub) is replaced by
+linux /boot/vmlinuz-2.6.35.6-45.fc14.i686 ro root=UUID=333b5104-4f4a-41d9-856a-c7802677bec0 rd_NO_LUKS rd_NO_LVM rd_NO_MD rd_NO_DM LANG=en_US.UTF-8 SYSFONT=latarcyrheb-sun16 KEYBOARDTYPE=pc KEYTABLE=us rhgb quiet
+(in
+/etc/grub2.cfg
+, since we intend to boot F14 via F17's grub2).
+#
+# DO NOT EDIT THIS FILE
+#
+# It is automatically generated by grub2-mkconfig using templates
+# from /etc/grub.d and settings from /etc/default/grub
+#
+
+### BEGIN /etc/grub.d/00_header ###
+if [ -s $prefix/grubenv ]; then
+  load_env
+fi
+set default="${saved_entry}"
+
+if [ x"${feature_menuentry_id}" = xy ]; then
+  menuentry_id_option="--id"
+else
+  menuentry_id_option=""
+fi
+
+export menuentry_id_option
+
+if [ "${prev_saved_entry}" ]; then
+  set saved_entry="${prev_saved_entry}"
+  save_env saved_entry
+  set prev_saved_entry=
+  save_env prev_saved_entry
+  set boot_once=true
+fi
+
+function savedefault {
+  if [ -z "${boot_once}" ]; then
+    saved_entry="${chosen}"
+    save_env saved_entry
+  fi
+}
+
+function load_video {
+  if [ x$feature_all_video_module = xy ]; then
+    insmod all_video
+  else
+    insmod efi_gop
+    insmod efi_uga
+    insmod ieee1275_fb
+    insmod vbe
+    insmod vga
+    insmod video_bochs
+    insmod video_cirrus
+  fi
+}
+
+if [ x$feature_default_font_path = xy ] ; then
+   font=unicode
+else
+insmod part_msdos
+insmod ext2
+set root='hd0,msdos5'
+if [ x$feature_platform_search_hint = xy ]; then
+  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos5 --hint-efi=hd0,msdos5 --hint-baremetal=ahci0,msdos5 --hint='hd0,msdos5'  1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+else
+  search --no-floppy --fs-uuid --set=root 1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+fi
+    font="/usr/share/grub/unicode.pf2"
+fi
+
+if loadfont $font ; then
+  set gfxmode=auto
+  load_video
+  insmod gfxterm
+  set locale_dir=$prefix/locale
+  set lang=en_US
+  insmod gettext
+fi
+terminal_output gfxterm
+set timeout=5
+### END /etc/grub.d/00_header ###
+
+### BEGIN /etc/grub.d/10_linux ###
+menuentry 'Fedora Linux' --class fedora --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-1ff89cae-60bc-40fb-9e3c-e16e4850caa3' {
+	load_video
+	set gfxpayload=keep
+	insmod gzio
+	insmod part_msdos
+	insmod ext2
+	set root='hd0,msdos5'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos5 --hint-efi=hd0,msdos5 --hint-baremetal=ahci0,msdos5 --hint='hd0,msdos5'  1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+	else
+	  search --no-floppy --fs-uuid --set=root 1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+	fi
+	echo	'Loading Linux 3.3.4-5.fc17.i686 ...'
+	linux	/boot/vmlinuz-3.3.4-5.fc17.i686 root=UUID=1ff89cae-60bc-40fb-9e3c-e16e4850caa3 ro rd.md=0 rd.lvm=0 rd.dm=0 SYSFONT=True  KEYTABLE=us rd.luks=0 LANG=en_US.UTF-8 rhgb quiet 
+	echo	'Loading initial ramdisk ...'
+	initrd	/boot/initramfs-3.3.4-5.fc17.i686.img
+}
+### [STARTS] OPTION TO ADD BOOT-UP OPTION FOR F14 ###
+menuentry 'Fedora Linux 14' --class fedora --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-333b5104-4f4a-41d9-856a-c7802677bec0' {
+	load_video
+	set gfxpayload=keep
+	insmod gzio
+	insmod part_msdos
+	insmod ext2
+	set root='hd0,msdos6'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos6 --hint-efi=hd0,msdos6 --hint-baremetal=ahci0,msdos6 --hint='hd0,msdos6'  333b5104-4f4a-41d9-856a-c7802677bec0
+	else
+	  search --no-floppy --fs-uuid --set=root 333b5104-4f4a-41d9-856a-c7802677bec0
+	fi
+	echo	'Loading Linux 14 waala ...'
+	linux /boot/vmlinuz-2.6.35.6-45.fc14.i686 ro root=UUID=333b5104-4f4a-41d9-856a-c7802677bec0 rd_NO_LUKS rd_NO_LVM rd_NO_MD rd_NO_DM LANG=en_US.UTF-8 SYSFONT=latarcyrheb-sun16 KEYBOARDTYPE=pc KEYTABLE=us rhgb quiet 
+	echo	'Loading initial ramdisk ...'
+	initrd	/boot/initramfs-2.6.35.6-45.fc14.i686.img
+}
+### [ENDS] OPTION TO ADD BOOT-UP OPTION FOR F14 ###
+submenu 'Advanced options for Fedora Linux' $menuentry_id_option 'gnulinux-advanced-1ff89cae-60bc-40fb-9e3c-e16e4850caa3' {
+	menuentry 'Fedora Linux, with Linux 3.3.4-5.fc17.i686' --class fedora --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.3.4-5.fc17.i686-advanced-1ff89cae-60bc-40fb-9e3c-e16e4850caa3' {
+		load_video
+		set gfxpayload=keep
+		insmod gzio
+		insmod part_msdos
+		insmod ext2
+		set root='hd0,msdos5'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos5 --hint-efi=hd0,msdos5 --hint-baremetal=ahci0,msdos5 --hint='hd0,msdos5'  1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+		else
+		  search --no-floppy --fs-uuid --set=root 1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+		fi
+		echo	'Loading Linux 3.3.4-5.fc17.i686 ...'
+		linux	/boot/vmlinuz-3.3.4-5.fc17.i686 root=UUID=1ff89cae-60bc-40fb-9e3c-e16e4850caa3 ro rd.md=0 rd.lvm=0 rd.dm=0 SYSFONT=True  KEYTABLE=us rd.luks=0 LANG=en_US.UTF-8 rhgb quiet 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initramfs-3.3.4-5.fc17.i686.img
+	}
+	menuentry 'Fedora Linux, with Linux 3.3.4-5.fc17.i686 (recovery mode)' --class fedora --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.3.4-5.fc17.i686-recovery-1ff89cae-60bc-40fb-9e3c-e16e4850caa3' {
+		load_video
+		set gfxpayload=keep
+		insmod gzio
+		insmod part_msdos
+		insmod ext2
+		set root='hd0,msdos5'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos5 --hint-efi=hd0,msdos5 --hint-baremetal=ahci0,msdos5 --hint='hd0,msdos5'  1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+		else
+		  search --no-floppy --fs-uuid --set=root 1ff89cae-60bc-40fb-9e3c-e16e4850caa3
+		fi
+		echo	'Loading Linux 3.3.4-5.fc17.i686 ...'
+		linux	/boot/vmlinuz-3.3.4-5.fc17.i686 root=UUID=1ff89cae-60bc-40fb-9e3c-e16e4850caa3 ro single rd.md=0 rd.lvm=0 rd.dm=0 SYSFONT=True  KEYTABLE=us rd.luks=0 LANG=en_US.UTF-8 rhgb quiet
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initramfs-3.3.4-5.fc17.i686.img
+	}
+}
+if [ "x$default" = 'Fedora Linux, with Linux 3.3.4-5.fc17.i686' ]; then default='Advanced options for Fedora Linux>Fedora Linux, with Linux 3.3.4-5.fc17.i686'; fi;
+### END /etc/grub.d/10_linux ###
+
+### BEGIN /etc/grub.d/20_linux_xen ###
+### END /etc/grub.d/20_linux_xen ###
+
+### BEGIN /etc/grub.d/20_ppc_terminfo ###
+### END /etc/grub.d/20_ppc_terminfo ###
+
+### BEGIN /etc/grub.d/30_os-prober ###
+menuentry 'Fedora release 17 (Beefy Miracle)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-simple-9a669232-ec18-4571-85da-904db5b24112' {
+	insmod part_msdos
+	insmod ext2
+	set root='hd0,msdos1'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1 --hint='hd0,msdos1'  f2a4fc34-1b1d-494e-903f-7481e6381302
+	else
+	  search --no-floppy --fs-uuid --set=root f2a4fc34-1b1d-494e-903f-7481e6381302
+	fi
+	linux /vmlinuz-3.3.4-5.fc17.i686 root=/dev/sda2
+	initrd /initramfs-3.3.4-5.fc17.i686.img
+}
+submenu 'Advanced options for Fedora release 17 (Beefy Miracle)' $menuentry_id_option 'osprober-gnulinux-advanced-9a669232-ec18-4571-85da-904db5b24112' {
+	menuentry 'Fedora release 17 (Beefy Miracle) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/vmlinuz-3.3.4-5.fc17.i686--9a669232-ec18-4571-85da-904db5b24112' {
+		insmod part_msdos
+		insmod ext2
+		set root='hd0,msdos1'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1 --hint='hd0,msdos1'  f2a4fc34-1b1d-494e-903f-7481e6381302
+		else
+		  search --no-floppy --fs-uuid --set=root f2a4fc34-1b1d-494e-903f-7481e6381302
+		fi
+		linux /vmlinuz-3.3.4-5.fc17.i686 root=/dev/sda2
+		initrd /initramfs-3.3.4-5.fc17.i686.img
+	}
+}
+
+### END /etc/grub.d/30_os-prober ###
+
+### BEGIN /etc/grub.d/40_custom ###
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+### END /etc/grub.d/40_custom ###
+
+### BEGIN /etc/grub.d/41_custom ###
+if [ -f  $prefix/custom.cfg ]; then
+  source $prefix/custom.cfg;
+fi
+### END /etc/grub.d/41_custom ###
+As a last step, change "/etc/fstab" from
+#
+# /etc/fstab
+# Created by anaconda on Fri Jun 15 15:30:02 2012
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+UUID=1ff89cae-60bc-40fb-9e3c-e16e4850caa3 /                       ext4    defaults        1 1
+UUID=9d06cbba-57e6-4cb2-93be-61a430601a67 swap                    swap    defaults        0 0
+to
+#
+# /etc/fstab
+# Created by anaconda on Fri Jun 15 15:30:02 2012
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+UUID=1ff89cae-60bc-40fb-9e3c-e16e4850caa3 /                       ext4    defaults        1 1
+UUID=333b5104-4f4a-41d9-856a-c7802677bec0 /                       ext4    defaults        1 1
+UUID=9d06cbba-57e6-4cb2-93be-61a430601a67 swap                    swap    defaults        0 0
+Reboot. Now the option to boot into F14 should be present (in options via F17's grub).
+Useful links
+http://www.dedoimedo.com/computers/grub-2.html

@@ -1,0 +1,46 @@
+Title: Service/turtleartday.org
+URL: https://wiki.sugarlabs.org/go/Service/turtleartday.org
+--------------------------------------------------------------------------------
+Contents
+1
+Description
+2
+Hostnames
+3
+Hosted on
+4
+Administrative contact
+5
+Sysadmins
+6
+Notes
+7
+Upgrade notes
+Description
+The
+Turtle Art
+front page.
+Managed with the Jekyll CMS, it contains static articles describing the annual event.
+Hostnames
+http://www.turtleartday.org
+Hosted on
+Machine/sunjammer
+Administrative contact
+marketing AT sugarlabs DOT org
+Sysadmins
+Send email to the systems sugar labs list.
+Notes
+In
+https://github.com/sugarlabs/turtleartday.org/settings/hooks
+there is a webhook defined, as documented at
+https://developer.github.com/webhooks/
+This sends a POST request in JSON format to
+https://hook.sugarlabs.org/www.turtleartday.org
+A container named org.turtleartday.www-rebuilder is in charge of processing this payload, which does the following:
+1. Install jekyll.
+2. Clone the SL repo.
+3. Install Flask
+4. Execute a Flask Python App which does the following: pull the repo and jekyll build. This app doesn't parse the POST request.
+The site is generated in the folder /clone/_site which is bind to the following directory in freedom: /srv/www-turtleartday.org-out. This is the document root for the site turtleartday.org in the nginx server block.
+Upgrade notes
+Remember to restart the org.turtleartday.www-rebuilder container after upgrading freedom.

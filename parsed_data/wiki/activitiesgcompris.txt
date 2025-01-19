@@ -1,0 +1,80 @@
+Title: Activities/GCompris
+URL: https://wiki.sugarlabs.org/go/Activities/GCompris
+--------------------------------------------------------------------------------
+Contents
+1
+Overview
+2
+Detailed Description
+2.1
+Sharing support
+3
+Build from sources
+4
+Getting involved
+5
+Resources
+Overview
+Gcompris
+with sugar support.
+Detailed Description
+GCompris and GComprisAdministration activities create the same journal object with
+application/x-gcompris
+mimetype. So, when user creates journal object with GComprisAdministration activity, this object will be opened in GCompis activity by default. Use "Open with" context palette option to resume object in GComprisAdministration.
+Sharing support
+Teacher, in addition to GCompris Administration activity
+instructions
+:
+Launch new GCompris Administration instance
+On tabs
+Classes/Users
+and
+Groups
+, create users, groups and classes; these settings will be common for all GCompris Administration activity objects
+On tab
+Logins
+, add groups of users that will be used for this GCompris Administration activity object
+On tab
+Activities
+, setup list of activities for this GCompris Administration activity object
+Share activity
+On tab
+Reports
+, see joined students' results
+Students:
+Join shared by teacher GCompris object
+on startup, if resumed object is shared by teacher, GCompris will sync settings with teacher's object
+After completing GCompris activity, results will be sent to teacher and stored to student's object; later, this object could be opened by GCompris Administration activity to see these results
+Build from sources
+Install dependencies, for Fedora they are:
+sudo yum install gtk2-devel gstreamer-devel gstreamer-plugins-base-devel sqlite-devel librsvg2-devel libxml2-devel python-devel pygtk2-devel pycairo-devel gnucap gnuchess pkgconfig make gcc intltool glib2-devel GConf2-devel libgee-devel dbus-glib-devel pango-devel cmake
+Build Polyol:
+wget
+https://obs.sugarlabs.org/public/source/SweetsDistribution:0.94/polyol/polyol-1.3.tar.gz
+tar xpf polyol-1.3.tar.gz
+cd polyol-1.3
+cmake -DCMAKE_INSTALL_PREFIX=$HOME/Activities/gcompris.activity && make && make install
+Build GCompris:
+wget
+http://gcompris.net/download/gcompris-12.11.tar.bz2
+tar xpf gcompris-12.11.tar.bz2
+cd gcompris-12.11
+wget '
+http://git.sugarlabs.org/alsroot/gcompris/commit/38918f0c78bfea26dd5b4fe809dead9a52acecc7?format=patch'
+-O gc.patch
+patch -f -p1 < gc.patch
+./configure PKG_CONFIG_PATH=$HOME/Activities/gcompris.activity/lib/pkgconfig --prefix=$HOME/Activities/gcompris.activity --enable-sugar --enable-sqlite && make && make install
+Link activity directory:
+cd ~/Activities/gcompris.activity
+ln -s share/sugar/activities/GCompris.activity/activity .
+Getting involved
+For non-Sugar related changes, go to
+http://gcompris.net/
+.
+Report
+on Sugar bugs.
+Resources
+Home page
+Sugar patch sources
+Sugar Activity Library page
+GCompris on OLPC wiki

@@ -1,0 +1,172 @@
+Title: Summer of Code/2013/Turtle Blocks Python export project
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2013/Turtle_Blocks_Python_export_project
+--------------------------------------------------------------------------------
+This page tracks the progress of
+Marion Zepf
+'s GSoC project, "Turtle Blocks Python export." An abstract and a motivational statement can be found on the
+project proposal
+page, along with other details.
+The mentors for this project are
+Walter Bender
+and
+Claudia Urrea
+.
+The summer is over, so I have written a
+final report
+on my project. It gives an overview of the task, my ideas and their implementation, as well as the final status of the project.
+Contents
+1
+Repositories
+1.1
+gsoc-python-export on gitorious
+1.2
+ta-python-export-dev on github
+2
+Timeline
+3
+Decisions
+3.1
+Pending
+3.2
+Deferred
+Repositories
+gsoc-python-export on gitorious
+I develop my project in a repository called
+gsoc-python-export
+in the SugarLabs Gitorious system. If you would like to have a look at my latest progress, check out the
+primitive-class
+branch. It contains the latest
+stable
+, i.e. working, version of TurtleArt and the export tool.
+The branch
+type-system
+contains some work-in-progress on the type system for
+Primitive
+objects that I am currently introducing. It's a major change that affects how blocks are executed and exported to ASTs. Therefore, this branch should be considered
+unstable
+, i.e. there is no guarantee that things will work or even that you'll get useful error messages. As soon as the type system is fully established and everything works again, this branch will be merged back into
+primitive-class
+.
+The
+master
+branch is only used for submitting merge requests to
+the main TurtleArt repository
+.
+ta-python-export-dev on github
+Design documents, sample code, etc. go into
+ta-python-export-dev
+on GitHub. There, the
+master
+branch is the most recent one.
+Timeline
+The following timeline is being modified as the project evolves.
+June 17 – June 30 (2 weeks): Determine what code needs to be shared by Turtle Blocks and the exported code. Restructure the modules to isolate this part, so it can easily be imported. Only cover the modules that are necessary to run blocks from the 'Turtle', 'Pen', and 'Pen colors' palettes. Deal with the other modules when implementing the corresponding blocks.
+July 1 – July 21 (3 weeks): Implement the first transformations from blocks to Python code. Only cover the following blocks from the 'Turtle' palette: 'forward', 'back', 'setxy', 'left', and 'right'. Make sure the exported code imports the correct modules from Turtle Blocks and can be run on the command line (or in Pippy). Keep the implementation modular, so more blocks can be added easily.
+July 1 – July 5 (1 week): Test the two Python code generators for suitability for my project. Develop a concept of how the blocks know what Python code they will be transformed into.
+July 6 – July 12 (1 week): Replace previous implementation of primitives (the backend of the blocks) with a class whose instances can be called to execute the block, or be transformed to a Python AST (class
+Primitive
+). Use the class in TA and make sure calling instances works. Add
+Primitive
+objects for the first five blocks and the 'repeat' block.
+July 13 – July 21 (1 week): Work on transforming
+Primitive
+objects to Python ASTs. Implement special handling for loop blocks when transforming them to ASTs. The sample program basics-square.ta can now be exported to python code.
+July 22 – July 28 (1 week): Introduce constant arguments to
+Primitive
+objects. Add a
+Primitive
+object for the 'forever' block.
+July 29 – August 2: The exported Python code now uses TurtleArt's internal execution engine. This makes infinite loops executable and enables the user to watch the program run. Add a
+Primitive
+object for the 'clean' block. Implement nice error handling when exporting a project and when running the exported code.
+Midterm evaluation: Block programs can be exported to Python code that can be run outside of Turtle Blocks. The export functionality is limited to a few blocks (those that have a
+Primitive
+object), but it can easily be extended to cover the rest.
+August 3 – September 15 (6 weeks): Implement transformations of all other blocks to Python code:
+August 3 – August 11 (1 week)
+The complete 'Pen' palette
+Boolean operations from the 'Numeric operators' palette
+The rest of the loops from the 'Flow operators' palette
+Conditionals from the 'Flow operators' palette
+August 12 – August 18 (1 week)
+The complete 'Pen colors' palette
+Numeric operations from the 'Numeric operators' palette
+Variables from the 'Action stacks' palette
+Action stacks (functions) from the 'Action stacks' palette
+August 19 – August 25 (1 week)
+Write a tutorial on how to define a
+Primitive
+for a new block, so other TA (plugin) developers can make their blocks exportable.
+Introduce strong typing to
+Primitive
+s.
+Pass argument blocks to the functor as
+Primitive
+objects, not as ASTs or return values of a function call.
+August 26 – September 1 (1 week)
+Introduce disjunctions of
+Type
+s,
+ArgSlot
+s, argument lists, and
+Primitive
+s.
+Adjust the export functionality to the type system.
+Start re-writing 'old'
+Primitive
+s to make use of the new type system.
+Write new documentation about how to create a new block, including creating new
+Primitive
+s.
+Comments from the 'Extra options' palette: This is especially difficult because Python's
+ast
+module does not support comments natively.
+September 2 – September 8 (1 week)
+Screen dimensions from the 'Presentation templates' palette
+Runtime control (e.g., exit, suspension) from the 'Flow operators' palette
+Heaps from the 'Extra options' palette
+September 9 – September 15 (1 week)
+External functions (chr, int, mathematical function, tamyblock.py) from the 'Extra options' palette
+Events and user input from the 'Sensors' palette
+Sounds and sprites from the 'Media' palette
+Display management (hide/ show blocks, toggle full screen) from the 'Presentation templates' palette
+September 16 – September 23 (1 week): Test exporting different kinds of blocks in combination. Fix the last bugs. Clean up.
+Decisions
+This section lists important design decisions.
+The generated Python code will setup a window without menus and palettes. It will only be a plain canvas. Turtles will be visible with their (default or custom) sprites because this is the only way to make sprites move in TA.
+Code in named stacks will be put into functions with the same name. Blocks appended to the 'start' block will be put into a function called
+start()
+. Unnamed stacks will also be put into extra functions with auto-generated names (e.g.,
+unnamed_stack_1()
+).
+Run only the block stack that has a 'start' block at the top. If there is no 'start' block, notify the user, but don't execute unnamed stacks. (TA itself should show the same behavior.)
+Assume the generated code will be run in GNOME, but keep the
+running_sugar
+flag, so it can be ported to Sugar later.
+The path to the TA installation must be in the environment variable
+PYTHONPATH
+.
+Boxes and actions are stored in a dictionary in order to allow for arbitrary names (e.g., names that start with a number or names that are read from the content of a box).
+All blocks (including the ones introduced by plugins) reference a
+Primitive
+object, which can be called to execute the block in TA, or transformed into a Python AST.
+Type conversion and other modification of the arguments of a block is done by
+slot wrappers
+. A slot wrapper is a
+Primitive
+that is attached to the argument of another
+Primitive
+. Slot wrappers are called/ transformed before the
+Primitive
+itself.
+The status bar may be shown when the exported code is run, as is necessary and appropriate during execution.
+Pending
+The following design issues have yet to be decided:
+Deferred
+The following design issues have not yet been decided, but are being deferred due to their low priority:
+Enable the user to control the speed of execution (e.g., by setting a global
+step_time
+)?
+How to implement this? E.g., call a
+wait(step_time)
+function in between two steps?

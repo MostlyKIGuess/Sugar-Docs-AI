@@ -1,0 +1,27 @@
+Title: User:Humitos/MultiTail
+URL: https://wiki.sugarlabs.org/go/User:Humitos/MultiTail
+--------------------------------------------------------------------------------
+There is a command called
+multitail
+that I use every day because it's really helpful on developing Sugar Activities. I use it to read the latest log that an Activity wrote and see how it's growing, similar what I do with the common
+tail -f
+option with the difference that
+multitail
+will look for the latest one.
+For example, if we run an Activity three times it will create 3 different
+.log
+files behind
+~/.sugar/default/logs
+directory. With
+multitail
+we will be seeing the most recent version of the activity log.
+Here are the steps that I did to use this command (on Fedora 17):
+Install the command
+sudo yum install multitail
+Show the proper log files
+cd ~/.sugar/default/logs
+multitail -iw "*GetBooks*" 1 -m 0
+-iw
+is to inform to multitail about the input files and check for them every 1 second
+-m
+is to let multitail know about the buffersize (0 is infinite)

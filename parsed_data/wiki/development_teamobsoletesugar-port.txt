@@ -1,0 +1,36 @@
+Title: Development Team/Obsolete/sugar-port
+URL: https://wiki.sugarlabs.org/go/Development_Team/Obsolete/sugar-port
+--------------------------------------------------------------------------------
+NOTE:
+The content of this page is considered
+DEPRECATED and OBSOLETE
+It is preserved for historical research, along with its
+talk page
+.
+Project was closed.
+Contents
+1
+Goal
+2
+Usage
+3
+Restrictions
+4
+Resources
+Goal
+A set of sugar components/libraries/etc to simplify writing activities.
+Cornerstone purposes for this project:
+Total backwards compatibility for sugar-port API
+Run on all sugar platforms beginning from 0.82
+Wrap sugar(like filers in ObjectChooser) and non-sugar(like json issue in python2.5/2.6) differences
+sugar-port should be a bridge between all(in ideal) already deployed sugar versions and activities i.e. it provides backwards compatibility(so the same activity code will work on all sugars) and at the same time provides features from newest sugar(so the same activity code will use last sugar features).
+Usage
+In most cases sugar-port could be embedded to activity's directory tree.
+There is no need to include the whole sugar-port project only top level
+files/directories you are using directly - sugar-port's top level entities
+don't import each other.
+Restrictions
+Running on all sugar platforms doesn't mean the same functionality on all sugar versions. It means only running without errors and keeping functionality the same as much as possible.
+Resources
+Documentation
+Sources

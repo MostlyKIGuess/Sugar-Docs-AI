@@ -1,0 +1,286 @@
+Title: Summer of Code/Prachi Agrawal
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/Prachi_Agrawal
+--------------------------------------------------------------------------------
+Contents
+1
+Timbre Widget for Music Blocks
+1.1
+Project Details
+1.2
+Synth
+1.3
+Oscillator
+1.4
+Amplitude Envelope (ADSR Envelope)
+1.5
+Filters
+1.6
+Work flow
+1.7
+Time Interval
+Timbre Widget for Music Blocks
+Prachi Agrawal
+Do you meet the eligibility requirements outlined at
+https://wiki.gnome.org/Outreachy#Eligibility
+(if no, explain why not)?
+→ Yes
+Preferred pronoun (e.g. she, he, they):
+→ She
+E-mail address:
+→ prachi.agrawal269@gmail.com
+IRC nick (public):
+→ pragr07
+Location (city, state/province, and country) (public):
+→ Hyderabad, Telangana, India
+Education completed or in progress (include university, major/concentration, degree level, and graduation year):
+→ I am a 3rd year undergraduate student at
+International Institute of Information Technology , Hyderabad (IIIT-H)
+I am currently pursuing Bachelors of Technology in Computer Science. My expected 
+graduation date is April, 2018.
+How did you hear about this program?
+→ I got to know about this program from some my senior colleagues in the college. Many of them have participated earlier in this program and have made it to the final list. I heard a lot about this program from them and got interested to apply for it. Also I am a part of the Lean In circles in our college that mainly encourages girls to participate more and more in such opportunities. This program proves to be a boon for all those enthusiastic developers who are willing to spend their entire summers contributing to a specific open source project.
+Are you applying for Google Summer of Code and, if so, with what organization(s)?
+→ Yes, I am applying for Google Summer of Code with Sugarlabs.
+Please describe your experience with the organization's product as a user and as a contributor (include the information, as well as a link or an attachment, for the required contribution you made to the project you are interested in here):
+→ Music Blocks is a collection of tools that helps in understanding the fundamental musical concepts. It is mainly built for children to learn music. I myself have used Music Blocks to learn the basics of Western music. It was very much comfortable for me to understand the musical concepts because I have already taken a course “Understanding Raga” as part of my academic curriculum. So I have the basic knowledge about the Indian Classical music. 
+As a contributor, my experience with Sugar Labs has been amazing so far. The quick and to the point response of the mentors and the collaborators helps a lot in resolving the issues and figuring out the solutions to the problems faced. One gets to learn a lot of new things. The precise descriptions of the tasks to be performed also helps in executing the required functionality. Such experience provides motivation to keep on contributing to the organization.
+Also the fellow contributors are so much enthusiastic and encouraging that makes the Open Source community altogether wonderful.
+List of contributions I have made to the project-
+https://github.com/walterbender/musicblocks/pull/634
+(merged)
+https://github.com/walterbender/musicblocks/pull/645
+(merged)
+https://github.com/walterbender/musicblocks/pull/662
+(merged)
+https://github.com/walterbender/musicblocks/pull/661
+(open)
+https://github.com/walterbender/musicblocks/pull/643
+(closed)
+Please describe your experience with any other FOSS projects as a user and as a contributor:
+→ I have previously contributed to multiple Open Source Organizations organizations/projects like
+Systers -
+https://github.com/systers/portal/pull/168
+https://github.com/systers/portal/pull/172
+Tonejs -
+https://github.com/Tonejs/Tone.js/issues/218
+Pydsa -
+https://github.com/pydsa/pydsa/pull/62
+https://github.com/pydsa/pydsa/pull/74
+https://github.com/pydsa/pydsa/pull/86
+WeCare -
+https://github.com/hkasera/WeCare/pull/10
+https://github.com/hkasera/WeCare/pull/15
+Apart from this, I am a member of the Systers community (Anita Borg Institute). I am also a member of my college’s Open Source Developers Group. The journey so far with FOSS organizations have been wonderful. Especially as a developer I feel that getting to know the source code of a software/program you are using or working on provides a better understanding of how things work. Also for newbies it provides a great platform to try hands on programming/ development and work upon the real-time projects. It provides them with a great learning curve.
+Please describe any relevant projects that you have worked on previously and what knowledge you gained from working on them (include links):
+→ 
+Links to a few projects I have worked upon:
+Animated video using Maya 3D
+https://www.youtube.com/watch?v=fV4V3wq_snI
+AI Bot that optimally and efficiently plays the Ultimate Tic Tac Toe Game
+https://github.com/prachiagrawal269/AI-Bot-Ultimate_Tic-Tac-Toe
+A 2D game “IceCream World” in OpenGL3
+https://github.com/prachiagrawal269/Angry-Birds-Opengl-2D-game
+Search Engine specific to mobile phones with added “Search Matrix” feature
+https://github.com/prachiagrawal269/Elektoo
+Implementation of the Donkey Kong game
+https://github.com/prachiagrawal269/DonkeyKong
+Unix Shell in C-basic unix like shell implemented in c.
+https://github.com/prachiagrawal269/os_shell
+Issue tracker with RoR
+https://github.com/prachiagrawal269/SSAD_rails
+Score Calculator
+https://github.com/prachiagrawal269/Score-Calculator
+Other projects can be tracked by my Github account.
+Most of the projects that I have mentioned here have been done by me as part of my academic curriculum along with my colleagues. By working on such a varied range of projects with a variety of people I have gained knowledge about multiple technologies and I also the importance of teamwork. I have explored different domains like Artificial intelligence, Machine Learning, Computer Vision. I have also learned to use version control systems like Git by working upon some collaborative projects.
+What project(s) are you interested in (these can be in the same or different organizations)?
+Project Title - Timbre Widget for Music Blocks
+Organization - SugarLabs
+Who is a possible mentor for the project you are most interested in?
+→ Walter Bender, Devin Ulibarri
+Please describe the details and the time line of the work you plan to accomplish on the project you are most interested in (discuss these first with the mentor of the project):
+Project Details
+The project deals with implementing the “Timbre Tweak” widget designed by Ayush Kumar during GCI. Timbre tweaking refers to improve the sound by making fine adjustments to the timbre.
+Timbre is the characteristic quality of a musical note independent of its pitch and loudness. This widget will be present as another widget in the list of existing palettes. 
+Timbre icon design (Google drive link) -
+https://goo.gl/9pZsnV
+On clicking over the Timbre icon, a palette appears with 2 clamps to select from, namely - “Timbre” and “Set Timbre”. 
+Timbre
+The Timbre widget is responsible for setting the timbre as required. It can be altered by modulating the five major components - Synth, Oscillator, Envelope, Filters , Effects.
+Synth
+Implements a synthesizer that generates sound convertible electric signals.
+Internally consists of an oscillator and an envelope.
+Design Details - 
+This component will provide with four functions that will implement different types of synthesizers along with their varying parameters.
+The functions will be offered in form of a drop-down list (“Type”) to select from. 
+The parameters corresponding to the selected function will have some default values (as initialized during their implementation).
+Editing can be performed by selecting different parameters from the parameter combo box present beneath the “type” drop-down list.
+A slider corresponding to the selected parameter would appear, varying its width will change the parameter value in the function.
+Implementation Details - 
+A hash map with {“typename”: “functionName()”} entries can be used to call desired functions as per the selected “type” from the combo-box. Eg: {‘AmSynth’ : “AmSynthFunc()”} is one such possibility. 
+There will be another hashmap that will store the “typeName” along with the list of possible parameters for that type. E.g. {“AmSynth” : [“harmonicity”, “detune”] }.
+The “slider” widget provided by jquery can be used to implement slider that sets the min, max limits and current value of the parameter as per the slider’s width .
+Referred link:
+https://codepen.io/planetoftheweb/pen/HCLzc
+https://goo.gl/kX5Zxf
+Work flow of the Synth component
+Oscillator
+Allows users to set the frequency, partials (amplitude of harmonics) and type of an oscillation that will set the sound’s pitch. 
+Real-time operating Playback feature.
+Design Details -
+For setting the frequency, a slider will be used in the same way as mentioned in the “synth” component. 
+The type (sine, square, triangle, sawtooth) will be set using a drop-down list.
+Number of partials can be set using the “numerical spinner”. 
+Since partials consists of a list of numbers, an input box with a submit button will appear. The user can fill in the desired value of partial and hit the submit button. This process can happen as many times as the number of partials (set above using the numerical spinner).
+The graph depicting the generated waveform can easily be drawn using HTML, CSS and JavaScript by obtaining a mathematical equation as per the selected “type” and plotting it. 
+X axis represents time, Y axis represents the amplitude of the soundwave.The graph of the waveform will get updated as per the alterations made in the parameter values.
+Implementation Details - 
+The drop-down and slider will be implemented the same way as in synth component.
+An example query: frequency = 100, partials = [1, 0.2, 0.01], type = “sine”. A possible equation for the waveform is y = 2*sine(2ℼ*100*x). The sine function provided by javascript can be used to draw the sine wave by iterating over all the angles from 0 to 360.
+https://goo.gl/c15Eqe
+Playback: Since the widget works in real-time, the red portion on the graph is a playback
+bar showing the user which sounds are being played at a specific moment.
+To implement the playback, we can measure the time duration from the moment the sound
+starts playing. The value of sine function corresponding to this duration i.e. substituting x =
+0 to time_duration in the mathematical equation will provide us with the locations of the
+sound being played at that moment. Alternative approach could be to use the frameworks
+like “three.js” that provides code snippets to implement such animations. 
+Referred link (specific to sine wave) -
+http://www.pshkvsky.com/gif2code/sine-animation-tutorial-three-js/
+Amplitude Envelope (ADSR Envelope)
+It is a way to tailor the timbre for the synth, sometimes to make it sound more like a mechanical instrument.
+It has four parameters : attack, decay, sustain, release.
+Design Details - 
+A graph (line chart) will be drawn displaying the amplitude vs time variation of the waveform as per the values of the mentioned parameters.
+The parameters can be altered using the movement-handlers.
+This component will also have the playback feature that will be implemented the same way as in the case of “Oscillator” component.
+Implementation Details - 
+Every parameter in the graph can be represented using a straight line. Thus the entire graph can be split into 4 segments, each for one of the four parameters. 
+The lines will vary as per the position of movement-handlers at all the three extremes (attack-decay, decay-sustain, sustain-release). 
+These movement handlers manipulate the endpoints of the 4 line segments. Thus the alteration in the end-points of the line segment leads to the change in the equation of the line hence leading to the change in the shape of the graph.
+The line chart can be easily drawn using “jqplot” which is a plotting and charting plugin for the jQuery JavaScript framework.
+https://goo.gl/aLm97p
+Links for reference:
+https://goo.gl/mNVYNL
+http://jsfiddle.net/highcharts/AyUbx/
+Filters
+This component allows user to filter out undesirable sounds by specifying the filter parameters namely frequency, type and rolloff.
+Design Details -
+Sliders will be used to implement the rolloff and frequency parameter
+The types of filters will be offered in form of a drop down list to choose from.
+Implementation Details -
+The slider and drop-down list will be implemented in the same way as per the previous implementations.
+https://goo.gl/2tY75M
+Effects
+There are various “effects” provided by Tone.js to modulate the timbre of the sound.
+This project is concerned with the implementation of the five major effects as mentioned in the design namely: Chorus, Distortion, Phaser, Vibrato, Tremolo.
+Every effect has a set of parameters associated with it.
+Design and Implementation Details :
+The effects will be present as the list of check-boxes to choose from. 
+Initially the visibility of all the effects will be hidden which will be updated as per the user’s choice. 
+Only the widgets corresponding to the marked check-boxes will appear in the window along with their associated parameters.
+Different HTML tags will be used to implement different parameters. For example, a slider can be used to set the “frequency” whereas an input box might be more preferable for setting the “Delay time”.
+TIMBRE WIDGET WINDOW LAYOUT 
+(as provided by Ayush Kumar in the design of the widget)
+https://goo.gl/FqzZgt
+https://goo.gl/G5atyW
+Generated Timber Widget clamp
+Work flow
+The first task is to assign the “name” to the “timbre” (it is set as “custom” by default). The 
+sequence of orbs at the top is the sound player. It works like a pipeline with the timbre 
+adjustment functions(Synth, Oscillator, Envelope, Filter and Effects). A user can drag the
+orbs of their respective functions around in the pipeline to adjust their sequence. The
+sequence of components in the pipeline governs the order of execution of functions. For
+example if “Effects” comes prior to “Filters” in the pipeline then this implies that the filters
+will be applied over the soundwave after applying the desired effects. A user can also 
+activate or deactivate the orbs(Red is active, Gray is inactive).
+The sound starts playing when the “S” button is clicked. Accordingly the playback bar gets
+Updated. On pressing the “Done” (analogous to “Save”) button, the functions that are active in the pipeline sound player will be generated as blocks in the Music Blocks (as displayed in the second image ) workspace as per the specified values of all the components in the widget window. 
+Abbreviations used: S stands for Synth, O stands for Oscillator, E stands for Envelope, F 
+stands for Filter and fx stands for Effects.
+Set-Timbre
+The set-timbre widget is responsible for applying the specified value of timbre (as set using
+the timbre widget described above) to the notes. The set-timbre widget clamp holds notes
+and can be used anywhere in the code. It applies the timbre (custom) to the contained notes.
+We can assign the desired timbre to the set-timbre clamp by specifying the name of the
+timbre as set using the Timbre widget.
+https://goo.gl/9sv9js
+Set-timbre clamp
+In the “Timbre” widget window, a Play button will be present. This button will look for a set-timbre block and play it. If no set-timbre block is found Scale is played.
+Code snippet:
+if( !isSetTimbre()) 
+playScale()
+else
+playSetTimbre()
+Apart from JavaScript, HTML5 and CSS, Tone.js (web audio framework) will be used to implement the required functionalities as it provides all the above mentioned pre-built components that can be modulated to edit the timbre.
+Project Time line -
+This Year Outreachy is scheduled from May 30th to August 30th. This is the basic time line that I wish to follow. Other things can be added as per the mentor’s suggestions.
+Time Interval
+Work to be done
+( 13 May - 14 May )
+Familiarizing with western music notations and concepts
+( 15 May - 21 May)
+Break - Invited to attend Google I/O conference (San Francisco)
+( 22 May - 28 May )
+Learn the technologies relevant to the project
+( 29 May - 4 June )
+Thorough understanding of the already existing code and its work flow
+Familiarizing with the coding style
+( 5 June - 11 June )
+Discuss and improvise the design of the Timbre widget icon
+Create the widget icon svg and add it to the list of palettes
+Create Set-timbre and Timbre widget clamps
+( 12 June - 18 June )
+Create the Basic Widget Window Layout consisting of all the required buttons as are visible in the wire-frames
+19 June
+Get the work evaluated with the mentors
+Documentation
+( 19 June - 25 June )
+Make appropriate changes as per the response of mentors
+Synth component
+Implementing the required functions of the Synth component
+Synchronizing the related UI with the functions
+Fix related issues
+( 26 June - 2 July )
+Oscillator component
+Implementing the required functions of the Oscillator component
+Synchronizing the related UI with the functions
+Look for relevant resources for Playback feature implementation
+( 3 July - 9 July )
+Envelope component
+Relate the movement handlers with the parameters to be updated
+Implementing the required functions
+( 10 July - 16 July )
+Filters component
+Select which filters to implement from the list of filters existing in Tone.js
+Implement the selected filters
+Make UI refinement
+( 17 July - 23 July )
+Effects component
+Tone.js provides with multiple effects to set the timbre of the sound
+Make appropriate UI changes in the widget window as per the different types of effects and their parameters.
+Eg. slider for “Frequency” whereas input box for “Delay time”
+Implement relevant functions
+( 24 July - 30 July )
+Playback functionality
+Implement the basic “Playback” functionality
+Extend it to work for both Oscillator and Envelope components
+( 31 July - 2 Aug )
+Testing of all the five components
+Documentation
+( 2 Aug - 6 Aug )
+Implement the Set-Timbre functionality
+Synchronize Set-Timbre with the Timber Widget
+Fix Bugs
+Make UI changes (if needed)
+( 7 Aug -13 Aug )
+Get the work reviewed by the mentors
+Documentation
+( 14 Aug - 20 Aug)
+Work as per the mentors’ reviews
+Final testing
+(21 Aug -30 Aug)
+Submit the code
+Will you have any other time commitments, such as school work, exams, research, another job, planned vacation, etc., between May 30, 2017 and August 30, 2017? Please provide exact dates for these commitments and the number of hours a week these commitments take.
+→ No I don’t have any other prior commitments.
+If a student, please list the courses you will be taking between May 30, 2017 and August 30, 2017, how many credits you will be taking, and how many credits a full-time student normally takes at your school. Please provide a link or upload your program's suggested curriculum by semester, which includes the suggested number of credits in each semester. Please provide a link or upload your school's academic calendar.
+→ I wouldn’t be taking any course between May 30, 2017 and August 30, 2017

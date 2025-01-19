@@ -1,0 +1,12 @@
+Title: GoogleCodeIn2012/MsgfmtChecker
+URL: https://wiki.sugarlabs.org/go/GoogleCodeIn2012/MsgfmtChecker
+--------------------------------------------------------------------------------
+Background
+Our Pootle server is capable of performing a variety of important checks on PO files, catching many error types; however there are still some instances where there are errors in the PO files that fail msgfmt checks and result in problems during attempts to build the program.
+Task
+This task is to create a Python program that can be added to the administrative tools we use for Pootle.
+Pootle-helpers
+and run with these tasks by the nightly Pootle cron job.
+The requirements of this program are that it traverse the checkouts directory on the Pootle server, and for each PO file it finds, runs msgfmt on that PO file.  If there are no errors, nothing is returned.  If any result is returned, it should be sent to the translation team in an e-mail alerting them that there is a PO file that needs attention.
+Contact
+cjl --at-- sugarlabs.org

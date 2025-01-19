@@ -1,0 +1,140 @@
+Title: Human Interface Guidelines/Activities/Activity Basics/lang-ko
+URL: https://wiki.sugarlabs.org/go/Human_Interface_Guidelines/Activities/Activity_Basics/lang-ko#Activity_Robustness
+--------------------------------------------------------------------------------
+번역근원
+HIG-Activity Basics
+원문
+english
+|
+español
+|
+한국어
++/-
+차이
+←
+소개
+활동 기초
+활동 번들
+→
+Contents
+1
+활동 기초
+2
+활동 시작하기
+2.1
+개인 활동
+2.2
+공유된 활동
+3
+활동에 참여
+4
+활동을 공유
+5
+활동 전환
+6
+활동 끝내기
+7
+활동을 재개
+8
+활동의 강건성
+9
+초대
+9.1
+명시적인 초대
+9.2
+암묵적 초대
+9.3
+초대를 받기
+10
+고지
+10.1
+대기중인 초대
+10.2
+스쳐가는 고지
+활동 기초
+활동 시작하기
+활동은 프레임의 액션 섹션에 나타나며, 클릭으로 인스턴스가 시작되고, 링에 표시됩니다. 활동을 드래그하여 링 속에 옮기는 것도 인스턴스를 개시합니다.
+Activities appear in the Actions section of the frame; starting an activity amounts to creating an active instance of it, represented in the activity ring. They can be started with a single click. An activity may also be directly manipulated; dragging an activity into the ring will also create a new active instance of it.
+활동과 프레임 속의
+활동 아이콘
+은 구별됩니다. 시스템에 설치되어 액션 속에 나타나는 모든 활동은 가장자리가 흰색으로 속은 비었습니다. 인스턴스가 만들어지면 아이콘은 제 모양을 갖춥니다.
+stroke and fill colors
+Visual cues differentiate between instances of an activity and the
+activity icon
+in the frame. Specifically, any activity installed on the system and appearing in the Actions edge is drawn as a white outline stroke, with no fill. Upon instantiation the icon receives a fill; both
+stroke and fill colors
+match the XO colors of the child who created it.
+개인 활동
+새로 만들어진 활동 인스턴스는 그것들이 만들어진 뷰의 스코프를 상속합니다. 홈뷰에서 만들어진 활동은 개인 활동이지만,
+명시적 초대
+를 통해 언제든지 다른 사람들과 공유할 수 있습니다.
+Newly created activity instances inherit the scope of the view in which they are created. This means that any activity started from the Home view begins as a private one by default. Children may later
+share
+private activities, opening them up to friends, classmates, group members, or anyone on the mesh through an
+explicit invitation
+.
+공유된 활동
+친구 그룹 뷰에서 시작된 활동은 자동적으로 해당 그룹에 속하는 친구들에게
+암묵적 초대
+를 보냅니다.
+Since newly created activities inherit the scope of the view, any activity started directly from the Friends Group view will be open for her friends to participate in. This applies to any group the child belongs to as well.
+Implicit invitations
+are sent to all of the members of currently selected Group, alerting them of the activity. Likewise, any activity started from the (unfiltered) Mesh view will be open to everyone on the mesh, although invitations are not sent.
+The views provide scope for instantiating activities. For finer granularity, the search (located in the Frame) provides an incremental filtering system that enables arbitrary selection of scope. As a query is entered into the search field, the view—Friends or Mesh—dynamically updates to reveal the matching selection. Matches remain in color, while those filtered out appear with a white outline. The filter terms apply parameters such as the names of activities, the types of activities, the names of individuals, and the interests of individuals. For instance, a child could search for anyone who likes games before starting a new game of Memory, or everyone in the same grade in a classroom setting, or a specific group of individuals by name. The results of the query become the scope for any new activity instance, and all XOs within that scope receive implicit invitations when an activity begins. These groupings may be saved as groups for future use.
+공유 활동이 시작되면, 해당 활동을 시작한 어린이는 '활동 뷰'로 보여집니다.
+Once a shared activity begins, the child who initiated the activity is taken into Activity view. Others who received invitations won't join the activity until they accept the invitation; white outline placeholders for their XO icons appear in the People section of the frame to indicate their potential arrival. If they accept an invitation, their XO fills with their colors; if they decline the outline disappears.
+활동에 참여
+검색 기능 등을 이용하여 다른 사람들이 시작한 활동에 참여할 수 있습니다.
+Children will often find themselves joining activities already started by others. Activities can be discovered through search; searches may specify an activity name, an activity type, interests of individuals, and names of individuals. For instance, one could search for all activities that relate to music, or all activities that have participants who like camping, or all the active chat activities, or a few specific people by name. Once an appropriate activity is found, a single click on the activity icon will engage it.
+활동을 공유
+처음에는 개인적으로, 또는 소수 사람들이 시작한 활동이라도, 그 범주를 넓힐 수 있습니다.
+Activities may begin as private, or restricted to a small group of individuals. There may be occasion to open up activities to a broader scope. For instance, a class may break into groups to work on a project within private group activities. At the end of the session, all groups may wish to open up their activities to the rest of the class for discussion and critique. Through selection in the activities contextual rollover, one may set the scope of children who may join an activity to one of Private, Mesh, or any specific Group to which she belongs, including her class, her friends, and potentially others.
+반대로 그 범주를 좁힐 수도 있습니다.
+A child may lock activities in a similar manner, tightening an activity's scope. Participants must leave on their own volition or at the request of others within the activity before locking it.
+활동 전환
+활동 링은 현재 노트북에서 동작중인 활동들을 보여줍니다. 홈뷰에서 링 속의 어느 한 활동을 클릭하면, 그 활동이 액티브 활동이 되며, 자동적으로 활동 뷰로 돌아갑니다. 단축키로도 열려있는 활동들 사이를 옮겨다닐 수 있습니다.
+The activity ring indicates the activities currently running on the laptop. From the Home view, a single click on any activity in the ring will select it as the active activity, automatically transitioning back to its Activity view. Keyboard shortcuts enable quick transitions among open activities.
+활동 끝내기
+해당 메타포를 링밖으로 드래그 하거나, '종류' 액션을 선택함으로써 손쉽게 활동을 마칠 수 있습니다.
+Ending an activity happens as easily as starting one. To complete the metaphor, dragging an activity out of the ring will end it. Selecting the End action in the activities contextual rollover will do likewise. Note that ending a shared activity—even one
+you
+started—does not necessarily "close" it. An activity instance remains active on the mesh as long as one or more individuals remain as participants.
+활동을 재개
+"열기" 명령어 대신에, 저널에 존재하는 것 (그림 등)을 쉽게 재개할 수 있습니다. 공유되었던 활동을 재개하면, 해당 활동에 참가했던 모든 이들에게 암묵적 초대장을 보냅니다.
+In lieu of an "Open" command, one may simply resume an activity. If a drawing resides in the Journal, then resuming it will automatically restart the Draw activity, allowing modifications to that drawing. Due to the emphasis on collaborative activities, special consideration has to be given when resuming them; An activity fingerprint identifies a particular instance on the mesh. Resuming an activity implicitly invites all others who at one point participated in its creation that also remain within its currently specified scope. Additionally, cases may arise when an activity being resumed is already active on the mesh. In such cases, the child will automatically join the already active instance.
+활동의 강건성
+All activities designed for the laptop should place a strong emphasis on robustness. Two essential robustness considerations are input and network.
+초대
+암묵적 그리고 명시적 초대가 있습니다.
+Invitations perform an essential functionality in a computing environment that so strongly emphasizes collaborative learning and creation. For this reason, two forms of invitations are present in the OS: explicit and implicit.
+명시적인 초대
+활동을 많은 사람들에게 공개하지 않고, 소수의 특정 개인들을 액티브 활동에 초대하는 경우에 사용됩니다.
+Explicit invitations are used to invite specific individuals into already active activities. The ability to send explicit invitations to others serves particular use when in a private activity, be it a private group or a solitary one. In these cases, an explicit invitation can extend the group by including one or more specific individuals, without opening up the activity to a broader scope.
+A child may initiate an explicit invitation either from within the activity itself or by identifying an individual or group in either the Groups or Neighborhood views.
+암묵적 초대
+사용자가 아니라 시스템이 보내는 초대로, 그룹 또는 이웃 뷰에서 활동을 시작하면, 해당 활동에 대한 초대가 그 그룹 또는 이웃에 속하는 모든 이들에게 전달되며, 이후 그 활동이 재개될 경우에도 그러합니다.
+Implicit invitations do not require specific action on the part of the child. These invitations go to the appropriate individuals whenever actions suggest it, such as when starting an activity from the Groups or Neighborhood views. All individuals within the activity's scope receive implicit invitations to join. When an activity is resumed, those who participated previously receive an invitation.
+초대를 받기
+초대장은 초대자와 활동 정보를 포함하여, 프레임의
+액션
+섹션에 나타납니다.
+Incoming invitations appear within the
+Actions
+section of the Frame, adjacent to the installed activities; they are rendered in the color of the inviter. Rollover reveals both the name of the inviter as well as the name and type of the activity. On extended rollover, the options to accept and decline appear. There is an optional message back to the inviter upon declining and invitation.
+고지
+고지는 초대와 비슷하며, 프레임의
+액션
+섹션에 나타납니다. 그러나, 고지는 사람이 아니라, 활동이나 시스템 만이 보내고, 좌측 하단의 큐를 형성합니다.
+Notifications behave similarly to Invitations; they also appear in the
+Actions
+edge of the frame. However, unlike invitations, which are sent from people on the mesh, Notifications come from activities or directly from the system. As new notifications come in, they form a queue, with the most recent in the lower left-hand corner for quick access.
+대기중인 초대
+By default, notifications will remain in the frame until the child acknowledges them.
+스쳐가는 고지
+일정 시간 뒤에 자동으로 사라지거나, 주기적으로 나타나는 고지입니다.
+Transient notifications alert a child when they arrive, but as they contain information that has a limited lifetime, they expire. Thus Activities may specify timeouts on notifications, after which they will automatically disappear.
+←
+소개
+활동 기초
+활동 번들
+→

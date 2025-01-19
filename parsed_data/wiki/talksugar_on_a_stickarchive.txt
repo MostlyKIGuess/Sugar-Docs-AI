@@ -1,0 +1,147 @@
+Title: Talk:Sugar on a Stick/Archive
+URL: https://wiki.sugarlabs.org/go/Talk:Sugar_on_a_Stick/Archive
+--------------------------------------------------------------------------------
+Contents
+1
+Older questions or comments
+2
+Ubuntu
+3
+Alix.1C Mini-ITX board (by PC Engines, AMD Geode LX 800)
+4
+Snappier Name Suggestion
+5
+SoaS on Parallels
+6
+Problems
+6.1
+1
+6.2
+2
+6.3
+3
+7
+Keyboard
+8
+How to install the SoaS image on your harddrive or USB Stick
+9
+Minimal configurations
+10
+No luck with MacBook
+Older questions or comments
+I couldn't get it to run in wine... --
+Walter
+17:40, 3 December 2008 (UTC))
+There is a native linux version of liveusb-creator and also a script which should work on any distribution (see the Linux section). -- Marcopg
+Ubuntu
+I think the comments about Ubuntu on this page are confusing. I'm not sure if Caroline settled on using Fedora, but in any case I think we should limit ourself to one distribution for soas or make it very clear which distribution we are talking about. For one, if people flash different distributions and report bugs to the soas component, we will have an hard time to figure out what they are talking about. --marcopg
+Alix.1C Mini-ITX board (by PC Engines, AMD Geode LX 800)
+Tried soas-7 and 8 and it hands right after starting CUPS - it seems there is a display problem (Geode driver missing?), because the screen flashes every few seconds as the gui is trying to be started probably...
+Kozuch
+11:33, 5 January 2009 (UTC)
+Snappier Name Suggestion
+SoaS is kinda pedestrian as a name.  How about "Lollipop"?  After all a lollipop is sugar on a stick.
+-- Mitch Bradley
+Discusion thread -
+http://lists.sugarlabs.org/archive/sugar-devel/2009-January/thread.html#11185
+SoaS on Parallels
+While I haven't test thoroughly, I'm pleased to note that setting up Sugar On A Stick on Parallels Desktop on an Intel-based Mac Mini works very well. Creating a new virtual machine matches the Virtual Box notes.
+When you are satisfied with your testing, please report this on the 'parent' page, perhaps modifying the
+VirtualBox and Sugar on a Stick
+section.  That way others are more likely to see and follow your efforts.  Thanks!  --
+FGrose
+20:51, 9 February 2009 (UTC)
+Problems
+1
+I tried to do this and was able to create the files on the stick, but when I try to book on a Toshiba Tecra M4
+(which can boot from USB sticks) I get
+SYSLINUX 3.72 2008-0925-25 EBIOS Copyright (C) 1994-2008 H. Peter Unvin
+Could not find kernel image: linux
+boot:
+2
+when running  the script as intended under ubuntu, this is the result:
+"
+sudo sh ./livecd-iso-to-disk.sh --overlay-size-mb 500 --home-size-mb 500 Soas-200902231225.iso /dev/sdb1
+Verifying image...
+/home/jobezone/Soas-200902231225.iso:   12c17afd44c8b00ae639c38b72e85d01
+Fragment sums: c7918243a1194983ac4e61c2fb8412857dc9a484553674cdd8418063b675
+Fragment count: 20
+Checking: 100.0%
+The media check is complete, the result is: PASS.
+It is OK to use this media.
+./livecd-iso-to-disk.sh: 340: [[: not found
+./livecd-iso-to-disk.sh: 340: udevinfo: not found
+basename: operando em falta
+Tente 'basename --help' para mais informações.
+./livecd-iso-to-disk.sh: 340: [[: not found
+Partition isn't marked bootable!
+You can mark the partition as bootable with
+# /sbin/parted /dev//
+   (parted) toggle N boot
+   (parted) quit
+Cleaning up to exit...
+When booting from the usb key, I get the same problem as in problem 1 above.
+HoboPrimate
+01:08, 24 February 2009 (UTC)
+HoboPrimate
+01:08, 24 February 2009 (UTC)
+Try this (at least in Ubuntu 8.10) menu: System -> Administration -> Partition Editor (GParted).
+Select your USB device (/dev/sdb in your case),
+then your partition (/dev/sdb1),
+then menu: Partition -> Manage Flags,
+check the boot box,
+and Close to mark the partition as bootable.
+--
+FGrose
+04:22, 24 February 2009 (UTC)
+The usb key is marked as bootable, the main problem now is the "340: udevinfo: not found" error.
+HoboPrimate
+10:13, 24 February 2009 (UTC)
+See the note on editing the livecd-iso-to-disk script under the
+Sugar_on_a_Stick/Linux
+.  --
+FGrose
+23:45, 5 March 2009 (UTC)
+3
+I am frustrated because I'm on my second stick which not boot either my EeePC or a 4-year-old Dell laptop.
+I got the first one from erikos at FOSDEM (an SD card) and the second I downloaded today and used the Fedora Windows utility (a DiskOnKey USB stick).
+In both cases, I correctly set the BIOS to boot from USB. But I only get to the end of the Fedora 10 blue & white bars, then see:
+<snip>
+WARNING: Cannot find root file system!
+Create symlink /dev/root and then exit this shell to continue
+the boot sequence
+bash: no job control in this shell
+bash-3.2#
+</snip>
+Both of these machines have AZERTY keyboards, could that be a factor?
+Any help appreciated.
+SeanDaly
+23:47, 04 March 2009 (UTC)
+You might find some hints at this bug ticket,
+http://dev.sugarlabs.org/ticket/421
+.  --
+FGrose
+23:45, 5 March 2009 (UTC)
+Keyboard
+Run 'system-config-keyboard --text' in the Terminal activity to set the proper keyboard settings
+How to install the SoaS image on your harddrive or USB Stick
+See
+http://kushaldas.in/2009/03/06/how-to-install-soas-on-your-regular-box/
+See
+http://wiki.sugarlabs.org/go/VMware#Soas-Strawberry.iso_installed_to_VM_Hard_Disk
+See
+http://wiki.sugarlabs.org/go/VMware#Full_Install_with_F11_Net_install_CD_to_USB_Stick
+Minimal configurations
+Fedora is supporting i5/i6 Pentium machines (they built the binaries
+for such machines). As far as memory, for Sugar, I think our
+experience suggests a minimum of 256MB of DRAM. The Sugar image is
+small but Fedora standards, but we haven't done much work in trying to
+squeeze it down too much (~400 MB). If you wanted to run from RAM, I
+would guess a minimum of 1GB would be necessary, but I don't know of
+anyone who has tried it. As far as drivers, we are not shipping
+drivers that aren't normally shipped with Fedora, but you can install
+additional drivers, e.g., Broadcom, from the Terminal activity within
+Sugar itself.
+Please report back your actual experiences from the field.
+No luck with MacBook
+Boots with CD-ROM helper, displays SUGAR logo, some dots, the OLPC logo, more dots, all good, but when black desktop appears there is only a white rectangle at the upper-left and the mouse pointer looks like a series of short horizontal lines. Video is Intel GMA 950. (July 16, 2009)

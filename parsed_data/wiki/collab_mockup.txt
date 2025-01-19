@@ -1,0 +1,134 @@
+Title: Collab mockup
+URL: https://wiki.sugarlabs.org/go/Collab_mockup
+--------------------------------------------------------------------------------
+Contents
+1
+Preamble
+1.1
+Purposes
+1.2
+Implementation ideas
+2
+Workflows
+2.1
+Observer/Interested party
+2.2
+Requester
+2.3
+Coordinator
+2.4
+Contributor
+3
+Data Model
+4
+Possible implementations
+4.1
+Implementations in progress
+5
+Related resources
+NOTICE:
+This page is a draft in active flux...
+Please contribute to these contents and discuss issues on the
+discussion page
+.
+Preamble
+This mockup describes how a collab.sugarlabs.org site could behave, and does not correlate with possible implementations. Particular implementations could be varied, reusing existing infrastructure like wiki/trac/launchpad, using existing groupware web-based software, or creating project from scratch. The site could also be lightweight, and only contain groupware components and links to other resources like the wiki or trac.
+All purposes mentioned below could be implemented fully or partially on collab.sugarlabs.org.
+Purposes
+Let any casual user request a feature using convenient and friendly tool
+existing model still works but either is not so friendly to non-technical users (like trac) or too common (like wiki and mailing lists), e.g., collab.sl.o would provide a simple method to track the progress of a request implementation, let other users vote for this request, and thus, stimulate contributors to participate.
+Mix in a groupware component with the Sugar development model, keeping in mind its casual and decentralized nature
+Sugar still has a lack of critical mass of participants who contribute on a regular bases, thus coordination of development efforts is a critical point, and we need to track and schedule such efforts in a more formal (than posting emails to sugar-devel@, for example) manner,
+e.g., every core team member will always know what other members are working on and the progress or stasis of current tasks
+groupware brings benefits for other developers as well
+if some developer doesn't have enough time to implement a request he was working on, he can just expose it via the collab UI (as opposed to sending email to sugar-devel@, which may not always be fair), and coordinator/requester/other-developers can track such events
+from requesters mode, people who initiated a request can track development status
+tracking what contributors do also has a social aspect - any Sugar user can see the magnitude of a member's contribution to the Sugar community. This can encourage people to do more (of course this information is accessible via git repositories or bug tracker, but in the case of collab.sl.o, it will be available in several clicks for any casual user), e.g., we can have a Hall of Fame on the main page.
+We can have two major entry points for any Sugar user:
+(wiki.)sugarlabs.org, to get initial information about Sugar
+collab.sugarlabs.org, if people want to contribute or request a future contribution
+since we have
+several modes
+, we could share the same place for non-tech users, experienced doers, and developers.
+But that doesn't mean
+we should have only collab.sugarlabs.org.
+It might also be the right place to have some sustainability features like donate buttons linked to contributors.
+Implementation ideas
+The major idea of this proposal is having several modes of operation. Each mode will provide only the useful components for a particular audience. For example, requesters mode should be friendly, as much as possible, for newcomers, and especially for non-technical newcomers, and incorporate full groupware features for experienced contributors.
+The Idea of only having a collab.sugarlabs.org site, would not be useful for Sugar Labs. In that case, we would need enterprise-level products that would be overkill. Instead, we can have callab.sl.o as a lightweight component, and reuse existing infrastructure like the wiki and bug trackers as much as possible.
+Workflows
+Observer/Interested party
+Any anonymous user can brose requests using criteria like
+tags
+,
+component
+,
+user
+etc.
+find information about where a particular implemented request could be found (in what Sugar release, activity version, etc.)
+after authorization, anyone logged-in can (de)promote any active request by giving his vote and leaving comments (comment could be in place or on an external resources like the wiki, depending on implementation).
+Requester
+The major workflow for collab.sugarlabs.org.
+login to requester mode
+check user groups to participate in, e.g., group of users for particular region, school, etc.
+check if the desired request has already been created
+if yes, just add yourself to the requesters list of that entry to increase its weight
+if no, create a new request
+short description
+full description (could be in place or on an external resources like the wiki, depends on implementation)
+properties like
+component
+, 'desired' (could be changed later by coordinator)
+priority
+,
+tags
+,
+contribution-types
+(could be set by experienced coordinators)
+desired deadlines/schedules (could be changed later by the coordinator)
+status of a newly-created request will be
+new
+and the request will not be visible by default but becomes visible for contributors when the
+coordinator
+accepts it.
+wait for replies from the coordinator or interested contributors, the site should provide:
+a list of your requests,
+a convenient notification method of incoming replies.
+Coordinator
+Coordinators are appointed to filter all incoming requests to:
+identify duplicates,
+tweak request properties, e.g., if requester is not experienced in certain areas,
+set priority, deadlines, and schedules,
+could appoint/invite contributors.
+Each group of users should have one or several coordinators. Every subgroup inherits coordinators from their parent group, e.g., a group of school users will inherit area and global coordinators.
+Possible workflows:
+login to coordinator mode,
+check incoming queue of newly-created requests,
+accept/retain/deny/tweak new requests,
+inspect deadlines/schedules of ongoing requests.
+Contributor
+Every request has one or several means of participation:
+coding,
+artwork: icons, images, etc.,
+media files: audio and video,
+creating documentation,
+translation.
+Contributors workflows could be:
+login to contributor mode,
+since it's a separate mode, it could have all the features that powerful groupware software has, depending on the particular implementation
+.
+Data Model
+Possible implementations
+Sugar Network
+http://brainstorm.ubuntu.com/
+adapt ASLO
+special activity
+...
+Implementations in progress
+Activities/Activity_Library
+Related resources
+POLL collab.sugarlabs.org
+Is this the "Idea Funnel?"
+http://wiki.laptop.org/go/Feature_requests
+http://wiki.laptop.org/go/Feature_roadmap
+Marketing Team/Project Visualization

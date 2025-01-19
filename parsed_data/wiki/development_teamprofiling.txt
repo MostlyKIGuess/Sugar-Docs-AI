@@ -1,0 +1,82 @@
+Title: Development Team/Profiling
+URL: https://wiki.sugarlabs.org/go/Development_Team/Profiling
+--------------------------------------------------------------------------------
+Memory
+ps_mem
+Try to determine how much RAM is currently being used per program.
+The shared RAM is problematic to calculate, and this script automatically
+selects the most accurate method available for your kernel.
+original script at
+http://www.pixelbeat.org/scripts/ps_mem.py
+The following patch makes the script output the processes pids and cmd-lines instead of their names when possible.
+__patched__ version at
+http://dev.laptop.org/~rlucchese/utils/ps_mem.py
+patch:
+--- ps_mem.py.orig	2008-08-29 09:30:29.000000000 +0200
++++ ps_mem	2008-08-29 09:43:49.000000000 +0200
+@@ -117,17 +117,23 @@
+     return (Private, Shared)
+ 
+ def getCmdName(pid):
+-    cmd = file("/proc/%d/status" % pid).readline()[6:-1]
+-    exe = os.path.basename(os.path.realpath("/proc/%d/exe" % pid))
+-    if exe.startswith(cmd):
+-        cmd=exe #show non truncated version
+-        #Note because we show the non truncated name
+-        #one can have separated programs as follows:
+-        #584.0 KiB +   1.0 MiB =   1.6 MiB    mozilla-thunder (exe -> bash)
+-        # 56.0 MiB +  22.2 MiB =  78.2 MiB    mozilla-thunderbird-bin
++    cmd = file("/proc/%d/cmdline" % pid).readline()
++    if len(cmd):
++       # cmdline has a bogus format
++       cmd_temp = ''
++       for i in range(0,len(cmd) -1):
++           if ord(cmd[i])<ord(' ') or ord(cmd[i])>ord('~'):
++               cmd_temp += ' '
++           else:
++               cmd_temp += cmd[i]
++
++       cmd = cmd_temp
++    else:
++        cmd = file("/proc/%d/status" % pid).readline()[6:-1]
+     return cmd
+ 
+ cmds={}
++pids={}
+ shareds={}
+ count={}
+ for pid in os.listdir("/proc/"):
+@@ -155,10 +161,8 @@
+     else:
+         shareds[cmd]=shared
+     cmds[cmd]=cmds.setdefault(cmd,0)+private
+-    if count.has_key(cmd):
+-       count[cmd] += 1
+-    else:
+-       count[cmd] = 1
++
++    pids[cmd] = pid
+ 
+ #Add shared mem for each program
+ total=0
+@@ -185,16 +189,16 @@
+     else:
+        return cmd
+ 
+-print " Private  +   Shared  =  RAM used\tProgram \n"
++print " Private  +   Shared  =  RAM used\tPID\tProgram \n"
+ for cmd in sort_list:
+-    print "%8sB + %8sB = %8sB\t%s" % (human(cmd[1]-shareds[cmd[0]]),
++    print "%8sB + %8sB = %8sB\t%d\t%s" % (human(cmd[1]-shareds[cmd[0]]),
+                                       human(shareds[cmd[0]]), human(cmd[1]),
+-                                      cmd_with_count(cmd[0], count[cmd[0]]))
++                                      pids[cmd[0]], cmd[0])
+ if have_pss:
+     print "-" * 33
+     print " " * 24 + "%8sB" % human(total)
+     print "=" * 33
+-print "\n Private  +   Shared  =  RAM used\tProgram \n"
++print " Private  +   Shared  =  RAM used\tPID\tProgram \n"
+ 
+ #Warn of possible inaccuracies
+ #2 = accurate & can total

@@ -1,0 +1,835 @@
+Title: Summer of Code/2013/moksaya
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2013/moksaya
+--------------------------------------------------------------------------------
+Contents
+1
+Moksaya Project :
+2
+Repository
+2.1
+RESTful WebServer
+2.2
+Client Side WebApp
+3
+REST API v1 Resources
+3.1
+User Creation
+3.2
+Authentication and User Login
+3.3
+User Resource
+3.4
+Profile Resource
+3.5
+Project Resource
+3.6
+Project Forking
+3.7
+Followers
+3.8
+Likes
+3.9
+Comment Resource
+4
+Site Model
+4.1
+TODOS
+Moksaya
+Project :
+A Django based web app aimed at sharing and collaboration of sugar activities to foster learning and creativity
+Goal of this project is to implement a Project Sharing site to foster collaboration and sharing of Sugar Activities over the internet.The website upon the completion would also provide REST-API’s , so that the services of the website could be utilised by the Sugar Activities to share the project on the site from within the Sugar Environment.
+Repository
+RESTful WebServer
+I am developing this project under the Moksaya branch on my
+Github
+.
+Client Side WebApp
+Development of web app consuming these RESTful api's  can be tracked here
+https://github.com/aregee/Moksaya-web/
+REST API v1 Resources
+User Creation
+Resource
+Description
+POST /api/v1/register/
+Makes http POST request with the JSON data to create a new user in the database ,if a user already exist raises HTTP 400 badrequest and returns a Json response  with error message "the  username already exist" . Returns HTTP 201 for successfully Created User
+Example
+curl --dump-header - -H "Content-Type:application/json" -X POST --data '{"username" :"user101" , "email" :"user@mail.com" , "password" : "password" }'
+http://moksaya-rahulgaur.rhcloud.com/api/v1/register/
+Response
+HTTP/1.1 201 CREATED Date: Thu, 19 Sep 2013 23:49:52 GMT Server: Apache/2.2.15 (Red Hat) Vary: Accept,Accept-Language,Cookie X-Frame-Options: SAMEORIGIN Content-Language: en-us Location:
+http://moksaya-rahulgaur.rhcloud.com/api/v1/register/19/
+Content-Length: 0
+Content-Type: text/html; charset=utf-8
+Authentication and User Login
+Requires Username and Password for obtaining the api_keys , and rest of the other resources are accessed with the API Keys.
+There are two ways to do it, these are Publicly accessible end points.
+Resource
+Description
+GET /api/v1/token/auth/
+Returns the apikey for the requested user, we need to supply the username and password in the request headers .
+Example
+curl -k --user "aregee:notebook"
+http://moksaya-rahulgaur.rhcloud.com/api/v1/token/auth/
+Response
+{
+"key": "531ffb6152171df4f60b1b09f09dd1b4c5aba997"
+}
+POST /api/v1/user/login/
+Another way is to POST the user credentials as a JSON data to this end point and returns User Resource with the API_key . Raises HTTP 401 for unauthorized with error response
+Example
+curl --dump-header - -H "Content-Type:application/json" -X POST --data '{"username":"user101","password":"notebook" }'
+http://moksaya-rahulgaur.rhcloud.com/api/v1/user/login/
+Response
+HTTP/1.1 200 OK
+Date: Fri, 20 Sep 2013 22:16:20 GMT
+Server: Apache/2.2.15 (Red Hat)
+Vary: Accept,Accept-Language,Cookie,Accept-Encoding
+X-Frame-Options: SAMEORIGIN
+Content-Language: en-us
+Content-Type: application/json
+Set-Cookie: sessionid=ddb4289b9fe8b2a963bfc540f81559c3; expires=Fri, 04-Oct-2013 22:16:20 GMT; httponly; Max-Age=1209600; Path=/
+Transfer-Encoding: chunked
+{
+"apikey": "03f9a40ddd029b0a773a54f189aaa92d5a07c2d2",
+   "email": "user@mail.com",
+   "first_name": "",
+   "id": 14,
+   "last_name": "",
+   "resource_uri": "/api/v1/user/14/",
+   "username": "user101"
+}
+User Resource
+Authenticated users can access the User Resource , with the api_key and User Resource supports following authenticated  options
+Resource
+Description
+GET /api/v1/user/
+Returns the list of all user accounts when accessed with authenticated header but returns requested user's resource when username and api_key supplied in url parameters
+Example
+curl --dump-header - -H "Content-Type: application/json" -X GET
+http://moksaya-rahulgaur.rhcloud.com/api/v1/user/?username=akshit\&api_key=feea1175cdb9dde076eb68b5d83857fe2a58a186
+Response
+HTTP/1.1 200 OK
+Date: Fri, 20 Sep 2013 22:32:23 GMT
+Server: Apache/2.2.15 (Red Hat)
+Vary: Accept,Accept-Language,Cookie,Accept-Encoding
+X-Frame-Options: SAMEORIGIN
+Content-Language: en-us
+Cache-Control: no-cache
+Content-Type: application/json
+Transfer-Encoding: chunked
+{
+"meta": {
+       "limit": 20,
+       "next": null,
+       "offset": 0,
+       "previous": null,
+       "total_count": 1
+   },
+   "objects": [
+       {
+           "apikey": "feea1175cdb9dde076eb68b5d83857fe2a58a186",
+           "email": "user@mail.com",
+           "first_name": "",
+           "id": 19,
+           "last_name": "",
+           "resource_uri": "/api/v1/user/19/",
+           "username": "akshit"
+       }
+   ]
+}
+GET /api/v1/user/<username>/
+We can also access users with their respective usernames and returns HTTP 401 for resource not found
+Example
+curl --dump-header - -H "Content-Type: application/json" -X GET
+http://moksaya-rahulgaur.rhcloud.com/api/v1/user/aregee/?username=spock\&api_key=d2fe32b15b0b395a5d0e0ea4b7eb1e5d6ea15de7
+Response
+HTTP/1.1 200 OK
+Date: Fri, 20 Sep 2013 23:05:43 GMT
+Server: Apache/2.2.15 (Red Hat)
+Vary: Accept,Accept-Language,Cookie,Accept-Encoding
+X-Frame-Options: SAMEORIGIN
+Content-Language: en-us
+Cache-Control: no-cache
+Content-Type: application/json
+Transfer-Encoding: chunked
+{
+"apikey": "531ffb6152171df4f60b1b09f09dd1b4c5aba997",
+   "email": "iamaregee@gmail.com",
+   "first_name": "",
+   "id": 2,
+   "last_name": "",
+   "resource_uri": "/api/v1/user/2/",
+   "username": "aregee"
+}
+DELETE /api/v1/user/<username>/
+Removes the requested <username> from the database .
+Example
+curl --dump-header - -H "Content-Type: application/json" -X DELETE
+http://moksaya-rahulgaur.rhcloud.com/api/v1/user/akshit/?username=akshit\&api_key=feea1175cdb9dde076eb68b5d83857fe2a58a186
+Response
+HTTP/1.1 204 NO CONTENT
+Date: Fri, 20 Sep 2013 22:36:22 GMT
+Server: Apache/2.2.15 (Red Hat)
+Vary: Accept,Accept-Language,Cookie
+X-Frame-Options: SAMEORIGIN
+Content-Language: en-us
+Content-Length: 0
+Content-Type: text/html; charset=utf-8
+Profile Resource
+Resource
+Description
+POST /api/v1/profile/
+Making http post to this end  point with the json data containing the Profile fields creates a new user profile , which is Related to all the other resources.Returns HTTP 201 response for successfully created user profile , returns HTTP 400 bad request with error response for unsuccessful attempts.
+Example
+curl --dump-header - -H "Content-Type:application/json" -X POST --data '{"user":"/api/v1/user/akshit/" , "about_me" :"Profile Create with CURL"}'
+http://moksaya-rahulgaur.rhcloud.com/api/v1/profile/?username=akshit\&api_key=feea1175cdb9dde076eb68b5d83857fe2a58a186
+GET /api/v1/profile/
+Returns list of all user profiles , throttles twenty results per request.
+GET /api/v1/profile/username/
+Returns ProfileResource for the requested user , returns http 404 if resource is not found.
+Example
+curl --dump-header - -H "Content-Type:application/json" -X GET
+http://moksaya-rahulgaur.rhcloud.com/api/v1/profile/akshit/?username=akshit\&api_key=feea1175cdb9dde076eb68b5d83857fe2a58a186
+Respone
+HTTP/1.1 200 OK
+Date: Thu, 19 Sep 2013 23:56:13 GMT
+Server: Apache/2.2.15 (Red Hat)
+Vary: Accept,Accept-Language,Cookie,Accept-Encoding
+X-Frame-Options: SAMEORIGIN
+Content-Language: en-us
+Cache-Control: no-cache
+Content-Length: 279
+Content-Type: application/json
+{
+"about_me": "Profile Create with CURL",
+   "followers": [],
+   "following": [],
+   "id": 19,
+   "language": "en",
+   "location": "",
+   "mugshot": null,
+   "privacy": "registered",
+   "projects": [],
+   "resource_uri": "/api/v1/profile/19/",
+   "user": "akshit"
+}
+PUT /api/v1/profile/<username>/
+Updates the Profile Resource field with the supplied JSON data.Currently works with only about_me field but can be extended to include location and mugshot or Avatar fields
+Example
+curl --dump-header - -H "Content-Type:application/json" -X PUT --data '{"about_me" :"Profile Create & updated with  CURL "}'
+http://moksaya-rahulgaur.rhcloud.com/api/v1/profile/akshit/?username=akshit\&api_key=feea1175cdb9dde076eb68b5d83857fe2a58a186
+Project Resource
+Resource
+Description
+GET /api/v1/projects/
+Following query returns the list of all the projects submitted by the user.
+GET /api/v1/projects/<id>/
+We can query a particular project with its id. This would return ProjectResource for the requested project id.It also shows related comments and likes on the project.
+Example
+curl --dump-header - -H "Content-Type: application/json" -X GET
+http://moksaya-rahulgaur.rhcloud.com/api/v1/projects/1/?username=spock\&api_key=d2fe32b15b0b395a5d0e0ea4b7eb1e5d6ea15de7
+Response
+HTTP/1.1 200 OK
+Date: Fri, 20 Sep 2013 23:40:38 GMT
+Server: Apache/2.2.15 (Red Hat)
+Vary: Accept,Accept-Language,Cookie,Accept-Encoding
+X-Frame-Options: SAMEORIGIN
+Content-Language: en-us
+Cache-Control: no-cache
+Content-Type: application/json
+Transfer-Encoding: chunked
+{
+"Likes": 6,
+   "comment": [
+       {
+           "entry": "This is My Project",
+           "resource_uri": "/api/v1/comment/3/",
+           "text": "This is a Comment :)",
+           "user": "aregee"
+       },
+       {
+           "entry": "This is My Project",
+           "resource_uri": "/api/v1/comment/8/",
+           "text": "Lets Post another Comment here :D",
+           "user": "aregee"
+       },
+       {
+           "entry": "This is My Project",
+           "resource_uri": "/api/v1/comment/9/",
+           "text": "But This Kinda Looks Sweet :D",
+           "user": "aregee"
+       },
+       {
+           "entry": "This is My Project",
+           "resource_uri": "/api/v1/comment/29/",
+           "text": "superb :)",
+           "user": "nikking1793"
+       },
+       {
+           "entry": "This is My Project",
+           "resource_uri": "/api/v1/comment/30/",
+           "text": "superb :)",
+           "user": "nikking1793"
+       }
+   ],
+   "desc": "Hello Project world",
+   "history": "",
+   "id": 1,
+   "resource_uri": "/api/v1/projects/1/",
+   "screenshot": "/media/projects/lin.jpg",
+   "shared_date": "2013-09-17T16:44:53.773919",
+   "src": "/media/projects/try.py",
+   "title": "This is My Project",
+   "user": "aregee"
+}
+POST /api/v1/projects/
+Making an http POST request to this URI with the Multipart form data in the JSON format creates a new project and Returns HTTP 201 for successfully created  projects
+Example
+curl -F "user=/api/v1/profile/2/" -F "title=Fiddle with JS" -F "desc=this file documents my PROGRESS with learning JavaScript" -F "src=@projects/objects.js" -F "screenshot=@projects/img_screen.png"
+http://127.0.0.1:8000/api/v1/projects/?username=aregee\&api_key=531ffb6152171df4f60b1b09f09dd1b4c5aba99
+PATCH /api/v1/projects/<id>/
+Updates the changed field to an existing project in the form of json data.
+Example
+curl --dump-header - -H "Content-Type:application/json" -X PATCH --data '{"title":"Gallery Lock ++ " }'
+http://127.0.0.1:8000/api/v1/projects/1/?username=aregee\&api_key=531ffb6152171df4f60b1b09f09dd1b4c5aba99
+PUT /api/v1/projects/<id>/
+We can also use the HTTP PUT request to update all the fields of an existing project
+DELETE /api/v1/projects/<id>/
+Destroys the current project and the resource related to it : Likes , Comments
+Project Forking
+Resource
+Description
+GET /api/v1/forking/<project_id>/
+Currently to fork a project , authenticated user makes GET request to this end point with the project id they need to fork.This method creates a copy of the requested project and associates it to the requesting User's profile.There is a history field in the Project to hold the data about original creator of the project.
+Example
+curl
+http://moksaya-rahulgaur.rhcloud.com/api/v1/forking/2/?username=vrinda\&api_key=b7c19215d088591e2dee07c2fb4df677ab1c9fbe
+Response
+{
+"desc": "undefined",
+   "history": "project undefined  created by aregee forked by vrinda ",
+   "resource_uri": "/api/v1/forking/2/",
+   "screenshot": "/media/projects/lin.jpg",
+   "shared_date": "2013-09-20T19:07:57.861892",
+   "src": "/media/projects/file_rem.py",
+   "title": "undefined"
+}
+Followers
+Resource
+Description
+GET /api/v1/relations/
+Returns a list of all the user relations with their resource.
+POST /api/v1/relations/
+To create a follower/followee  relation between the two user we pass a JSON data with the resource_uri of the currently logged in user's profile  as follower and viewed  profile of the user as followee . Returns HTTP 201 Created Response and each relations has its own id and other meta deta.
+Example
+curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"follower":"/api/v1/profile/3/","followee":"/api/v1/profile/4/"}'
+http://127.0.0.1:8000/api/v1/relations/?username=vrinda\&api_key=b7c19215d088591e2dee07c2fb4df677ab1c9fbe
+DELETE /api/v1/relations/<id>/
+Making a delete request to a relation , deletes the unilateral relation between the user.
+Likes
+Resource
+Description
+POST /api/v1/liking/
+Making http post request to this Resource along with the json data with user field containing resource_uri of the currently logged in user and liking_content_type  field contains the URI of requested Project creates a liking Relation between the user and project.
+Example
+curl --dump-header - -H "Content-Type:application/json" -X POST --data '{"user":"/api/v1/profile/2/" ,"liked_content_type":"/api/v1/projects/2/" }'
+http://127.0.0.1:8000/api/v1/liking/?username=vrinda\&api_key=b7c19215d088591e2dee07c2fb4df677ab1c9fbe
+GET /api/v1/liking/
+Returns the list of all the liking relationship with their resource id and other liking resource.
+GET /api/v1/liking/<id>
+{
+"Liked": "undefined",
+           "id": 2,
+           "liked_content_type": {
+               "Likes": 1,
+               "comment": [
+                   {
+                       "entry": "undefined",
+                       "resource_uri": "/api/v1/comment/1/",
+                       "text": ":P",
+                       "user": "vrinda"
+                   }
+               ],
+               "desc": "undefined",
+               "history": "project undefined  created by aregee forked by vrinda ",
+               "id": 4,
+               "resource_uri": "/api/v1/projects/4/",
+               "screenshot": "/media/projects/wb3_1.png",
+               "shared_date": "2013-09-20T19:09:43.084615",
+               "src": "/media/projects/feed__1.py",
+               "title": "undefined",
+               "user": "vrinda"
+           },
+           "resource_uri": "/api/v1/liking/2/",
+           "shared_date": "2013-09-20T19:09:59.892135",
+           "user": "vrinda"
+       }
+DELETE /api/v1/liking/<id>/
+Destroys the requested liked relation.
+Comment Resource
+Description
+Resource
+POST /api/v1/comment/
+This resource creates a new comment resource with the JSON data supplied  to it.Returns 201 response for successfully added comment.
+Example
+curl --dump-header - -H "Content-Type:application/json" -X POST --data '{"user":"/api/v1/profile/1/","entry":"/api/v1/projects/2/" , "text":"Comment posted with REST" }'
+http://127.0.0.1:8000/api/v1/comment/?username=soeone\&api_key=som23h32gh2g3h3g2h3gh2213ftf32f
+GET /api/v1/comment/
+List all the comments along with their related Project Resource.
+GET /api/v1/comment/<id>/
+Filters the Comment resource by their respective ids.
+PATCH /api/v1/comment/<id>/
+Updates the text field in the comment.
+Example
+curl --dump-header - -H "Content-Type:application/json" -X PATCH --data '{"text":"Comment POSTed with updated with PATCH" }'
+http://127.0.0.1:8000/api/v1/comment/1/?username=aregee\&api_key=ytg67asdf76asdf76fdsa767asdf67sadtg
+DELETE /api/v1/comment/<id>/
+Making a delete request to the comment id , deletes the comment from the related resource or Project.
+Site Model
+I have planed to design the RESTful interface to the Moksaya project , and I have written a web app to consume these APIs  using [
+http://angularjs.org/
+AngularJS ]
+Initially Moksaya project offers a RESTful interface to the following interrelated models :
+ProfileResource
+ProjectResource
+CommentResource
+LikeResource
+ForkResource
+At the Top most level Profile/list contains all the User Profiles along with their Related Resources.
+So , a typical user profile contains User info like About , Birthdays etcs then the Related Resources Projects , Friends List , Likes on Projects (Can be easily extended for comments or other models).
+Most of these Related Resources can be accessed individually as well.
+Top Level View :curl --dump-header - -H "Content-Type: application/json" -X GET
+http://moksaya-rahulgaur.rhcloud.com/api/v1/profile/?username=spock\&api_key=d2fe32b15b0b395a5d0e0ea4b7eb1e5d6ea15de7
+HTTP/1.1 200 OK
+Date: Sat, 21 Sep 2013 01:32:01 GMT
+Server: Apache/2.2.15 (Red Hat)
+Vary: Accept,Accept-Language,Cookie,Accept-Encoding
+X-Frame-Options: SAMEORIGIN
+Content-Language: en-us
+Cache-Control: no-cache
+Content-Type: application/json
+Transfer-Encoding: chunked
+{
+"meta": {
+       "limit": 20,
+       "next": "/api/v1/profile/?username=spock&api_key=d2fe32b15b0b395a5d0e0ea4b7eb1e5d6ea15de7&limit=20&offset=20",
+       "offset": 0,
+       "previous": null,
+       "total_count": 26
+   },
+   "objects": [
+       {
+           "about_me": "admin",
+           "followers": [
+               "aregee"
+           ],
+           "following": [],
+           "id": 1,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/1/",
+           "user": "admin"
+       },
+       {
+           "about_me": "Now I can update About_ME",
+           "followers": [
+               "vrinda",
+               "kirk",
+               "ned",
+               "titiksha",
+               "robStark",
+               "jarvis",
+               "satyamyadav",
+               "user101",
+               "atif",
+               "nikking1793",
+               "tch",
+               "amigo",
+               "aregee__"
+           ],
+           "following": [
+               "vrinda",
+               "ned",
+               "kirk",
+               "tch",
+               "admin",
+               "titiksha",
+               "jarvis",
+               "monikagupta",
+               "satyamyadav",
+               "surajgillespie",
+               "nikking1793",
+               "amigo",
+               "raju"
+           ],
+           "id": 2,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [
+               {
+                   "Likes": 1,
+                   "comment": [],
+                   "desc": "undefined",
+                   "history": "",
+                   "id": 1,
+                   "resource_uri": "/api/v1/projects/1/",
+                   "screenshot": "/media/projects/wb3.png",
+                   "shared_date": "2013-09-20T19:07:29.101309",
+                   "src": "/media/projects/feed_.py",
+                   "title": "undefined",
+                   "user": "aregee"
+               },
+               {
+                   "Likes": 0,
+                   "comment": [],
+                   "desc": "undefined",
+                   "history": "",
+                   "id": 2,
+                   "resource_uri": "/api/v1/projects/2/",
+                   "screenshot": "/media/projects/lin.jpg",
+                   "shared_date": "2013-09-20T19:07:57.861892",
+                   "src": "/media/projects/file_rem.py",
+                   "title": "undefined",
+                   "user": "aregee"
+               },
+               {
+                   "Likes": 0,
+                   "comment": [],
+                   "desc": "undefined",
+                   "history": "",
+                   "id": 3,
+                   "resource_uri": "/api/v1/projects/3/",
+                   "screenshot": "/media/projects/beautiful_strings.png",
+                   "shared_date": "2013-09-20T19:08:30.575741",
+                   "src": "/media/projects/file_rem_1.py",
+                   "title": "undefined",
+                   "user": "aregee"
+               }
+           ],
+           "resource_uri": "/api/v1/profile/2/",
+           "user": "aregee"
+       },
+       {
+           "about_me": "Oh not it won't happen :0",
+           "followers": [
+               "aregee"
+           ],
+           "following": [
+               "aregee",
+               "kirk",
+               "jarvis"
+           ],
+           "id": 3,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [
+               {
+                   "Likes": 1,
+                   "comment": [
+                       {
+                           "entry": "undefined",
+                           "resource_uri": "/api/v1/comment/1/",
+                           "text": ":P",
+                           "user": "vrinda"
+                       }
+                   ],
+                   "desc": "undefined",
+                   "history": "project undefined  created by aregee forked by vrinda ",
+                   "id": 4,
+                   "resource_uri": "/api/v1/projects/4/",
+                   "screenshot": "/media/projects/wb3_1.png",
+                   "shared_date": "2013-09-20T19:09:43.084615",
+                   "src": "/media/projects/feed__1.py",
+                   "title": "undefined",
+                   "user": "vrinda"
+               },
+               {
+                   "Likes": 0,
+                   "comment": [],
+                   "desc": "undefined",
+                   "history": "project undefined  created by aregee forked by vrinda ",
+                   "id": 5,
+                   "resource_uri": "/api/v1/projects/5/",
+                   "screenshot": "/media/projects/lin_1.jpg",
+                   "shared_date": "2013-09-20T19:22:22.520212",
+                   "src": "/media/projects/file_rem_2.py",
+                   "title": "undefined",
+                   "user": "vrinda"
+               }
+           ],
+           "resource_uri": "/api/v1/profile/3/",
+           "user": "vrinda"
+       },
+       {
+           "about_me": "I am SPOCK",
+           "followers": [],
+           "following": [],
+           "id": 4,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/4/",
+           "user": "spock"
+       },
+       {
+           "about_me": "Howdy partner, this is kirk's Moksaya Profile",
+           "followers": [
+               "aregee",
+               "vrinda"
+           ],
+           "following": [
+               "aregee"
+           ],
+           "id": 5,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/5/",
+           "user": "kirk"
+       },
+       {
+           "about_me": "Howdy partner, this is ned's Moksaya Profile",
+           "followers": [
+               "aregee"
+           ],
+           "following": [
+               "aregee"
+           ],
+           "id": 6,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/6/",
+           "user": "ned"
+       },
+       {
+           "about_me": "sdasd",
+           "followers": [
+               "aregee"
+           ],
+           "following": [
+               "aregee"
+           ],
+           "id": 7,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/7/",
+           "user": "tch"
+       },
+       {
+           "about_me": "I am Titiksha",
+           "followers": [
+               "aregee"
+           ],
+           "following": [
+               "aregee"
+           ],
+           "id": 8,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/8/",
+           "user": "titiksha"
+       },
+       {
+           "about_me": "This is Rob Stark , King in the North ;)",
+           "followers": [],
+           "following": [
+               "aregee"
+           ],
+           "id": 9,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/9/",
+           "user": "robStark"
+       },
+       {
+           "about_me": "Howdy partner, this is mronetwo's Moksaya Profile",
+           "followers": [],
+           "following": [],
+           "id": 10,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/10/",
+           "user": "mronetwo"
+       },
+       {
+           "about_me": "Howdy partner, this is monikagupta's Moksaya Profile",
+           "followers": [
+               "aregee"
+           ],
+           "following": [],
+           "id": 11,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/11/",
+           "user": "monikagupta"
+       },
+       {
+           "about_me": "Howdy partner, this is jarvis's Moksaya Profile",
+           "followers": [
+               "aregee",
+               "vrinda"
+           ],
+           "following": [
+               "aregee"
+           ],
+           "id": 12,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/12/",
+           "user": "jarvis"
+       },
+       {
+           "about_me": "Howdy partner, this is satyamyadav's Moksaya Profile",
+           "followers": [
+               "aregee"
+           ],
+           "following": [
+               "aregee"
+           ],
+           "id": 13,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/13/",
+           "user": "satyamyadav"
+       },
+       {
+           "about_me": "Hello , I am user1010 and I code :)",
+           "followers": [],
+           "following": [
+               "aregee"
+           ],
+           "id": 14,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/14/",
+           "user": "user101"
+       },
+       {
+           "about_me": "Howdy atif , this is your  Moksaya Profile",
+           "followers": [],
+           "following": [
+               "aregee"
+           ],
+           "id": 15,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/15/",
+           "user": "atif"
+       },
+       {
+           "about_me": "Howdy surajgillespie , this is your  Moksaya Profile",
+           "followers": [
+               "aregee"
+           ],
+           "following": [],
+           "id": 16,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/16/",
+           "user": "surajgillespie"
+       },
+       {
+           "about_me": "Howdy partner, this is moksaya_user's Moksaya Profile",
+           "followers": [],
+           "following": [],
+           "id": 17,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/17/",
+           "user": "moksaya_user"
+       },
+       {
+           "about_me": "Howdy nikking1793 , this is your  Moksaya Profile",
+           "followers": [
+               "aregee",
+               "user102"
+           ],
+           "following": [
+               "aregee"
+           ],
+           "id": 18,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/18/",
+           "user": "nikking1793"
+       },
+       {
+           "about_me": "Howdy Ayushletsrock , this is your  Moksaya Profile",
+           "followers": [
+               "user102"
+           ],
+           "following": [],
+           "id": 20,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/20/",
+           "user": "Ayushletsrock"
+       },
+       {
+           "about_me": "Howdy gonzalo , this is your  Moksaya Profile",
+           "followers": [],
+           "following": [],
+           "id": 21,
+           "language": "en",
+           "location": "",
+           "mugshot": null,
+           "privacy": "registered",
+           "projects": [],
+           "resource_uri": "/api/v1/profile/21/",
+           "user": "gonzalo"
+       }
+   ]
+TODOS

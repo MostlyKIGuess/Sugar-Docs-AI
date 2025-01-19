@@ -1,0 +1,61 @@
+Title: Features/Language keyboard options
+URL: https://wiki.sugarlabs.org/go/Features/Language_keyboard_options
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Buttons at the bottom of the intro screen to allow the user to set the language and keyboard
+Owner
+Name:
+Walter Bender
+Email: <walter dot sugarlabs dot org>
+Current status
+Targeted release: (0.88)
+Last updated: (2009 Nov 24)
+Percentage of completion: 10%
+Detailed Description
+Several requests have been made to be able to set the language and keyboard during the intro dialog. (Deemed especially important for SoaS.)
+Benefit to Sugar
+Our users speak many languages and with Sugar on a Stick, deploy on many different--unpredictable?--keyboards. This feature would allow them to set their language on initial boot rather than having to wait until they have completed the intro dialog. (Note that on an XO, the manufacturing data is used to set these fields. This feature would be used to override those settings.)
+Scope
+The change would be restricted to sugar/src/jarabe/intro/window.py. The logic used in the control panel would be replicated here.
+We also need new icons for the module-keyboard and module-language to be put into sugar-toolkit/src/graphics/icons/scalable/device.
+How To Test
+Features/Language keyboard options/Testing
+User Experience
+Users will have the opportunity to work in their native language from the initial experience of Sugar rather than having to initially wade through English-language menus.
+Dependencies
+None
+Contingency Plan
+If we don't complete this feature, it can be left out. Nothing else depends upon it.
+Documentation
+This is common practice now on several GNU/Linux distros, e.g., Ubuntu 9.10
+Release Notes
+Comments and Discussion
+See
+discussion tab for this feature

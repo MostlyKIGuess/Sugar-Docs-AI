@@ -1,0 +1,170 @@
+Title: 0.84/0.83.3 Notes
+URL: https://wiki.sugarlabs.org/go/0.84/0.83.3_Notes
+--------------------------------------------------------------------------------
+Contents
+1
+Sucrose 0.83.3 Release Notes
+1.1
+Announcement
+1.2
+Compatibility
+1.3
+Glucose modules
+1.4
+Glucose news
+1.4.1
+sugar-toolkit
+1.4.2
+sugar
+1.4.3
+sugar-base
+1.4.4
+sugar-presence-service
+1.4.5
+sugar-datastore
+1.4.6
+sugar-artwork
+1.4.7
+etoys
+1.5
+Fructose modules
+1.6
+Fructose news
+1.6.1
+read
+1.6.2
+browse
+1.6.3
+jukebox
+1.6.4
+chat
+1.6.5
+turtleart
+1.6.6
+terminal
+1.6.7
+imageviewer
+1.7
+Fructose dependencies
+Sucrose 0.83.3 Release Notes
+Announcement
+This week's official release picture shows one new feature and one bug fix! Let's see if you can find both. Please send the correct answer to sugar-devel AT sugarlabs DOT org.
+This is our third Development Release in the 0.84
+cycle
+. Besides all the great bug fixing that has been going into this release we want to highlight some interesting changes.
+First of all, big up to the translation team and their fearless leader Sayamindu for their steady ongoing work to make Sugar a localized environment! Thanks to the maintainers for honouring this with new releases.
+Another important role during this release played the infrastructure team. Since we moved the git repositories to be at
+http://git.sugarlabs.org
+and changed downloads to be hosted at
+http://download.sugarlabs.org
+there was a lot of work to do. Thanks to Bernie, Ivan and Lance Albertson of OSL.
+Tomeu with the help of Collabora and especially Guillaume landed the first batch of patches that bring file transfer to the journal. Though more or less working, it does still need a lot of love and polishing.
+Benjamin and Marco worked together to fix the palette highlighting on tray icons. Many might have wondered for month already why the highlighting when hovering over the device icons was not working right - now it is fixed. Marco fixed as well another palette drawing issue.
+Simon added support for wired network devices. When connected to a wired network the icon will show up in the devices frame. Network Manager supports multiple active devices to ensure that you always have connectivity, try it out and connect your wireless and wired device.
+Daniel brought Read back with a rebase of sugar-evince and incredible Walter could not stop coding and brought us a new version of turtleart with image caching. Morgan updated Chat to follow the API and fixed a possible crasher.
+Kushal is working hard to make the Jukebox activity our default media playback activity, he added object picker support, so that when you open read directly prompts you with a dialoge to choose a file you want to play.
+We want to finish this announcement with the first release of
+Etoys 4.0
+. The major version jump signifies the end of their two-year relicensing effort. Now we are looking forward to see etoys packaged for distributions like Fedora that the Sugar users can enjoy that great educational environment there as well. Big Thanks to the Squeak community and Etoys developers!
+Thanks everyone for the great contributions!
+Compatibility
+When you upgrade a computer running an earlier version,
+The old datastore will be updated to the new format.
+Your old profile (in
+.sugar/default/config
+) will be imported into GConf
+If you later downgrade from Sucrose 0.83.x to an earlier version,
+The datastore is incompatible
+You will be prompted to enter all your profile settings like you are on first boot
+Most of the activities in Sucrose 0.83.x should be compatible with Sucrose 0.82 , the version shipped with
+XO Software Release 8.2.0
+.  An exception is Browse, which depends on new versions of XULRunner and Hulahop.  Read likewise may soon depend on a new version of Evince
+Glucose modules
+sugar-toolkit 0.83.3
+sugar 0.83.4
+sugar-artwork 0.83.2
+sugar-base 0.83.2
+sugar-datastore 0.83.1
+sugar-presence-service 0.83.2
+etoys 4.0.2210
+Glucose news
+sugar-toolkit
+Fix palette highlighting on tray icons. Patch by benzea, style tweaks by marcopg
+Rework palette state logic. Fix
+#42
+Use g_timeout_add_seconds() for power efficiency
+Add colors to icons in menu items
+Add accelerator support to menu items
+Simplify activity bundle installation
+Dont pop down the palette when a submenu opens
+sugar
+Fix language parsing on Gentoo and ALTLinux
+#81
+(alsroot)
+Change the FRAME_POSITION_RELATIVE to follow eben's spec
+exec sugar-session
+Add wired device icon for the frame
+Only show wireless device in the frame when connecting/connected
+Use jabber.sugarlabs.org by default
+Only create a keydialog for the activating connection
+CanvasPulsingIcon: Don't begin pulse loop on resume if not pulsing
+Use g_timeout_add_seconds() for power efficiency
+Add the journal button to the volumes toolbar in the journal
+Remove jarabe/model/volume.py and use gio instead
+First try at restoring removable devices support in the journal
+make the image viewer activity the default one for iamges
+sugar-base
+Adding language he, bi, hu, sw, cs, sv, sk, wa
+Updated translations
+sugar-presence-service
+#6248
+Presence service broken with NetworkManager-0.7 (NM D-Bus API change)
+sugar-datastore
+This release just contains a bunch of stability and robustness improvements
+sugar-artwork
+New icon for the wired network
+etoys
+removed/reverted/rewrote all methods not covered by Apache/MIT license
+various fixes (
+#8928
+,
+#8929
+,
+#8879
+,
+#9058
+, and others)
+Fructose modules
+read 62
+chat 61
+terminal 21
+imageviewer 5
+jukebox 6
+turtleart 23
+browse 102
+etoys 97
+write 60
+calculate 25
+log 16
+pippy 25
+Fructose news
+read
+Update to sugar-evince-2.24 API (Daniel Drake)
+Updated translations: es, sl
+browse
+Updates in the Slovenian language
+jukebox
+ObjectPicker option added while directly running the activity
+67 languages added :)
+chat
+Updated translations: es
+Fix crash in _add_log when buddy is None, and make _add_log more robust (morgs)
+Sugar API update: Use self.shared_activity not self._shared_activity (morgs)
+turtleart
+caching images -- the first time you load it, it takes about 30 seconds. subsequent loads are almost instant
+terminal
+Updated translations
+imageviewer
+New translations
+Fructose dependencies
+hulahop 0.4.8

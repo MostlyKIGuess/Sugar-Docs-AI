@@ -1,0 +1,95 @@
+Title: Features/3G Support/Database Support
+URL: https://wiki.sugarlabs.org/go/Features/3G_Support/Database_Support
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Credits
+4
+Current Status
+5
+Detailed Description
+6
+Benefit to Sugar
+7
+Scope
+8
+UI Design
+9
+How To Test
+10
+User Experience
+11
+Dependencies
+12
+Contingency Plan
+13
+Documentation
+14
+Release Notes
+15
+Comments and Discussion
+Summary
+The 3G connectivity availability was only the first step. Next step is to provide a UX for easy configuration of 3G modems. Gnome allows users to enter details such as 'Country', 'Plan' and 'Provider' in a drop-down box fashion. This feature brings that functionality into Sugar.
+Owner
+Name: Ajay Garg (on behalf of Andrés Ambrois)
+Email: ajay@activitycentral.com, andresambrois@gmail.com
+Credits
+Name: Anish Mangal (Reviving the feature, Feature Page)
+Email: anish@activitycentral.com
+Current Status
+Targeted release: 0.98
+Development status: This feature is tested to be working quite well in sugar-0.94 based dextrose-3 images. The mainline-ported rpms/patches can be found at
+Patchwork
+http://patchwork.sugarlabs.org/patch/1646/
+Devel-List
+http://lists.sugarlabs.org/archive/sugar-devel/2012-August/038916.html
+Github
+https://github.com/sugarlabs/sugar/pull/46
+Detailed Description
+Provides and easy to use mechanism of entering the configuration settings for 3G modems. The user can select 'Country', 'Plan' and 'Provider' from drop down boxes, and the required settings for the modem will automatically be configured. For some modems which require specific user names or passwords, the user can still manually input those settings.
+Thus this is an add-on to existing functionality, where all settings must be manually typed in into the text-entry fields.
+Benefit to Sugar
+Ease of use and configurability.
+Scope
+extensions/cpsection/modemconfiguration/config.py.in
+extensions/cpsection/modemconfiguration/model.py
+extensions/cpsection/modemconfiguration/view.py
+The XML database for Country, Plan, Provider already included in builds.
+UI Design
+The UI has been kept consistent with what is provided in Gnome. Drop down boxes for Country, Plan and Provider are provided, which when entered, configure settings in the text fields below. Attaching screenshots:
+New user interface with database support.
+Old user interface without database support.
+How To Test
+Insert the 3G modem.
+Open "My Settings -> Modem"
+Enter the modem configuration settings manually in the text entry fields
+Click the 'tick' button. It will prompt for a restart. Restart Sugar. The modem will be detected and connected
+Now open "My Settings -> Modem" again
+Clear the text entry fields which have values/text in them
+Select the Country, Plan and Provider from the drop down boxes.
+Verify that some values in the text entry fields were automatically set
+Enter information in missing fields (if any)
+Click the 'tick' button. It will prompt for a restart. Restart Sugar. The modem will be detected and connected
+Open the My Settings -> Modem again
+Check that the selected Country, Plan, and Provider values in the Drop down boxes are correct.
+User Experience
+1. Plug GSM modem.
+2. Open My Settings -> Modem
+3. Select Country, Plan and Provider from the provided drop down menus
+4. Click the 'tick' button on the top right corner of screen.
+5. It will prompt for a sugar restart, Select Restart now.
+6. After restart, the modem should automatically get connected
+Dependencies
+Network Manager 0.8x (Most probably wont work with NM 0.9x. It needs to be ported)
+Contingency Plan
+The manual text entry fields are provided to configure the modem, if the drop down boxes dont work.
+Documentation
+Please see the testing section.
+Release Notes
+N.A.
+Comments and Discussion
+N.A.

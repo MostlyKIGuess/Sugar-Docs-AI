@@ -1,0 +1,140 @@
+Title: Marketing Team/Events/Sugarcamp Boston 2008/Minutes
+URL: https://wiki.sugarlabs.org/go/Marketing_Team/Events/Sugarcamp_Boston_2008/Minutes#Items_from_the_roadmap_brainstorm
+--------------------------------------------------------------------------------
+Contents
+1
+Presence Scalability
+1.1
+XS scenario
+2
+Global scenario
+3
+eBook reader (Chris Rowe, Bernie, Martin Langoff)
+4
+Collaboration Brainstorm
+5
+Bookreading and Content
+6
+Notes from Tuesday Night Collaboration Architecture Discussion
+7
+Items from the roadmap brainstorm
+Presence Scalability
+XS scenario
+Search based interface (Morgan Collett)
+Shrink memory footprint (Martin Langoff)
+ODBC ejabberd roaster
+Web based interface for group management
+ejabberd (seems) a convincing implementation (so far)
+ejabberd is very tweakable, configurable, extensible
+Martin working on it, ready in 6-7 weeks?
+Global scenario
+Optional feature (privacy, nat, bandwidth...)
+Jabber server buried in remote control panel
+Must restart Sugar to change
+eBook reader (Chris Rowe, Bernie, Martin Langoff)
+OLE Nepal asked for an application for opening, reading and browsing PDF books
+OLE Nepal uses a web-based interface to browse for content
+http://www.icdlbooks.org/
+Martin: there are plenty of custom protocols and formats for content librararies
+Martin: the Internet is already a good enough search tool for content
+Chris: 85% of content is PDF, the rest is mostly MSWord
+Chris: OLE Nepal said: "short term, we just want a viewer + some metadata"
+How should the content be delivered to the kid? USB stick? School server? Online library?
+MStone: you can run a web server on the XO!
+Collaboration Brainstorm
+Gadget replaces
+presence service
+the jabber server shared roster, and should solve scalability problems caused by the shared roster
+Gadget is an XMPP add on component, should be compatible with any standards compliant server
+Telepathy API is adding avatars, file transfer and P2P tubes.
+It was decided to talk about collaboration requirements Tuesday night.
+Future improvement to telepathy include jingle support, multi user audio video chat, and GeoLocation
+The presence service is being removed
+* It is an additional abstraction on top of telepathy, and telepathy is already and abstraction API
+Mission Control provides API to manage accounts(usernames, passwords etc)
+* Executes applications based on incoming connections
+* Sets avatar, manages capabilities, could re-use existing IM account
+A way needs to be found to allow chat in shared activities.
+Bookreading and Content
+There were two major threads in the conversation: some people decompose the problem into "finding content" and "consuming content" whereas others view these as a seamless action that occurs across multiple sessions; the latter group is primarily concerned with the ergonomics of the complete interaction.
+Next, we spent some time trying to agree on a deployment scenario: some people were most interested in guided in-core content-usage scenarios whereas others were most interested in unguided server- or cloud-based content usage scenarios.
+We debated whether the Journal should be extended to be a universal portal (with pluggable data layouts) or whether we should rely on disjoint screens for each content acquisition and consumption scenario. We paid particular attention to the question of whether remote/local and past/present/future opportunities should be displayed concurrently. (No consensus was reached.)
+We seem to be in agreement that people want to look into the future as well as the past. It seems that we use similar UIs for doing this, so with careful problem decomposition, we should be able to share lots of code.
+The closing remarks considered resource allocation: perhaps we should try hardest to adapt an existing dominant solution (e.g. Moodle) to work better in Sugar's deployment scenarios. (Specific technologies that were also considered as examples of the UIs we like include Miro, Calibre, Banshee, Eben's Journal designs, and the ICDL website.)
+(Finally, the ergonomics crowd wishes to reiterate that workflows are the central -- the reader and the writer need to fully interoperate and they need to be *slick*.)
+Notes from Tuesday Night Collaboration Architecture Discussion
+---------------------------------------------------------------------------------------------------
+                                                  
+Architectural Issues                             |        Sync. Collab
+------                                           |     (working  together)             
+                                                 |     Abiword                      - bemasc
+0. Physical  -- QOS, BW, channels                |     Tubes/dbus                   - ???
+1. Basic Connectivity                            |     VNCViewer, remote X, MPX     - cscott,mstone
+2. Mesh       AP ---- user ---- user             |     bespoke protocols for games  - bjordan
+                                                 |     IM/chat                      - morgs,cassidy
+                                                 |     VOIP/Video                   - cjb
+Failure, Programmability, Legacy                 |
+
+                                                  --------------------------------------------------
+3. Discovery       --    Who Exists?                                                 
+4. Connectivity    --    Who can I talk with?    |       Async. Collab       
+5. Presence        --    What's happening?       |     File push / pull            - erikg, cscott
+6. Meaning         --    Let's share....         |     Workflow (cms)              - Bryan, Eben
+                                                 |     Moodle                      - Martin
+                                                 |     Email                       - UY?
+Peers/Superpeers                                 |     Google docs                 - 
+                                                 |     Web                         - Eben  
+Naming / Routing                                 
+Split Networks                                    --------------------------------------------------
+Interop                                           
+Pseudonyms                                       |     
+Security                                         |
+Platform agnosticism / Stubs                     |
+
+---------------------------------------------------------------------------------------------------
+Items from the roadmap brainstorm
+Transcription from
+http://sugarlabs.org/go/Image:Img_0169.jpg
+:
+1. Legacy -> marcopg, (_bernie)
+2. Accessibility -> utoronto
+3. Stability
+4. Performance -> marcopg
+5. Portfolio/Journal -> scott, tomeu
+6. Bulletin board
+7. View source -> walter, tomeu
+8. Grab key
+9. i18n
+10. Collaborate -> scott, marcopg
+11. Push to talk
+12. Base system
+13. Shared pointer session (VNC)
+14. File sharing via journal -> tomeu
+15. New collaboration features
+16. Work with distributors -> marcopg
+17. File passing fallback -> tomeu
+18. Overlay chat
+19. New activities
+20. Sugar apps in standard (legacy?) environments
+Transcription from
+http://sugarlabs.org/go/Image:Img_0162.jpg
+,
+http://sugarlabs.org/go/Image:Img_0163.jpg
+and
+http://sugarlabs.org/go/Image:Img_0164.jpg
+:
+Read: xfile, share page location, overlay chat, wiki (annotation? edit?), homework (pdf forms)
+Chat: images, sound, draw
+Browse: group surf, annotation/wikify
+Etoys: share machines, objects
+Write: colored edits, overlay chat, visible cursors, annotation, homework
+Calculate: good?
+Pippy: overlay chat, colored edits, separate views of same source (on a different machine), generate activities, push back changes
+Journal: async collaboration, annotation (blog comments, grading)
+Shell: shared desktop, overlay chat in mesh/friends
+TurtleArt: multiple turtles, blocks for turtle proximity, tiled windows
+Measure: formation
+Record: voip?, videochat, screencasts
+Terminal: shared shell (ssh+screen?)
+Distance: custom shared units
+Games: competittive quiz, multi-player Physics, mesh version of craig's list, wiki

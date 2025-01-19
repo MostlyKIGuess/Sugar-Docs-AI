@@ -1,0 +1,104 @@
+Title: Archive/Current Events/2008-08-05
+URL: https://wiki.sugarlabs.org/go/Archive/Current_Events/2008-08-05
+--------------------------------------------------------------------------------
+Contents
+1
+Sugar Digest
+2
+Community jams and meetups
+3
+Tech Talk
+4
+Sugar Labs
+Sugar Digest
+1. Award-winning: We can start referring to Sugar as "award-winning software." It earned a silver medal in the International Design Excellence Awards '08 and was undoubtedly one of the reasons the OLPC XO-1 laptop won the gold medal (Please see
+IDEA_Awards
+).
+2. Outreach: Dave Farning has been developing a road map for outreach to various communities (apparently we already have the attention of the design community; maybe our next award will be from the education community). Specifically, he suggests that we:
+Engage the package maintainers for the various Linux distributions
+Make sure they are aware of Sugar;
+Help build a community within each distribution to packages Sugar and Sugar Activities;
+Help expand the community to include testers, developers, and translators.
+Engage education-focused distributions
+Make sure they are aware of Sugar;
+Make sure they are aware of the Sugar packaging efforts (either .deb or .rpm);
+Help expand the community to include testers, developers, and translators.
+Engage the education community
+Make sure they are aware of Sugar;
+Help expand the community to include testers, developers, and translators;
+Help expand the community to include development of pedagogy; models of use; etc.
+Dave reports our progress to date:
+We are working with Fedora, Debian, and Ubuntu and are working towards a basic set of stable packages for their distributions;
+We are in the initial stage of identifying and establishing contact with eduction distributions (Please help us);
+﻿* Outside of the OLPC deployments, we are still in the initial stage of identifying and establishing contact with education communities (Again, your help is needed here--we want to establish a "bottom-up" approach to compliment the OLPC top-down efforts).
+3. "Congratulations! but Sugar sucks": As we near code freeze for Sucrose 8.2, Ben Schwartz has identified six areas in need of improvement. In a thread with a somewhat unfortunate subject field, these are discussed as candidate areas we should focus on for the next release (Please see
+http://lists.laptop.org/pipermail/sugar/2008-July/007390.html
+). The discussion begs the question of how Sugar Labs can rise above day-to-day deployment headaches in order to ensure that there is a solid foundation being built. A model I have been advocating for Sugar Labs is as the place where the goals and architecture for Sugar are established. The community, of course, vets those goals, critiques the architecture, and provides the means of achieving those goals.
+4. "Kid contributions": John Gilmore started a discussion bemoaning the fact that as far as we know, there have not yet been any patches to Sugar submitted by a child (Please see
+http://lists.laptop.org/pipermail/sugar/2008-July/007349.html
+). My response to John was:
+we need better tools for software development on the XO (Jameson Chema Quinn has been making some progress on the Develop activity—see below);
+while the children have not yet been making modification to the Sugar codebase, there is evidence of a cultural shift in schools using Sugar that is synergistic with the ideals of appropriation of not just software, but of ideas. Not a bad start.
+5. OEMs: Are we ready to start contacting OEMs? (There are a number of new products being announced in the low-cost laptop space. How do we ensure that Sugar is an option for these products?)
+6. Physics: Edward Cherlin has proposed we "start a physics textbook project combining Measure, Etoys, SciPy, and all of the low-cost instruments we can come up with" (Please see
+http://lists.laptop.org/pipermail/sugar/2008-July/007269.html
+).
+Community jams and meetups
+7. Physics game jam: Brian Jordangi is organizing a physics game-jam competition in Boston, MA the weekend of August 29.
+8. FLOSS Manual sprint: Anne Gentile is organizing an OLPC/Sugar FLOSS Manuals book sprint in Austin, TX at the end of next month.
+Tech Talk
+9. Sugar-jhbuild: I finally managed to get my xsessions configured so that I could run both Sugar as installed by apt-get sugar and the latest jpyride version I built by hand using sugar-jhbuild (Please see
+xsession
+for the details).
+10. Sugar appliance: Bryan Kearney has built a Sugar appliance based upon the Thincrust toolkit (Please see
+Thincrust
+where you'll learn that "an appliance is a pre-configured application and operating system bundle"). The directions for using the appliance are:
+Download
+http://sugar.s3.amazonaws.com/sugarAppliance.tar.gz
+Unzip and untar it
+Run virt-image sugar.xml
+At the login, select "Autologin"
+11. Develop: Jameson Chema Quinn has made a new version of Develop (Please see
+Develop
+). Jameson recommends you use a recent Joyride (> 2170).
+12. Road-map updates: Marco Pesenti Gritti announced that letting the code freeze for this release slip. "With the current speed of development of the OLPC release it would just be impractical." Marco has
+started a tentative 0.84 schedule (Please see
+0.84
+).
+Marco is finally back working full time on OLPC. He spent this week fixing blocker bugs for the next release, doing a lot of triage and several patch reviews. He implemented an improved logic handling new windows in the Browse activity, which, while not yet ideal, should allow all the web sites that Uruguay has had problems with to work correctly. Marco also tracked down and fixed an infinite loop in the shell. Finally, with Tomeu Vizoso, he solved a problem with the web widget size allocation, which is likely to have caused several problems.
+13. Sucrose Release Candidate 1: The new Sucrose 0.81.5 Development Release is out. Thanks to all the contributors! Simon Schampijer reports that we now have one more release before code freeze (excluding more changes to the road map). Please test, give feedback, and file bugs (Please see
+Sucrose 81.5
+).
+Simon has been implementing a mechanism for feedback from 'Register' process in the form of an alert that is displayed in the Home view.
+14. Computer vision: Nirav Patel is soliciting feedback regarding what computer vision should it be in regard to "gaming, input, accessibility, education, or anything else" (Please see
+http://lists.laptop.org/pipermail/games/2008-July/000664.html
+). He gives some examples at
+http://eclecti.cc/olpc
+.
+15. Etoys: Takashi Yamamiya reports that there is new release of Etoys, which includes Tubes, a Pango speed-up, and a fix to the clipboard.
+etoys-3.0.2059.tar.gz
+etoys-activity-85.tar.gz
+squeak-vm-3.10-3olpc6.i386.rpm
+Sugar Labs
+16. Infrastructure: Bernie Innocenti reports that on Monday, the following services were moved to Solarsail:
+mailing lists
+wiki.sugarlabs.org
+email aliases forwarding
+Additional services that we might want to migrate from dev.laptop.org include:
+git
+trac
+the sugar@ mailing list
+wiki pages related to Sugar
+pootle
+We decided to wait moving these until we get the full backups running and the machine racked in its final home.
+Services still hosted by develer.com include:
+api.sugarlabs.org
+courses.sugrlabs.org
+developer accounts
+nameservers
+user drop box for downloads.sugarlabs.org
+The above services will go on our second machine as soon if we get it racked.  Develer is glad to keep them as long as needed.
+Thanks to Bernie and Ivan Krstić.
+17. Self-organizing map (SOM): Gary Martin has generated another SOM from the past week of discussion on the IAEP mailing list (Please see
+Image:2008-July-19-25-som.jpg
+). The verbs are prominent: doing; programming; learning; and education; math; etc.

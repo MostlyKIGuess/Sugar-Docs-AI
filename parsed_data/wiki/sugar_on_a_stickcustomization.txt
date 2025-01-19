@@ -1,0 +1,50 @@
+Title: Sugar on a Stick/Customization
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Customization
+--------------------------------------------------------------------------------
+This page has been marked as important but in need of updating as of May 2016.
+See all dated pages
+There may be relevant discussion on the
+talk page
+.
+Contents
+1
+Customizing your SoaS
+1.1
+Components
+1.2
+Prerequirements
+1.3
+Getting Started
+Customizing your SoaS
+Note:
+As of 30 October 2009, this is only a draft, most certainly incomplete and still subject to changes.
+Creating your own SoaS is not as hard as it probably sounds. Depending on whether you just want to adjust some settings or need to modify it for a deployment, you might want to look a bit deeper into the process of creating the images, even if the procedure itself is always the same. Please make sure to adhere to the naming conditions when releasing a customized version publicly.
+Components
+First of all, it is important to understand from which components SoaS it is composed. It consists basically of the following parts:
+Fedora, as the base operating system, providing most of the packages we are using (this includes the Sugar Environment & Platform).
+Additional packages from a repository at download.sugarlabs.org to add our branding (we are trying to keep the number of packages here as small as possible).
+The activities, which are directly downloaded from
+activities.sugarlabs.org
+.
+Prerequirements
+You will need a Fedora system to run the scripts to create the live media, preferably the most current version of it. Additionally, you will need the a few packages, like the tools used for composing and a distributed version control system. To get them, become root by using su and run the following command:
+yum install git livecd-tools
+Development takes place in the SoaS GIT repository, which you will need to checkout first. As it is a GIT repository, make sure to have GIT installed, before executing:
+git clone
+git://git.sugarlabs.org/soas/mainline.git
+soas
+In case you encounter any issues while checking the files out, probably because you are behind a firewall, you might try using HTTP instead:
+git clone
+http://git.sugarlabs.org/git/soas/mainline.git
+soas
+This will grab all the latest files in the project's directory and place them in a folder called soas.
+Getting Started
+Now we will have a look at the config files themselves, which are used to create the builds. Starting with soas-base.ks, which provides the base system, you will notice some arguments at the top of the file:
+﻿
+lang en_US.UTF-8
+keyboard us
+timezone US/Eastern
+You can easily adjust that to modify the default language settings. Fedora provides more information on the various options here (
+http://fedoraproject.org/wiki/Anaconda/Kickstart
+).
+Next, we will focus on the soas-sugar.ks, which contains all the Sugar parts, as well as some customizations. The first part listed under ﻿# sugar! contains the activities, that have been packaged for Fedora, meaning that they are available as RPM files. You can run yum list 'sugar-*' on your build machine to find out what is available in the repos.

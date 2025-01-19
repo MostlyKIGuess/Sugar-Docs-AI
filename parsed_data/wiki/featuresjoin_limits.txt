@@ -1,0 +1,67 @@
+Title: Features/Join Limits
+URL: https://wiki.sugarlabs.org/go/Features/Join_Limits
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Owner
+3
+Current status
+4
+Detailed Description
+5
+Benefit to Sugar
+6
+Scope
+7
+How To Test
+8
+User Experience
+9
+Dependencies
+10
+Contingency Plan
+11
+Documentation
+12
+Release Notes
+13
+Comments and Discussion
+Summary
+Honor limits to the number of buddies who can join a shared activity.
+Owner
+Name:
+Walter Bender
+Email: <walter AT sl.o>
+Current status
+Targeted release: (1.02)
+Last updated: (5 November 2013)
+Percentage of completion: 0%
+Detailed Description
+Honor maximum_participants limit
+At the request of OLPC AU, we'd like to honor the maximum_participants limit. Right now that limit is only used to determine whether or not an activity can be shared, but not the number of users who can join. This feature would inform users trying to join an activity that has already reached its maximum that the maximum number of sharers has been reached.
+If and only if the maximum_participant field is set is it used to set the limit of joiners.
+Also see
+Features/Can share
+. The difference here is that I am proposing to leverage the maximum_participants setting as opposed to creating a new field in activity.info. Also, this is not just a binary share/no share.
+Benefit to Sugar
+There are limits to the useful number of people who can join an activity. Some 2-player games, for example, are not able to restrict a third player from joining.
+Scope
+Not sure of all the code that is impacted. Depending upon how maximum_participants is exposed in the toolkit, it may be necessary to modify activity.py. Otherwise, most of the changes will happen in jarabe/view.
+How To Test
+Maximum instances:
+Find an activity with maximum_participants set to > 1.
+Try to join more than maximum_participants and observe an alert
+User Experience
+The direct impact on the user will be that they are alerted when maximum activities has been exceeded.
+Dependencies
+No new dependencies
+Contingency Plan
+None.
+Documentation
+Release Notes
+Comments and Discussion
+http://lists.sugarlabs.org/archive/sugar-devel/2013-November/045586.html
+See
+discussion tab for this feature

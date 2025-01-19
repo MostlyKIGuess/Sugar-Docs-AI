@@ -1,0 +1,449 @@
+Title: Fedora 25
+URL: https://wiki.sugarlabs.org/go/Fedora_25
+--------------------------------------------------------------------------------
+Fedora
+®
+version page:
+17
+|
+18
+|
+19
+|
+20
+|
+21
+|
+22
+|
+23
+|
+24
+|
+25
+|
+26
+|
+27
+|
+28
+|
+29
+|
+30
+|
+31
+|
+32
+|
+Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+some of the older versions listed here ^ may be security risks- for archive purposes only
+Contents
+1
+Fedora 25
+1.1
+f25 Install Guide
+1.2
+Live-iso-to-disk install transcripts
+1.3
+sugar-runner only works in GNOME on Xorg
+1.4
+Download
+2
+win32diskimager
+3
+Fedora Media Writer
+3.1
+Linux
+3.2
+Mac and windows
+3.2.1
+fedora version updates automatically
+4
+setup
+4.1
+Bugs
+4.2
+Use live-iso-to-disk for persistence
+4.3
+livemedia-creator
+4.3.1
+mock
+4.3.2
+Install files
+4.3.3
+Documentation
+4.3.4
+mock
+4.3.5
+kickstarts
+4.3.6
+Install files
+4.3.7
+Notes
+4.3.8
+pagure kickstarts Links
+4.3.9
+ksflatten
+4.3.10
+livemedia-creator examples
+4.3.11
+warning
+4.3.12
+Make a remix
+4.3.12.1
+kickstart-docs
+4.3.12.2
+terminal output of livemedia-creator build
+4.3.13
+Retrieve finished live.iso
+4.3.14
+Clean Up
+4.4
+Sugar-Activities
+4.5
+the-efi-system-partition
+4.6
+dnf reference
+4.7
+fedora developer
+4.8
+nvidia problems
+4.8.1
+Test Day BetterSwitchableGraphicsSupport
+4.9
+LiveOS_image/overlay
+4.10
+status fedoraproject
+4.11
+Official_Fedora_Spins
+Fedora 25
+Updated 12/08/2016
+Tutorial: Install F25 SoaS to hard disk
+f25 Install Guide
+https://docs.fedoraproject.org/en-US/Fedora/25/html/Installation_Guide/index.html
+Live-iso-to-disk install transcripts
+Testing/Reports/livecd-iso-to-disk
+Build a live USB with efi and persistence
+sugar-runner only works in GNOME on Xorg
+sugar-desktop works in GNOME as separate login
+See
+Fedora
+.
+Download
+Announced go in go/nogo meeting
+11/17/2016
+http://dl.fedoraproject.org/pub/alt/stage/25_RC-1.3/
+https://dl.fedoraproject.org/pub/alt/releases/25/
+see /everything/everything netinstall
+https://boot.fedoraproject.org/
+Workstation:
+https://getfedora.org/workstation/
+(gnome)
+Server:
+https://getfedora.org/server/
+Atomic:
+https://getfedora.org/atomic/
+Or, check out one of our popular variants:
+Spins:
+https://spins.fedoraproject.org/
+(soas)(kde)
+Labs:
+https://labs.fedoraproject.org/
+(other spins of interest)
+Everything netinstall can be used to install nultiple DE's:
+http://dl.fedoraproject.org/pub/alt/stage/25_RC-1.3/Everything/
+Torrents:
+https://torrents.fedoraproject.org/
+win32diskimager
+(can be used in windows 10 until there is a working liveusb-creator for windows)
+writes f25 USB in windows 10
+updated Aug/22/2016
+EFI and Bios-boot
+https://sourceforge.net/projects/win32diskimager/
+https://sourceforge.net/projects/win32diskimager/files/latest/download
+Fedora Media Writer
+Linux
+sudo dnf --enablerepo=updates-testing --refresh --best install mediawriter
+latest version 4.0.7
+Updated Nov 22 2016
+https://apps.fedoraproject.org/packages/mediawriter
+Mac and windows
+fedora version updates automatically
+new MediaWriter builds are available at
+https://getfedora.org/fmw/FedoraMediaWriter-osx-4.0.7.dmg
+https://getfedora.org/fmw/FedoraMediaWriter-osx-4.0.4.dmg
+https://getfedora.org/fmw/FedoraMediaWriter-osx-4.0.0.dmg
+https://getfedora.org/fmw/FedoraMediaWriter-win32-4.0.7.exe
+https://getfedora.org/fmw/FedoraMediaWriter-win32-4.0.4.exe
+https://getfedora.org/fmw/FedoraMediaWriter-win32-4.0.0.exe
+http://koji.fedoraproject.org/koji/buildinfo?buildID=819338
+(f24 linux 4.0.5)
+http://koji.fedoraproject.org/koji/buildinfo?buildID=817014
+(linux 4.0.4)
+not signed:
+https://github.com/MartinBriza/MediaWriter/releases
+notes on changes here
+https://bodhi.fedoraproject.org/rss/updates/?packages=mediawriter
+Updates feed for mediawriter
+Test Day:
+https://fedoraproject.org/wiki/Test_Day:2016-09-20_Fedora_Media_Writer
+setup
+Ensure you have a USB stick that is larger than the live image whose contents you can afford to lose (the contents of the stick will be destroyed as a part of the test).
+Run the tool:
+On
+Fedora
+, run
+sudo dnf --enablerepo=updates-testing --refresh --best install mediawriter
+, then launch
+Fedora Media Writer
+from the system menus
+On
+Windows
+,
+https://getfedora.org/fmw/FedoraMediaWriter-win32-4.0.4.exe
+, install the application using the installer and either run it after installation or find
+Fedora Media Writer
+in your application list.
+On
+macOS
+,
+https://getfedora.org/fmw/FedoraMediaWriter-osx-4.0.4.dmg
+], download the dmg file, open it, drag the app icon to applications folder, and run
+mediawriter
+NOTE persistence is no longer offered
+see below [ 1 ]
+Destined to be Primary installer in linux; Windows; Mac
+Downloads f24 iso's
+Use
+Custom OS
+for testing .iso's you have already downloaded
+iso selection Starts in / ; go to Home/(user)/Downloads to find them (select with double click)
+Main Screen (note Fedora Spins - Including KDE - are accessed from [ : ] at bottom
+Custom OS
+Fedora Spins [ : ]
+NOTE "Checking for new releases" under Custom Image
+Ricky Elrod is working on putting the file in place at the location FMW is expecting. It's not there yet, therefore FMW tries to download it again and again.
+This is by design.
+11/07/2016 e-mail (mbriza)
+LiveUSBCreator as Primary Downloadable
+https://bugzilla.redhat.com/show_bug.cgi?id=1310542
+[1]
+Bugs
+f25 Common Bugs:
+https://fedoraproject.org/wiki/Common_F25_bugs
+https://fedoraproject.org/wiki/Common_F25_bugs#cold_boot_is_required_to_add_2nd_DE_to_gdm_wheel_drop-down_list
+Use live-iso-to-disk for persistence
+also see:
+Testing/Reports/livecd-iso-to-disk
+dnf install livecd-tools
+livecd-iso-to-disk --reset-mbr --overlay-size-mb 2000 --home-size-mb 2000 --delete-home --unencrypted-home Fedora-Workstation-Live-x86_64-25-1.3.iso /dev/sd(x)
+(x) USB must have: fat format & boot flag
+(x) CAUTION use "mount" (in terminal) to get correct name for USB  (/dev/sdb /dev/sdc /dev/sdd etc)
+livemedia-creator
+SEE
+https://fedoraproject.org/wiki/Livemedia-creator-_How_to_create_and_use_a_Live_CD
+for older method (namely for Fedora 23) using livecd-tools (
+livecd-creator
+) visit
+https://fedoraproject.org/wiki/How_to_create_and_use_a_Live_CD
+If you simply want to burn a pre-made ISO to a disc, visit
+http://fedoraproject.org/en/get-fedora
+to download a LiveCD or LiveDVD, then see the
+install guide
+or
+burning how-to
+for further instructions.
+Older posts
+https://www.brianlane.com/creating-live-isos-with-livemedia-creator.html
+https://jbwillia.wordpress.com/2014/10/29/how-to-build-updated-fedora-live-iso-for-yourself/
+Examples in f25 root terminal:
+mock
+you should always do all work in mock, this will allow you to esure that the compose environment matches the target environment
+to setup a Fedora 25 x86_64 environment you would run the following
+$ mock -r fedora-25-x86_64 --init
+$ mock -r fedora-25-x86_64 --install lorax-lmc-novirt git vim-minimal pykickstart
+if you wanted a different arch or release you would use the correct mock configuration file
+Install files
+updated from fedora page
+12/15/2016
+ksflatten is part of pykickstart
+# dnf install mock
+Documentation
+Important
+http://lorax.readthedocs.io/en/latest/livemedia-creator.html
+https://github.com/rhinstaller/lorax/blob/master/docs/livemedia-creator.rst
+mock
+you should always do all work in mock, this will allow you to esure that the compose environment matches the target environment
+to setup a Fedora 25 x86_64 environment you would run the following
+$ mock -r fedora-25-x86_64 --init
+$ mock -r fedora-25-x86_64 --install lorax-lmc-novirt git vim-minimal pykickstart
+if you wanted a different arch or release you would use the correct mock configuration file
+kickstarts
+inside the mock chroot, clone the kickstarts
+$ git clone
+https://pagure.io/fedora-kickstarts.git
+Install files
+livemedia-creator and ksflatten are part of lorax
+# dnf install lorax virt-install libvirt-daemon-config-network pykickstart
+Must be done first:
+You must be in the same fedora version (f25) first. This is so that packages can be installed to livecd without SELinux errors and is relabeled at boot time.
+setenforce 0
+Notes
+Important
+http://lorax.readthedocs.io/en/latest/livemedia-creator.html
+Jun 28, 2016 at 12:28:27PM -0500, Bruno Wolff III wrote:
+"In --no-virt mode it's calling anaconda
+directly so kickstart processing of the %include may work, depending on
+the location of the files. But if you're using it in virt mode only the
+top level ks gets passed into the vm so ksflatten is required in that
+case."
+pagure kickstarts Links
+https://pagure.io/fedora-kickstarts/tree/f25
+https://pagure.io/fedora-kickstarts/tree/27c2ec431dfa70506deef071206b5e42ddc9b42c
+https://pagure.io/fedora-kickstarts/releases
+alternately: git clone the repo and not get each piece manually
+Kickstarts need to flattened before use:
+hit raw tab and
+save-page-as
+to a local directory (/home/(user)/Downloads/pagure/)
+https://pagure.io/fedora-kickstarts/blob/f25/f/fedora-live-soas.ks
+https://pagure.io/fedora-kickstarts/blob/f25/f/fedora-live-base.ks
+https://pagure.io/fedora-kickstarts/blob/f25/f/fedora-live-minimization.ks
+https://pagure.io/fedora-kickstarts/blob/f25/f/fedora-repo.ks
+https://pagure.io/fedora-kickstarts/blob/f25/f/fedora-repo-not-rawhide.ks
+https://pagure.io/fedora-kickstarts/blob/f25/f/fedora-repo-rawhide.ks
+https://pagure.io/fedora-kickstarts/blob/f25/f/fedora-soas-packages.ks
+switch root terminal to the local directory with the kickstart files (/home/(user)/Downloads/pagure/)
+ksflatten
+updated 06/28/2016
+ksflatten -v, --config fedora-live-soas.ks -o flat-fedora-live-soas.ks --version F25
+livemedia-creator examples
+livemedia-creator --ks /home/(user)/Downloads/pagure/flat-fedora-live-soas.ks  --logfile /var/lmc-logs/livemedia-out.log --no-virt --resultdir /var/lmc --project Fedora-soas-Live --make-iso --volid Fedora-SoaS-flat-live --iso-only --iso-name Fedora-SoaS-flat-live.iso --releasever 25 --title Fedora-SoaS-flat-live --macboot
+livemedia-creator --ks /home/(user)/Downloads/pagure/flat-fedora-live-kde.ks --logfile /var/lmc-logs/livemedia-out.log --no-virt --resultdir /var/lmc --project Fedora-kde-Live --make-iso --volid Fedora-kde-f25-live --iso-only --iso-name Fedora-kde-f25-live.iso --releasever 25 --title Fedora-kde-f25-live --macboot
+livemedia-creator --ks /home/(user)/Downloads/pagure/flat-fedora-live-cinnamon.ks  --logfile /var/lmc-logs/livemedia-out.log --no-virt --resultdir /var/lmc --project Fedora-cinnamon-Live --make-iso --volid Fedora-cinnamon-live --iso-only --iso-name Fedora-cinnamon-live.iso --releasever 25 --title Fedora-cinnamon-25-live --macboot
+"If you're using /tmp/lmc you need to make sure you have enough RAM available (assuming it is mounted using tmpfs)"
+use /var/lmc if low on memory
+"Right, if you only have 3.8G then 50% will be assigned to tmpfs and it's likely
+you'll run out of ram when using /tmp/ for the resultdir."
+Brian Lane -
+https://bugzilla.redhat.com/show_bug.cgi?id=1352970#c6
+warning
+12/14/2016
+There is a problem using LMC this way:
+<adamw> satellit: you really *really* shouldn't be running lmc directly on the system with --no-virt anyway
+<adamw> it's a fundamentally risky thing to do
+Make a remix
+edit the bottom of the flat-fedora-live-soas.ks
+that you produce with ksflatten  (above)
+in this section of the flattened.ks:
+%packages
+add a program   (add name)
+-
+delete a program ( put - in front)
+put
+#
+in front of listed program to not install it
+https://fedoraproject.org/wiki/List_of_Fedora_remixes
+kickstart-docs
+https://github.com/rhinstaller/pykickstart/blob/master/docs/kickstart-docs.rst
+terminal output of livemedia-creator build
+Build takes a long time wait for completion
+ends with:
+..........clip........
+..........clip........
+2016-07-05 14:46:20,011: Performing post-installation setup tasks
+2016-07-05 14:46:20,012: Performing post-installation setup tasks
+2016-07-05 14:46:21,970: .
+2016-07-05 14:46:21,970:
+2016-07-05 14:46:21,971: Configuring installed system
+2016-07-05 14:46:22,147: .
+2016-07-05 14:46:22,148: Creating users
+2016-07-05 14:46:22,149: .
+2016-07-05 14:46:22,149: Configuring addons
+2016-07-05 14:46:22,151: .BDB2053 Freeing read locks for locker 0x1: 3376/140705511982848
+--clip--
+2016-07-05 14:47:01,333:
+2016-07-05 14:47:01,334: Generating initramfs
+2016-07-05 14:47:06,185: .
+2016-07-05 14:47:06,186: Running post-installation scripts
+2016-07-05 14:47:06,189: .
+2016-07-05 14:47:38,953: Shutting down log processing
+2016-07-05 14:47:41,246: Disk Image install successful
+2016-07-05 14:47:41,247: working dir is /var/tmp/lmc-work-n26biv0m
+2016-07-05 14:59:34,529: Rebuilding initrds
+2016-07-05 14:59:34,530: dracut args = ['--xz', '--add', 'livenet dmsquash-live convertfs pollcdrom qemu qemu-net', '--omit', 'plymouth', '--no-hostonly', '--debug', '--no-early-microcode']
+2016-07-05 14:59:34,532: rebuilding boot/initramfs-4.7.0-0.rc5.git3.1.fc25.x86_64.img
+2016-07-05 15:01:36,027: Building boot.iso
+2016-07-05 15:01:36,122: running x86.tmpl
+2016-07-05 15:01:56,462: Disk image erased
+2016-07-05 15:01:59,749: SUMMARY
+2016-07-05 15:01:59,750: -------
+2016-07-05 15:01:59,750: Logs are in /home/(user)/Downloads/pagure
+2016-07-05 15:01:59,751: Results are in /home/(user)/lmc
+[root@localhost pagure]#
+Retrieve finished live.iso
+"Results are in /home/(user)/lmc"
+start files application
+click on
+Files system
+open  lmc folder
+click on  the
+.....iso
+you just built
+copy to
+(mouse right click)
+pagure
+with files application
+Check that it is in pagure
+Clean Up
+delete the instance in lmc
+delete the lmc directory  (cannot run new build unless this is done?)
+root@localhost pagure]# cd /
+[root@localhost /]# cd var
+[root@localhost var]# ls
+account  adm  cache  crash  db  empty  ftp  games  gopher kerberos  lib  lmc  local  lock  log  mail  nis  opt  preserve run  spool  tmp  www  yp
+[root@localhost var]# rm -r lmc
+rm: descend into directory 'lmc'? y
+rm: remove regular file 'lmc/Fedora-SoaS-var-live.iso'? y
+rm: remove directory 'lmc'? y
+[root@localhost var]#
+Sugar-Activities
+Workaround for ASLO not working :
+Look up the number of the activity in the Index of activities listing "Activity Number"  and then go to numeric list to download it.
+Choose the highest version on the list
+Index of activities listing Activity Number
+Sugar_Creation_Kit/sck/Activity_Matrix#Most_Recent-Activity_Test_Results
+Testing/Reports/Activity_Matrix_(A_to_I)
+Testing/Reports/Activity_Matrix_(J_to_Z)
+Numeric list of Activities
+http://download.sugarlabs.org/activities/
+DVD of Sugar Activities Library
+http://download.sugarlabs.org/images/ASLOxo6-3.iso
+3.2 GB DVD (21 January 2012)
+Contains over 500 Activity.xo files
+Use as an off-line "sneaker net"- Download one time and have an off-line library of Sugar Activities on hand.
+Burn the .iso file to a DVD.
+the-efi-system-partition
+https://blog.uncooperative.org/blog/2014/02/06/the-efi-system-partition/
+https://blog.uncooperative.org/blog/2016/08/18/secure-boot-failures-and-mitigation/
+dnf reference
+https://dnf.readthedocs.io/en/latest/api.html
+fedora developer
+https://developer.fedoraproject.org/tech.html
+nvidia problems
+https://rpmfusion.org/Howto/nVidia
+https://devtalk.nvidia.com/default/topic/974491/?comment=5010277
+https://blogs.gnome.org/uraeus/2016/11/01/discrete-graphics-and-fedora-workstation-25/
+Test Day BetterSwitchableGraphicsSupport
+https://fedoraproject.org/wiki/Test_Day:2016-11-03_BetterSwitchableGraphicsSupport
+Results -
+http://testdays.fedorainfracloud.org/events/14
+LiveOS_image/overlay
+https://fedoraproject.org/wiki/LiveOS_image/overlay
+https://fedoraproject.org/wiki/LiveOS_image
+"This page shares some critical information about the LiveOS design that helps users take better advantage of their more-limited-than-usual disc resources."
+status fedoraproject
+http://status.fedoraproject.org/
+Official_Fedora_Spins
+https://fedoraproject.org/wiki/Releases/25/Spins#Official_Fedora_Spins

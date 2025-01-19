@@ -1,0 +1,158 @@
+Title: Summer of Code/2015/Kushan Javascript
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2015/Kushan_Javascript
+--------------------------------------------------------------------------------
+About me
+What is your name?
+Kushan Joshi
+What is your email address?
+0o3ko0@gmail.com, ikushan@me.com
+What is your Sugar Labs wiki username?
+Kushan2020
+What is your IRC nickname on irc.freenode.net?
+kepta
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+English
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+India,
+8:30am - 12:30pm (UTC) & 3:30pm- 7:30pm (UTC)
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I have been contributing to open source frequently. Below is my profile of bugzilla at Mozilla Foundation.
+Bugzilla profile
+https://bugzilla.mozilla.org/user_profile?user_id=500998
+Adding touch action regions
+[1]
+:
+This bug involved declaring candidate regions for default touch behaviours as set by w3 consortium.[
+http://www.w3.org/TR/pointerevents/#declaring-candidate-regions-for-default-touch-behaviors
+[2
+        ]].Firefox as of yet hasn't implemented pointer events for default touch action regions, this bug required me to create touch action regions, and forward them to composter. The regions were further divided into no_Action_Region, horizontal_Pan_Region and vertical_Pan_region , which had to be processed separately. This bug was quite interesting as it had me working on the components of CSS implementation of the browser.
+Use of new xpcshell test cases
+[3]
+:
+The use of new globally available xpcshell tests, required change in the code of calendar and lighting app of mozilla suite. In this bug I am upgrading the unit testing code of the suite to follow the changes in Assert.jsm.
+Using getters/setters
+[4]
+:
+This was fairly simply bug which required upgradation of existing firefox code to use getters/setters method.
+About your project
+What is the name of your project?
+Interactive Javascript Shell
+Describe your project in 10-20 sentences.
+Brief
+This project is geared towards learning javascript, unlike other similar projects on the internet. The developer must have this in mind while developing the shell. The interactivity of this whole project can be brought upon on various levels. I aim to add different levels of learning, just like a video game. You are given a task and if you complete it successfully you are rewarded virtually and you proceed on to the next level. No learning of javascript is complete without involvement of HTML. The application I intend to develop will have HTML functionality embeded in the whole app experience. That is one thing that differentiates scripting language from others, you dont need to compile and worry stuff related to that.
+Application
+The UI of the app has to be consistent with the XO, below is a mockup of the design of the application I intend to develop this summer.
+As you can see, I intend to divide the screen into halves.
+OOn the left side the user can enter the code she desires. She can copy paste any code here, and can also use the builtin stepover button to go through her code line wise. This will be of great help as the student can actually see the whole program working sequentially right infront of her. The pink line in the design mockup will show the line at which program is at.
+On the right half of the screen, lie three interesting things
+DOM :
+I assume the student already knows HTML (thanks to the sister project WEB confusion), showing a beautiful tree will add to the learning experience. As javascript is known for DOM manipulations. When a student will actually see her javascript code appending an element to the DOM tree, she will actually be learning by visuals and visual learning has a very high memory retention. The DOM illustrator will also help when a student has to find a particular element. She can go through the tree and better decide her strategy for tackling the problem.
+HTML:
+The student must be able to type in the desired HTML code, for which he plans to add Javasript. In the design above, student is actually solving a problem statement which requires her to append some elements to an already existing ul element. The student would be guided through a help section right at the top in the nav bar. Whenever he she is stuck can see the objectives of the current problem and also get a hint. The simulated problem part is a feature of this application. A student can also work on a blank project.
+Preview:
+Preview of the HTML code is a basic necessity for learning javascript. The student upon clicking the Preview button will see the live preview of code uptil that moment. In case she makes changes, she will have to click the run button at the top again.
+Console:
+The console part is very important, as the interactivty we wish to achieve wouldnt be possible without it. The console shown in the mockup, will provide basic outputs like console.log, errors, etc. The user can anytime query any variable just like the console which comes with modern day browsers.
+Help:
+As I mentioned earlier to aid the learning of javascript, the user can opt to go through basic tasks. As shown in the design, the user is shown what she has to do in this task and upon completion can move to the next advanced task. The help button will also fascilitate as guide to interface, just like its done in the web version of turtle .
+https://turtle.sugarlabs.org
+.
+Export:
+The code created by the student shouldn't be just limited to this platform. This app should allow a seemless and intuitive way to export the project to various other activities.
+Export as Jscripty document, in this format a student can save the project for future use for this activity. This allows saving of pending work and would be the default option.
+Export as a sugar web activtiy, this option allows the student to put his creation and convert it into an activity. The default template would be used for web activities as given at
+https://github.com/sugarlabs/sugar-web-template
+would be used to package the activity for student and be isntalled on her XO
+Export as a web page, to make her project available across platform, this option will package her project for the web. We can tie up with some sort of webhosting where with one click the students project gets uploaded and the student receives a link to it. It will be of great use as the student can then share the link with any of his friend, family and showcase his work.
+Loading examples:
+Similar to pippy
+(Sugar activity for python),
+I plan on adding various example to showcase power of Javascript.
+The list:-
+Graphics:
+javascript has a pretty huge library for graphics. Showing students some canvas examples, drawing squares and other shapes would be good way to add interactivity in the app.
+Math
+: In this I plan to keep it similar to pippy. The math example over there are pretty good.
+Javascript Tutorials
+: This section will have all the necessary tutorials a student needs to jump start his javascript coding knowledge.
+Algorithms
+: I believe this app should also teach the student implementation of famous algorithms and data structures in Javascript.
+Early stage version of the app
+To actually show the working of my idea, I created this very early prototype of the app.
+(Please note it currently only supports  alert()  for outputs, and doesnt support  HTML as of now.) I request you to try out, some simple programming problems like finding maximum element in an array, or other  fundamental programming problems in it and use alert() as of now to get output.
+https://dl.dropboxusercontent.com/u/35525804/JS-Interpreter/index.html
+]
+Who are you making it for, and why do they need it?
+This project is entirely focused on the learning part of javascript, by no way it intends to be a substitute to professional suites like JSfiddle. The students who will be using this app, can consider this as a stepping stone to a wide array of web technologies. Getting the gist of the programming language and being profecient in it, is all that is required according to me. Experience will always come with time, no technology or app can skip the need for experience.
+What technologies (programming languages, etc.) will you be using?
+Javascript will be used mostly alongside with HTML, CSS.
+I plan to use acorn.js for parsing the javascript. On acorn, it is actually a very beautfiul API written by Marjin Haverbeke. Most of my inpsiration for this project comes from his own project eloquentjavascript, where he has something similar to this project. We can consider his project to be the next advanced step our students can take after this and obviously can always use this app as a scratch pad to test their code. Apart from the that I am curently using JS-iterpreter by NeilFraser for interpreting the xml tree returned by acorn.js. This library is a work in progreess. I plan to fork it and add more functionality for this project. As mentioned in the project description.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it 's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Before May 19:
+Discuss everything with the mentor, put in his ideas, my ideas.
+Take a look at other projects similar to this.(eg. Eloquent Javascript, JSfiddle).
+19th May - 1st June:
+Start coding. Start the work on the interpretor. Add scope for HTML DOM
+in the JS-interpretor. Basic input output functionality eg console.log(),
+since javascript doesnt have a native print method.
+1st June - 15 June
+Bug hunting and fixing. Start working on the DOM tree display of the
+application. And also finish up HTML preview. By now the core functionality
+implementation should be over
+15th June - 26th June
+Implementing the interactivity part. Creating levels and best ways to create
+a simulated tutoring environment for our target audience. Loading of templates
+and saving of current work. Thouroughly discuss with my mentor the tutorial part
+and wrap it by 26th June. (
+This should be 90% of the work
+)
+28th June - 15th July
+In this case I would like to cover up the stuff that has been lagging, being
+realistic there would be plenty of stuff that would be out of sync. And ofcourse
+the bug hunting.
+15th July - 31st July
+Testing of this application, thinking about long term sustainibility of the app.
+How to make it more connected with the web suite of the XO for example the Web
+confusion
+                activity. Adding features for portability of work from that activity to this. Adding
+some unkown advanced feature if time allows.
+1st August - 15th August
+Finishing up the project. Final testing, cleaning up the project. Documenting
+the project, and some more bug fixing.
+15th August - Final Evaluation
+Buffer time, to catch up with any pending stuff.
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+I have already started working on this activity and as I mentioned above it can be found at this link
+https://dl.dropboxusercontent.com/u/35525804/JS-Interpreter/index.html
+]
+I implemented the touch action features as per the w3 rules in the mozilla source code. It was a lenghty project, and I got to learn a lot from it. One of the important thing I learned from it, the way open source communities work.(
+On a side note: I must mention my mentor was very humble, cheers to open source community.
+Also developed my college's annual cultural website (
+http://synapse.daiict.ac.in
+). It was a new thing in my college, as it marked a move from static front end websites to dynamic website like this.
+I am one of those creative people who put art first. If the design is bad no matter how good the product be, it wont sell. I have designed a lot of graphics for various organizations. I really would like to make a statement here. Even though this application is for a technical project,creativity has no bounds and can come in any form. Graphic work must also be equally treated to convinve you of my candidature. Here are a few links I would like to show
+https://www.dropbox.com/s/i3pu7v64t71pgci/synapse%201.m4v?dl=0
+This is a teaser video, created by using the stop motion technique. It involved thousands of pictures. And since it was a budget project, I didnt have enough money for professional studio like setup for proper lightning.
+This was my first attempt at animation, created for a homegrown startup called collegestore.
+https://www.dropbox.com/s/ppqh9dit314hy04/colstr.mp4?dl=0
+This is the brochure I designed for my college fest.
+https://dl.dropboxusercontent.com/u/35525804/brochure_final_draft.pdf
+These are few of the various posters I have designed.
+https://www.dropbox.com/s/vchvw5oas72pmz4/poster.jpg?dl=0
+https://www.dropbox.com/s/j4ow61n00tc1gaq/guitar.jpg?dl=0
+https://www.dropbox.com/s/dkfd87fjv6b3a5l/niki.jpg?dl=0
+https://www.dropbox.com/s/9v3a8im5t693p42/SYNAPSE.jpg?dl=0
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+My answer
+:I view javascript as the future of web development and making further progress to offline applications. Web and Mobile go hand in hand, XO needs to have a very good and intuitive activity on javascript. Since this language can be both beautiful and ugly at times ( past experience :/ ), I think it should be introduced to students at a very early age of learning programming. I often rememeber the gratifying experience of actually adding dynamics to static boring websites. Most of the other programming languages can't offer that kind of an experience at such an early stage. This is what sets Javascript apart from the crowd. Coming back to this activity, this application aims at making students learn how to make thier boring dull html pages interactive. And ironically this app is also interactive. :)
+Tony Anderson (mentor)
+The impact is that the Sugar system is used at primary schools in regions which have no useful access to the internet but still should have an opportunity to learn web technology. The schools often have a school server so there is a local stand-in for the internet. The progression is to learn basic web page building with HTML and CSS, then move to learning Javascript. Initially their html files will reside in local storage and be accessed by file:///home/olpc/Documents/some path.html. Later they will have the opportunity to pull together a website and upload it to the server so that it can be shared with the other students. Students at this (or any) age need immediate feedback as to whether they have been successful. The goal of this tool is to give that feedback.
+Walterbender :
+I think the significance of the project is that we want to provide a progression of tools for our users such that they can go from simple to rich interactions with the powerful ideas in computation. This project represents one of the way-points along the way.We want our users to aspire to great heights and therefore we need to give them scaffolding to build upon.
+What will you do if you get stuck on your project and your mentor isn't around? How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+There will be times when the mentor wouldn't be available. Firstly, I would try to tackle the problem I am facing again, because sometimes in the second go the solution strikes. I am regular at the #sugar channel at IRC and also keep my self updated in the community mailing list and ofcourse the good old books(
+Sometimes very basic stuff is clearly given in books but we just go through stackexchange and get spoon feeded
+). In short I wont leave any stone unturned when I am stuck.
+We want to make sure that you can set up a development environment before the summer starts. Please do one of the following: Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout". Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug. It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+Describe a great learning experience you had as a child. Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+This question is pretty tough. At first when I got to know nothing can travel faster than light, I was shocked. My whole thinking used to revolve around considering information can travel instantaneously. And other things like big bang didnt happen at a particular place but the very notion of place(space) was created at that moment still surprises me. These are some of the very few things that still make me  rethink the way I look around the world and are in a way a very  different kind of learning experiences.

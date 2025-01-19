@@ -1,0 +1,197 @@
+Title: Summer of Code/2015/git backend shaifali
+URL: https://wiki.sugarlabs.org/go/Summer_of_Code/2015/git_backend_shaifali
+--------------------------------------------------------------------------------
+Contents
+1
+About You
+2
+About your project
+2.1
+You and the community
+2.2
+Miscellaneous
+About You
+What is your name?
+Shaifali Agrawal
+What is your email address?
+agrawalshaifali09@gmail.com
+What is your Sugar Labs wiki username?
+Shaifali Agrawal
+What is your IRC nickname on irc.freenode.net?
+exploreshaifali
+What is your first language? (We have mentors who speak multiple languages and can match you with one of them if you'd prefer.)
+Hindi(I am also comfortable in English)
+Where are you located, and what hours (UTC) do you tend to work? (We also try to match mentors by general time zone if possible.)
+I live in India( UTC + 5:30). Though I don’t have any time constraints but mostly I work from afternoon 2PM till night 2AM as per IST.
+Have you participated in an open-source project before? If so, please send us URLs to your profile pages for those projects, or some other demonstration of the work that you have done in open-source. If not, why do you want to work on an open-source project this summer?
+I am a big FOSS lover, in 2012 my college senior(GSoC alumni) introduced me to the new world on Computer Science - “Open Source” since than I was looking forward to write open source code. I am grateful to Gnome Foundation that they run [Outreachy](
+https://wiki.gnome.org/Outreachy/
+) program(previously known as Outreach Program for Women) under which I worked as (OpenStack)
+[1]
+intern (Outreachy round 9 from November 2014 to March 2015). Brief explaination (about project)
+[2]
+During my internship I have learned about the Zaqar's(messaging and queuing service) storage layer implementation and was able to apply my knowledge and ideas for re-architecture of its drivers(data and control driver of storage layer) with the help of (flaper87)
+[3]
+(my mentor during internship) and other Zaqar developers. While working for Zaqar I got to learn about many new tools, techniques, concepts and practices used in real world software development. My commits for OpenStack can be glanced at
+https://review.openstack.org/#/q/owner:shaifali,n,z
+For HackerEarth
+[4]
+hackathon I along with my partner developed a web app - (NGO Locator)
+[5]
+that help users in helping the Needy by finding NGO near to them. We publish this application under open source MIT Licence. The first version of project is completed and now I work for it more only in my free time.
+About your project
+What is the name of your project?
+Git Backend
+Describe your project in 10-20 sentences. What are you making? Who are you making it for, and why do they need it? What technologies (programming languages, etc.) will you be using?
+Brief Explanation
+:
+The project is aimed to facilitate versioning, cloning, forking, merging, pull requests from Journal, to the end users. Basically Journal database(sugar-datastore) will be rebuild to be a database based on git, so that the features that are needed to improve(versioning, forking etc) can be achieved easily. All the users who practice/learn development using Sugar(turtle blocks)will get benefit from this. For developing git based backend I have two choices:
+Using some API that provide similar functionality like github provide [git data](
+https://developer.github.com/v3/git/
+) but this will create dependency of database on the API and will force to develop the database in the way API wants. Also we have to bear certain limitations if API have, like the git API limits the support of blobs up to 100 megabytes in size
+[6]
+, number of requests per hour are limited(60 requests for unauthenticated requests
+[7]
+. So it is better to opt option 2.
+Developing backend from scratch:
+Developing git based backend from scratch needs a deep knowledge of git. I am reading [Pro Git Book] (
+http://git-scm.com/book/en/v2
+) for that.
+Git itself at a core, is a key-value datastore. The files that we save in git system, it generates a key for that file and return it. So later whenever we want to access the contents of that file we can access them using the returned key.For example in a git repository if we want to insert a file(blob) we use following command:
+git hash-object -w <filepath> #it will return a sha key
+`sha` is nothing but a hash of contents of file, that is if we change the content our sha key will change again.
+So here we have a problem, each time we change our data our key will also change. This is something we don’t want. To overcome this, git allow us to set reference over a file, such that even if we change contents of file, sha will change but new sha can be referenced with same previously defined reference. Below is a shell script that make user given `key` as a reference of a file given by user.
+echo Please, enter file path
+read filepath
+echo Please, enter the key
+read key
+blob_sha=$(git hash-object -w $filepath)
+git update-index --add --cacheinfo 100644 $blob_sha $key
+tree_sha=$(git write-tree)
+commit_sha=$(git commit-tree -m 'adding 1' $tree_sha)
+git update-ref refs/heads/master $commit_sha
+echo 'All Done'
+git show master:$key
+Now we can refer the contents of file using `key` that user specified with the help of command `git show master:$key`
+It is `.git` directory due to which whole git functionality occur. It contain four main entries - HEAD, object directory, index directory, refs directory. The object directory is the one that store the data. Git store data using different types of objects like blob object(the real content that we want to save), tree object(that provide hierarchy to our stored files), commit objects(that store the basic information like who saved that data, when and why). All these objects were called as `sha` in above script. For this project various git plumbing(internal) commands will be used. Like in the above script.
+Developing a git based backend is a half part of whole project. After first part a git backend with all create, read, update and delete functionality will be ready! After developing backend a UI for users is needed so that they can easy look at the history(versioning), fork, make pull requests or merge different branches with an integration of Turtle Blocks. The developed UI should be with all the constraints that are needed for sugar-datastore.
+Technology Stack
+Choosing a technology stack for developing git based database is yet to decide. Any technology among Shell scripting(example above), Python, Javascript, Ruby or their combinations can be used. For scripting languages other than shell script, libraries will be needed like [libgit2](
+https://libgit2.github.com/
+).
+For web based UI apart from pure HTML, CSS, and Javascript, some framework including Bootstrap and AngularJS can also be used if needed. A framework will also need to bind web application with new backend, light frameworks like flask or bottle for python can work for us.
+What is the timeline for development of your project? The Summer of Code work period is from May 19 - August 22; tell us what you will be working on each week. (As the summer goes on, you and your mentor will adjust your schedule, but it's good to have a plan at the beginning so you have an idea of where you're headed.) Note that you should probably plan to have something "working and 90% done" by the midterm evaluation (27 June); the last steps always take longer than you think, and we will consider cancelling projects which are not mostly working by then.
+Tasks
+Week
+Date
+Decide which language and API(if any) to use for backend development.
+Decide framework to use for web development of UI to let users use the new features.
+0
+1-7 May
+Designing a flow chart for developing git based backend.
+Documenting the constraints that are needed to care for while developing backend and UI.
+0
+8-14 May
+Start coding for developing backend, create functionality will be implemented
+1
+15-21 May
+implement read and update functionality
+2
+22-28 May
+implement delete functionality
+3
+29May - 4 June
+Testing the CRUD functionality, fixing bugs
+4
+4 - 10 June
+Start implementing UI, basic template should be ready
+5
+11-17 June
+UI to look at history, and forking, merging
+6
+18-24 June
+Mid term evaluation, UI for pull request
+7
+25June - 1 July
+Implementing the control part - connect UI with database and implement the real functionality so that UI will work as expected
+8
+2-8 July
+continue implementing the control part
+9
+9-15 July
+First version of complete UI with backend should be completed
+10
+16-22 July
+Initial testing and ad-hoc fixing
+11
+23-29July
+code optimization, clean code, testing
+12
+30July-5Aug
+Testing, Bug fixing
+13
+6-13 Aug
+Documenting on sugar wiki - how to fork, merge, look history of Journal and its datastore.
+Preparing a demo
+14
+14-20 Aug
+Final Evaluation
+15
+21-27 Aug
+Convince us, in 5-15 sentences, that you will be able to successfully complete your project in the timeline you have described. This is usually where people describe their past experiences, credentials, prior projects, schoolwork, and that sort of thing, but be creative. Link to prior work or other resources as relevant.
+Past Experience:
+I already have an experience of similar program - Outreachy(mentioned above) where I worked on a project with running my college in parallel, it was “winter of code” for me. So being committed to the project(and timeline) and working hard for it is what am aware about very well.
+I have build a web app in 4 days NGO Locator(mentioned above) for a hackathon. So again committing with time and working hard for project is what I am well aware of.Thus for Sugar Labs also I will able to work without hassle.
+I have been working as Python Developer and Analyst at [Development Center](
+http://iips.edu.in/dc
+) along with my college studies.
+My Interest
+Apart from all these facts the concrete reason for me to work on this project is it is based on "git" which is something that always excites me! I am a big git fan, have mentioned about my curiocity to learn about internals of git in my blog post too
+[8]
+so working on git based project will be lots of fun!
+You and the community
+If your project is successfully completed, what will its impact be on the Sugar Labs community? Give 3 answers, each 1-3 paragraphs in length. The first one should be yours. The other two should be answers from members of the Sugar Labs community, at least one of whom should be a Sugar Labs GSoC mentor. Provide email contact information for non-GSoC mentors.
+For me:
+The impact of this project on end users will be great, as mentioned above in application users will get benefit of versioning, forking, merging, cloning from Journal, their learning experience will improve. Since it will recreate the sugar-datastore, it will impact on Sugar developers too.
+Walter Bender:
+I think there are 2 benefits: a technical one and a user-experience one
+The technical benefit is that we are able to leverage a well supported, well understood backend that alleviates the need to keep a custom backend supported
+The user experience benefit is that we can provide mobility of the datastore; versioning of projects; cloning of projects; etc. all of which means it is easier to collaborate and evolve as a learner.
+Quozl`:
+The impact may be greater collaboration between sugar users who have not collaborated before.
+What will you do if you get stuck on your project and your mentor isn't around?
+* Since I am working on project and get stuck in between, I know well what the situation is, so in case when mentor is not available I will discuss the situation with other developers of Sugar. I am sure healthy discussions lead to some solutions, IRC or mailing list both can be opt. 
+   * Moving some steps back and rethinking about problem with looking at each and every corner also lead to solutions many time.
+   * Putting problem on online forums can also give good solutions.
+How do you propose you will be keeping the community informed of your progress and any problems or questions you might have over the course of the project?
+This is something I believe important, informing about the progress to the community will put many eyes on my work, and of course by this I will get suggestions(the more eyes, the more better) for improvement and solutions for problems that I will face in the way.
+* To inform community, IRC and mailing list works best. 
+   * To my mentor I will send weekly mails regarding my progress(with his permission). 
+   * And if possible weekly meeting with mentor and other community members will serve as uphilling not only for me but for other interns too.
+Miscellaneous
+We want to make sure that you can set up a
+development environment
+before the summer starts. Please do
+one
+of the following:
+Send us a link to a screenshot of your Sugar development environment with the following modification: when you hover over the XO-person icon in the middle of Home view, the drop-down text should have your email in place of "logout".
+http://imgur.com/ctHDRh9
+Send us a link to a pull request or merge request you have made on a Sugar or Sugar activity bug.
+It's normal to need assistance with this, so please visit our IRC channel, #sugar on irc.freenode.net, and ask for help.
+https://github.com/sugarlabs/sugar/pull/479
+Describe a great learning experience you had as a child.
+When I was kid either in 3rd or 4th grade, I didn’t had my personal computer, I use to get  small glimpse of computer in my school when my teacher show practicals of what he taught in class. Once in a test of LOGO programming I got a question to draw a circle. I was stucked, I didn’t knew how to do that. My teacher came and asked me - ‘you don’t know how to draw a circle?’. I replied ‘No, you didn’t taught us that’. He said ‘okay! what I thought you?’. I said ‘you taught to draw a square, temple, butterfly….’. He replied, so does any one of them include drawing a circle? And I got the answer of test question - to draw a circle because while drawing a butterfly first we were taught to draw circles. That time I didn’t realized but now when I think about it, my teacher has actually taught me the power of connecting things, the power of being creative and thinking out of box!
+Is there anything else we should have asked you or anything else that we should know that might make us like you or your project more?
+As a student I strongly favour [Sebastian Thrun's](
+http://en.wikipedia.org/wiki/Sebastian_Thrun
+) opinions that he put while announcing [Udacity](
+http://www.udacity.com/
+) at [DLD](
+http://en.wikipedia.org/wiki/Digital_Life_Design
+) 2012 titled "Higher Education 2.0", He said - “... Maybe we should rethink education. Universities were invented in 1088, about a thousand years ago.... The lectures were the most effective way to convey information. ...[we had the invention] of digital media. And, miraculously, professors today teach exactly the same way they taught 100 years ago. University has been the most surprisingly the least innovative of all places in society. Perhaps we should reconsider and think about new media, for teaching, that can personalise themselves and helps us to become effective…..If you can make the education free for the world, accessable everywhere I think we can help people in developing world to become much better much stronger and this is gonna to be a core to move the society" The complete video of his talk is [available on youtube](
+http://www.youtube.com/watch?v=SkneoNrfadk
+).
+I liked the way how Sugar Labs is “changing the lives of kids” by making their learning easy, enjoyable and providing equal opportunity of quality education to all the kids.
+I don’t like the traditional way of learning ~ going school/college attending each class every day and get evaluated via exam scores only. I have always dreamed to change the notion of traditional learning, to do something similar to [hackerschool](
+https://www.hackerschool.com/
+). Well that is not easy, but contributing for Sugar Labs is a chance to at least start my efforts in same direction!

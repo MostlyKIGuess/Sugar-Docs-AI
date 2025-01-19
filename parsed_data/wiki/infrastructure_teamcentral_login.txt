@@ -1,0 +1,93 @@
+Title: Infrastructure Team/Central Login
+URL: https://wiki.sugarlabs.org/go/Infrastructure_Team/Central_Login
+--------------------------------------------------------------------------------
+Contents
+1
+Summary
+2
+Benefits
+3
+Costs & Risks
+4
+Resources to authenticate on
+5
+Authenticate front-ends
+6
+Authenticate back-end
+7
+Implementation
+7.1
+Account management application
+8
+Motion
+8.1
+Discussion
+Summary
+This is an initiative to permit a user to access multiple SL resources while providing their credentials (such as userid and password) only once.
+Benefits
+Single sign-on
+for all Sugar Labs services, and, in theory, for any Sugar related sites that want to get the benefits from Sugar Central Login (there is no need to be hosted on Sugar Labs' servers per se, only authentication for the target site will happen in a centralized manner).
+Centralized users database.
+Reuse users database not only for Web services, but also for shell accounts, for example.
+(a side-benefit) Education about the risks of inter-networked services.  Most people have little understanding of such risks, their significance, or appropriate protective behaviors.
+Costs & Risks
+To be accounted.
+Be counted is a sign-less instrument, the sign depends on an intention (SL here is out of suspicions) and doers' professionalism (yep, that's the question). And for not being counted, there is only one option - not being counted anywhere, i.e., out of Login usecase at all. --
+alsroot
+12:46, 28 September 2011 (EDT)
+Different authentication methods provide different levels of protection from those who wish to abuse Sugar Labs resources.  While making it easier to participate, we will likely suffer some abuse during the interim, until we, or the industry, learn to better filter those with ill intentions.  --
+FGrose
+13:26, 28 September 2011 (EDT)
+This point belongs to
+Benefits
+as well, e.g., if most of our services will use CAS, we will have only one, well controlled, access point. --
+alsroot
+13:40, 28 September 2011 (EDT)
+There is an escalating intrusion/protection arms race on the Internet that challenges the most advanced providers of ethical services.  Yes, we should seek to benefit from those efforts. --
+FGrose
+13:34, 5 October 2011 (EDT)
+What risks are there after signing on from a public workstation and leaving one's authentication cookie behind, or otherwise loosing one's cookie?  What responsible efforts should we undertake to get the vulnerable community to participate more safely?
+Resources to authenticate on
+http://wiki.sugarlabs.org
+http://git.sugarlabs.org
+http://bugs.sugarlabs.org
+http://activities.sugarlabs.org
+http://translate.sugarlabs.org
+https://obs.sugarlabs.org
+(Front-end HTTP API for OBS clients)
+https://packages.sugarlabs.org
+Authenticate front-ends
+A list of possible authenticate front-ends:
+CAS
+, the most common method, with a requirement to provide login/password, is useful for people who are not arriving from a Sugar Shell instance (and so, Sugar's certificate-based method does not work implicitly for them), and for casual visitors or those wishing to avoid the technical work of taking care of user side certificates. The full featured option.
+OpenID
+authentication. Would be useful if particular service can link OpenID users and the ones got from CAS/LDAP. Without that, OpenID is just a standalone authentication method for particular service that does not relate to Central Login at all.
+Users certificates. Might be useful, e.g., for people who need to be authenticated from a Sugar Shell where Sugar might perform some authentication routines under the hood.
+Any method that can process authentication via
+LDAP
+, to reuse centralized users database only (no single sign-on)
+.
+Authenticate back-end
+ldap.sugarlabs.org
+Implementation
+Account management application
+This application is needed to accomplish several tasks related to account management procedures for regular users, such as:
+Let people create an account on the LDAP server using the regular, for Web services, Sign-on workflow, i.e., in an automatic manner. It would be useful to have instruments to prevent automated software from performing registration.
+Have a "Forgot password" feature.
+Edit LDAP metadata. It would be useful to let people authenticate on CAS, i.e., to avoid typing passwords twice, once to get access to a service and a second time in Account management applications before editing account metadata.
+Motion
+Basing on Infrastructure Team discussion, there is a motion:
+Central
+LDAP
+, i.e., centralized database of all users;
+Support
+CAS
+on as many as possible Sugar Labs sites;
+Having users friendly (not only for geeks)
+Account management application
+;
+If particular site supports OpenID as a second auth method, use it as a second auth scheme with CAS;
+Push this new infra to production usage;
+Look for more auth methods, like certs based auth from Sugar Shell, that might be useful in addition to the existing system.
+Discussion
+sugar-devel thread

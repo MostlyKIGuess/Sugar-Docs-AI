@@ -1,0 +1,60 @@
+Title: The Undiscoverable/Squeak/System Browser Use
+URL: https://wiki.sugarlabs.org/go/The_Undiscoverable/Squeak/System_Browser_Use
+--------------------------------------------------------------------------------
+Getting a System Browser
+If you open a Squeak session, and click on the Tools tab to open the Tools palette, you can then drag a System Browser to the world desktop. It might look something like this.
+We would like to turn on the Annotation pane in the middle, which is not seen here. To do this, drag out a Preferences window from the Tools palette.
+Select the browsing option at the top, and check the annotationPanes option as shown above. Close both windows and drag out a new System Browser, which will have the pane visible.
+System Browser Structure
+The leftmost pane shows a list of two-part System Category names. The first part of the name is used for grouping system categories together where they have some related function. Thus the Kernel categories refer to objects used to define the base Smalltalk language, while Etoys categories are specific to the Etoys graphical environment. We will focus on Morphic categories, which we will use to define new objects.
+The second part of a category name indicates in a general way what the purpose of the category is. Thus Kernel-Numbers contains all of the different kinds of number used within Smalltalk—integers, fractions, floating point, complex numbers, and others. If you click to select Kernel-Numbers, the various numeric object type names appear in the second column, the Class pane.
+Selecting one of those object class names brings up displays in the next two columns, for class categories and methods, plus an annotation in the Annotation pane, and a code definition and optionally a comment in the one or two panes below.
+With Fraction selected, we can see this in the code pane.
+Number subclass: #Fraction
+	instanceVariableNames: 'numerator denominator'
+	classVariableNames:
+poolDictionaries:
+category: 'Kernel-Numbers'
+This shows that there are two internal instance variables for each fraction, the numerator and denominator. Also that this is subclass Fraction in category Kernel-numbers.
+The comment is
+Fraction provides methods for dealing with fractions like 1/3
+as fractions (not as 0.33333...). 
+All public arithmetic operations answer reduced fractions
+(see examples).
+
+instance variables: 'numerator denominator '
+
+Examples: (note the parentheses required to get the right answers in Smalltalk and Squeak):
+
+(2/3) + (2/3)
+(2/3) + (1/2)			"answers shows the reduced fraction" 
+(2/3) raisedToInteger: 5	"fractions also can have exponents"
+If we click Arithmetic in column 3, we get the message
+message selector and argument names
+	"comment stating purpose of message"
+ 
+	| temporary variable names |
+	statements
+which is a template for defining new methods for the particular object.
+If we click on a method in column 4, we get the code for that method below.
+There is no comment pane shown, but comment text can be included in the body of the code. For example,
+negated
+"Refer to the comment in Number|negated."
+
+	^ Fraction
+		numerator: numerator negated
+		denominator: denominator
+tells us that there is a further explanation in the negated method for the Number class.
+negated
+"Answer a Number that is the negation of the receiver."
+
+	^0 - self
+Creating an Object Class in the System Browser
+At the top of the scroll bar in the leftmost pane is a menu icon. On that menu
+select add item..., which brings up a small window like this, inviting you to name the item (a new category).
+Call it Temp, and click Accept.
+This article is a
+stub
+. You can help Sugar Labs by
+expanding it
+.

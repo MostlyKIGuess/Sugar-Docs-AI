@@ -1,0 +1,69 @@
+Title: Service/chat
+URL: https://wiki.sugarlabs.org/go/Service/chat
+--------------------------------------------------------------------------------
+Contents
+1
+Hostnames
+2
+Hosted on
+3
+Administrative contact
+4
+Sysadmins
+5
+Notes
+6
+Upgrade notes
+7
+Sources
+8
+Usage
+Hostnames
+https://chat.sugarlabs.org/
+http://chat.sugarlabs.org/
+Hosted on
+Machine/jita
+Administrative contact
+chat AT sugarlabs DOT org
+Sysadmins
+For non-emergency calls, preferably send email to the administrative contact.
+Aleksey Lim
+Notes
+This is an instance of
+qwebirc
+.
+Home
+/srv/qwebirc
+Daemon
+/etc/init.d/qwebirc
+Logs
+syslog
+Config
+/srv/qwebirc/config.py
+/srv/qwebirc/header.html
+/srv/qwebirc/lingva_bot.py
+/etc/httpd/conf.d/chat.sugarlabs.org.conf
+SSL certificates
+/etc/ssl/private/chat.sugarlabs.org.pem
+/etc/ssl/private/chat.sugarlabs.org.key
+Upgrade notes
+git
+/srv/qwebirc
+After pulling new changes from Git, run the following commands and restart daemon:
+su - qwebirc
+./compile.py
+Sources
+Downstream repository
+.
+Upstream repository
+.
+Usage
+Url format:
+http[s]://chat.sugarlabs.org?[channels=
+channel
+][&lang=
+language-code
+]
+Chat supports
+multi-lingual
+translation, that might be chosen on login page or, after beeing connected, on the right side in tabs bar.

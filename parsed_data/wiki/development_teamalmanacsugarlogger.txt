@@ -1,0 +1,58 @@
+Title: Development Team/Almanac/sugar.logger
+URL: https://wiki.sugarlabs.org/go/Development_Team/Almanac/sugar.logger
+--------------------------------------------------------------------------------
+Development Team/Almanac
+For Developers
+:
+almanac
+·
+api
+·
+bugs
+·
+gitorious
+·
+cgit
+·
+download
+·
+people
+·
+OLPC
+:
+wiki
+·
+activities
+·
+trac
+·
+cgit
+·
+build index
+·
+repository
+·
+firmware
+·
+Fedora
+:
+packages
+I am having trouble getting my activity to launch, and nothing is showing up in my logs.  What gives?
+It is advisable to begin the bulk of your activity's launch process in a call to gobject.idle_add.
+import gobject
+...
+class MyCoolActivity(activity.Activity):
+
+	def __init__(self, handle):
+		activity.Activity.__init__(self, handle)
+		#wait a moment so that our debug console capture mistakes
+		gobject.idle_add( self._initme, None )
+
+
+	def _initme( self, userdata=None ):
+		#start writing your cool activity here
+How do I retrieve the top level logging directory on my XO?
+The following code prints out the standard directory for logging in sugar.
+from sugar import logger
+...
+    print logger.get_logs_dir()

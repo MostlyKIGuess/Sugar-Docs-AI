@@ -1,0 +1,171 @@
+Title: Sugar on a Stick/Installation/OLPC
+URL: https://wiki.sugarlabs.org/go/Sugar_on_a_Stick/Installation/OLPC
+--------------------------------------------------------------------------------
+english
+|
+español
+|
+français
+HowTo
+[ID# 80844]
+Proposed for Archive
+.
+It has been proposed that this page be regarded as an archive. It could be marked
+"Archive"
+or it could be moved to an
+Archive location.
+--
+Inkyfingers
+19:01, 4 March 2012 (EST)
+Please contribute to the discussion on the
+talk page
+.
+Do you have an OLPC XO-1?
+See
+F16 SoaS Pineapple USB boot image for XO-1
+Very slow but works
+The following sections need an update:
+This page has been marked as important but in need of updating as of May 2016.
+See all dated pages
+There may be relevant discussion on the
+talk page
+.
+Sugar 0.84 has a number of improvements above and beyond 0.82. And we have a version working on the OLPC XO-1, but because of the changes in process at OLPC (see
+olpc:Future releases
+), there is a new short-term strategy for updates. Until OLPC issues its next official release, we are recommending that XO-1 users who would like to try 0.84 use Sugar on a Stick. The XO-1 can be booted from an external USB or SD card storage device,
+Option 1
+below.
+There are four main options for OLPC XO users:
+Run v0.84 Sugar on a Stick from a USB flash drive or SD card
+Install v0.84 Sugar on a Stick-XO on the XO-1's internal NAND flash memory
+Convert a v0.84 Sugar on a Stick .iso image to one suitable to install on the XO-1's internal NAND flash memory
+Use
+olpc-update
+to update to the latest software release from OLPC (which is currently 8.2.0 incorporating Sugar v0.82).
+Note:
+The OLPC XO-1 has some built-in protections which lock the computer down in order to prevent haphazard software changes. In order to use either
+Option 1
+,
+Option 2
+, or
+Option 3
+, XO-1 owners must
+request a developer key from OLPC
+; it's a simple process but takes up to 24 hours.
+Warning:
+Options 2 & 3 will wipe /security directory, with any leases or devkeys there.
+Option 1: Run v0.84 of Sugar on a Stick from an SD card or external USB
+(Requires a
+developer key for your OLPC-XO-1
+and access to a Windows or Fedora computer)
+On Windows:
+Create the USB stick as described on the
+Sugar on a Stick/Windows
+page in the "Windows Instructions" section.
+Do
+not
+boot this stick on your Windows machine. Make sure the first boot is on your XO. If you do boot the stick on another machine first, the X server setup needed for the XO will not be done.
+On Fedora:
+Type the following commands in a terminal window:
+wget
+http://download.sugarlabs.org/soas/releases/soas-1-strawberry.iso
+sudo yum install livecd-tools
+ 
+wget -O livecd-iso-to-disk.sh "
+http://git.fedoraproject.org/git/?p=hosted/livecd;a=blob_plain;f=tools/livecd-iso-to-disk.sh;hb=HEAD
+"
+ 
+sudo ./livecd-iso-to-disk.sh --format --xo --xo-no-home soas-1-strawberry.iso /dev/sd
+X
+1
+Where
+/dev/sdX1
+is the device associated with your removable media.
+The livecd-iso-to-disk.sh script needs to be a current version with XO support (not what you get by default in Fedora 10, though Fedora 11's should be fine). You can find an up-to date version in the SoaS disk image /LiveOS/livecd-iso-to-disk.sh .
+Option 2: Install a v0.84 SoaS-XO image on the XO-1 NAND flash drive
+See:
+http://www.mail-archive.com/sugar-devel@lists.sugarlabs.org/msg05231.html
+and *
+https://www.redhat.com/archives/fedora-olpc-list/2009-June/msg00063.html
+This build feels substantially faster than 802 (the last stable release). Serious issues:
+No sound
+No automounting of USB keys.
+More recent builds are better
+See:
+http://lists.sugarlabs.org/archive/sugar-devel/2009-August/017775.html
+The builds are located in
+http://people.sugarlabs.org/~mtd/soas-xo1/
+The Fedora builds for the XO are here:
+http://dev.laptop.org/~smparrish/XO-1/builds
+Be sure to update your XO to the latest firmware:
+http://wiki.laptop.org/go/OLPC_Firmware_q2e41
+Option 3: Convert a v0.84 Sugar on a Stick .iso image
+WARNING
+: This option is wishful thinking until the
+jffs2 mount bug
+is fixed.
+Note
+: Requires a
+developer key for your OLPC-XO-1
+and access to a GNU/Linux computer) It also requires a recent OFW version (Q2E28 has been reported as working.
+Instructions for updating your firmware
+).
+WARNING
+: this will overwrite all data on your OLPC-XO-1 NAND!!
+On a Fedora10 system:
+sudo yum -y install crcimg mtd-utils
+On Debian or Ubuntu:
+sudo apt-get install mtd-utils
+(On some older Debian/Ubuntu builds, you may need to install mtd-tools instead.)
+crcimg is not packaged for Debian so you'll have to build it:
+wget
+http://dev.laptop.org/~mstone/releases/SOURCES/crcimg-1.1.tar.bz2
+tar xvf crcimg-1.1.tar.bz2
+sudo make -f Makefile.build install
+NB: Of course, if you do not have the packages of the program
+wget
+, install them by the command “yum install wget”
+Next:
+wget
+http://download.sugarlabs.org/soas/releases/livecd-iso-to-disk.sh
+wget
+http://download.sugarlabs.org/soas/releases/soas-1-strawberry.iso
+run this command (or something similar depending on the version number of your .iso file)
+sudo sh livecd-iso-to-xo.sh soas-1-strawberry.iso Soas.img
+and then copy Soas.img and Soas.crc to a USB key or SD card
+On the OLPC-XO-1, boot with the USB key plugged in and the four game keys press to get to the OK prompt in Open Firmware (OFW).
+Type the following commands:
+disable-security
+copy-nand u:\Soas.img
+Note: depending upon the file system on your USB key, the names maybe truncated:
+dir u:\
+copy-nand u:\SOAS-2~1.img
+You should see an animation of the blocks being written to the NAND. When it is complete, you will be back at the OK prompt. Type:
+reboot
+and the OLPC-XO-1 will reboot and you should be running Sugar 0.84.
+Option 4: Update to the official OLPC v802 Sugar build
+(This does
+not
+give you a
+Sugar on a Stick
+image.)
+You run
+olpc-update
+from the Terminal activity,
+e.g.
+,:
+sudo olpc-update 802
+where 802 is the build number of the
+latest stable image
+from OLPC.  This is OLPC release 8.2.1, incorporating Sugar v0.82.
+Supported_systems#Fedora_on_an_OLPC_XO
+has some more details on upgrading OLPC software.
+Notes on running Sugar on a Stick on XO-1
+You must hold down the XO-1's
+✓
+("check") gamepad key during boot, otherwise boot will hang at the gray "XO" logo.   You should see dots appear under the USB flash drive icon indicating the XO is booting from that drive.
+SoaS images are based on Fedora "Rawhide" spins;
+olpc:Rawhide-XO
+describes many of the known issues running these on an XO-1.
+Also make sure you got a dev-key before booting with the SoaS using the check button. (It takes 24 hours to get a developer key, so please plan accordingly.)
+back to downloads page

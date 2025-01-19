@@ -1,0 +1,47 @@
+Title: Service/IRC Proxy
+URL: https://wiki.sugarlabs.org/go/Service/IRC_Proxy
+--------------------------------------------------------------------------------
+Our shell accounts server
+Machine/sunjammer
+hosts an instance of
+BIP
+,
+a multiuser IRC proxy.
+Requesting a proxy
+This service is only available to trusted developers with a
+shell account
+.
+Setup a password with
+bipmkpw
+on sunjammer and send the
+resulting hash to the
+sysadmin contact
+along
+with:
+Your IRC nickname
+Optionally, a list of channels to connect to
+Optionally, your NickServ password so the proxy can automatically login as you when the server boots
+Since you'll be connecting from one of our public IPs, we'll provide your actual
+login name and real name to the IRC network.
+Of course, you can have other servers besides FreeNode. Let us know which
+ones you require.
+Configuring your IRC client
+IRC clients should be configured as follows:
+Hostname: shell.sugarlabs.org
+ Port: 7778
+ Use SSL: yes
+ Accept invalid SSL certificates: yes
+ Server password: USERNAME:PASSWORD:NETWORK
+BIP uses the password field to encode three fields separated by a colon:
+USERNAME: your bip username (same of your shell account)
+PASSWORD: the password you used with bipmkpw
+NETWORK: the identifier of the IRC network to connect to (for example, "freenode").
+If you have multiple IRC networks, create multiple server entries in your IRC client,
+each one with a different value for NETWORK.
+This configuration is known to work with
+XChat
+and
+Konversation
+.
+See also
+Service/shell
